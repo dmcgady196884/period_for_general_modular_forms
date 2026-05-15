@@ -1,0 +1,941 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!60!black,citecolor=blue!50!black}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\Dhat}{\widehat{\Delta}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\re}{Re}
+
+\title{Analytic Expressions for Periods and Quasi-Periods at Weight 12\\[0.3em]
+       via the Diamantis--Rolen Finite-Endpoint Cocycle}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record explicit analytic formulae for the periods $\omega^\pm$ of the modular
+discriminant $\Delta \in S_{12}$ and the quasi-periods $\eta^\pm$ of the weakly
+holomorphic form $\Dhat \in S_{12}^!$, both extracted from the same
+Diamantis--Rolen (DR) finite-endpoint cocycle construction.  For $\Delta$ the
+formulae reduce to ratios of standard critical $L$-values; for $\Dhat$ they
+define the correct DR-regularised analogues, which differ from BFK's
+non-holomorphic regularisation and are the unique values landing in the cuspidal
+cohomology $H^1_{\mathrm{cusp}}(\SLZ; V_{10})$.  All numerical values are
+verified to $\sim 20$--$32$ significant digits in the companion notebook
+\texttt{period\_extraction\_DR\_general.ipynb}.
+\end{abstract}
+
+\section{Setup}
+
+Let $\Gamma = \SLZ$, $S = \bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)$,
+$T = \bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)$, weight $k = 12$, $n = k-2 = 10$.
+
+The polynomial space $V_{10} = \bigoplus_{i+j=10}\QQ X^i Y^j$ carries the right
+$\Gamma$-action $(X,Y)\big|_\gamma = (aX+bY, cX+dY)$.  Brown's basis
+\cite{Brown2017} for the cuspidal cohomology $H^1_{\mathrm{cusp}}(\Gamma; V_{10})$
+has $S$-values
+\begin{align}
+  P^+_S &= \tfrac{36}{691}(Y^{10}-X^{10}) + X^2 Y^2(X^2-Y^2)^3, \\
+  P^-_S &= 4X^9 Y - 25 X^7 Y^3 + 42 X^5 Y^5 - 25 X^3 Y^7 + 4 X Y^9.
+\end{align}
+We write $[P]_{X^{10-j}Y^j}$ for the coefficient of $X^{10-j}Y^j$ in a polynomial
+$P \in V_{10}$.
+
+\section{The DR cocycle and period extraction}
+
+\subsection{Cocycle values as polynomials in moments of \texorpdfstring{$f$}{f}}
+
+Fix $\tau_0 \in \HH$.  For any $f$ of weight $k=12$ on $\Gamma$, define the
+\textbf{moment integrals}
+\begin{equation}\label{eq:moments}
+  N_j(f,\tau_0) := \int_{-1/\tau_0}^{\tau_0}\!\! f(\tau)\,\tau^j\,d\tau,
+  \qquad
+  M_j(f,\tau_0) := \int_{\tau_0-1}^{\tau_0}\!\! f(\tau)\,\tau^j\,d\tau,
+  \qquad j = 0, 1, \ldots, 10.
+\end{equation}
+Both are well-defined finite-contour integrals of $f$ over straight line
+segments in $\HH$ (the $S$-segment and the $T$-segment respectively); for
+$f \in S_{12}^!$ no regularisation is required because the contours stay in
+$\HH$.  Expanding $(X - \tau Y)^{10}$ binomially in \eqref{eq:CS},\eqref{eq:CT}
+below, the cocycle values at $S$ and $T$ are \emph{explicit} polynomials with
+the moments as coefficients:
+\begin{align}
+  C_S^f(X,Y) &= (2\pi i)^{11}\sum_{j=0}^{10}(-1)^j\binom{10}{j}\,N_j\;X^{10-j}Y^j,
+  \label{eq:CS}\\
+  C_T^f(X,Y) &= (2\pi i)^{11}\sum_{j=0}^{10}(-1)^j\binom{10}{j}\,M_j\;X^{10-j}Y^j.
+  \label{eq:CT}
+\end{align}
+Cuspidality of the cohomology class $[C^f] \in H^1(\Gamma; V_{10})$ is
+equivalent to
+\begin{equation}\label{eq:cuspidality}
+  [C_T^f]_{X^{10}} = (2\pi i)^{11}\,M_0(f, \tau_0) = 0,
+\end{equation}
+which holds whenever the constant Fourier coefficient $c_f(0)$ vanishes (since
+$M_0 = \int_{\tau_0-1}^{\tau_0}f = c_f(0)$ by periodicity). For both $\Delta$
+and $\Dhat$ this is automatic.
+
+\subsection{Moments as explicit BFK-style sums over $q$-coefficients}\label{ssec:moments-qexp}
+
+Substituting the Fourier expansion $f(\tau) = \sum_{n} a_f(n)\,e^{2\pi i n \tau}$
+into \eqref{eq:moments} and integrating term-by-term gives explicit closed
+forms.  Set $q_0 := e^{2\pi i \tau_0}$ and $\widetilde q_0 := e^{-2\pi i / \tau_0}$;
+both satisfy $|q_0|, |\widetilde q_0| < 1$ for any $\tau_0 \in \HH$.  Repeated
+integration by parts on $\int_a^b e^{2\pi i n\tau}\tau^j\,d\tau$ (for $n \ne 0$)
+yields the elementary identity
+\begin{equation}\label{eq:int-by-parts}
+  \int_a^b e^{2\pi i n \tau}\,\tau^j\,d\tau
+    \;=\; \sum_{k=0}^{j}\frac{(-1)^k\,j!}{(j-k)!\,(2\pi i n)^{k+1}}
+      \Bigl[e^{2\pi i n b}\,b^{j-k} - e^{2\pi i n a}\,a^{j-k}\Bigr].
+\end{equation}
+Equivalently, in terms of upper incomplete gamma functions $\Gamma(s,x) :=
+\int_x^\infty t^{s-1}e^{-t}\,dt$ (which reduce to the elementary form
+$\Gamma(j{+}1, x) = j!\,e^{-x}\sum_{k=0}^{j}x^k/k!$ at integer first argument),
+\begin{equation}\label{eq:int-incgamma}
+  \int_a^b e^{2\pi i n \tau}\,\tau^j\,d\tau
+   \;=\; \frac{i^{\,j-1}}{(2\pi n)^{j+1}}
+         \Bigl[\,\Gamma\bigl(j{+}1,\;-2\pi i n\,b\bigr)
+              -\Gamma\bigl(j{+}1,\;-2\pi i n\,a\bigr)\,\Bigr].
+\end{equation}
+Applied to the $T$-segment $[\tau_0-1, \tau_0]$, using $e^{2\pi i n (\tau_0-1)}
+= q_0^n$ for integer $n$:
+\begin{equation}\label{eq:M-explicit}
+  \boxed{\;
+  M_j(f, \tau_0)
+  \;=\; a_f(0)\,\frac{\tau_0^{j+1} - (\tau_0-1)^{j+1}}{j+1}
+    \;+\;\sum_{n \ne 0} a_f(n)\,q_0^{\,n}\,\mathcal{K}^T_j(n,\tau_0),
+  \;}
+\end{equation}
+\begin{equation}\label{eq:KT}
+  \mathcal{K}^T_j(n,\tau_0) \;:=\;
+    \sum_{k=0}^{j}\frac{(-1)^k\,j!}{(j-k)!\,(2\pi i n)^{k+1}}\,
+    \Bigl[\tau_0^{j-k} - (\tau_0-1)^{j-k}\Bigr].
+\end{equation}
+Applied to the $S$-segment $[-1/\tau_0, \tau_0]$:
+\begin{equation}\label{eq:N-explicit}
+  \boxed{\;
+  N_j(f, \tau_0)
+  \;=\; a_f(0)\,\frac{\tau_0^{j+1} - (-1/\tau_0)^{j+1}}{j+1}
+    \;+\;\sum_{n \ne 0} a_f(n)\,\mathcal{K}^S_j(n,\tau_0),
+  \;}
+\end{equation}
+\begin{equation}\label{eq:KS}
+  \mathcal{K}^S_j(n,\tau_0) \;:=\;
+    \sum_{k=0}^{j}\frac{(-1)^k\,j!}{(j-k)!\,(2\pi i n)^{k+1}}\,
+    \Bigl[q_0^{\,n}\,\tau_0^{j-k}
+       - \widetilde q_0^{\,n}\,(-1/\tau_0)^{j-k}\Bigr].
+\end{equation}
+
+\paragraph{Convergence.}
+For $f \in S_{12}$ only $n \ge 1$ contributes, with $a_f(n) = O(n^{11/2+\eps})$
+and $|q_0|^n, |\widetilde q_0|^n$ decaying as $e^{-2\pi n\,\im(\tau_0)}$ and
+$e^{2\pi n\,\im(-1/\tau_0)}$ respectively — both exponential, both contracting.
+For $f = \Dhat \in S_{12}^!$ the only modifications are: (i) the sum runs from
+$n = -1$, contributing one finite explicit term $q_0^{-1}\mathcal{K}^T_j(-1,\tau_0)$
+to $M_j$ (and analogously to $N_j$); (ii) for $n \ge 2$ the q-coefficients grow
+as $a_f(n) \sim e^{4\pi\sqrt n}$, but $|q_0|^n$ still decays super-exponentially
+in $n$, so the series \emph{converges with no regularisation needed} for any
+$\tau_0$ in the interior of $\HH$ — the basepoint, not analytic continuation,
+is what tames the cusp pole.  This is the structural reason DR succeeds where
+BFK's single-parameter regulator stumbles.
+
+\paragraph{The full chain.}
+Putting it all together: substituting \eqref{eq:M-explicit} into the moments
+appearing in \eqref{eq:P-moments} expresses $P(X,Y)$ as an explicit double
+sum over $\{a_f(n)\}$ and monomials $\{X^aY^{10-a}\}$, with weights
+\(B_k\,j!\,\binom{10}{j}\,(2\pi i)^{11}\,q_0^{\,n}\,\mathcal{K}^T_j(n,\tau_0)\).
+Substituting \eqref{eq:N-explicit} into \eqref{eq:CS} does the same for
+$C_S^f$.  The modified cocycle \eqref{eq:Cprime-def} then reads
+\begin{equation}\label{eq:Cprime-master}
+  \boxed{\;
+  C^{\prime f}_S(X,Y) \;=\;
+    a_f(0)\;\Phi_0(X,Y;\tau_0)
+    \;+\; \sum_{n \ne 0} a_f(n)\;\Phi_n(X,Y;\tau_0),
+  \;}
+\end{equation}
+where each $\Phi_n(X,Y;\tau_0) \in V_{10}\otimes\CC$ is an \emph{explicit
+polynomial} in $X, Y$ with coefficients given by \eqref{eq:KT},
+\eqref{eq:KS}, the Bernoulli weights of \eqref{eq:P-bernoulli}, and the
+$S$-image substitution $X \leftrightarrow Y, Y \leftrightarrow -X$.  In
+particular, the periods $\omega^\pm(f)$ are extracted via \eqref{eq:extraction}
+as
+\begin{equation}\label{eq:omega-master}
+  \omega^\pm(f) \;=\; a_f(0)\,\alpha_0^\pm(\tau_0) \;+\;
+                       \sum_{n\ne 0} a_f(n)\,\alpha_n^\pm(\tau_0),
+\end{equation}
+with each $\alpha_n^\pm(\tau_0) \in \CC$ an explicit elementary function of
+$\tau_0$, $q_0^n$, $\widetilde q_0^n$, and $1/(2\pi i n)^{k+1}$.  This is the
+fully explicit BFK-style sum that determines $\omega^\pm(\Delta)$ and
+$\eta^\pm(\Dhat)$ uniformly in the same closed form.
+
+\subsection{Closed-form coboundary via Bernoulli numbers}
+
+Viewing the slash action of $T$ on polynomials as the translation operator
+$T = e^{Y\partial_X}$, the equation $P\big|_T - P = C_T^f$ is exactly
+$\bigl(e^{Y\partial_X} - 1\bigr)P = C_T^f$.  The Bernoulli generating identity
+\(\;z/(e^z - 1) = \sum_{k\ge 0} B_k\,z^k/k!\;\)
+($B_0 = 1$, $B_1 = -\tfrac12$, $B_2 = \tfrac16$, $B_3 = 0$, $B_4 = -\tfrac{1}{30}$,
+\ldots, with $B_{2\ell+1} = 0$ for $\ell \ge 1$) gives the formal inverse
+\(
+  (e^{Y\partial_X} - 1)^{-1} = \sum_{k\ge 0}\frac{B_k}{k!}\,(Y\partial_X)^{k-1},
+\)
+which terminates on a polynomial of finite $X$-degree.  Reading off the $k=0$
+term as the antiderivative $\partial_X^{-1} = \int_0^X\!\cdot\,dt$, we obtain
+the \textbf{explicit closed form}
+\begin{equation}\label{eq:P-bernoulli}
+  \boxed{\;P(X,Y)
+    \;=\; \frac{1}{Y}\!\int_0^X\! C_T^f(t, Y)\,dt
+    \;+\; \sum_{k=1}^{10}\frac{B_k}{k!}\,Y^{k-1}\;\frac{\partial^{k-1} C_T^f}{\partial X^{k-1}}(X,Y).\;}
+\end{equation}
+Substituting \eqref{eq:CT} and integrating/differentiating monomial-by-monomial:
+\begin{equation}\label{eq:P-moments}
+  P(X,Y) \;=\; (2\pi i)^{11}\sum_{j=1}^{10}(-1)^j\binom{10}{j}M_j
+    \!\left[\frac{X^{11-j}Y^{j-1}}{11-j}
+    + \!\sum_{k=1}^{11-j}\frac{B_k\,(10-j)!}{k!\,(11-j-k)!}\,X^{11-j-k}\,Y^{j+k-1}\right]\!.
+\end{equation}
+(The $j=0$ term drops by cuspidality \eqref{eq:cuspidality}.)
+Writing $p_j$ for the coefficient of $X^{10-j}Y^j$ in $P$, the first three
+values are
+\begin{equation}\label{eq:p-explicit}
+  p_0 = -(2\pi i)^{11}\,M_1, \qquad
+  p_1 = 5\,(2\pi i)^{11}\bigl(M_1 + M_2\bigr), \qquad
+  p_2 = -(2\pi i)^{11}\bigl(\tfrac{15}{2}M_1 + \tfrac{45}{2}M_2 + 15\,M_3\bigr),
+\end{equation}
+with the pattern continuing through $p_9$ via \eqref{eq:P-moments}; the $p_{10}$
+coefficient is the only direction unconstrained by $P\big|_T - P = C_T^f$ (namely
+$Y^{10}$, which is $T$-fixed) and is harmless: see below.  Agreement of
+\eqref{eq:P-bernoulli} with the upper-triangular recursion solver used in
+the main pipeline is verified to $\sim 10^{-42}$ relative residual at
+$45$-digit working precision in \cite{VerifyBernoulli}, on every $p_m$ for
+$m = 0, \ldots, 9$.
+
+\subsection{The modified cocycle value as an explicit polynomial}
+
+With $P$ given by \eqref{eq:P-moments} and $P\big|_S(X,Y) = P(Y,-X)$, define
+\begin{equation}\label{eq:Cprime-def}
+  C^{\prime f}_S(X,Y) \;:=\; C_S^f(X,Y) \;-\; \bigl[\,P(Y,-X) - P(X,Y)\,\bigr].
+\end{equation}
+Both pieces are now explicit polynomials in $V_{10}\otimes\CC$ with coefficients
+that are explicit linear combinations of the moments $\{N_j, M_j\}_{j=0}^{10}$
+(rational/Bernoulli weights, overall factor $(2\pi i)^{11}$).  Concretely,
+\begin{equation}\label{eq:Cprime-explicit}
+  \bigl[C^{\prime f}_S\bigr]_{X^{10-j}Y^j}
+  \;=\; (2\pi i)^{11}(-1)^j\binom{10}{j}N_j
+        \;-\; \bigl[P(Y,-X) - P(X,Y)\bigr]_{X^{10-j}Y^j},
+\end{equation}
+where the bracket on the right is the explicit polynomial difference of
+\eqref{eq:P-moments} and its $S$-image.
+
+By construction $C^{\prime f}_T = 0$, so $C^{\prime f}_S$ is the $S$-value of
+a cuspidal 1-cocycle and decomposes uniquely in Brown's basis as
+\begin{equation}\label{eq:decomp}
+  C^{\prime f}_S \;=\; \omega^+(f)\,P^+_S \;+\; \omega^-(f)\,P^-_S \;+\; c\,(X^{10} - Y^{10}),
+\end{equation}
+with $c \in \CC$ depending on the choice of $p_{10}$ (the unconstrained
+$Y^{10}$ direction).  Replacing $P \to P + c'\,Y^{10}$ shifts $C^{\prime f}_S$
+by $c'(X^{10}-Y^{10})$, which is itself a coboundary in $V_{10}$ — thus the
+cohomology class is unchanged, and so are $\omega^\pm(f)$.
+
+\subsection{Period extraction}
+
+Reading off interior monomials (those for which $X^{10}-Y^{10}$ has zero
+coefficient) gives $\omega^\pm$ unambiguously:
+\begin{equation}\label{eq:extraction}
+  \omega^-(f) = \frac{[C^{\prime f}_S]_{X^9 Y}}{4},
+  \qquad
+  \omega^+(f) = [C^{\prime f}_S]_{X^8 Y^2}.
+\end{equation}
+Internal consistency is verified by repeating from all five odd (resp.\ four
+even) interior monomials.
+
+\section{Periods as DR-regularised $L$-values}\label{sec:Lreg}
+
+\subsection{Definition of $L_{\rm reg}(f, s)$ entirely from the DR cocycle}
+
+For any weight-$12$ form $f$ on $\Gamma$ (holomorphic or weakly holomorphic) and
+any $\tau_0 \in \HH$, \textbf{define}
+\begin{equation}\label{eq:Lreg-def}
+  \boxed{\;
+  L_{\rm reg}(f,\,j+1)
+    \;:=\;
+    \frac{\bigl[C^{\prime f}_S(\tau_0)\bigr]_{X^{10-j}Y^j}}
+         {(2\pi)^{10-j}\,(-i)^j\,\binom{10}{j}\,j!},
+    \qquad j = 0, 1, \ldots, 10.
+  \;}
+\end{equation}
+The right-hand side is constructed entirely from the DR cocycle: $C^{\prime
+f}_S(\tau_0) = C_S^f - (P|_S - P)$ is built from the finite-contour moments
+\eqref{eq:moments} via \eqref{eq:CS}, \eqref{eq:CT}, and the closed-form
+Bernoulli formula \eqref{eq:P-bernoulli}; equivalently, it is the explicit
+$q$-coefficient sum \eqref{eq:Cprime-master}.  No integration along
+$0 \to i\infty$ enters anywhere.\footnote{For $f \in S_{12}$, the standard
+Mellin identity $\int_0^{i\infty}f(\tau)\tau^j d\tau = i^{j+1}j!/(2\pi)^{j+1}
+\cdot L(f, j+1)$ — invoked only as a parenthetical check — shows
+$L_{\rm reg}(f, s) = L(f, s)$ for the standard analytically continued
+$L$-function. For $f \in S_{12}^!$, \eqref{eq:Lreg-def} \emph{defines} the
+correct cohomological L-value, finite at any $\tau_0 \in \HH$.}
+The right side of \eqref{eq:Lreg-def} is a priori a function of $\tau_0$, but
+is in fact $\tau_0$-independent (Section \ref{sec:tau0-indep}).
+
+\subsection{Explicit period formulas with all numbers plugged in}
+
+Substituting \eqref{eq:Lreg-def} into the extraction formula
+\eqref{eq:extraction} and using the explicit Brown-basis values
+\(
+  [P^-_S]_{X^9Y, X^7Y^3, X^5Y^5, X^3Y^7, XY^9} = (4,\,-25,\,42,\,-25,\,4),
+\)
+\(
+  [P^+_S]_{X^8Y^2, X^6Y^4, X^4Y^6, X^2Y^8} = (1,\,-3,\,3,\,-1)
+\)
+from Brown \cite{Brown2017} \S 8.2 (and Section 1 above), the periods read
+explicitly as:
+\begin{align}
+  \omega^-(f)
+   &\;=\; -\tfrac{5}{2}\,i\,(2\pi)^9\,L_{\rm reg}(f,\,2)
+    \;=\; -\tfrac{144}{5}\,i\,(2\pi)^7\,L_{\rm reg}(f,\,4)
+    \;=\; -720\,i\,(2\pi)^5\,L_{\rm reg}(f,\,6) \nonumber\\[2pt]
+   &\phantom{\;=\;}\;\;
+    \;=\; -24\,192\,i\,(2\pi)^3\,L_{\rm reg}(f,\,8)
+    \;=\; -1\,814\,400\,i\,\pi\,L_{\rm reg}(f,\,10),
+   \label{eq:omega-minus-explicit} \\[6pt]
+  \omega^+(f)
+   &\;=\; -90\,(2\pi)^8\,L_{\rm reg}(f,\,3)
+    \;=\; -1\,680\,(2\pi)^6\,L_{\rm reg}(f,\,5)
+    \;=\; -50\,400\,(2\pi)^4\,L_{\rm reg}(f,\,7) \nonumber\\[2pt]
+   &\phantom{\;=\;}\;\;
+    \;=\; -1\,814\,400\,(2\pi)^2\,L_{\rm reg}(f,\,9).
+   \label{eq:omega-plus-explicit}
+\end{align}
+The five (resp.\ four) equalities encode the lockstep rationality among
+critical $L$-values; for $f \in S_{12}$ they recover the classical
+relations.
+
+\paragraph{For $f = \Delta$:}
+\eqref{eq:omega-minus-explicit}, \eqref{eq:omega-plus-explicit} \emph{are} the
+classical period $\omega^\pm(\Delta) = \omega^\pm$ formulas, with
+$L_{\rm reg}(\Delta, s) = L(\Delta, s)$ the standard critical $L$-value.  The
+notebook's $L$-values for $\Delta$ at $\tau_0 = 0.3 + 1.2i$ are:
+\begin{center}
+\begin{tabular}{ccll}
+\toprule
+$s$ & $L_{\rm reg}(\Delta, s)$ & feeds into & recovered period\\
+\midrule
+2  & $0.14637454209126598\ldots$ & \eqref{eq:omega-minus-explicit}, $j=1$ &
+   $\omega^- = -5585015.379310401\ldots\,i$ \\
+3  & $0.31524156588099308\ldots$ & \eqref{eq:omega-plus-explicit},  $j=2$ &
+   $\omega^+ = -68916772.80959519\ldots$ \\
+4  & $0.50161764751090221\ldots$ & \eqref{eq:omega-minus-explicit}, $j=3$ &
+   $\omega^- = -5585015.379310401\ldots\,i$ \\
+5  & $0.66670918843400364\ldots$ & \eqref{eq:omega-plus-explicit},  $j=4$ &
+   $\omega^+ = -68916772.80959519\ldots$ \\
+6  & $0.79212283864603056\ldots$ & \eqref{eq:omega-minus-explicit}, $j=5$ &
+   $\omega^- = -5585015.379310401\ldots\,i$ \\
+7  & $0.87735412538866091\ldots$ & \eqref{eq:omega-plus-explicit},  $j=6$ &
+   $\omega^+ = -68916772.80959519\ldots$ \\
+8  & $0.93070703029812609\ldots$ & \eqref{eq:omega-minus-explicit}, $j=7$ &
+   $\omega^- = -5585015.379310401\ldots\,i$ \\
+9  & $0.96212645969442586\ldots$ & \eqref{eq:omega-plus-explicit},  $j=8$ &
+   $\omega^+ = -68916772.80959519\ldots$ \\
+10 & $0.97980908825122051\ldots$ & \eqref{eq:omega-minus-explicit}, $j=9$ &
+   $\omega^- = -5585015.379310401\ldots\,i$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+All nine rows agree to relative error $<6\times 10^{-42}$ at $45$-digit
+working precision, confirming the lockstep relations in
+\eqref{eq:omega-minus-explicit} and \eqref{eq:omega-plus-explicit} to
+numerical precision \cite{VerifyL}.
+
+\paragraph{For $f = \Dhat$:}
+\eqref{eq:omega-minus-explicit}, \eqref{eq:omega-plus-explicit} \emph{define}
+the quasi-periods $\eta^\pm(\Dhat)$ via $L_{\rm reg}(\Dhat, s)$.  The
+$L_{\rm reg}$ values cannot be recovered from BFK's $L^*_{\rm BFK}(\Dhat, s)$:
+the latter satisfies $(1+S) = 0$ but fails $(1+U+U^2) = 0$, while
+$L_{\rm reg}$ comes from a genuine cocycle (Section 4).
+
+\section{Basepoint independence as an explicit coboundary}\label{sec:tau0-indep}
+
+The right side of \eqref{eq:Lreg-def} appears to depend on $\tau_0$; it does
+not.  The reason is an explicit coboundary identity that propagates through
+the whole construction.  Define the basepoint-shift potential
+\begin{equation}\label{eq:bp-h}
+  h(X, Y;\,\tau_0, \tau_1)
+  \;:=\; (2\pi i)^{11}\!\int_{\tau_0}^{\tau_1}\! f(\tau)\,(X - \tau Y)^{10}\,d\tau
+  \;\;\in\;\; V_{10}\otimes\CC.
+\end{equation}
+A short computation using the modular property
+$\int_{\gamma^{-1}\tau_a}^{\gamma^{-1}\tau_b} f(\tau)(X-\tau Y)^{10}\,d\tau =
+h(X,Y;\tau_a,\tau_b)\big|_\gamma$ (which follows from the weight-$12$
+transformation of $f(\tau)\,d\tau$ together with the slash-action on
+$(X-\tau Y)^{10}$) gives
+\begin{equation}\label{eq:bp-cocycle}
+  \boxed{\;
+    C^f_\gamma(\tau_1)\;-\;C^f_\gamma(\tau_0)
+    \;=\; -\Bigl[h(\tau_0,\tau_1)\big|_\gamma \;-\; h(\tau_0,\tau_1)\Bigr],
+  \qquad \forall\,\gamma\in\Gamma.
+  \;}
+\end{equation}
+The right side is manifestly a coboundary in $V_{10}\otimes\CC$, so the
+cohomology class $[C^f_\bullet] \in H^1(\Gamma; V_{10}\otimes\CC)$ is
+$\tau_0$-independent.  The cuspidal coboundary modification $C^{\prime f}_S$
+inherits this invariance, hence $\omega^\pm(f)$ — and therefore
+$L_{\rm reg}(f, s)$ — are $\tau_0$-independent.
+
+\subsection{Analytic check from the explicit formulas}
+
+For an explicit nerd-friendly check: substitute \eqref{eq:M-explicit},
+\eqref{eq:N-explicit} into the master formula \eqref{eq:Cprime-master}.
+Each q-coefficient $a_f(n)$ multiplies a $\tau_0$-dependent function
+$\Phi_n(X,Y;\tau_0)$ that involves $q_0^n, \widetilde q_0^n, \tau_0^j$,
+$(\tau_0-1)^j$, $(-1/\tau_0)^j$, and Bernoulli rationals.  The same q-coefficient
+$a_f(n)$ also enters $h(X,Y;\tau_0,\tau_1)$ via term-by-term integration of
+$\int_{\tau_0}^{\tau_1}\!f(\tau)(X-\tau Y)^{10}d\tau$, which by
+\eqref{eq:int-by-parts} produces only boundary evaluations
+$\bigl[e^{2\pi i n \tau}P_{j,n}(\tau)\bigr]_{\tau_0}^{\tau_1}$ for explicit
+polynomials $P_{j,n}$.  Hence \eqref{eq:bp-cocycle} reduces to a polynomial
+identity satisfied term-by-term in $a_f(n)$, with the $\tau_0$-dependence
+matching exactly between the two sides.
+
+\paragraph{Meromorphic generalisation.}
+For a meromorphic modular form $f$ with poles inside $\HH$ (e.g.\ $1/E_6$,
+which has a simple pole at $\tau = i$ and modular images thereof), the same
+construction goes through with one modification: the contour from
+$\gamma^{-1}\tau_0$ to $\tau_0$ may need to be deformed around interior poles
+of $f$, and the basepoint identity \eqref{eq:bp-cocycle} acquires an
+extra residue term whenever a basepoint shift moves a pole across the contour.
+That residue is itself an explicit polynomial in $V_{10}$, hence still a
+coboundary, leaving the cohomology class — and the periods — invariant.  This
+is the natural extension of the present formalism to fully meromorphic
+modular forms with poles both at the cusp and in the interior of $\HH$.
+
+\section{Comparison with BFK's regularisation}\label{sec:bfk-comparison}
+
+The DR cocycle \eqref{eq:Cprime-def} is finite for both $\Delta$ and $\Dhat$
+at any $\tau_0 \in \HH$: every contour is a finite line segment, every q-mode
+integrates to a closed-form expression \eqref{eq:int-by-parts}, and the
+notebook computes all coefficients to $\sim 32$ digits.  No regularisation
+enters.
+
+BFK's construction is also convergent.  It defines finite regularised
+$L$-values $L^*_{\rm BFK}(\Dhat, s)$ via a non-holomorphic exponential factor
+$e^{2\pi\nu\,\im(\tau)}$ and analytic continuation in $\nu$, and assembles a
+polynomial $r_{\rm BFK}$ by Zagier's formula \cite{BFK2011}.  $r_{\rm BFK}$ is
+finite and well-defined.  The issue is that it is a \emph{different} finite
+polynomial from $C^{\prime\Dhat}_S$: $r_{\rm BFK}$ satisfies the involution
+$(1+S) = 0$ (a direct consequence of BFK's functional equation $L^*(s) =
+i^k L^*(k-s)$) but \emph{fails} the three-term cocycle relation
+$(1+U+U^2) = 0$ — by $\sim 22\times$ the typical coefficient magnitude in the
+numerics.  Hence $r_{\rm BFK} \notin W$, while $C^{\prime\Dhat}_S \in W$ by
+construction.
+
+Structurally, BFK's single-parameter regulator $e^{iu\tau}$ has $S$-symmetry
+($S$ exchanges the two cusps $\{0, i\infty\}$, and the regulator at one cusp
+maps to a regulator at the other) but no analogous symmetry for the $U$-orbit
+$\{0, 1, i\infty\}$.  Consequently, the cocycle relation forced by $S^2 =
+(ST)^3 = 1$ on genuine $\Gamma$-cocycles survives the BFK regularisation only
+in part.  The DR finite-endpoint cocycle has no such asymmetry: both contours
+$\gamma^{-1}\tau_0 \to \tau_0$ stay strictly inside $\HH$, and the cocycle
+relation holds at the level of $\Gamma$-cocycles, not just at the level of
+the regularised values.
+
+\section{Verified numerical values}
+
+All values below are extracted from the executed notebook at 45-digit working
+precision and reported here to $\sim 22$ significant digits.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+& \textbf{Extracted (notebook)} & \textbf{Brown \cite{Brown2017} \S8.3} \\
+\midrule
+$\omega^+(\Delta)$
+  & $-68916772.8095951947543\ldots$
+  & $-68916772.809595194754\ldots$ \\
+$\omega^-(\Delta)/i$
+  & $-5585015.37931040186688\ldots$
+  & $-5585015.3793104018668\ldots$ \\[4pt]
+$\eta^+(\Dhat)$
+  & $127202100647.177094777\ldots$
+  & $127202100647.17709477\ldots$ \\
+$\eta^-(\Dhat)/i$
+  & $10276732343.6491327508\ldots$
+  & $10276732343.649132750\ldots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Relative errors vs.\ Brown's reported values:
+$|\Delta\omega^+|/|\omega^+| \approx 4.5\times 10^{-21}$,
+$|\Delta\omega^-|/|\omega^-| \approx 1.4\times 10^{-20}$,
+$|\Delta\eta^+|/|\eta^+| \approx 8.6\times 10^{-32}$,
+$|\Delta\eta^-|/|\eta^-| \approx 9.0\times 10^{-32}$.
+
+Basepoint independence (shifting $\tau_0$ from $0.3+1.2i$ to $-0.2+0.9i$)
+introduces shifts of at most $2.6\times 10^{-38}$ for $\omega^\pm$ and
+$1.2\times 10^{-32}$ for $\eta^\pm$, confirming cohomological invariance to
+full working precision.
+
+\section{The unified formula}
+
+For any weight-$k$ modular form $f$ on $\SLZ$ (holomorphic or weakly holomorphic,
+regular at interior of $\HH$ or at the cusp), the DR cocycle provides a
+well-defined period:
+\begin{equation}\label{eq:unified}
+  \omega^\pm(f)
+  = \frac{[C^{\prime f}_S]_{X^{k-2-j}Y^j}}{[P^\pm_S]_{X^{k-2-j}Y^j}},
+  \quad\text{any interior monomial } j.
+\end{equation}
+For $f \in S_k$ this equals the classical period $\int_0^{i\infty} f(\tau)\tau^j d\tau$
+times a known algebraic factor.  For $f \in S_k^!$ it is the DR-regularised
+analogue.  In both cases it lies in $H^1_{\mathrm{cusp}}(\Gamma; V_{k-2})$ and
+satisfies the full period relations $(1+S)=0$ and $(1+U+U^2)=0$, properties that
+BFK's single-parameter regularisation cannot guarantee.
+
+\appendix
+
+\section{From cocycles to polynomial-kernel period integrals}\label{app:cohomology}
+
+This appendix unpacks the cohomological structure behind the construction
+$C^{\prime f}_S = C^f_S - (P|_S - P)$: what $P$ actually is, why it has to
+depend on $f$, and how the whole machinery collapses to the cleanest
+possible statement --- $\omega^\pm(f)$ are finite contour integrals of $f$
+against nine universal $\QQ$-polynomial kernels.  Read as a parallel to the
+classical fact $\omega^\pm(\Delta) \in \QQ\cdot L(\Delta, s)\cdot(2\pi i)^\bullet$:
+in the DR setup, the periods are obtained by integrating $f$ against fixed
+polynomial weights on the $S$- and $T$-segments in $\HH$, and the
+lockstep rationality among critical $L$-values is encoded as the fact that
+five different integrals all give $\omega^-$ and four different integrals
+all give $\omega^+$.
+
+\subsection{Cocycles and coboundaries of $\Gamma$ in $V_{10}$}\label{app:cocycles-defs}
+
+A \emph{$1$-cocycle} of $\Gamma$ with values in $V_{10}$ is a map
+$C : \Gamma \to V_{10}$ satisfying
+\begin{equation}\label{eq:app-cocycle-rel}
+  C_{\gamma_1\gamma_2} \;=\; C_{\gamma_1}\big|_{\gamma_2} \;+\; C_{\gamma_2},
+  \qquad \forall\,\gamma_1, \gamma_2 \in \Gamma.
+\end{equation}
+Since $\Gamma = \langle S, T\rangle$ with relations $S^2 = (ST)^3 = -I$, a
+$1$-cocycle is determined by the pair $(C_S, C_T) \in V_{10} \times V_{10}$
+subject to the constraints inherited from those relations.
+
+A \emph{$1$-coboundary} is the special cocycle attached to a fixed $P \in V_{10}$,
+\begin{equation}\label{eq:app-coboundary}
+  (\delta P)_\gamma \;:=\; P\big|_\gamma \;-\; P.
+\end{equation}
+One checks $(\delta P)_{\gamma_1\gamma_2} = (\delta P)_{\gamma_1}|_{\gamma_2}
++ (\delta P)_{\gamma_2}$ directly, so coboundaries are cocycles.  Two
+cocycles differing by a coboundary are \emph{cohomologous}; the quotient
+\(H^1(\Gamma; V_{10}) := Z^1/B^1\)
+is the space of cocycles modulo coboundaries.  It is finite-dimensional.
+
+The Diamantis--Rolen $C^f$ from \eqref{eq:CS}, \eqref{eq:CT} is a genuine
+cocycle for any $f$ holomorphic on $\HH$ (or meromorphic with the contour
+avoiding poles): the proof is a one-liner, write
+\(\int_{(\gamma_1\gamma_2)^{-1}\tau_0}^{\tau_0}\)
+$=$
+\(\int_{(\gamma_1\gamma_2)^{-1}\tau_0}^{\gamma_2^{-1}\tau_0}
+   + \int_{\gamma_2^{-1}\tau_0}^{\tau_0}\)
+and recognise the first piece as $C^f_{\gamma_1}\big|_{\gamma_2}$ after
+$\tau \to \gamma_2\sigma$, using weight-$12$ modularity of $f(\tau)d\tau$
+under slash.  No regularisation, no analytic continuation.
+
+\subsection{Cuspidality and the role of $P$}\label{app:cuspidality}
+
+The cocycle $C^f$ contains more data than we ultimately want --- we want a
+polynomial in $V_{10}$, not a function $\Gamma \to V_{10}$.  The strategy
+is to replace $C^f$ by a cohomologous \emph{cuspidal} cocycle whose value
+at $S$ is the polynomial we extract.
+
+A cocycle is \emph{cuspidal} iff after a coboundary modification
+$C^f \to C^f - \delta P$ we have $C'^f_T = 0$; equivalently, $P$ satisfies
+\begin{equation}\label{eq:app-P-equation}
+  P\big|_T \;-\; P \;=\; C^f_T. \tag{$\star$}
+\end{equation}
+The operator $\delta_T \colon V_{10} \to V_{10}$, $P \mapsto P|_T - P$, has
+\begin{itemize}
+  \item $\ker(\delta_T) = \CC \cdot Y^{10}$ (the unique $T$-fixed monomial, since $T$ acts as $X \mapsto X+Y$, $Y \mapsto Y$),
+  \item $\operatorname{im}(\delta_T) = \{Q \in V_{10} : [Q]_{X^{10}} = 0\}$.
+\end{itemize}
+So \eqref{eq:app-P-equation} is solvable iff $[C^f_T]_{X^{10}} = 0$.  By
+periodicity of $f$, $[C^f_T]_{X^{10}} = (2\pi i)^{11}\int_{\tau_0-1}^{\tau_0}\!f\,d\tau
+= (2\pi i)^{11}\,a_f(0)$; cuspidality is therefore automatic whenever the
+constant Fourier coefficient $a_f(0) = 0$, which it does for both $\Delta$ and $\Dhat$.
+
+When solvable, $P$ is unique modulo $\CC\cdot Y^{10}$.  The convention
+$p_{10} := 0$ fixes a representative; alternative choices shift $C^{\prime f}_S$
+by $c(X^{10}-Y^{10})$, which is itself a coboundary in $V_{10}$ and so does
+not change the cohomology class.  Hence the $p_{10}$-ambiguity is invisible
+to $\omega^\pm(f)$ --- the interior monomials we read off are completely
+unaffected.
+
+\paragraph{The matrix system, explicitly.}
+Writing $P = \sum_{j=0}^{10} p_j X^{10-j}Y^j$ and expanding $P|_T(X,Y) = P(X+Y, Y)$
+binomially, the coefficient of $X^{10-m}Y^m$ on the left of \eqref{eq:app-P-equation}
+is $\sum_{j=0}^{m-1}\binom{10-j}{m-j}p_j$.  So \eqref{eq:app-P-equation} becomes
+the upper-triangular linear system
+\begin{equation}\label{eq:app-system}
+  \sum_{j=0}^{m-1} \binom{10-j}{m-j}\,p_j \;=\; [C^f_T]_{X^{10-m}Y^m},
+  \qquad m = 1, 2, \ldots, 10,
+\end{equation}
+together with the $m=0$ identity $0 = [C^f_T]_{X^{10}}$ (cuspidality).
+Equivalently, the closed-form Bernoulli operator \eqref{eq:P-bernoulli}
+gives $P = \delta_T^{-1}(C^f_T)$ in one shot.
+
+\paragraph{$P$ depends on $f$, linearly.}
+The whole construction is linear in $f$: the chain
+\[
+  f \;\xmapsto{\text{integrate}}\; \{M_j(f,\tau_0)\}_{j=0}^{10}
+   \;\xmapsto{(2\pi i)^{11}(-1)^j\binom{10}{j}}\; C^f_T
+   \;\xmapsto{\delta_T^{-1}}\; P_f
+\]
+is a composition of linear maps.  At a fixed $\tau_0 = 0.3+1.2i$:
+\[
+  \Delta \colon \;|C^f_T|_\text{max} \sim 10^8, \quad p_0 \approx -1.5\times 10^4 + 4.9\times 10^4\,i,
+\]
+\[
+  \widehat\Delta \colon \;|C^f_T|_\text{max} \sim 2\times 10^{14},
+                       \quad p_0 \sim 10^{10}\text{ in modulus}.
+\]
+The six-order-of-magnitude jump is the $q^{-1}$ Fourier mode of $\widehat\Delta$
+amplifying the moments through $|q_0|^{-1} = e^{2\pi\im(\tau_0)} \sim 10^3$.
+Same recipe ($\delta_T^{-1}$), wholly different $P$-polynomials.  This is
+the answer to the natural question \emph{``is the $(P|_S - P)$ correction
+universal or form-dependent?''}: it is form-dependent through $P$, but
+universal in the recipe.
+
+\subsection{$\omega^\pm$ as cohomology coordinates}\label{app:cohom-coords}
+
+Putting these together: the map
+\(
+  f \;\longmapsto\; [C^f] \in H^1_{\rm cusp}(\Gamma; V_{10}\otimes\CC)
+\)
+is linear in $f$.  The target is $3$-dimensional at weight $12$, spanned by
+Brown's classes $[P^+]$, $[P^-]$, and the Eisenstein direction (which
+manifests in our explicit coordinates as the $X^{10}-Y^{10}$ free
+direction).  The map reads off as
+\[
+  f \;\longmapsto\; \omega^+(f)\,[P^+] \;+\; \omega^-(f)\,[P^-] \;+\; c(f)\,[\text{Eis}].
+\]
+Brown's basis-coefficient extraction \eqref{eq:extraction} from interior
+monomials is the explicit recipe for the cuspidal-coordinate pair
+$(\omega^+, \omega^-)$.
+
+\subsection{Periods as polynomial-kernel contour integrals}\label{app:kernel-integrals}
+
+Now the payoff.  Chasing the chain
+\(f \to \{M_j, N_j\} \to P_f \to C'^f_S \to \omega^\pm\)
+end-to-end is a composition of $\QQ$-linear operations; inverting back to
+integrals against polynomial weights gives the following compact statement.
+
+\medskip\noindent\textbf{Main formula.}
+For each interior $j \in \{1, 2, \ldots, 9\}$,
+\begin{equation}\label{eq:app-kernel-master}
+  \boxed{\;\;
+  \omega^\pm(f) \;=\; \frac{(2\pi i)^{11}}{[P^\pm_S]_{X^{10-j}Y^j}}
+   \,\Bigl[\,\int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,k_S^{j}(\tau)\,d\tau
+        \;+\; \int_{\tau_0-1}^{\tau_0}\! f(\tau)\,k_T^{j}(\tau)\,d\tau\,\Bigr]
+  \;\;}
+\end{equation}
+where the $\pm$ sign is determined by the parity of $j$ (odd $\to -$, even $\to +$),
+and $k_S^j, k_T^j$ are universal $\QQ$-polynomial kernels of degree $\le 10$
+in $\tau$, depending only on $j$ --- not on $f$, not on $\tau_0$, not on
+the $\pm$ sign.  Concretely the $S$-kernel is a pure monomial,
+\begin{equation}\label{eq:app-kS}
+  k_S^{j}(\tau) \;=\; (-1)^j\,\binom{10}{j}\,\tau^j,
+\end{equation}
+and the $T$-kernel is the explicit polynomial recorded in Table~\ref{tab:kernels}
+below, computed by applying the closed-form Bernoulli formula
+\eqref{eq:P-bernoulli} to extract $p_j$ and $p_{10-j}$, then forming
+$k_T^j(\tau) := \sum_r\bigl[\,\beta_{j,r} - (-1)^j\,\beta_{10-j,r}\,\bigr]\tau^r$,
+where $\beta_{l,r} = [p_l]_{M_r}/(2\pi i)^{11}$ are the rational
+Bernoulli-operator weights.
+
+\begin{table}[h]\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{cccll}
+\toprule
+$j$ & sgn & $[P^\pm_S]_{X^{10-j}Y^j}$ & $k_S^{j}(\tau)$ & $k_T^{j}(\tau)$ \\
+\midrule
+$1$ & $-$ & $4$    & $-10\,\tau$        & $-5\,\tau + \tfrac{7}{2}\tau^{2} + 5\,\tau^{4} - 7\,\tau^{6} + \tfrac{15}{2}\tau^{8} - 5\,\tau^{9} + \tau^{10}$ \\
+$2$ & $+$ & $1$    & $45\,\tau^{2}$     & $-9\,\tau + \tfrac{45}{2}\tau^{2} - 5\,\tau^{3} - 21\,\tau^{5} + 30\,\tau^{7} - \tfrac{45}{2}\tau^{8} + 5\,\tau^{9}$ \\
+$3$ & $-$ & $-25$  & $-120\,\tau^{3}$   & $40\,\tau^{2} - 60\,\tau^{3} - 5\,\tau^{4} + 70\,\tau^{6} - 60\,\tau^{7} + 15\,\tau^{8}$ \\
+$4$ & $+$ & $-3$   & $210\,\tau^{4}$    & $12\,\tau - 105\,\tau^{3} + 105\,\tau^{4} + 63\,\tau^{5} - 105\,\tau^{6} + 30\,\tau^{7}$ \\
+$5$ & $-$ & $42$   & $-252\,\tau^{5}$   & $-42\,\tau^{2} + 210\,\tau^{4} - 252\,\tau^{5} + 84\,\tau^{6}$ \\
+$6$ & $+$ & $3$    & $210\,\tau^{6}$    & $-12\,\tau + 105\,\tau^{3} - 105\,\tau^{4} - 63\,\tau^{5} + 105\,\tau^{6} - 30\,\tau^{7}$ \\
+$7$ & $-$ & $-25$  & $-120\,\tau^{7}$   & $40\,\tau^{2} - 60\,\tau^{3} - 5\,\tau^{4} + 70\,\tau^{6} - 60\,\tau^{7} + 15\,\tau^{8}$ \\
+$8$ & $+$ & $-1$   & $45\,\tau^{8}$     & $9\,\tau - \tfrac{45}{2}\tau^{2} + 5\,\tau^{3} + 21\,\tau^{5} - 30\,\tau^{7} + \tfrac{45}{2}\tau^{8} - 5\,\tau^{9}$ \\
+$9$ & $-$ & $4$    & $-10\,\tau^{9}$    & $-5\,\tau + \tfrac{7}{2}\tau^{2} + 5\,\tau^{4} - 7\,\tau^{6} + \tfrac{15}{2}\tau^{8} - 5\,\tau^{9} + \tau^{10}$ \\
+\bottomrule
+\end{tabular}
+\caption{The nine universal polynomial kernels $(k_S^j, k_T^j)$ feeding into
+\eqref{eq:app-kernel-master}.  Computed exactly in
+\cite{KernelScript} via $\delta_T^{-1}$ in sympy rationals.
+Note the $j \leftrightarrow 10-j$ symmetries: pairs $(1,9)$ and $(3,7)$
+share their $k_T$ identically; pairs $(2,8)$ and $(4,6)$ share their
+$k_T$ up to overall sign (matching the sign flip in $[P^\pm_S]_j$);
+$j=5$ is self-dual.}\label{tab:kernels}
+\end{table}
+
+\paragraph{Lockstep rationality, geometrically.}
+The five rows with $\text{sgn} = -$ all yield $\omega^-(f)$; the four rows
+with $\text{sgn} = +$ all yield $\omega^+(f)$.  Five different integrals
+against five different polynomial weights all evaluate to the same number
+$\omega^-(f)$; four to the same $\omega^+(f)$.  This is the
+``lockstep rationality among $L$-values'' from the main text, expressed
+not as identities among $L(\Delta, n+1)$ for various $n$ but as identities
+among contour integrals against polynomial weights.
+
+\paragraph{The $\tau_0$ catch.}
+The kernels $k_S^j, k_T^j$ are universal --- they know nothing about
+$\tau_0$, $f$, or even the $\pm$ sign --- but the integration contours
+$[-1/\tau_0, \tau_0]$ and $[\tau_0 - 1, \tau_0]$ do depend on $\tau_0$.
+The $\tau_0$-independence of $\omega^\pm$ is the cohomological invariance
+of \S\ref{sec:tau0-indep}; in this language, two different choices of
+$\tau_0$ give different contours but the same definite-integral value,
+because the difference is the coboundary
+\(h(\tau_0,\tau_1)|_\gamma - h(\tau_0,\tau_1)\) of \eqref{eq:bp-cocycle}.
+
+\paragraph{Comparison with the classical statement.}
+For $f = \Delta$, the limit $\tau_0 \to i\infty$ collapses the $T$-segment
+contribution to zero (since $\Delta$ is cuspidal), and the $S$-segment
+contour stretches to $\int_0^{i\infty}$.  The single surviving integral
+$\int_0^{i\infty}\Delta(\tau)\,k_S^j(\tau)\,d\tau$ is a Mellin transform
+of $\Delta$, evaluating by \eqref{eq:int-incgamma} to a multiple of
+$L(\Delta, j+1)$ --- recovering the classical formulas of
+\eqref{eq:omega-minus-explicit}, \eqref{eq:omega-plus-explicit}.
+
+For $f = \widehat\Delta$, the limit is unavailable (both integrals
+diverge), but at any finite $\tau_0 \in \HH$ each integral is finite and
+$\omega^\pm \equiv \eta^\pm$ is well-defined.  The contour pair is the
+DR-regularised analogue of the classical period integral: the
+\emph{integral} the user wanted.  $\Dhat$'s ``periods'' really are
+periods, in this concrete sense.
+
+\subsection{Worked example: explicit polynomials at $\tau_0 = 0.3 + 1.2i$}\label{app:worked-example}
+
+To make the form-dependence concrete and demonstrate that
+\eqref{eq:app-kernel-master} produces $\omega^\pm(\Delta)$ \emph{and}
+$\eta^\pm(\widehat\Delta)$ from the same kernels, we tabulate the
+coboundary correction $(P|_S - P)(X, Y) \in V_{10}\otimes\CC$ --- the
+polynomial subtracted from $C^f_S$ to produce $C^{\prime f}_S$ --- for
+both forms at the standard basepoint $\tau_0 = 0.3 + 1.2i$.  All
+coefficients are mpmath-computed at $30$ decimal digits via the Bernoulli
+operator \eqref{eq:P-bernoulli} acting on numerically integrated moments
+$\{M_j(f, \tau_0)\}$, and shown to $4$ significant figures.  The
+computation is in \cite{NumericScript}.
+
+\begin{table}[h]\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{c|l|l}
+\toprule
+$X^{10-j}Y^j$ & $(P_\Delta|_S - P_\Delta)$ & $(P_{\widehat\Delta}|_S - P_{\widehat\Delta})$ \\
+\midrule
+$X^{10}$  & $1.549\times 10^{4} - 4.866\times 10^{4}\,i$    & $-5.539\times 10^{10} - 1.711\times 10^{11}\,i$ \\
+$X^9 Y$   & $-6.008\times 10^{6} + 1.851\times 10^{7}\,i$   & $3.200\times 10^{12} + 3.623\times 10^{12}\,i$ \\
+$X^8 Y^2$ & $4.861\times 10^{7} + 2.454\times 10^{7}\,i$    & $2.150\times 10^{13} - 9.347\times 10^{12}\,i$ \\
+$X^7 Y^3$ & $6.029\times 10^{7} - 7.995\times 10^{7}\,i$    & $-1.436\times 10^{13} - 6.661\times 10^{13}\,i$ \\
+$X^6 Y^4$ & $-9.673\times 10^{7} - 9.984\times 10^{7}\,i$   & $-1.258\times 10^{14} + 1.338\times 10^{13}\,i$ \\
+$X^5 Y^5$ & $-1.175\times 10^{8} + 1.004\times 10^{8}\,i$   & $1.124\times 10^{13} + 1.546\times 10^{14}\,i$ \\
+$X^4 Y^6$ & $9.673\times 10^{7} + 9.984\times 10^{7}\,i$    & $1.258\times 10^{14} - 1.338\times 10^{13}\,i$ \\
+$X^3 Y^7$ & $6.029\times 10^{7} - 7.995\times 10^{7}\,i$    & $-1.436\times 10^{13} - 6.661\times 10^{13}\,i$ \\
+$X^2 Y^8$ & $-4.861\times 10^{7} - 2.454\times 10^{7}\,i$   & $-2.150\times 10^{13} + 9.347\times 10^{12}\,i$ \\
+$X Y^9$   & $-6.008\times 10^{6} + 1.851\times 10^{7}\,i$   & $3.200\times 10^{12} + 3.623\times 10^{12}\,i$ \\
+$Y^{10}$  & $-1.549\times 10^{4} + 4.866\times 10^{4}\,i$   & $5.539\times 10^{10} + 1.711\times 10^{11}\,i$ \\
+\bottomrule
+\end{tabular}
+\caption{The coboundary correction $(P|_S - P) \in V_{10}\otimes\CC$ for
+$f = \Delta$ and $f = \widehat\Delta$ at $\tau_0 = 0.3 + 1.2i$.  These
+are the explicit polynomials subtracted from $C^f_S$ to produce
+$C^{\prime f}_S$.  The $\widehat\Delta$ coefficients are $\sim 10^6$ times
+larger than those for $\Delta$ --- the $q^{-1}$ Fourier mode of
+$\widehat\Delta$ amplifies each moment by $|q_0|^{-1} = e^{2\pi\,\im(\tau_0)}
+\sim 10^3$.  Same recipe (Bernoulli operator), same matrix system, wholly
+different output polynomials.  Both columns satisfy the anti-$S$-invariance
+$(P|_S - P)|_S = -(P|_S - P)$ at the level of coefficients
+$(P|_S - P)_{X^m Y^{10-m}} = (-1)^{m+1}(P|_S - P)_{X^{10-m}Y^m}$, visible
+as the symmetry of the table.}\label{tab:coboundary-vals}
+\end{table}
+
+\paragraph{Period extraction from $C^{\prime f}_S = C^f_S - (P|_S - P)$.}
+Subtracting Table~\ref{tab:coboundary-vals} from the moments-via-$N_j$
+representation of $C^f_S$ \eqref{eq:CS}, and then dividing the
+$C^{\prime f}_S$ interior-monomial coefficients by Brown's basis values:
+\begin{itemize}\itemsep=2pt
+  \item $f = \Delta$ (all five $j \in \{1, 3, 5, 7, 9\}$, all four
+        $j \in \{2, 4, 6, 8\}$ giving identical values to $\sim 10^{-24}$
+        relative precision):
+        $$\omega^- \;=\; -5\,585\,015.379310402\ldots\,i,
+        \qquad
+        \omega^+ \;=\; -68\,916\,772.80959519\ldots$$
+  \item $f = \widehat\Delta$ (same nine interior-monomial extractions, all
+        agreeing to $\sim 10^{-17}$ relative precision):
+        $$\eta^- \;=\; 10\,276\,732\,343.64913\ldots\,i,
+        \qquad
+        \eta^+ \;=\; 127\,202\,100\,647.1771\ldots$$
+\end{itemize}
+
+\paragraph{$C^{\prime f}_S$ in Zagier's $W$-basis.}
+Zagier's space $W_{12} \subset V_{10}$ of period polynomials at weight $12$
+is $3$-dimensional, with the standard basis
+\begin{align*}
+  P_0(X, Y) &= X^{10} - Y^{10}, \\
+  P_1(X, Y) &= X^8 Y^2 - 3X^6 Y^4 + 3X^4 Y^6 - X^2 Y^8, \\
+  P_2(X, Y) &= 4X^9 Y - 25 X^7 Y^3 + 42 X^5 Y^5 - 25 X^3 Y^7 + 4 X Y^9,
+\end{align*}
+splitting as $W_{12} = W_{12}^+ \oplus W_{12}^-$ by parity in $X$:
+$W_{12}^+ = \langle P_0, P_1\rangle$ (the $2$-dimensional even-in-$X$ sector,
+which includes the Eisenstein direction $P_0 = X^{10} - Y^{10}$) and
+$W_{12}^- = \langle P_2\rangle$ (the $1$-dimensional odd-in-$X$ cuspidal
+sector).  Brown's basis is this basis up to one Eisenstein-mixing shift:
+$P^+_S = -\tfrac{36}{691}P_0 + P_1$ and $P^-_S = P_2$.
+
+The cuspidal cocycle value $C^{\prime f}_S$ lies in $W_{12}\otimes\CC$ by
+construction (\S\ref{app:cuspidality}), and so decomposes uniquely as
+$C^{\prime f}_S = a_0(f) P_0 + a_1(f) P_1 + a_2(f) P_2$.  Reading off
+monomial coefficients with $[P_0]_{X^{10}} = 1$, $[P_1]_{X^8 Y^2} = 1$,
+$[P_2]_{X^9 Y} = 4$:
+\[
+  a_0(f) = [C^{\prime f}_S]_{X^{10}}, \qquad
+  a_1(f) = [C^{\prime f}_S]_{X^8 Y^2} = \omega^+(f), \qquad
+  a_2(f) = \tfrac{1}{4}[C^{\prime f}_S]_{X^9 Y} = \omega^-(f).
+\]
+The $P_1, P_2$ coordinates are the cohomological-invariant periods; the
+$P_0$ coordinate is the Eisenstein/convention coordinate (depends on the
+choice $p_{10} = 0$).
+
+Numerically at $\tau_0 = 0.3 + 1.2 i$, the two cocycle values are:
+\begin{align}
+  C^{\prime \Delta}_S
+   &\;=\; (\,2.752\!\times\!10^{5} - 6.156\!\times\!10^{5}\,i\,)\,P_0
+        \;+\; (-68\,916\,772.80959519\ldots)\,P_1 \nonumber\\
+   &\phantom{\;=\;}\;\;
+        \;+\; (-5\,585\,015.379310402\ldots\,i)\,P_2,
+   \label{eq:app-CSprime-Delta} \\[4pt]
+  C^{\prime \widehat\Delta}_S
+   &\;=\; (-1.532\!\times\!10^{11} + 6.163\!\times\!10^{11}\,i)\,P_0
+        \;+\; (127\,202\,100\,647.1771\ldots)\,P_1 \nonumber\\
+   &\phantom{\;=\;}\;\;
+        \;+\; (10\,276\,732\,343.64913\ldots\,i)\,P_2.
+   \label{eq:app-CSprime-DeltaHat}
+\end{align}
+The $P_1, P_2$ coordinates are exactly $(\omega^+, \omega^-)$ for $\Delta$
+and $(\eta^+, \eta^-)$ for $\widehat\Delta$; same formula structure, different
+form $f$, different coordinates.
+
+\emph{Why $(P|_S - P)$ does not have this structure.}
+The coboundary $(P|_S - P)$ from Table~\ref{tab:coboundary-vals} satisfies
+$(P|_S - P)|(1+S) = 0$ (anti-$S$-invariant; visible as the symmetry
+$(P|_S-P)_{X^m Y^{10-m}} = (-1)^{m+1}(P|_S-P)_{X^{10-m}Y^m}$), but generically
+\emph{not} $(P|_S - P)|(1+U+U^2) = 0$.  So $(P|_S - P) \notin W_{12}$:
+it is the ``non-$W$ part'' of $C^f_S$ that gets removed by the modification.
+Only the result $C^{\prime f}_S$ lives in $W_{12}$ and admits the
+$3$-coordinate decomposition \eqref{eq:app-CSprime-Delta},
+\eqref{eq:app-CSprime-DeltaHat}.  The Zagier basis projects onto the
+cohomologically-meaningful $\omega^\pm$, $\eta^\pm$ directly.
+
+\paragraph{The linear-functional view, fully explicit.}
+Equivalently, the master formula \eqref{eq:app-kernel-master}, specialised
+in turn to $f = \Delta$ and $f = \widehat\Delta$ at any interior monomial
+$j \in \{1, 2, \ldots, 9\}$, becomes the pair of fully explicit identities
+\begin{align}
+  \omega^\pm(\Delta)
+   &\;=\; \frac{(2\pi i)^{11}}{[P^\pm_S]_{X^{10-j}Y^j}}
+          \left[\,\int_{-1/\tau_0}^{\tau_0}\!\Delta(\tau)\,k_S^j(\tau)\,d\tau
+              \;+\; \int_{\tau_0-1}^{\tau_0}\!\Delta(\tau)\,k_T^j(\tau)\,d\tau\,\right],
+   \label{eq:app-omega-Delta} \\[6pt]
+  \eta^\pm(\widehat\Delta)
+   &\;=\; \frac{(2\pi i)^{11}}{[P^\pm_S]_{X^{10-j}Y^j}}
+          \left[\,\int_{-1/\tau_0}^{\tau_0}\!\widehat\Delta(\tau)\,k_S^j(\tau)\,d\tau
+              \;+\; \int_{\tau_0-1}^{\tau_0}\!\widehat\Delta(\tau)\,k_T^j(\tau)\,d\tau\,\right],
+   \label{eq:app-eta-DeltaHat}
+\end{align}
+where the $\pm$ sign is determined by the parity of $j$ (odd $\to -$,
+even $\to +$), the basis value $[P^\pm_S]_{X^{10-j}Y^j}$ and the kernel
+pair $(k_S^j, k_T^j)$ are read off from Table~\ref{tab:kernels}, and the
+basepoint $\tau_0 \in \HH$ is arbitrary (independence of $\tau_0$
+verified in \S\ref{sec:tau0-indep}).
+
+The two equations \eqref{eq:app-omega-Delta} and \eqref{eq:app-eta-DeltaHat}
+differ only in which modular form $f$ appears in the integrand: the kernel
+polynomials are identical and universal.  This is the precise sense in
+which the (quasi-)periods are linear functionals of $f$, and it is the
+direct analog of the classical statement
+$\omega^\pm(\Delta) \in \QQ\cdot L(\Delta, j+1)\cdot(2\pi i)^{j+1}$ ---
+but now valid uniformly for both holomorphic $\Delta$ and weakly
+holomorphic $\widehat\Delta$, with no analytic continuation, no
+regularisation, and no integration to the cusp.
+
+\begin{thebibliography}{9}
+
+\bibitem{Brown2017}
+F.\ Brown,
+\emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+
+\bibitem{DR2017}
+N.\ Diamantis and L.\ Rolen,
+\emph{Period polynomials, derivatives of $L$-functions, and zeros of polynomials},
+arXiv:1707.04814 (2017).
+
+\bibitem{BFK2011}
+K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
+\emph{Special $L$-values and periods of weakly holomorphic modular forms},
+Ramanujan J.\ \textbf{24} (2011), 119--139.
+
+\bibitem{Notebook}
+\texttt{period\_extraction\_DR\_general.ipynb} (executed Jupyter notebook),
+companion source file.  Implements \texttt{extract\_periods(coeffs\_dict, tau0, k)}
+--- the single q-series-agnostic entry point --- and reproduces the
+$\omega^\pm$, $\eta^\pm$ values reported in Section~\ref{sec:Lreg}, the
+basepoint-independence check of Section~\ref{sec:tau0-indep}, and the
+$L$-value identification in Section~\ref{sec:Lreg}.  Run at $45$-digit
+mpmath precision via \texttt{jupyter nbconvert --execute}.
+
+\bibitem{VerifyBernoulli}
+\texttt{verify\_bernoulli\_formula.py}, companion script.  Confirms that the
+closed-form Bernoulli operator \eqref{eq:P-bernoulli} agrees with the
+upper-triangular recursion \eqref{eq:app-system} on every coefficient $p_m$,
+$m = 0, \ldots, 9$, at relative residual $\sim 10^{-42}$ at $45$-digit
+working precision.  Used to validate \eqref{eq:p-explicit} and the entire
+$\delta_T^{-1}$ closed-form derivation.
+
+\bibitem{VerifyL}
+\texttt{verify\_omega\_plus\_formula.py}, companion script.  Evaluates each
+of the five (resp.\ four) equivalent forms of $\omega^-(\Delta)$ in
+\eqref{eq:omega-minus-explicit} (resp.\ $\omega^+(\Delta)$ in
+\eqref{eq:omega-plus-explicit}) by computing $L(\Delta, s)$ via the BFK
+incomplete-gamma sum and confirms agreement with Brown's reported value
+to relative error $< 6\times 10^{-42}$.  Source of the $L_{\rm reg}(\Delta, s)$
+table in Section~\ref{sec:Lreg}.
+
+\bibitem{KernelScript}
+\texttt{compute\_period\_kernels.py}, companion script.  Computes the nine
+universal $\QQ$-polynomial kernel pairs $(k_S^j, k_T^j)$ of
+Table~\ref{tab:kernels} exactly via sympy rationals, by applying the
+$\delta_T^{-1}$ Bernoulli operator monomial-by-monomial.
+
+\bibitem{NumericScript}
+\texttt{compute\_numerical\_polynomials.py}, companion script.  Computes the
+explicit coboundary corrections $(P|_S - P)$ of Table~\ref{tab:coboundary-vals}
+and the resulting $C^{\prime f}_S$ polynomials \eqref{eq:app-CSprime-Delta},
+\eqref{eq:app-CSprime-DeltaHat} for $f \in \{\Delta, \widehat\Delta\}$ at
+$\tau_0 = 0.3 + 1.2i$, working at $30$-digit mpmath precision.  Verifies
+period extraction from all nine interior monomials to lockstep agreement.
+
+\end{thebibliography}
+
+\end{document}

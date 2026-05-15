@@ -1,0 +1,778 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+
+\title{Period Polynomials and Special L-Values at Weight 12:\\
+A Synthesis of Classical and Weakly Holomorphic Theory\\
+{\large Extended Version with BFK Computational Formulas}}
+\date{November 28, 2025 (Expanded)}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We synthesize three perspectives on periods of modular forms at weight 12: Zagier's classical theory of period polynomials for cusp forms, the Bringmann-Fricke-Kent framework for L-values of weakly holomorphic modular forms, and explicit rationality patterns observed in special L-values of the discriminant form $\Delta$. 
+
+This expanded version adds explicit computational formulas using the BFK incomplete gamma framework, providing rapidly convergent expressions for testing rationality patterns in both $\Delta$ (the unique weight 12 cusp form) and its weakly holomorphic Hecke partner $\Delta'$ (with principal part $q^{-1}$).
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+
+The theory of periods of modular forms connects special values of L-functions, period integrals, and the cohomology of modular curves. At weight 12, where $\dim S_{12} = 1$, the unique normalized cusp form
+\[
+\Delta(z) = q \prod_{n=1}^{\infty} (1-q^n)^{24} = \sum_{n=1}^{\infty} \tau(n) q^n
+\]
+provides the simplest non-trivial example where these connections can be made completely explicit.
+
+\subsection{Main Objects of Study}
+
+\begin{definition}
+The \textbf{classical discriminant} is the unique normalized cusp form of weight 12:
+\[
+\Delta(z) = q - 24q^2 + 252q^3 - 1472q^4 + \cdots \in S_{12}.
+\]
+\end{definition}
+
+\begin{definition}
+The \textbf{weakly holomorphic partner} $\Delta'$ is the unique weakly holomorphic modular form of weight 12 with principal part $q^{-1}$:
+\[
+\Delta'(z) = q^{-1} + 0 + 0 + c_2 q^2 + c_3 q^3 + \cdots \in M_{12}^!.
+\]
+Note the gap: the first non-zero Fourier coefficient after the pole occurs at $q^2$, not $q^1$. This is a defining property of the Duke-Jenkins basis element $f_{12,1}$.
+\end{definition}
+
+These forms are related by Hecke duality through the Duke-Jenkins basis structure for weakly holomorphic modular forms.
+
+\section{Zagier's Period Polynomial Theory}
+
+\subsection{Period Polynomials}
+
+\begin{definition}[Zagier]
+For a cusp form $f \in S_k$ of weight $k$ on $\mathrm{PSL}_2(\mathbb{Z})$, the \textbf{period polynomial} is
+\[
+r_f(X) := \int_0^{i\infty} f(z)(z-X)^{k-2} \, dz = -\sum_{n=0}^{k-2} \frac{(k-2)!}{(k-2-n)!} \frac{L(f,n+1)}{(2\pi i)^{n+1}} X^{k-2-n}.
+\]
+\end{definition}
+
+The period polynomial encodes all critical L-values $L(f,1), L(f,2), \ldots, L(f,k-1)$ in the critical strip.
+
+\subsection{Decomposition into Even and Odd Parts}
+
+Every period polynomial decomposes as $r_f(X) = r_f^+(X) + r_f^-(X)$ where:
+\begin{align*}
+r_f^+(X) &= \frac{1}{2}(r_f(X) + r_f(-X)) \quad \text{(even part)}, \\
+r_f^-(X) &= \frac{1}{2}(r_f(X) - r_f(-X)) \quad \text{(odd part)}.
+\end{align*}
+
+\subsection{Basis Polynomials at Weight 12}
+
+\begin{definition}
+The \textbf{template polynomials} at weight 12 are:
+\begin{align*}
+P_0(X) &= X^{10} - 1, \\
+P_1(X) &= X^8 - 3X^6 + 3X^4 - X^2, \\
+P_2(X) &= 4X^9 - 25X^7 + 42X^5 - 25X^3 + 4X.
+\end{align*}
+\end{definition}
+
+\subsection{Explicit Decomposition for $\Delta$}
+
+\begin{theorem}[Zagier]
+The period polynomial of $\Delta$ decomposes as:
+\begin{align*}
+r_\Delta^+(X) &= \omega_+ \left( -\frac{192}{691} P_0(X) + \frac{16}{3} P_1(X) \right), \\
+r_\Delta^-(X) &= \omega_- \cdot 192 \cdot P_2(X),
+\end{align*}
+where $\omega_\pm$ are the fundamental periods of $\Delta$:
+\begin{align*}
+\omega_+ &= \frac{(k-2)!}{(4\pi)^{k-1}} \zeta(k-1) = \frac{10!}{(4\pi)^{11}} \zeta(11), \\
+\omega_- &= \frac{\omega_+}{i \langle \Delta, \Delta \rangle}.
+\end{align*}
+\end{theorem}
+
+\section{Rationality Patterns in Special L-Values}
+
+\subsection{The Lockstep Rationality Phenomenon}
+
+\begin{theorem}[Lockstep Rationality]
+After normalizing by $(2\pi i)^{n+1}$ and factorials, the special L-values of $\Delta$ satisfy:
+\[
+\frac{L(\Delta, n+1)}{(2\pi i)^{n+1} \cdot n!} \in \mathbb{Q} \cdot \omega_+ \quad \text{for even } n,
+\]
+\[
+\frac{L(\Delta, n+1)}{(2\pi i)^{n+1} \cdot n!} \in \mathbb{Q} \cdot \omega_- \quad \text{for odd } n.
+\]
+\end{theorem}
+
+\subsection{L-Values at Even $s$ (from $P_2$ and $\omega_-$)}
+
+From $r_\Delta^-(X) = 192\omega_- \cdot P_2(X)$ with $P_2(X) = 4X^9 - 25X^7 + 42X^5 - 25X^3 + 4X$:
+
+\begin{proposition}
+The special L-values of $\Delta$ at even $s$ are:
+\begin{align*}
+\frac{L(\Delta, 10)}{(2\pi i)^{10} \cdot 9! \cdot \omega_-} &= 192 \cdot 4 = 768, \\
+\frac{L(\Delta, 8)}{(2\pi i)^8 \cdot 7! \cdot \omega_-} &= 192 \cdot (-25) = -4800, \\
+\frac{L(\Delta, 6)}{(2\pi i)^6 \cdot 5! \cdot \omega_-} &= 192 \cdot 42 = 8064, \\
+\frac{L(\Delta, 4)}{(2\pi i)^4 \cdot 3! \cdot \omega_-} &= 192 \cdot (-25) = -4800, \\
+\frac{L(\Delta, 2)}{(2\pi i)^2 \cdot 1! \cdot \omega_-} &= 192 \cdot 4 = 768.
+\end{align*}
+\end{proposition}
+
+\subsection{L-Values at Odd $s$ (from $P_0, P_1$, and $\omega_+$)}
+
+From $r_\Delta^+(X) = \omega_+ \left( -\frac{192}{691} P_0(X) + \frac{16}{3} P_1(X) \right)$:
+
+\begin{proposition}[Contribution from $P_0$]
+The polynomial $P_0(X) = X^{10} - 1$ contributes to $L(\Delta,1)$ and $L(\Delta,11)$:
+\begin{align*}
+\frac{L(\Delta, 11)}{(2\pi i)^{11} \cdot 10! \cdot \omega_+} &= -\frac{192}{691}, \\
+\frac{L(\Delta, 1)}{(2\pi i)^1 \cdot 0! \cdot \omega_+} &= \frac{192}{691}.
+\end{align*}
+\end{proposition}
+
+\begin{proposition}[Contribution from $P_1$]
+The polynomial $P_1(X) = X^8 - 3X^6 + 3X^4 - X^2$ contributes:
+\begin{align*}
+\frac{L(\Delta, 9)}{(2\pi i)^9 \cdot 8! \cdot \omega_+} &= \frac{16}{3}, \\
+\frac{L(\Delta, 7)}{(2\pi i)^7 \cdot 6! \cdot \omega_+} &= -16, \\
+\frac{L(\Delta, 5)}{(2\pi i)^5 \cdot 4! \cdot \omega_+} &= 16, \\
+\frac{L(\Delta, 3)}{(2\pi i)^3 \cdot 2! \cdot \omega_+} &= -\frac{16}{3}.
+\end{align*}
+\end{proposition}
+
+\section{BFK Computational Framework for $\Delta$}
+
+\subsection{Rapidly Convergent L-Function Expressions}
+
+The BFK paper provides expressions for L-functions using incomplete gamma functions that converge exponentially fast. For a cusp form $f \in S_k$ with Fourier expansion $f(z) = \sum_{n=1}^{\infty} a_f(n) q^n$, the completed L-function is:
+
+\begin{theorem}[BFK Formula for Cusp Forms]
+For any $t_0 > 0$:
+\[
+L^*_f(s) = \sum_{n=1}^{\infty} a_f(n) \frac{\Gamma(s, 2\pi n t_0)}{(2\pi n)^s} + i^k \sum_{n=1}^{\infty} a_f(n) \frac{\Gamma(k-s, 2\pi n/t_0)}{(2\pi n)^{k-s}},
+\]
+where $\Gamma(s,x) = \int_x^{\infty} t^{s-1} e^{-t} \, dt$ is the upper incomplete gamma function.
+
+The result is independent of $t_0$, and the choice $t_0 = 1$ typically gives optimal convergence.
+\end{theorem}
+
+\subsection{Application to $\Delta$: Explicit Formulas}
+
+For $\Delta(z) = \sum_{n=1}^{\infty} \tau(n) q^n$ at weight $k=12$, choosing $t_0 = 1$:
+
+\begin{proposition}[BFK Expression for $L(\Delta, s)$]
+\[
+L^*_\Delta(s) = \sum_{n=1}^{\infty} \tau(n) \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + \sum_{n=1}^{\infty} \tau(n) \frac{\Gamma(12-s, 2\pi n)}{(2\pi n)^{12-s}}.
+\]
+
+Since $L(\Delta, s) = \frac{\Gamma(s)}{(2\pi)^s} L^*_\Delta(s)$, we have:
+\[
+L(\Delta, s) = \frac{\Gamma(s)}{(2\pi)^s} \left[ \sum_{n=1}^{\infty} \tau(n) \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + \sum_{n=1}^{\infty} \tau(n) \frac{\Gamma(12-s, 2\pi n)}{(2\pi n)^{12-s}} \right].
+\]
+\end{proposition}
+
+\subsection{Computational Test: Verifying Rationality Patterns}
+
+The BFK formula allows direct numerical verification of the lockstep rationality. For instance, at $s = 2$ (even):
+
+\begin{equation}
+\frac{L(\Delta, 2)}{(2\pi i)^2 \cdot 1! \cdot \omega_-} \stackrel{?}{=} 768
+\end{equation}
+
+We compute:
+\begin{align*}
+L(\Delta, 2) &= \frac{\Gamma(2)}{(2\pi)^2} \left[ \sum_{n=1}^{\infty} \tau(n) \frac{\Gamma(2, 2\pi n)}{(2\pi n)^2} + \sum_{n=1}^{\infty} \tau(n) \frac{\Gamma(10, 2\pi n)}{(2\pi n)^{10}} \right] \\
+&= \frac{1}{(2\pi)^2} \left[ \sum_{n=1}^{\infty} \tau(n) \frac{(1 + 2\pi n) e^{-2\pi n}}{(2\pi n)^2} + \sum_{n=1}^{\infty} \tau(n) \frac{\Gamma(10, 2\pi n)}{(2\pi n)^{10}} \right],
+\end{align*}
+
+where we used the recurrence $\Gamma(2, x) = e^{-x}(1 + x)$.
+
+The key computational advantage: the terms decay like $e^{-2\pi n}$, so 10-20 terms typically give 30+ digits of accuracy.
+
+\subsection{Testing Code Structure}
+
+A computational test would involve:
+
+\begin{enumerate}
+\item Compute $\omega_-$ from known values of $\zeta(11)$ and $\langle \Delta, \Delta \rangle$
+\item Evaluate the BFK sum for $L(\Delta, 2)$ to high precision
+\item Check whether $\frac{L(\Delta, 2)}{(2\pi i)^2 \cdot \omega_-} = 768$ to numerical precision
+\item Repeat for all critical values $s = 1, \ldots, 11$
+\end{enumerate}
+
+\section{Weakly Holomorphic Forms: The BFK Framework}
+
+\subsection{Regularized L-Functions}
+
+For weakly holomorphic forms with poles at cusps, BFK introduce a regularization:
+
+\begin{definition}[BFK Regularized L-Function]
+For $f \in M_k^!$ (weakly holomorphic of weight $k$), define:
+\[
+L^{\text{reg}}_f(s) := \frac{(2\pi)^s}{\Gamma(s)} \mathrm{R.} \int_0^{i\infty} f(iy) y^{s-1} \, dy,
+\]
+where $\mathrm{R.}$ denotes regularization that removes divergences from the pole.
+\end{definition}
+
+\subsection{Period Polynomials for Weakly Holomorphic Forms}
+
+\begin{theorem}[BFK, adapted from Zagier]
+For $f \in M_k^!$, there exists an Eichler integral $E_f(z)$ satisfying:
+\[
+E_f|_{2-k}\gamma - E_f(z) = r_f(z; \gamma)
+\]
+for $\gamma \in \mathrm{PSL}_2(\mathbb{Z})$, where $r_f(z; \gamma)$ is a period polynomial encoding the regularized L-values.
+\end{theorem}
+
+\subsection{Application to $\Delta'$: The Computational Challenge}
+
+The weakly holomorphic form $\Delta' = f_{12,1}$ has Fourier expansion:
+\[
+\Delta'(z) = q^{-1} + 0 + 0 + c_2 q^2 + c_3 q^3 + \cdots
+\]
+
+\begin{proposition}[Expected Period Structure]
+The period polynomial $r_{\Delta'}(X)$ should decompose as:
+\[
+r_{\Delta'}(X) = \tilde{\omega}_+ (\alpha_0 P_0(X) + \alpha_1 P_1(X)) + \tilde{\omega}_- \cdot \alpha_2 P_2(X),
+\]
+where $\tilde{\omega}_\pm$ are quasi-periods related to regularized L-values.
+\end{proposition}
+
+\section{BFK Computational Framework for $\Delta'$}
+
+\subsection{Regularized L-Function Expression}
+
+For $\Delta'(z) = q^{-1} + \sum_{n=2}^{\infty} c_n q^n$, the BFK regularization gives:
+
+\begin{theorem}[BFK Formula for $\Delta'$]
+For any $t_0 > 0$:
+\[
+L^{\text{reg}}_{\Delta'}(s) = \sum_{n=2}^{\infty} c_n \frac{\Gamma(s, 2\pi n t_0)}{(2\pi n)^s} + \sum_{n=2}^{\infty} c_n \frac{\Gamma(12-s, 2\pi n/t_0)}{(2\pi n)^{12-s}} + \text{(pole contribution)},
+\]
+where the pole contribution from the $q^{-1}$ term must be regularized.
+\end{theorem}
+
+\subsection{The Pole Regularization Issue}
+
+The $q^{-1}$ term contributes a divergent piece to the naive integral:
+\[
+\int_0^{i\infty} q^{-1} y^{s-1} \, dy = \int_0^{\infty} e^{-2\pi y} y^{s-1} \, dy = \frac{\Gamma(s)}{(2\pi)^s}.
+\]
+
+This is regular for $\mathrm{Re}(s) > 0$, but the BFK regularization handles this systematically by:
+\begin{enumerate}
+\item Splitting the integral at a cutoff $t_0$
+\item Subtracting the pole contribution explicitly
+\item Taking the limit as the regularization parameter vanishes
+\end{enumerate}
+
+\begin{remark}
+The detailed regularization procedure for $\Delta'$ requires computing:
+\[
+\mathrm{R.} \int_0^{i\infty} \Delta'(iy) y^{s-1} \, dy = \lim_{\epsilon \to 0} \left[ \int_\epsilon^{\infty} \Delta'(iy) y^{s-1} \, dy - \text{(pole term)} \right].
+\]
+
+The BFK paper shows this limit exists and yields well-defined regularized L-values.
+\end{remark}
+
+\subsection{Computational Strategy for $\Delta'$}
+
+\subsubsection{Step 1: Computing Fourier Coefficients}
+
+The coefficients $c_n$ of $\Delta'$ can be computed using:
+
+\begin{enumerate}
+\item \textbf{Differential equation method}: $\Delta'$ satisfies modular differential equations
+\item \textbf{Duke-Jenkins basis relations}: Explicit formulas from the basis construction
+\item \textbf{Recurrence relations}: From the modular structure
+\end{enumerate}
+
+\begin{proposition}[Fourier Coefficients of $\Delta'$]
+The coefficients grow like $c_n \sim e^{4\pi\sqrt{n}}$ (from the circle method), so the BFK sums still converge rapidly despite this growth---the incomplete gamma functions decay like $e^{-2\pi n}$, which dominates.
+\end{proposition}
+
+\subsubsection{Step 2: Evaluating Regularized L-Values}
+
+For $s$ in the critical strip ($1 \leq s \leq 11$ for weight 12), we compute:
+
+\begin{equation}
+L^{\text{reg}}_{\Delta'}(s) = \frac{(2\pi)^s}{\Gamma(s)} \left[ \sum_{n=2}^{N_{\text{cutoff}}} c_n \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + \sum_{n=2}^{N_{\text{cutoff}}} c_n \frac{\Gamma(12-s, 2\pi n)}{(2\pi n)^{12-s}} \right],
+\end{equation}
+
+where $N_{\text{cutoff}} \approx 20$-$50$ should suffice for high precision.
+
+\subsubsection{Step 3: Testing Rationality of Quasi-Periods}
+
+\begin{question}[Key Computational Test]
+Do the regularized L-values of $\Delta'$ exhibit lockstep rationality analogous to $\Delta$? That is, are the ratios
+\[
+\frac{L^{\text{reg}}_{\Delta'}(n+1)}{(2\pi i)^{n+1} \cdot n! \cdot \tilde{\omega}_\pm}
+\]
+rational numbers with controlled denominators?
+\end{question}
+
+The computational procedure:
+\begin{enumerate}
+\item Compute $L^{\text{reg}}_{\Delta'}(2), L^{\text{reg}}_{\Delta'}(4), \ldots, L^{\text{reg}}_{\Delta'}(10)$ (even values)
+\item Check if they're all rational multiples of a single period $\tilde{\omega}_-$
+\item Compute $L^{\text{reg}}_{\Delta'}(1), L^{\text{reg}}_{\Delta'}(3), \ldots, L^{\text{reg}}_{\Delta'}(11)$ (odd values)
+\item Check if they're all rational multiples of a single period $\tilde{\omega}_+$
+\item Verify whether the rational coefficients have controlled denominators
+\end{enumerate}
+
+\subsection{Anticipated Results and Obstructions}
+
+\subsubsection{What We Expect}
+
+Based on the analogy with $\Delta$, we anticipate:
+
+\begin{enumerate}
+\item \textbf{Two-period structure}: Regularized L-values should split into two families, each a rational span of a single quasi-period
+\item \textbf{Controlled denominators}: The rational coefficients should involve small primes (2, 3, possibly 691)
+\item \textbf{Symmetry with $\Delta$}: The quasi-periods $\tilde{\omega}_\pm$ may have simple relationships to the classical periods $\omega_\pm$
+\end{enumerate}
+
+\subsubsection{Potential Complications}
+
+Several factors could complicate the picture:
+
+\begin{enumerate}
+\item \textbf{Regularization ambiguity}: Different regularization schemes might yield quasi-periods differing by transcendental factors
+\item \textbf{Pole contribution}: The $q^{-1}$ term may introduce additional transcendental constants
+\item \textbf{Missing coefficients}: The gap at $q^0$ and $q^1$ breaks the pattern from $\Delta$ and might affect period relations
+\item \textbf{Numerical precision}: High-precision arithmetic required due to cancellations in the regularization
+\end{enumerate}
+
+\section{Duke-Jenkins Duality and the Hecke Partner}
+
+\subsection{Weakly Holomorphic Modular Form Basis}
+
+\begin{definition}
+The Duke-Jenkins basis element $f_{12,m}$ is the unique weakly holomorphic form with:
+\begin{itemize}
+\item Principal part $q^{-m}$ at the cusp
+\item Appropriate growth conditions
+\end{itemize}
+\end{definition}
+
+At weight 12:
+\begin{itemize}
+\item $f_{12,-1} = \Delta$ (the classical cusp form, with $q^{-(-1)} = q$ as leading term)
+\item $f_{12,1} = \Delta'$ (the Hecke partner, with principal part $q^{-1}$)
+\end{itemize}
+
+\subsection{Duality of Coefficients}
+
+\begin{theorem}[Duke-Jenkins]
+The Fourier coefficients satisfy:
+\[
+a_{12}(m,n) = -a_{-10}(n,m),
+\]
+relating weight 12 weakly holomorphic forms to weight $-10$ forms.
+\end{theorem}
+
+This duality suggests deep relationships between periods at weight 12 and periods at weight $-10$.
+
+\section{Computational Investigation of $\Delta'$: Where Classical Theory Breaks Down}
+
+\subsection{Executive Summary of Findings}
+
+We successfully implemented the BFK framework for $\Delta'$ and computed its L-values and period polynomial coefficients. The numerics converge correctly and produce well-defined, structured results. However, these results reveal a fundamental breakdown of the classical period polynomial framework when extended naively to weakly holomorphic forms.
+
+\subsubsection{What Works}
+\begin{enumerate}
+\item \textbf{BFK formula converges}: The incomplete gamma sum with $\sum_{n \neq 0}$ (including the principal part at $n=-1$) produces stable L-values
+\item \textbf{L-values well-defined}: All critical values $L(\Delta', s)$ for $s = 1, \ldots, 11$ are numerically stable
+\item \textbf{Zagier's formula applies}: The period polynomial formula works mechanically to extract coefficients
+\item \textbf{Structural proportionality}: Coefficients separate cleanly into odd/even sectors with consistent internal ratios
+\end{enumerate}
+
+\subsubsection{What Fails}
+\begin{enumerate}
+\item \textbf{Template polynomial mismatch}: Coefficient ratios are \emph{fundamentally different} from $P_0, P_1, P_2$
+\item \textbf{No classical decomposition}: The expected structure $r_{\Delta'}(X) = \tilde{\omega}_+(\alpha_0 P_0 + \alpha_1 P_1) + \tilde{\omega}_- \alpha_2 P_2$ does not hold
+\item \textbf{Rationality breaks}: Ratios show $\sim 10^{-6}$ deviations from nearby rationals (vs.\ $< 10^{-27}$ for $\Delta$)
+\end{enumerate}
+
+\subsection{Construction of $\Delta'$}
+
+Using the Duke-Jenkins formula, we constructed:
+\[
+\Delta'(z) = \Delta(z) \cdot (j^2(z) - 1464 j(z) + 142236)
+\]
+
+This yields the q-expansion:
+\[
+\Delta'(z) = q^{-1} + 0 \cdot q^0 + 0 \cdot q^1 + 47709536 q^2 + 39862705122 q^3 + \cdots
+\]
+
+The gap structure (no $q^0, q^1$ terms) is verified numerically.
+
+\subsection{BFK L-Values for $\Delta'$: Successful Computation}
+
+The BFK formula with correct regularization (using naked $n$'s, not $|n|$):
+\[
+L^*_{\Delta'}(s) = \sum_{n \neq 0} c_n \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + i^{12} \sum_{n \neq 0} c_n \frac{\Gamma(12-s, 2\pi n)}{(2\pi n)^{12-s}}
+\]
+
+For $n = -1$ (the pole), we use $2\pi(-1) = -2\pi$ directly, introducing phase factors.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cll}
+\hline
+$s$ & $L(\Delta, s)$ & $L(\Delta', s)$ \\
+\hline
+1 & $3.744 \times 10^{-2}$ & $-72.695$ \\
+2 & $1.464 \times 10^{-1}$ & $-269.337$ \\
+3 & $3.152 \times 10^{-1}$ & $-581.852$ \\
+$\vdots$ & $\vdots$ & $\vdots$ \\
+11 & $9.894 \times 10^{-1}$ & $-1921.050$ \\
+\hline
+\end{tabular}
+\caption{L-values for $\Delta$ vs $\Delta'$ (with corrected BFK formula). Note: $\Delta'$ values are negative and 2-3 orders of magnitude larger.}
+\end{table}
+
+\subsection{Period Polynomial Coefficients: Side-by-Side Comparison}
+
+Applying Zagier's formula yields period polynomial coefficients. The critical finding: \textbf{coefficient ratios for $\Delta'$ do not match the classical templates}.
+
+\subsubsection{Odd Part: $P_2$ Template Mismatch}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccc}
+\hline
+Power & \multicolumn{2}{c}{$\Delta$ (holomorphic)} & \multicolumn{2}{c}{$\Delta'$ (weakly holo.)} & Match? \\
+\cline{2-5}
+& Coeff & Ratio & Coeff & Ratio & \\
+\hline
+$X^9$ & $0.0371$ & $\mathbf{1.000}$ & $985.1$ & $\mathbf{1.000}$ & -- \\
+$X^7$ & $-0.2317$ & $-6.250$ & $-10864.8$ & $-11.029$ & \textbf{NO} \\
+$X^5$ & $0.3893$ & $10.500$ & $22208.0$ & $22.544$ & \textbf{NO} \\
+$X^3$ & $-0.2317$ & $-6.250$ & $-10864.8$ & $-11.029$ & \textbf{NO} \\
+$X^1$ & $0.0371$ & $\mathbf{1.000}$ & $985.1$ & $\mathbf{1.000}$ & -- \\
+\hline
+\end{tabular}
+\caption{Odd power comparison. $\Delta$ matches $P_2$ template $(1, -25/4, 21/2, -25/4, 1)$ to machine precision. $\Delta'$ has \emph{different polynomial} $(1, -11.029, 22.544, -11.029, 1)$.}
+\end{table}
+
+\subsubsection{Even Part: $P_0 + P_1$ Template Mismatch}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccc}
+\hline
+Power & \multicolumn{2}{c}{$\Delta$ (holomorphic)} & \multicolumn{2}{c}{$\Delta'$ (weakly holo.)} & Match? \\
+\cline{2-5}
+& Coeff & Ratio & Coeff & Ratio & \\
+\hline
+$X^{10}$ & $0.0060\,i$ & $\mathbf{1.000}$ & $105.3\,i$ & $\mathbf{1.000}$ & -- \\
+$X^8$ & $-0.1144\,i$ & $-19.194$ & $-4217.5\,i$ & $-40.051$ & \textbf{NO} \\
+$X^6$ & $0.3431\,i$ & $57.583$ & $18631.1\,i$ & $176.931$ & \textbf{NO} \\
+$X^4$ & $-0.3431\,i$ & $-57.583$ & $-18631.1\,i$ & $-176.931$ & \textbf{NO} \\
+$X^2$ & $0.1144\,i$ & $19.194$ & $4217.5\,i$ & $40.051$ & \textbf{NO} \\
+$X^0$ & $-0.0060\,i$ & $\mathbf{-1.000}$ & $-105.3\,i$ & $\mathbf{-1.000}$ & -- \\
+\hline
+\end{tabular}
+\caption{Even power comparison. $\Delta$ matches $P_0 + P_1$ with 691 appearing naturally. $\Delta'$ shows completely different ratios.}
+\end{table}
+
+\subsection{Quantitative Analysis: Not Numerical Noise}
+
+The differences are \emph{not} small perturbations or numerical errors:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\hline
+Sector & Coefficient & $\Delta$ ratio & $\Delta'$ ratio & Factor diff. \\
+\hline
+Odd & $c_7/c_9$ & $-6.25$ & $-11.029$ & $\mathbf{1.76\times}$ \\
+Odd & $c_5/c_9$ & $10.5$ & $22.544$ & $\mathbf{2.15\times}$ \\
+Even & $c_8/c_{10}$ & $-19.194$ & $-40.051$ & $\mathbf{2.09\times}$ \\
+Even & $c_6/c_{10}$ & $57.583$ & $176.931$ & $\mathbf{3.07\times}$ \\
+\hline
+\end{tabular}
+\caption{Factors of 1.5--3.0 indicate fundamentally different template polynomials, not numerical noise.}
+\end{table}
+
+\subsection{Rationality Patterns: Breakdown of Classical Structure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\hline
+Form & Sector & Rationality Error & Interpretation \\
+\hline
+$\Delta$ & Odd & $< 10^{-27}$ & Machine precision rational \\
+$\Delta$ & Even & $< 10^{-27}$ & Machine precision rational \\
+\hline
+$\Delta'$ & Odd & $\sim 10^{-6}$ & Forced fit artifacts \\
+$\Delta'$ & Even & $\sim 10^{-6}$ & Forced fit artifacts \\
+\hline
+\end{tabular}
+\caption{For $\Delta$, ratios are rational to machine precision because they match known templates $P_0, P_1, P_2$. For $\Delta'$, the $\sim 10^{-6}$ ``errors'' are artifacts of forcing floats into nearby rationals when the true structure is \emph{different}.}
+\end{table}
+
+\subsection{Mathematical Debugging: Where the Framework Breaks}
+
+\subsubsection{Classical Framework Assumptions}
+
+Zagier's period polynomial theory for holomorphic cusp forms relies on:
+\begin{enumerate}
+\item Eichler-Shimura isomorphism: $H^1_{\text{par}}(X_0(N), \mathbb{C}) \cong S_k \oplus \overline{S_k}$
+\item Period integrals $\int_0^{i\infty} f(\tau) \tau^n d\tau$ encode cohomology classes
+\item Functional equation: $r_f(X) + (-1)^k r_f(-X) = 0$ (for cusp forms)
+\item Template basis: $P_j$ span the space of period polynomials modulo functional equations
+\end{enumerate}
+
+\subsubsection{What Changes for $\Delta'$?}
+
+\begin{enumerate}
+\item \textbf{Period integrals diverge}: $\int_0^{i\infty} \Delta'(\tau) \tau^n d\tau$ has pole contribution
+\item \textbf{Cohomology unclear}: What replaces $H^1_{\text{par}}$ for forms with growth at cusps?
+\item \textbf{Eichler-Shimura}: Does the isomorphism extend? With what modifications?
+\item \textbf{Template basis}: Are there \emph{different} template polynomials $\tilde{P}_j$ for weakly holomorphic forms?
+\end{enumerate}
+
+\subsubsection{Potential Frameworks}
+
+Several cohomological setups might explain the $\Delta'$ structure:
+
+\begin{enumerate}
+\item \textbf{Parabolic cohomology with growth conditions}: $H^1_{\text{par}}(X, *)$ allowing controlled growth
+\item \textbf{Relative cohomology}: $H^1(X, \{\text{cusps}\}, \mathbb{C})$ accounting for boundary behavior
+\item \textbf{Mixed Hodge structures}: For non-compact modular curves
+\item \textbf{Regularized period theory}: Systematic analytic continuation of divergent integrals
+\item \textbf{Higher-order modular forms}: Framework of Bruggeman-Choie-Diamantis
+\end{enumerate}
+
+\subsection{Key Research Questions}
+
+\begin{question}[Template Polynomial Basis]
+Does $\Delta'$ admit a period polynomial decomposition using \emph{different} templates $\tilde{P}_0, \tilde{P}_1, \tilde{P}_2$?
+If so, what is the relationship between $\{P_j\}$ and $\{\tilde{P}_j\}$?
+\end{question}
+
+The numerical evidence suggests:
+\begin{itemize}
+\item Odd part follows $(1, -11.029, 22.544, -11.029, 1)$ $\to$ some polynomial $\tilde{P}_2 \neq P_2$
+\item Even part follows $(1, -40.051, 176.931, \ldots)$ $\to$ combination $\tilde{P}_0 + \tilde{P}_1 \neq P_0 + P_1$
+\end{itemize}
+
+\begin{question}[BFK to Periods Map]
+Is Zagier's formula the correct bridge from BFK L-values to periods for weakly holomorphic forms?
+Or does the pole regularization require a \emph{modified formula}?
+\end{question}
+
+The BFK L-values are well-defined, but their relationship to cohomological periods may differ from the holomorphic case.
+
+\begin{question}[Quasi-Periods]
+What are the quasi-periods $\tilde{\omega}_\pm$ for $\Delta'$, and how do they relate to the classical periods $\omega_\pm$ of $\Delta$?
+\end{question}
+
+\subsection{Computational Artifacts}
+
+A minimal self-contained demonstration is provided in \texttt{minimal\_delta\_comparison.sage}, which:
+\begin{itemize}
+\item Implements BFK with corrected formula (naked $n$'s, no absolute values)
+\item Computes period polynomials for both $\Delta$ and $\Delta'$
+\item Shows $\Delta$ matches classical templates to $< 10^{-27}$ precision
+\item Shows $\Delta'$ has fundamentally different polynomial structure (factors of 1.5--3.0 away)
+\end{itemize}
+
+\subsection{Conclusion}
+
+\textbf{The numerics work.} The BFK framework successfully computes L-values for $\Delta'$, and Zagier's formula mechanically produces period polynomial coefficients.
+
+\textbf{The mathematics breaks down.} The classical period polynomial theory---designed for holomorphic cusp forms via Eichler-Shimura cohomology---does not extend naively to weakly holomorphic forms. The coefficient structure suggests $\Delta'$ has its own template polynomial basis, distinct from $\{P_0, P_1, P_2\}$.
+
+\textbf{We need better theory.} Progress requires understanding:
+\begin{itemize}
+\item The correct cohomological framework for weakly holomorphic forms
+\item How pole regularization affects period structures
+\item Whether different template polynomials exist and how to characterize them
+\item The relationship between BFK regularization and cohomological regularization
+\end{itemize}
+
+\textbf{The real question is not} ``Why don't the numerics give rational ratios?'' but rather ``What cohomological framework explains what the numerics are telling us?''
+
+\section{Open Questions and Computational Research Program}
+
+\subsection{Period Structure of $\Delta'$}
+
+\begin{question}
+What are the explicit values (or relationships to $\omega_\pm$) of the coefficients $\alpha_0, \alpha_1, \alpha_2$ in the period polynomial decomposition of $\Delta'$?
+\end{question}
+
+Expected structure:
+\[
+r_{\Delta'}(X) = \tilde{\omega}_+ (\alpha_0 P_0(X) + \alpha_1 P_1(X)) + \tilde{\omega}_- \cdot \alpha_2 P_2(X)
+\]
+
+\subsection{Rationality of Quasi-Periods}
+
+\begin{question}
+Do the regularized L-values of $\Delta'$ exhibit the same lockstep rationality as those of $\Delta$? That is, are the ratios
+\[
+\frac{L^{\text{reg}}_{\Delta'}(n+1)}{(2\pi i)^{n+1} \cdot n! \cdot \tilde{\omega}_\pm}
+\]
+rational numbers with controlled denominators?
+\end{question}
+
+\subsection{Computational Research Program}
+
+To address these questions systematically:
+
+\subsubsection{Phase 1: Fourier Coefficients of $\Delta'$}
+
+\begin{enumerate}
+\item Implement computation of $c_n$ for $n = 2, 3, \ldots, 100$ using Duke-Jenkins formulas or differential equations
+\item Verify growth rate matches theoretical prediction $c_n \sim e^{4\pi\sqrt{n}}$
+\item Check for any additional arithmetic patterns in the coefficients
+\end{enumerate}
+
+\subsubsection{Phase 2: Regularized L-Values}
+
+\begin{enumerate}
+\item Implement BFK incomplete gamma sum for $L^{\text{reg}}_{\Delta'}(s)$
+\item Compute all critical values $s = 1, 2, \ldots, 11$ to at least 50 digits precision
+\item Test convergence rate: verify that 20-50 terms suffice for target precision
+\end{enumerate}
+
+\subsubsection{Phase 3: Rationality Testing}
+
+\begin{enumerate}
+\item For even $s$: compute ratios $L^{\text{reg}}_{\Delta'}(s) / L^{\text{reg}}_{\Delta'}(2)$
+\begin{itemize}
+\item Use PSLQ or LLL to detect rational relationships
+\item Check if denominators involve only small primes
+\end{itemize}
+\item For odd $s$: compute ratios $L^{\text{reg}}_{\Delta'}(s) / L^{\text{reg}}_{\Delta'}(1)$
+\begin{itemize}
+\item Test for rationality
+\item Compare denominator structure to $\Delta$ case
+\end{itemize}
+\item Test for relationships between $\tilde{\omega}_+$ and $\tilde{\omega}_-$
+\item Investigate connections to classical periods $\omega_\pm$ of $\Delta$
+\end{enumerate}
+
+\subsubsection{Phase 4: Period Polynomial Reconstruction}
+
+\begin{enumerate}
+\item Extract coefficients $\alpha_0, \alpha_1, \alpha_2$ from the L-value data
+\item Verify period polynomial relations hold
+\item Compare to predictions from Duke-Jenkins duality
+\end{enumerate}
+
+\subsection{Relationship to Higher Weights}
+
+\begin{question}
+For weights $k > 12$ where $\dim S_k > 1$, how do multiple Hecke eigenforms contribute to the period polynomial basis? Do rationality patterns persist, but with coefficients in Hecke fields rather than $\mathbb{Q}$?
+\end{question}
+
+\subsection{Anticipated Challenges}
+
+\subsubsection{Numerical Issues}
+
+\begin{enumerate}
+\item \textbf{Precision requirements}: Regularization may involve significant cancellation, requiring 100+ digit arithmetic
+\item \textbf{Coefficient growth}: $c_n \sim e^{4\pi\sqrt{n}}$ is rapid; need careful error analysis
+\item \textbf{Incomplete gamma evaluation}: Requires robust implementation for large arguments
+\end{enumerate}
+
+\subsubsection{Theoretical Issues}
+
+\begin{enumerate}
+\item \textbf{Regularization scheme dependence}: Different regularizations might give different quasi-periods
+\item \textbf{Normalization conventions}: Choice of normalization for $\Delta'$ affects all computations
+\item \textbf{Interpretation}: Even if rationality holds numerically, understanding \emph{why} requires deeper theory
+\end{enumerate}
+
+\section{Connection to Harmonic Maass Forms (Optional)}
+
+\begin{remark}[Harmonic Maass Forms]
+The BFK paper discusses connections to harmonic weak Maass forms: forms $F$ of weight $2-k$ whose derivatives (via $\xi$ operator) give cusp forms. These have ``mock periods'' $c_F^\pm(\pm 1)$ that satisfy limiting relationships with classical L-values.
+
+However, harmonic Maass forms are \textbf{not required} to understand the period structure of $\Delta$ and $\Delta'$. The quasi-periods of $\Delta'$ arise directly from its regularized L-values through the period polynomial machinery, independent of any harmonic Maass construction.
+
+We mention this only for completeness, as the BFK paper discusses it, but it is tangential to the core computational program outlined here.
+\end{remark}
+
+\section{Conclusion}
+
+The weight 12 case, with its unique cusp form $\Delta$ and canonical weakly holomorphic partner $\Delta'$, provides an ideal testing ground for understanding:
+
+\begin{itemize}
+\item The rigid rationality structure of critical L-values
+\item Extensions of period polynomial theory to weakly holomorphic forms with poles at cusps  
+\item Connections between classical periods and quasi-periods of Hecke partners
+\item Duality structures relating positive and negative weight forms
+\end{itemize}
+
+The BFK incomplete gamma framework provides the computational machinery to test these conjectures numerically with high precision. The key open question is whether the quasi-periods of $\Delta'$ exhibit the same lockstep rational structure as the classical periods of $\Delta$.
+
+\subsection{Summary of Computational Approach}
+
+The BFK formulas transform what would be slowly convergent Dirichlet series into exponentially convergent sums:
+
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{Classical} & \textbf{BFK Incomplete Gamma} \\
+\hline
+$L(f,s) = \sum \frac{a_n}{n^s}$ & $L^*_f(s) = \sum a_n \frac{\Gamma(s, 2\pi n t_0)}{(2\pi n)^s} + \cdots$ \\
+Convergence: $\sim 1/n^s$ & Convergence: $\sim e^{-2\pi n}$ \\
+$\Rightarrow$ slow & $\Rightarrow$ exponentially fast \\
+\end{tabular}
+\end{center}
+
+This makes high-precision numerical verification of period rationality feasible, potentially leading to:
+\begin{enumerate}
+\item Numerical discovery of the exact rational coefficients
+\item Conjectures about the structure for higher weights
+\item Insight into the regularization mechanism for weakly holomorphic forms
+\end{enumerate}
+
+\begin{thebibliography}{9}
+
+\bibitem{zagier}
+Don Zagier, \textit{Periods of modular forms and Jacobi theta functions}, Inventiones mathematicae \textbf{104} (1991), 449--465.
+
+\bibitem{bfk}
+Kathrin Bringmann, Karl-Heinz Fricke, and Zachary A. Kent, \textit{Special L-values and periods of weakly holomorphic modular forms}, Ramanujan Journal \textbf{24} (2011), 119--139.
+
+\bibitem{duke_jenkins}
+William Duke and Paul Jenkins, \textit{On the zeros and coefficients of certain weakly holomorphic modular forms}, Pure and Applied Mathematics Quarterly \textbf{4} (2008), 1327--1340.
+
+\bibitem{eichler}
+Martin Eichler, \textit{Eine Verallgemeinerung der Abelschen Integrale}, Mathematische Zeitschrift \textbf{67} (1957), 267--298.
+
+\bibitem{shimura}
+Goro Shimura, \textit{Sur les intégrales attachées aux formes automorphes}, Journal of the Mathematical Society of Japan \textbf{11} (1959), 291--311.
+
+\bibitem{brown}
+Francis Brown, \textit{Multiple modular values and the relative completion of the fundamental group of $\mathcal{M}_{1,1}$}, arXiv:1407.5167 (2017).
+
+\bibitem{petersen}
+Kathrin Petersen, \textit{Eichler cohomology and zeros of polynomials associated to derivatives of L-functions}, arXiv:1710.07912 (2017).
+
+\bibitem{bruggeman}
+Roelof Bruggeman, YoungJu Choie, and Nikolaos Diamantis, \textit{Holomorphic automorphic forms and cohomology}, Memoirs of the American Mathematical Society \textbf{253} (2018), no. 1212.
+
+\end{thebibliography}
+
+\end{document}

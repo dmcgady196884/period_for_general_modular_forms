@@ -1,0 +1,230 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!60!black,
+  citecolor=blue!50!black,
+}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{black!30},
+  framesep=4pt,
+  xleftmargin=10pt,
+  xrightmargin=10pt,
+}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\Dhat}{\widehat{\Delta}}
+\newcommand{\Vn}{V_n}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\im}{\mathrm{Im}}
+\DeclareMathOperator{\Mat}{Mat}
+
+\title{Numerical Periods and Quasi-Periods of $\Delta$ and $\widehat{\Delta}$ \\[0.3em]
+       via Finite-Endpoint Cocycles}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We reproduce Brown's numerical values for the periods $\omega^\pm$ of the modular discriminant $\Delta$ and the quasi-periods $\eta^\pm$ of the weakly holomorphic cusp form $\Dhat \in S_{12}^{!}$, using the finite-endpoint Eichler--Shimura cocycle formula stated by Diamantis and Rolen. The construction avoids any divergent cuspidal integrals: every contour is a finite line segment in the upper half-plane, bounded away from the cusp. We obtain agreement with Brown's reported values to all reported digits, with internal consistency at $\sim$30 decimal places.
+\end{abstract}
+
+\section{Setup}
+
+Let $\Gamma = \SLZ$, $S = \begin{psmallmatrix}0 & -1 \\ 1 & 0\end{psmallmatrix}$, $T = \begin{psmallmatrix}1 & 1 \\ 0 & 1\end{psmallmatrix}$. Fix the weight $k = 12$ and write $n = k - 2 = 10$.
+
+Let $V_{n} = \bigoplus_{i+j=n} \QQ X^i Y^j$ with the right $\Gamma$-action $(X,Y)\big|_\gamma = (aX+bY, cX+dY)$ for $\gamma = \begin{psmallmatrix}a&b\\c&d\end{psmallmatrix}$. A $1$-cocycle is a map $C : \Gamma \to V_n$ satisfying $C_{gh} = C_g\big|_h + C_h$, uniquely determined by $(C_S, C_T)$.
+
+We work with two modular forms:
+\begin{itemize}[itemsep=0pt]
+  \item $\Delta(\tau) = q\prod_{n\ge 1}(1-q^n)^{24}$, the unique normalized cusp form in $S_{12}$.
+  \item $\Dhat \in S_{12}^{!}$, the unique weakly holomorphic cusp form with $q$-expansion
+  \begin{equation}\label{eq:Dhat-target}
+    \Dhat = q^{-1} + 0 + 0\cdot q + 47709536\, q^2 + 39862705122\, q^3 + 7552626810624\, q^4 + \cdots
+  \end{equation}
+\end{itemize}
+
+\section{Construction of $\widehat{\Delta}$ via $\Delta\cdot J$-products}
+
+Let $j(\tau) = E_4^3 / \Delta = q^{-1} + 744 + 196884\, q + \cdots$ be the modular $j$-invariant, and set
+\[
+  J := j - 744 = q^{-1} + 0 + 196884\, q + 21493760\, q^2 + \cdots
+\]
+the normalized Hauptmodul. Since $\Delta$ has a simple zero at the cusp and $J^k$ has a pole of order $k$, the product $\Delta \cdot J^k$ is weakly holomorphic of weight $12$ with leading $q$-behaviour $q^{1-k}$. We seek $\Dhat$ in the form
+\begin{equation}\label{eq:Dhat-ansatz}
+  \Dhat = \Delta \cdot \bigl(J^2 + a_1 J + a_0\bigr)
+\end{equation}
+with $a_1, a_0 \in \QQ$ to be determined. The $q^{-1}$ Fourier coefficient of $\Delta \cdot J^2$ is $1$ automatically (from $q \cdot q^{-2}$), and the $q^{-1}$ coefficients of $\Delta \cdot J$ and $\Delta$ vanish; so the $q^{-1}$ condition in \eqref{eq:Dhat-target} is automatic. The $q^0$ and $q^1$ conditions yield a $2 \times 2$ linear system whose solution is
+\begin{equation}
+  \boxed{\;a_1 = 24, \qquad a_0 = -393444.\;}
+\end{equation}
+Computing $\Dhat = \Delta(J^2 + 24 J - 393444)$ to order $q^4$ exactly reproduces Brown's reported values $47709536$, $39862705122$, and $7552626810624$.
+
+\section{The Diamantis--Rolen finite-endpoint cocycle}
+
+Fix any $\tau_0 \in \HH$. For any cusp form (weakly holomorphic or otherwise) $f$ of weight $k$, define
+\begin{equation}\label{eq:DR-cocycle}
+  \sigma_f(\gamma)(z) := \int_{\gamma^{-1}\tau_0}^{\tau_0} f(\tau)\,(\tau - z)^{k-2}\, d\tau, \qquad \gamma \in \Gamma.
+\end{equation}
+This is the bottom formula in Diamantis--Rolen \cite[\S 2.1]{DR2017}, valid for cusp forms in the (broad) sense that the resulting cohomology class is cuspidal. Crucially, the contour is a finite segment and stays inside $\HH$; no regularization is required, even when $f$ has a pole at the cusp. Changing $\tau_0$ alters $\sigma_f$ only by a coboundary, so the class $[\sigma_f] \in H^1(\Gamma; V_n)$ is well-defined.
+
+Brown's equivalent definition \cite[Def.\ 2.4, eq.\ (2.12)]{Brown2017} is
+\begin{equation}\label{eq:Brown-cocycle}
+  C_f^\gamma(X,Y) = F_f(\gamma\tau)\big|_\gamma - F_f(\tau), \qquad
+  F_f(\tau) := \int_{\tau_0}^\tau (2\pi i)^{n+1} f(w)\,(X - w Y)^n\, dw,
+\end{equation}
+which one shows to be independent of $\tau$ by direct computation, and to coincide (after the cosmetic substitution $z \leftrightarrow X/Y$ and the prefactor $(2\pi i)^{n+1}$) with \eqref{eq:DR-cocycle}.\footnote{The check is straightforward: in the difference $F_f(\gamma\tau)|_\gamma - F_f(\tau)$, the variable $\tau$ contributions cancel via the modularity of $f(w)(X-wY)^n\,dw$ under the slash action, leaving the basepoint-only piece $\int_{\gamma^{-1}\tau_0}^{\tau_0}$ multiplied by $(2\pi i)^{n+1}$.} We absorb the $(2\pi i)^{n+1}$ factor into our cocycle below to match Brown's normalization.
+
+\section{Procedure}\label{sec:procedure}
+
+For $f \in \{\Delta, \Dhat\}$, fix $\tau_0 \in \HH$ generic. Define the cocycle values
+\[
+  C_S := (2\pi i)^{11} \int_{-1/\tau_0}^{\tau_0} f(\tau)(X-\tau Y)^{10}\, d\tau, \qquad
+  C_T := (2\pi i)^{11} \int_{\tau_0 - 1}^{\tau_0} f(\tau)(X-\tau Y)^{10}\, d\tau.
+\]
+Both are polynomials in $V_{10} \otimes \CC$.
+
+\paragraph{Cuspidality.} A cocycle is \emph{cuspidal} iff $C_T = 0$. For $\Delta$, taking $\tau_0 \to i\infty$ formally would give $C_T = 0$ identically; with finite $\tau_0$, $C_T \ne 0$ but its cohomology class is cuspidal. The same is true for $\Dhat$. The cuspidality manifests numerically as
+\[
+  [C_T]_{X^{10}} = 0,
+\]
+since the $X^{10}$ direction is the unique $T$-invariant in $V_{10}$.
+
+\paragraph{Coboundary modification.} We seek $P \in V_{10}$ such that $P\big|_T - P = C_T$, so that the modified cocycle $C'_\gamma := C_\gamma - (P\big|_\gamma - P)$ satisfies $C'_T = 0$. Writing $P = \sum_{j=0}^{10} p_j X^{10-j} Y^j$, the relation $P|_T(X,Y) = P(X+Y, Y)$ produces an upper-triangular linear system: the equation for the $X^{10-m}Y^m$ coefficient ($m \ge 1$) reads
+\[
+  \sum_{j=0}^{m-1} p_j \binom{10-j}{m-j} = [C_T]_{X^{10-m}Y^m},
+\]
+which determines $p_0, \ldots, p_9$ recursively, while the $X^{10}$ equation reads $0 = [C_T]_{X^{10}}$ — exactly the cuspidality condition. The coefficient $p_{10}$ does not appear in any equation: $Y^{10}$ is $T$-invariant ($T \cdot Y = Y$), so it lies in $\ker((\cdot)\big|_T - (\cdot))$.
+
+The freedom $p_{10} \in \CC$ is therefore real but inconsequential. Replacing $P \to P + c\, Y^{10}$ shifts $C'_S$ by
+\[
+  c \cdot \bigl(Y^{10}\big|_S - Y^{10}\bigr) = c \cdot \bigl((-X)^{10} - Y^{10}\bigr) = c\,(X^{10} - Y^{10}),
+\]
+which is itself a coboundary in $V_{10}$ — i.e., it shifts $C'_S$ within its cohomology class. So the periods $\omega^\pm, \eta^\pm$ defined cohomologically are independent of $p_{10}$. We fix $p_{10} = 0$ by convention. The resulting $C'_S$ has unambiguous coefficients on every monomial except $X^{10}$ and $Y^{10}$ (which carry the $p_{10}$-dependent shift); the interior monomials $X^{10-j}Y^j$ for $1 \le j \le 9$ are unaffected by this choice.
+
+In particular,
+\[
+  C'_S = C_S - \bigl(P\big|_S - P\bigr), \qquad P\big|_S(X,Y) = P(Y, -X).
+\]
+
+\paragraph{Period extraction.} Brown's basis polynomials of $H^1_{\mathrm{cusp}}(\Gamma; V_{10})$ \cite[\S 8.2]{Brown2017} are
+\begin{align*}
+  P^+_S &= \tfrac{36}{691}(Y^{10} - X^{10}) + X^2 Y^2 (X^2 - Y^2)^3, \\
+  P^-_S &= 4 X^9 Y - 25 X^7 Y^3 + 42 X^5 Y^5 - 25 X^3 Y^7 + 4 X Y^9.
+\end{align*}
+These are values at $S$ of the cuspidal cocycles $P^\pm$ (with $P^\pm_T = 0$); their coefficients on $X^{10}$ and $Y^{10}$ — including the $\tfrac{36}{691}$ in $P^+_S$ — are dictated by the cocycle equations and the $(ST)^3 = 1$ relation, \emph{not} by any choice of coboundary representative.
+
+The cocycle $C'_S$ lies in a $3$-dimensional affine subspace spanned by $P^+_S$, $P^-_S$, and $X^{10} - Y^{10}$:
+\begin{equation}\label{eq:decomp}
+  C'_S \;=\; \omega^+ P^+_S \;+\; \omega^- P^-_S \;+\; c \cdot (X^{10} - Y^{10}),
+\end{equation}
+where $\omega^\pm$ are the cohomologically meaningful periods and $c \in \CC$ depends on the choice $p_{10} = 0$ above. Reading off coefficients on \emph{interior} monomials (those for which $X^{10}-Y^{10}$ has zero coefficient) gives $\omega^\pm$ unambiguously. Concretely:
+\[
+  \omega^- = \frac{[C'_S]_{X^9 Y}}{4}, \qquad
+  \omega^+ = [C'_S]_{X^8 Y^2}.
+\]
+Internal consistency is verified by reading off from the other interior monomials: any of $X^9Y$, $X^7 Y^3$, $X^5 Y^5$, $X^3 Y^7$, $X Y^9$ for $\omega^-$, and any of $X^8 Y^2$, $X^6 Y^4$, $X^4 Y^6$, $X^2 Y^8$ for $\omega^+$.
+
+\section{Implementation Notes}
+
+\subsection*{Code provenance}
+The numerics in Section~\ref{sec:results} below are taken directly from the executed Jupyter notebook \cite{Notebook}. The notebook (a) builds the $q$-expansions of $\Delta$, $j$, $J = j-744$, and $\Dhat$ as exact Laurent series via \texttt{sympy} rationals; (b) implements the cocycle integration in \texttt{mpmath} at $40$-digit precision; (c) runs the period-extraction pipeline of Section~\ref{sec:procedure} for both $\Delta$ and $\Dhat$; (d) verifies basepoint independence by re-running with a second choice of $\tau_0$. The full output is reproducible by running \texttt{jupyter nbconvert --execute} on the notebook.
+
+\subsection*{Path geometry}
+We choose $\tau_0 = 0.3 + 1.2 i$, giving:
+\begin{itemize}[itemsep=0pt]
+  \item $S$-path: $-1/\tau_0 = -0.196\ldots + 0.784\ldots\, i \;\to\; \tau_0$, a line segment in $\HH$.
+  \item $T$-path: $\tau_0 - 1 = -0.7 + 1.2 i \;\to\; \tau_0$, horizontal segment at $\im(\tau) = 1.2$.
+\end{itemize}
+Both paths are bounded away from $\partial\HH$. With $\im(\tau) \ge 0.78$ throughout, $|q| = e^{-2\pi\,\im\tau} \le 0.007$, so the $\eta^{24}$-product for $\Delta$ converges in $\sim 200$ terms at $40$-digit precision. The $q$-expansion of $\Dhat$ has its $q^{-1}$ pole bounded by $|q^{-1}| \le 1882$, harmless.
+
+\subsection*{Numerics}
+We use \texttt{mpmath} at $40$ decimal digits. Each cocycle integral $\int f(\tau)\tau^j\,d\tau$ for $j = 0, \ldots, 10$ is computed by Gauss--Legendre quadrature along the line segment; \texttt{mpmath.quad} handles this comfortably. The total runtime per form is roughly $30$ seconds.
+
+The $q$-expansion of $\Dhat$ is built symbolically (exact rationals via \texttt{sympy}) by computing $\Delta\cdot J^2$, $\Delta\cdot J$, $\Delta$ as Laurent series and forming the linear combination with $a_1 = 24$, $a_0 = -393444$.
+
+\section{Results}\label{sec:results}
+
+All numerical quantities below are extracted from the executed notebook \cite{Notebook} at $40$-digit working precision and reported here to $\sim$20 digits.
+
+\subsection*{$\Delta$: classical periods}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+& \textbf{Extracted \cite{Notebook}} & \textbf{Brown \cite[\S 8.3]{Brown2017}} \\
+\midrule
+$\omega^+$       & $-68916772.80959519475431012\ldots$ & $-68916772.809595194754\ldots$ \\
+$\omega^- / i$   & $-5585015.379310401866877139\ldots$ & $-5585015.3793104018668\ldots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The five odd-monomial extractions of $\omega^-$ (from $X^9 Y$, $X^7 Y^3$, $X^5 Y^5$, $X^3 Y^7$, $X Y^9$) agree pairwise to $\sim 35$ digits. The four interior even-monomial extractions of $\omega^+$ (from $X^8 Y^2$, $X^6 Y^4$, $X^4 Y^6$, $X^2 Y^8$) agree pairwise to $\sim 33$ digits.
+
+\subsection*{$\widehat{\Delta}$: quasi-periods}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+& \textbf{Extracted \cite{Notebook}} & \textbf{Brown \cite[\S 8.3]{Brown2017}} \\
+\midrule
+$\eta^+$       & $127202100647.17709477731716\ldots$ & $127202100647.17709477\ldots$ \\
+$\eta^- / i$   & $10276732343.64913275081719\ldots$  & $10276732343.649132750\ldots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Internal consistency: the five odd-monomial $\eta^-$ extractions agree to $\sim 28$ digits; the four interior $\eta^+$ extractions agree to $\sim 28$ digits. (The slightly worse internal agreement for $\Dhat$ vs $\Delta$ is consistent with the larger magnitudes involved — $|\eta^\pm| \sim 10^{11}$ vs $|\omega^\pm| \sim 10^{7}$ — and the additional numerical work involved in evaluating the truncated $q$-expansion of $\Dhat$.)
+
+\subsection*{Convention note}
+Our extraction yields $\omega^-, \eta^-$ as $i$ times Brown's reported real values. This is consistent with Brown's period-matrix convention \cite[eq.\ (2.13)]{Brown2017}, in which the matrix entries are
+\[
+  \mathcal{P} = \begin{pmatrix} \eta^+ & \omega^+ \\ i\eta^- & i\omega^- \end{pmatrix},
+\]
+i.e., he absorbs a factor of $i$ into the basis on the minus side. The magnitudes match exactly to all digits Brown reports.
+
+\subsection*{Basepoint independence check}
+The notebook also re-runs the extraction with $\tau_0 = -0.2 + 0.9 i$ in place of $\tau_0 = 0.3 + 1.2 i$, reproducing $\eta^+$ and $\eta^-$ to agreement at the $\sim 10^{-27}$ absolute level (i.e., $\sim 38$ matching significant digits given $|\eta^\pm| \sim 10^{11}$), confirming the cohomological invariance numerically.
+
+\section{Conclusion}
+
+The Diamantis--Rolen finite-endpoint formula \eqref{eq:DR-cocycle} delivers the cocycle representative needed for Brown's period-extraction recipe directly, without divergent cusp integrals or regularization. Combined with the explicit $\Delta$-times-Hauptmodul-polynomial construction $\Dhat = \Delta(J^2 + 24 J - 393444)$, the procedure reproduces all four reported periods to full reported precision. The same code, with $f = \Dhat$ swapped in for $f = \Delta$, computes $(\eta^+, \eta^-)$ from $(\omega^+, \omega^-)$ with zero structural change.
+
+\begin{thebibliography}{9}
+
+\bibitem{Brown2017}
+F.\ Brown,
+\emph{A class of non-holomorphic modular forms III: real analytic cusp forms for $\mathrm{SL}_2(\ZZ)$},
+arXiv:1710.07912 (October 2017).
+
+\bibitem{DR2017}
+N.\ Diamantis and L.\ Rolen,
+\emph{Period polynomials, derivatives of $L$-functions, and zeros of polynomials},
+arXiv:1707.04814 (July 2017).
+
+\bibitem{Notebook}
+\emph{\texttt{delta\_and\_hatdelta\_periods.ipynb}} (executed Jupyter notebook),
+companion source file for this writeup. Implements the cocycle-based period-extraction pipeline at $40$-digit \texttt{mpmath} precision; all numerical values reported in Section~\ref{sec:results} are taken directly from its output.
+
+\end{thebibliography}
+
+\end{document}
