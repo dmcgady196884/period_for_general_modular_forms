@@ -24,39 +24,41 @@ prec_calc = 100  # precision for calculations
 
 # BFK formula implementation
 def bfk_l_star(coeffs, s, prec=100):
-    """Compute L^*(f,s) using BFK incomplete gamma formula"""
-    R = RealField(prec)
+    """Compute L^*(f,s) using BFK incomplete gamma formula.
+
+    For n > 0 the argument x = 2πn is positive real; for n < 0 (e.g. n = -1
+    for Δ̂) the argument x = -2π|n| is negative real, and Γ(s, x) is the
+    complex-valued analytic continuation, FINITE at integer s ≥ 1 via the
+    polynomial identity Γ(s, x) = (s-1)! e^{-x} Σ_{k<s} x^k/k!.  All Fourier
+    modes — including principal-part n < 0 modes — contribute; never silently
+    drop them.
+    """
     CC = ComplexField(prec)
-    two_pi = R(2) * R.pi()
+    two_pi = CC.pi() * 2
     result = CC(0)
 
     for n in coeffs:
         if n == 0:
             continue
-        c_n = coeffs[n]
-        x = two_pi * n
+        c_n = CC(coeffs[n])
+        x = two_pi * n   # negative real for n < 0; complex coercion preserves principal branch
 
-        try:
-            # First term: Γ(s, 2πn) / (2πn)^s
-            gamma_inc1 = R(gamma_inc(s, x))
-            term1 = c_n * gamma_inc1 / x**s
-            result += term1
+        gamma_inc1 = CC(gamma_inc(s, x))
+        term1 = c_n * gamma_inc1 / x**s
+        result += term1
 
-            # Second term: Γ(k-s, 2πn) / (2πn)^{k-s}
-            gamma_inc2 = R(gamma_inc(k - s, x))
-            term2 = c_n * gamma_inc2 / x**(k - s)
-            result += term2
-        except:
-            pass
+        gamma_inc2 = CC(gamma_inc(k - s, x))
+        term2 = c_n * gamma_inc2 / x**(k - s)
+        result += term2
 
     return result
 
 def bfk_l(coeffs, s, prec=100):
     """Convert to standard L-function: L(f,s) = (2π)^s/Γ(s) · L^*(f,s)"""
-    R = RealField(prec)
+    CC = ComplexField(prec)
     l_star = bfk_l_star(coeffs, s, prec=prec)
-    gamma_s = R(gamma(s))
-    two_pi_s = (R(2) * R.pi())**s
+    gamma_s = CC(gamma(s))
+    two_pi_s = (CC.pi() * 2)**s
     return two_pi_s / gamma_s * l_star
 
 def compute_period_polynomial_coeffs(coeffs, prec=100):

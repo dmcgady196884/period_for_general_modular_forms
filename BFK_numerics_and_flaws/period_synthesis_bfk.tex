@@ -20,12 +20,33 @@ A Synthesis of Classical and Weakly Holomorphic Theory\\
 \maketitle
 
 \begin{abstract}
-We synthesize three perspectives on periods of modular forms at weight 12: Zagier's classical theory of period polynomials for cusp forms, the Bringmann-Fricke-Kent framework for L-values of weakly holomorphic modular forms, and explicit rationality patterns observed in special L-values of the discriminant form $\Delta$. 
-
-This expanded version adds explicit computational formulas using the BFK incomplete gamma framework, providing rapidly convergent expressions for testing rationality patterns in both $\Delta$ (the unique weight 12 cusp form) and its weakly holomorphic Hecke partner $\Delta'$ (with principal part $q^{-1}$).
+\textbf{RETRACTED (2026-05-18).}  The numerical results in this document
+(in particular Tables 2--3 and the headline claim that
+$r_{\mathrm{BFK}}(\widehat\Delta)$ has ``fundamentally different
+polynomial structure'' from $r_{\mathrm{BFK}}(\Delta)$, by factors
+$1.5$--$3.0$) were produced by
+\texttt{minimal\_delta\_comparison.sage}, which silently dropped the
+$n = -1$ Fourier mode of $\widehat\Delta$ (a bare \texttt{except: pass}
+swallowed the negative-argument incomplete-Gamma evaluation).  With the
+$q^{-1}$ mode properly included, the BFK formula gives a polynomial
+$r_{\mathrm{BFK}}(\widehat\Delta) \in W_{12}$ that satisfies both
+$(1+S) = 0$ and $(1+U+U^2) = 0$ to machine precision, and agrees with
+the Diamantis--Rolen--Brown finite-endpoint cocycle polynomial
+$r_{\mathrm{DR}}(\widehat\Delta)$ at all nine interior coefficients
+(i.e.\ on Brown's $\eta^\pm$ encoding monomials).  The two polynomials
+differ only at $X^0$ and $X^{10}$, by an Eisenstein-direction
+correction $c(1 - X^{10})$ that reflects the $\tau_0$-dependent
+boundary ambiguity of the polynomial-$V_{10}$ DR-B representative
+(pinned down canonically by the Hurwitz-zeta $T$-kernel of
+Theorem~\ref{thm:complex-s} in
+\texttt{period\_polynomials\_dim\_Sk\_one.tex}).  The canonical
+analysis lives in
+\texttt{dr\_b\_Lfunction\_complex\_s.py}~\S(F--H).  The body below
+remains for the historical reasoning trail but should not be read as
+making any factual claim.
 \end{abstract}
 
-\tableofcontents
+\end{document}
 
 \section{Introduction}
 
