@@ -34,20 +34,47 @@
 \maketitle
 
 \begin{abstract}
-For any $f \in S_{12}^!$ on $\SLZ$ (the weakly holomorphic forms of weight $12$ with vanishing constant Fourier coefficient; this includes the unique normalised holomorphic cusp form $\Delta \in S_{12} \subset S_{12}^!$) we exhibit an explicit linear functional $f \mapsto (\omega^+(f),\,\omega^-(f)) \in \CC^2$ given by integration of $f$ along two finite line segments in the upper half-plane against universal $\QQ$-polynomial kernels.  Specialising to $\Delta$ recovers Eichler--Shimura's classical periods $\omega^\pm(\Delta)$; specialising to the unique $\Dhat \in S_{12}^!$ with $\Dhat(\tau) = q^{-1} + O(q^2)$ produces Brown's quasi-periods $\eta^\pm(\Dhat)$.  Same formula, same kernels, different $f$.  The construction is the explicit Bernoulli-operator unpacking of the Diamantis--Rolen finite-endpoint cocycle; the functional is basepoint-independent and lockstep across nine equivalent extractions, matching Brown's reported values to relative error $< 6\times 10^{-32}$.  Treating $\Delta$ and $\Dhat$ on the same footing makes this the natural starting point for extending period-polynomial theory to fully meromorphic modular forms.
+For any $f \in S_{12}^!$ on $\SLZ$ (the weakly holomorphic forms of weight
+$12$ with vanishing constant Fourier coefficient; this includes the unique
+normalised holomorphic cusp form $\Delta \in S_{12} \subset S_{12}^!$) we
+exhibit an explicit linear functional
+$f \mapsto (\omega^+(f),\,\omega^-(f)) \in \CC^2$ given by integration of
+$f$ along two finite line segments in the upper half-plane against
+universal $\QQ$-polynomial kernels.  Specialising to $\Delta$ recovers
+Eichler--Shimura's classical periods $\omega^\pm(\Delta)$; specialising
+to the unique $\Dhat \in S_{12}^!$ with $\Dhat(\tau) = q^{-1} + O(q^2)$
+produces Brown's quasi-periods $\eta^\pm(\Dhat)$.  Same formula, same
+kernels, different $f$.  The construction is the explicit
+Bernoulli-operator unpacking of the Diamantis--Rolen finite-endpoint
+cocycle; the functional is basepoint-independent and lockstep across nine
+equivalent extractions, matching Brown's reported values to relative
+error $< 6\times 10^{-32}$.  Treating $\Delta$ and $\Dhat$ on the same
+footing makes this the natural starting point for extending
+period-polynomial theory to fully meromorphic modular forms.
 \end{abstract}
 
 \section{Introduction and main result}\label{sec:intro}
 
-The period polynomial of a weight-$k$ holomorphic cusp form $f \in S_k$ on $\Gamma = \SLZ$ is the polynomial
+The period polynomial of a weight-$k$ holomorphic cusp form $f \in S_k$
+on $\Gamma = \SLZ$ is the polynomial
 \[
   r_f(X) \;:=\; \int_0^{i\infty}\! f(\tau)\,(\tau - X)^{k-2}\,d\tau
               \;\in\; V_{k-2}\otimes\CC,
 \]
-which decomposes into even and odd parts $r_f^\pm$ whose coefficients are $\QQ$-rational multiples of $\omega^\pm(f)\,(2\pi i)^\bullet$, with the periods $\omega^\pm(f)$ in turn expressible as $\QQ$-multiples of critical $L$-values $L(f, s)$.  The Eichler--Shimura picture realises $\omega^\pm(f)$ as $\CC$-linear functionals of $f$ via a contour integral, and the resulting coordinates carry deep arithmetic.
+which decomposes into even and odd parts $r_f^\pm$ whose coefficients are
+$\QQ$-rational multiples of $\omega^\pm(f)\,(2\pi i)^\bullet$, with the
+periods $\omega^\pm(f)$ in turn expressible as $\QQ$-multiples of
+critical $L$-values $L(f, s)$.  The Eichler--Shimura picture realises
+$\omega^\pm(f)$ as $\CC$-linear functionals of $f$ via a contour
+integral, and the resulting coordinates carry deep arithmetic.
 
-For weakly holomorphic $f \in S_k^!$ with a cusp pole, the integral $\int_0^{i\infty}$ diverges and the classical construction fails.
-Nevertheless Brown \cite{Brown2017} defines and numerically computes emph{quasi-periods} $\eta^\pm(f)$ for the unique form $\Dhat \in S_{12}^!$ satisfying $\Dhat(\tau) = q^{-1} + O(q^2)$ (equivalently $\Dhat = \Delta\cdot(J^2 + 24J - 393444)$ with $J = j - 744$ the normalised Hauptmodul).  The qualifier $+\,O(q^2)$ is essential for uniqueness: the $q^0$ and $q^1$ coefficients of $\Dhat$ both vanish, which together with the principal part $q^{-1}$ pins $\Dhat$ down within $S_{12}^!$ (any $\Dhat + c\,\Delta$ would otherwise share its principal part).
+For weakly holomorphic $f \in S_k^!$ with a cusp pole, the integral
+$\int_0^{i\infty}$ diverges and the classical construction fails.
+Nevertheless Brown \cite{Brown2017} defines and numerically computes
+\emph{quasi-periods} $\eta^\pm(f)$ for the unique form $\Dhat \in S_{12}^!$
+satisfying $\Dhat(\tau) = q^{-1} + O(q^2)$ (equivalently
+$\Dhat = \Delta\cdot(J^2 + 24J - 393444)$ with $J = j - 744$ the
+normalised Hauptmodul).
 
 Brown's construction uses the Diamantis--Rolen finite-endpoint cocycle
 \cite{DR2017}: replacing the divergent contour $0 \to i\infty$ with a
@@ -677,6 +704,72 @@ level of $\Gamma$-cocycles, not just at the level of regularised
 values.  This is the structural reason Theorem~\ref{thm:main} delivers
 an element of $W_{12}$ uniformly across $S_{12} \subset S_{12}^!$.
 
+\section{The complex-\texorpdfstring{$s$}{s} extension: a finite-contour $L$-function via Hurwitz zeta}\label{sec:complex-s}
+
+Theorem~\ref{thm:main} extracts the period-polynomial coefficients of $f \in S_{12}^!$ at the nine interior integer monomials $j \in \{1, \ldots, 9\}$ via finite-contour integrals on the DR-B contour pair $\{[-1/\tau_0, \tau_0], [\tau_0 - 1, \tau_0]\}$.  For holomorphic $f = \Delta$ we now extend the same construction to general complex $s$, producing a closed-form expression for the completed $L$-function $\Lambda^*(\Delta, s) := (2\pi)^{-s}\Gamma(s)L(\Delta, s)$ as an integral pair over the \emph{same} DR-B contour, with the polynomial $T$-kernel $k_T^j$ of Table~\ref{tab:kernels} replaced by a Hurwitz-zeta function of $\tau$.
+
+\paragraph{The gap identity.}
+For $\Delta \in S_{12}$ and any $\tau_0 \in \HH$, splitting the canonical Mellin integral $\int_0^{i\infty}\!\Delta(\tau)\,\tau^{s-1}\,d\tau$ at the DR-B endpoints $\{-1/\tau_0,\,\tau_0\}$ and using $S$-modularity of $\Delta$ on the $[0, -1/\tau_0]$ piece (via $\tau \mapsto -1/\tau$) gives, for all $s \in \CC$,
+\begin{equation}\label{eq:gap-identity}
+  \Lambda^*(\Delta, s) \;=\; i^{-s}\!\int_{-1/\tau_0}^{\tau_0}\!\Delta(\tau)\,\tau^{s-1}\,d\tau
+  \;+\; %Question: Is this "+"-sign supposed t be an 
+  \sum_{n \ge 1}\tau(n)\!\left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s} \;+\; \frac{\Gamma(12-s,\,-2\pi i n \tau_0)}{(2\pi n)^{12-s}}\right].
+\end{equation}
+The second piece is the BFK incomplete-gamma sum of \cite{BFK2011} \emph{split at $\tau_0$ rather than at $\tau = i$}: at $\tau_0 = i$ the argument $-2\pi i n \tau_0 = 2\pi n$ is real and \eqref{eq:gap-identity} reduces to the standard BFK formula.  Both pieces on the right of \eqref{eq:gap-identity} are individually entire in $s$ and depend on $\tau_0$, but their sum equals the $\tau_0$-invariant $\Lambda^*(\Delta, s)$.  Identity \eqref{eq:gap-identity} is verified numerically to relative residual $\sim 10^{-54}$ at $\tau_0 = 0.3 + 1.2i$, $45$-digit precision, for $s = 1, \ldots, 11$ \cite{ComplexSScript}.
+
+\paragraph{The $\tau_0$-invariance condition.}
+We seek a kernel $\widetilde{k}_T(\tau, s)$ such that the BFK-split-at-$\tau_0$ sum in \eqref{eq:gap-identity} is replaced by a finite-contour integral $\int_{\tau_0-1}^{\tau_0}\!\Delta(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau$ over the same $T$-segment used in Theorem~\ref{thm:main}.  Differentiating the candidate
+\[
+  \Phi_s(\tau_0) \;:=\; i^{-s}\!\left[\int_{-1/\tau_0}^{\tau_0}\!\Delta(\tau)\,\tau^{s-1}\,d\tau \;+\; \int_{\tau_0-1}^{\tau_0}\!\Delta(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau\right]
+\]
+in $\tau_0$, using $\Delta(-1/\tau_0) = \tau_0^{12}\,\Delta(\tau_0)$ for the $S$-segment endpoint and $\Delta(\tau_0 - 1) = \Delta(\tau_0)$ for the $T$-segment endpoint, the requirement $d\Phi_s/d\tau_0 \equiv 0$ reduces (canceling the common factor $i^{-s}\Delta(\tau_0)$) to
+\begin{equation}\label{eq:tildekT-invariance}
+  \widetilde{k}_T(\tau, s) \;-\; \widetilde{k}_T(\tau - 1, s) \;=\; -\,\tau^{s-1} \;+\; e^{i\pi(s-1)}\,\tau^{11-s}
+  \qquad \text{for all } \tau \in \HH.
+\end{equation}
+This is the complex-$s$ analog of the polynomial coboundary equation \eqref{eq:P-equation}: it asks for an inverse of $\delta_T$ on the two-term right-hand side.
+
+\paragraph{Hurwitz zeta solves \eqref{eq:tildekT-invariance}.}
+The Hurwitz raising identity $\zeta(\sigma, a) - \zeta(\sigma, a + 1) = a^{-\sigma}$, applied at $(\sigma, a) = (1 - s, \tau)$ and $(s - 11, \tau)$, gives
+\[
+  \zeta(1 - s, \tau + 1) - \zeta(1 - s, \tau) \;=\; -\tau^{s-1},
+  \qquad
+  \zeta(s - 11, \tau + 1) - \zeta(s - 11, \tau) \;=\; -\tau^{11-s}.
+\]
+Combining with the sign $e^{i\pi(s-1)}$ from \eqref{eq:tildekT-invariance}:
+
+\begin{theorem}[Complex-$s$ finite-contour $L$-function for $\Delta$]\label{thm:complex-s}
+For all $s \in \CC \setminus \{1, 12\}$ and all $\tau_0 \in \HH$,
+\begin{equation}\label{eq:complex-s-main}
+  \boxed{\;\;
+  \Lambda^*(\Delta, s) \;=\; i^{-s}\!\left[\int_{-1/\tau_0}^{\tau_0}\!\Delta(\tau)\,\tau^{s-1}\,d\tau
+  \;+\; \int_{\tau_0 - 1}^{\tau_0}\!\Delta(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau\right],
+  \;\;}
+\end{equation}
+where the Hurwitz-zeta $T$-kernel is
+\begin{equation}\label{eq:tildekT-def}
+  \widetilde{k}_T(\tau, s) \;:=\; \zeta(1 - s,\,\tau + 1) \;-\; e^{i\pi(s-1)}\,\zeta(s - 11,\,\tau + 1).
+\end{equation}
+Both contour integrals are finite for every $\tau_0 \in \HH$, with no regularisation, analytic continuation, or limit required.  At integer $s = j + 1 \in \{1, 2, \ldots, 11\}$, both $\zeta$-terms in \eqref{eq:tildekT-def} collapse to Bernoulli polynomials in $\tau$ via the standard identity $\zeta(-n, a) = -B_{n+1}(a)/(n+1)$, and $\widetilde{k}_T(\tau, j+1)$ becomes a polynomial in $\tau$.  For the nine interior values $j \in \{1, \ldots, 9\}$ this polynomial agrees (up to the trivial rescaling $(-1)^j\binom{10}{j}$ that converts the $\omega^\pm$-normalised kernel to the $L$-value-normalised one) with the polynomial $T$-kernel $k_T^j$ of Table~\ref{tab:kernels}.  The two boundary cases $s = 1$ and $s = 11$ --- which the bounded-degree $V_{10}$ Bernoulli inversion of \S\ref{sec:coboundary} cannot fix (the convention $p_{10} = 0$ leaves an unresolved Eisenstein direction there) --- are recovered seamlessly in \eqref{eq:complex-s-main} because the Hurwitz inversion does not need a polynomial-degree truncation.
+\end{theorem}
+
+\begin{proof}
+Both sides of \eqref{eq:complex-s-main} are meromorphic in $s$, with poles on the right side only from the explicit Hurwitz factors at $s = 1, 12$ (poles cancelled, in the sum with the $S$-segment, by the analytic structure of $\Lambda^*$).  By construction \eqref{eq:tildekT-invariance}, the right side of \eqref{eq:complex-s-main} is $\tau_0$-invariant: differentiating in $\tau_0$ reduces to identity \eqref{eq:tildekT-invariance}, which holds for $\widetilde{k}_T$ from \eqref{eq:tildekT-def} by the Hurwitz raising identity applied to each $\zeta$ term separately.  Hence the right side equals its $\tau_0 \to i\infty$ limit: the $T$-segment integral $\int_{\tau_0-1}^{\tau_0}\!\Delta\,\widetilde{k}_T\,d\tau$ vanishes exponentially because $\Delta$ does and $\widetilde{k}_T$ grows at most algebraically in $\tau$, while the $S$-segment integral $i^{-s}\int_{-1/\tau_0}^{\tau_0}\!\Delta\,\tau^{s-1}\,d\tau$ approaches $i^{-s}\int_0^{i\infty}\!\Delta\,\tau^{s-1}\,d\tau = \Lambda^*(\Delta, s)$ by the Hecke--Weil Mellin identity (extending Lemma~\ref{lem:Mellin-recovery} from integer $j$ to complex $s$).  This identifies the right side with $\Lambda^*(\Delta, s)$.
+\end{proof}
+
+\paragraph{Numerical verification.}
+Formula \eqref{eq:complex-s-main} reproduces the standard BFK-at-$\tau=i$ incomplete-gamma value of $\Lambda^*(\Delta, s)$ to relative residual $\sim 10^{-53}$ at $45$-digit \texttt{mpmath} precision \cite{ComplexSScript}, at every integer $s \in \{1, 2, \ldots, 11\}$ (\emph{including the two boundaries} $s = 1, 11$ unreachable by Theorem~\ref{thm:main}), every half-integer test point $s \in \{-0.3,\,0.5,\,1.5,\,2.5,\,\ldots,\,6.5\}$, and every complex test point $s \in \{2.7 + 0.4i,\;5 + i,\;5.5 + 2.5i\}$.  Basepoint-independence is verified directly: at fixed $s = 3 + 1.5i$, evaluating the right side of \eqref{eq:complex-s-main} at $\tau_0 \in \{0.3 + 1.2i,\;1.5i,\;-0.4 + 0.8i,\;0.2 + 2i\}$ gives one value to relative residual $\sim 10^{-53}$.
+
+\paragraph{Structural interpretation.}
+The polynomial $T$-kernels $k_T^j$ of Theorem~\ref{thm:kernels} are the integer-$s$ specialisations of $\widetilde{k}_T(\tau, s)$.  The bounded-degree Bernoulli inversion on $V_{10}$ in \S\ref{sec:coboundary} is the integer-weight shadow of the analytic Hurwitz raising identity
+\[
+  \delta_T\!\bigl[\,\zeta(1 - s,\,\tau + 1)\,\bigr] \;=\; \zeta(1-s, \tau+2) - \zeta(1-s, \tau+1) \;=\; -(\tau+1)^{s-1},
+\]
+which inverts $\delta_T$ uniformly at all complex $s$ without bounding the polynomial degree.  In cohomological language, the finite-dimensional coefficient system $V_n$ of Eichler--Shimura extends to an analytic family of principal-series-type coefficient systems on $\HH$ parametrised by $s$, and Theorem~\ref{thm:complex-s} is the explicit DR-B representative for $\Delta$ in this larger system.  This is the holomorphic, finite-contour analog of the Lewis--Zagier period-function framework for Maass wave forms \cite{LewisZagier2001}.
+
+\paragraph{Same formula for weakly holomorphic and meromorphic $f$.}
+The right side of \eqref{eq:complex-s-main} is finite for any $f \in S_{12}^!$ in place of $\Delta$, and indeed for any meromorphic modular form of weight $12$ with no pole on the DR-B contour pair --- both segments stay strictly inside $\HH$, and the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ is analytic in $\tau \in \HH$.  Applying \eqref{eq:complex-s-main} to $\Dhat$ produces a candidate function $L^{\rm DR}(\Dhat, s)$ that agrees with Brown's quasi-periods $\eta^\pm(\Dhat)$ at the nine interior integer points by the integer-$s$ reduction of Theorem~\ref{thm:complex-s} together with Corollary~\ref{cor:Dhat-explicit}.  This $L^{\rm DR}(\Dhat, s)$ is the natural DR-B candidate for the $L$-function of $\Dhat$ across the entire complex $s$-plane --- a regime where BFK's regulator-based construction fails to land in $W_{12}$ (\S\ref{sec:bfk}) and where BFK's incomplete-gamma sum at $\tau = i$ formally diverges due to the $q^{-1}$ mode.  Numerical exploration of $L^{\rm DR}(\Dhat, s)$ at non-integer $s$, and structural comparison with whatever BFK-style extension can be made sense of, is the natural follow-up to the present note.
+
 \section{Outlook: meromorphic forms, and a gauge-invariance analogy}\label{sec:outlook}
 
 \paragraph{Extension to interior poles.}
@@ -715,7 +808,7 @@ ghosts --- which appear in the intermediate bookkeeping but cancel in
 physical (gauge-invariant) observables.  In QFT, the on-shell S-matrix
 programme circumvents the gauge problem by building amplitudes directly
 from gauge-invariant on-shell building blocks (helicity variables, BCFW
-recursion, unitarity cuts \cite{ElvangHuang, McGadyHuang2013,
+recursion, unitarity cuts \cite{McGadyHuang2013,
 McGadyHuangChen2014}), so the gauge-redundant intermediate data never
 enters: one is forced into ``fix the gauge'' only because one has made
 the upstream choice to work off-shell.
@@ -760,10 +853,8 @@ W.\ Kohnen and D.\ Zagier,
 \emph{Modular forms with rational periods},
 in \emph{Modular Forms} (R.A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
 
-\bibitem{ElvangHuang}
-H.\ Elvang and Y.-t.\ Huang,
-\emph{Scattering Amplitudes in Gauge Theory and Gravity},
-Cambridge University Press, 2015.
+\bibitem{LewisZagier2001}
+J. Lewis and D. Zagier, \emph{Period functions for Maass wave forms. I}, Annals of Mathematics, 153 (2001), 191-258.
 
 \bibitem{McGadyHuang2013}
 Y.-t.\ Huang and D.\ McGady,
@@ -815,6 +906,9 @@ $f \in \{\Delta, \Dhat\}$ at $30$-digit \texttt{mpmath} precision.
 Verifies period extraction from all nine interior monomials to lockstep
 agreement.
 
+\bibitem{ComplexSScript}
+\texttt{dr\_b\_Lfunction\_complex\_s.py} %Is this the correct citation? Must be!
+
 \bibitem{Companion}
 Long-form companion document \texttt{analytic\_periods\_weight12.tex}
 / \texttt{.pdf}.  Same mathematical content as the present note with
@@ -826,3 +920,5 @@ as the front matter.
 \end{thebibliography}
 
 \end{document}
+
+Right right, cool. So a few small things. 1. Can you run the nogo.py script yourself and tell me whacha see? 2. The point of the script was to, where BFK and DR-B (Diamantis-Rolen--Brown) both apply, i.e. the modular discriminant, then one could perhaps try and understand term-by-term where BFK comes from the CORRECT generalization of period polynomials to the more general case. My goal in this  aspect is to try and find a more unambiguously *correct* L-function for generic values in the complex-s plane. Right now, we have BFK, which works for all holomorphic MFs (not new; had that from the 19th century!), and we have DR-B which "correctly" extracts the special "L-values" for generic weak MFs --- but does so only at the $k-2$-points (well, actually, $k-4$, eh?) where these L-values exist. Would be great to extend DR-B to whole s-plane in a "natural" way. 3. To understand how DR-B extends to properly meromorphic MFs. I think this could be quite nice, actually: Three things, here. First, aka 3a: We can just push the contours up way the fuck high in the complex-\tau plane, e.g. \tau_0 = 10^{100}i - 1/2 or something. Here, we can exploit \tau_0-independence in the DR-B polynomials to compute them anywhere, and note that the 1/q^{whatever positive} terms will dominate, and the Hagedorn-like q-series growing terms coming from poles at finite Im(\tau_{pole}), which cause |c(n)| \sim n^{p-1} e^{2 \pi n {\rm abs}({\rm Im}(\tau_p))}, can thus be multiplied by the incomplete gamma-functions, which decay like \Gamma(s, 2 \pi n * Im(\tau_0)) \sim e^{-2 \pi n Im(\tau_0)}, and thus everything converges. Second, aka 3b: We could then note that the \tau_0-invariance of the DR-B polynomials is only invariant up to these "wall crossing" resiude-terms. I.e., if we drag the integration contours way lower, then eventually it will go through a pole and pick-up a residue contribution to the DR-B period polynomial. Third, aka 3c: Thinking about BFK and my own work on L-functions for meromorphic modular forms that are regular at cusps, it occurs to me that my regularization is actually just a gussied-up pole-avoidance mechanism. I have not really regularized anything at all, as I  never tried to match BFK. There is no regulator, at least not really. So it could be that my L-functions for modular forms with poles within the fundamental domain, but which are regular (or diverge just polynomially at cusps, as even normal Eisenstein series do!) at the cusp of SL2(Z) are actually consistent with DR-B's period polynomials. This would be a good thing to interrogate mathematically and numerically. These are the things I was thinking about engaging with, in this chat. I think the best way to go would be for you to check 1. --- and be sensitive to the overarching goal in item 2. Item 2 deserves a second pass, and more discursive engagement. And item 3 is even more abstract. How does this hit your training weights? Note: Maybe before extensive dialog, I will also put this prompt into the .tex file...
