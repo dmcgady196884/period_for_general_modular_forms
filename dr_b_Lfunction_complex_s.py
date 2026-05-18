@@ -11,7 +11,7 @@ Plan:
      DR-B linear functional on Δ at complex s and compare to Λ_class.
 """
 from mpmath import (mp, mpc, mpf, pi, exp, quad, gammainc, gamma as mpgamma,
-                    zeta as mpzeta, factorial, rgamma)
+                    zeta as mpzeta, factorial, rgamma, lu_solve)
 from sympy import Rational
 from math import comb
 
@@ -305,17 +305,22 @@ def kT_hurwitz(tau, s):
     sgn = exp(mpc(0, 1) * pi * (s - 1))   # = (-1)^{s-1}
     return mpzeta(1 - s, tau + 1) - sgn * mpzeta(s - 11, tau + 1)
 
-def Lambda_DR_hurwitz(s, tau_0):
-    """Λ*(Δ, s) via DR-B linear functional with the Hurwitz-zeta-of-τ T-kernel."""
+def Lambda_DR_hurwitz_for(f_eval, s, tau_0):
+    """Λ*(f, s) via DR-B linear functional with the Hurwitz-zeta-of-τ T-kernel.
+    Works for any f ∈ S_12^! with no pole on the DR-B contour pair."""
     s = mpc(s); tau_0 = mpc(tau_0)
-    MS = cocycle_moment(Delta_eval, -1/tau_0, tau_0, s)
+    MS = cocycle_moment(f_eval, -1/tau_0, tau_0, s)
     a, b = tau_0 - 1, tau_0
     dtau = b - a
     def integrand(t):
         tau = a + t * dtau
-        return Delta_eval(tau) * kT_hurwitz(tau, s) * dtau
+        return f_eval(tau) * kT_hurwitz(tau, s) * dtau
     MT = quad(integrand, [0, 1])
     return mpc(0, -1)**s * (MS + MT)
+
+def Lambda_DR_hurwitz(s, tau_0):
+    """Λ*(Δ, s) via Hurwitz-zeta T-kernel — kept for backward compat with §C–E."""
+    return Lambda_DR_hurwitz_for(Delta_eval, s, tau_0)
 
 def Lambda_DR_via_kernels(s, tau_0):
     """Λ*(Δ, s) via DR-B linear functional with complex-s Hurwitz-extended T-kernel."""
@@ -379,3 +384,275 @@ for s in [mpc('2.5'), mpc('5.5'), mpc('3', '1.5')]:
         val = Lambda_DR_hurwitz(s, t0)
         diff = abs(val - ref)
         print(f"    τ_0 = {complex(t0)}:   Λ_DR = {complex(val)}   |diff vs Λ_BFK| = {float(diff):.3e}")
+
+# ============================================================================
+# (F) Δ̂ q-series: Δ̂ = Δ · (j² − 1464 j + 142236) = Δ · (J² + 24 J − 393444),
+#     J = j − 744.  Constructed exactly via sympy rationals, with all Fourier
+#     modes including the principal-part n = −1 mode.
+# ============================================================================
+
+def _laurent_div(num, den, lo_exp, hi_exp):
+    den_min  = min(den.keys())
+    den_lead = den[den_min]
+    quot = {}
+    for target in range(lo_exp + den_min, hi_exp + den_min + 1):
+        s_ = num.get(target, Rational(0))
+        for kq in range(lo_exp, target - den_min):
+            s_ -= quot.get(kq, Rational(0)) * den.get(target - kq, Rational(0))
+        if s_ != 0:
+            quot[target - den_min] = s_ / den_lead
+    return quot
+
+def _divisor_sigma(n_, p_):
+    s_, d_ = 0, 1
+    while d_ * d_ <= n_:
+        if n_ % d_ == 0:
+            s_ += d_**p_
+            if d_ != n_ // d_:
+                s_ += (n_ // d_)**p_
+        d_ += 1
+    return s_
+
+PREC_DH = 60
+_Delta_qexp = build_Delta(PREC_DH + 2)            # {1: 1, 2: -24, ...}
+_E4 = {0: Rational(1)}
+for _n in range(1, PREC_DH + 3):
+    _E4[_n] = Rational(240 * _divisor_sigma(_n, 3))
+_E4c  = laurent_mul(laurent_mul(_E4, _E4, 0, PREC_DH + 2), _E4, 0, PREC_DH + 2)
+_jser = _laurent_div(_E4c, _Delta_qexp, -1, PREC_DH)
+_Jser = dict(_jser); _Jser[0] = _Jser.get(0, Rational(0)) - Rational(744)
+_Jser = {k: v for k, v in _Jser.items() if v != 0}
+_Jsq  = laurent_mul(_Jser, _Jser, -2, PREC_DH)
+_D_Jsq = laurent_mul(_Delta_qexp, _Jsq,  -2, PREC_DH)
+_D_J   = laurent_mul(_Delta_qexp, _Jser, -1, PREC_DH)
+_DH = {}
+for _k, _v in _D_Jsq.items(): _DH[_k] = _DH.get(_k, Rational(0)) + _v
+for _k, _v in _D_J.items():   _DH[_k] = _DH.get(_k, Rational(0)) + Rational(24) * _v
+for _k, _v in _Delta_qexp.items(): _DH[_k] = _DH.get(_k, Rational(0)) + Rational(-393444) * _v
+Dhat_series = {k: v for k, v in _DH.items() if v != 0}
+dhat_terms  = sorted([(int(n), mpf(str(c))) for n, c in Dhat_series.items() if c != 0])
+
+print(f"\n=== (F) Δ̂ q-series construction ===")
+print(f"  {len(dhat_terms)} nonzero modes, n ∈ [{dhat_terms[0][0]}, {dhat_terms[-1][0]}]")
+print(f"  a(-1)={Dhat_series.get(-1,0)}, a(0)={Dhat_series.get(0,0)}, "
+      f"a(1)={Dhat_series.get(1,0)}, a(2)={Dhat_series.get(2,0)}")
+assert Dhat_series.get(-1, 0) == 1 and Dhat_series.get(0, 0) == 0 and Dhat_series.get(1, 0) == 0, \
+    "Δ̂ must satisfy Δ̂(τ) = q^{-1} + 0·q^0 + 0·q^1 + O(q^2)"
+print("  Verified: Δ̂(τ) = q^{-1} + O(q^2).")
+
+def Dhat_eval(tau):
+    tau = mpc(tau); val = mpc(0)
+    for n, c in dhat_terms:
+        val += c * exp(n * TWOPII * tau)
+    return val
+
+# ============================================================================
+# (G) Period polynomials r_BFK and r_DR for Δ vs Δ̂.
+#     r_BFK uses literal BFK formula Λ*(s) summed over ALL Fourier modes;
+#     the n < 0 contribution is the analytic continuation (finite at integer s
+#     via the polynomial identity for the incomplete-Γ function).
+#     r_DR uses the DR-B finite-endpoint cocycle at τ_0.
+#     Output: 11-tuple of period-polynomial coefficients [r_X^0, …, r_X^{10}].
+# ============================================================================
+
+def Lambda_BFK_general(terms, s):
+    """BFK Λ*(f, s) = Σ_n a(n)[Γ(s,2πn)/(2πn)^s + Γ(k-s,2πn)/(2πn)^{k-s}].
+    All n ≠ 0 included; n < 0 evaluated via principal-branch analytic
+    continuation (gammainc and x**s both handle negative-real x in mpmath).
+    """
+    s = mpc(s)
+    total = mpc(0)
+    for n, c in terms:
+        x = mpc(2 * n) * pi    # complex; for n < 0 this is (-2π|n|) + 0i
+        total += c * (gammainc(s, x) / x**s + gammainc(K - s, x) / x**(K - s))
+    return total
+
+def r_BFK_poly(terms):
+    """Period polynomial r_BFK(f; X), 11-list with out[m] = coefficient of X^m.
+    r_BFK(f; X) = Σ_{j=0}^{N} (-1)^j C(N,j) i^{j+1} Λ*_BFK(j+1) X^{N-j}.
+    """
+    out = [mpc(0)] * (N + 1)
+    for j in range(N + 1):
+        L = Lambda_BFK_general(terms, j + 1)
+        coef = mpf((-1)**j) * mpf(comb(N, j)) * mpc(0, 1)**(j + 1) * L
+        out[N - j] = coef
+    return out
+
+def r_DR_poly(f_eval, tau_0):
+    """Period polynomial r_DR(f; X) via DR-B finite-endpoint cocycle at τ_0.
+    11-list with out[m] = coefficient of X^m.
+    """
+    from mpmath import matrix as _mp_matrix
+    tau_0 = mpc(tau_0)
+    PREF = TWOPII ** (N + 1)
+    def cocycle(a, b):
+        a, b = mpc(a), mpc(b); dtau = b - a
+        coefs = []
+        for j in range(N + 1):
+            def integrand(t, j=j):
+                tau = a + t * dtau
+                return f_eval(tau) * tau**j * dtau
+            coefs.append(PREF * mpf((-1)**j) * mpf(comb(N, j)) * quad(integrand, [0, 1]))
+        return coefs
+    C_T = cocycle(tau_0 - 1, tau_0)
+    C_S = cocycle(-1/tau_0,  tau_0)
+    A = _mp_matrix(N, N); bvec = _mp_matrix(N, 1)
+    for m in range(1, N + 1):
+        for j in range(m):
+            A[m - 1, j] = mpf(comb(N - j, m - j))
+        bvec[m - 1, 0] = C_T[m]
+    psol = lu_solve(A, bvec)
+    P  = [psol[j, 0] for j in range(N)] + [mpc(0)]
+    PS = [P[N - m] * mpf((-1)**m) for m in range(N + 1)]   # P|S in homogeneous (X^{N-j} Y^j) indexing
+    C_prime_S = [C_S[j] - (PS[j] - P[j]) for j in range(N + 1)]
+    # Period polynomial r_DR(X) = C_prime_S(X, 1) / PREF, so coeff of X^m is C_prime_S[N-m]/PREF.
+    return [C_prime_S[N - m] / PREF for m in range(N + 1)]
+
+# Slash actions on polynomial coefficient lists p[m] = coefficient of X^m, weight 2-k.
+def slash_S_poly(p):
+    n = len(p) - 1
+    return [mpf((-1)**m) * p[n - m] for m in range(n + 1)]
+
+def slash_T_poly(p):
+    """(P|T)(X) = P(X+1):  (P|T)_m = Σ_{j ≥ m} p_j C(j, m)."""
+    n = len(p) - 1
+    out = [mpc(0)] * (n + 1)
+    for j in range(n + 1):
+        for m in range(j + 1):
+            out[m] += p[j] * mpf(comb(j, m))
+    return out
+
+def slash_U_poly(p):
+    """U = TS (BGKO/BFK), right action: (P|TS) = (P|T)|S."""
+    return slash_S_poly(slash_T_poly(p))
+
+def relation_residuals(p):
+    nrm = max(abs(c) for c in p) if any(c != 0 for c in p) else mpf(1)
+    pS  = slash_S_poly(p)
+    pU  = slash_U_poly(p)
+    pU2 = slash_U_poly(pU)
+    one_plus_S    = max(abs(p[m] + pS[m])           for m in range(len(p)))
+    one_plus_UUU2 = max(abs(p[m] + pU[m] + pU2[m])  for m in range(len(p)))
+    return nrm, one_plus_S, one_plus_UUU2
+
+print("\n=== (G) Period polynomials r_BFK and r_DR for Δ vs Δ̂ at τ_0 = {} ===".format(TAU0))
+
+print("\nSanity: r_BFK(Δ) vs r_DR(Δ) coefficient-by-coefficient (should match at interior X^1..X^9)")
+print(f"  {'X^m':>5}  {'r_BFK(Δ) [X^m]':>34}  {'r_DR(Δ) [X^m]':>34}  {'|diff|':>10}")
+print("  " + "-"*100)
+rB_Delta = r_BFK_poly(delta_terms)
+rD_Delta = r_DR_poly(Delta_eval, TAU0)
+for m in range(N + 1):
+    diff = abs(rB_Delta[m] - rD_Delta[m])
+    print(f"  X^{m:<3}  {complex(rB_Delta[m]):>34.16g}  {complex(rD_Delta[m]):>34.16g}  {float(diff):>10.3e}")
+
+print("\nΔ̂: r_BFK(Δ̂), r_DR(Δ̂), and Δr = r_DR − r_BFK")
+print(f"  {'X^m':>5}  {'r_BFK(Δ̂)':>34}  {'r_DR(Δ̂)':>34}  {'Δr':>34}")
+print("  " + "-"*120)
+rB_Dhat = r_BFK_poly(dhat_terms)
+rD_Dhat = r_DR_poly(Dhat_eval, TAU0)
+Δr      = [rD_Dhat[m] - rB_Dhat[m] for m in range(N + 1)]
+for m in range(N + 1):
+    print(f"  X^{m:<3}  {complex(rB_Dhat[m]):>34.10g}  {complex(rD_Dhat[m]):>34.10g}  {complex(Δr[m]):>34.10g}")
+
+print("\n=== (H) Period-relation residuals: (1+S) and (1+U+U²), U = TS ===")
+print(f"  {'polynomial':>14}  {'|max coef|':>13}  {'|(1+S)|':>13}  {'|(1+U+U²)|':>14}  "
+      f"{'rel (1+S)':>12}  {'rel (1+U+U²)':>14}")
+print("  " + "-"*100)
+for label, p in [("r_BFK(Δ)", rB_Delta), ("r_DR(Δ)", rD_Delta),
+                 ("r_BFK(Δ̂)", rB_Dhat), ("r_DR(Δ̂)", rD_Dhat),
+                 ("Δr=DR−BFK", Δr)]:
+    nrm, rS, rU = relation_residuals(p)
+    rel_S = float(rS / nrm)
+    rel_U = float(rU / nrm)
+    print(f"  {label:>14}  {float(nrm):>13.4e}  {float(rS):>13.4e}  {float(rU):>14.4e}  "
+          f"{rel_S:>12.3e}  {rel_U:>14.3e}")
+
+# ============================================================================
+# (I) Closing the loop: Hurwitz-zeta T-kernel DR-B applied to Δ̂.
+#     Theorem complex-s in period_polynomials_dim_Sk_one.tex predicts that
+#     Λ_DR(f, s) computed with k̃_T(τ, s) = ζ(1-s, τ+1) - e^{iπ(s-1)} ζ(s-11, τ+1)
+#     equals Λ*_BFK(f, s) for any f ∈ S_12^! at all complex s.  At integer
+#     s ∈ {1, …, 11} this pins down the boundary coefficients of r_DR that
+#     the polynomial-V_10 representative leaves ambiguous.  Test: build
+#     r_DR_hurwitz(Δ̂; X) from these 11 Λ-values and compare to r_BFK(Δ̂; X)
+#     coefficient-by-coefficient.  Predict: Δr → 0 at ALL 11 coefficients,
+#     including the boundary X^0, X^10 cases that the polynomial DR-B got wrong.
+# ============================================================================
+
+def r_DR_hurwitz_poly(f_eval, tau_0):
+    """Period polynomial r_DR(f; X) via Hurwitz-zeta T-kernel DR-B at τ_0.
+    Built from 11 integer-s Λ values, with the same Zagier-style normalization
+    used for r_BFK_poly:  r[N-j] = (-1)^j C(N,j) i^{j+1} Λ(j+1)."""
+    out = [mpc(0)] * (N + 1)
+    for j in range(N + 1):
+        L = Lambda_DR_hurwitz_for(f_eval, j + 1, tau_0)
+        coef = mpf((-1)**j) * mpf(comb(N, j)) * mpc(0, 1)**(j + 1) * L
+        out[N - j] = coef
+    return out
+
+print("\n=== (I) Hurwitz-zeta T-kernel DR-B for Δ̂: closing the loop ===")
+print(f"τ_0 = {TAU0}")
+
+# First, integer-s Λ values: Hurwitz-DR vs BFK for Δ̂
+print("\nIntegerS Λ*(Δ̂, s): Hurwitz-DR(Δ̂) vs BFK(Δ̂)")
+print(f"  {'s':>3}  {'Λ_DR_hurwitz(Δ̂, s)':>40}  {'Λ_BFK(Δ̂, s)':>40}  {'|diff|':>10}")
+print("  " + "-"*105)
+for s_test in range(1, K):
+    val = Lambda_DR_hurwitz_for(Dhat_eval, s_test, TAU0)
+    ref = Lambda_BFK_general(dhat_terms, s_test)
+    diff = abs(val - ref)
+    print(f"  {s_test:>3}  {complex(val):>40.16g}  {complex(ref):>40.16g}  {float(diff):>10.3e}")
+
+# Now build the full period polynomial and compare to r_BFK and r_DR.
+print("\nPeriod polynomial comparison: r_DR_hurwitz(Δ̂) vs r_BFK(Δ̂)")
+print(f"  {'X^m':>5}  {'r_DR_hurwitz(Δ̂)':>34}  {'r_BFK(Δ̂)':>34}  {'|diff|':>10}")
+print("  " + "-"*95)
+rDH_Dhat = r_DR_hurwitz_poly(Dhat_eval, TAU0)
+for m in range(N + 1):
+    diff = abs(rDH_Dhat[m] - rB_Dhat[m])
+    print(f"  X^{m:<3}  {complex(rDH_Dhat[m]):>34.10g}  {complex(rB_Dhat[m]):>34.10g}  {float(diff):>10.3e}")
+
+# Sanity: also do it for Δ.
+print("\nSanity (Δ): r_DR_hurwitz(Δ) vs r_BFK(Δ)")
+print(f"  {'X^m':>5}  {'r_DR_hurwitz(Δ)':>34}  {'r_BFK(Δ)':>34}  {'|diff|':>10}")
+print("  " + "-"*95)
+rDH_Delta = r_DR_hurwitz_poly(Delta_eval, TAU0)
+for m in range(N + 1):
+    diff = abs(rDH_Delta[m] - rB_Delta[m])
+    print(f"  X^{m:<3}  {complex(rDH_Delta[m]):>34.10g}  {complex(rB_Delta[m]):>34.10g}  {float(diff):>10.3e}")
+
+# Period-relation residuals on the Hurwitz polynomial.
+print("\nPeriod-relation residuals for r_DR_hurwitz:")
+print(f"  {'polynomial':>20}  {'|max coef|':>13}  {'|(1+S)|':>13}  {'|(1+U+U²)|':>14}  "
+      f"{'rel (1+S)':>12}  {'rel (1+U+U²)':>14}")
+for label, p in [("r_DR_hurwitz(Δ)", rDH_Delta), ("r_DR_hurwitz(Δ̂)", rDH_Dhat)]:
+    nrm, rS, rU = relation_residuals(p)
+    rel_S = float(rS / nrm)
+    rel_U = float(rU / nrm)
+    print(f"  {label:>20}  {float(nrm):>13.4e}  {float(rS):>13.4e}  {float(rU):>14.4e}  "
+          f"{rel_S:>12.3e}  {rel_U:>14.3e}")
+
+# ============================================================================
+# (J) Closing the very last gap: BFK = Hurwitz-DR for Δ̂ at NON-INTEGER s.
+#     The integer-s agreement (§I) leaves the non-integer behaviour formally
+#     a separate check, since agreement on a discrete sequence does not by
+#     itself force agreement everywhere.  In fact both Λ*_BFK(Δ̂, s) and
+#     Λ*_DR(Δ̂, s) are well-defined meromorphic functions of s (BFK uses
+#     principal branch for (-2π)^s at the n = -1 mode); they should agree
+#     everywhere by analyticity, and this block confirms it numerically.
+# ============================================================================
+print("\n=== (J) Non-integer s: Λ_BFK(Δ̂, s) vs Λ_DR_hurwitz(Δ̂, s) ===")
+print(f"  {'s':>20}  {'Λ_DR_hurwitz(Δ̂, s)':>40}  {'Λ_BFK(Δ̂, s)':>40}  {'|diff|':>10}")
+print("  " + "-"*120)
+NONINT_S_DHAT = [
+    mpc('0.5'), mpc('1.5'), mpc('2.5'), mpc('3.5'), mpc('4.5'),
+    mpc('5.5'), mpc('6.5'), mpc('-0.3'),
+    mpc('2.7', '0.4'), mpc('5', '1'), mpc('5.5', '2.5'),
+]
+for s in NONINT_S_DHAT:
+    val = Lambda_DR_hurwitz_for(Dhat_eval, s, TAU0)
+    ref = Lambda_BFK_general(dhat_terms, s)
+    diff = abs(val - ref)
+    s_str = f"{complex(s):.4g}"
+    print(f"  {s_str:>20}  {complex(val):>40.16g}  {complex(ref):>40.16g}  {float(diff):>10.3e}")

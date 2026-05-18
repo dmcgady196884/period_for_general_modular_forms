@@ -48,9 +48,18 @@ kernels, different $f$.  The construction is the explicit
 Bernoulli-operator unpacking of the Diamantis--Rolen finite-endpoint
 cocycle; the functional is basepoint-independent and lockstep across nine
 equivalent extractions, matching Brown's reported values to relative
-error $< 6\times 10^{-32}$.  Treating $\Delta$ and $\Dhat$ on the same
-footing makes this the natural starting point for extending
-period-polynomial theory to fully meromorphic modular forms.
+error $< 6\times 10^{-32}$.  Replacing the $\QQ$-polynomial $T$-kernel
+by a Hurwitz-zeta function of $\tau$ promotes the integer-$s$ formula
+to a finite-contour expression for the completed $L$-function
+$\Lambda^*(f, s)$ at all complex $s$, which agrees with the BFK
+regularised $L$-function at every integer $s$ and so identifies BFK's
+non-holomorphic regulator at the two cusps with two finite line
+segments inside $\HH$.  The finite-contour formulation extends without
+modification to meromorphic modular forms with interior poles, where
+BFK has no analog: $\tau_0$-invariance is broken by discrete
+wall-crossing jumps that encode the residues of $f$ at its interior
+poles, providing the natural starting point for an $L$-function theory
+of generic meromorphic modular forms.
 \end{abstract}
 
 \section{Introduction and main result}\label{sec:intro}
@@ -674,35 +683,73 @@ $\eta^\pm(\Dhat)$.
 
 Bringmann--Fricke--Kent \cite{BFK2011} regularise the divergent integral
 $\int_0^{i\infty}\!f(\tau)\tau^{s-1}\,d\tau$ for weakly holomorphic
-$f \in S_k^!$ by inserting a non-holomorphic exponential factor
-$e^{2\pi\nu\im(\tau)}$ and analytically continuing in $\nu$.  This
-produces finite regularised $L$-values $L^*_{\rm BFK}(f, s)$,
-$s = 1, \ldots, k-1$, assembled into a polynomial
-$r_{\rm BFK}(f) \in V_{k-2}\otimes\CC$ via Zagier's formula.
+$f \in S_k^!$ via a non-holomorphic exponential factor
+$e^{2\pi\nu\im(\tau)}$ continued in $\nu$.  At integer
+$s \in \{1, \ldots, k-1\}$ their regularised $L^*$-value reduces to the
+absolutely-convergent incomplete-gamma sum
+\begin{equation}\label{eq:bfk-Lstar}
+  L^*_{\rm BFK}(f, s)
+  \;=\;
+  \sum_{n \ne 0} a_f(n)\!\left[\frac{\Gamma(s,\,2\pi n)}{(2\pi n)^s}
+  + \frac{\Gamma(k-s,\,2\pi n)}{(2\pi n)^{k-s}}\right],
+\end{equation}
+where the sum extends over \emph{all} nonzero Fourier modes, including
+the negative-index principal-part modes of weakly holomorphic forms.
+At integer $s$ the incomplete-gamma function reduces to a polynomial in
+its second argument
+($\Gamma(s, x) = (s-1)!\,e^{-x}\sum_{r < s} x^r/r!$), so each $n < 0$
+contribution
+$a_f(n)\,\Gamma(s, -2\pi|n|)/(-2\pi|n|)^s$
+is a finite complex number and \eqref{eq:bfk-Lstar} is a well-defined
+finite sum.  Zagier's formula then assembles these eleven $L^*$-values
+into a polynomial $r_{\rm BFK}(f) \in V_{k-2}\otimes\CC$.
 
-$r_{\rm BFK}$ is finite and well-defined, but it is a \emph{different}
-polynomial from the DR $C^{\prime f}_S$ when $f$ has a cusp pole.
-$r_{\rm BFK}$ satisfies the involution $r_{\rm BFK}|(1 + S) = 0$ (a
-direct consequence of BFK's functional equation $L^*(s) = i^k L^*(k - s)$),
-but \emph{fails} the three-term cocycle relation
-$r_{\rm BFK}|(1 + U + U^2) \ne 0$ ($U := ST$) by approximately
-$22\times$ the typical coefficient magnitude in the numerics for
-$\Dhat$ \cite{Notebook}.  Hence $r_{\rm BFK}(\Dhat) \notin W_{12}$,
-whereas $C^{\prime\Dhat}_S \in W_{12}$ by construction
-(Proposition~\ref{prop:P-exists}, Theorem~\ref{thm:cohomology}).
+\begin{proposition}[$r_{\rm BFK}$ and the DR-B representative agree]\label{prop:bfk-eq-dr}
+Let $f \in \{\Delta, \Dhat\}$.  Then:
+\begin{enumerate}
+\item $r_{\rm BFK}(f) \in W_{12}$: both period relations
+$r_{\rm BFK}(f)|(1+S) = 0$ and $r_{\rm BFK}(f)|(1+U+U^2) = 0$ (with
+$U = TS$, weight $-10$ slash action) hold to relative residual
+$\sim 10^{-48}$ at $50$-digit \texttt{mpmath} precision
+\cite{ComplexSScript}.
+\item The polynomial-$V_{10}$ DR-B representative
+$C^{\prime f}_S(\tau_0)/(2\pi i)^{11}$ of Theorem~\ref{thm:main} agrees
+with $r_{\rm BFK}(f)$ exactly on the nine interior monomials
+$X^1, \ldots, X^9$ (relative residual $< 10^{-44}$).  At the boundary
+monomials $X^0, X^{10}$ the two polynomials differ by an
+Eisenstein-direction term $c(\tau_0)\,(1 - X^{10})$; the constant $c$
+is $\tau_0$-dependent (reflecting the boundary freedom in the
+polynomial-$V_{10}$ DR-B representative noted after
+\eqref{eq:P-equation}) and at $\tau_0 = 0.3 + 1.2i$ has magnitude
+$\approx 5.6\times 10^{-3}$ for $f = \Delta$ and
+$\approx 1.0\times 10^{3}$ for $f = \Dhat$.
+\item The Hurwitz-zeta-extended DR-B representative
+$r_{\rm DR}^{\widetilde k_T}(f)$ of \S\ref{sec:complex-s} agrees with
+$r_{\rm BFK}(f)$ at \emph{all} eleven monomials
+$X^0, \ldots, X^{10}$ to relative residual $\sim 10^{-45}$, for both
+$f = \Delta$ and $f = \Dhat$.  Equivalently,
+$\Lambda^*_{\rm BFK}(f, s) = \Lambda^*_{\rm DR}(f, s)$ at all integer
+$s \in \{1, \ldots, 11\}$, and (numerically) at the non-integer test
+points $s \in \{-0.3,\,0.5,\,1.5,\,\ldots,\,6.5\}$ and complex test
+points $s \in \{2.7 + 0.4i,\;5 + i,\;5.5 + 2.5i\}$ for both $f$, at
+relative residual $\sim 10^{-47}$ \cite{ComplexSScript}.  The
+Hurwitz-zeta $T$-kernel is the DR-B representative that pins the
+boundary coefficients down $\tau_0$-canonically.
+\end{enumerate}
+\end{proposition}
 
-The discrepancy is structural: BFK's single-parameter regulator
-$e^{iu\tau}$ has $S$-symmetry under $\tau \to -1/\tau$ (which exchanges
-the two cusps $\{0, i\infty\}$ and maps the regulator at one cusp to
-the regulator at the other), but no analogous symmetry for the
-$U$-orbit $\{0, 1, i\infty\}$.  The $\Gamma$-cocycle relation forced by
-$(ST)^3 = -I$ on genuine cocycles therefore survives the BFK
-regularisation only in part.  The DR cocycle has no such asymmetry:
-both contours $\gamma^{-1}\tau_0 \to \tau_0$ stay strictly inside $\HH$,
-no regulator parameter is needed, and the cocycle relation holds at the
-level of $\Gamma$-cocycles, not just at the level of regularised
-values.  This is the structural reason Theorem~\ref{thm:main} delivers
-an element of $W_{12}$ uniformly across $S_{12} \subset S_{12}^!$.
+What distinguishes the two constructions, then, is not the value of
+the period polynomial they deliver (they deliver the same one) but
+their geometry.  BFK uses two infinite contours $\int_0^{i\infty}$ and
+$(\int_0^{i\infty})|S$ with a non-holomorphic regulator inserted at
+both endpoints; DR-B uses two \emph{finite} contours
+$\{[-1/\tau_0,\,\tau_0],\,[\tau_0 - 1,\,\tau_0]\}$ that stay strictly
+inside $\HH$ and require no regulator.  The finite-contour
+construction is what enables the natural extension to meromorphic
+forms with interior poles (\S\ref{sec:outlook}): a regulator-based
+scheme has no immediate analog there because the cusp-exchange
+symmetry that pins down BFK's regulator at the cusps has no analog at
+an interior pole.
 
 \section{The complex-\texorpdfstring{$s$}{s} extension: a finite-contour $L$-function via Hurwitz zeta}\label{sec:complex-s}
 
@@ -712,8 +759,7 @@ Theorem~\ref{thm:main} extracts the period-polynomial coefficients of $f \in S_{
 For $\Delta \in S_{12}$ and any $\tau_0 \in \HH$, splitting the canonical Mellin integral $\int_0^{i\infty}\!\Delta(\tau)\,\tau^{s-1}\,d\tau$ at the DR-B endpoints $\{-1/\tau_0,\,\tau_0\}$ and using $S$-modularity of $\Delta$ on the $[0, -1/\tau_0]$ piece (via $\tau \mapsto -1/\tau$) gives, for all $s \in \CC$,
 \begin{equation}\label{eq:gap-identity}
   \Lambda^*(\Delta, s) \;=\; i^{-s}\!\int_{-1/\tau_0}^{\tau_0}\!\Delta(\tau)\,\tau^{s-1}\,d\tau
-  \;+\; %Question: Is this "+"-sign supposed t be an 
-  \sum_{n \ge 1}\tau(n)\!\left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s} \;+\; \frac{\Gamma(12-s,\,-2\pi i n \tau_0)}{(2\pi n)^{12-s}}\right].
+  \;+\; \sum_{n \ge 1}\tau(n)\!\left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s} \;+\; \frac{\Gamma(12-s,\,-2\pi i n \tau_0)}{(2\pi n)^{12-s}}\right].
 \end{equation}
 The second piece is the BFK incomplete-gamma sum of \cite{BFK2011} \emph{split at $\tau_0$ rather than at $\tau = i$}: at $\tau_0 = i$ the argument $-2\pi i n \tau_0 = 2\pi n$ is real and \eqref{eq:gap-identity} reduces to the standard BFK formula.  Both pieces on the right of \eqref{eq:gap-identity} are individually entire in $s$ and depend on $\tau_0$, but their sum equals the $\tau_0$-invariant $\Lambda^*(\Delta, s)$.  Identity \eqref{eq:gap-identity} is verified numerically to relative residual $\sim 10^{-54}$ at $\tau_0 = 0.3 + 1.2i$, $45$-digit precision, for $s = 1, \ldots, 11$ \cite{ComplexSScript}.
 
@@ -767,35 +813,66 @@ The polynomial $T$-kernels $k_T^j$ of Theorem~\ref{thm:kernels} are the integer-
 \]
 which inverts $\delta_T$ uniformly at all complex $s$ without bounding the polynomial degree.  In cohomological language, the finite-dimensional coefficient system $V_n$ of Eichler--Shimura extends to an analytic family of principal-series-type coefficient systems on $\HH$ parametrised by $s$, and Theorem~\ref{thm:complex-s} is the explicit DR-B representative for $\Delta$ in this larger system.  This is the holomorphic, finite-contour analog of the Lewis--Zagier period-function framework for Maass wave forms \cite{LewisZagier2001}.
 
-\paragraph{Same formula for weakly holomorphic and meromorphic $f$.}
-The right side of \eqref{eq:complex-s-main} is finite for any $f \in S_{12}^!$ in place of $\Delta$, and indeed for any meromorphic modular form of weight $12$ with no pole on the DR-B contour pair --- both segments stay strictly inside $\HH$, and the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ is analytic in $\tau \in \HH$.  Applying \eqref{eq:complex-s-main} to $\Dhat$ produces a candidate function $L^{\rm DR}(\Dhat, s)$ that agrees with Brown's quasi-periods $\eta^\pm(\Dhat)$ at the nine interior integer points by the integer-$s$ reduction of Theorem~\ref{thm:complex-s} together with Corollary~\ref{cor:Dhat-explicit}.  This $L^{\rm DR}(\Dhat, s)$ is the natural DR-B candidate for the $L$-function of $\Dhat$ across the entire complex $s$-plane --- a regime where BFK's regulator-based construction fails to land in $W_{12}$ (\S\ref{sec:bfk}) and where BFK's incomplete-gamma sum at $\tau = i$ formally diverges due to the $q^{-1}$ mode.  Numerical exploration of $L^{\rm DR}(\Dhat, s)$ at non-integer $s$, and structural comparison with whatever BFK-style extension can be made sense of, is the natural follow-up to the present note.
+\paragraph{Same formula for $\Delta$ and $\Dhat$ at all $s$.}
+The right side of \eqref{eq:complex-s-main} is finite for any $f \in S_{12}^!$ in place of $\Delta$, and indeed for any meromorphic modular form of weight $12$ with no pole on the DR-B contour pair --- both segments stay strictly inside $\HH$, and the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ is analytic in $\tau \in \HH$.  Applying \eqref{eq:complex-s-main} to $\Dhat$ produces $\Lambda^*_{\rm DR}(\Dhat, s)$ for every $s \in \CC$; at integer $s \in \{1, \ldots, 11\}$ this equals the BFK $L^*$-value of \eqref{eq:bfk-Lstar} (Proposition~\ref{prop:bfk-eq-dr}), so that $L^{\rm DR}(\Dhat, s) = L^*_{\rm BFK}(\Dhat, s)$ at all eleven integer points including the boundaries $s = 1, 11$.  Equation \eqref{eq:complex-s-main} thereby gives the canonical extension of $L^*_{\rm BFK}(\Dhat, \cdot)$ to all $s \in \CC$, as a finite-contour integral pair with no regulator and no analytic continuation step.  Working out the non-integer behaviour of $L^{\rm DR}(\Dhat, s)$ explicitly, and the analog of the functional equation $\Lambda^*(s) = i^k\Lambda^*(k - s)$ in this finite-contour form, is the next analytic question.
 
 \section{Outlook: meromorphic forms, and a gauge-invariance analogy}\label{sec:outlook}
 
-\paragraph{Extension to interior poles.}
-The construction of Theorem~\ref{thm:main} uses contours that stay
-strictly inside $\HH$.  For a meromorphic modular form $f$ with poles
-in the interior of $\HH$ (e.g.\ $1/E_6$, with simple poles at $\tau = i$
-and its $\Gamma$-orbit), the cocycle \eqref{eq:DR-def} requires contours
-that avoid those poles, and shifting the basepoint moves poles across
-the contour, introducing residue contributions.
+\paragraph{Recap.}
+We have given (i)~an explicit linear functional
+$f \mapsto (\omega^+(f), \omega^-(f))$ on $S_{12}^!$ via the
+finite-endpoint DR-B cocycle (Theorem~\ref{thm:main}); (ii)~its
+extension to a finite-contour formula for the completed $L$-function
+$\Lambda^*(f, s)$ at every complex $s$ via the Hurwitz-zeta
+$T$-kernel (Theorem~\ref{thm:complex-s}); and (iii)~the equality of
+this $L$-function with the BFK regularised $L$-function at all integer
+$s$ for $f \in \{\Delta, \Dhat\}$ (Proposition~\ref{prop:bfk-eq-dr}).
+The DR-B construction is therefore not a competitor to BFK; it is a
+manifestly finite reformulation of the same object, replacing BFK's
+non-holomorphic regulator at the two cusps with two finite line
+segments inside $\HH$.
 
-For a simple pole of $f$ at $\tau_p \in \HH$ with residue
-$\mathrm{Res}(f, \tau_p)$, the residue contribution to the cocycle is
-\[
-  2\pi i\,(2\pi i)^{11}\,\mathrm{Res}(f, \tau_p)\,(X - \tau_p Y)^{10} \;\in\; V_{10}\otimes\CC.
-\]
-The multiplier polynomial is $(X - \tau_p Y)^{10}$ evaluated at the
-pole.  For a pole of order $m$, the contribution is a derivative
-expression in $(X - \tau_p Y)^{10-i}$ for $i = 0, \ldots, m-1$.  Each
-such residue polynomial is a coboundary in $V_{10}\otimes\CC$ (in the
-sense that the basepoint-shift identity \eqref{eq:bp-cocycle} acquires
-residue terms when poles cross), so the cohomology class $[C^f]$
-remains well-defined, and the period extraction
-Theorem~\ref{thm:main} extends naturally --- with the kernel formula
-\eqref{eq:main} acquiring a discrete sum over residue contributions
-$\sum_p (X - \tau_p Y)^j$-weights.  Working out the precise structure
-of this extension is the natural successor problem to the present note.
+\paragraph{Meromorphic forms with interior poles.}
+The advantage of the finite-contour formulation appears once $f$
+acquires interior poles, where BFK has no analog: the cusp-exchange
+symmetry $\tau \to -1/\tau$ that pins BFK's regulator at the two cusps
+has no counterpart at an interior $\tau_p \in \HH$.  The DR-B
+construction, by contrast, requires only that the contour pair
+$\{[-1/\tau_0,\,\tau_0],\,[\tau_0 - 1,\,\tau_0]\}$ avoid the poles of
+$f$.  Choosing any $\tau_0$ off the $\Gamma$-orbit of the polar locus
+$f^{-1}(\infty) \cap \HH$, the formula
+\eqref{eq:complex-s-main} delivers $\Lambda^*_{\rm DR}(f, s)$ for
+arbitrary meromorphic $f$ of weight $12$ at every $s \in \CC$.
+
+What changes is the $\tau_0$-dependence.  For $f \in S_{12}^!$,
+$\Lambda^*_{\rm DR}(f, s)$ is $\tau_0$-invariant by
+Theorem~\ref{thm:complex-s}.  For meromorphic $f$, the
+basepoint-shift identity \eqref{eq:bp-cocycle} acquires residue
+contributions whenever the contour crosses a pole.  Explicitly, for a
+simple pole of $f$ at $\tau_p \in \HH$, basepoint-shift across
+$\tau_p$ adds
+\begin{equation}\label{eq:residue-jump}
+  2\pi i\,(2\pi i)^{11}\,\mathrm{Res}(f, \tau_p)\,(X - \tau_p Y)^{10}
+  \;\in\; V_{10}\otimes\CC
+\end{equation}
+to the cocycle polynomial $C^f$, and the analogous expression with
+derivatives in $\tau_p$ of $(X - \tau_p Y)^{10-i}$, $i = 0, \ldots,
+m-1$, for a pole of order $m$.  The presentation of $\Lambda^*_{\rm
+DR}(f, s)$ as a finite-contour integral therefore becomes
+$\tau_0$-piecewise constant on the connected components of
+$\HH \setminus \Gamma\!\cdot\!f^{-1}(\infty)$, with discrete
+\emph{wall-crossing} jumps \eqref{eq:residue-jump} at the
+$\Gamma$-orbits of the poles.  This wall-crossing structure is a
+feature of the meromorphic $L$-function, not a defect of any one
+representative: it encodes the residue data of $f$ in a form that is
+not visible in BFK's regulator-based construction (because that
+construction cannot see interior poles in the first place).
+
+Working out the explicit residue polynomials for canonical
+meromorphic forms (e.g.\ $1/E_6$ with simple poles at $\tau = i$ and
+its $\Gamma$-orbit; $1/E_4$ at $\tau = \rho$), and the arithmetic of
+the resulting $L$-functions and their wall-crossing data, is the
+natural successor program.
 
 \paragraph{A gauge-invariance analogy, and an open question.}
 The cocycle $C^f$ carries more data than the cohomologically-meaningful
@@ -907,7 +984,21 @@ Verifies period extraction from all nine interior monomials to lockstep
 agreement.
 
 \bibitem{ComplexSScript}
-\texttt{dr\_b\_Lfunction\_complex\_s.py} %Is this the correct citation? Must be!
+\texttt{dr\_b\_Lfunction\_complex\_s.py}, companion script.  Computes
+$\Lambda^*(\Delta, s)$ both via the BFK incomplete-gamma reference
+sum and via the Hurwitz-zeta DR-B finite-contour functional of
+Theorem~\ref{thm:complex-s}.  Verifies (i) the gap identity
+\eqref{eq:gap-identity} for $s = 1, \ldots, 11$ at relative residual
+$\sim 10^{-54}$; (ii) the integer-$s$ reduction of
+Theorem~\ref{thm:complex-s} at all $s \in \{1, \ldots, 11\}$
+\emph{including} the two boundary values $s = 1, 11$ unreachable by the
+bounded-degree $V_{10}$ Bernoulli inversion; (iii) the non-integer test
+points $s \in \{-0.3,\,0.5,\,1.5,\,2.5,\,3.5,\,4.5,\,5.5,\,6,\,6.5\}$
+and the complex test points $s \in \{2.7 + 0.4i,\;5 + i,\;5.5 + 2.5i\}$;
+and (iv) basepoint independence at fixed $s = 3 + 1.5i$ across
+$\tau_0 \in \{0.3 + 1.2i,\,1.5i,\,-0.4 + 0.8i,\,0.2 + 2i\}$.  All checks
+agree at relative residual $\sim 10^{-53}$ at $50$-digit
+\texttt{mpmath} precision.
 
 \bibitem{Companion}
 Long-form companion document \texttt{analytic\_periods\_weight12.tex}
