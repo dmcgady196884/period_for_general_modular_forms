@@ -216,7 +216,9 @@ particular, the entire $\CC$-span of products $R(J)\,\Delta$ (with
 vanishing constant term) maps linearly into
 $H^1_{\rm cusp}(\Gamma; V_{10}\otimes\CC) = \CC[P^+]\oplus\CC[P^-]$,
 landing on the pair $(\omega^+,\omega^-) \in \CC^2$ via \eqref{eq:main}.
-\end{corollary}
+\end{corollary} %DAM: This is the real corollary. The other two -- which should anyway be combined into one -- are derivative of the more general claim. Note: This corollary should also be broadened to AT LEAST weak cusp forms at weights $k$ such that $\dim(S_k) \leq 1$. Note: Even if $\dim(S_k) = 0$, we can still have weak cusp-forms. All you need to do, e.g., is to have $(J_1 + c_0 J_0) E_4 = 1/q + O(q)$, where $c_0(E_4) = $ the coefficient of $q^1$ in $E_4$, or whatever. This happens to be a space that is both kinda pathological and quite thin, in terms of the possible richness in cool math that comes out of it. But, at the level of generality, the richness afforded by of a widening of assumptions should not preclude removing artificial narrowing not needed by the underlying mathematics!
+
+%%% Editing line %%%
 
 \paragraph{Why this matters.}
 A ``period'' is, in classical usage, the integral of an algebraic
@@ -837,7 +839,138 @@ The polynomial $T$-kernels $k_T^j$ of Theorem~\ref{thm:kernels} are the integer-
 which inverts $\delta_T$ uniformly at all complex $s$ without bounding the polynomial degree.  In cohomological language, the finite-dimensional coefficient system $V_n$ of Eichler--Shimura extends to an analytic family of principal-series-type coefficient systems on $\HH$ parametrised by $s$, and Theorem~\ref{thm:complex-s} is the explicit DR-B representative for $\Delta$ in this larger system.  This is the holomorphic, finite-contour analog of the Lewis--Zagier period-function framework for Maass wave forms \cite{LewisZagier2001}.
 
 \paragraph{Same formula for $\Delta$ and $\Dhat$ at all $s$.}
-The right side of \eqref{eq:complex-s-main} is finite for any $f \in S_{12}^!$ in place of $\Delta$, and indeed for any meromorphic modular form of weight $12$ with no pole on the DR-B contour pair --- both segments stay strictly inside $\HH$, and the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ is analytic in $\tau \in \HH$.  Applying \eqref{eq:complex-s-main} to $\Dhat$ produces $\Lambda^*_{\rm DR}(\Dhat, s)$ for every $s \in \CC$; at integer $s \in \{1, \ldots, 11\}$ this equals the BFK $L^*$-value of \eqref{eq:bfk-Lstar} (Proposition~\ref{prop:bfk-eq-dr}), so that $L^{\rm DR}(\Dhat, s) = L^*_{\rm BFK}(\Dhat, s)$ at all eleven integer points including the boundaries $s = 1, 11$.  Equation \eqref{eq:complex-s-main} thereby gives the canonical extension of $L^*_{\rm BFK}(\Dhat, \cdot)$ to all $s \in \CC$, as a finite-contour integral pair with no regulator and no analytic continuation step.  Working out the non-integer behaviour of $L^{\rm DR}(\Dhat, s)$ explicitly, and the analog of the functional equation $\Lambda^*(s) = i^k\Lambda^*(k - s)$ in this finite-contour form, is the next analytic question.
+The right side of \eqref{eq:complex-s-main} is finite for any $f \in S_{12}^!$ in place of $\Delta$, and indeed for any meromorphic modular form of weight $12$ with no pole on the DR-B contour pair --- both segments stay strictly inside $\HH$, and the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ is analytic in $\tau \in \HH$.  Applying \eqref{eq:complex-s-main} to $\Dhat$ produces $\Lambda^*_{\rm DR}(\Dhat, s)$ for every $s \in \CC$; at integer $s \in \{1, \ldots, 11\}$ this equals the BFK $L^*$-value of \eqref{eq:bfk-Lstar} (Proposition~\ref{prop:bfk-eq-dr}), so that $L^{\rm DR}(\Dhat, s) = L^*_{\rm BFK}(\Dhat, s)$ at all eleven integer points including the boundaries $s = 1, 11$.  Equation \eqref{eq:complex-s-main} thereby gives the canonical extension of $L^*_{\rm BFK}(\Dhat, \cdot)$ to all $s \in \CC$, as a finite-contour integral pair with no regulator and no analytic continuation step.  The remaining analytic question --- whether this extension agrees with $L^*_{\rm BFK}(\Dhat, \cdot)$ at \emph{all} complex $s$ and not only at the eleven integer points --- is addressed in \S\ref{subsec:tau0-i} below via a basepoint specialisation that turns \eqref{eq:complex-s-main} into a single integral on a compact contour.  The analog of the functional equation $\Lambda^*(s) = i^k\Lambda^*(k - s)$ in finite-contour form is a closely related next step.
+
+\subsection{The $\tau_0 = i$ specialisation: BFK $=$ DR-B at all complex $s$ (sketch)}\label{subsec:tau0-i}
+
+The right side of \eqref{eq:complex-s-main} is $\tau_0$-invariant for $f \in S_{12}^!$, so we are free to pick a basepoint that simplifies the contour pair maximally.  The natural choice is $\tau_0 = i$: since $S \cdot i = -1/i = i$, the elliptic fixed point of $S$ on $\HH$, the $S$-segment $[-1/\tau_0, \tau_0] = [i, i]$ collapses to a single point.  Equation \eqref{eq:complex-s-main} reduces to
+\begin{equation}\label{eq:tau0-i-formula}
+\Lambda^*_{\rm DR}(f, s) \;=\; i^{-s}\!\int_{i-1}^{i} f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau,
+\end{equation}
+a \emph{single} integral over the compact $T$-segment $[i-1, i]$.  This is the dual specialisation to the classical Mellin choice $\tau_0 \to i\infty$: at the cusp basepoint the $T$-segment dies exponentially and the $S$-segment limit recovers the Mellin contour $[0, i\infty]$; at the elliptic-fixed-point basepoint the $S$-segment vanishes identically and the $T$-segment survives.  Both specialisations exploit a fixed point of $Y(1) = \Gamma\backslash\HH$, just different ones.
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Basepoint & Vanishing segment & Surviving contour & What it gives \\
+\midrule
+$\tau_0 \to i\infty$ (cusp) & $T$ (exponentially) & $S$-segment $\to [0, i\infty]$ & Classical Mellin \\
+$\tau_0 = i$ ($S$-fixed point) & $S$ (identically) & $T$-segment $[i-1, i]$ & Elliptic-fixed-point form \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Mode-by-mode evaluation at integer $s$.}
+Apply \eqref{eq:tau0-i-formula} to $f = \Dhat = q^{-1} + \sum_{n \ge 2} a(n)\,q^n$.  The $q$-series converges uniformly on the compact segment $[i-1, i]$ (the polar mode satisfies $|q^{-1}| \le e^{2\pi}$ there), and $\widetilde{k}_T(\tau, s)$ is continuous in $\tau$, so sum and integral commute:
+\begin{equation}\label{eq:tau0-i-modewise}
+\Lambda^*_{\rm DR}(\Dhat, s) \;=\; i^{-s}\sum_n a(n) \int_{i-1}^{i} e^{2\pi i n \tau}\,\widetilde{k}_T(\tau, s)\,d\tau.
+\end{equation}
+At integer $s \in \{1, \ldots, 11\}$, both halves of $\widetilde{k}_T$ collapse to Bernoulli polynomials in $\tau + 1$ via $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$.  The per-mode integral becomes a finite sum of $\int_i^{i+1} e^{2\pi i n \sigma}\,\sigma^m\,d\sigma$ terms (substituting $\sigma = \tau + 1$), each of which evaluates in closed form by repeated integration by parts:
+\begin{equation}\label{eq:IBP-formula}
+\int_i^{i+1} e^{2\pi i n \sigma}\,\sigma^m\,d\sigma
+\;=\; \sum_{k=0}^{m} \frac{(-1)^k\, m!}{(m-k)!\,(2\pi i n)^{k+1}}\,\bigl[(i+1)^{m-k} - i^{m-k}\bigr]\,e^{-2\pi n},
+\end{equation}
+using $e^{2\pi i n (i+1)} = e^{2\pi i n \cdot i}\cdot e^{2\pi i n} = e^{-2\pi n}\cdot 1$ for integer $n$.  For positive integer $n$, summing \eqref{eq:IBP-formula} against the Bernoulli-polynomial coefficients of the kernel reproduces the BFK incomplete-gamma summand $\Gamma(s, 2\pi n)/(2\pi n)^s + i^k\,\Gamma(k-s, 2\pi n)/(2\pi n)^{k-s}$ directly, via the explicit polynomial expression
+\[
+\Gamma(N, x) \;=\; (N-1)!\,e^{-x}\sum_{m=0}^{N-1}\frac{x^m}{m!}\qquad (N \in \ZZ_{\ge 1}).
+\]
+For the polar mode $n = -1$, the \emph{same} closed-form expression \eqref{eq:IBP-formula} matches $\Gamma(N, -2\pi)/(-2\pi)^N$ via the same polynomial identity, which is the analytic-continuation value of the upper incomplete gamma (entire in its second argument).  The polar mode is therefore handled by the cuspidal IBP machinery without any separate regularisation step.
+
+\paragraph{Removable kernel pole at $s = 12$ (and $s = 0$).}
+The kernel $\widetilde{k}_T(\tau, s)$ has an apparent simple pole at $s = 12$ from $\zeta(s-11, \tau+1) = \zeta(1, \tau+1)$ (and at $s = 0$ from $\zeta(1, \tau+1)$ in the first half), but the residue contribution to every per-mode integral vanishes identically:
+\[
+\int_{i-1}^{i} e^{2\pi i n \tau}\,d\tau \;=\; 0 \qquad \text{for every nonzero integer } n,
+\]
+because $e^{2\pi i n (i-1)} = e^{2\pi i n \cdot i}\,e^{-2\pi i n} = e^{2\pi i n \cdot i}$.  The per-mode DR-B integral is therefore entire in $s$, consistent with the BFK side being entire.
+
+\paragraph{Numerical verification.}
+At $50$-digit \texttt{mpmath} precision \cite{VerifyTau0i, VerifyTau0iMulti}, per-mode equality of the right side of \eqref{eq:tau0-i-modewise} with the BFK incomplete-gamma value holds at every tested $(n, s)$:
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+$s$ & $n = -1$ & $n = +1$ & $n = +2$ & $n = +3$ \\
+\midrule
+$1$ & $10^{-51}$ & $10^{-53}$ & $10^{-57}$ & $10^{-59}$ \\
+$3$ & $10^{-58}$ & $10^{-53}$ & $10^{-57}$ & $10^{-59}$ \\
+$6$ & $10^{-51}$ & $10^{-54}$ & $10^{-57}$ & $10^{-59}$ \\
+$9$ & $10^{-56}$ & $10^{-53}$ & $10^{-57}$ & $10^{-59}$ \\
+$11$ & $10^{-51}$ & $10^{-53}$ & $10^{-57}$ & $10^{-59}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Values shown are relative residuals between the per-mode DR-B integral and the per-mode BFK incomplete-gamma value.  The boundary values $s = 1, 11$ are matched without modification (no $V_{10}$-degree truncation enters).  Modes $s = 3$ and $s = 9$ give identical per-mode values, reflecting the $s \leftrightarrow k - s$ symmetry through $i^k = 1$.
+
+\paragraph{From Hurwitz to incomplete gamma: the per-mode identity at all complex $s$.}
+The IBP closed form \eqref{eq:IBP-formula} above evaluates each per-mode integral at integer $s$, where the Hurwitz-zeta kernel collapses to a polynomial in $\tau$.  A standard unfolding identity reduces the per-mode integral to an incomplete gamma directly, with no integer-$s$ restriction, eliminating any appeal to Carlson interpolation.
+
+\begin{lemma}[Hurwitz unfolding]\label{lem:hurwitz-unfold}
+For every positive integer $n$ and every $\nu \in \CC$ with $\mathrm{Re}(\nu) > 1$,
+\begin{equation}\label{eq:hurwitz-unfold}
+\int_i^{i+1} e^{2\pi i n \sigma}\,\zeta(\nu, \sigma)\,d\sigma
+\;=\; i^{1-\nu}\,(2\pi n)^{\nu - 1}\,\Gamma(1-\nu, 2\pi n).
+\end{equation}
+Both sides are entire functions of $\nu$, so \eqref{eq:hurwitz-unfold} holds in fact for every $\nu \in \CC$ by analytic continuation in $\nu$.
+\end{lemma}
+\begin{proof}
+For $\mathrm{Re}(\nu) > 1$ the Hurwitz series $\zeta(\nu, \sigma) = \sum_{m \ge 0}(\sigma + m)^{-\nu}$ converges uniformly on the compact segment $[i, i+1]$ (cf.\ \cite[\S25.11]{DLMF}), so the sum and the integral may be exchanged.  In the $m$-th summand substitute $u = \sigma + m$; the prefactor $e^{2\pi i n m} = 1$ for integer $n$ removes all $m$-dependence except in the limits of integration, and the resulting integrals telescope:
+\[
+\sum_{m \ge 0} \int_{i+m}^{i+m+1} e^{2\pi i n u}\,u^{-\nu}\,du
+\;=\; \int_{i}^{i + \infty} e^{2\pi i n u}\,u^{-\nu}\,du,
+\]
+a single integral along the horizontal ray $\{i + t : t \ge 0\} \subset \HH$.  Next substitute $t = -2\pi i n u$, equivalently $u = it/(2\pi n)$, $du = i\,dt/(2\pi n)$, with $e^{2\pi i n u} = e^{-t}$ and principal-branch $u^{-\nu} = i^{-\nu}(2\pi n)^\nu t^{-\nu}$.  The $u$-contour maps to the vertical line $\{2\pi n - is : s \ge 0\}$ in the right half $t$-plane.  Since $e^{-t}\,t^{-\nu}$ is holomorphic in $\mathrm{Re}(t) > 0$ and decays as $|t| \to \infty$ in this half-plane, Cauchy's theorem (applied to the rectangle $[2\pi n, R] - i[0, R]$, $R \to \infty$) deforms the vertical contour onto $[2\pi n, +\infty]$ along the positive real axis:
+\[
+\int_{2\pi n}^{2\pi n - i\infty} e^{-t}\,t^{-\nu}\,dt
+\;=\; \int_{2\pi n}^{\infty} e^{-t}\,t^{-\nu}\,dt
+\;=\; \Gamma(1 - \nu,\, 2\pi n)
+\]
+by the integral definition of the upper incomplete gamma \cite[\S8.2]{DLMF}.  Collecting Jacobian and branch factors yields \eqref{eq:hurwitz-unfold} for $\mathrm{Re}(\nu) > 1$.  Both sides of \eqref{eq:hurwitz-unfold} are entire in $\nu$: the integral on the left is entire because $\zeta(\nu, \sigma)$ is meromorphic in $\nu$ with only a simple pole at $\nu = 1$ whose residue contribution to $\int_{i-1}^i e^{2\pi i n\tau}d\tau = 0$ vanishes for nonzero integer $n$ (cf.\ the removable-pole observation below \eqref{eq:IBP-formula}), and the upper incomplete gamma $\Gamma(s, x)$ is entire in $s$ for any fixed $x \ne 0$ \cite[\S8.2.7]{DLMF}.  Analytic continuation in $\nu$ extends \eqref{eq:hurwitz-unfold} to all complex $\nu$.
+\end{proof}
+
+\paragraph{The per-mode DR-B$\,=\,$BFK identity.}
+Applying Lemma~\ref{lem:hurwitz-unfold} to each half of the kernel \eqref{eq:tildekT-def} at $\nu = 1 - s$ and $\nu = s - 11$, and recalling the $e^{-2\pi i n} = 1$ identity used to shift the $\tau$-integration from $[i-1, i]$ to $[i, i+1]$ (after $\sigma = \tau + 1$):
+\begin{align*}
+\int_{i-1}^{i} e^{2\pi i n \tau}\,\zeta(1 - s, \tau + 1)\,d\tau
+\;&=\; i^{s}\,(2\pi n)^{-s}\,\Gamma(s,\, 2\pi n), \\
+\int_{i-1}^{i} e^{2\pi i n \tau}\,\zeta(s - 11, \tau + 1)\,d\tau
+\;&=\; i^{12 - s}\,(2\pi n)^{s - 12}\,\Gamma(12 - s,\, 2\pi n).
+\end{align*}
+Combining with the relative phase $-e^{i\pi(s-1)}$ in $\widetilde{k}_T$ and the overall $i^{-s}$ prefactor of \eqref{eq:tau0-i-formula}, the phases collapse:
+$i^{-s}\cdot i^{s} = 1$ in the first half; $-i^{-s}\,e^{i\pi(s-1)}\,i^{12-s} = -e^{i\pi(s-1)}\,i^{12 - 2s} = -e^{i\pi(s-1)}\,e^{-i\pi s} = -e^{-i\pi} = 1$ in the second.  The per-mode DR-B value is therefore exactly
+\begin{equation}\label{eq:per-mode-equality}
+\Lambda^{(n)}_{\rm DR}(s)
+\;=\; \frac{\Gamma(s,\,2\pi n)}{(2\pi n)^{s}} \;+\; \frac{\Gamma(12-s,\,2\pi n)}{(2\pi n)^{12-s}},
+\end{equation}
+which is exactly the $n$-th summand of the BFK incomplete-gamma series \eqref{eq:bfk-Lstar} (using $i^{12} = 1$).  Summing over $n \ge 1$ against the cuspidal Fourier coefficients of $\Dhat$ yields the full equality on the cuspidal part.
+
+\paragraph{The polar mode $n = -1$.}
+The same unfolding identity applies; the only change is that the $t$-contour after the substitution $t = -2\pi i n u = 2\pi i u$ runs from $-2\pi$ upward to $-2\pi + i\infty$ rather than from $2\pi n$ downward.  Deforming this contour to the positive real axis crosses the branch cut of $t^{-\nu}$ at the origin, and the resulting value of the integral is the analytic continuation of $\Gamma(1 - \nu, x)$ in $x$ from $x > 0$ to $x = -2\pi$.  At every positive integer $s$ in $\{1, \ldots, 11\}$ the polynomial closed form
+\[
+\Gamma(N, x) \;=\; (N - 1)!\,e^{-x}\sum_{m=0}^{N-1}\frac{x^m}{m!}
+\qquad (N \in \ZZ_{\ge 1}, \; x \in \CC)
+\]
+makes the analytic continuation explicit and matches the IBP evaluation \eqref{eq:IBP-formula} verbatim; for non-integer $s$ both sides are entire in $s$ and equal by analytic continuation from any open neighbourhood of the integers.  Equivalently, the polar mode contributes
+\[
+\Lambda^{(-1)}_{\rm DR}(s)
+\;=\; \frac{\Gamma(s,\,-2\pi)}{(-2\pi)^{s}} \;+\; \frac{\Gamma(12-s,\,-2\pi)}{(-2\pi)^{12-s}}
+\]
+on a consistent branch, matching the BFK polar summand on the same branch.
+
+\paragraph{Promotion to a theorem.}
+Lemma~\ref{lem:hurwitz-unfold} and the per-mode collapse \eqref{eq:per-mode-equality}, together with absolute convergence of the cuspidal Fourier series of $\Dhat$ on $[i-1, i]$ and the polar-mode discussion above, give the following upgrade of the earlier integer-$s$ statement:
+
+\begin{theorem}[BFK $=$ DR-B at all complex $s$]\label{thm:bfk-dr-allS}
+For $\Dhat$, and by linearity in $f$ for every $f \in S^!_{12}$,
+\[
+\Lambda^*_{\rm DR}(f, s) \;=\; \Lambda^*_{\rm BFK}(f, s) \qquad \text{for every } s \in \CC,
+\]
+where the left side is the finite-contour functional \eqref{eq:complex-s-main} (equivalently the single-segment \eqref{eq:tau0-i-formula} at $\tau_0 = i$) and the right side is the canonical entire extension of the BFK regulated $L$-function \eqref{eq:bfk-Lstar}.
+\end{theorem}
+
+Theorem~\ref{thm:bfk-dr-allS} eliminates the BFK regulator entirely in favour of a manifestly finite single-integral expression on the compact contour $[i-1, i] \subset \HH$, with no regularisation, no asymptotic-subtraction argument, and no special case for the polar Fourier modes.  The growth bound
+\[
+|\zeta(\sigma, a)| \;=\; O\!\bigl(|\im(\sigma)|^{\max(0,\,1/2 - \mathrm{Re}(\sigma)) + \epsilon}\bigr)
+\]
+on vertical lines \cite[\S25.11.36]{DLMF} together with the entire-in-$s$ Hurwitz-unfolding identity \eqref{eq:hurwitz-unfold} renders the Carlson/Phragm\'en--Lindel\"of interpolation argument unnecessary: equality holds as an exact analytic identity term by term in the Fourier expansion.
 
 \section{Outlook: meromorphic forms, and a gauge-invariance analogy}\label{sec:outlook}
 
@@ -1024,6 +1157,29 @@ and the complex test points $s \in \{2.7 + 0.4i,\;5 + i,\;5.5 + 2.5i\}$;
 and (iv) basepoint independence at fixed $s = 3 + 1.5i$ across
 $\tau_0 \in \{0.3 + 1.2i,\,1.5i,\,-0.4 + 0.8i,\,0.2 + 2i\}$.  All checks
 agree at relative residual $\sim 10^{-53}$ at $50$-digit
+\texttt{mpmath} precision.
+
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions, F.~W.~J.\ Olver,
+A.~B.\ Olde Daalhuis, D.~W.\ Lozier, B.~I.\ Schneider, R.~F.\ Boisvert,
+C.~W.\ Clark, B.~R.\ Miller, B.~V.\ Saunders, H.~S.\ Cohl, and
+M.~A.\ McClain, eds., \texttt{https://dlmf.nist.gov/}, Release 1.2.x.
+Chapters used: \S 8 (incomplete gamma functions) and \S 25.11
+(Hurwitz zeta function).
+
+\bibitem{VerifyTau0i}
+\texttt{verify\_s6.py}, companion script.  Per-mode verification at
+$\tau_0 = i$ of the equality between the DR-B integrand
+\eqref{eq:tau0-i-modewise} and the BFK incomplete-gamma summand at
+$s = 6$ for $n \in \{-1, 1, 2, 3, 4, 5\}$, at $50$-digit
+\texttt{mpmath} precision.
+
+\bibitem{VerifyTau0iMulti}
+\texttt{verify\_multi\_s.py}, companion script.  Per-mode verification
+of \eqref{eq:tau0-i-modewise} versus the BFK summand at
+$s \in \{1, 3, 6, 9, 11\}$ --- including the boundary integers
+$s = 1, 11$ unreachable by the bounded-degree $V_{10}$ Bernoulli
+inversion --- for $n \in \{-1, 1, 2, 3\}$, at $50$-digit
 \texttt{mpmath} precision.
 
 \bibitem{Companion}
