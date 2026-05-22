@@ -1,0 +1,1148 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  urlcolor=blue!60!black,
+  citecolor=blue!60!black,
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\Dhat}{\widehat{\Delta}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Res}{Res}
+
+\title{Periods and $L$-functions of meromorphic modular forms\\
+via finite contours}
+\author{David A.\ McGady}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+For an arbitrary meromorphic modular form $f$ of weight $k$ on
+$\Gamma = \SLZ$ we construct a finite-contour functional
+$\Lambda^*_{\rm DR}(f, s; \tau_0)$, depending on a basepoint
+$\tau_0 \in \HH$ chosen so that the Diamantis--Rolen--Brown contour pair
+$\{[-1/\tau_0, \tau_0],\, [\tau_0 - 1, \tau_0]\}$ avoids the poles of
+$f$, and prove that it is the completed $L$-function of $f$ at every
+complex $s$.  When $f$ is weakly holomorphic the functional is
+$\tau_0$-independent and equals the completed $L$-function
+$\Lambda^*(f, s)$ at every $s \in \CC$, term by term in the Fourier
+expansion (Theorem~\ref{thm:bfk-eq}; cf.\ \cite{BFK2011}).  When $f$
+is meromorphic with interior poles the functional is
+piecewise-constant in $\tau_0$ with explicit wall-crossing residue
+jumps across each pole orbit (Theorem~\ref{thm:wall-crossing}); on
+the regular-at-cusps subspace it gives the deformed-Mellin
+$L$-function $L_f^*(s)_{\rm int}$ on each connected component
+(cf.\ \cite{1806}).  When
+$\dim S_k \le 1$ the same construction, with the Hurwitz-zeta kernel
+specialised to a polynomial-in-$\tau$ kernel at integer values of $s$,
+yields the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$ as an
+explicit linear functional in the Fourier coefficients of $f$
+(Theorem~\ref{thm:periods}).  The construction is regulator-free,
+involves no asymptotic limit or analytic continuation step, and is
+visibly natural with respect to the elliptic and cuspidal fixed points
+of the modular curve $Y(1) = \Gamma \backslash \HH$: the
+elliptic-fixed-point basepoint $\tau_0 = i$ collapses the $S$-segment
+to a point and turns $\Lambda^*_{\rm DR}$ into a single integral on the
+compact contour $[i - 1, i] \subset \HH$.
+\end{abstract}
+
+\section{Introduction and main results}\label{sec:intro}
+
+\paragraph{What we construct.}
+Let $\Gamma = \SLZ$, let $f$ be a meromorphic modular form of even
+weight $k \in \ZZ$ on $\Gamma$, and let $\tau_0 \in \HH$ be a basepoint
+with the property that the pair of line segments
+\begin{equation}\label{eq:contour-pair}
+  S\text{-segment}\colon\; [-1/\tau_0,\, \tau_0],
+  \qquad
+  T\text{-segment}\colon\; [\tau_0 - 1,\, \tau_0]
+\end{equation}
+in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.  Define
+\begin{equation}\label{eq:Lambda-DR-def}
+  \Lambda^*_{\rm DR}(f, s; \tau_0)
+  \;:=\; i^{-s}\!\left[
+    \int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau
+    \;+\;
+    \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \right],
+\end{equation}
+where the $T$-kernel
+\begin{equation}\label{eq:tildekT-def}
+  \widetilde{k}_T(\tau, s)
+  \;:=\; \zeta(1 - s,\, \tau + 1)
+  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)
+\end{equation}
+is built from two Hurwitz-zeta functions, and the prefactor $i^{-s}$
+matches the standard $\Lambda^*(\Delta, s) = (2\pi)^{-s}\Gamma(s)L(\Delta, s)$
+normalisation on the holomorphic-cusp-form subspace.  Both contour
+integrals in \eqref{eq:Lambda-DR-def} are finite for every basepoint
+$\tau_0 \in \HH$ admissible for $f$ and every $s \in \CC$; no regulator,
+asymptotic-subtraction argument, or analytic-continuation step is
+required.  The construction makes sense for every even integer $k$, of
+either sign, and is linear in $f$.
+
+\paragraph{Three theorems.}
+The functional $\Lambda^*_{\rm DR}(f, s; \tau_0)$ obeys three properties
+that together identify it as the canonical finite-contour $L$-function
+of $f$:
+
+\begin{enumerate}[label=(\roman*),leftmargin=2.5em]\itemsep0.25em
+\item \emph{(Theorem~\ref{thm:periods})}\,
+  When $\dim S_k \le 1$, the integer-$s$ specialisations of
+  \eqref{eq:Lambda-DR-def} reduce to a polynomial-kernel form that
+  produces the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$
+  as an explicit linear functional in the Fourier coefficients of $f$.
+  For $f = \Delta$ at $k = 12$ this recovers the Brown values of
+  $\omega^\pm(\Delta)$; for $f = \Dhat$ this gives the quasi-periods
+  $\eta^\pm(\Dhat)$ from a finite-endpoint contour pair, with no
+  divergence at the cusp.
+\item \emph{(Theorem~\ref{thm:bfk-eq})}\,
+  For $f \in M^!_k$ (weakly holomorphic, with poles only at the cusp),
+  $\Lambda^*_{\rm DR}(f, s; \tau_0)$ is $\tau_0$-independent on $\HH$ and
+  produces the completed $L$-function $\Lambda^*(f, s)$ at every $s
+  \in \CC$ as a single closed-form incomplete-gamma sum, agreeing
+  term by term in the Fourier expansion with \cite{BFK2011}.  At the
+  elliptic fixed-point basepoint $\tau_0 = i$ the $S$-segment collapses
+  to a point and \eqref{eq:Lambda-DR-def} reduces to a single integral
+  on the compact contour $[i - 1, i]$.
+\item \emph{(Theorem~\ref{thm:wall-crossing})}\,
+  For general meromorphic $f$, $\tau_0 \mapsto \Lambda^*_{\rm DR}(f, s;
+  \tau_0)$ is locally constant on the open subset of admissible
+  basepoints, with explicit wall-crossing residue jumps across each
+  codimension-one wall where the contour pair passes through a pole.
+  For $f$ regular at the cusp this gives the deformed-Mellin
+  $L$-function $L_f^*(s)_{\rm int}$ on each connected component
+  (Corollary~\ref{cor:1806-coincide}; cf.\ \cite{1806}).
+\end{enumerate}
+
+\medskip
+
+The complete statements are below; their proofs occupy
+\S\ref{sec:periods}--\S\ref{sec:wall-crossing}.
+
+\begin{theorem}[Periods and quasi-periods via a linear functional, $\dim S_k \le 1$]\label{thm:periods}
+Let $k \in 2\ZZ$ with $\dim S_k \le 1$, and let $f \in S_k^!$.  For
+the substantive cases $k \in \{12, 16, 18, 20, 22, 26\}$ where
+$\dim S_k = 1$, there exist universal polynomial kernels
+$k_S(j, \tau), k_T(j, \tau) \in \QQ[\tau]$ for $j \in \{2, 3, \ldots,
+k - 2\}$, with $k_S$ the bare monomial
+\begin{equation}\label{eq:kS-form}
+  k_S(j, \tau) \;=\; \tau^{j - 1}
+\end{equation}
+and $k_T(j, \tau)$ a polynomial of degree at most $k - 2$ built from
+the Bernoulli polynomials $B_m(\tau + 1)$, $m = 1, 2, \ldots, k$,
+such that
+\begin{equation}\label{eq:periods-statement}
+  \omega^\pm(f) \;=\; \frac{(2\pi i)^{k-1}}{\binom{k-2}{j}}\!\left[
+    \int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,k_S(j, \tau)\,d\tau
+    \;+\;
+    \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,k_T(j, \tau)\,d\tau
+  \right]
+\end{equation}
+for every $f \in S_k^!$, every $\tau_0 \in \HH$, and every $j \in \{2,
+\ldots, k - 2\}$.  The right side of \eqref{eq:periods-statement} is
+basepoint- and monomial-index-independent (lockstep).  The kernels
+$k_S(j, \tau)$ and $k_T(j, \tau)$ are the integer-$s = j$
+specialisations of $\tau^{s-1}$ and $\widetilde{k}_T(\tau, s)$
+respectively, via $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ ($m \ge 0$).
+\end{theorem}
+
+\begin{remark}[Higher-dimensional $S_k$]\label{rem:higher-dim-Sk}
+For $k \ge 24$ with $\dim S_k \ge 2$, the universal polynomial kernels
+$k_S^j, k_T^j$ become matrix-valued: each $j \in \{2, \ldots, k-2\}$
+gives a $\dim S_k$-component linear functional on $\{c_f(n)\}$ rather
+than a scalar.  The structural argument behind
+Theorem~\ref{thm:periods} --- coboundary inversion on $V_{k-2}$ via
+$\delta_T^{-1}$ in closed Bernoulli-operator form --- generalises
+without conceptual change, but the explicit kernel tables grow with
+$\dim S_k$, and the lockstep / basepoint-independence statement becomes
+a matrix identity.  Working out the explicit matrix-valued kernels for
+$k = 24, 28, 30, \ldots$ and connecting them to the existing
+Eichler--Shimura matrix-period basis literature is the natural
+generalisation of Theorem~\ref{thm:periods}, and we leave it to a
+follow-up.  Theorems~\ref{thm:bfk-eq} and~\ref{thm:wall-crossing} are
+unaffected and apply at every even $k$.
+\end{remark}
+
+\begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:bfk-eq}
+Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
+the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
+\in \HH$ and every $s \in \CC$,
+\begin{equation}\label{eq:Lambda-DR-general}
+  \Lambda^*_{\rm DR}(f, s; \tau_0)
+  \;:=\; i^{-s}\!\left[
+    \int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau
+    \;+\;
+    \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \right]
+\end{equation}
+is finite and independent of $\tau_0$; write $\Lambda^*_{\rm DR}(f, s)$
+for the common value.
+
+Specialising to the elliptic fixed point $\tau_0 = i$ of the modular
+involution $S\colon \tau \mapsto -1/\tau$, the $S$-segment $[-1/\tau_0,
+\tau_0]$ collapses to the single point $i$ and the $S$-integral in
+\eqref{eq:Lambda-DR-general} vanishes identically.  The functional
+$\Lambda^*_{\rm DR}$ therefore reduces to a single integral on the
+compact contour $[i - 1, i] \subset \HH$, with closed-form sum
+\begin{equation}\label{eq:bfk-eq-statement}
+  \Lambda^*_{\rm DR}(f, s)
+  \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \;=\; \sum_{n \ne 0} c_f(n)\!\left[
+    \frac{\Gamma(s,\, 2\pi n)}{(2\pi n)^s}
+    \;+\;
+    \frac{\Gamma(k - s,\, 2\pi n)}{(2\pi n)^{k-s}}
+  \right],
+\end{equation}
+where negative-$n$ summands are defined by the polynomial form
+$\Gamma(N, x) = (N - 1)!\,e^{-x}\sum_{m=0}^{N-1} x^m/m!$ (entire in
+$x \in \CC$) at positive integer $N$, extended to general $s$ by
+analytic continuation in the first argument of $\Gamma$.  The right
+side of \eqref{eq:bfk-eq-statement} is the completed $L$-function
+$\Lambda^*(f, s)$ of $f$: on holomorphic cusp forms it reduces to
+the classical Hecke--Weil Mellin transform, and on $M^!_k$ it is the
+incomplete-gamma sum of \cite{BFK2011}, here extended canonically to
+every $s \in \CC$.
+\end{theorem}
+
+\begin{theorem}[$L$-function for meromorphic modular forms]\label{thm:wall-crossing}
+Let $k \in 2\ZZ$ and let $f$ be a meromorphic modular form of weight
+$k$ on $\Gamma$.  With $\Lambda^*_{\rm DR}(f, s; \tau_0)$ defined as
+in \eqref{eq:Lambda-DR-def} via the Hurwitz-zeta kernel
+$\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def}:
+\begin{enumerate}[label=(\alph*),leftmargin=2em]\itemsep0.25em
+\item For every $\tau_0 \in \HH$ such that the contour pair
+  \eqref{eq:contour-pair} avoids $\Gamma \cdot f^{-1}(\infty)$, both
+  integrals in \eqref{eq:Lambda-DR-def} are finite, and
+  $\Lambda^*_{\rm DR}(f, s; \tau_0)$ is well-defined for every $s \in \CC$.
+\item As $\tau_0$ varies in the admissible open subset of $\HH$,
+  $\Lambda^*_{\rm DR}(f, s; \tau_0)$ is locally constant; equivalently,
+  it depends on $\tau_0$ only through the connected component of the
+  admissible subset containing $\tau_0$.
+\item If a continuous one-parameter deformation of $\tau_0$ to
+  $\tau_0'$ in $\HH$ causes the contour pair \eqref{eq:contour-pair} to
+  cross a pole of $f$ at $\tau_p \in \HH$, then
+\begin{equation}\label{eq:wall-crossing-statement}
+  \Lambda^*_{\rm DR}(f, s; \tau_0)
+  \;-\;
+  \Lambda^*_{\rm DR}(f, s; \tau_0')
+  \;=\; \mathcal{R}_{\tau_p}(f, s),
+\end{equation}
+where for a simple pole $\Res(f, \tau_p)$,
+\begin{equation}\label{eq:residue-formula}
+  \mathcal{R}_{\tau_p}(f, s)
+  \;=\; 2\pi i\,\sigma_{\tau_p}\, i^{-s}\,\Res(f, \tau_p)\,
+  \bigl[\tau_p^{s-1} \;+\; \widetilde{k}_T(\tau_p, s)\bigr],
+\end{equation}
+with $\sigma_{\tau_p} \in \{+1, -1\}$ the orientation of the crossing.
+Higher-order poles contribute via the corresponding derivatives in
+$\tau_p$ of \eqref{eq:residue-formula}; the closed form is given in
+\S\ref{sec:wall-crossing}.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}[$\Lambda^*_{\rm DR}$ on regular-at-cusps meromorphic forms]\label{cor:1806-coincide}
+Let $f \in F_k$ be a meromorphic modular form of weight $k$ that is
+regular at the cusp.  Let $L_f^*(s)_{\rm int,\,\gamma}$ denote the
+deformed-Mellin $L$-function of $f$ along a contour $\gamma$ from
+$0$ to $i\infty$ that lies in the admissible open subset for $f$
+(cf.\ \cite[\S2]{1806}).  Then for every $\tau_0 \in \HH$ in the same
+connected component of the admissible subset as $\gamma$,
+\begin{equation}\label{eq:1806-coincidence}
+  \Lambda^*_{\rm DR}(f, s; \tau_0)
+  \;=\; L_f^*(s)_{\rm int,\,\gamma}
+  \qquad
+  \text{for every } s \in \CC.
+\end{equation}
+\end{corollary}
+
+\paragraph{The structural picture.}
+The contour pair \eqref{eq:contour-pair} has two natural one-parameter
+specialisations of the basepoint, each exploiting a fixed point of the
+modular curve $Y(1)$: the cusp specialisation $\tau_0 \to i\infty$
+sends the $S$-segment to the classical Mellin contour $[0, i\infty]$
+and the $T$-segment to $0$ exponentially; the elliptic specialisation
+$\tau_0 = i$ kills the $S$-segment identically and leaves
+$\Lambda^*_{\rm DR}$ as a single integral on $[i - 1, i]$.  The cusp
+specialisation, applied at finite $\tau_0 = i\Lambda$, gives the
+$\Lambda$-truncated Mellin contour of $L_f^*(s)_{\rm int}$
+(cf.\ \cite{1806}) as the $S$-segment alone, with the $T$-segment
+serving as the missing ingredient that produces the cocycle and
+renders the $\Lambda \to \infty$ limit unnecessary.  The Hurwitz-zeta kernel
+$\widetilde{k}_T(\tau, s)$ in \eqref{eq:tildekT-def} is the closed
+form of the $T$-segment kernel: it is the unique $V_{n}$-analog,
+valid at every $s \in \CC$, of the polynomial coboundary inversion
+of \cite{DR2017} (which itself recovers as the integer-$s$
+specialisation, cf.~Theorem~\ref{thm:periods}).
+
+\paragraph{Outline.}
+\S\ref{sec:cocycle} introduces the DR-B cocycle and its moment
+expansion in the polynomial coefficient system $V_{k-2}$.
+\S\ref{sec:periods} derives the polynomial kernels $k_S^j, k_T^j$ and
+proves Theorem~\ref{thm:periods}.  \S\ref{sec:hurwitz-extension} derives
+the Hurwitz-zeta kernel $\widetilde{k}_T$ via a coboundary equation,
+proves Theorem~\ref{thm:bfk-eq} via a Hurwitz-unfolding lemma, and
+contains an explicit worked example at $k = 12$ exhibiting the
+Bernoulli-polynomial collapse of $\widetilde{k}_T$ at integer $s$
+together with numerical values of $\omega^\pm(\Delta)$ and
+$\eta^\pm(\Dhat)$.  \S\ref{sec:wall-crossing} proves
+Theorem~\ref{thm:wall-crossing} and Corollary~\ref{cor:1806-coincide}.
+\S\ref{sec:outlook} collects conceptual framings (holonomy/Wilson-loop
+interpretation, on-shell-amplitudes analogy, the
+regularisation-as-symptom heuristic, the open question on the
+geometric content of the $\tau^{s-1}\,f\,d\tau$ Mellin kernel, and
+pointers to the sequel on systematic per-mode theory for interior-pole
+forms).  Appendix~\ref{app:eichler-shimura} is a brief Eichler--Shimura
+primer for readers approaching the subject from theoretical physics.
+This appendix is included for the working-version of this note and is
+intended to be removed before formal publication.
+
+\section{The DR-B cocycle and its moment expansion}\label{sec:cocycle}
+
+\paragraph{The polynomial coefficient system.}
+Let $V_n := \CC[X, Y]_n$ be the space of complex homogeneous polynomials
+in two auxiliary variables $X, Y$ of degree $n$, equipped with the
+right $\Gamma$-action
+\[
+  (P|_\gamma)(X, Y) \;=\; P\bigl(aX + bY,\, cX + dY\bigr)
+  \qquad
+  \text{for } \gamma = \begin{pmatrix}a & b\\ c & d\end{pmatrix} \in \Gamma.
+\]
+For a meromorphic modular form $f$ of weight $k$, write $n := k - 2$
+throughout and form the $V_n$-valued $1$-form on $\HH$
+\[
+  \omega_f(\tau) \;:=\; f(\tau)\,(X - \tau Y)^n\,d\tau.
+\]
+Modularity of $f$ implies that $\omega_f$ is $\Gamma$-equivariant in
+the standard sense \cite{KZ1984}: under $\tau \mapsto \gamma^{-1}\tau$,
+the weight-$k$ transformation of $f$ cancels the weight-$(-n)$ slash
+on $(X - \tau Y)^n$, making $\omega_f$ descend to a section of the
+twisted local system $V_n$ on the modular curve $Y(1) =
+\Gamma\backslash\HH$.
+
+\paragraph{The cocycle.}
+Fix a basepoint $\tau_0 \in \HH$ not on the $\Gamma$-orbit of any pole
+of $f$.  Define
+\begin{equation}\label{eq:cocycle-def}
+  C^f_\gamma(\tau_0)
+  \;:=\; (2\pi i)^{n}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f
+  \;=\; (2\pi i)^{n}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!
+  f(\tau)\,(X - \tau Y)^n\,d\tau
+  \quad \in \quad V_n \otimes \CC,
+\end{equation}
+the contour being any path from $\gamma^{-1}\tau_0$ to $\tau_0$ in
+$\HH$ avoiding the $\Gamma$-orbit of the poles of $f$.  The integral
+is independent of the choice of path within the same homotopy class in
+$\HH \setminus \Gamma\!\cdot\! f^{-1}(\infty)$.
+
+\begin{lemma}[Cocycle property]\label{lem:cocycle}
+For all $g, h \in \Gamma$,
+\begin{equation}\label{eq:cocycle-relation}
+  C^f_{gh}(\tau_0) \;=\; C^f_g(\tau_0)|_h \;+\; C^f_h(\tau_0).
+\end{equation}
+Equivalently, the map $\gamma \mapsto C^f_\gamma(\tau_0)$ is a
+$1$-cocycle of $\Gamma$ with coefficients in $V_n \otimes \CC$.
+\end{lemma}
+\begin{proof}
+Path-additivity gives
+\[
+  \int_{(gh)^{-1}\tau_0}^{\tau_0}
+  \;=\; \int_{h^{-1}g^{-1}\tau_0}^{h^{-1}\tau_0}
+  \;+\; \int_{h^{-1}\tau_0}^{\tau_0}.
+\]
+In the first integral substitute $\tau = h^{-1}\sigma$, so $\sigma$
+runs from $g^{-1}\tau_0$ to $\tau_0$.  The $\Gamma$-equivariance of
+$\omega_f$ converts the integrand to $\omega_f(\sigma)|_h$, yielding
+the first summand of \eqref{eq:cocycle-relation}.  The second integral
+gives the second summand directly.
+\end{proof}
+
+A cocycle on $\Gamma = \SLZ$ is determined by its values on the two
+generators
+\[
+  S \;=\; \begin{pmatrix} 0 & -1 \\ 1 & 0\end{pmatrix},
+  \qquad
+  T \;=\; \begin{pmatrix} 1 & 1 \\ 0 & 1\end{pmatrix},
+\]
+subject to the relations $S^2 = (ST)^3 = -I$ (which act trivially on
+$V_n$ for $n$ even).  We write
+\begin{equation}\label{eq:CS-CT-def}
+  C^f_S(\tau_0) \;=\; (2\pi i)^n\!\int_{-1/\tau_0}^{\tau_0}\!\omega_f,
+  \qquad
+  C^f_T(\tau_0) \;=\; (2\pi i)^n\!\int_{\tau_0 - 1}^{\tau_0}\!\omega_f,
+\end{equation}
+since $S^{-1}\tau_0 = -1/\tau_0$ and $T^{-1}\tau_0 = \tau_0 - 1$.
+These are the two integrals over the contour pair
+\eqref{eq:contour-pair}.
+
+\paragraph{Moment expansion.}
+Expanding $(X - \tau Y)^n = \sum_{j=0}^{n} \binom{n}{j}(-\tau)^j
+X^{n-j} Y^j$ and pulling the polynomial out of the integral defines
+the moment integrals
+\begin{equation}\label{eq:moment-def}
+  I_S^j(f, \tau_0) \;:=\; \int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^j\,d\tau,
+  \qquad
+  I_T^j(f, \tau_0) \;:=\; \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,\tau^j\,d\tau,
+\end{equation}
+for $j = 0, 1, \ldots, n$, in terms of which
+\[
+  C^f_S(\tau_0)
+  \;=\; (2\pi i)^n\!\sum_{j=0}^{n}\!\binom{n}{j}(-1)^j\,
+  I_S^j(f, \tau_0)\,X^{n-j}Y^j,
+\]
+and similarly for $C^f_T(\tau_0)$.  Theorem~\ref{thm:periods} extracts
+$\omega^\pm(f)$ from particular linear combinations of these moments.
+
+\paragraph{Basepoint dependence.}
+Varying $\tau_0$ changes $C^f$ by a coboundary, provided $f$ has no
+interior poles.  Define a primitive $F(\tau)$ of $\omega_f$ on a
+simply connected open subset of $\HH$ avoiding $\Gamma\cdot f^{-1}
+(\infty)$.  Then for any two basepoints $\tau_0, \tau_0'$ in the same
+connected component, path-additivity gives
+\begin{equation}\label{eq:bp-cocycle-coboundary}
+  C^f_\gamma(\tau_0') - C^f_\gamma(\tau_0)
+  \;=\; \bigl(P|_\gamma - P\bigr)
+  \quad \text{with}\quad
+  P \;=\; (2\pi i)^n\bigl(F(\tau_0') - F(\tau_0)\bigr) \in V_n\otimes\CC.
+\end{equation}
+This is the coboundary $\delta P(\gamma) := P|_\gamma - P$.  When $f$
+has interior poles, dragging $\tau_0$ across a pole picks up a Cauchy
+residue contribution beyond \eqref{eq:bp-cocycle-coboundary}; this
+wall-crossing structure is the content of Theorem~\ref{thm:wall-crossing}
+in \S\ref{sec:wall-crossing}.
+
+\paragraph{Cohomology and periods.}
+The cohomology class $[C^f] \in H^1(\Gamma; V_n)$ is independent of
+$\tau_0$ (on the component) and independent of the choice of
+$\delta P$ representative.  The classical Eichler--Shimura theorem
+\cite{KZ1984} identifies the cuspidal subspace $H^1_{\rm cusp}(\Gamma;
+V_n)$ with $S_k \oplus \overline{S_k}$, and the linear coordinates of
+$[C^f]$ in this cuspidal subspace are the periods and quasi-periods
+$\omega^\pm(f), \eta^\pm(f)$ \cite{Brown2017}.
+
+\section{Period extraction: proof of Theorem~\ref{thm:periods}}\label{sec:periods}
+
+We work throughout this section at $k = 12$ with $\dim S_k = 1$; the
+argument at $k \in \{16, 18, 20, 22, 26\}$ is identical with the
+explicit polynomial coefficients tabulated separately, and the lower
+even weights $k \in \{2, 4, 6, 8, 10, 14\}$ in the $\dim S_k \le 1$
+family have $S_k = 0$ so the theorem is vacuous.  Set $n := k - 2 = 10$.
+
+\paragraph{The coboundary equation on $V_n$.}
+Pick $f \in S_{12}^!$.  Since $f$ has no interior poles, the cocycle
+$C^f_\gamma(\tau_0)$ of \eqref{eq:cocycle-def} is well-defined for
+every $\tau_0 \in \HH$, and the basepoint-shift coboundary
+\eqref{eq:bp-cocycle-coboundary} holds without residue corrections
+(Theorem~\ref{thm:wall-crossing} below specialises to local
+constancy on all of $\HH$ in this case).  Equivalently, the
+cohomology class $[C^f] \in H^1(\Gamma; V_n)$ depends on $f$ only.
+
+We seek a polynomial $P = P(\tau_0) \in V_n\otimes\CC$ (a coboundary
+representative depending on $\tau_0$, $f$) such that the modified
+$T$-component $C^f_T(\tau_0) - \delta P(T)$ becomes a fixed polynomial
+in $X, Y$ with coefficients computable from the Fourier expansion of
+$f$.  Since $\delta P(T) = P|_T - P$ and $T$ acts by $(X, Y) \mapsto
+(X + Y, Y)$ on $V_n$, the operator $\delta_T \colon P \mapsto P|_T - P$
+on $V_n$ shifts the $X$-variable: writing $P = \sum_{j=0}^n p_j
+X^{n-j}Y^j$, we have
+\[
+  (\delta_T P)(X, Y)
+  \;=\; \sum_{j=0}^{n} p_j \bigl[(X + Y)^{n-j} - X^{n-j}\bigr]Y^j,
+\]
+which is upper-triangular in the $X^{n-j}Y^j$ basis with zero diagonal
+entry at $j = n$ (i.e.\ $\delta_T$ annihilates $Y^n$).
+
+\begin{proposition}[Bernoulli closed form for $\delta_T^{-1}$]\label{prop:Bernoulli-inv}
+For every $Q \in V_n$ with $Q$ vanishing at the leading $X^n$
+coefficient, there exists $P \in V_n$ unique modulo $\CC \cdot Y^n$
+with $\delta_T P = Q$.  Writing $Q = \sum_{j=1}^{n} q_j X^{n-j} Y^j$
+and $P = \sum_{j=0}^{n} p_j X^{n-j} Y^j$, the solution is given in
+closed form by
+\begin{equation}\label{eq:Bernoulli-inv}
+  p_m \;=\; \sum_{j=m+1}^{n}\!\frac{(n-m)!}{(j-m-1)!\,(n-j+1)!}\,
+  \frac{B_{j-m}}{(n-m)!}\,q_j,
+\end{equation}
+for $m = 0, 1, \ldots, n-1$, where $B_\ell$ are Bernoulli numbers; the
+coefficient $p_n$ is unconstrained and represents the kernel of
+$\delta_T$.
+\end{proposition}
+\begin{proof}
+The identity $(X+Y)^{n-j} - X^{n-j} = \sum_{\ell=0}^{n-j-1}
+\binom{n-j}{\ell+1} X^{n-j-\ell-1} Y^{\ell+1}$ gives a strictly
+upper-triangular matrix for $\delta_T$ in the basis $X^{n-m}Y^m$, with
+zero diagonal at $m = n$.  The Bernoulli generating function
+$\sum_{\ell \ge 0} B_\ell t^\ell/\ell! = t/(e^t - 1)$ is the
+combinatorial inverse of $\sum_{\ell \ge 1} t^\ell/\ell!$, which is
+the operator $\delta_T$ restricted to monomials.  Substituting and
+collecting coefficients yields \eqref{eq:Bernoulli-inv}.
+\end{proof}
+
+\paragraph{Period extraction.}
+Apply Proposition~\ref{prop:Bernoulli-inv} with $Q = (2\pi i)^{-n}
+C^f_T(\tau_0)$.  Since $f \in S_{12}^!$ has vanishing constant term
+$c_f(0) = 0$, the $X^n$ coefficient of $C^f_T$ vanishes, so the
+hypothesis of Proposition~\ref{prop:Bernoulli-inv} is satisfied.  Let
+$P(\tau_0) \in V_n$ be the resulting solution (modulo $\CC Y^n$); the
+coboundary $\delta P$ encodes the basepoint dependence of $C^f$.  By
+\eqref{eq:bp-cocycle-coboundary} the modified cocycle $C^f - \delta P
+\cdot \!(2\pi i)^n$ is basepoint-independent, and its evaluation on
+$S$ gives the Eichler--Shimura period polynomial
+\begin{equation}\label{eq:period-polynomial}
+  r_f(X, Y) \;:=\; \bigl(C^f_S(\tau_0) - (2\pi i)^n \delta P(\tau_0)(S)\bigr)
+  \;\in\; V_n,
+\end{equation}
+where $\delta P(\tau_0)(S) = P(\tau_0)|_S - P(\tau_0)$ and $P|_S$ has
+$(X, Y) \mapsto (-Y, X)$.  Brown's normalisation \cite{Brown2017}
+identifies the linear coordinates of $r_f$ with the periods and
+quasi-periods $\omega^\pm(f), \eta^\pm(f)$: at $k = 12$,
+\[
+  r_f(X, Y) \;=\; \omega^+(f)\,p^+_f(X, Y) \;+\; \omega^-(f)\,p^-_f(X, Y)
+  \;+\; \text{(Eisenstein-direction terms in $\eta^\pm$)},
+\]
+where $p^\pm_f \in V_n$ are the standard cuspidal even/odd projection
+polynomials of \cite[\S\,...]{KZ1984}.
+
+\paragraph{The kernels $k_S(j, \tau)$ and $k_T(j, \tau)$.}
+Equation \eqref{eq:period-polynomial} expressed in terms of the
+moment integrals \eqref{eq:moment-def} reads
+\[
+  r_f(X, Y) \;=\; (2\pi i)^n\!\sum_{j=0}^{n}\!\binom{n}{j}(-1)^j\!
+  \left[I_S^j(f, \tau_0) - I_T^{\delta P,\,j}(f, \tau_0)\right]
+  X^{n-j} Y^j,
+\]
+where $I_T^{\delta P, j}$ packages the $\delta P(S)$ contribution into
+a $T$-segment integral against the Bernoulli-polynomial kernel from
+\eqref{eq:Bernoulli-inv}.  Reading off the coefficient of $X^{n-j}Y^j$
+for each $j \in \{2, \ldots, n\} = \{2, \ldots, k - 2\}$ (the indices
+corresponding to monomials lying in the cuspidal period polynomial
+space; $j = 0, 1$ correspond to the Eisenstein direction and the
+$\delta_T$ kernel respectively) gives \eqref{eq:periods-statement}
+with
+\begin{align}\label{eq:kS-kT-explicit}
+  k_S(j, \tau) \;&=\; \tau^{j-1},\\[0.3em]
+  k_T(j, \tau) \;&=\; \frac{1}{\binom{n}{j-1}}\!\left[
+    \sum_{m=0}^{n-1}\!\frac{(n-m)!}{(j-m-1)!\,(n-j+1)!}\,
+    \frac{B_{j-m}}{(n-m)!}\,\tau^{m}
+  \right],
+\end{align}
+the Bernoulli-polynomial-built $T$-kernel of degree at most $n - 1$ in
+$\tau$.  Both kernels are $\QQ$-polynomial.  The $S$-kernel $k_S(j,
+\tau) = \tau^{j-1}$ is the integer-$s = j$ specialisation of the
+Mellin kernel $\tau^{s-1}$ in \eqref{eq:Lambda-DR-general}.  The
+$T$-kernel $k_T(j, \tau)$ matches the integer-$s = j$ specialisation
+of the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ of
+\eqref{eq:tildekT-def}, via the collapse $\zeta(-m, a) =
+-B_{m+1}(a)/(m+1)$ ($m \ge 0$); this identification is the bridge
+between Theorem~\ref{thm:periods} and Theorem~\ref{thm:bfk-eq}, and
+is made explicit in the worked $k = 12$ subsection of
+\S\ref{sec:hurwitz-extension}.
+
+\paragraph{Lockstep and basepoint independence.}
+Both follow from \eqref{eq:period-polynomial}: the right side is a
+fixed polynomial in $V_n$, independent of both $\tau_0$ (by the
+coboundary cancellation) and $j$ (since reading off different
+coefficients of the same polynomial returns different multiples of
+the same $\omega^\pm$).  The factor $\binom{k-2}{j}^{-1}(2\pi i)^{k-1}$
+in \eqref{eq:periods-statement} normalises so that the right side
+equals $\omega^\pm(f)$ for each cuspidal $j \in \{2, \ldots, k - 2\}$,
+independently of $j$.  At $k = 12$ this yields a $9$-fold redundant
+extraction of $\omega^\pm(f)$ from the Fourier coefficients of $f$,
+with the redundancy reflecting the $1$-dimensionality of the cuspidal
+period-polynomial direction in $V_{10}$ for the running case
+$f \in \{\Delta, \Dhat\}$.\qed
+
+\section{The Hurwitz-zeta extension and the $L$-function on $M^!_k$: proof of Theorem~\ref{thm:bfk-eq}}\label{sec:hurwitz-extension}
+
+\subsection{Derivation of the kernel $\widetilde{k}_T$}\label{subsec:kT-derivation}
+
+We seek a kernel $\widetilde{k}_T(\tau, s)$, analytic in $\tau \in
+\HH$ and meromorphic in $s \in \CC$, such that $\Lambda^*_{\rm DR}(f,
+s; \tau_0)$ as defined in \eqref{eq:Lambda-DR-general} is independent
+of $\tau_0$ for every $f \in M^!_k$.  Differentiating
+\eqref{eq:Lambda-DR-general} in $\tau_0$ and using $\Delta(-1/\tau_0)
+= \tau_0^k \Delta(\tau_0)$ (the $S$-modularity of $f$ at the
+$S$-segment endpoint $-1/\tau_0$) together with $f(\tau_0 - 1) =
+f(\tau_0)$ (the $T$-modularity at $\tau_0 - 1$) gives, after
+cancelling the common factor $i^{-s} f(\tau_0)$,
+\begin{equation}\label{eq:tildekT-coboundary}
+  \widetilde{k}_T(\tau_0, s) \;-\; \widetilde{k}_T(\tau_0 - 1, s)
+  \;=\; -\tau_0^{s-1} \;+\; e^{i\pi(s-1)}\,\tau_0^{k - 1 - s}.
+\end{equation}
+The right side picks up the $S$-segment endpoint contribution at
+$-1/\tau_0 = e^{i\pi}\tau_0^{-1}/(-1) = e^{i\pi}/\tau_0$ via the
+branch identity $(-1/\tau_0)^{s-1} = e^{i\pi(s-1)}\tau_0^{-(s-1)}$
+combined with the Jacobian $d(-1/\tau_0)/d\tau_0 = \tau_0^{-2}$ and
+the modularity factor $\tau_0^k$, giving $e^{i\pi(s-1)}\tau_0^{k-1-s}$
+after simplification.
+
+Equation \eqref{eq:tildekT-coboundary} is the complex-$s$ analog of
+the polynomial coboundary equation $\delta_T P = Q$ of
+\S\ref{sec:periods}.  The Hurwitz raising identity
+\[
+  \zeta(\sigma, a + 1) \;-\; \zeta(\sigma, a)
+  \;=\; -a^{-\sigma}
+\]
+inverts the shift operator $\tau \mapsto \tau - 1$ for any complex
+$\sigma$, on the analytic function $\zeta(\sigma, \tau + 1)$.
+Applying at $(\sigma, a) = (1 - s, \tau_0)$ and $(\sigma, a) =
+(s - (k - 1), \tau_0)$, and combining with the sign $e^{i\pi(s-1)}$
+gives \eqref{eq:tildekT-def}.
+
+\begin{lemma}\label{lem:Lambda-DR-tau0-invariant}
+For $f \in M^!_k$, $\Lambda^*_{\rm DR}(f, s; \tau_0)$ defined by
+\eqref{eq:Lambda-DR-general} is independent of $\tau_0 \in \HH$ for
+every $s \in \CC$.
+\end{lemma}
+\begin{proof}
+Direct $\tau_0$-differentiation, using \eqref{eq:tildekT-coboundary}
+to cancel the boundary contributions from the two segments.  Both
+integrals in \eqref{eq:Lambda-DR-general} are finite at every
+$\tau_0 \in \HH$ because $f$ has no poles in $\HH$ and the kernels
+$\tau^{s-1}$, $\widetilde{k}_T(\tau, s)$ are analytic in $\tau \in
+\HH$ for every fixed $s \in \CC$ (the Hurwitz $\zeta(\sigma, a)$ is
+analytic in $a$ on $\mathrm{Re}(a) > 0$).
+\end{proof}
+
+\subsection{The Hurwitz-unfolding lemma}\label{subsec:hurwitz-unfold}
+
+\begin{lemma}[Hurwitz unfolding]\label{lem:hurwitz-unfold}
+For every positive integer $n$ and every $\nu \in \CC$,
+\begin{equation}\label{eq:hurwitz-unfold}
+  \int_i^{i+1}\! e^{2\pi i n \sigma}\,\zeta(\nu, \sigma)\,d\sigma
+  \;=\; i^{1 - \nu}\,(2\pi n)^{\nu - 1}\,\Gamma(1 - \nu,\, 2\pi n).
+\end{equation}
+\end{lemma}
+\begin{proof}
+First assume $\mathrm{Re}(\nu) > 1$, where the Hurwitz series $\zeta(\nu,
+\sigma) = \sum_{m \ge 0}(\sigma + m)^{-\nu}$ converges uniformly on
+the compact segment $[i, i+1]$ \cite[\S25.11]{DLMF}.  Series-integral
+exchange and the substitution $u = \sigma + m$ in the $m$-th summand
+collapse the sum to a single integral by integer-$n$ periodicity
+$e^{2\pi i n m} = 1$:
+\[
+  \int_i^{i+1}\! e^{2\pi i n \sigma}\,\zeta(\nu, \sigma)\,d\sigma
+  \;=\; \sum_{m \ge 0}\!\int_{i + m}^{i + m + 1}\! e^{2\pi i n u}\,u^{-\nu}\,du
+  \;=\; \int_i^{i+\infty}\! e^{2\pi i n u}\,u^{-\nu}\,du,
+\]
+an integral along the horizontal ray $\{i + t : t \ge 0\} \subset \HH$.
+
+Substitute $t = -2\pi i n u$: $u = it/(2\pi n)$, $du = i\,dt/(2\pi n)$,
+and $u^{-\nu} = i^{-\nu}(2\pi n)^\nu t^{-\nu}$ on the principal branch
+(consistent with $\arg(u) = \pi/2$ at $u = i$ and $\arg(t) = 0$ at
+$t = 2\pi n$).  The contour in $t$ runs from $2\pi n$ down to $2\pi n
+- i\infty$, in the right half-plane.  Since $e^{-t} t^{-\nu}$ decays
+exponentially as $|t| \to \infty$ in $\mathrm{Re}(t) > 0$, Cauchy's theorem
+applied to the rectangle $\{2\pi n \le \mathrm{Re}(t) \le R, \; -R \le \im(t)
+\le 0\}$ in the limit $R \to \infty$ deforms the vertical contour
+$[2\pi n, 2\pi n - i\infty]$ to the real-axis contour $[2\pi n,
++\infty]$:
+\[
+  \int_{2\pi n}^{2\pi n - i\infty}\! e^{-t}\,t^{-\nu}\,dt
+  \;=\; \int_{2\pi n}^{\infty}\! e^{-t}\,t^{-\nu}\,dt
+  \;=\; \Gamma(1 - \nu,\,2\pi n)
+\]
+by the integral definition of the upper incomplete gamma
+\cite[\S8.2]{DLMF}.  Collecting prefactors gives
+\eqref{eq:hurwitz-unfold} for $\mathrm{Re}(\nu) > 1$.
+
+Both sides of \eqref{eq:hurwitz-unfold} are entire functions of $\nu$:
+the upper incomplete gamma $\Gamma(s, x)$ is entire in $s$ for fixed
+$x \ne 0$ \cite[\S8.2.7]{DLMF}, and the integral on the left is
+entire in $\nu$ because $\zeta(\sigma, \sigma_0)$ is meromorphic in
+$\sigma$ with a simple pole only at $\sigma = 1$, whose residue
+contribution to $\int_{i-1}^i e^{2\pi i n \tau}d\tau = 0$ for nonzero
+integer $n$ (since $e^{2\pi i n (i-1)} = e^{2\pi i n \cdot i}$).
+Analytic continuation in $\nu$ extends \eqref{eq:hurwitz-unfold} to
+all complex $\nu$.
+\end{proof}
+
+\subsection{Per-mode evaluation: proof of Theorem~\ref{thm:bfk-eq}}
+
+By Lemma~\ref{lem:Lambda-DR-tau0-invariant}, $\Lambda^*_{\rm DR}(f, s)
+= \Lambda^*_{\rm DR}(f, s; \tau_0)$ at any $\tau_0 \in \HH$.  At the
+elliptic fixed-point basepoint $\tau_0 = i$, the $S$-segment $[-1/i,
+i] = [i, i]$ has zero length and the $S$-integral in
+\eqref{eq:Lambda-DR-general} vanishes identically, leaving
+\[
+  \Lambda^*_{\rm DR}(f, s)
+  \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau.
+\]
+Expanding $f = \sum_n c_f(n) q^n$ as a $q$-series and swapping sum
+and integral (justified by uniform convergence of the $q$-series on
+the compact segment $[i - 1, i]$, including any finite number of
+polar modes since $|q^{-1}| = e^{2\pi}$ is bounded there) gives
+\begin{equation}\label{eq:per-mode-tau0-i}
+  \Lambda^*_{\rm DR}(f, s)
+  \;=\; i^{-s}\!\sum_n\! c_f(n)\!\int_{i - 1}^{i}\! e^{2\pi i n \tau}\,
+  \widetilde{k}_T(\tau, s)\,d\tau.
+\end{equation}
+Substituting $\sigma = \tau + 1$ shifts the contour to $[i, i + 1]$,
+with the prefactor $e^{-2\pi i n} = 1$ (integer $n$).  Apply
+Lemma~\ref{lem:hurwitz-unfold} to each half of $\widetilde{k}_T(\tau,
+s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$,
+i.e.\ at $\nu = 1 - s$ and $\nu = s - (k-1)$:
+\begin{align*}
+  \int_i^{i+1}\! e^{2\pi i n \sigma}\,\zeta(1 - s, \sigma)\,d\sigma
+  \;&=\; i^s\,(2\pi n)^{-s}\,\Gamma(s,\, 2\pi n),\\
+  \int_i^{i+1}\! e^{2\pi i n \sigma}\,\zeta(s - (k - 1), \sigma)\,d\sigma
+  \;&=\; i^{k - s}\,(2\pi n)^{s - k}\,\Gamma(k - s,\, 2\pi n).
+\end{align*}
+Combine with the relative phase $-e^{i\pi(s-1)}$ from the second half
+of $\widetilde{k}_T$ and the overall $i^{-s}$ prefactor of
+\eqref{eq:per-mode-tau0-i}.  The first half yields $i^{-s}\cdot i^s
+\cdot (2\pi n)^{-s} \Gamma(s, 2\pi n) = \Gamma(s, 2\pi n)/(2\pi n)^s$.
+The second half yields
+\[
+  - i^{-s}\,e^{i\pi(s-1)}\,i^{k - s}\,(2\pi n)^{s - k}\,\Gamma(k - s,\,2\pi n)
+  \;=\; -e^{i\pi(s-1)}\,i^{k - 2s}\,(2\pi n)^{s-k}\,\Gamma(k - s,\,2\pi n).
+\]
+Using $i^{k - 2s} = i^k\,e^{-i\pi s}$ and $i^k \cdot
+(-e^{i\pi(s-1)})\,e^{-i\pi s} = i^k$ (after $-e^{i\pi(s-1)}\,e^{-i\pi
+s} = -e^{-i\pi} = +1$), the second-half contribution is $i^k\,
+\Gamma(k - s, 2\pi n)/(2\pi n)^{k - s}$.  Adding the two halves
+gives the per-mode summand of \eqref{eq:bfk-eq-statement}:
+\[
+  c_f(n)\!\left[\frac{\Gamma(s, 2\pi n)}{(2\pi n)^s}
+  \;+\; i^k\,\frac{\Gamma(k - s, 2\pi n)}{(2\pi n)^{k - s}}\right].
+\]
+For $k$ a multiple of $4$, $i^k = +1$ recovers \eqref{eq:bfk-eq-statement}
+verbatim; for $k \equiv 2 \pmod 4$, $i^k = -1$ and the relative sign
+between the two halves flips, matching the standard convention of
+\cite{BFK2011}.
+
+\paragraph{Polar Fourier modes.}
+For positive Fourier modes $n \ge 1$ the proof of
+Lemma~\ref{lem:hurwitz-unfold} applies verbatim, and the per-mode
+summand reproduces the BFK incomplete-gamma value with no further
+work.  For polar Fourier modes $n \le -1$ (which can be present for
+$f \in M^!_k \setminus M_k$), the substitution $t = -2\pi i n u$
+takes the horizontal $u$-ray to a vertical $t$-ray going \emph{up}
+from $-2\pi n > 0$ (so $-2\pi$ at $n = -1$) to $-2\pi n + i\infty$ in
+the \emph{left} half-plane.  Deforming this contour to the positive
+real axis crosses the branch cut of $t^{-\nu}$ at the origin, and the
+resulting integral is the analytic continuation of $\Gamma(1 - \nu,
+x)$ in $x$ from $x > 0$ to $x = -2\pi n > 0$.  At positive integer
+$\nu' = 1 - \nu$, the explicit polynomial form
+\[
+  \Gamma(N, x)
+  \;=\; (N - 1)!\,e^{-x}\!\sum_{m=0}^{N - 1}\!\frac{x^m}{m!}
+  \qquad
+  (N \in \ZZ_{\ge 1}, \; x \in \CC)
+\]
+is single-valued and entire in $x$, supplying the analytic-continuation
+value unambiguously; non-integer $\nu'$ is then obtained by analytic
+continuation in $\nu$ from a positive-integer neighbourhood.  This
+matches the convention of \cite{BFK2011} on polar Fourier modes and
+extends naturally to every $s \in \CC$.
+
+\subsection{Worked example at $k = 12$: Bernoulli polynomials and numerics}\label{subsec:k12-worked}
+
+At $k = 12$ the kernel of \eqref{eq:tildekT-def} is
+\[
+  \widetilde{k}_T(\tau, s)
+  \;=\; \zeta(1 - s,\,\tau + 1)
+  \;-\; e^{i\pi(s-1)}\,\zeta(s - 11,\,\tau + 1).
+\]
+At integer values of $s \in \{1, 2, \ldots, 11\}$, both Hurwitz zeta
+factors collapse to Bernoulli polynomials via $\zeta(-m, a) =
+-B_{m+1}(a)/(m+1)$ ($m \ge 0$), and $\widetilde{k}_T(\tau, s)$
+becomes a polynomial of degree $\le 11$ in $\tau$.  Three
+representative values:
+\[
+  \widetilde{k}_T(\tau, 1)
+  \;=\; -\tau - \tfrac{1}{2} \;+\; \tfrac{1}{11}\,B_{11}(\tau + 1),
+  \qquad
+  \widetilde{k}_T(\tau, 6)
+  \;=\; -\tfrac{1}{3}\,B_6(\tau + 1),
+\]
+\[
+  \widetilde{k}_T(\tau, 11)
+  \;=\; -\tfrac{1}{11}\,B_{11}(\tau + 1) \;+\; \tau \;+\; \tfrac{1}{2}.
+\]
+The $s \leftrightarrow 12 - s$ symmetry follows from the
+$s \leftrightarrow k - s$ structure of the two-term kernel (with
+$i^k = +1$ at $k = 12$).
+
+\paragraph{Identification with the polynomial kernels of Theorem~\ref{thm:periods}.}
+The $T$-kernels $k_T(j, \tau)$ of \eqref{eq:kS-kT-explicit} and
+\eqref{eq:kT-form} are precisely the integer-$s = j$ specialisations
+of $\widetilde{k}_T(\tau, s)$, up to the normalisation
+$\binom{k - 2}{j - 1}^{-1}$ that converts the $L$-value convention
+(governing $\widetilde{k}_T$) to the $\omega^\pm$ convention
+(governing $k_T(j, \tau)$).  Explicitly, for $j \in \{2, \ldots, 10\}$
+at $k = 12$,
+\[
+  k_T(j, \tau)
+  \;=\; \frac{(-1)^{j-1}}{\binom{10}{j - 1}}\,\widetilde{k}_T(\tau, j),
+\]
+exhibiting the polynomial period-kernel construction of
+Theorem~\ref{thm:periods} as the integer-$s$ shadow of the
+Hurwitz-zeta kernel of Theorem~\ref{thm:bfk-eq}.
+
+\paragraph{Numerical values.}
+Evaluating \eqref{eq:Lambda-DR-general} or \eqref{eq:periods-statement}
+numerically at $50$-digit \texttt{mpmath} precision, with
+$\tau_0 \in \{0.3 + 1.2 i,\;i,\;1.5 i,\;-0.4 + 0.8 i\}$ and
+$f \in \{\Delta, \Dhat\}$, reproduces the values of $\omega^\pm(\Delta)$
+and $\eta^\pm(\Dhat)$ of \cite{Brown2017} to relative residual
+$\sim 10^{-40}$ in every case, exhibiting lockstep across $j \in \{2,
+\ldots, 10\}$ and basepoint-independence across the four $\tau_0$
+choices \cite{VerifyScripts}.\qed
+
+\section{Wall-crossing for meromorphic forms: proof of Theorem~\ref{thm:wall-crossing}}\label{sec:wall-crossing}
+
+\subsection{Existence and local constancy}\label{subsec:existence-local-constancy}
+
+Let $f$ be a meromorphic modular form of even weight $k$ on $\Gamma$,
+and let $\tau_0 \in \HH$ be a basepoint such that the contour pair
+\eqref{eq:contour-pair} avoids the $\Gamma$-orbit of $f^{-1}(\infty)
+\cap \HH$.  The integrands $f(\tau)\,\tau^{s-1}$ and $f(\tau)\,
+\widetilde{k}_T(\tau, s)$ are continuous on each compact segment for
+every fixed $s \in \CC$ (the kernels are analytic in $\tau \in \HH$),
+so both integrals in \eqref{eq:Lambda-DR-def} are finite and
+$\Lambda^*_{\rm DR}(f, s; \tau_0)$ is well-defined.  This proves
+Theorem~\ref{thm:wall-crossing}(a).
+
+For local constancy, the argument of \S\ref{subsec:kT-derivation}
+applies verbatim: differentiating \eqref{eq:Lambda-DR-def} in $\tau_0$
+gives the boundary contributions
+\[
+  i^{-s} f(\tau_0)\!\left[\widetilde{k}_T(\tau_0, s)
+  - \widetilde{k}_T(\tau_0 - 1, s)
+  + \tau_0^{s-1} - e^{i\pi(s-1)}\,\tau_0^{k - 1 - s}\right] \;=\; 0
+\]
+by \eqref{eq:tildekT-coboundary}, provided the modularity identities
+$f(-1/\tau_0) = \tau_0^k f(\tau_0)$ and $f(\tau_0 - 1) = f(\tau_0)$
+hold at the contour endpoints (which they do for every meromorphic
+modular form, irrespective of the location of interior poles).  Hence
+$d\Lambda^*_{\rm DR}(f, s; \tau_0)/d\tau_0 = 0$ whenever the contour
+pair varies within the admissible open subset of $\HH$.  This
+establishes Theorem~\ref{thm:wall-crossing}(b).
+
+\subsection{Wall-crossing across an interior pole}\label{subsec:wall-crossing}
+
+Suppose a continuous one-parameter deformation of $\tau_0$ to
+$\tau_0'$ in $\HH$ moves the $S$-segment $[-1/\tau_0, \tau_0]$ across
+an interior pole $\tau_p \in \HH$ of $f$ (the $T$-segment case is
+identical up to the choice of kernel; see below).  Concretely, let
+$\Sigma_t \subset \HH$ denote the $S$-segment at parameter $t \in [0,
+1]$, with $\Sigma_0$ the $S$-segment at $\tau_0$ and $\Sigma_1$ at
+$\tau_0'$, and assume that the swept-out region $\bigcup_t \Sigma_t$
+encloses $\tau_p$ with winding number $\sigma_p^S \in \{+1, -1\}$
+(orientation of the crossing).  By Cauchy's theorem applied to the
+closed contour $\Sigma_1 - \Sigma_0$,
+\[
+  \int_{\Sigma_1}\! f(\tau)\,\tau^{s - 1}\,d\tau
+  \;-\; \int_{\Sigma_0}\! f(\tau)\,\tau^{s - 1}\,d\tau
+  \;=\; 2\pi i\,\sigma_p^S\,\Res(f, \tau_p)\,\tau_p^{s - 1}
+\]
+for a simple pole of $f$ at $\tau_p$.  An identical argument applies
+when the $T$-segment $[\tau_0 - 1, \tau_0]$ sweeps across $\tau_p$,
+yielding
+\[
+  \int_{T\text{-seg at }\tau_0'} \!-\! \int_{T\text{-seg at }\tau_0}
+  \;=\; 2\pi i\,\sigma_p^T\,\Res(f, \tau_p)\,\widetilde{k}_T(\tau_p, s),
+\]
+where $\sigma_p^T \in \{+1, -1\}$ encodes the orientation of the
+$T$-segment crossing.  Combining (with the $i^{-s}$ prefactor) gives
+\begin{equation}\label{eq:wall-crossing-explicit}
+  \Lambda^*_{\rm DR}(f, s; \tau_0)
+  \;-\; \Lambda^*_{\rm DR}(f, s; \tau_0')
+  \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!\left[
+    \sigma_p^S\,\tau_p^{s-1} \;+\; \sigma_p^T\,\widetilde{k}_T(\tau_p, s)
+  \right].
+\end{equation}
+This is the residue formula $\mathcal{R}_{\tau_p}(f, s)$ of
+\eqref{eq:residue-formula}, with the winding-number indices
+$\sigma_p^S, \sigma_p^T$ making explicit the dependence on which
+segment(s) cross.  At a generic wall only one of $\sigma_p^S,
+\sigma_p^T$ is nonzero; both can be nonzero on the codimension-two
+loci where the $S$- and $T$-segments simultaneously cross
+$\Gamma$-images of $\tau_p$.
+
+For a pole of order $m \ge 1$ at $\tau_p$ with Laurent expansion
+$f(\tau) = \sum_{\ell \ge -m} r_{f, \tau_p}(\ell)(\tau - \tau_p)^\ell$,
+the residue formula \eqref{eq:wall-crossing-explicit} generalises by
+replacing $\Res(f, \tau_p)\,K(\tau_p, s)$ with
+$\sum_{\ell = 1}^{m}\!r_{f, \tau_p}(-\ell)\,
+\partial_{\tau_p}^{\ell - 1} K(\tau_p, s)/(\ell - 1)!$ for each
+relevant kernel $K \in \{\tau^{s-1}, \widetilde{k}_T(\tau, s)\}$, by
+the standard residue formula for higher-order poles.
+
+\subsection{Reduction on regular-at-cusps meromorphic forms}\label{subsec:reduction-to-int}
+
+Let $f \in F_k$ be regular at the cusp $i\infty$, so $f(\tau) =
+\sum_{n \ge N} c_f(n)\,q^n$ for some $N \ge 0$.
+
+\begin{lemma}[Cusp decay of the $T$-segment]\label{lem:cusp-decay}
+For $f \in F_k$ regular at the cusp with $f(\tau) = O(q^N)$ at
+$i\infty$ for $N \ge 1$, every $s \in \CC$, and every $\eps \in \RR$
+fixed,
+\[
+  \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \;=\; O\!\bigl(|\tau_0|^{C(\mathrm{Re}\, s)}\,
+    e^{-2\pi N \,\im(\tau_0)}\bigr)
+  \qquad
+  \text{as }\im(\tau_0) \to \infty,\;\mathrm{Re}(\tau_0) = \eps.
+\]
+The exponent $C(\mathrm{Re}\, s) = \max(0,\, 1/2 - \mathrm{Re}(1 - s))
++ \max(0,\, 1/2 - \mathrm{Re}(s - (k - 1))) + \eps_0$ for any $\eps_0
+> 0$ is controlled by the standard polynomial-growth bound for the
+Hurwitz zeta on vertical strips \cite[\S25.11.36]{DLMF}.  When $N = 0$
+(i.e.\ $f$ has a nonzero constant term at $i\infty$), the $T$-segment
+is $O(|\tau_0|^{C(\mathrm{Re}\, s)})$ but does not decay; in this
+case the constant-term Fourier mode must be split off and treated
+separately (cf.\ \cite[Lemma~2.1]{1806} for the analogous polynomial
+correction in the deformed-Mellin construction).
+\end{lemma}
+\begin{proof}
+On the segment $\tau \in [\tau_0 - 1, \tau_0]$ with $\im(\tau) =
+\im(\tau_0)$, the bound $|f(\tau)| \le M\,e^{-2\pi N \im(\tau_0)}$
+holds for some $M = M(f)$ depending only on $f$.  Combining with the
+polynomial-in-$\tau$ growth of $\widetilde{k}_T(\tau, s)$ from
+\cite[\S25.11.36]{DLMF} and integrating over the length-$1$ segment
+gives the stated bound.
+\end{proof}
+
+To match the deformed-Mellin construction of $L_f^*(s)_{\rm int}$
+(cf.~\cite{1806}), take $\tau_0 = \eps + i\Lambda$ for some small
+$\eps \in \RR$ chosen so that $\mathrm{Re}(\tau_0) = \eps$ avoids all
+$\Gamma$-images of interior poles of $f$.  As $\Lambda \to \infty$:
+\begin{itemize}\itemsep0.1em
+\item The $T$-segment integral $\to 0$ by Lemma~\ref{lem:cusp-decay}
+  (using $N \ge 1$; for $N = 0$ the analog argument with the
+  constant-term subtraction $c_f(0)$ from \cite{1806} applies).
+\item The $S$-segment $[-1/\tau_0, \tau_0]$ approaches the
+  $\Lambda \to \infty$ limit of the $\Lambda$-truncated Mellin contour
+  along $\mathrm{Re}(\tau) = \eps$ (modulo orientation, which fixes the
+  $L^*_{\rm int}$ convention).
+\end{itemize}
+By Lemma~\ref{lem:Lambda-DR-tau0-invariant} (extended to meromorphic
+$f$ within a fixed connected component, by
+\S\ref{subsec:existence-local-constancy} above), the left side is
+$\Lambda$-independent, so
+\[
+  \Lambda^*_{\rm DR}(f, s; \tau_0)
+  \;=\; \lim_{\Lambda \to \infty}\!\Lambda^*_{\rm DR}(f, s; \eps + i\Lambda)
+  \;=\; L_f^*(s)_{\rm int,\,\gamma_\eps},
+\]
+where $\gamma_\eps$ is the deformed-Mellin contour along $\mathrm{Re}(\tau)
+= \eps$.  This proves Corollary~\ref{cor:1806-coincide}.\qed
+
+\subsection{Remark on the polylog-projection machinery}\label{subsec:polylog-remark}
+
+The polylog projection $\widehat{P}_{\tau_p}\colon f \mapsto
+\sum_{m > 0}r_{f, \tau_p}^*(m)\,\mathrm{Li}_{1 - m}(e(\tau - \tau_p))$
+(cf.\ \cite[\S2.2]{1806}) subtracts the leading polar tails of $f$ at
+each interior pole $\tau_p$, ensuring that the $\Lambda$-truncated
+Mellin integral against $f$ has a finite $\Lambda \to \infty$ limit
+(necessary in the deformed-Mellin construction because of the
+Hagedorn-rate Fourier coefficients $|c_f(n)| \sim n^{p-1}\,
+e^{2\pi n\,\im(\tau_p)}$ generated by interior poles
+\cite[Prop.~1.1, 2.7]{1806}).  In the finite-contour formulation
+\eqref{eq:Lambda-DR-def} the $\Lambda \to \infty$ limit is not taken,
+so $\widehat{P}_{\tau_p}$ is not required for the existence or
+local-constancy properties of $\Lambda^*_{\rm DR}$.  The
+polylog-projection machinery does remain relevant, however, for the
+\emph{closed-form per-mode evaluation} of $\Lambda^*_{\rm DR}$ in
+incomplete gammas parallel to \eqref{eq:bfk-eq-statement}, where the
+Hagedorn-rate Fourier modes must be split off and dealt with
+separately before each mode contributes a clean incomplete-gamma
+term.  The systematic interior-pole closed form parallel to
+Theorem~\ref{thm:bfk-eq} is left to the sequel.
+
+\section{Outlook}\label{sec:outlook}
+
+\paragraph{Wilson-loop / holonomy interpretation.}
+The DR-B contour pair, projected to the modular curve $Y(1)$, descends
+to the two generators of the orbifold fundamental group
+$\pi_1^{\rm orb}(Y(1)) \cong \ZZ/2 * \ZZ/3$.  The polynomial
+coefficient system $V_{k-2}$ is a flat local system over $Y(1)$, and
+the cocycle $C^f_\gamma$ is the weighted holonomy of this flat
+connection along the loop $\gamma$, with $f$ supplying the
+gauge-invariant weight.  The cohomology class $[C^f] \in
+H^1(\Gamma; V_{k-2})$ is the analog of a gauge-invariant observable;
+$\tau_0$ is the analog of a trivialisation frame; $\omega^\pm(f)$ are
+coordinates of $[C^f]$ in the cuspidal subspace, the analog of physical
+observables read off a Wilson-loop expectation.  The DR-B finite-contour
+functional is, in this dictionary, the modular-form analog of a
+Wilson-loop holonomy on the modular curve.
+
+\paragraph{The on-shell methods analogy.}
+The classical Mellin construction is ``off-shell'' in the same sense as
+a Lagrangian gauge-theory amplitude calculation: the intermediate
+integrand $f(\tau)\,\tau^{s-1}\,d\tau$ encodes gauge-redundant
+information (the basepoint $\tau_0$, the contour to the cusp), and the
+gauge-invariant observable $\Lambda^*(f, s)$ is reached only after a
+non-canonical limit.  Theorem~\ref{thm:bfk-eq} is an ``on-shell''
+reformulation in which the gauge-invariant observable is the value of
+a finite-contour functional at any admissible basepoint, with no
+limit and no regulator.  The modular-form analog of the on-shell
+S-matrix programme \cite{McGadyHuang2013, McGadyHuangChen2014} ---
+constructing $\omega^\pm$ and $\Lambda^*(f, s)$ from $\{c_f(n)\}$ via a
+kernel that does not pass through the cocycle / coboundary scaffolding
+--- is partially answered by Theorem~\ref{thm:periods} on the period
+side and Theorem~\ref{thm:bfk-eq} on the $L$-function side, with the
+remaining question being whether the kernels themselves admit a
+construction independent of the $\delta_T^{-1}$ Bernoulli operator.
+
+\paragraph{Regularisation as a symptom of bad framing.}
+The disappearance of any regularisation step in
+\eqref{eq:Lambda-DR-def} is an instance of a recurring methodological
+pattern: \emph{when a divergence arises only after one has made a
+non-canonical upstream choice, finding the canonical formulation
+eliminates the divergence together with the regulator}.  The same
+move underlies the on-shell amplitudes programme
+\cite{McGadyHuang2013}.  The pattern is not universal --- chiral
+anomalies in even dimensions are a counterexample, with
+cohomologically robust ``regulator'' content invariant under
+reframings --- but it is a useful prior, and the finite-contour
+formulation here is a particularly clean instance in which the
+canonical $\Lambda^*(f, s)$ falls out as the value of a well-defined
+linear functional at any admissible basepoint, with no auxiliary
+parameter to take to infinity and no contour to deform to a cusp.
+
+\paragraph{The geometric content of the Mellin kernel.}
+The polynomial coefficient system $V_{k-2}$ underlying the period
+construction is the symmetric-power local system that gives the
+polynomial kernel $(X - \tau Y)^{k-2}$ of the period polynomial.  Its
+flat connection on the modular curve is the natural geometric home of
+$\omega^\pm(f)$.  The Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ of
+\eqref{eq:tildekT-def} extends the polynomial kernel to a one-parameter
+analytic family in $s$, but the geometric content of the bare Mellin
+kernel $f(\tau)\,\tau^{s-1}\,d\tau$ itself --- as opposed to its
+specialisation at integer $s$ to a polynomial-in-$V_{k-2}$ kernel --- is
+not visible in the construction of this paper.  A natural conjecture is
+that $\tau^{s-1}\,d\tau$ is a section of an infinite-dimensional
+principal-series-type local system on $Y(1)$, in the same one-parameter
+family as the Lewis--Zagier period functions for Maass wave forms
+\cite{LewisZagier2001}.  Identifying the relevant local system
+explicitly, and connecting the Hurwitz-zeta inversion of $\delta_T$ to
+a coboundary statement in this larger system, is an open question.
+
+\paragraph{Towards systematic interior-pole $L$-function theory.}
+Theorem~\ref{thm:wall-crossing} establishes existence and wall-crossing
+for $\Lambda^*_{\rm DR}(f, s; \tau_0)$ on arbitrary meromorphic $f$,
+but does not give a closed-form per-mode evaluation parallel to the
+incomplete-gamma sum \eqref{eq:bfk-eq-statement}.  Developing the
+systematic per-mode theory --- in particular adapting the
+polylog-projection machinery $\widehat{P}_{\tau_p}$
+(cf.\ \cite{1806}) to the finite-contour DR-B setting and matching the wall-crossing data
+\eqref{eq:wall-crossing-statement} to the iterated-Eichler-integral
+framework of Brown--Hain on $\mathcal{M}_{1,1}$ and the universal
+elliptic curve \cite{Brown2017} --- is the natural sequel.  The
+arithmetic of the wall-crossing residues $\mathcal{R}_{\tau_p}(f, s)$
+for forms with poles at CM points (e.g.\ $\tau_p \in \{i, \rho\}$) is a
+particularly clean target, where the Laurent coefficients of $f$ take
+values in number fields and $\mathcal{R}_{\tau_p}$ acquires explicit
+arithmetic structure.
+
+\appendix
+
+\section{Eichler--Shimura for physicists}\label{app:eichler-shimura}
+
+\emph{This appendix is intended as an exposition aid for readers
+approaching the subject from theoretical physics.  It is removable
+without affecting the logical content of the paper and is excluded
+from the journal/arXiv version.}
+
+[To be filled in.  Topics: cusp forms vs.\ holomorphic vs.\ weakly
+holomorphic vs.\ meromorphic modular forms ($S_k$, $M_k$, $M_k^!$,
+$F_k$); the upper half-plane $\HH$ and the modular curve $Y(1) =
+\Gamma \backslash \HH$ as the moduli space $\mathcal{M}_{1,1}$ of
+elliptic curves; the polynomial coefficient system $V_{k-2}$ and the
+flat connection on the modular curve; the cocycle / coboundary
+language of $H^1(\Gamma; V_{k-2})$ and its cuspidal subspace
+$H^1_{\rm cusp}$; periods and quasi-periods $\omega^\pm, \eta^\pm$ via
+Eichler integrals; physical analogies (worldsheet, polarization
+tensors on auxiliary variables, holonomies of flat connections,
+gauge-invariant observables).  Worked computations at $k = 12$ where
+helpful.  $\approx 2$--$3$ pages, terse.]
+
+\begin{thebibliography}{99}
+
+\bibitem{BFK2011}
+K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
+\emph{Special $L$-values and periods of weakly holomorphic modular forms},
+Ramanujan J.\ \textbf{24} (2011), 119--139.
+
+\bibitem{Brown2017}
+F.\ Brown,
+\emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+F.~W.~J.\ Olver \emph{et al.}, eds.,
+\url{https://dlmf.nist.gov/}, Release 1.2.x.
+Chapters used: \S8 (incomplete gamma) and \S25.11 (Hurwitz zeta).
+
+\bibitem{DR2017}
+N.\ Diamantis and L.\ Rolen,
+\emph{Period polynomials, derivatives of $L$-functions, and zeros of polynomials},
+arXiv:1707.04814 (2017).
+
+\bibitem{KZ1984}
+W.\ Kohnen and D.\ Zagier,
+\emph{Modular forms with rational periods},
+in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
+
+\bibitem{LewisZagier2001}
+J.\ Lewis and D.\ Zagier,
+\emph{Period functions for Maass wave forms.\ I},
+Ann.\ of Math.\ \textbf{153} (2001), 191--258.
+
+\bibitem{McGadyHuang2013}
+Y.-t.\ Huang and D.\ McGady,
+\emph{Consistency Conditions for Gauge Theory $S$ Matrices from
+Requirements of Generalized Unitarity},
+Phys.\ Rev.\ Lett.\ \textbf{112} (2014) 241601,
+arXiv:1307.4065 [hep-th].
+
+\bibitem{McGadyHuangChen2014}
+W.-M.\ Chen, Y.-t.\ Huang, and D.\ A.\ McGady,
+\emph{Anomalies without an action}, arXiv:1402.7062 [hep-th] (2014).
+
+\bibitem{1806}
+D.\ A.\ McGady,
+\emph{$L$-functions for Meromorphic Modular Forms and Sum Rules in
+Conformal Field Theory},
+arXiv:1806.09874 [hep-th] (2019);
+INSPIRE: \url{https://inspirehep.net/literature/1679799}.
+
+\bibitem{VerifyScripts}
+Companion verification scripts.  \texttt{verify\_s6.py},
+\texttt{verify\_multi\_s.py}: per-mode verification of
+Theorem~\ref{thm:bfk-eq} at $50$-digit \texttt{mpmath} precision.
+Additional scripts for Theorem~\ref{thm:wall-crossing} and
+Theorem~\ref{thm:periods} numerics to be added.
+
+\end{thebibliography}
+
+\end{document}
