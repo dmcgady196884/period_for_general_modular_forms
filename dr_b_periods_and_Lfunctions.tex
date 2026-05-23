@@ -54,14 +54,15 @@ $f$, and prove that it is the completed $L$-function of $f$ at every
 complex $s$.  When $f$ is weakly holomorphic the functional is
 $\tau_0$-independent and equals the completed $L$-function
 $L^*(f, s)$ at every $s \in \CC$, term by term in the Fourier
-expansion (Theorem~\ref{thm:bfk-eq}; cf.\ \cite{BFK2011}).  When $f$
+expansion (Theorem~\ref{thm:bfk-eq}; cf.\ \cite{BFK2011}).  %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
+When $f$
 is meromorphic with interior poles the functional is
 piecewise-constant in $\tau_0$ with explicit wall-crossing residue
 jumps across each pole orbit (Theorem~\ref{thm:wall-crossing}); on
 the regular-at-cusps subspace it gives the deformed-Mellin
 $L$-function $L_f^*(s)_{\rm int}$ on each connected component
-(cf.\ \cite{1806}).  When
-$\dim S_k \le 1$ the same construction, with the Hurwitz-zeta kernel
+(cf.\ \cite{1806}).  %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
+When $\dim S_k = 1$ the same construction, with the Hurwitz-zeta kernel
 specialised to a polynomial-in-$\tau$ kernel at integer values of $s$,
 yields the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$ as an
 explicit linear functional in the Fourier coefficients of $f$
@@ -69,14 +70,38 @@ explicit linear functional in the Fourier coefficients of $f$
 involves no asymptotic limit or analytic continuation step, and is
 visibly natural with respect to the elliptic and cuspidal fixed points
 of the modular curve $Y(1) = \Gamma \backslash \HH$: the
-elliptic-fixed-point basepoint $\tau_0 = i$ collapses the $S$-segment
-to a point and turns $L^*$ into a single integral on the
-compact contour $[i - 1, i] \subset \HH$.
+elliptic-fixed-point basepoint $\tau_0 = i$ collapses the L-function contour 
+to simply go from $\tau = i-1$ to $\tau = i$.
+%$S$-segment
+%to a point and turns $L^*$ into a single integral on the
+%compact contour $[i - 1, i] \subset \HH$.
 \end{abstract}
+
+%DAM: Some high-level notes. I have changed specific aspects of the document, but there are still some higher level aspects which might be productive to change/mention before this gets manual attention again. Specific high-level comments:
+%DAM: 1. Some basic errors. Check for basic math errors --- though maybe hold off until the document is more stabilized.
+%DAM: 2. There are A LOT of paragraphs, and blah blah blah. Not many lemmas/theorems. Please consult the references in the new subdir @previous_paper_examples_for_style to see the examples of style that I have been indoctrinated into. In each section, there is typically some narrative, and some discussions, but a lot of the main results are in clearly stated lemmas, propositions, and theorems. (Lemmas are small technical results, propositions are bigger intermediate results that are not the final result, and theorems are the big guns. The note we are writing has three.) The bulk of each section should be tight: Lemma X: [some sharply stated, clean, statement]. Proof of Lemma X: [proof of result, with a box-symbol at the end]. Also, at some point in section 3, you have a random box-symbol that is not tied to any explicit statement that is stated to prove.
+%DAM: 3. Section 5 is quite loose.
+%DAM: 4. Nix the named suffices for things. Further, nix the author-acronyms unless absolutely needed. I am pretty sure that this is not the convention in mathematics. (It is in physics, or at least more so. But seems to be much, much less so in math.)
+%DAM: 5. I tried to replace \Lambda^*(f, s: \tau_0) with \Lambda^*(f, s: \gamma_S(\tau_0), \gamma_T(\tau_0)). The reason is several fold. First, in my other papers, I used L^* and not \Lambda^* for the L-integral. Second, once things are meromorphic, then, sure, the base-point dependence matters. But, actually, not so much. The paths matter much more. Third, specifically in section 5, specifying the L-integral in this way makes the equation between the L^*-definition we propose in this note and the L^* I defined in my 1806-note. As written, without the path-dependence in our L^*-integral, the statement is slop. Not even wrong.
+%DAM: 6. This is actually kinda big. I made an explicit remark after Theorem 1.2, showing how it reproduces the L-integral for holomorphic MFs, why this limit of $\tau_0 \to i \infty$ which gives the classical Mellin-transform integration path is pathological if the MF blows-up at i \infty, and thus why BFK had to resort to awfulness to even try to define their L-function. In light of this, and in light of the tie-ins to Brown's work and the quasi-periods that come from restricting our L-integrals to values of s in the critical strip, we are the first to actually prove that L-functions are natural to define for weakly holomorphic MFs from first principles.
+%DAM: 7. You use the term/abbreviation 'cf' when referring to claims in the literature. Can you either drop this, or use common language in those specific lines/contexts where 'cf' is used?
+
 
 \section{Introduction and main results}\label{sec:intro}
 
+%DAM: Start
+
+In this paper, we introduce a general framework that defines L-functions for generic modular forms on the full group $\SLZ$, and extracts their periods for the explicit case when the holomorphic cusp forms are one-dimensional, i.e. when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined and well-studied for holomorphic modular forms. However, there is a growing body of work exploring L-functions~\cite{BFK2011} and periods~\cite{Brown2017} for weakly holomorphic modular forms. Similarly, there are natural physical motivations to consider L-functions for properly meromorphic modular forms, which have poles \emph{within} the fundamental domain~\cite{1806}.
+
+In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics, divergences due to singularities in quantities of interest necessitate the introduction of regulators in order to define finite quantities. Regulators, though, often break symmetries, and care is needed to check that the regulator has not injected undue violence to the system. Of relevance here is that~\cite{BFK2011} introduced a non-holomorphic regulator to deal with the singularities at either end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate divergences at the cusps, but which violates holomorphicity in the deformed contour-integral, ruining path-dependence. Simultaneously, \cite{1806} concerned itself with L-functions for modular forms which diverge within the interior of the fundamental domain. Here, holomorphic dependence on $\tau$ is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
+
+In this short note, we introduce manifestly finite contour integral functionals to define L-functions for generic meromorphic modular forms that are of sufficient generality to handle any combination of poles at cusps and poles within the fundamental domain. Our construction is motivated by, and makes precise contact with, work which extracts period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are manifestly finite throughout, and reproduce all results in the literature, unifying the quasi-period results and the L-function extensions within one concrete, natural framework.
+
+%DAM: The above lines between the commented-out "%DAM: Start"-string and here are an attempt to introduce what I want to focus on in this note in a little bit more the style I had in mind...
+
+
 \paragraph{What we construct.}
+
 Let $\Gamma = \SLZ$, let $f$ be a meromorphic modular form of even
 weight $k \in \ZZ$ on $\Gamma$, and let $\tau_0 \in \HH$ be a basepoint
 with the property that the pair of line segments
@@ -143,7 +168,7 @@ of $f$:
   codimension-one wall where the contour pair passes through a pole.
   For $f$ regular at the cusp this gives the deformed-Mellin
   $L$-function $L_f^*(s)_{\rm int}$ on each connected component
-  (Corollary~\ref{cor:1806-coincide}; cf.\ \cite{1806}).
+  (Corollary~\ref{cor:1806-coincide}; cf.\ \cite{1806}). %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 \end{enumerate}
 
 \medskip
@@ -281,7 +306,7 @@ Let $f \in F_k$ be a meromorphic modular form of weight $k$ that is
 regular at the cusp.  Let $L_f^*(s)_{\rm int,\,\gamma}$ denote the
 deformed-Mellin $L$-function of $f$ along a contour $\gamma$ from
 $0$ to $i\infty$ that lies in the admissible open subset for $f$
-(cf.\ \cite[\S2]{1806}).  Then for every $\tau_0 \in \HH$ in the same
+(cf.\ \cite[\S2]{1806}).  Then for every $\tau_0 \in \HH$ in the same %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 connected component of the admissible subset as $\gamma$,
 \begin{equation}\label{eq:1806-coincidence}
   %\Lambda^*(f, s; \tau_0)
@@ -302,14 +327,14 @@ $\tau_0 = i$ kills the $S$-segment identically and leaves
 $L^*$ as a single integral on $[i - 1, i]$.  The cusp
 specialisation, applied at finite $\tau_0 = i\Lambda$, gives the
 $\Lambda$-truncated Mellin contour of $L_f^*(s)_{\rm int}$
-(cf.\ \cite{1806}) as the $S$-segment alone, with the $T$-segment
+(cf.\ \cite{1806}) as the $S$-segment alone, with the $T$-segment %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 serving as the missing ingredient that produces the cocycle and
 renders the $\Lambda \to \infty$ limit unnecessary.  The Hurwitz-zeta kernel
 $\widetilde{k}_T(\tau, s)$ in \eqref{eq:tildekT-def} is the closed
 form of the $T$-segment kernel: it is the unique $V_{n}$-analog,
 valid at every $s \in \CC$, of the polynomial coboundary inversion
 of \cite{DR2017} (which itself recovers as the integer-$s$
-specialisation, cf.~Theorem~\ref{thm:periods}).
+specialisation, cf.~Theorem~\ref{thm:periods}). %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 
 \paragraph{Outline.}
 \S\ref{sec:cocycle} introduces the DR-B cocycle and its moment
@@ -935,7 +960,7 @@ Hurwitz zeta on vertical strips \cite[\S25.11.36]{DLMF}.  When $N = 0$
 (i.e.\ $f$ has a nonzero constant term at $i\infty$), the $T$-segment
 is $O(|\tau_0|^{C(\mathrm{Re}\, s)})$ but does not decay; in this
 case the constant-term Fourier mode must be split off and treated
-separately (cf.\ \cite[Lemma~2.1]{1806} for the analogous polynomial
+separately (cf.\ \cite[Lemma~2.1]{1806} for the analogous polynomial %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 correction in the deformed-Mellin construction).
 \end{lemma}
 \begin{proof}
@@ -948,7 +973,7 @@ gives the stated bound.
 \end{proof}
 
 To match the deformed-Mellin construction of $L_f^*(s)_{\rm int}$
-(cf.~\cite{1806}), take $\tau_0 = \eps + i\Lambda$ for some small
+(cf.~\cite{1806}), take $\tau_0 = \eps + i\Lambda$ for some small %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 $\eps \in \RR$ chosen so that $\mathrm{Re}(\tau_0) = \eps$ avoids all
 $\Gamma$-images of interior poles of $f$.  As $\Lambda \to \infty$:
 \begin{itemize}\itemsep0.1em
@@ -977,7 +1002,7 @@ where $\gamma_\eps$ is the deformed-Mellin contour along $\mathrm{Re}(\tau)
 
 The polylog projection $\widehat{P}_{\tau_p}\colon f \mapsto
 \sum_{m > 0}r_{f, \tau_p}^*(m)\,\mathrm{Li}_{1 - m}(e(\tau - \tau_p))$
-(cf.\ \cite[\S2.2]{1806}) subtracts the leading polar tails of $f$ at
+(cf.\ \cite[\S2.2]{1806}) subtracts the leading polar tails of $f$ at %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 each interior pole $\tau_p$, ensuring that the $\Lambda$-truncated
 Mellin integral against $f$ has a finite $\Lambda \to \infty$ limit
 (necessary in the deformed-Mellin construction because of the
@@ -1072,7 +1097,7 @@ but does not give a closed-form per-mode evaluation parallel to the
 incomplete-gamma sum \eqref{eq:bfk-eq-statement}.  Developing the
 systematic per-mode theory --- in particular adapting the
 polylog-projection machinery $\widehat{P}_{\tau_p}$
-(cf.\ \cite{1806}) to the finite-contour DR-B setting and matching the wall-crossing data
+(cf.\ \cite{1806}) to the finite-contour DR-B setting and matching the wall-crossing data %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 \eqref{eq:wall-crossing-statement} to the iterated-Eichler-integral
 framework of Brown--Hain on $\mathcal{M}_{1,1}$ and the universal
 elliptic curve \cite{Brown2017} --- is the natural sequel.  The
