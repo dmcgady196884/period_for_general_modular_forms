@@ -126,14 +126,29 @@ where the $T$-kernel
   \;:=\; \zeta(1 - s,\, \tau + 1)
   \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)
 \end{equation}
-is built from two Hurwitz-zeta functions, and the prefactor $i^{-s}$
-matches the standard $L^*(\Delta, s) = (2\pi)^{-s}\Gamma(s)L(\Delta, s)$
-normalisation on the holomorphic-cusp-form subspace.  Both contour
-integrals in \eqref{eq:Lambda-DR-def} are finite for every basepoint
+is built from two Hurwitz-zeta functions. When the contour avoids poles in $f$, 
+both contour integrals contributing to $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ 
+in~\eqref{eq:tildekT-def} 
+%, and the prefactor $i^{-s}$
+%matches the standard $L^*(\Delta, s) = (2\pi)^{-s}\Gamma(s)L(\Delta, s)$
+%normalisation on the holomorphic-cusp-form subspace.  Both contour
+%integrals in \eqref{eq:Lambda-DR-def} 
+are finite for every basepoint
 $\tau_0 \in \HH$ admissible for $f$ and every $s \in \CC$; no regulator,
 asymptotic-subtraction argument, or analytic-continuation step is
-required.  The construction makes sense for every even integer $k$, of
-either sign, and is linear in $f$.
+required.  Further, as we will show, $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ 
+is invariant under both $\tau_0$-variations and $\gamma_S(\tau_0), 
+\gamma_T(\tau_0)$-variations, as long as neither $\gamma_S(\tau_0)$ nor  
+$\gamma_T(\tau_0)$ cross any pole location within the fundamental domain. 
+%The construction makes sense for every even integer $k$, of
+%either sign, and is linear in $f$.
+
+We will show that $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ is the 
+classical L-function for $f \in M_k(\SLZ)$. Further, because of its 
+$\tau_0$-independence and finiteness for $f \in M_k^!(\SLZ)$, and because 
+we reproduce the analytic formulae in~\cite{BFK2011}, we unambiguously 
+show that their candidate L-function is the canonical L-function one would associate 
+with any weak modular form, $f \in M_k^!$.
 
 \paragraph{Three theorems.}
 The functional $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ %\Lambda^*(f, s; \tau_0)
