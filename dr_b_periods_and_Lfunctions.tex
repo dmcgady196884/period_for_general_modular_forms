@@ -115,12 +115,14 @@ in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.  Define
   %\Lambda^*(f, s; \tau_0)
   L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
   \;:=\; i^{-s}\!\left[
-    \int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau
+    \int_{\gamma_S(\tau_0)}%_{-1/\tau_0}^{\tau_0}
+    \! f(\tau)\,\tau^{s-1}\,d\tau
     \;+\;
-    \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+    \int_{\gamma_T(\tau_0)}%_{\tau_0 - 1}^{\tau_0}\! 
+    f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \right],
 \end{equation}
-where the $T$-kernel
+where the integration contour $\gamma_S(\tau_0)$ runs between $\gamma_S(\tau_0, 0) = -1/\tau_0$ and $\gamma_S(\tau_0, 1) = \tau_0$, the integration contour $\gamma_T(\tau_0)$ runs between $\gamma_T(\tau_0, 0) = \tau_0-1$ and $\gamma_T(\tau_0, 1) = \tau_0$ and the $T$-kernel
 \begin{equation}\label{eq:tildekT-def}
   \widetilde{k}_T(\tau, s)
   \;:=\; \zeta(1 - s,\, \tau + 1)
@@ -158,7 +160,7 @@ of $f$:
 
 \begin{enumerate}[label=(\roman*),leftmargin=2.5em]\itemsep0.25em
 \item \emph{(Theorem~\ref{thm:periods})}\,
-  When $\dim S_k \le 1$, the integer-$s$ specialisations of
+  When $\dim S_k = 1$, the integer-$s$ specialisations of
   \eqref{eq:Lambda-DR-def} reduce to a polynomial-kernel form that
   produces the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$
   as an explicit linear functional in the Fourier coefficients of $f$.
@@ -167,16 +169,17 @@ of $f$:
   $\eta^\pm(\Dhat)$ from a finite-endpoint contour pair, with no
   divergence at the cusp.
 \item \emph{(Theorem~\ref{thm:bfk-eq})}\,
-  For $f \in M^!_k$ (weakly holomorphic, with poles only at the cusp),
+  For $f \in M^!_k$,
   $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$
   is $\tau_0$-independent on $\HH$ and
   produces the completed $L$-function $L^*(f, s)$ at every $s
   \in \CC$ as a single closed-form incomplete-gamma sum, agreeing
-  term by term in the Fourier expansion with \cite{BFK2011}.  At the
-  elliptic fixed-point basepoint $\tau_0 = i$ the $S$-segment collapses
+  term by term in the Fourier expansion with \cite{BFK2011}.  Our %At 
+  proof in fact exploits the simplicity at the elliptic fixed-point basepoint 
+  $\tau_0 = i$, where the $S$-segment collapses
   to a point and \eqref{eq:Lambda-DR-def} reduces to a single integral
   on the compact contour $[i - 1, i]$.
-\item \emph{(Theorem~\ref{thm:wall-crossing})}\,
+\item \emph{(Theorem~\ref{thm:wall-crossing})}\,%DAM: This paragraph needs fixing. The dependence is on the contour more than on the basepoint. Out contours can be gumbi-bears, i.e. can be path-deformed to never enclose new poles, even if we push \tau_0 all over the place. Note: I am sure that if one makes this statement more rigorous, then one could identify looseness where the previous sentence is indeed false. E.g., if we took the contour integral of \oint_{\tau_0 \sim \tau_p} L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0)) d\tau_0, we would extract monodromies/whatevers of the L-function as its base-point were wrapped around a pole at finite-$\tau_p$. However, it is very likely true (haven't proven it, but the proof is likely quick) that for any two values of $\tau_0$ can have associated contours that are in the same connected compenent, i.e. there is a 1-parameter family of contours which run between \tau_0^a and \tau_0^b which cross the poles of $f$ the same number of times, and in the same way.
   For general meromorphic $f$, $\tau_0 \mapsto L^*(f, s;
   \tau_0)$ is locally constant on the open subset of admissible
   basepoints, with explicit wall-crossing residue jumps across each
@@ -205,9 +208,11 @@ the Bernoulli polynomials $B_m(\tau + 1)$, $m = 1, 2, \ldots, k$,
 such that
 \begin{equation}\label{eq:periods-statement}
   \omega^\pm(f) \;=\; \frac{(2\pi i)^{k-1}}{\binom{k-2}{j}}\!\left[
-    \int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,k_S(j, \tau)\,d\tau
+    \int_{\gamma_S(\tau_0)}%\int_{-1/\tau_0}^{\tau_0}
+    \! f(\tau)\,k_S(j, \tau)\,d\tau
     \;+\;
-    \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,k_T(j, \tau)\,d\tau
+    \int_{\gamma_T(\tau_0)}%\int_{\tau_0 - 1}^{\tau_0}
+    \! f(\tau)\,k_T(j, \tau)\,d\tau
   \right]
 \end{equation}
 for every $f \in S_k^!$, every $\tau_0 \in \HH$, and every $j \in \{2,
@@ -218,7 +223,7 @@ specialisations of $\tau^{s-1}$ and $\widetilde{k}_T(\tau, s)$
 respectively, via $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ ($m \ge 0$).
 \end{theorem}
 
-\begin{remark}[Higher-dimensional $S_k$]\label{rem:higher-dim-Sk}
+\begin{remark}[Higher-dimensional $S_k$]\label{rem:higher-dim-Sk} %DAM: Can we remove numbering of this remark? This looks annoying, and spoils the flow of theorem 1.1, theorem 1.2 then theorem1.3...
 For $k \ge 24$ with $\dim S_k \ge 2$, the universal polynomial kernels
 $k_S^j, k_T^j$ become matrix-valued: each $j \in \{2, \ldots, k-2\}$
 gives a $\dim S_k$-component linear functional on $\{c_f(n)\}$ rather
@@ -234,6 +239,9 @@ generalisation of Theorem~\ref{thm:periods}, and we leave it to a
 follow-up.  Theorems~\ref{thm:bfk-eq} and~\ref{thm:wall-crossing} are
 unaffected and apply at every even $k$.
 \end{remark}
+
+%%$DAM: Editing-line. Below this, we need to continue injecting explicit path-dependence in the contour integrals, and we need to inject the $c_f(0) \neq 0$ correction to the as-written incorrect theorem 1.2. And we need to inject forceful words about how to reconstruct the classic Mellin-transform of a holomorphic MF to get its L-function, and why that fails when $f$ is a weakly holomorphic MF, and why this led BFK to ask a silly question (as they worked with an L-function that diverged at the get-go, rather than working with a manifestly finite one to begin with!), and how our results PROVE that their result is fully canonical and consistent. I.e. remove any shadow of a doubt that their regularization of the divergent L-integral (as they threw-out the T-contour contribution, which has a cancelling divergence AT $\tau_0 = i \infty$!) is the correct result for L-functions of weak MFs.) ... And everything else we might have wanted to include.
+
 
 \begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:bfk-eq}
 Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
