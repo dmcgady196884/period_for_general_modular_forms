@@ -243,7 +243,7 @@ unaffected and apply at every even $k$.
 %%$DAM: Editing-line. Below this, we need to continue injecting explicit path-dependence in the contour integrals, and we need to inject the $c_f(0) \neq 0$ correction to the as-written incorrect theorem 1.2. And we need to inject forceful words about how to reconstruct the classic Mellin-transform of a holomorphic MF to get its L-function, and why that fails when $f$ is a weakly holomorphic MF, and why this led BFK to ask a silly question (as they worked with an L-function that diverged at the get-go, rather than working with a manifestly finite one to begin with!), and how our results PROVE that their result is fully canonical and consistent. I.e. remove any shadow of a doubt that their regularization of the divergent L-integral (as they threw-out the T-contour contribution, which has a cancelling divergence AT $\tau_0 = i \infty$!) is the correct result for L-functions of weak MFs.) ... And everything else we might have wanted to include.
 
 
-\begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:bfk-eq}
+\begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:bfk-eq}%DAM: This theorem is not true, as stated. It holds for weak cusp forms, for sure. But if there is a constant coefficient in the q-series, then one needs to subtract it off. Doing so will yield the result $-c_f(0) \bigg( \frac{1}{s} + \frac{i^k}{k-s}\bigg) +$ whatever is written in this theorem. In particular, the explicit incomplete Gamma-functions from BFK also have this polar term as well.
 Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
 the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
 \in \HH$ and every $s \in \CC$,
@@ -251,22 +251,23 @@ the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
   %\Lambda^*(f, s; \tau_0)
  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
   \;:=\; i^{-s}\!\left[
-    \int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau
+    \int_{\gamma_S(\tau_0)}\! f(\tau)\,\tau^{s-1}\,d\tau
     \;+\;
-    \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+    \int_{\gamma_T(\tau_0)}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \right]
 \end{equation}
-is finite and independent of $\tau_0$; write $L^*(f, s)$
-for the common value.
+is finite and independent of $\tau_0$, and independent of $\gamma_S(\tau_0)$ and $\gamma_T(\tau_0)$.
 
-Specialising to the elliptic fixed point $\tau_0 = i$ of the modular
+Thus, we may safely write $L^*(f, s) := L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ 
+for the value common to all admissible contours and base-points, $\gamma_T(\tau_0)$ 
+and $\gamma_S(\tau_0)$. Specializing to the elliptic fixed point $\tau_0 = i$ of the modular
 involution $S\colon \tau \mapsto -1/\tau$, the $S$-segment $[-1/\tau_0,
 \tau_0]$ collapses to the single point $i$ and the $S$-integral in
 \eqref{eq:Lambda-DR-general} vanishes identically.  The functional
 $L^*$ therefore reduces to a single integral on the
 compact contour $[i - 1, i] \subset \HH$, with closed-form sum
 \begin{equation}\label{eq:bfk-eq-statement}
-  L^*(f, s: \gamma_S(i)=0, \gamma_T(i))
+  L^*(f, s)\bigg|_{\tau_0 = i}
   \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \;=\; \sum_{n \ne 0} c_f(n)\!\left[
     \frac{\Gamma(s,\, 2\pi n)}{(2\pi n)^s}
@@ -274,16 +275,38 @@ compact contour $[i - 1, i] \subset \HH$, with closed-form sum
     \frac{\Gamma(k - s,\, 2\pi n)}{(2\pi n)^{k-s}}
   \right],
 \end{equation}
-where negative-$n$ summands are defined by the polynomial form
-$\Gamma(N, x) = (N - 1)!\,e^{-x}\sum_{m=0}^{N-1} x^m/m!$ (entire in
-$x \in \CC$) at positive integer $N$, extended to general $s$ by
-analytic continuation in the first argument of $\Gamma$.  The right
+%where negative-$n$ summands are defined by the polynomial form
+%$\Gamma(N, x) = (N - 1)!\,e^{-x}\sum_{m=0}^{N-1} x^m/m!$ (entire in
+%$x \in \CC$) at positive integer $N$, extended to general $s$ by
+%analytic continuation in the first argument of $\Gamma$.  %DAM: Am I missing something? Several times throughout the draft, comments along these lines are mentioned. This seems wholly beyond the point, at least as it relates to defining the incomplete gamma functions for the polar terms. This perhaps matters for defining the incomplete Gammas at values of $s$ in the critical strip... but, even if so, this sort of comment does not belong in a theorem statement. It feels like it just muddies the water.
+The right
 side of \eqref{eq:bfk-eq-statement} is the completed $L$-function
 $L^*(f, s)$ of $f$: on holomorphic cusp forms it reduces to
-the classical Hecke--Weil Mellin transform, and on $M^!_k$ it is the
-incomplete-gamma sum of \cite{BFK2011}, here extended canonically to
-every $s \in \CC$.
+the classical Hecke--Weil Mellin transform, and on $M^!_k$ its equality 
+to the results in~\cite{BFK2011} \emph{prove} that this older result, dependent 
+on explicit deformation and regularization is indeed the desired L-function. 
+(I.e., it is not ``one choice'' for the L-function. It \emph {simply is, and must be}, the L-function for all 
+weakly holomorphic modular forms.)
 \end{theorem}
+
+\paragraph{No choices needed to ``extend'' L-functions to weak modular forms}
+% DAM: This is a VERY important point, and should be made clearly and explicitly. It should also be made such that it does not ruffle feathers. But, as I see it, this is one of THE most beautiful aspects of the small, cute results in this note.
+It is important to emphasize that \emph{there is no freedom to choose the L-functions here}. We computed the period polynomials based off of the standard contour, in the cohomological framework, to establish Theorem~\ref{thm:periods}. The results match the literature, and match the classical L-values along the Mellin contour. Our generalization of the contour and integrand to general complex $s$ off of the critical strip exactly matches the classical incomplete gamma functions in the literature. And, with zero choice of regulator, as the integral is finite and convergent for all values of base-point $\tau_0$ and contours connecting the $\gamma_S: S^{-1}(\tau_0) \to \tau_0$ and $\gamma_T: T^{-1}(\tau_0) \to \tau_0$, there is no question that it applies to generic weak modular forms. And it reproduces results in the literature, which were obtained by non-holomorphic deformations of the formally divergent Mellin transform of weak modular forms. Indeed, our result shows why these attempts to ad hoc regularize the divergences in, and post-facto prove the regularized results indeed reproduce, the L-function for weak modular forms both are correct and miss essential aspects of the system:
+
+Consider the case where $f \in S_k$, and consider the limit $\tau_0 \to i \infty$. Here, the S-contour goes to the Mellin contour,
+\begin{align}
+\int_{\gamma_S(\tau_0)} d\tau \tau^s f(\tau) \to \int_0^{\infty} dt t^{s-1} f(it)~,~
+\end{align}
+while, by virtue of the fact that $f(it) = c_f(1) e^{-2\pi t}(1 + \sum_{n \geq 2} c_f(n) e^{-2\pi(n-1)t}) \to 0$ in the $\tau_0 \to i \infty$ limit, the T-contour vanishes. Thus, for $f \in S_k$ (which can be easily generalized to $f \in M_k$),
+\begin{align}
+  \lim_{\tau_0 \to i \infty} \!\left(\
+    \int_{\gamma_T(\tau_0)}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+     \;+\;
+    \int_{\gamma_S(\tau_0)}\! f(\tau)\,\tau^{s-1}\,d\tau \!\right) 
+    = 0 + \int_0^{\infty} \frac{dt}{t} t^s f(it) = L^*(f, s)~.
+\end{align}
+However, when $f \in S_k$, it is not obviously sufficient to throw-away the T-contour, as it blows up at both $\tau_0-1$ and $\tau_0$. So, considering the standard Mellin contour, as was done in both~\cite{BFK2011} and by the author in~\cite{1806}, throws-out divergent contributions to the finite result of $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$. %DAM: This whole paragraph is kinda crummy. But the point, I think, is pretty robust.
+
 
 \begin{theorem}[$L$-function for meromorphic modular forms]\label{thm:wall-crossing}
 Let $k \in 2\ZZ$ and let $f$ be a meromorphic modular form of weight
@@ -360,7 +383,8 @@ of \cite{DR2017} (which itself recovers as the integer-$s$
 specialisation, cf.~Theorem~\ref{thm:periods}). %DAM: What does 'cf' mean? Use plain English, here, or just drop it!
 
 \paragraph{Outline.}
-\S\ref{sec:cocycle} introduces the DR-B cocycle and its moment
+\S\ref{sec:cocycle} introduces the period-defining %DR-B %DAM: I removed DR-B, as it ain't their cocycle. It is the property of the mathematical gods, though perhaps they noted it. If we are giving author-naming here, then we should make damned sure the authors we credit are those who coined this. But I doubt it. And, anyway, citing them should be sufficient. This isn't physics, and these people aren't BCFW or WZW or BPST or BPZ or whatever. It seems that mathematicians' style is much more parsimonious with naming objects like this.
+cocycle and its moment
 expansion in the polynomial coefficient system $V_{k-2}$.
 \S\ref{sec:periods} derives the polynomial kernels $k_S^j, k_T^j$ and
 proves Theorem~\ref{thm:periods}.  \S\ref{sec:hurwitz-extension} derives
@@ -381,7 +405,7 @@ primer for readers approaching the subject from theoretical physics.
 This appendix is included for the working-version of this note and is
 intended to be removed before formal publication.
 
-\section{The DR-B cocycle and its moment expansion}\label{sec:cocycle}
+\section{The period-defining cocycle and its moment expansion}\label{sec:cocycle}
 
 \paragraph{The polynomial coefficient system.}
 Let $V_n := \CC[X, Y]_n$ be the space of complex homogeneous polynomials
@@ -402,7 +426,7 @@ the standard sense \cite{KZ1984}: under $\tau \mapsto \gamma^{-1}\tau$,
 the weight-$k$ transformation of $f$ cancels the weight-$(-n)$ slash
 on $(X - \tau Y)^n$, making $\omega_f$ descend to a section of the
 twisted local system $V_n$ on the modular curve $Y(1) =
-\Gamma\backslash\HH$.
+\Gamma\backslash\HH$. %DAM: I need to understand this sentence before putting my name on this in any external context. What tf is a section? I know it is important and common, and have heard that word many times. But I never had cause to pause to understand it! The rest of this sentence is similarly opaque to my schlubby, grubby background as a dirty, messy physicist.
 
 \paragraph{The cocycle.}
 Fix a basepoint $\tau_0 \in \HH$ not on the $\Gamma$-orbit of any pole
@@ -633,7 +657,7 @@ independently of $j$.  At $k = 12$ this yields a $9$-fold redundant
 extraction of $\omega^\pm(f)$ from the Fourier coefficients of $f$,
 with the redundancy reflecting the $1$-dimensionality of the cuspidal
 period-polynomial direction in $V_{10}$ for the running case
-$f \in \{\Delta, \Dhat\}$.\qed
+$f \in \{\Delta, \Dhat\}$.\qed %DAM: What the fuck statement has been proven? Why is this QED-box here?? In general, this whole note needs to be cleaned-up significantly, in terms of the tightness of its prose. Again, please see the examples in 
 
 \section{The Hurwitz-zeta extension and the $L$-function on $M^!_k$: proof of Theorem~\ref{thm:bfk-eq}}\label{sec:hurwitz-extension}
 
@@ -790,6 +814,7 @@ s} = -e^{-i\pi} = +1$), the second-half contribution is $i^k\,
 \Gamma(k - s, 2\pi n)/(2\pi n)^{k - s}$.  Adding the two halves
 gives the per-mode summand of \eqref{eq:bfk-eq-statement}:
 \[
+{\bf NEED~A~LHS~TO~THIS~EQUATION\!}~
   c_f(n)\!\left[\frac{\Gamma(s, 2\pi n)}{(2\pi n)^s}
   \;+\; i^k\,\frac{\Gamma(k - s, 2\pi n)}{(2\pi n)^{k - s}}\right].
 \]
@@ -798,30 +823,30 @@ verbatim; for $k \equiv 2 \pmod 4$, $i^k = -1$ and the relative sign
 between the two halves flips, matching the standard convention of
 \cite{BFK2011}.
 
-\paragraph{Polar Fourier modes.}
-For positive Fourier modes $n \ge 1$ the proof of
-Lemma~\ref{lem:hurwitz-unfold} applies verbatim, and the per-mode
-summand reproduces the BFK incomplete-gamma value with no further
-work.  For polar Fourier modes $n \le -1$ (which can be present for
-$f \in M^!_k \setminus M_k$), the substitution $t = -2\pi i n u$
-takes the horizontal $u$-ray to a vertical $t$-ray going \emph{up}
-from $-2\pi n > 0$ (so $-2\pi$ at $n = -1$) to $-2\pi n + i\infty$ in
-the \emph{left} half-plane.  Deforming this contour to the positive
-real axis crosses the branch cut of $t^{-\nu}$ at the origin, and the
-resulting integral is the analytic continuation of $\Gamma(1 - \nu,
-x)$ in $x$ from $x > 0$ to $x = -2\pi n > 0$.  At positive integer
-$\nu' = 1 - \nu$, the explicit polynomial form
-\[
-  \Gamma(N, x)
-  \;=\; (N - 1)!\,e^{-x}\!\sum_{m=0}^{N - 1}\!\frac{x^m}{m!}
-  \qquad
-  (N \in \ZZ_{\ge 1}, \; x \in \CC)
-\]
-is single-valued and entire in $x$, supplying the analytic-continuation
-value unambiguously; non-integer $\nu'$ is then obtained by analytic
-continuation in $\nu$ from a positive-integer neighbourhood.  This
-matches the convention of \cite{BFK2011} on polar Fourier modes and
-extends naturally to every $s \in \CC$.
+%\paragraph{Polar Fourier modes.}
+%For positive Fourier modes $n \ge 1$ the proof of
+%Lemma~\ref{lem:hurwitz-unfold} applies verbatim, and the per-mode
+%summand reproduces the BFK incomplete-gamma value with no further
+%work.  For polar Fourier modes $n \le -1$ (which can be present for
+%$f \in M^!_k \setminus M_k$), the substitution $t = -2\pi i n u$
+%takes the horizontal $u$-ray to a vertical $t$-ray going \emph{up}
+%from $-2\pi n > 0$ (so $-2\pi$ at $n = -1$) to $-2\pi n + i\infty$ in
+%the \emph{left} half-plane.  Deforming this contour to the positive
+%real axis crosses the branch cut of $t^{-\nu}$ at the origin, and the
+%resulting integral is the analytic continuation of $\Gamma(1 - \nu,
+%x)$ in $x$ from $x > 0$ to $x = -2\pi n > 0$.  At positive integer
+%$\nu' = 1 - \nu$, the explicit polynomial form
+%\[
+%  \Gamma(N, x)
+%  \;=\; (N - 1)!\,e^{-x}\!\sum_{m=0}^{N - 1}\!\frac{x^m}{m!}
+%  \qquad
+%  (N \in \ZZ_{\ge 1}, \; x \in \CC)
+%\]
+%is single-valued and entire in $x$, supplying the analytic-continuation
+%value unambiguously; non-integer $\nu'$ is then obtained by analytic
+%continuation in $\nu$ from a positive-integer neighbourhood.  This
+%matches the convention of \cite{BFK2011} on polar Fourier modes and
+%extends naturally to every $s \in \CC$.%DAM: Commented-out this whole paragraph, as it looks completely besides the point. Why is this relevant at all? You can reply in a comment in the .tex-file if it is more efficient.
 
 \subsection{Worked example at $k = 12$: Bernoulli polynomials and numerics}\label{subsec:k12-worked}
 
@@ -875,12 +900,12 @@ $f \in \{\Delta, \Dhat\}$, reproduces the values of $\omega^\pm(\Delta)$
 and $\eta^\pm(\Dhat)$ of \cite{Brown2017} to relative residual
 $\sim 10^{-40}$ in every case, exhibiting lockstep across $j \in \{2,
 \ldots, 10\}$ and basepoint-independence across the four $\tau_0$
-choices \cite{VerifyScripts}.\qed
+choices \cite{VerifyScripts}.\qed %DAM: Give the numbers, and explain what \cite{VerifyScripts} IS within this paragraph. E.g, ``as one can see by running our elementary python code in \cite{VerifyScripts}'' or something.
 
 \section{Wall-crossing for meromorphic forms: proof of Theorem~\ref{thm:wall-crossing}}\label{sec:wall-crossing}
 
 \subsection{Existence and local constancy}\label{subsec:existence-local-constancy}
-
+%DAM: THERE IS NO PROOF ANYWHERE IN THIS SECTION. THERE IS NOT EVEN A STATEMENT IN THIS SECTION OF THE STATEMENT THAT IS CLAIMED TO HAVE BEEN PROVEN. Needs significant sharpening.
 Let $f$ be a meromorphic modular form of even weight $k$ on $\Gamma$,
 and let $\tau_0 \in \HH$ be a basepoint such that the contour pair
 \eqref{eq:contour-pair} avoids the $\Gamma$-orbit of $f^{-1}(\infty)
@@ -1041,12 +1066,12 @@ incomplete gammas parallel to \eqref{eq:bfk-eq-statement}, where the
 Hagedorn-rate Fourier modes must be split off and dealt with
 separately before each mode contributes a clean incomplete-gamma
 term.  The systematic interior-pole closed form parallel to
-Theorem~\ref{thm:bfk-eq} is left to the sequel.
+Theorem~\ref{thm:bfk-eq} is left to the sequel.%DAM: No, I think this should be in this note. Or at least the statement of the result should be in an appendix to this note, with a pointer towards my 1806-paper for where it is derived.
 
 \section{Outlook}\label{sec:outlook}
 
 \paragraph{Wilson-loop / holonomy interpretation.}
-The DR-B contour pair, projected to the modular curve $Y(1)$, descends
+The period-defining contour pair, projected to the modular curve $Y(1)$, descends
 to the two generators of the orbifold fundamental group
 $\pi_1^{\rm orb}(Y(1)) \cong \ZZ/2 * \ZZ/3$.  The polynomial
 coefficient system $V_{k-2}$ is a flat local system over $Y(1)$, and
@@ -1056,7 +1081,7 @@ gauge-invariant weight.  The cohomology class $[C^f] \in
 H^1(\Gamma; V_{k-2})$ is the analog of a gauge-invariant observable;
 $\tau_0$ is the analog of a trivialisation frame; $\omega^\pm(f)$ are
 coordinates of $[C^f]$ in the cuspidal subspace, the analog of physical
-observables read off a Wilson-loop expectation.  The DR-B finite-contour
+observables read off a Wilson-loop expectation.  The period-defining finite-contour
 functional is, in this dictionary, the modular-form analog of a
 Wilson-loop holonomy on the modular curve.
 
