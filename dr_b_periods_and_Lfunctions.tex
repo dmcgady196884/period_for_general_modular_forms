@@ -43,38 +43,8 @@ via finite contours}
 \maketitle
 
 \begin{abstract}
-For an arbitrary meromorphic modular form $f$ of weight $k$ on
-$\Gamma = \SLZ$ we construct a finite-contour functional
-$L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$, 
-%$%\Lambda^*(f, s; \tau_0) 
-depending on a basepoint
-$\tau_0 \in \HH$ chosen so that the Diamantis--Rolen--Brown contour pair
-$\{[-1/\tau_0, \tau_0],\, [\tau_0 - 1, \tau_0]\}$ avoids the poles of
-$f$, and prove that it is the completed $L$-function of $f$ at every
-complex $s$.  When $f$ is weakly holomorphic the functional is
-$\tau_0$-independent and equals the completed $L$-function
-$L^*(f, s)$ at every $s \in \CC$, term by term in the Fourier
-expansion (Theorem~\ref{thm:bfk-eq}; see \cite{BFK2011}).
-When $f$
-is meromorphic with interior poles the functional is
-piecewise-constant in $\tau_0$ with explicit wall-crossing residue
-jumps across each pole orbit (Theorem~\ref{thm:wall-crossing}); on
-the regular-at-cusps subspace it gives the deformed-Mellin
-$L$-function $L_f^*(s)_{\rm int}$ on each connected component
-(see \cite{1806}).
-When $\dim S_k = 1$ the same construction, with the Hurwitz-zeta kernel
-specialised to a polynomial-in-$\tau$ kernel at integer values of $s$,
-yields the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$ as an
-explicit linear functional in the Fourier coefficients of $f$
-(Theorem~\ref{thm:periods}).  The construction is regulator-free,
-involves no asymptotic limit or analytic continuation step, and is
-visibly natural with respect to the elliptic and cuspidal fixed points
-of the modular curve $Y(1) = \Gamma \backslash \HH$: the
-elliptic-fixed-point basepoint $\tau_0 = i$ collapses the L-function contour 
-to simply go from $\tau = i-1$ to $\tau = i$.
-%$S$-segment
-%to a point and turns $L^*$ into a single integral on the
-%compact contour $[i - 1, i] \subset \HH$.
+%For an arbitrary meromorphic modular form $f$ of weight $k$ on $\Gamma = \SLZ$ we construct a finite-contour functional $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$, depending on a basepoint $\tau_0 \in \HH$ chosen so that the Diamantis--Rolen--Brown contour pair $\{[-1/\tau_0, \tau_0],\, [\tau_0 - 1, \tau_0]\}$ avoids the poles of $f$, and prove that it is the completed $L$-function of $f$ at every complex $s$.  When $f$ is weakly holomorphic the functional is $\tau_0$-independent and equals the completed $L$-function $L^*(f, s)$ at every $s \in \CC$, term by term in the Fourier expansion (Theorem~\ref{thm:bfk-eq}; see \cite{BFK2011}). When $f$ is meromorphic with interior poles the functional is piecewise-constant in $\tau_0$ with explicit wall-crossing residue jumps across each pole orbit (Theorem~\ref{thm:wall-crossing}); on the regular-at-cusps subspace it gives the deformed-Mellin $L$-function $L_f^*(s)_{\rm int}$ on each connected component (see \cite{1806}). When $\dim S_k = 1$ the same construction, with the Hurwitz-zeta kernel specialised to a polynomial-in-$\tau$ kernel at integer values of $s$, yields the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$ as an explicit linear functional in the Fourier coefficients of $f$ (Theorem~\ref{thm:periods}).  The construction is regulator-free, involves no asymptotic limit or analytic continuation step, and is visibly natural with respect to the elliptic and cuspidal fixed points of the modular curve $Y(1) = \Gamma \backslash \HH$: the elliptic-fixed-point basepoint $\tau_0 = i$ collapses the L-function contour  to simply go from $\tau = i-1$ to $\tau = i$.
+In this note, we assign to every meromorphic modular form $f$ of weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote $f \mapsto L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$; here $\tau_0$ is a base-point in the upper half-plane, and $\gamma_S(\tau_0): -\tfrac{1}{\tau_0} \to \tau_0$ and $\gamma_T(\tau_0): \tau_0 -1 \to \tau_0$ denote integration contours. These L-integrals are finite for all base-points and contours. For the special case of weakly holomorphic modular forms, i.e. where $f$ is either bounded at the cusp or has poles exclusively at the cusp, this L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ and is fully independent of $\gamma_S(\tau_0)$ and $\gamma_T(\tau_0)$. We prove that this finite L-integral, as we define it, exactly matches the L-integral of holomorphic modular forms, and, separately, that it equals the non-holomorphically regularized L-integrals of~\cite{BFK2011}. When $f$ has poles in away from the cusp, i.e. inside the fundamental domain, $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ is unique and constant for paths within the same homotopy class; $L^*$'s depending on paths outside the same homotopy class differ by well-defined wall-crossing residues. We prove that they match the results in~\cite{1806} for L-functions for meromorphic modular forms. Finally, we show a slight modification of this linear function of $f$ yields its associated period polynomial when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly reproduce the numerical periods reported in~\cite{Brown2017}. All results are both proven analytically and supported, where relevant, by our associated python script~\cite{VerifyScripts}.
 \end{abstract}
 
 %DAM: Some high-level notes. I have changed specific aspects of the document, but there are still some higher level aspects which might be productive to change/mention before this gets manual attention again. Specific high-level comments:
@@ -1399,10 +1369,24 @@ K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
 \emph{Special $L$-values and periods of weakly holomorphic modular forms},
 Ramanujan J.\ \textbf{24} (2011), 119--139.
 
+\bibitem{1806}
+D.\ A.\ McGady,
+\emph{$L$-functions for Meromorphic Modular Forms and Sum Rules in
+Conformal Field Theory},
+arXiv:1806.09874 [hep-th] (2019);
+INSPIRE: \url{https://inspirehep.net/literature/1679799}.
+
 \bibitem{Brown2017}
 F.\ Brown,
 \emph{A class of non-holomorphic modular forms III},
 arXiv:1710.07912 (2017).
+
+\bibitem{VerifyScripts}
+Companion verification scripts.  \texttt{verify\_s6.py},
+\texttt{verify\_multi\_s.py}: per-mode verification of
+Theorem~\ref{thm:bfk-eq} at $50$-digit \texttt{mpmath} precision.
+Additional scripts for Theorem~\ref{thm:wall-crossing} and
+Theorem~\ref{thm:periods} numerics to be added.
 
 \bibitem{Brown2019Email}
 F.\ Brown, personal communication to the author, 28 June 2019.  This
@@ -1466,20 +1450,6 @@ arXiv:1307.4065 [hep-th].
 \bibitem{McGadyHuangChen2014}
 W.-M.\ Chen, Y.-t.\ Huang, and D.\ A.\ McGady,
 \emph{Anomalies without an action}, arXiv:1402.7062 [hep-th] (2014).
-
-\bibitem{1806}
-D.\ A.\ McGady,
-\emph{$L$-functions for Meromorphic Modular Forms and Sum Rules in
-Conformal Field Theory},
-arXiv:1806.09874 [hep-th] (2019);
-INSPIRE: \url{https://inspirehep.net/literature/1679799}.
-
-\bibitem{VerifyScripts}
-Companion verification scripts.  \texttt{verify\_s6.py},
-\texttt{verify\_multi\_s.py}: per-mode verification of
-Theorem~\ref{thm:bfk-eq} at $50$-digit \texttt{mpmath} precision.
-Additional scripts for Theorem~\ref{thm:wall-crossing} and
-Theorem~\ref{thm:periods} numerics to be added.
 
 \end{thebibliography}
 
