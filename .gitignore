@@ -9,6 +9,9 @@
 *.bbl
 *.blg
 
+# Style-example PDFs (the .tex sources are tracked; the PDFs are compile artifacts)
+previous_paper_examples_for_style/*.pdf
+
 # Python
 __pycache__/
 *.pyc
