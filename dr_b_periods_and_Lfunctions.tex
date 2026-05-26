@@ -421,9 +421,17 @@ interpretation, on-shell-amplitudes analogy, the
 regularisation-as-symptom heuristic, the open question on the
 geometric content of the $\tau^{s-1}\,f\,d\tau$ Mellin kernel, and
 pointers to the sequel on systematic per-mode theory for interior-pole
-forms).  Appendix~\ref{app:eichler-shimura} is a brief Eichler--Shimura
-primer for readers approaching the subject from theoretical physics.
-This appendix is included for the working-version of this note and is
+forms).  Appendix~\ref{app:hurwitz-derivation} records the algebraic
+derivation of the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ from
+contour-invariance of the two-segment functional: starting from the
+classical Mellin transform split at the contour endpoints
+$\{-1/\tau_0, \tau_0\}$ and demanding that the resulting
+incomplete-gamma tail be representable as a $T$-segment integral, one
+derives a shift-difference equation whose solution is the Hurwitz-zeta
+combination of \eqref{eq:tildekT-def}.
+Appendix~\ref{app:eichler-shimura} is a brief Eichler--Shimura primer
+for readers approaching the subject from theoretical physics.  This
+appendix is included for the working-version of this note and is
 intended to be removed before formal publication.
 
 \section{The period-defining cocycle and its moment expansion}\label{sec:cocycle}
@@ -452,8 +460,16 @@ well-defined $V_n$-valued $1$-form on the modular curve $Y(1) =
 \Gamma\backslash\HH$ (modulo the $\Gamma$-action on $V_n$).
 
 \paragraph{The cocycle.}
-Fix a basepoint $\tau_0 \in \HH$ not on the $\Gamma$-orbit of any pole
-of $f$.  Define
+The two-segment cocycle construction used in the present note
+originates in personal correspondence from F.\ Brown to the author
+\cite{Brown2019Email}, which describes the procedure of integrating a
+weakly holomorphic modular form against the polynomial coefficient
+system $(X - \tau Y)^n$ along contours from $\gamma^{-1}\tau_0$ to
+$\tau_0$ for the generators $\gamma \in \{S, T\}$ of $\Gamma$, and
+extracting periods and quasi-periods from the resulting $1$-cocycle
+modulo coboundaries.  Concretely:
+fix a basepoint $\tau_0 \in \HH$ not on the $\Gamma$-orbit of any pole
+of $f$, and define
 \begin{equation}\label{eq:cocycle-def}
   C^f_\gamma(\tau_0)
   \;:=\; (2\pi i)^{n}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f
@@ -793,10 +809,8 @@ all complex $\nu$.
 
 \subsection{Per-mode evaluation: proof of Theorem~\ref{thm:bfk-eq}}
 
-By Lemma~\ref{lem:Lambda-DR-tau0-invariant}, $\Lambda^*(f, s)
-=   L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$
-%\Lambda^*(f, s; \tau_0)
-at any $\tau_0 \in \HH$.  At the
+By Lemma~\ref{lem:Lambda-DR-tau0-invariant}, the value $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0)) = L^*(f, s)$
+is common to all admissible contours and basepoints.  At the
 elliptic fixed-point basepoint $\tau_0 = i$, the $S$-segment $[-1/i,
 i] = [i, i]$ has zero length and the $S$-integral in
 \eqref{eq:Lambda-DR-general} vanishes identically, leaving
@@ -1099,9 +1113,8 @@ $f$ within a fixed connected component, by
 \S\ref{subsec:existence-local-constancy} above), the left side is
 $\Lambda$-independent, so
 \[
-  %\Lambda^*(f, s; \tau_0)
   L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
-  \;=\; \lim_{\Lambda \to \infty}\!\Lambda^*(f, s; \eps + i\Lambda)
+  \;=\; \lim_{\Lambda \to \infty}\!L^*(f, s; \gamma_S(\eps + i\Lambda), \gamma_T(\eps + i\Lambda))
   \;=\; L_f^*(s)_{\rm int,\,\gamma_\eps},
 \]
 where $\gamma_\eps$ is the deformed-Mellin contour along $\mathrm{Re}(\tau)
@@ -1218,6 +1231,147 @@ arithmetic structure.
 
 \appendix
 
+\section{Algebraic derivation of the Hurwitz-zeta kernel}\label{app:hurwitz-derivation}
+
+The body of \S\ref{subsec:kT-derivation} derives $\widetilde{k}_T(\tau, s)$ by
+differentiating the two-segment functional in $\tau_0$ and demanding the
+result vanish.  Here we record the parallel derivation that proceeds
+\emph{from} the classical Mellin transform of a holomorphic cusp form,
+splitting it at the contour endpoints $\{-1/\tau_0, \tau_0\}$ and
+demanding the resulting tail be representable as a $T$-segment
+integral.  Both derivations produce the same shift-difference equation
+and the same kernel; this appendix makes the algebraic provenance of
+the Hurwitz-zeta combination manifest.
+
+\paragraph{Step 1: Mellin split at the contour endpoints.}
+Let $f \in S_k$ with $k$ even.  The classical completed $L$-function
+$L^*(f, s) = (2\pi)^{-s}\Gamma(s) L(f, s)$ has integral representation
+\[
+  L^*(f, s)
+  \;=\; -i \int_0^{i\infty}\! f(\tau)\,(\tau/i)^{s-1}\,d\tau
+  \;=\; i^{-s}\!\int_0^{i\infty}\! f(\tau)\,\tau^{s-1}\,d\tau,
+\]
+the second equality using $(\tau/i)^{s-1} = i^{1-s}\tau^{s-1}$ on the
+imaginary axis.  Pick $\tau_0 \in \HH$ and split the imaginary-axis
+contour at the two endpoints $\{-1/\tau_0, \tau_0\}$ in
+\eqref{eq:contour-pair}.  Reorganising the three resulting pieces
+using $S$-modularity $f(-1/\tau) = \tau^k f(\tau)$ on the lower segment
+$[0, -1/\tau_0]$ (via the substitution $\tau \mapsto -1/\tau$) and
+computing the $q$-series-against-$\tau^{s-1}$ integral on
+$[\tau_0, i\infty]$ directly yields, for every $\tau_0 \in \HH$ and
+every $s \in \CC$,
+\begin{equation}\label{eq:appB-gap}
+  L^*(f, s)
+  \;=\; i^{-s}\!\int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau
+  \;+\; \sum_{n \ge 1} c_f(n)\!
+  \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
+  \;+\; \frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right].
+\end{equation}
+The left side is $\tau_0$-independent (it is the classical $L$-value);
+both terms on the right side individually depend on $\tau_0$, but
+their sum does not.  At $\tau_0 = i$ the argument $-2\pi i n \tau_0 =
+2\pi n$ is real and \eqref{eq:appB-gap} reduces to the standard BFK
+incomplete-gamma sum of \cite{BFK2011}.
+
+The right side of \eqref{eq:appB-gap} contains the $S$-segment integral
+$i^{-s}\int_{-1/\tau_0}^{\tau_0}$ explicitly; the remaining
+incomplete-gamma sum plays the role that we want to be a $T$-segment
+integral.
+
+\paragraph{Step 2: ansatz for the $T$-segment kernel.}
+Postulate that there exists a kernel $\widetilde{k}_T(\tau, s)$,
+analytic in $\tau \in \HH$ and meromorphic in $s \in \CC$, such that
+\begin{equation}\label{eq:appB-ansatz}
+  i^{-s}\!\int_{\tau_0-1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \;=\; \sum_{n \ge 1} c_f(n)\!
+  \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
+  \;+\; \frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right]
+\end{equation}
+for every $f \in S_k$ and every $\tau_0 \in \HH$.  If such a kernel
+exists, substituting \eqref{eq:appB-ansatz} into \eqref{eq:appB-gap}
+gives the two-segment functional
+$L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0)) = i^{-s}[\int_{\gamma_S} +
+\int_{\gamma_T}]$ as a $\tau_0$-independent expression equal to
+$L^*(f, s)$.
+
+\paragraph{Step 3: $\tau_0$-derivative gives a shift-difference equation.}
+Differentiate both sides of \eqref{eq:appB-ansatz} in $\tau_0$.  On the
+left, the only $\tau_0$-dependence is in the integration limits, so
+$d/d\tau_0$ acts as
+\[
+  \frac{d}{d\tau_0}\!\int_{\tau_0-1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \;=\; f(\tau_0)\!\left[\widetilde{k}_T(\tau_0, s)
+  - \widetilde{k}_T(\tau_0 - 1, s)\right],
+\]
+using $f(\tau_0 - 1) = f(\tau_0)$ for the lower limit.  On the right
+of \eqref{eq:appB-ansatz}, differentiating each incomplete gamma in
+its second argument (the explicit $\tau_0$-dependence) and assembling
+the Fourier series yields, after canceling a common factor of
+$f(\tau_0)$,
+\begin{equation}\label{eq:appB-shift-diff}
+  \widetilde{k}_T(\tau_0, s) \;-\; \widetilde{k}_T(\tau_0 - 1, s)
+  \;=\; -\tau_0^{s-1} \;+\; e^{i\pi(s-1)}\,\tau_0^{k - 1 - s}
+  \qquad \text{for all } \tau_0 \in \HH.
+\end{equation}
+The first term on the right is the contribution of the
+$\tau^{s-1}$-Mellin endpoint at $\tau_0$; the second term is the
+$S$-modularity image of the same endpoint at $-1/\tau_0$, carrying
+the branch factor $(-1/\tau_0)^{s-1} = e^{i\pi(s-1)}\tau_0^{-(s-1)}$
+together with the modularity Jacobian $\tau_0^k$.  Equation
+\eqref{eq:appB-shift-diff} is a shift-difference equation of order
+one in $\tau$, with a sum of two power-of-$\tau$ terms on the right
+side.
+
+\paragraph{Step 4: Hurwitz raising solves the shift-difference equation.}
+The Hurwitz zeta function $\zeta(\sigma, a)$ satisfies the raising
+identity
+\begin{equation}\label{eq:appB-hurwitz-raising}
+  \zeta(\sigma, a + 1) \;-\; \zeta(\sigma, a) \;=\; -\,a^{-\sigma}
+  \qquad (\sigma \in \CC,\ \mathrm{Re}(a) > 0)
+\end{equation}
+(see \cite[\S25.11.3]{DLMF}).  Applied at $(\sigma, a) = (1 - s, \tau)$
+and $(\sigma, a) = (s - (k - 1), \tau)$ respectively, this gives
+\[
+  \zeta(1 - s, \tau + 1) - \zeta(1 - s, \tau) \;=\; -\tau^{s-1},
+  \qquad
+  \zeta(s - (k - 1), \tau + 1) - \zeta(s - (k - 1), \tau)
+  \;=\; -\tau^{k - 1 - s}.
+\]
+Combining with the relative phase $e^{i\pi(s-1)}$ from the second
+term of \eqref{eq:appB-shift-diff} gives the kernel
+\begin{equation}\label{eq:appB-kT-final}
+  \widetilde{k}_T(\tau, s)
+  \;:=\; \zeta(1 - s,\, \tau + 1)
+  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1),
+\end{equation}
+which by construction satisfies \eqref{eq:appB-shift-diff} and hence
+\eqref{eq:appB-ansatz}.  The kernel is analytic in $\tau$ on $\HH$
+(both Hurwitz zetas have second argument $\tau + 1$ with
+$\mathrm{Re}(\tau + 1) > 0$) and meromorphic in $s$ with simple poles
+only at $s = 0$ and $s = k$, where the per-mode integrals collect
+removable cancellations (cf.\ Lemma~\ref{lem:hurwitz-unfold}).
+Equation \eqref{eq:appB-kT-final} is the kernel
+\eqref{eq:tildekT-def} of the main text.
+
+\paragraph{Where DR2022 stops.}
+The kernel \eqref{eq:appB-kT-final} has two Hurwitz-zeta terms.  The
+construction of \cite[Thm.~1.2]{DR2022} gives the single-term
+\[
+  \widetilde{k}_T^{\,\rm DR}(\tau, m)
+  \;=\; \zeta^*(1 - m, \tau + 1)
+\]
+on the segment $[i, i+1]$, at integer $m$, which is the first term of
+\eqref{eq:appB-kT-final}.  The structural origin of this gap is the
+absence of an $S$-segment in their construction: without the
+$S$-modularity-transformed contribution at the $-1/\tau_0$ endpoint
+in Step 3, the shift-difference equation \eqref{eq:appB-shift-diff}
+has only the single right-hand-side term $-\tau_0^{s-1}$, and its
+solution is the single-Hurwitz kernel.  The second
+$e^{i\pi(s-1)}\,\tau_0^{k-1-s}$ term appears precisely because the
+two-segment functional includes the $S$-segment and its endpoint at
+$-1/\tau_0$ contributes under $\tau_0$-differentiation via
+$S$-modularity.
+
 \section{Eichler--Shimura for physicists}\label{app:eichler-shimura}
 
 \emph{This appendix is intended as an exposition aid for readers
@@ -1250,6 +1404,17 @@ F.\ Brown,
 \emph{A class of non-holomorphic modular forms III},
 arXiv:1710.07912 (2017).
 
+\bibitem{Brown2019Email}
+F.\ Brown, personal communication to the author, 28 June 2019.  This
+correspondence describes the two-segment cocycle procedure (integrate
+along contours from $\gamma^{-1}\tau_0$ to $\tau_0$ for the two
+generators $\gamma \in \{S, T\}$ of $\Gamma$, modify by a coboundary
+$P|(1 - T)$ to kill the $T$-component, then read $\omega^\pm$ and
+$\eta^\pm$ off the $S$-component), and is the structural starting
+point of the construction in the present note.  An accompanying
+unpublished note on quasi-periods of cusp forms of levels $6$ and $8$
+was attached to the correspondence.
+
 \bibitem{DLMF}
 NIST Digital Library of Mathematical Functions,
 F.~W.~J.\ Olver \emph{et al.}, eds.,
@@ -1260,6 +1425,26 @@ Chapters used: \S8 (incomplete gamma) and \S25.11 (Hurwitz zeta).
 N.\ Diamantis and L.\ Rolen,
 \emph{Period polynomials, derivatives of $L$-functions, and zeros of polynomials},
 arXiv:1707.04814 (2017).
+
+\bibitem{DR2022}
+N.\ Diamantis and L.\ Rolen,
+\emph{$L$-values of harmonic Maass forms},
+arXiv:2201.10193 [math.NT] (2022); Trans.\ Amer.\ Math.\ Soc.\ \textbf{377} (2024), 3905--3926.
+
+\bibitem{DLRR2021}
+N.\ Diamantis, M.\ Lee, W.\ Raji, and L.\ Rolen,
+\emph{$L$-series of harmonic Maass forms and a summation formula for harmonic lifts},
+arXiv:2107.12366 [math.NT] (2021); Int.\ Math.\ Res.\ Not.\ IMRN \textbf{2023}, no.~18, 15729--15765.
+
+\bibitem{IMT2024}
+\"O.\ Imamo\v{g}lu, Y.\ Martin, and \'A.\ T\'oth,
+\emph{An analogue of the Mellin transform for weakly holomorphic cusp forms and a converse theorem},
+preprint (2024).
+
+\bibitem{BFI2015}
+J.~H.\ Bruinier, J.\ Funke, and \"O.\ Imamo\v{g}lu,
+\emph{Regularized theta liftings and periods of modular functions},
+arXiv:1112.3444 [math.NT] (2011); J.\ Reine Angew.\ Math.\ \textbf{703} (2015), 43--93.
 
 \bibitem{KZ1984}
 W.\ Kohnen and D.\ Zagier,
