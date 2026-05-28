@@ -1,0 +1,1093 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  urlcolor=blue!60!black,
+  citecolor=blue!60!black,
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\im}{Im}
+\newcommand{\re}{\mathrm{Re}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Dhat}{\widehat{\Delta}}
+
+\title{Wall-crossing residues, Poincar\'e sums, and the DJ2008 picture\\
+\large\emph{Working notes companion to \texttt{dr\_b\_periods\_and\_Lfunctions.tex}}}
+\author{David A.\ McGady (with Claude)}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Purpose}
+
+These are working musings on the structural relationship between the
+wall-crossing residue formula of the main note
+(\texttt{dr\_b\_periods\_and\_Lfunctions.tex}, Theorem 1.3,
+the residue formula $\mathcal{R}_{\tau_p}(f, s)$ there) and the
+Poincar\'e-sum-of-residues
+constructions of Hardy--Ramanujan 1919 \cite{HR1919} and Duke--Jenkins
+2008 \cite{DJ2008}.  The aim is to identify the right structural slot
+in the literature for our cumulative wall-crossing residue, and to
+record open questions about convergence and modular identification of
+the resulting object.  Nothing here is proved at the level required
+for the main paper; this is a scratchpad.
+
+\section{Recap: the single-crossing residue}
+
+For a meromorphic modular form $f$ of weight $k$ on $\Gamma = \SLZ$
+and an admissible contour pair $(\gamma_S(\tau_0), \gamma_T(\tau_0))$
+avoiding the $\Gamma$-orbit of $f^{-1}(\infty)$, the finite-contour
+$L$-functional
+\begin{equation}\label{eq:Lstar-def}
+  L^*(f, s; \gamma_S, \gamma_T)
+  \;=\; i^{-s}\!\left[
+    \int_{\gamma_S}\! f(\tau)\,\tau^{s - 1}\,d\tau
+    \;+\;
+    \int_{\gamma_T}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \right]
+\end{equation}
+with Hurwitz-zeta $T$-kernel $\widetilde{k}_T(\tau, s) = \zeta(1-s,
+\tau+1) - e^{i\pi(s-1)}\zeta(s-(k-1), \tau+1)$ depends on the homotopy
+class of the contour pair only.  A single crossing of an interior
+pole $\tau_p$ of $f$ contributes
+\begin{equation}\label{eq:single-residue}
+  \mathcal{R}_{\tau_p}(f, s)
+  \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!
+  \left[\sigma^S_{\tau_p}\,\tau_p^{s - 1}
+  \;+\; \sigma^T_{\tau_p}\,\widetilde{k}_T(\tau_p, s)\right],
+\end{equation}
+with $\sigma^S_{\tau_p}, \sigma^T_{\tau_p} \in \{-1, 0, +1\}$ the
+winding contributions of $\gamma_S, \gamma_T$ across $\tau_p$.
+
+\section{Residue transport along $\Gamma$-orbit}\label{sec:residue-transport}
+
+If $f$ is meromorphic modular of weight $k$, then for $\gamma_0 =
+\binom{a\ b}{c\ d} \in \Gamma$ acting by
+$\gamma_0\tau = (a\tau + b)/(c\tau + d)$, the residue at the
+orbit-translated pole satisfies
+\begin{equation}\label{eq:residue-cocycle}
+  \Res(f, \gamma_0\tau_p)
+  \;=\; (c\tau_p + d)^{k - 2}\,\Res(f, \tau_p).
+\end{equation}
+The cocycle factor $(c\tau_p + d)^{k-2}$ comes from combining the
+weight-$k$ transformation $f(\gamma_0\sigma) = (c\sigma + d)^k
+f(\sigma)$ with the Jacobian $(\gamma_0\sigma - \gamma_0\tau_p) =
+(\sigma - \tau_p)/((c\sigma + d)(c\tau_p + d))$ in the residue limit.
+This is the standard residue transport on $\HH$ under $\Gamma$.
+
+\section{Cumulative wall-crossing as a Poincar\'e-style sum}
+
+Consider $f$ with poles at exactly one $\Gamma$-orbit $\Gamma\cdot
+\tau_p \subset \HH$.  A continuous deformation of a contour pair from
+one homotopy class enclosing no orbit-points to one enclosing every
+orbit-point produces a cumulative wall-crossing
+\begin{equation}\label{eq:cumulative}
+  \Delta L^*(f, s)
+  \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)
+  \!\sum_{\gamma_0 \in \Gamma_{\tau_p}\backslash\Gamma}\!
+  (c\tau_p + d)^{k - 2}
+  \!\left[\sigma^S(\gamma_0)\,(\gamma_0\tau_p)^{s - 1}
+  \;+\; \sigma^T(\gamma_0)\,\widetilde{k}_T(\gamma_0\tau_p, s)\right]
+\end{equation}
+where $\Gamma_{\tau_p}$ is the stabiliser of $\tau_p$ (trivial except
+at elliptic points $i$ and $\rho$).  Pulling out the kernel structure,
+define
+\begin{equation}\label{eq:Kf-def}
+  K_f(\tau_p, s)
+  \;:=\; \!\sum_{\gamma_0 \in \Gamma_{\tau_p}\backslash\Gamma}\!
+  (c\tau_p + d)^{k - 2}\,
+  \left[\sigma^S(\gamma_0)\,(\gamma_0\tau_p)^{s - 1}
+  \;+\; \sigma^T(\gamma_0)\,\widetilde{k}_T(\gamma_0\tau_p, s)\right],
+\end{equation}
+formally.  The single-orbit cumulative wall-crossing is
+$\Delta L^* = -2\pi i\,i^{-s}\,\Res(f, \tau_p)\,K_f(\tau_p, s)$, plus
+a finite-deformation correction for any portion of the orbit not
+swept by the contour deformation.
+
+\subsection{Transformation properties of $K_f(\tau_p, s)$}
+
+Under $\tau_p \mapsto \gamma_1\tau_p$ for $\gamma_1 \in \Gamma$, the
+orbit sum reindexes via $\gamma_0 \mapsto \gamma_0\gamma_1^{-1}$, and
+the cocycle factor $(c\tau_p + d)^{k - 2}$ transforms by the
+weight-$(k-2)$ cocycle.  In particular,
+\begin{equation}\label{eq:Kf-weight-k}
+  K_f(\gamma_1\tau_p, s)
+  \;=\; (c_1\tau_p + d_1)^k\,K_f(\tau_p, s)
+\end{equation}
+formally, i.e., $K_f$ is weight-$k$ in $\tau_p$, with $s$ acting as a
+spectator parameter.
+
+\subsection{Comparison with HR1919 Theorem 2}
+
+Hardy--Ramanujan \cite[Thm.~2]{HR1919} prove that a modular function
+$\phi$ (their convention: weight $n$ under
+$\phi((c + d\tau)/(a + b\tau)) = (a + b\tau)^n\phi(\tau)$,
+$ad - bc = 1$) with a single simple pole at $\tau = \alpha$ and
+residue $A$ admits the representation
+\begin{equation}\label{eq:HR-thm2}
+  f(q) \;=\; 2\pi i\,A\!\sum\!\frac{1}{(a + b\alpha)^{n + 2}}\,
+  \frac{\mathbf{q}^2}{q^2 - \mathbf{q}^2},
+  \qquad
+  \mathbf{q} = \exp\!\bigl(\tfrac{c + d\alpha}{a + b\alpha}\pi i\bigr),
+\end{equation}
+summed over pairs $(a, b)$ giving distinct $\mathbf{q}$.  Each summand
+is the residue at one orbit-point, transported by the modular cocycle
+$(a + b\alpha)^{-(n+2)}$ and weighted by an explicit $q$-kernel.
+
+\paragraph{Structural match.}
+HR1919's orbit-of-residues structure is identical to ours: sum over a
+$\Gamma$-orbit, cocycle weighting that transports the base residue,
+times a kernel evaluated at the orbit-point.  Conventions differ
+(HR's $(a + b\alpha)^{-(n+2)}$ versus our $(c\tau_p + d)^{k - 2}$):
+HR work with a non-standard slash-action where the cocycle appears in
+the inverse, and their $n$ corresponds to our $k - 2$ in some
+weight-conversion sense.  The structural role of the cocycle is
+identical.
+
+\paragraph{Structural mismatch.}
+HR's $\phi$ is a fixed meromorphic modular function; the kernel
+$\mathbf{q}^2/(q^2 - \mathbf{q}^2)$ is fixed.  Our cumulative
+wall-crossing $K_f(\tau_p, s)$ is a one-parameter analytic family in
+$s$.  At fixed $s$, the analog of HR's identity would be
+\begin{equation}\label{eq:HR-analog-conjecture}
+  \phi_{f, s}(\tau_p) \;=\; \Res(f, \tau_p)\,K_f(\tau_p, s)
+  \;+\; (\text{regular part})
+\end{equation}
+where $\phi_{f, s}$ is the conjectural weight-$k$ object on $\HH
+\setminus \Gamma\cdot\tau_p$ whose residue at $\tau_p$ is $\Res(f,
+\tau_p)$, and whose principal part at each orbit-point is determined
+by the cocycle factor in \eqref{eq:Kf-def}.
+
+\subsection{Comparison with DJ2008 Theorem 2}
+
+Duke--Jenkins \cite[Thm.~2]{DJ2008}, working with weakly holomorphic
+forms $\mathcal{M}_k$ at level one with the canonical basis
+$f_{k, m}(\tau) = q^{-m} + O(q^{\ell + 1})$ for
+$m \ge -\ell = -\lfloor k/12 \rfloor + $ correction, prove that
+\begin{equation}\label{eq:DJ-genfunction}
+  \sum_{m \ge -\ell}\!f_{k, m}(z)\,q^m
+  \;=\; \frac{f_k(z)\,f_{2-k}(\tau)}{j(\tau) - j(z)},
+\end{equation}
+where $f_k = \Delta^\ell E_{k'}$ and $q = e^{2\pi i \tau}$.  The RHS
+has singularities exactly on the $\Gamma$-orbit $\Gamma\cdot z$.  At
+$\tau = \gamma_0 z$ for $\gamma_0 \in \Gamma$,
+\begin{equation}\label{eq:DJ-residue}
+  \Res_{\tau = \gamma_0 z}\!\left[\frac{f_k(z)\,f_{2-k}(\tau)}{j(\tau) - j(z)}\right]
+  \;=\; \frac{f_k(z)\,f_{2-k}(z)}{j'(z)}\cdot(cz + d)^{-k},
+\end{equation}
+using $f_{2-k}(\gamma_0 z) = (cz + d)^{2-k}f_{2-k}(z)$ and
+$j'(\gamma_0 z) = (cz + d)^2 j'(z)$.  The residues along $\Gamma\cdot
+z$ are weighted by the weight-$k$ modular cocycle $(cz + d)^{-k}$,
+with all other $\gamma_0$-dependence factored out.
+
+\paragraph{Structural match.}
+DJ2008's residue weighting along $\Gamma\cdot z$ is exactly the
+weight-$k$ Poincar\'e cocycle structure.  Our $K_f(\tau_p, s)$ has
+the analogous structure with $(c\tau_p + d)^{k - 2}$ (our cocycle is
+on the residue of $f$ at $\tau_p$, theirs is on the kernel
+$1/(j(\tau)-j(z))$ at $z$ — same role).
+
+\paragraph{Crucial methodological alignment.}
+DJ2008 emphasise that for $\ell \neq 0$ (i.e.\ for genuinely weakly
+holomorphic forms with cusp poles), the classical Petersson Poincar\'e
+series $P_{k, m}$ \emph{do not} represent the basis elements
+$f_{k, m}$:
+\begin{quote}
+``In order to prove Theorem 1 in general, we will avoid the use of
+Poincar\'e series and Hecke operators, since the relations (11) and
+(13) need not hold when $\ell \neq 0$.  Instead, we derive an integral
+formula for $f_{k, m}$, for which approximation by residues leads to
+Theorem 1.''
+\end{quote}
+Their proof method is exactly the residue-approximation logic that
+governs our wall-crossing: the cumulative residue sum reconstructs the
+function.  This is the right structural slot for our wall-crossing
+residues — not classical convergent Petersson Poincar\'e series, but
+DJ2008-style residue-integral reconstruction.
+
+\section{The $\tau_0 = i$ specialisation: explicit orbit sums}\label{sec:tau0-i-orbit}
+
+At the elliptic-fixed-point basepoint $\tau_0 = i$ used throughout the
+main note, $S \cdot i = -1/i = i$, so the $S$-segment $[-1/i, i] =
+\{i\}$ collapses to a point.  Consequently $\sigma^S(\gamma_0) = 0$
+for every $\gamma_0 \in \Gamma$ — there is no $S$-segment that can
+cross a pole — and the wall-crossing structure reduces to that of the
+$T$-segment alone.  This section makes the orbit-sum structure
+explicit in this specialisation, for the $L$-integral and the
+period-integral separately, and discusses the $k < 0$ regime where the
+orbit sum converges naively as in HR1919.
+
+\subsection{$L$-integral at $\tau_0 = i$: $T$-segment-only orbit sum}\label{subsec:L-tau0-i}
+
+At $\tau_0 = i$ the single-crossing residue \eqref{eq:single-residue}
+reduces to
+\begin{equation}\label{eq:single-residue-tau0-i}
+  \mathcal{R}_{\tau_p}(f, s)\bigl|_{\tau_0 = i}
+  \;=\; -2\pi i\,i^{-s}\,\sigma^T_{\tau_p}\,\Res(f, \tau_p)\,
+  \widetilde{k}_T(\tau_p, s).
+\end{equation}
+The cumulative wall-crossing as the $T$-segment $[i - 1, i]$ is
+deformed continuously to enclose every point in the $\Gamma$-orbit
+$\Gamma\cdot\tau_p$ is therefore
+\begin{equation}\label{eq:Kf-T-only}
+  \Delta L^*(f, s)\bigl|_{\tau_0 = i}
+  \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\,
+  K_f^T(\tau_p, s),
+\end{equation}
+where
+\begin{equation}\label{eq:Kf-T-def}
+  K_f^T(\tau_p, s)
+  \;:=\; \!\sum_{\gamma_0 \in \Gamma_{\tau_p}\backslash\Gamma}\!
+  (c\tau_p + d)^{k - 2}\,\sigma^T(\gamma_0)\,
+  \widetilde{k}_T(\gamma_0\tau_p, s).
+\end{equation}
+This is the $T$-only specialisation of $K_f(\tau_p, s)$ in
+\eqref{eq:Kf-def}: a one-parameter analytic family in $s$, formally
+weight-$k$ in $\tau_p$, written as a single-kernel Poincar\'e-style
+sum on the $\Gamma$-orbit of $\tau_p$.
+
+\paragraph{At integer $s = j \in \{2, \ldots, k-2\}$.}
+The Hurwitz-zeta kernel collapses to a polynomial in $\tau$:
+$\widetilde{k}_T(\tau, j)$ is a $\QQ$-polynomial built from
+Bernoulli polynomials $B_m(\tau + 1)$.  Equivalently, in the
+$\omega^\pm$-normalised period kernel of the main note's Theorem~1.1,
+$\widetilde{k}_T(\tau, j) = (-1)^{j-1}\binom{k - 2}{j - 1}\,
+k_T(j, \tau)$, where $k_T(j, \tau)$ is the polynomial $T$-kernel.
+The orbit sum at integer $s = j$ becomes
+\begin{equation}\label{eq:Kf-T-integer}
+  K_f^T(\tau_p, j)
+  \;=\; (-1)^{j-1}\binom{k-2}{j-1}\!\sum_{\gamma_0}\!
+  (c\tau_p + d)^{k - 2}\,\sigma^T(\gamma_0)\,k_T(j, \gamma_0\tau_p),
+\end{equation}
+a Poincar\'e sum of the polynomial kernels $k_T(j, \cdot)$ along the
+orbit.
+
+\subsubsection*{Explicit residues at the first few orbit points ($k = 12$)}
+
+To make the orbit sum \eqref{eq:Kf-T-def} concrete, fix $k = 12$ (the
+running case of the main note) and let $\tau_p \in \HH$ be a generic
+interior simple pole of $f$, not on the $\Gamma$-orbit of $i$ or
+$\rho = e^{i\pi/3}$ (so $\Gamma_{\tau_p} = \{\pm I\}$ and the orbit
+$\Gamma\cdot\tau_p$ is genuinely $\mathrm{PSL}_2(\ZZ)$-sized).  For each coset
+representative $\gamma_0 = \binom{a\ b}{c\ d} \in \Gamma_{\tau_p}\backslash\Gamma$,
+the single-crossing residue from \eqref{eq:single-residue-tau0-i}
+applied at the orbit-point $\gamma_0\tau_p$ is
+\begin{equation}\label{eq:single-orbit-residue-k12}
+  \mathcal{R}_{\gamma_0\tau_p}(f, s)\bigl|_{\tau_0 = i}
+  \;=\; -2\pi i\,i^{-s}\,\sigma^T(\gamma_0)\,(c\tau_p + d)^{10}\,
+  \Res(f, \tau_p)\,\widetilde{k}_T(\gamma_0\tau_p, s),
+\end{equation}
+using the residue-transport identity $\Res(f, \gamma_0\tau_p) =
+(c\tau_p + d)^{k - 2}\,\Res(f, \tau_p)$ of \S\ref{sec:residue-transport}
+and the cocycle factor $(c\tau_p + d)^{k - 2} = (c\tau_p + d)^{10}$ at
+$k = 12$.
+
+The first few cosets, ordered by minimum $|c| + |d|$:
+
+\paragraph{$\gamma_0 = I = \binom{1\,0}{0\,1}$.}
+$\gamma_0\tau_p = \tau_p$, cocycle factor $(0\cdot\tau_p + 1)^{10} = 1$.
+\begin{equation}\label{eq:res-I}
+  \mathcal{R}_{\tau_p}\bigl|_{\tau_0=i}
+  \;=\; -2\pi i\,i^{-s}\,\sigma^T(I)\,\Res(f, \tau_p)\,
+  \widetilde{k}_T(\tau_p, s).
+\end{equation}
+
+\paragraph{$\gamma_0 = T = \binom{1\,1}{0\,1}$.}
+$\gamma_0\tau_p = \tau_p + 1$, cocycle factor $1$.
+\begin{equation}\label{eq:res-T}
+  \mathcal{R}_{\tau_p + 1}\bigl|_{\tau_0=i}
+  \;=\; -2\pi i\,i^{-s}\,\sigma^T(T)\,\Res(f, \tau_p)\,
+  \widetilde{k}_T(\tau_p + 1, s).
+\end{equation}
+Using the shift-difference identity satisfied by $\widetilde{k}_T$
+(main note, \S 4.1 derivation of $\widetilde{k}_T$):
+$\widetilde{k}_T(\tau + 1, s) = \widetilde{k}_T(\tau, s)
+  + \bigl(-\tau^{s-1} + e^{i\pi(s-1)}\tau^{11-s}\bigr)$,
+\eqref{eq:res-T} can be re-expressed entirely in terms of
+$\widetilde{k}_T(\tau_p, s)$ plus an explicit closed-form correction.
+
+\paragraph{$\gamma_0 = T^{-1} = \binom{1\,-1}{0\,1}$.}
+$\gamma_0\tau_p = \tau_p - 1$, cocycle factor $1$.
+\begin{equation}\label{eq:res-Tinv}
+  \mathcal{R}_{\tau_p - 1}\bigl|_{\tau_0=i}
+  \;=\; -2\pi i\,i^{-s}\,\sigma^T(T^{-1})\,\Res(f, \tau_p)\,
+  \widetilde{k}_T(\tau_p - 1, s).
+\end{equation}
+Note that the $T$-segment $[i - 1, i]$ at $\tau_0 = i$ has length one
+in the real direction.  The $T^{\pm 1}$ translates of $\tau_p$ sit
+within one unit of $\tau_p$ in $\re$ and at the same $\im$ as $\tau_p$,
+so for many physical contour deformations the $T^{\pm 1}$-translates
+are encountered as immediate neighbours of $\tau_p$.
+
+\paragraph{$\gamma_0 = S = \binom{0\,-1}{1\,0}$.}
+$\gamma_0\tau_p = -1/\tau_p$, cocycle factor $(1\cdot\tau_p + 0)^{10}
+= \tau_p^{10}$.
+\begin{equation}\label{eq:res-S}
+  \mathcal{R}_{-1/\tau_p}\bigl|_{\tau_0=i}
+  \;=\; -2\pi i\,i^{-s}\,\sigma^T(S)\,\tau_p^{10}\,
+  \Res(f, \tau_p)\,\widetilde{k}_T(-1/\tau_p, s).
+\end{equation}
+For $\tau_p$ in the standard fundamental domain (so $|\tau_p| \ge 1$
+and $\im(\tau_p) \ge \sqrt{3}/2$), the $S$-image $-1/\tau_p$ has
+$|-1/\tau_p| \le 1$ and $\im(-1/\tau_p) = \im(\tau_p)/|\tau_p|^2 \le
+\im(\tau_p)$.  The cocycle factor $\tau_p^{10}$ is generically large
+(growing like $|\tau_p|^{10}$).
+
+\paragraph{$\gamma_0 = ST = \binom{0\,-1}{1\,1}$.}
+$\gamma_0\tau_p = -1/(\tau_p + 1)$, cocycle factor
+$(\tau_p + 1)^{10}$.
+\begin{equation}\label{eq:res-ST}
+  \mathcal{R}_{-1/(\tau_p+1)}\bigl|_{\tau_0=i}
+  \;=\; -2\pi i\,i^{-s}\,\sigma^T(ST)\,(\tau_p + 1)^{10}\,
+  \Res(f, \tau_p)\,\widetilde{k}_T(-1/(\tau_p + 1), s).
+\end{equation}
+
+\paragraph{Running total.}
+The cumulative wall-crossing residue after a deformation that encloses
+$N$ orbit-points with winding numbers $\{\sigma^T(\gamma_0)\}_{\gamma_0
+\in S_N}$ (where $S_N \subset \Gamma_{\tau_p}\backslash\Gamma$ is the
+swept-out subset) is the partial sum
+\begin{equation}\label{eq:running-total-k12}
+  \Delta L^*(f, s)\bigl|_{\tau_0=i,\,N\text{-fold}}
+  \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!
+  \sum_{\gamma_0 \in S_N}\!
+  (c\tau_p + d)^{10}\,\sigma^T(\gamma_0)\,
+  \widetilde{k}_T(\gamma_0\tau_p, s).
+\end{equation}
+The cumulative orbit sum $K_f^T(\tau_p, s)$ of \eqref{eq:Kf-T-def} is
+the formal $N \to \infty$ limit (with $S_N$ exhausting
+$\Gamma_{\tau_p}\backslash\Gamma$), modulo the convergence questions
+of \S\ref{subsec:k-negative}: at $k = 12$ the cocycle factor
+$(c\tau_p + d)^{10}$ grows in $|c|, |d|$, so the infinite-orbit sum
+requires regularisation.  Each finite-deformation partial sum
+\eqref{eq:running-total-k12} is, however, a well-defined finite
+quantity.
+
+\subsubsection*{Integer-$s$ specialisation in the critical strip ($k = 12$)}
+
+For $s = j \in \{1, 2, \ldots, 11\}$ at $k = 12$, the kernel
+$\widetilde{k}_T(\tau, j)$ collapses to a polynomial in $\tau$ via
+$\zeta(-m, a) = -B_{m+1}(a)/(m + 1)$.  Three representative values
+(matching the main note's worked example):
+\begin{align}
+  \widetilde{k}_T(\tau, 1) &= -\tau - \tfrac{1}{2} + \tfrac{1}{11}\,B_{11}(\tau + 1), \label{eq:kT-s1}\\
+  \widetilde{k}_T(\tau, 6) &= -\tfrac{1}{3}\,B_6(\tau + 1), \label{eq:kT-s6}\\
+  \widetilde{k}_T(\tau, 11) &= -\tfrac{1}{11}\,B_{11}(\tau + 1) + \tau + \tfrac{1}{2}. \label{eq:kT-s11}
+\end{align}
+At these integer $s = j$, the orbit sum \eqref{eq:Kf-T-def} becomes a
+sum of polynomial-in-$\gamma_0\tau_p$ values, each weighted by
+$(c\tau_p + d)^{10}\,\sigma^T(\gamma_0)$.  For example, the
+identity-orbit-point contribution at $s = 6$ is
+\begin{equation}\label{eq:res-I-s6}
+  \mathcal{R}_{\tau_p}(f, 6)\bigl|_{\tau_0=i}
+  \;=\; -2\pi i\,i^{-6}\,\sigma^T(I)\,\Res(f, \tau_p)\,
+  \bigl(-\tfrac{1}{3}\,B_6(\tau_p + 1)\bigr)
+  \;=\; \tfrac{2\pi i}{3}\,\sigma^T(I)\,\Res(f, \tau_p)\,B_6(\tau_p + 1)
+\end{equation}
+using $i^{-6} = -1$.  The $T$-orbit point at $s = 6$:
+\begin{equation}\label{eq:res-T-s6}
+  \mathcal{R}_{\tau_p + 1}(f, 6)\bigl|_{\tau_0=i}
+  \;=\; \tfrac{2\pi i}{3}\,\sigma^T(T)\,\Res(f, \tau_p)\,B_6(\tau_p + 2).
+\end{equation}
+The $S$-orbit point at $s = 6$:
+\begin{equation}\label{eq:res-S-s6}
+  \mathcal{R}_{-1/\tau_p}(f, 6)\bigl|_{\tau_0=i}
+  \;=\; \tfrac{2\pi i}{3}\,\sigma^T(S)\,\Res(f, \tau_p)\,\tau_p^{10}\,
+  B_6(-1/\tau_p + 1).
+\end{equation}
+And so on.  In particular, the integer-$s$ specialisations are
+$\QQ$-polynomial in the orbit-point $\gamma_0\tau_p$ (times the
+cocycle factor and $2\pi i / 3$), so the running total
+\eqref{eq:running-total-k12} at integer $s$ is a $\QQ$-rational
+linear combination of $\Res(f, \tau_p)$, evaluated against an
+explicit polynomial in the orbit data $(\gamma_0\tau_p,
+(c\tau_p + d)^{10}, \sigma^T(\gamma_0))$.
+
+\subsubsection*{Stripping further to $s = 2$, $k = 12$: the explicit Poincar\'e sum}
+
+Specialising the kernel at $s = 2$, $k = 12$:
+\begin{equation}\label{eq:kT-s2}
+  \widetilde{k}_T(\tau, 2)
+  \;=\; \zeta(-1, \tau + 1) \;-\; e^{i\pi}\,\zeta(-9, \tau + 1)
+  \;=\; -\tfrac{1}{2}\,B_2(\tau + 1) \;-\; \tfrac{1}{10}\,B_{10}(\tau + 1),
+\end{equation}
+using $e^{i\pi} = -1$ and $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$.  The
+two Bernoulli polynomials, written in shifted form $B_m(\tau + 1)$:
+\begin{equation}\label{eq:Bernoulli-shifted}
+  B_2(\tau + 1) \;=\; \tau^2 + \tau + \tfrac{1}{6},
+  \qquad
+  B_{10}(\tau + 1) \;=\; \tau^{10} \;+\; 5\,\tau^9 \;+\; \cdots
+  \;+\; \tfrac{5}{66}
+\end{equation}
+(a degree-10 polynomial in $\tau$ with explicit rational
+coefficients).  Substituting \eqref{eq:kT-s2} into \eqref{eq:Kf-T-def}
+gives the orbit sum at $s = 2$ as a sum of two explicit Bernoulli-Poincar\'e sums:
+\begin{equation}\label{eq:Kf-T-s2}
+  K_f^T(\tau_p, 2)
+  \;=\; -\frac{1}{2}\!\!\sum_{\gamma_0 \in \Gamma_{\tau_p}\backslash\Gamma}\!\!
+  (c\tau_p + d)^{10}\,\sigma^T(\gamma_0)\,B_2(\gamma_0\tau_p + 1)
+  \;-\; \frac{1}{10}\!\!\sum_{\gamma_0}\!\!
+  (c\tau_p + d)^{10}\,\sigma^T(\gamma_0)\,B_{10}(\gamma_0\tau_p + 1).
+\end{equation}
+This is the analog of \eqref{eq:Kf-T-def} the user asked for: two
+explicit orbit sums, each a Poincar\'e average of a Bernoulli
+polynomial along $\Gamma\cdot\tau_p$, weighted by the cocycle factor
+$(c\tau_p + d)^{10}$ and the winding number $\sigma^T(\gamma_0)$.
+
+\paragraph{Expanding the cocycle-weighted Bernoulli into moment Poincar\'e sums.}
+Using $\gamma_0\tau_p + 1 = ((a + c)\tau_p + (b + d))/(c\tau_p + d)$
+and $B_2(z) = z^2 - z + \tfrac{1}{6}$, a short computation gives
+$B_2(\gamma_0\tau_p + 1) = (\gamma_0\tau_p)^2 + \gamma_0\tau_p +
+\tfrac{1}{6}$, and so
+\begin{equation}\label{eq:cocycle-times-B2}
+  (c\tau_p + d)^{10}\,B_2(\gamma_0\tau_p + 1)
+  \;=\; (a\tau_p + b)^2\,(c\tau_p + d)^8
+  \;+\; (a\tau_p + b)\,(c\tau_p + d)^9
+  \;+\; \tfrac{1}{6}\,(c\tau_p + d)^{10}.
+\end{equation}
+Each term on the right is a degree-10 polynomial in $\tau_p$ of the
+form $(a\tau_p + b)^j(c\tau_p + d)^{10 - j}$ for $j \in \{0, 1, 2\}$.
+Similarly, $(c\tau_p + d)^{10}\,B_{10}(\gamma_0\tau_p + 1)$ expands as
+a $\QQ$-linear combination of $(a\tau_p + b)^j(c\tau_p + d)^{10 - j}$
+for $j \in \{0, 1, \ldots, 10\}$ — all eleven moments contribute.
+
+Define the moment Poincar\'e sums
+\begin{equation}\label{eq:moment-Pj}
+  P_j(\tau_p) \;:=\; \!\sum_{\gamma_0 \in \Gamma_{\tau_p}\backslash\Gamma}\!
+  \sigma^T(\gamma_0)\,(a\tau_p + b)^j\,(c\tau_p + d)^{10 - j},
+  \qquad j = 0, 1, \ldots, 10.
+\end{equation}
+Then \eqref{eq:Kf-T-s2} rearranges into a finite $\QQ$-linear
+combination
+\begin{equation}\label{eq:Kf-T-s2-as-moments}
+  K_f^T(\tau_p, 2)
+  \;=\; \sum_{j = 0}^{10} q_j\,P_j(\tau_p),
+\end{equation}
+with explicit rational coefficients $q_j$ collecting the contributions
+of $B_2$ and $B_{10}$ at each moment-order $j$.  (The $B_2$ part
+contributes only to $j \in \{0, 1, 2\}$; the $B_{10}$ part contributes
+to all $j$.)
+
+
+\subsection{Period-integral at $\tau_0 = i$: orbit sum on $V_{k-2}$}\label{subsec:period-tau0-i}
+
+The cocycle residue jump (main note, Corollary on the
+period-polynomial wall-crossing residue) reduces at $\tau_0 = i$ to
+the $T$-only contribution
+\begin{equation}\label{eq:period-single-T}
+  \Delta C^f_T(\tau_0 = i)
+  \;=\; 2\pi i\,(2\pi i)^{k - 2}\,\sigma^T_{\tau_p}\,
+  \Res(f, \tau_p)\,(X - \tau_p Y)^{k - 2}.
+\end{equation}
+Summed over the orbit:
+\begin{equation}\label{eq:period-orbit-sum-raw}
+  \Delta C^f_T\bigl|_{\text{orbit}}
+  \;=\; 2\pi i\,(2\pi i)^{k - 2}\,\Res(f, \tau_p)\!
+  \sum_{\gamma_0}\!\sigma^T(\gamma_0)\,
+  (c\tau_p + d)^{k - 2}\,(X - \gamma_0\tau_p Y)^{k - 2}.
+\end{equation}
+The product $(c\tau_p + d)^{k-2}(X - \gamma_0\tau_p Y)^{k-2}$
+simplifies via the classical identity
+\begin{equation}\label{eq:cocycle-X-Y-identity}
+  (c\tau_p + d)(X - \gamma_0\tau_p\,Y)
+  \;=\; (dX - bY) - \tau_p\,(aY - cX)
+  \;=\; X' - \tau_p\,Y',
+\end{equation}
+Here $X' = dX - bY = X|_{\gamma_0^{-1}}$ and $Y' = -cX + aY =
+Y|_{\gamma_0^{-1}}$ are the images of the auxiliary variables under
+the $V_{k-2}$-slash action of $\gamma_0^{-1} = \binom{d\ -b}{-c\ a}$:
+by the standard convention $P|_\gamma(X, Y) := P(aX + bY, cX + dY)$
+applied to the inverse matrix $\gamma_0^{-1}$.  Raising \eqref{eq:cocycle-X-Y-identity}
+to the $(k-2)$-th power:
+\begin{equation}\label{eq:cocycle-Xprime-Yprime}
+  (c\tau_p + d)^{k - 2}\,(X - \gamma_0\tau_p\,Y)^{k - 2}
+  \;=\; (X' - \tau_p\,Y')^{k - 2}.
+\end{equation}
+The right side, regarded as a polynomial in the original auxiliary
+variables $(X, Y)$, is the slash translate of the seed polynomial
+$(X - \tau_p Y)^{k - 2}$: substituting $X \to X', Y \to Y'$ inside
+the polynomial $X - \tau_p Y$ literally produces $X' - \tau_p Y'$,
+and so
+\begin{equation}\label{eq:slash-identification}
+  (X' - \tau_p\,Y')^{k - 2}
+  \;=\; \bigl(X|_{\gamma_0^{-1}} \;-\; \tau_p\,Y|_{\gamma_0^{-1}}\bigr)^{k - 2}
+  \;=\; \bigl((X - \tau_p Y)^{k - 2}\bigr)\big|_{\gamma_0^{-1}}
+\end{equation}
+by the definition of the slash action.  Combining
+\eqref{eq:cocycle-Xprime-Yprime} and \eqref{eq:slash-identification}:
+\begin{equation}\label{eq:cocycle-identity}
+  (c\tau_p + d)^{k - 2}\,(X - \gamma_0\tau_p Y)^{k - 2}
+  \;=\; \bigl((X - \tau_p Y)^{k - 2}\bigr)\big|_{\gamma_0^{-1}},
+\end{equation}
+the $\gamma_0^{-1}$-slash translate of the Eichler polynomial kernel
+$(X - \tau_p Y)^{k - 2}$.  Substituting into
+\eqref{eq:period-orbit-sum-raw}:
+\begin{equation}\label{eq:period-orbit-sum-clean}
+  \Delta C^f_T\bigl|_{\text{orbit}}
+  \;=\; 2\pi i\,(2\pi i)^{k - 2}\,\Res(f, \tau_p)\!
+  \sum_{\gamma_0 \in \Gamma_{\tau_p}\backslash\Gamma}\!
+  \sigma^T(\gamma_0)\,
+  \bigl((X - \tau_p Y)^{k - 2}\bigr)\big|_{\gamma_0^{-1}}.
+\end{equation}
+This is a Poincar\'e averaging on the polynomial coefficient system
+$V_{k - 2}$, with the seed polynomial $(X - \tau_p Y)^{k - 2}$
+(the standard Eichler kernel at the pole $\tau_p$) translated by
+the $\gamma_0^{-1}$-action and weighted by the $T$-segment
+winding-numbers $\sigma^T(\gamma_0)$.  No analytic kernel is involved
+at the level of $V_{k - 2}$ — the orbit sum is a purely
+$V_{k - 2}$-valued Poincar\'e sum.
+
+\begin{remark}
+\eqref{eq:period-orbit-sum-clean} should be compared directly with
+HR1919's Theorem~2 in the form
+$f(q) = 2\pi i\,A\sum (a + b\alpha)^{-(n+2)}\,\mathbf{q}^2/(q^2 - \mathbf{q}^2)$:
+the orbit-of-residues structure is identical, with the auxiliary
+polynomial variable $(X, Y)$ playing the role of HR's $q$-variable,
+and the slash action $|_{\gamma_0^{-1}}$ on $V_{k-2}$ playing the role
+of HR's translated $\mathbf{q}$-kernel.  The integer-$s = j$
+specialisation of \eqref{eq:Kf-T-only} is the coefficient of
+$\binom{k-2}{j}(-1)^j X^{k-2-j} Y^j$ in
+\eqref{eq:period-orbit-sum-clean}, providing the dictionary between
+the $L$-integral and period-polynomial sides of the orbit-sum
+construction at $\tau_0 = i$.
+\end{remark}
+
+\subsection{The $k < 0$ regime: HR1919 convergence}\label{subsec:k-negative}
+
+For $k < 2$, in particular $k < 0$, the cocycle factor
+$(c\tau_p + d)^{k - 2}$ has exponent $k - 2 < -2$ and \emph{decays}
+in $|c\tau_p + d|$ as $|c|, |d| \to \infty$.  Standard
+Petersson-Poincar\'e-series convergence then applies:
+\begin{equation}\label{eq:Petersson-convergence}
+  \!\!\sum_{(c, d) = 1}\!|c\tau_p + d|^{k - 2}
+  \;<\; \infty
+  \quad\text{for } k - 2 < -2,\; \text{i.e., } k < 0.
+\end{equation}
+Combined with the boundedness of $\widetilde{k}_T(\gamma_0\tau_p, s)$
+on the orbit for $\re(s)$ in suitable ranges (using
+$|\zeta(\sigma, a)| = O(|\im a|^{1/2 - \re\sigma + \eps})$ on
+vertical lines), the orbit sum $K_f^T(\tau_p, s)$ converges
+absolutely for $k < 0$ and $\re(s)$ in an appropriate strip.
+
+This is the HR1919 regime: they study modular functions of small
+(typically negative-in-our-convention) weight $n$, where the
+Poincar\'e-orbit-of-residues sum converges directly.  In our
+convention with weight $k$:
+\begin{itemize}\itemsep0.2em
+\item \textbf{$k < 0$:} orbit sums converge naively (HR1919-style).
+\item \textbf{$k = 0$:} orbit sums marginally divergent / require
+  regularisation.
+\item \textbf{$k > 2$:} orbit sums require regularisation; the
+  main note's $k = 12$ falls here.
+\end{itemize}
+
+\paragraph{DJ2008 duality and dual-weight convergence.}
+DJ2008 Corollary~1 (\cite[Cor.~1]{DJ2008}) establishes the
+coefficient duality $a_k(m, n) = -a_{2-k}(n, m)$ between weakly
+holomorphic forms of weights $k$ and $2 - k$.  In our context:
+the dual of weight $k = 12$ is weight $2 - k = -10$, which sits in
+the $k < 0$ regime where the orbit-sum convergence is
+naive/automatic.
+
+This suggests a clean route to making sense of the cumulative
+wall-crossing $K_f^T(\tau_p, s)$ at $k = 12$:
+\begin{enumerate}\itemsep0.2em
+\item Establish the orbit sum at the dual weight $k = -10$, where
+  convergence is automatic.
+\item Use the DJ2008 duality to transport the orbit-sum identification
+  back to weight $k = 12$.
+\item The duality maps the principal-part data
+  $(\Res(f, \tau_p))$ at $k = 12$ to the corresponding
+  $V_{k-2}$-coefficient data at weight $-10$, where the
+  Poincar\'e-orbit sum directly converges.
+\end{enumerate}
+
+\begin{remark}
+The polynomial coefficient system $V_{k - 2}$ has dimension $k - 1$
+for $k \ge 2$ and is empty (in the polynomial sense) for $k < 2$.
+For $k < 0$, the "polynomial" $(X - \tau Y)^{k - 2}$ is a formal
+rational function / Laurent expansion in $(X, Y)$ rather than a
+polynomial — so the period-polynomial framework of the main note
+(Theorem 1.1) does not directly transport to $k < 0$ without
+reinterpretation.  Nevertheless the $L$-integral side
+\eqref{eq:Kf-T-def} is well-defined for any $k \in \ZZ$ via the
+analytic kernel $\widetilde{k}_T(\tau, s)$, which has no polynomial
+restriction.  The DJ2008 duality applies precisely at the level of
+the $L$-integral / coefficient data, not directly at the polynomial
+$V_{k - 2}$ level.
+\end{remark}
+
+\paragraph{Concrete test case at $k = -10$.}
+Take $f = 1/\Delta(\tau) \in M_{-12}^!$ — a weakly holomorphic
+weight-$(-12)$ form with a $q^{-1}$ pole at the cusp and no interior
+poles.  To get an interior-pole example at weight $-10$, take
+$f = E_4(\tau)/\Delta(\tau) \in M_{-8}^!$... still no interior poles.
+A worked example with interior poles at weight $-10$ would need a
+form like $E_4^3 E_6 / (\Delta^2 (j - j(\alpha)))$ for $\alpha$ a CM
+point; this has weight $4 \cdot 3 + 6 - 12 \cdot 2 = -6$.  Picking
+weights more carefully to land at $-10$ with an interior simple pole
+at $\alpha$ is a concrete numerical experiment that would test the
+naive-convergence claim of \eqref{eq:Kf-T-def} at $k < 0$.
+
+\section{The standard-Mellin contour: cumulative residue at arbitrary $k$}\label{sec:standard-Mellin-cumulative}
+
+This section addresses the question: what does the cumulative residue
+sum look like in the simplest possible setting --- where the
+integration contour can be pushed back to the classical Mellin contour
+$\tau \in [0, i\infty]$, the integrand simplifies to
+$f(\tau)\,\tau^{s-1}$, and the modular form $f$ is taken to vanish at
+both cusps so that the contour endpoints are not problematic?  The
+question is: what \emph{modular form} (in $\tau_p$) does the orbit sum
+of residues equal?
+
+We work at arbitrary even weight $k \in \ZZ$ throughout, assuming that
+the chosen meromorphic $f$ has been arranged (by dividing by enough
+powers of $1/j(\tau)$, or equivalent) to vanish at both cusps.  This
+sidesteps convergence questions at the cusps; we make no claim about
+convergence of the resulting orbit sum, treating it purely as a formal
+algebraic object.
+
+\subsection{Single-crossing residue at the Mellin contour}\label{subsec:mellin-single}
+
+For $f$ meromorphic of weight $k$ vanishing at both cusps, the
+classical Mellin integrand $\tau^{s-1}\,f(\tau)$ is integrable over
+$[0, i\infty]$ except where the contour passes through interior poles
+of $f$ on the imaginary axis or in the swept region.  A single
+crossing of an interior pole $\tau_p$ of $f$ contributes
+\begin{equation}\label{eq:mellin-single-residue}
+  \mathcal{R}^{\mathrm{Mellin}}_{\tau_p}(f, s)
+  \;=\; 2\pi i\,\sigma_{\tau_p}\,\tau_p^{s - 1}\,\Res(f, \tau_p),
+\end{equation}
+with $\sigma_{\tau_p} \in \{-1, +1\}$ the orientation of the crossing
+(positive for a deformation that newly encloses $\tau_p$).  The
+integrand $\tau^{s-1}\,f(\tau)$ has a simple pole at $\tau_p$ with
+residue $\tau_p^{s-1}\,\Res(f, \tau_p)$ by elementary calculus.
+
+\subsection{Cumulative orbit-sum residue}\label{subsec:mellin-cumulative}
+
+Suppose $f$ has interior poles at a single $\Gamma$-orbit
+$\Gamma\cdot\tau_p$ (generic $\tau_p$, so
+$\Gamma_{\tau_p} = \{\pm I\}$).  Deform the contour continuously to
+enclose every point in the orbit exactly once with the same
+orientation $\sigma \equiv +1$.  Using the residue-transport identity
+\eqref{eq:residue-cocycle} and \eqref{eq:mellin-single-residue}, the
+cumulative residue across the full orbit is
+\begin{equation}\label{eq:mellin-cumulative-raw}
+  \Delta L^*(f, s)\bigl|_{\mathrm{full\ orbit}}
+  \;=\; 2\pi i\!\sum_{\gamma_0 \in \Gamma/\{\pm I\}}\!
+  (\gamma_0\tau_p)^{s - 1}\,(c\tau_p + d)^{k - 2}\,\Res(f, \tau_p).
+\end{equation}
+Substituting $(\gamma_0\tau_p)^{s-1} = (a\tau_p + b)^{s-1}/(c\tau_p + d)^{s-1}$:
+\begin{equation}\label{eq:mellin-cumulative-clean}
+  \Delta L^*(f, s)\bigl|_{\mathrm{full\ orbit}}
+  \;=\; 2\pi i\,\Res(f, \tau_p)\,\mathcal{P}_k(\tau_p, s),
+\end{equation}
+where the orbit sum reduces to
+\begin{equation}\label{eq:Pk-def}
+  \mathcal{P}_k(\tau_p, s)
+  \;:=\; \sum_{\gamma_0 \in \Gamma/\{\pm I\}}\!
+  (a\tau_p + b)^{s - 1}\,(c\tau_p + d)^{k - 1 - s}.
+\end{equation}
+
+This is the explicit Poincar\'e-style sum the user asked for: every
+summand is a product of two simple linear factors in $\tau_p$, with
+exponents that sum to $k - 2$ and that split between the
+upper-row entries $(a, b)$ (exponent $s - 1$) and the lower-row
+entries $(c, d)$ (exponent $k - 1 - s$) of $\gamma_0$.  Nothing
+else floats: no Hurwitz zetas, no Bernoulli polynomials, no winding
+numbers beyond the uniform $\sigma \equiv +1$ choice.
+
+\subsection{Structural properties of $\mathcal{P}_k(\tau_p, s)$}\label{subsec:Pk-structure}
+
+\paragraph{Weight in $\tau_p$.}
+Under $\tau_p \mapsto \gamma_1\tau_p$ for $\gamma_1 = \binom{a_1\,b_1}{c_1\,d_1}
+\in \Gamma$, the summand transforms as
+\begin{equation}\label{eq:Pk-summand-transform}
+  (a(\gamma_1\tau_p) + b)^{s - 1}\,(c(\gamma_1\tau_p) + d)^{k - 1 - s}
+  \;=\; \frac{(\tilde a\tau_p + \tilde b)^{s - 1}\,(\tilde c\tau_p + \tilde d)^{k - 1 - s}}{(c_1\tau_p + d_1)^{(s - 1) + (k - 1 - s)}},
+\end{equation}
+where $(\tilde a, \tilde b, \tilde c, \tilde d)$ are the entries of
+$\gamma\gamma_1$.  The exponent sum is $(s - 1) + (k - 1 - s) = k - 2$,
+so the denominator in \eqref{eq:Pk-summand-transform} is
+$(c_1\tau_p + d_1)^{k - 2}$, independent of $\gamma$.  Reindexing
+$\gamma \to \gamma\gamma_1$ in the sum:
+\begin{equation}\label{eq:Pk-transform}
+  \mathcal{P}_k(\gamma_1\tau_p, s)
+  \;=\; (c_1\tau_p + d_1)^{-(k - 2)}\,\mathcal{P}_k(\tau_p, s)
+  \;=\; (c_1\tau_p + d_1)^{2 - k}\,\mathcal{P}_k(\tau_p, s).
+\end{equation}
+\textbf{So $\mathcal{P}_k(\tau_p, s)$ is a weight-$(2 - k)$ modular
+object in $\tau_p$ for every $s$.}  This is the structural answer:
+the cumulative orbit-residue has the modular weight \emph{dual} to
+the weight of $f$.  At $k = 12$ (our running case) it is weight
+$-10$ in $\tau_p$; at $k = 0$ it is weight $+2$ in $\tau_p$.
+
+\paragraph{Functional equation $s \leftrightarrow k - s$.}
+The summand $(a\tau_p + b)^{s - 1}(c\tau_p + d)^{k - 1 - s}$ is
+invariant under the simultaneous swap $s \leftrightarrow k - s$ and
+$(a, b) \leftrightarrow (c, d)$.  The involution $\gamma \mapsto
+\widetilde\gamma = \binom{c\,d}{-a\,-b}$ preserves $\det = 1$ and swaps
+the roles of the upper and lower rows (up to the sign on the new
+upper row).  Pairing each $\gamma$ with its $\widetilde\gamma$
+gives the identity
+\begin{equation}\label{eq:Pk-functional-eq}
+  \mathcal{P}_k(\tau_p, k - s)
+  \;=\; (-1)^{k - s - 1}\,\mathcal{P}_k(\tau_p, s),
+\end{equation}
+formally.  For even $k$ and integer $s$, this is the classical
+$s \leftrightarrow k - s$ symmetry of an $L$-function, transmitted
+to the orbit sum.
+
+\paragraph{Total $\tau_p$-degree per summand.}
+Each summand $(a\tau_p + b)^{s - 1}(c\tau_p + d)^{k - 1 - s}$, formally
+expanded in $\tau_p$, has total polynomial degree $k - 2$ (when $s$
+is a non-negative integer with $0 \le s - 1 \le k - 2$).  The
+summand is homogeneous of degree $k - 2$ in the $\tau_p$-direction.
+
+\paragraph{Integer-$s$ specialisations.}
+At $s = 1$: the upper-row power vanishes, leaving
+$\mathcal{P}_k(\tau_p, 1) = \sum (c\tau_p + d)^{k - 2}$.
+
+At $s = k - 1$: the lower-row power vanishes, leaving
+$\mathcal{P}_k(\tau_p, k - 1) = \sum (a\tau_p + b)^{k - 2}$.
+
+For $s \in \{2, \ldots, k - 2\}$ in the interior of the critical strip,
+both factors are nontrivial, with the upper-row exponent $s - 1$ and
+lower-row exponent $k - 1 - s$ both positive integers summing to
+$k - 2$.
+
+\subsection{What kind of modular form is $\mathcal{P}_k(\tau_p, s)$?}\label{subsec:Pk-identification}
+
+The orbit sum $\mathcal{P}_k(\tau_p, s)$ is formally a weight-$(2 - k)$
+modular form in $\tau_p$.  The natural candidate identifications:
+
+\begin{itemize}\itemsep0.2em
+\item \textbf{Eisenstein-style series at weight $2 - k$.}  The
+  classical holomorphic Eisenstein series $E_{2 - k}$ exists only for
+  $2 - k \ge 4$, i.e.\ $k \le -2$.  For $k > 2$, $E_{2 - k}$ is not
+  holomorphic-modular (negative weight has no holomorphic forms on
+  $\SLZ$); but weakly holomorphic / meromorphic modular forms of
+  weight $2 - k$ do exist (e.g.\ $1/\Delta$ at $k = 12$ is weight
+  $-12$, and combinations with $j$ give weight $-10$).  Whether
+  $\mathcal{P}_k$ identifies with a specific weakly holomorphic
+  weight-$(2 - k)$ form is an open question.
+
+\item \textbf{$\Gamma$-orbit sums of polynomial moments.}  Expanding
+  $\mathcal{P}_k(\tau_p, s)$ at integer $s = j \in \{1, \ldots, k - 1\}$
+  gives the moment Poincar\'e sums
+  $\sum (a\tau_p + b)^{j - 1}(c\tau_p + d)^{k - 1 - j}$, indexed by
+  $j$, each of which is a weight-$(2 - k)$ object in $\tau_p$.
+
+\item \textbf{Lewis--Zagier period functions at weight $2 - k$.}  The
+  Lewis--Zagier theory \cite{LewisZagier2001} constructs period
+  functions for Maass wave forms parameterised by $s$, with
+  weight-related transformation in a complementary variable.
+  $\mathcal{P}_k(\tau_p, s)$ has the right shape (weight $2 - k$ in
+  $\tau_p$, analytic in $s$, orbit-sum structure) to be a candidate
+  period-function object in the Lewis--Zagier family.
+
+\item \textbf{DJ2008 duality at weight $2 - k$.}  Duke--Jenkins
+  \cite{DJ2008} establish the duality $a_k(m, n) = -a_{2 - k}(n, m)$
+  between weakly holomorphic forms of weights $k$ and $2 - k$.  Our
+  orbit sum being weight-$(2 - k)$ — exactly the DJ2008-dual weight
+  — is not a coincidence.  $\mathcal{P}_k(\tau_p, s)$ is the natural
+  candidate for a one-parameter family in $s$ living in $M^!_{2 - k}$
+  (or its $s$-extension), parameterised by the pole-location $\tau_p$
+  of the weight-$k$ form $f$.
+\end{itemize}
+
+\paragraph{Honest open question.}
+Is there a closed-form identification
+\[
+  \mathcal{P}_k(\tau_p, s)
+  \;\stackrel{?}{=}\;
+  \sum_{m}\,c_m(s)\,f^!_{2 - k,\,m}(\tau_p),
+\]
+where $\{f^!_{2 - k, m}\}$ is the DJ2008 basis of weakly holomorphic
+weight-$(2 - k)$ forms and $\{c_m(s)\}$ are explicit (rational in $s$,
+or analytic) coefficients?  At integer $s$, the right side would be a
+finite sum.  At general $s$, an analytic expansion in the basis.
+This is the cleanest possible form of "the cumulative wall-crossing
+is an interesting modular form" — and it is the question worth
+testing with a worked example, but we set numerics aside per the
+present scope.
+
+\section{The conjectural identification}
+
+For $f$ with poles at $\Gamma\cdot\tau_p$ and our cumulative
+wall-crossing residue $K_f(\tau_p, s)$, two cases stand out.
+
+\subsection{Integer $s = j \in \{2, \ldots, k - 2\}$}
+
+At integer $s = j$ in the critical strip, $\widetilde{k}_T(\tau, j)$
+collapses to a polynomial in $\tau$ via $\zeta(-m, a) =
+-B_{m+1}(a)/(m+1)$.  The orbit sum
+\begin{equation}\label{eq:Kf-integer-s}
+  K_f(\tau_p, j) \;=\; \sum_{\gamma_0}\!(c\tau_p + d)^{k - 2}\!
+  \left[\sigma^S(\gamma_0)\,(\gamma_0\tau_p)^{j - 1}
+  \;+\; \sigma^T(\gamma_0)\,\widetilde{k}_T(\gamma_0\tau_p, j)\right]
+\end{equation}
+is, formally, the orbit sum of a weight-$k$ modular form valued at
+$\tau_p$, with the explicit polynomial kernels evaluated along the
+orbit.
+
+\begin{conjecture}\label{conj:DJ-decomposition}
+For $\ell = 0$ (i.e.\ $k \in \{4, 6, 8, 10, 14\}$, where $\dim S_k =
+0$), the integer-$s = j$ specialisation $K_f(\tau_p, j)$ admits an
+explicit expansion in the DJ2008 basis $\{f_{k, m}(\tau_p)\}_{m \ge
+0}$, with coefficients that depend on $j$ and on the Laurent data of
+$f$ at $\tau_p$.  For $\ell \ge 1$ (i.e.\ $k \ge 12$, $\dim S_k \ge 1$),
+$K_f(\tau_p, j)$ similarly expands in $\{f_{k, m}\}_{m \ge -\ell}$,
+with the $m \le 0$ part contributing the residue / quasi-period data.
+\end{conjecture}
+
+This would identify our integer-$s$ wall-crossing residue family with
+a known basis-expansion structure in $\mathcal{M}_k$.  The natural
+proof route would be to set up the DJ2008 generating-function
+identity \eqref{eq:DJ-genfunction} with $z = \tau_p$ and our kernel
+$\widetilde{k}_T(\tau, j)$ playing the role of $f_{2-k}(\tau)$
+(suitably modified to account for the segment-specific contributions
+$\sigma^S, \sigma^T$).
+
+\subsection{Continuous $s \in \CC$}
+
+At continuous $s$, $\widetilde{k}_T(\tau, s)$ is not a polynomial in
+$\tau$; it is the analytic family of Hurwitz-zeta combinations.  The
+orbit sum $K_f(\tau_p, s)$ is, formally, a one-parameter analytic
+family of weight-$k$ meromorphic modular forms on $\HH \setminus
+\Gamma\cdot\tau_p$, parameterised by $s \in \CC$.  Two questions:
+\begin{enumerate}\itemsep0.2em
+\item \textbf{Convergence.}  Naive convergence of \eqref{eq:Kf-def}
+  requires the kernel decay along $\Gamma\cdot\tau_p$ to beat the
+  cocycle growth $|c\tau_p + d|^{k - 2}$.  Standard Hurwitz-zeta
+  bounds $|\zeta(\sigma, a)| = O(|\im a|^{1/2 - \re\sigma + \eps})$ on
+  vertical lines suggest absolute convergence is delicate and may
+  require $\re s$ in particular ranges.  Regularisation along
+  Niebur--Selberg lines may be required.
+
+\item \textbf{Identification as a canonical object.}  If $K_f(\tau_p,
+  s)$ converges (or admits canonical regularisation), it is a
+  weight-$k$ meromorphic modular form on $\HH\setminus\Gamma\cdot
+  \tau_p$ analytic in $s$.  The natural identification target is a
+  Lewis--Zagier-style $s$-extension of the DJ2008 basis, or a
+  Niebur--Maass Poincar\'e series of weight $k$ with $s$-parameter,
+  or some closely related object.
+\end{enumerate}
+
+\section{Open questions / next steps}
+
+\begin{enumerate}\itemsep0.3em
+\item Prove or disprove Conjecture~\ref{conj:DJ-decomposition} at
+  integer $s$ for a worked $k = 12$ example: take $f$ a specific
+  meromorphic weight-12 form with a single $\Gamma$-orbit of simple
+  poles (e.g.\ $E_4^3/(j - j(\alpha))$ for $\alpha$ a CM point), and
+  check whether $K_f(\tau_p, j)$ at $j \in \{2, \ldots, 10\}$ expands
+  as a finite linear combination of $\{f_{12, m}\}_{m \ge -1} =
+  \{\Delta, \Dhat, f_{12, 2}, \ldots\}$.
+
+\item Establish convergence of \eqref{eq:Kf-def} in some
+  $\re s$-strip.  The growth/decay balance: $|c\tau_p + d|^{k - 2}$
+  growth from the cocycle vs.\ $|\zeta(1-s, \gamma_0\tau_p +
+  1)| \cdot |\zeta(s-(k-1), \gamma_0\tau_p + 1)|$ kernel growth
+  along orbit-points approaching the real axis.  This is a standard
+  Petersson-style convergence question.
+
+\item For non-convergent $\re s$, identify the canonical
+  regularisation (analytic continuation in $s$, Niebur-style
+  regulator, Petersson Poincar\'e-series limit, etc.).
+
+\item Compare with the polylog projection $\widehat{P}_{\tau_p}$ of
+  \cite[\S2.2]{1806}.  The polylog projection subtracts the polar
+  tails at $\tau_p$; our $K_f(\tau_p, s)$ adds up the residue
+  contributions across the orbit.  Are these dual constructions?
+  Specifically, is $K_f(\tau_p, s)$ at integer $s$ equal (up to known
+  factors) to the polylog-projected residual?
+
+\item Connect with the Brown--Hain iterated-Eichler-integral framework
+  on $\mathcal{M}_{1, 1}$ (cf.\ \cite{Brown2017}): the
+  $s$-parameterised orbit sum $K_f(\tau_p, s)$ should fit into the
+  iterated-integral / mixed-Hodge story for meromorphic forms with
+  interior poles.
+
+\item For $\ell = 0$ specifically, check whether $K_f(\tau_p, j)$ at
+  $j \in \{2, \ldots, k-2\}$ has a direct expression via DJ2008's
+  generating function \eqref{eq:DJ-genfunction} specialised at
+  $\tau = \tau_p$ — this would be the cleanest possible match.
+\end{enumerate}
+
+\section{Summary}
+
+The substantive output of this companion note, after the iterative
+exploration recorded above:
+
+\begin{enumerate}\itemsep0.3em
+\item \textbf{Structural slot: HR1919 / DJ2008, not classical
+  Petersson Poincar\'e series.}  The cumulative wall-crossing
+  residue $K_f(\tau_p, s)$ of the finite-contour $L$-integral lives
+  in the orbit-of-residues lane (HR1919 Theorem 2, DJ2008 Theorem 2),
+  \emph{not} the classical convergent-Petersson-Poincar\'e-series
+  lane.  DJ2008 themselves explicitly avoid Petersson series for
+  $\ell \neq 0$ and use residue-integral reconstruction instead;
+  that is exactly our lane.
+
+\item \textbf{The clean algebraic answer (\S\ref{sec:standard-Mellin-cumulative}).}
+  For meromorphic $f$ of arbitrary even weight $k$ vanishing at both
+  cusps, with contour pushed back to the classical Mellin path
+  $[0, i\infty]$, the cumulative orbit-residue of the
+  $L$-integral is, formally,
+  \[
+    \Delta L^*(f, s)\bigl|_{\mathrm{full\ orbit}}
+    \;=\; 2\pi i\,\Res(f, \tau_p)\,\mathcal{P}_k(\tau_p, s),
+    \quad
+    \mathcal{P}_k(\tau_p, s) \;=\; \!\sum_{\gamma_0 \in \Gamma/\{\pm I\}}\!
+    (a\tau_p + b)^{s - 1}\,(c\tau_p + d)^{k - 1 - s}.
+  \]
+  This is a clean Poincar\'e-style orbit sum with only the modular
+  cocycle data of $\gamma_0$ and the parameter $s$ floating.
+
+\item \textbf{Weight $2 - k$ in $\tau_p$, not weight $k$.}  The
+  cumulative orbit-residue $\mathcal{P}_k(\tau_p, s)$ transforms with
+  modular weight $2 - k$ under $\tau_p \mapsto \gamma_1\tau_p$ —
+  the \emph{dual} weight to the weight of $f$.  At $k = 12$, this is
+  weight $-10$, which lives in $M^!_{-10}$ (DJ2008's dual basis to
+  $M^!_{12}$).  This is the central structural observation of this
+  companion note.
+
+\item \textbf{Classical $s \leftrightarrow k - s$ functional symmetry.}
+  $\mathcal{P}_k(\tau_p, k - s) = (-1)^{k - s - 1}\,\mathcal{P}_k(\tau_p, s)$
+  follows from a row-swap involution on $\Gamma$, inheriting the
+  classical $L$-function functional equation at the level of the
+  cumulative-residue object.
+
+\item \textbf{The honest open question.}  Does $\mathcal{P}_k(\tau_p, s)$
+  admit an explicit identification
+  $\mathcal{P}_k(\tau_p, s) = \sum_m c_m(s)\,f^!_{2 - k, m}(\tau_p)$ in
+  the DJ2008 basis at the dual weight $2 - k$, with $\{c_m(s)\}$
+  explicit (rational in $s$, or analytic)?  This is the cleanest
+  possible form of "the cumulative wall-crossing equals an
+  interesting modular form."  Settling it numerically at a worked
+  $k = 12$ example with one $\Gamma$-orbit of interior poles (e.g.\
+  $f(\tau) = E_4^3/[\Delta(j(\tau) - j(\tau_p))]$ at a CM
+  $\tau_p$) is the natural next step.  Set aside per the
+  present scope.
+
+\item \textbf{Eleven moment Poincar\'e sums at integer $s, k = 12$.}
+  At $\tau_0 = i$, $s = 2$, $k = 12$, the cumulative residue expands
+  as a $\QQ$-linear combination of the moment Poincar\'e sums
+  $P_j(\tau_p) = \sum (a\tau_p + b)^j(c\tau_p + d)^{10 - j}$, $j = 0,
+  \ldots, 10$ (\S\ref{subsec:L-tau0-i}).  These moments are the
+  $V_{10}$-monomial coefficients of the period-polynomial orbit sum;
+  the $L$-integral wall-crossing at integer $s$ and the period
+  polynomial wall-crossing are the same eleven moments read off
+  through different kernels.  (This was previously written up as a
+  "structural payoff" claim above; the user correctly identified it
+  as a trivial restatement of the main-note Thm 1.1 $\leftrightarrow$
+  Thm 1.2 lockstep, not a genuine structural surprise; that
+  paragraph is preserved below \texttt{$\backslash$end\{document\}}
+  for the record.)
+
+\item \textbf{Convergence regime: $k < 0$ in our convention.}  The
+  cocycle factor $(c\tau_p + d)^{k - 2}$ decays for $k - 2 < -2$,
+  i.e.\ $k < 0$.  The HR1919 setting; our main-note $k = 12$ case
+  falls outside this naive-convergence regime and requires either
+  truncation to finite swept-region or canonical
+  regularisation.  The DJ2008 weight-duality $k \leftrightarrow 2 - k$
+  is the natural route: identify $\mathcal{P}_k$ at $k = 12$ with a
+  canonical object at weight $-10$ where the orbit sums are
+  naively convergent.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{HR1919}
+G.~H.\ Hardy and S.\ Ramanujan,
+\emph{On the coefficients in the expansions of certain modular
+functions}, Proc.\ Roy.\ Soc.\ Lond.\ A \textbf{95} (1919), 144--155.
+
+\bibitem{DJ2008}
+W.\ Duke and P.\ Jenkins,
+\emph{On the zeros and coefficients of certain weakly holomorphic
+modular forms}, Pure Appl.\ Math.\ Q.\ \textbf{4} (2008), no.~4,
+1327--1340.
+
+\bibitem{1806}
+D.\ A.\ McGady,
+\emph{$L$-functions for meromorphic modular forms and sum rules in
+conformal field theory}, arXiv:1806.09874 [hep-th] (2019).
+
+\bibitem{Brown2017}
+F.\ Brown,
+\emph{A class of non-holomorphic modular forms III}, arXiv:1710.07912
+(2017).
+
+\end{thebibliography}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Below this line: deprecated / overclaim, preserved for the record.
+%% Removed 2026-05-27 after user pointed out it was a trivial restatement
+%% of the Thm 1.1 <-> Thm 1.2 lockstep from the main note, not a structural
+%% observation.  Kept here in case any of the phrasing turns out useful.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{The structural payoff.}
+The moments $\{(a\tau_p + b)^j (c\tau_p + d)^{10 - j}\}_{j = 0}^{10}$
+appearing in \eqref{eq:moment-Pj} are precisely the coefficients
+of the slash translate of the Eichler kernel.  Writing
+$(X - \tau_p Y)^{10}\bigl|_{\gamma_0^{-1}}$ explicitly via
+\eqref{eq:cocycle-identity}:
+\begin{equation*}
+  (X - \tau_p Y)^{10}\bigl|_{\gamma_0^{-1}}
+  \;=\; \sum_{j = 0}^{10}\!\binom{10}{j}(-1)^j\,
+  (a\tau_p + b)^j (c\tau_p + d)^{10 - j}\,X^{10 - j}\,Y^j.
+\end{equation*}
+The moment $P_j(\tau_p)$ of \eqref{eq:moment-Pj} is therefore exactly
+the coefficient (up to $\binom{10}{j}(-1)^j$) of $X^{10 - j} Y^j$ in
+the period-polynomial orbit sum
+$\sum_{\gamma_0}\sigma^T(\gamma_0)(X - \tau_p Y)^{10}|_{\gamma_0^{-1}}$
+from \eqref{eq:period-orbit-sum-clean}.
+
+\emph{The $L$-integral wall-crossing at integer $s = 2$ expands as a
+specific $\QQ$-linear combination of the $V_{10}$-monomial
+coefficients of the period-polynomial wall-crossing.}  The two
+pictures --- $L$-integral residues vs.\ period-polynomial residues ---
+are not separate Poincar\'e-type sums in different lanes; they are
+the same orbit-data $\{P_j(\tau_p)\}_{j = 0}^{10}$ read off in two
+different bases.  The integer-$s$ specialisation of the $L$-integral
+projects onto a specific $\QQ$-linear combination of the moment
+basis, with the projection coefficients $q_j$ determined by the
+Bernoulli polynomial structure of $\widetilde{k}_T(\tau, j)$ at the
+particular integer $j$.
+
+\paragraph{What this suggests.}
+\begin{itemize}
+\item The eleven moment Poincar\'e sums $\{P_j(\tau_p)\}_{j = 0}^{10}$
+  are the structurally fundamental Poincar\'e objects.
+\item Convergence of $K_f^T$ at $k = 12$ reduces to convergence of the
+  eleven moment Poincar\'e sums.
+\item The HR1919 / DJ2008 framework operates on the moment basis
+  $\{P_j\}$ directly.
+\end{itemize}
