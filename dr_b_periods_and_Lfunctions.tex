@@ -43,12 +43,13 @@ via finite contours}
 \maketitle
 
 \begin{abstract}
-In this note, we assign to every meromorphic modular form $f$ of weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote $f \mapsto L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$; here $\tau_0$ is a base-point in the upper half-plane, and $\gamma^S_{\tau_0}$ is an integration path from $-\tfrac{1}{\tau_0}$ to $\tau_0$, while $\gamma^T_{\tau_0}$ an integration path from $\tau_0 -1$ to $\tau_0$. These L-integrals are finite for all base-points and contours. For the special case of weakly holomorphic modular forms, i.e. where $f$ is either bounded at the cusp or has poles exclusively at the cusp, this L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ and is fully independent of $\gamma_S(\tau_0)$ and $\gamma_T(\tau_0)$. We prove that this finite L-integral, as we define it, exactly matches the L-integral of holomorphic modular forms, and, separately, that it equals the non-holomorphically regularized L-integrals of~\cite{BFK2011}. When $f$ has poles away from the cusp, i.e.\ inside the fundamental domain, $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ is unique and constant for paths within the same homotopy class; related $L^*$-integrals of $f$, evaluated at $s$, which depend on paths outside the same homotopy class differ by well-defined wall-crossing residues. We prove that, for meromorphic modular forms regular at the cusps, our L-integrals/L-functions equal the L-integrals/L-functions constructed in~\cite{1806}. Finally, we show that a slight modification of this linear functional in the Fourier coefficients of $f$ yields its associated period polynomial when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly reproduce the numerical periods reported in~\cite{Brown2017}. All results in formulas are are verified, and are verifiable, via our python scripts~\cite{VerifyScripts}.
+In this note, we assign to every meromorphic modular form $f$ of weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote $f \mapsto L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$; here $\tau_0$ is a base-point in the upper half-plane, and $\gamma^S_{\tau_0}$ is an integration path from $-\tfrac{1}{\tau_0}$ to $\tau_0$, while $\gamma^T_{\tau_0}$ an integration path from $\tau_0 -1$ to $\tau_0$. These L-integrals are finite for all base-points and contours. For the special case of weakly holomorphic modular forms, i.e. where $f$ is either bounded at the cusp or has poles exclusively at the cusp, this L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ and is fully independent of $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$. We prove that this finite L-integral, as we define it, exactly matches the L-integral of holomorphic modular forms, and, separately, that it equals the non-holomorphically regularized L-integrals of~\cite{BFK2011}. When $f$ has poles away from the cusp, i.e.\ inside the fundamental domain, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is unique and constant for paths within the same homotopy class; related $L^*$-integrals of $f$, evaluated at $s$, which depend on paths outside the same homotopy class differ by well-defined wall-crossing residues. We prove that, for meromorphic modular forms regular at the cusps, our L-integrals/L-functions equal the L-integrals/L-functions constructed in~\cite{1806}. Finally, we show that a slight modification of this linear functional in the Fourier coefficients of $f$ yields its associated period polynomial when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly reproduce the numerical periods reported in~\cite{Brown2017}. All results in formulas are verified, and verifiable, via our python scripts~\cite{VerifyScripts}.
 \end{abstract}
 
 %DAM1: When we evaluate the L-integral at values of $s$ in the critical strip, i.e. when we extract the periods associated with Delta and Delta-Hat, we denote the integers in the set $\{ 2, ..., k-2\}$ by the letter $j$. This is slightly jarring, as $j$ also means $j = c \times E_4^3/(E_4^3-E_6^2)$ for some integer $c$ (I think it is $1728^{\pm 1}$ or something). Can we swap-out all instances of $j$ in our formulas with $\ell$ --- except if we are ACTUALLY referring to the j-invariant? 
 %DAM2: What is all of this ``lockstep'' business. I know what is meant, but I think it is not needed to emphasize throughout the note. One can just have one footnote, or a sentence following e.g. the statement of Theorem 1.1 that, even though there are $k-3$ values of $\ell$
-%DAM3: Numerics in proofs. In many instances, we include numerical verification assertions WITHIN proofs. This should be scrubbed. The numerical aspects of this
+%DAM3: Numerics in proofs. In many instances, we include numerical verification assertions WITHIN proofs. This should be scrubbed. The numerical aspects of our work serve only to spot-check the validity of the equations. As our proofs are not establishing improved numerical bounds, e.g. on some scaling or whatnot, numerics prove NOTHING. They can only offer nice-to-haves, which is added confidence that the results are right, or packages to help others in their own explorations of the validity of our work.
+%DAM4: Acausal references. E.g., in Theorem 1.1's statement, it refers to Theorem 1.2. NOT OK.
 
 \section{Introduction and main results}\label{sec:intro}
 
@@ -149,12 +150,12 @@ of $f$:
 The complete statements are below; their proofs occupy
 \S\ref{sec:periods}--\S\ref{sec:wall-crossing}.
 
-\begin{theorem}[Periods and quasi-periods via the integer-$s$ specialisation of $L^*$, $\dim S_k \le 1$]\label{thm:periods}
+\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k \le 1$]\label{thm:periods}
 Let $k \in 2\ZZ$ with $\dim S_k \le 1$, and let $f \in S_k^!$.  For
 the substantive cases $k \in \{12, 16, 18, 20, 22, 26\}$ where
 $\dim S_k = 1$, the period and quasi-period coefficients
-$\omega^\pm(f)$ are recovered as the integer-$s = j$ specialisation of
-the $L$-integral functional of Theorem~\ref{thm:bfk-eq} via
+$\omega^\pm(f)$ are given by the explicit two-segment linear
+functional
 \begin{equation}\label{eq:periods-statement}
   \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{j - 1}\,\binom{k - 2}{j - 1}}{c_S^{\,j - 1}}\!\left[
     \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{j - 1}\,d\tau
@@ -167,8 +168,8 @@ $j \in \{2, \ldots, k - 2\}$, with parity $\pm$ determined by
 $j - 1 \bmod 2$.  Here
 $c_S^{\,j - 1} := [p^\pm_f]_{X^{n - (j - 1)} Y^{j - 1}} \in \QQ$ is the
 Brown cuspidal-basis coefficient at the matched monomial
-(\cite{Brown2017,KZ1984}), and $\widetilde{k}_T(\tau, s)$ is the
-Hurwitz-zeta $T$-kernel of \eqref{eq:tildekT-def}, whose integer-$s = j$
+(\cite{Brown2017,KZ1984}), $\widetilde{k}_T(\tau, s)$ is the
+Hurwitz-zeta $T$-kernel of \eqref{eq:tildekT-def}, and its integer-$s = j$
 specialisation collapses via $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$
 ($m \ge 0$) to the $\QQ$-rational polynomial
 \begin{equation}\label{eq:kS-form}
@@ -177,13 +178,13 @@ specialisation collapses via $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$
 \end{equation}
 of degree at most $k - 2$.  The right side of
 \eqref{eq:periods-statement} is independent of $\tau_0$ and of the
-choice of interior $j$ within its parity sector (lockstep).  The
-$S$- and $T$-segment kernels are the bare Mellin and bare Hurwitz
-kernels of $L^*(f, s)$: at integer $s = j$, identity
-\eqref{eq:periods-statement} is the rescaled integer-$s$ shadow of the
-$L$-function functional of Theorem~\ref{thm:bfk-eq}, with all
-combinatorial structure absorbed into the prefactor outside the
-two-segment bracket.
+choice of interior $j$ within its parity sector.  Inside the
+two-segment bracket sit only the bare Mellin monomial $\tau^{j - 1}$
+and the bare Hurwitz polynomial $\widetilde{k}_T(\tau, j)$ of
+\eqref{eq:kS-form}; all combinatorial structure
+$\bigl((2\pi i)^{k - 1},\,(-1)^{j - 1},\,\binom{k - 2}{j - 1}\bigr)$
+together with the Brown basis coefficient $c_S^{\,j - 1}$ sits in the
+prefactor outside.
 \end{theorem}
 
 \paragraph{Higher-dimensional $S_k$.}
@@ -308,9 +309,9 @@ $\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def}.  Then:
   in homotopy classes related by a single crossing of an interior
   pole $\tau_p \in \HH$ of $f$, then
 \begin{equation}\label{eq:wall-crossing-statement}
-  L^*(f, s; \gamma^S_{\tau_0}, \gamma^S_{\tau_0})
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;-\;
-  L^*(f, s; \gamma^S_{\tau_0'}, \gamma^S_{\tau_0'})
+  L^*(f, s; \gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})
   \;=\; \mathcal{R}_{\tau_p}(f, s),
 \end{equation}
 where for a simple pole $\Res(f, \tau_p)$,
@@ -422,7 +423,7 @@ on $(X - \tau Y)^n$, so the $V_n$-valued $1$-form $\omega_f$ is
 invariant under the simultaneous action of $\Gamma$ on $\tau$ and on
 the auxiliary variables $(X, Y)$.  Equivalently, $\omega_f$ is a
 well-defined $V_n$-valued $1$-form on the modular curve $Y(1) =
-\Gamma\backslash\HH$ (modulo the $\Gamma$-action on $V_n$).
+\Gamma\backslash\HH$ (modulo the $\Gamma$-action on $V_n$). %DAM: Why not have it apply to all f \in M_k^!, but we extract periods by same way we do for L-functions? We can just note this, here. No need to prove it, or change the proofs. But this linear functional is fine for general modular forms! Also, works for MFs with poles inside fundamental domain. Maybe no need to even write something here, but would be good to at least keep this in mind!
 
 \paragraph{The cocycle.}
 The two-segment cocycle construction used in the present note
@@ -539,7 +540,7 @@ $\dim S_k = 1$ family $k \in \{12, 16, 18, 20, 22, 26\}$: every step
 below --- the cocycle structure of \S\ref{sec:cocycle}, the
 $\delta_T$-solvability of Lemma~\ref{lem:solvability-cuspidality},
 the Bernoulli closed-form inversion of
-Proposition~\ref{prop:Bernoulli-inv}, the Hurwitz-zeta kernel
+Lemma~\ref{lem:Bernoulli-inv}, the Hurwitz-zeta kernel
 identification of Proposition~\ref{prop:kernels}, and the lockstep
 of Corollary~\ref{cor:lockstep} --- holds for every even $k$ with
 the Brown cuspidal-basis coefficient $c_S^{\,j - 1}$ replaced by the
@@ -615,7 +616,7 @@ Combining (b) and (c) gives the solvability statement.
 \end{proof}
 
 % --- Step 4 anchor: Bernoulli closed-form inversion of \delta_T ---
-\begin{proposition}[Bernoulli closed form for $\delta_T^{-1}$]\label{prop:Bernoulli-inv}
+\begin{lemma}[Bernoulli closed form for $\delta_T^{-1}$]\label{lem:Bernoulli-inv}
 For every $Q \in V_n$ with vanishing $X^n$-coefficient there exists
 $P \in V_n$ unique modulo $\CC \cdot Y^n$ with $\delta_T P = Q$.
 Writing $Q = \sum_{r = 1}^{n} q_r\,X^{n - r} Y^r$ and
@@ -629,13 +630,13 @@ where $B_\ell$ are Bernoulli numbers ($B_0 = 1$, $B_1 = -\tfrac{1}{2}$,
 $B_2 = \tfrac{1}{6}$, $B_{2\ell + 1} = 0$ for $\ell \ge 1$); the
 coefficient $p_n$ is unconstrained and parametrises
 $\ker(\delta_T) = \CC \cdot Y^n$.
-\end{proposition}
+\end{lemma}
 
 \begin{proof}
 The operator identity $T = e^{Y \partial_X}$ on $V_n$ (since $T$ acts as
 the translation $X \mapsto X + Y$ by $Y$) gives
 $\delta_T = e^{Y \partial_X} - 1$.  The Bernoulli generating function
-$z/(e^z - 1) = \sum_{k \ge 0}(B_k/k!)\,z^k$ supplies the closed-form
+$z/(e^z - 1) = \sum_{k \ge 0}(B_k/k!)\,z^k$ supplies the closed-form %DAM: This feels right, but two questions. First, it this correct? Looks like it, but I want some commented-out discussion on why this is correct --- or a footnote that explicitly asks to be removed IN VISIBLE TEXT before sending this note anywhere. Second, is this an``acceptable'' argument in a strict math paper? For sure, this would fly in hep-th. Not sure about math.NT. Might fly! But do not know!!!
 inverse
 \begin{equation}\label{eq:delta-T-inverse-operator}
   \delta_T^{-1}
@@ -657,21 +658,23 @@ Summing $Q = \sum_r q_r\,X^{n - r} Y^r$ termwise and reading off the
 $X^{n - m} Y^m$ coefficient identifies $k = m - r + 1$ (so $r$ runs over
 $\{1, \ldots, m + 1\}$, $k$ over $\{0, \ldots, m\}$), yielding
 \eqref{eq:Bernoulli-inv}.  Existence and uniqueness modulo
-$\CC \cdot Y^n$ are Lemma~\ref{lem:solvability-cuspidality}(a, b).
-
-The closed form \eqref{eq:Bernoulli-inv} is verified against the
-LU-decomposition recursion of \eqref{eq:delta-T-matrix} for
-$f \in \{\Delta, \Dhat\}$ in the companion script
-\texttt{verify\_periods.py}~\cite{VerifyScripts} to relative residual
-$\sim 10^{-40}$ at $50$-digit \texttt{mpmath} precision.
+$\CC \cdot Y^n$ follow from Lemma~\ref{lem:solvability-cuspidality}(a, b).
 \end{proof}
 
-% --- Step 6 anchor: universal kernels via integer-s specialisation of \widetilde{k}_T ---
-\begin{proposition}[Universal kernels: $\tau^{j - 1}$ and $\widetilde{k}_T(\tau, j)$]\label{prop:kernels}
+We have numerically checked that the closed form \eqref{eq:Bernoulli-inv}
+is consistent with the direct solution of the strictly-lower-triangular
+linear system \eqref{eq:delta-T-matrix} --- in which $p_0, p_1, \ldots,
+p_{n - 1}$ are solved in turn by forward substitution --- for
+$f \in \{\Delta, \Dhat\}$ in the companion script
+\texttt{verify\_periods.py}~\cite{VerifyScripts}, to relative residual
+$\sim 10^{-40}$ at $50$-digit \texttt{mpmath} precision.
+
+% --- Step 6 anchor: integral representation of [r_f] at interior monomial ---
+\begin{proposition}[Integral representation of $r_f$ at the interior monomial]\label{prop:kernels}
 Let $f \in S^!_k$ and $\tau_0 \in \HH$.  Let $P \in V_n / \CC Y^n$ be the
 unique solution of $\delta_T P = (2\pi i)^{-(n + 1)} C^f_T(\tau_0)$
 from Lemma~\ref{lem:solvability-cuspidality} and
-Proposition~\ref{prop:Bernoulli-inv}, and define the modified-cocycle
+Lemma~\ref{lem:Bernoulli-inv}, and define the modified-cocycle
 $S$-value
 \begin{equation}\label{eq:rf-def}
   r_f \;:=\; C^f_S(\tau_0) \;-\; (2\pi i)^{n+1}\bigl(P|_S - P\bigr)
@@ -686,29 +689,11 @@ representation
   \left[\,\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{j - 1}\,d\tau
         \;+\; \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau\,\right],
 \end{equation}
-where $\widetilde{k}_T(\tau, s)$ is the Hurwitz-zeta kernel of
-\eqref{eq:tildekT-def} and the integral kernels --- bare Mellin
-$\tau^{j - 1}$ on the $S$-segment and bare Hurwitz $\widetilde{k}_T(\tau, j)$
-on the $T$-segment --- are precisely the integer-$s = j$ specialisations
-of the all-$s$ kernels $\tau^{s - 1}$ and $\widetilde{k}_T(\tau, s)$ of
-the $L$-function functional \eqref{eq:Lambda-DR-general}.  At integer
-$s = j \in \{2, \ldots, k - 2\}$, $\widetilde{k}_T(\tau, j)$ collapses
-to the $\QQ$-rational polynomial
-\begin{equation}\label{eq:kT-form}
-  \widetilde{k}_T(\tau, j)
-  \;=\; -\,\frac{B_j(\tau + 1)}{j} \;+\; (-1)^{j - 1}\,\frac{B_{k - j}(\tau + 1)}{k - j}
-  \;\in\; \QQ[\tau],
-\end{equation}
-of degree $\le k - 2$, via the Hurwitz collapse $\zeta(-m, a) =
--B_{m + 1}(a)/(m + 1)$ for $m \ge 0$ together with $e^{i\pi(j - 1)} =
-(-1)^{j - 1}$.
-
-Combined with the Eichler--Shimura / Brown cuspidal-basis decomposition
-of $r_f$ (\cite{Brown2017,KZ1984}) --- which sets
-$[r_f]_{X^{n - (j - 1)} Y^{j - 1}} = \omega^\pm(f)\,c_S^{\,j - 1}$ with
-$c_S^{\,j - 1} := [p^\pm_f]_{X^{n - (j - 1)} Y^{j - 1}}$ Brown's basis
-coefficient at the matched monomial --- this proves identity
-\eqref{eq:periods-statement} of Theorem~\ref{thm:periods}.
+with $\widetilde{k}_T(\tau, s)$ the Hurwitz-zeta kernel of
+\eqref{eq:tildekT-def}.  Inside the two-segment bracket sit only the
+bare Mellin monomial $\tau^{j - 1}$ on the $S$-segment and the bare
+Hurwitz kernel $\widetilde{k}_T(\tau, j)$ on the $T$-segment; all
+combinatorial structure is absorbed into the prefactor outside.
 \end{proposition}
 
 \begin{proof}
@@ -727,51 +712,114 @@ against the bare Mellin kernel $\tau^{j - 1}$.
 \emph{$T$-piece, Bernoulli form.}  $S$ acts on $V_n$ as
 $(X, Y) \mapsto (-Y, X)$, so for $P = \sum_l p_l X^{n - l} Y^l$ one has
 $[P|_S - P]_{X^{n - (j - 1)} Y^{j - 1}} = (-1)^{j - 1}\,p_{n - j + 1}
-- p_{j - 1}$ ($n$ even).  By Proposition~\ref{prop:Bernoulli-inv} each
-$p_l$ is an explicit $\QQ$-linear combination of the $T$-moments
-$I_T^r$, $r = 1, \ldots, n$, packaging $C^f_T(\tau_0)$; substituting and
-collecting on the $T$-integration side yields a $\QQ$-polynomial
-$\widehat{k}_T(j, \tau) \in \QQ[\tau]$ of degree $\le n$ such that the
-$T$-segment piece of $[r_f]_{X^{n - (j - 1)} Y^{j - 1}}$ reads
-$(2\pi i)^{n + 1}(-1)^{j - 1}\binom{n}{j - 1}\!\int_{\gamma^S_{\tau_0}}\!
-f(\tau)\,[\widehat{k}_T(j, \tau)/\binom{n}{j - 1}(-1)^{j - 1}]\,d\tau$.
+- p_{j - 1}$ ($n$ even).  By Lemma~\ref{lem:Bernoulli-inv}, each
+$p_l$ ($0 \le l \le n - 1$) is the explicit $\QQ$-linear combination
+\begin{equation}\label{eq:p-l-as-T-moments}
+  p_l \;=\; \sum_{r = 1}^{l + 1}\!\beta_{l, r}\,I_T^r(f, \tau_0),
+  \qquad
+  \beta_{l, r}
+  \;:=\; \frac{(-1)^r\,\binom{n}{r}\,B_{l - r + 1}\,(n - r)!}{(l - r + 1)!\,(n - l)!}
+\end{equation}
+($\beta_{l, r} = 0$ for $r$ outside $\{1, \ldots, l + 1\}$), obtained by
+substituting the rescaled $T$-moments $q_r = \binom{n}{r}(-1)^r I_T^r$
+of $(2\pi i)^{-(n + 1)} C^f_T(\tau_0)$ into \eqref{eq:Bernoulli-inv}.  Collecting the $\tau^r$ coefficient on
+the $T$-integration side defines the $\QQ$-rational polynomial
+\begin{equation}\label{eq:khat-T-def}
+  \widehat{k}_T(j, \tau)
+  \;:=\; \sum_{r = 1}^{n}\!\Bigl[\,\beta_{j - 1,\,r} \;-\; (-1)^{j - 1}\,\beta_{n - j + 1,\,r}\,\Bigr]\,\tau^r
+  \;\in\; \QQ[\tau],
+\end{equation}
+of degree $\le n$, in terms of which the $T$-segment piece of
+$[r_f]_{X^{n - (j - 1)} Y^{j - 1}}$ reads
+$(2\pi i)^{n + 1}\!\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widehat{k}_T(j, \tau)\,d\tau$.
 
-\emph{$T$-piece, Hurwitz form.}  The shift-difference equation
-\eqref{eq:tildekT-coboundary} characterises $\widetilde{k}_T(\tau, s)$
+\emph{$T$-piece, Hurwitz form.}  
+The shift-difference equation \eqref{eq:tildekT-coboundary} characterises $\widetilde{k}_T(\tau, s)$ %DAM: tf is this?? You are referring to an equation PAGES before it is written down. Not cool. Acausal text!! Are we fucked? Is this proof circular? I think not, but this is a serious drawback of the current draft.
 as the unique-modulo-$\CC$-constant kernel whose $T$-integral against
 any $f \in S^!_k$ implements the coboundary modification of
-Step~2--Step~5; at integer $s = j$, the Hurwitz collapse
+Step~2--Step~5; %DAM: tf is this?? You are referring to these steps PAGES before it is written down. Not cool. Acausal text!! Are we fucked? Is this proof circular? I think not, but this is a serious drawback of the current draft.
+at integer $s = j$, the Hurwitz collapse
 $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ produces
 \eqref{eq:kT-form}.  The Bernoulli closed-form $\widehat{k}_T(j, \tau)$
 of the preceding paragraph and the Hurwitz collapse
 $\binom{n}{j - 1}(-1)^{j - 1}\,\widetilde{k}_T(\tau, j)$ are two
-representatives of the same coboundary-correction polynomial: their
-difference lies in the $\CC \cdot Y^n$ Eisenstein direction of the kernel
-of $\delta_T$ (Lemma~\ref{lem:solvability-cuspidality}(a)), and
+representatives of the same coboundary-correction polynomial: 
+their difference lies in the $\CC \cdot Y^n$ Eisenstein direction of the kernel of $\delta_T$ (Lemma~\ref{lem:solvability-cuspidality}(a)), %DAM: I did not follow this line at all.
+and
 contributes only to the boundary monomials $X^n, Y^n$ of $r_f$, not to
 the interior monomial $X^{n - (j - 1)} Y^{j - 1}$ for
 $j - 1 \in \{1, \ldots, n - 1\}$.  Hence
-$\int_{\gamma^T_{\tau_0}} f(\tau)\,[\widehat{k}_T(j, \tau)/\binom{n}{j - 1}(-1)^{j - 1}]\,d\tau
-= \int_{\gamma^T_{\tau_0}} f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau$,
+$\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widehat{k}_T(j, \tau)\,d\tau
+= (-1)^{j - 1}\binom{n}{j - 1}\!\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau$,
 yielding \eqref{eq:rf-coeff-integral} with the bare Hurwitz kernel
 $\widetilde{k}_T(\tau, j)$ inside.
+\end{proof}
 
-Independence of $f$ and $\tau_0$: every combinatorial coefficient on the
-right-hand side of \eqref{eq:rf-coeff-integral}--\eqref{eq:kT-form}
-depends only on $n$, $j$, and Bernoulli numbers, not on $f$ or $\tau_0$.
+% --- Hurwitz collapse at integer s = j ---
+\begin{lemma}[Integer-$s$ collapse of the Hurwitz-zeta $T$-kernel]\label{lem:Hurwitz-collapse}
+For each integer $j \in \{2, \ldots, k - 2\}$, the Hurwitz-zeta
+$T$-kernel $\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def}
+specialised to $s = j$ collapses to the $\QQ$-rational polynomial
+\begin{equation}\label{eq:kT-form}
+  \widetilde{k}_T(\tau, j)
+  \;=\; -\,\frac{B_j(\tau + 1)}{j} \;+\; (-1)^{j - 1}\,\frac{B_{k - j}(\tau + 1)}{k - j}
+  \;\in\; \QQ[\tau]
+\end{equation}
+of degree at most $k - 2$.
+\end{lemma}
 
-Numerical verification of \eqref{eq:rf-coeff-integral} at $k = 12$,
+\begin{proof}
+The Hurwitz-zeta collapse $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$ for
+non-negative integer $m$, applied at $m = j - 1$ and $m = k - j - 1$
+(both non-negative for $j \in \{2, \ldots, k - 2\}$), together with
+$e^{i\pi(j - 1)} = (-1)^{j - 1}$, converts \eqref{eq:tildekT-def} at
+$s = j$ to \eqref{eq:kT-form}.
+\end{proof}
+
+% --- Brown-basis extraction of omega^pm and periods identity ---
+\begin{lemma}[Brown-basis extraction of $\omega^\pm(f)$]\label{lem:brown-decomp}
+Let $r_f \in V_n \otimes \CC$ be the modified-cocycle $S$-value of
+\eqref{eq:rf-def}.  The Eichler--Shimura / Brown cuspidal-basis
+decomposition (\cite{Brown2017,KZ1984}) reads
+\begin{equation}\label{eq:Brown-decomp-statement}
+  r_f \;=\; \omega^+(f)\,p^+_f \;+\; \omega^-(f)\,p^-_f \;+\; (\text{Eisenstein-direction term}),
+\end{equation}
+with the Eisenstein-direction term contributing only to the boundary
+monomials $X^n$, $Y^n$ of $r_f$.  Combined with the integral
+representation \eqref{eq:rf-coeff-integral} of
+Proposition~\ref{prop:kernels}, this yields
+\begin{equation}\label{eq:periods-derived}
+  \omega^\pm(f)
+  \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{j - 1}\,\binom{k - 2}{j - 1}}{c_S^{\,j - 1}}\!
+  \left[\,\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{j - 1}\,d\tau
+        \;+\; \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau\,\right]
+\end{equation}
+for every interior $j \in \{2, \ldots, k - 2\}$, with parity $\pm$
+determined by $j - 1 \bmod 2$ and Brown basis coefficient
+$c_S^{\,j - 1} := [p^\pm_f]_{X^{n - (j - 1)} Y^{j - 1}} \in \QQ$.
+Identity \eqref{eq:periods-derived} is identity
+\eqref{eq:periods-statement} of Theorem~\ref{thm:periods}.
+\end{lemma}
+
+\begin{proof}
+For interior $j - 1 \in \{1, \ldots, n - 1\}$, the
+Eisenstein-direction term in \eqref{eq:Brown-decomp-statement}
+contributes zero at the monomial $X^{n - (j - 1)} Y^{j - 1}$, so
+$[r_f]_{X^{n - (j - 1)} Y^{j - 1}} = \omega^\pm(f)\,c_S^{\,j - 1}$.
+Substituting \eqref{eq:rf-coeff-integral} and dividing through by
+$c_S^{\,j - 1}$ yields \eqref{eq:periods-derived}.
+\end{proof}
+
+Numerical verification of \eqref{eq:periods-derived} at $k = 12$,
 $f \in \{\Delta, \Dhat\}$, $j = 2$ (parity $-$) reproduces Brown's
-$\omega^-(\Delta) = -5\,585\,015.379\,310\,401\,866\ldots\,i$ to relative
+$\omega^-(\Delta) = -5\,585\,015.379\,310\,401\,866\ldots\,i$ to relative %DAM: Make a table, here, of the numerics, 2x2: Columns Delta, Delta-hat. Rows: + and -.
 residual $\sim 10^{-42}$ at $50$-digit \texttt{mpmath} precision
 (\texttt{verify\_periods.py}~\cite{VerifyScripts}); all nine interior
-$j \in \{2, \ldots, 10\}$ extractions are in lockstep to comparable
-precision.
-\end{proof}
+$j \in \{2, \ldots, 10\}$ extractions agree to comparable precision.
 
 % --- Step 7 anchor: lockstep and basepoint independence ---
 \begin{corollary}[Lockstep and basepoint independence]\label{cor:lockstep}
-The right side of \eqref{eq:periods-statement} is independent of
+The right side of \eqref{eq:periods-statement}%DAM: Show the equation again, locally, or at least briefly describe its contents in words! Eq. (4), aka \eqref{eq:periods-statement} is the first equation of Theorem 1.1, in which we write that the periods of a cusp form are given directly by that explicit, manifestly finite linear functional of $f$! Don't write in so many words, but write something basic/shorter, here. I want this to be readable without having to annoyingly scan back and forth through the doc. is independent of
 $\tau_0 \in \HH$ and of the interior index $j \in \{2, \ldots, k - 2\}$
 within its parity sector.  At each $k$ with $\dim S_k = 1$, this yields a
 $(k - 3)$-fold redundant extraction of $\omega^\pm(f)$ from the Fourier
@@ -780,12 +828,14 @@ direction in $H^1(\Gamma; V_{k - 2})$.
 \end{corollary}
 
 \begin{proof}
-\emph{$\tau_0$-independence.}  By \eqref{eq:rf-def}, $r_f$ depends on
+\emph{$\tau_0$-independence.}  By \eqref{eq:rf-def}%DAM: Show the equation again, locally, or at least briefly describe its contents in words, as I asked you to do for the \eqref{eq:periods-statement}-reference, above. I want this to be readable without having to annoyingly scan back and forth through the doc.
+, $r_f$ depends on
 $\tau_0$ only through the cohomology class $[C^f] \in H^1(\Gamma;
 V_n \otimes \CC)$ and the choice of coboundary representative $P$.  The
-class is $\tau_0$-invariant by \eqref{eq:bp-cocycle-coboundary} (valid
+class is $\tau_0$-invariant by \eqref{eq:bp-cocycle-coboundary} %DAM: Show the equation again, locally, or at least briefly describe its contents in words, as I asked you to do for the \eqref{eq:rf-def}-reference, above. I want this to be readable without having to annoyingly scan back and forth through the doc.
+(valid
 for $f$ without interior poles), and the coboundary representative
-$P(\tau_0)$ from Proposition~\ref{prop:Bernoulli-inv} is the
+$P(\tau_0)$ from Lemma~\ref{lem:Bernoulli-inv} is the
 unique-modulo-$\CC Y^n$ solution of $\delta_T P = (2\pi i)^{-(n+1)} C^f_T$.
 The residual $\CC Y^n$ ambiguity lies in the Eisenstein direction:
 $Y^n|_S - Y^n = X^n - Y^n$ is a coboundary that contributes only to
@@ -810,11 +860,68 @@ at general $k$ with $\dim S_k = 1$, the interior range
 $\{2, \ldots, k - 2\}$ has $k - 3$ elements.
 \end{proof}
 
+With Proposition~\ref{prop:kernels} (integral representation of
+$[r_f]$ at interior monomials), Lemma~\ref{lem:Hurwitz-collapse}
+(integer-$s$ collapse of $\widetilde{k}_T$), Lemma~\ref{lem:brown-decomp}
+(Brown-basis extraction of $\omega^\pm$), and Corollary~\ref{cor:lockstep}
+(lockstep and basepoint independence) in hand, we assemble the proof of
+Theorem~\ref{thm:periods}.  For reference, the theorem statement is:
+
+%\medskip\noindent\textit{Theorem~\ref{thm:periods} (restated).}\,
+%Let $k \in 2\ZZ$ with $\dim S_k \le 1$, and let $f \in S_k^!$.  For
+%the substantive cases $k \in \{12, 16, 18, 20, 22, 26\}$ where
+%$\dim S_k = 1$, the period and quasi-period coefficients $\omega^\pm(f)$
+%are given by the explicit two-segment linear functional
+%\eqref{eq:periods-statement} for every interior $j \in \{2, \ldots, k - 2\}$,
+%with parity $\pm$ determined by $j - 1 \bmod 2$, with
+%$c_S^{\,j - 1} := [p^\pm_f]_{X^{n - (j - 1)} Y^{j - 1}}$ the Brown
+%cuspidal-basis coefficient, and with $\widetilde{k}_T(\tau, j) \in \QQ[\tau]$
+%the integer-$s = j$ specialisation of \eqref{eq:tildekT-def} given by
+%\eqref{eq:kT-form}.  The right side of \eqref{eq:periods-statement} is
+%independent of $\tau_0$ and of the interior $j$ within its parity sector.
+%\medskip
+\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k \le 1$--Theorem~\ref{thm:periods}, restated]\label{thm:periods3}
+Let $k \in 2\ZZ$ with $\dim S_k \le 1$, and let $f \in S_k^!$.  For
+the substantive cases $k \in \{12$, $16$, $18$, $20$, $22$, $26\}$ where
+$\dim S_k = 1$, the period and quasi-period coefficients
+$\omega^\pm(f)$ are given by the explicit two-segment linear
+functional
+\begin{equation}\label{eq:periods-statement}
+  \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{j - 1}\,\binom{k - 2}{j - 1}}{c_S^{\,j - 1}}\!\left[
+    \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{j - 1}\,d\tau
+    \;+\;
+    \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau
+  \right]
+\end{equation}
+for every $f \in S_k^!$, every $\tau_0 \in \HH$, and every interior
+$j \in \{2, \ldots, k - 2\}$, with parity $\pm$ determined by
+$j - 1 \bmod 2$.  Here
+$c_S^{\,j - 1} := [p^\pm_f]_{X^{n - (j - 1)} Y^{j - 1}} \in \QQ$ is the
+Brown cuspidal-basis coefficient at the matched monomial
+(\cite{Brown2017,KZ1984}), $\widetilde{k}_T(\tau, s)$ is the
+Hurwitz-zeta $T$-kernel of \eqref{eq:tildekT-def}, and its integer-$s = j$
+specialisation collapses via $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$
+($m \ge 0$) to the $\QQ$-rational polynomial
+\begin{equation}\label{eq:kS-form}
+  \widetilde{k}_T(\tau, j) \;=\; -\,\frac{B_j(\tau + 1)}{j} \;+\; (-1)^{j - 1}\,\frac{B_{k - j}(\tau + 1)}{k - j}
+  \;\in\; \QQ[\tau]
+\end{equation}
+of degree at most $k - 2$.  The right side of
+\eqref{eq:periods-statement} is independent of $\tau_0$ and of the
+choice of interior $j$ within its parity sector.  Inside the
+two-segment bracket sit only the bare Mellin monomial $\tau^{j - 1}$
+and the bare Hurwitz polynomial $\widetilde{k}_T(\tau, j)$ of
+\eqref{eq:kS-form}; all combinatorial structure
+$\bigl((2\pi i)^{k - 1},\,(-1)^{j - 1},\,\binom{k - 2}{j - 1}\bigr)$
+together with the Brown basis coefficient $c_S^{\,j - 1}$ sits in the
+prefactor outside.
+\end{theorem}
+
 % --- Outer proof of Theorem 1.1: assembles Steps 1-8 ---
-\begin{proof}[Proof of Theorem~\ref{thm:periods}.]
+\begin{proof}[Proof of Theorem~\ref{thm:periods}, aka Theorem~\ref{thm:periods3}.]
 The proof proceeds in eight steps.  Steps 1--3 motivate the operator
 $\delta_T$ as the natural object whose inversion delivers the cuspidal
-cocycle representative.  Step 4 (Proposition~\ref{prop:Bernoulli-inv})
+cocycle representative.  Step 4 (Lemma~\ref{lem:Bernoulli-inv})
 performs the inversion in closed form.  Steps 5--7 read $\omega^\pm(f)$
 off the resulting period polynomial.  Step 8 connects this integer-$s$
 construction to the all-$s$ Hurwitz-zeta extension proved in
@@ -862,39 +969,38 @@ as the translation $X \mapsto X + Y$ by $Y$) gives $\delta_T = e^{Y
 $z/(e^z - 1) = \sum_{k \ge 0} B_k z^k/k!$ supplies $\delta_T^{-1}$ as
 a finite operator series on $V_n$ (terminating because $\partial_X$
 annihilates polynomials of bounded $X$-degree after finitely many
-applications).  Proposition~\ref{prop:Bernoulli-inv} records the
+applications).  Lemma~\ref{lem:Bernoulli-inv} records the
 explicit closed-form expression for $P \in V_n/\CC Y^n$ in terms of
-Bernoulli numbers.  The appearance of Bernoulli numbers is forced by
-the operator identity; it is not coincidence but inevitability.
+Bernoulli numbers.
 
 \paragraph{Step 5: the modified cocycle and its $S$-component $r_f$.}
 With $P := \delta_T^{-1}\bigl((2\pi i)^{-(n + 1)} C^f_T(\tau_0)\bigr) \in
 V_n/\CC Y^n$ from Step 4, the modified cocycle
 $C'^f := C^f - (2\pi i)^{n + 1}\delta P$ has $C'^f_T = 0$ by construction,
-and its $S$-value \eqref{eq:rf-def} --- which we denote
-$r_f := C'^f_S(\tau_0)$ --- is
-the Eichler--Shimura period polynomial of $f$.  Brown's
-cuspidal-basis decomposition (\cite{Brown2017,KZ1984}) reads
-\begin{equation}\label{eq:Brown-decomp-step5}
-  r_f \;=\; \omega^+(f)\,p^+_f \;+\; \omega^-(f)\,p^-_f
-       \;+\; (\text{Eisenstein-direction term}),
-\end{equation}
-identifying $\omega^\pm(f)$ as explicit linear coordinates of $r_f$ in
-the $1$-dimensional cuspidal direction.
+and its $S$-value $r_f := C'^f_S(\tau_0)$ defined by \eqref{eq:rf-def} is
+the Eichler--Shimura period polynomial of $f$.  By the
+Eichler--Shimura / Brown cuspidal-basis decomposition
+\eqref{eq:Brown-decomp-statement} of Lemma~\ref{lem:brown-decomp},
+$\omega^\pm(f)$ are the explicit linear coordinates of $r_f$ along
+$p^\pm_f$ in the $1$-dimensional cuspidal direction.
 
 \paragraph{Step 6: unpacking $r_f$ into bare Mellin and Hurwitz integrals.}
 Substituting the moment expansion of $C^f_S(\tau_0)$ from
 \eqref{eq:CS-CT-def} and the Bernoulli expression for $P$ from Step 4
 into \eqref{eq:rf-def}, and reading off the coefficient of $X^{n - (j - 1)}
 Y^{j - 1}$ for each interior $j \in \{2, \ldots, k - 2\}$,
-Proposition~\ref{prop:kernels} produces \eqref{eq:periods-statement}
+Proposition~\ref{prop:kernels} produces the integral representation
+\eqref{eq:rf-coeff-integral} of $[r_f]_{X^{n - (j - 1)} Y^{j - 1}}$
 with the bare Mellin kernel $\tau^{j - 1}$ on the $S$-segment and the
-bare Hurwitz kernel $\widetilde{k}_T(\tau, j)$ on the $T$-segment ---
-the integer-$s = j$ specialisations of the $L$-function kernels of
-Theorem~\ref{thm:bfk-eq}.  All combinatorial structure
+bare Hurwitz kernel $\widetilde{k}_T(\tau, j)$ on the $T$-segment.
+Lemma~\ref{lem:Hurwitz-collapse} (the integer-$s$ collapse of
+$\widetilde{k}_T$) exhibits the $T$-kernel as a $\QQ$-rational
+polynomial of degree $\le k - 2$.  Lemma~\ref{lem:brown-decomp}
+(Brown-basis extraction) then divides through by $c_S^{\,j - 1}$ to
+give \eqref{eq:periods-statement}, with all combinatorial structure
 $\bigl((2\pi i)^{k - 1},\,(-1)^{j - 1},\,\binom{k - 2}{j - 1}\bigr)$
-and the Brown basis-coefficient $c_S^{\,j - 1}$ sit in the prefactor
-outside the bracket.
+and the Brown basis-coefficient $c_S^{\,j - 1}$ sitting in the
+prefactor outside the bracket.
 
 \paragraph{Step 7: lockstep and basepoint independence.}
 Both follow from $r_f$ being a single fixed polynomial in $V_n$ that
@@ -910,7 +1016,7 @@ only to the Eisenstein direction.  Corollary~\ref{cor:lockstep} makes
 both statements precise; at $k = 12$, the $9$ interior values of $j$
 give the $9$-fold redundant extraction.
 
-\paragraph{Step 8: bridge to Theorem~\ref{thm:bfk-eq}.}
+\paragraph{Step 8: bridge to Theorem~\ref{thm:bfk-eq}.}%DAM: WE HAVE NOT PROVEN THM1.2. WHY IS IT MENTIONED IN THE SECTION PROVING THM1.1???? ACAUSAL AF.
 The bare Mellin kernel $\tau^{j - 1}$ on the $S$-segment is the
 integer-$s = j$ specialisation of $\tau^{s - 1}$, and the bare Hurwitz
 kernel $\widetilde{k}_T(\tau, j)$ on the $T$-segment is the integer-$s = j$
@@ -1236,7 +1342,7 @@ $T$-segment crossing.  Combining (with the $i^{-s}$ prefactor) gives
 \begin{equation}\label{eq:wall-crossing-explicit}
   %\Lambda^*(f, s; \tau_0)
   L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
-  \;-\; L^*(f, s; \gamma^S_{\tau_0'}, \gamma^S_{\tau_0'})
+  \;-\; L^*(f, s; \gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})
   \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!\left[
     \sigma_p^S\,\tau_p^{s-1} \;+\; \sigma_p^T\,\widetilde{k}_T(\tau_p, s)
   \right].
@@ -1331,7 +1437,7 @@ interior pole.
 \begin{corollary}[Period-polynomial wall-crossing residue]\label{cor:period-wall-crossing}
 Let $f$ be a meromorphic modular form of weight $k$ on $\Gamma$, and
 let $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0}), (\gamma^S_{\tau_0'},
-\gamma^S_{\tau_0'})$ be two admissible contour pairs related by a
+\gamma^T_{\tau_0'})$ be two admissible contour pairs related by a
 single crossing of an interior pole $\tau_p \in \HH$ of $f$.  Denote
 by $C^f_S(\gamma^S_{\tau_0}), C^f_T(\gamma^T_{\tau_0}) \in V_{k-2}\otimes\CC$
 the corresponding $V_{k-2}$-valued cocycle values from
@@ -1715,8 +1821,9 @@ cocycle pipeline; (b) lockstep across all nine interior monomials
 $X^{n - (j - 1)}Y^{j - 1}$ for $j \in \{2, \ldots, 10\}$; (c)
 basepoint independence between $\tau_0 = 0.3 + 1.2 i$ and
 $\tau_0 = -0.2 + 0.9 i$; and (d) agreement of the Bernoulli
-closed-form for $\delta_T^{-1}$ in Proposition~\ref{prop:Bernoulli-inv}
-with the LU-decomposition recursion on every coefficient $p_m$,
+closed-form for $\delta_T^{-1}$ in Lemma~\ref{lem:Bernoulli-inv}
+with the forward-substitution solution of the strictly-lower-triangular
+linear system $\delta_T P = C^f_T$ on every coefficient $p_m$,
 $m = 0, \ldots, 9$.  \texttt{verify\_s6.py},
 \texttt{verify\_multi\_s.py}: per-mode verification of
 Theorem~\ref{thm:bfk-eq}.  Additional scripts for
