@@ -44,40 +44,40 @@ via finite contours}
 
 \begin{abstract}
 %DAM: Abstract, option A:
-{In this note, we assign to every meromorphic modular form $f$ of 
-weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote 
-$f \mapsto L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$; here 
-$\tau_0$ is a base-point in the upper half-plane, and $\gamma^S_{\tau_0}$ 
-is an integration path from $-\tfrac{1}{\tau_0}$ to $\tau_0$, while 
-$\gamma^T_{\tau_0}$ an integration path from $\tau_0 -1$ to $\tau_0$. 
-These L-integrals are finite for all base-points and contours. 
-
-For the special case of weakly holomorphic modular forms, i.e. where $f$ is 
-either bounded at the cusp or has poles exclusively at the cusp, this 
-L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ 
-and is fully independent of $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$. 
-Importantly, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = 
-(2\pi)^s L(f, s)/\Gamma(s)$, for the classical case of $f \in M_k$. 
-I.e., our L-integrals \emph{are} the classical Mellin transformd of $f \in M_k$, 
-that \emph{define} the L-functions as entire functions in the $s$-plane. 
-More plainly, our L-integrals are the right object to generalize L-functions for 
-the meromorphic case. 
-
-Going further, we prove that this finite L-integral  equals the 
-non-holomorphically regularized L-integrals of~\cite{BFK2011}. 
-When $f$ has poles away from the cusp, i.e.\ inside the fundamental 
-domain, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is unique 
-and constant for paths within the same homotopy class; related 
-$L^*$-integrals of $f$, evaluated at $s$, which depend on paths outside 
-the same homotopy class differ by well-defined wall-crossing residues. 
-We prove that, for meromorphic modular forms regular at the cusps, 
-our L-integrals equal the L-integrals constructed in~\cite{1806}. 
-Finally, we show that a slight modification of this linear functional in 
-the Fourier coefficients of $f$ yields its associated period polynomial 
-when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly 
-reproduce the numerical periods reported in~\cite{Brown2017}. All 
-results in formulas are verified via our python scripts~\cite{VerifyScripts}.}
-
+%{In this note, we assign to every meromorphic modular form $f$ of 
+%weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote 
+%$f \mapsto L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$; here 
+%$\tau_0$ is a base-point in the upper half-plane, and $\gamma^S_{\tau_0}$ 
+%is an integration path from $-\tfrac{1}{\tau_0}$ to $\tau_0$, while 
+%$\gamma^T_{\tau_0}$ an integration path from $\tau_0 -1$ to $\tau_0$. 
+%These L-integrals are finite for all base-points and contours. 
+%
+%For the special case of weakly holomorphic modular forms, i.e. where $f$ is 
+%either bounded at the cusp or has poles exclusively at the cusp, this 
+%L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ 
+%and is fully independent of $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$. 
+%Importantly, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = 
+%(2\pi)^s L(f, s)/\Gamma(s)$, for the classical case of $f \in M_k$. 
+%I.e., our L-integrals \emph{are} the classical Mellin transformd of $f \in M_k$, 
+%that \emph{define} the L-functions as entire functions in the $s$-plane. 
+%More plainly, our L-integrals are the right object to generalize L-functions for 
+%the meromorphic case. 
+%
+%Going further, we prove that this finite L-integral  equals the 
+%non-holomorphically regularized L-integrals of~\cite{BFK2011}. 
+%When $f$ has poles away from the cusp, i.e.\ inside the fundamental 
+%domain, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is unique 
+%and constant for paths within the same homotopy class; related 
+%$L^*$-integrals of $f$, evaluated at $s$, which depend on paths outside 
+%the same homotopy class differ by well-defined wall-crossing residues. 
+%We prove that, for meromorphic modular forms regular at the cusps, 
+%our L-integrals equal the L-integrals constructed in~\cite{1806}. 
+%Finally, we show that a slight modification of this linear functional in 
+%the Fourier coefficients of $f$ yields its associated period polynomial 
+%when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly 
+%reproduce the numerical periods reported in~\cite{Brown2017}. All 
+%results in formulas are verified via our python scripts~\cite{VerifyScripts}.}
+%
 %DAM: Abstract option B:
 {In this note, we synthesize and generalize previous work, which 
 (1) identified a non-holomorphic regularization prescription to define 
@@ -85,10 +85,32 @@ finite analogs of L-functions associated to weakly holomorphic
 modular forms~\cite{BFK2011}, (2) identified a contour prescription to 
 define an L-function for meromorphic modular forms with poles inside 
 the fundamental domain~\cite{1806}, and (3) extracted periods for weak
-cusp forms in a manifestly finite manner~\cite{Brown2017}. Our construction
-elegantly shows that these three lines of work not only naturally align, 
-but derive from the same linear functional, which in the appropriate limit 
-yields the standard Mellin contour, but }
+cusp forms in a manifestly finite manner~\cite{Brown2017}. Our 
+construction, derived from the cohomological period extraction of weak 
+cusp forms in~\cite{Brown2017, Brown2019Email}, elegantly shows that 
+these three lines of work not only naturally align, but derive from the 
+\emph{same} manifestly finite linear functional acting on the space of $\SLZ$ modular forms. 
+
+We call this linear functional the \emph{L-integral}, and denote it by 
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$, 
+where $\gamma^{(S,T)}_{\tau_0}$ denote integration paths from 
+$S^{-1}, T^{-1}(\tau_0)$ to $\tau_0$. When $f \in M_k$, 
+$L^*(f,s) = \Gamma(s) \sum_{n\neq0} \tfrac{c_f(n)}{(2\pi n)^s}$: it is \emph{the} classical 
+L-function. Our L-integral finite and $\tau_0$-independent for any meromorphic $f$.
+
+We use this L-integral to (1) extract published numerical values of the 
+periods of the weak cusp form $\Dhat := \tfrac{1}{q} + O(q^2) \in S_{12}^!$ 
+in~\cite{Brown2017}, (2) recover the regularized expressions for the 
+divergent Mellin transform of $f$ in~\cite{BFK2011}, and (3) recover the 
+L-functions for $\SLZ$ modular forms $f$ with poles inside the 
+fundamental domain, but which are regular at the cusp, defined in~\cite{1806}. 
+As noted in~\cite{1806}, when $f$ has poles away from the cusp, i.e.\ inside 
+the fundamental domain, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
+is unique and constant for paths within the same homotopy class; 
+related $L^*$-integrals of $f$, evaluated at $s$, which depend on 
+paths outside the same homotopy class differ by wall-crossing 
+residues. Finally, all major results/formulas are verified via our 
+python scripts~\cite{VerifyScripts}.}
 \end{abstract}
 
 
@@ -1891,6 +1913,17 @@ F.\ Brown,
 \emph{A class of non-holomorphic modular forms III},
 arXiv:1710.07912 (2017).
 
+\bibitem{Brown2019Email}
+F.\ Brown, personal communication to the author, 28 June 2019.  This
+correspondence describes the two-segment cocycle procedure (integrate
+along contours from $\gamma^{-1}\tau_0$ to $\tau_0$ for the two
+generators $\gamma \in \{S, T\}$ of $\Gamma$, modify by a coboundary
+$P|(1 - T)$ to kill the $T$-component, then read $\omega^\pm$ and
+$\eta^\pm$ off the $S$-component), and is the structural starting
+point of the construction in the present note.  An accompanying
+unpublished note on quasi-periods of cusp forms of levels $6$ and $8$
+was attached to the correspondence.
+
 \bibitem{VerifyScripts}
 Companion verification scripts at $50$-digit \texttt{mpmath} precision.
 \texttt{verify\_periods.py}: end-to-end verification of
@@ -1909,17 +1942,6 @@ $m = 0, \ldots, 9$.  \texttt{verify\_s6.py},
 \texttt{verify\_multi\_s.py}: per-mode verification of
 Theorem~\ref{thm:bfk-eq}.  Additional scripts for
 Theorem~\ref{thm:wall-crossing} to be added.
-
-\bibitem{Brown2019Email}
-F.\ Brown, personal communication to the author, 28 June 2019.  This
-correspondence describes the two-segment cocycle procedure (integrate
-along contours from $\gamma^{-1}\tau_0$ to $\tau_0$ for the two
-generators $\gamma \in \{S, T\}$ of $\Gamma$, modify by a coboundary
-$P|(1 - T)$ to kill the $T$-component, then read $\omega^\pm$ and
-$\eta^\pm$ off the $S$-component), and is the structural starting
-point of the construction in the present note.  An accompanying
-unpublished note on quasi-periods of cusp forms of levels $6$ and $8$
-was attached to the correspondence.
 
 \bibitem{DLMF}
 NIST Digital Library of Mathematical Functions,
