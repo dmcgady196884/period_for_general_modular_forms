@@ -43,51 +43,15 @@ via finite contours}
 \maketitle
 
 \begin{abstract}
-%DAM: Abstract, option A:
-%{In this note, we assign to every meromorphic modular form $f$ of 
-%weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote 
-%$f \mapsto L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$; here 
-%$\tau_0$ is a base-point in the upper half-plane, and $\gamma^S_{\tau_0}$ 
-%is an integration path from $-\tfrac{1}{\tau_0}$ to $\tau_0$, while 
-%$\gamma^T_{\tau_0}$ an integration path from $\tau_0 -1$ to $\tau_0$. 
-%These L-integrals are finite for all base-points and contours. 
-%
-%For the special case of weakly holomorphic modular forms, i.e. where $f$ is 
-%either bounded at the cusp or has poles exclusively at the cusp, this 
-%L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ 
-%and is fully independent of $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$. 
-%Importantly, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = 
-%(2\pi)^s L(f, s)/\Gamma(s)$, for the classical case of $f \in M_k$. 
-%I.e., our L-integrals \emph{are} the classical Mellin transformd of $f \in M_k$, 
-%that \emph{define} the L-functions as entire functions in the $s$-plane. 
-%More plainly, our L-integrals are the right object to generalize L-functions for 
-%the meromorphic case. 
-%
-%Going further, we prove that this finite L-integral  equals the 
-%non-holomorphically regularized L-integrals of~\cite{BFK2011}. 
-%When $f$ has poles away from the cusp, i.e.\ inside the fundamental 
-%domain, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is unique 
-%and constant for paths within the same homotopy class; related 
-%$L^*$-integrals of $f$, evaluated at $s$, which depend on paths outside 
-%the same homotopy class differ by well-defined wall-crossing residues. 
-%We prove that, for meromorphic modular forms regular at the cusps, 
-%our L-integrals equal the L-integrals constructed in~\cite{1806}. 
-%Finally, we show that a slight modification of this linear functional in 
-%the Fourier coefficients of $f$ yields its associated period polynomial 
-%when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly 
-%reproduce the numerical periods reported in~\cite{Brown2017}. All 
-%results in formulas are verified via our python scripts~\cite{VerifyScripts}.}
-%
-%DAM: Abstract option B:
-{In this note, we synthesize and generalize previous work, which 
-(1) identified a non-holomorphic regularization prescription to define 
-finite analogs of L-functions associated to weakly holomorphic 
-modular forms~\cite{BFK2011}, (2) identified a contour prescription to 
-define an L-function for meromorphic modular forms with poles inside 
-the fundamental domain~\cite{1806}, and (3) extracted periods for weak
-cusp forms in a manifestly finite manner~\cite{Brown2017}. Our 
-construction, derived from the cohomological period extraction of weak 
-cusp forms in~\cite{Brown2017, Brown2019Email}, elegantly shows that 
+In this note, we synthesize and generalize previous work, which 
+(1) extracted periods for weak cusp forms in a manifestly finite 
+manner~\cite{Brown2017}, (2) identified a non-holomorphic regularization 
+prescription to define finite analogs of L-functions associated to weakly 
+holomorphic modular forms~\cite{BFK2011}, and (3) identified a contour 
+prescription to define an L-function for meromorphic modular forms with poles inside 
+the fundamental domain~\cite{1806}. Our construction, derived from the 
+cohomological period extraction of weak cusp forms in~\cite{Brown2017, 
+Brown2019Email}, elegantly shows that 
 these three lines of work not only naturally align, but derive from the 
 \emph{same} manifestly finite linear functional acting on the space of $\SLZ$ modular forms. 
 
@@ -110,34 +74,35 @@ is unique and constant for paths within the same homotopy class;
 related $L^*$-integrals of $f$, evaluated at $s$, which depend on 
 paths outside the same homotopy class differ by wall-crossing 
 residues. Finally, all major results/formulas are verified via our 
-python scripts~\cite{VerifyScripts}.}
+python scripts~\cite{VerifyScripts}.
 \end{abstract}
 
 
-%DAM2: What is all of this ``lockstep'' business. I know what is meant, but I think it is not needed to emphasize throughout the note. One can just have one footnote, or a sentence following e.g. the statement of Theorem 1.1 that, even though there are $k-3$ values of $\ell$
-%DAM3: Numerics in proofs. In many instances, we include numerical verification assertions WITHIN proofs. This should be scrubbed. The numerical aspects of our work serve only to spot-check the validity of the equations. As our proofs are not establishing improved numerical bounds, e.g. on some scaling or whatnot, numerics prove NOTHING. They can only offer nice-to-haves, which is added confidence that the results are right, or packages to help others in their own explorations of the validity of our work.
-%DAM4: Acausal references. E.g., in Theorem 1.1's statement, it refers to Theorem 1.2. NOT OK.
+%DAM1: Don't like this ``lockstep'' word. Is it needed? Can we remove it?
+%DAM2: CONSTANT VIGILANCE regarding acausal references. E.g., in a previous version of these notes, Theorem 1.1's statement referred to Theorem 1.2. NOT OK.
 
 \section{Introduction and main results}\label{sec:intro}
 
-In this paper, we introduce a general framework that defines L-functions for generic modular forms on the full group $\SLZ$, and extracts their periods for the explicit case when the holomorphic cusp forms are one-dimensional, i.e. when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined and well-studied for holomorphic modular forms. However, there is a growing body of work exploring L-functions~\cite{BFK2011} and periods~\cite{Brown2017} for weakly holomorphic modular forms. Similarly, there are natural physical motivations to consider L-functions for properly meromorphic modular forms, which have poles \emph{within} the fundamental domain~\cite{1806}.
+In this paper, we introduce a general framework that defines L-functions for generic modular forms on the full group $\SLZ$, and extracts their periods for the explicit case when the holomorphic cusp forms are one-dimensional, i.e. when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined and well-studied for holomorphic modular forms. However, there is a growing body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011} for weakly holomorphic modular forms. Similarly, there are natural physical motivations to consider L-functions for properly meromorphic modular forms, which have poles \emph{within} the fundamental domain~\cite{1806}.
 
-In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics, divergences due to singularities in quantities of interest necessitate the introduction of regulators in order to define finite quantities. Regulators, though, often break symmetries, and care is needed to check that the regulator has not injected undue violence to the system. Of relevance here is that~\cite{BFK2011} introduced a non-holomorphic regulator to deal with the singularities at either end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate divergences at the cusps, but which violates holomorphicity in the deformed contour-integral, ruining path-dependence. Simultaneously, \cite{1806} concerned itself with L-functions for modular forms which diverge within the interior of the fundamental domain. Here, holomorphic dependence on $\tau$ is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
+In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics, divergences due to singularities in quantities of interest necessitate the introduction of regulators in order to define finite quantities. Regulators, though, often break symmetries, and care is needed to check that the regulator has not injected undue violence to the system. Of relevance here is that~\cite{BFK2011} introduced a non-holomorphic regulator to deal with the singularities at either end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate divergences at the cusps, but which violates holomorphy in the deformed contour-integral, ruining path-independence. Simultaneously, \cite{1806} concerned itself with L-functions for modular forms which diverge within the interior of the fundamental domain. Here, holomorphic dependence on $\tau$ is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
 
-In this short note, we introduce manifestly finite contour integral functionals to define L-functions for generic meromorphic modular forms that are of sufficient generality to handle any combination of poles at cusps and poles within the fundamental domain. Our construction is motivated by, and makes precise contact with, work which extracts period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are manifestly finite throughout, and reproduce all results in the literature, unifying the quasi-period results and the L-function extensions within one concrete, natural framework.
+In this note, we introduce manifestly finite contour integral functionals to define L-functions for generic meromorphic modular forms that are of sufficient generality to handle any combination of poles at cusps and poles within the fundamental domain. Our construction is motivated by, and makes precise contact with, work which extracts period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are manifestly finite throughout, and reproduce all results in the literature, unifying the quasi-period results and the L-function extensions within one concrete, natural framework.
 
 \paragraph{What we construct.}
 
 Let $\Gamma = \SLZ$, let $f$ be a meromorphic modular form of even
 weight $k \in \ZZ$ on $\Gamma$, and let $\tau_0 \in \HH$ be a basepoint
 with the property that the pair of paths
-\begin{align}\label{eq:contour-pair}
-  S\text{-segment}\colon\:\:\; \gamma^S_{\tau_0}:[0, 1] \to \HH~,~~ 
+\begin{align}
+\begin{cases}
+  S\text{-segment}\colon\:\:\; \gamma^S_{\tau_0}:[0, 1] \to \HH~,&~~ 
   \gamma^S_{\tau_0}(0)=-1/\tau_0,\, \gamma^S_{\tau_0}(1) =\tau_0,
   \\
-  T\text{-segment}\colon\:\:\; \gamma^T_{\tau_0}:[0, 1] \to \HH~,~~ 
+  T\text{-segment}\colon\:\:\; \gamma^T_{\tau_0}:[0, 1] \to \HH~,&~~ 
   \gamma^T_{\tau_0}(0)=\tau_0-1,\, \gamma^T_{\tau_0}(1) =\tau_0,
-  \nonumber
+\end{cases}
+\label{eq:contour-pair}
 \end{align}
 in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.  Using these contours, we define
 \begin{equation}\label{eq:Lambda-DR-def}
@@ -245,13 +210,13 @@ specialisation collapses via $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$
 \end{equation}
 of degree at most $k - 2$.  The right side of
 \eqref{eq:periods-statement} is independent of $\tau_0$ and of the
-choice of interior $\ell$ within its parity sector.  Inside the
-two-segment bracket sit only the bare Mellin monomial $\tau^{\ell - 1}$
-and the bare Hurwitz polynomial $\widetilde{k}_T(\tau, \ell)$ of
-\eqref{eq:kS-form}; all combinatorial structure
-$\bigl((2\pi i)^{k - 1},\,(-1)^{\ell - 1},\,\binom{k - 2}{\ell - 1}\bigr)$
-together with the Brown basis coefficient $c_S^{\,\ell - 1}$ sits in the
-prefactor outside.
+choice of interior $\ell$ within its parity sector.  %Inside the
+%two-segment bracket sit only the bare Mellin monomial $\tau^{\ell - 1}$
+%and the bare Hurwitz polynomial $\widetilde{k}_T(\tau, \ell)$ of
+%\eqref{eq:kS-form}; all combinatorial structure
+%$\bigl((2\pi i)^{k - 1},\,(-1)^{\ell - 1},\,\binom{k - 2}{\ell - 1}\bigr)$
+%together with the Brown basis coefficient $c_S^{\,\ell - 1}$ sits in the
+%prefactor outside.
 \end{theorem}
 
 \paragraph{Higher-dimensional $S_k$.}
@@ -306,12 +271,12 @@ closed-form sum
   \right].
 \end{equation}
 The right side of \eqref{eq:bfk-eq-statement} is the completed
-$L$-function $L^*(f, s)$ of $f$: on holomorphic cusp forms it reduces
-to the classical Hecke--Weil Mellin transform, and on $M^!_k$ its
-equality to the formula of~\cite{BFK2011} \emph{proves} that the
-incomplete-gamma construction --- previously obtained via
-non-holomorphic regulator deformations --- is the unique canonical
-$L$-function for every weakly holomorphic modular form.
+$L$-function $L^*(f, s)$ of $f$. For holomorphic modular forms it reduces
+to the classical Hecke--Weil Mellin transform. For weak modular forms, it
+reduces to the results of~\cite{BFK2011}, \emph{proving} that their
+non-holomorphic regulator prescription gives % --- previously obtained via
+%non-holomorphic regulator deformations --- 
+the unique, canonical $L$-function for every weak modular form.
 \end{theorem}
 
 \paragraph{Classical Mellin recovery and canonical uniqueness.}
@@ -488,10 +453,11 @@ the standard sense \cite{KZ1984}: under $\tau \mapsto \gamma^{-1}\tau$,
 the weight-$k$ transformation of $f$ cancels the weight-$(-n)$ slash
 on $(X - \tau Y)^n$, so the $V_n$-valued $1$-form $\omega_f$ is
 invariant under the simultaneous action of $\Gamma$ on $\tau$ and on
-the auxiliary variables $(X, Y)$.  Equivalently, $\omega_f$ is a
-well-defined $V_n$-valued $1$-form on the modular curve $Y(1) =
-\Gamma\backslash\HH$ (modulo the $\Gamma$-action on $V_n$).  The
-construction of $\omega_f$ above uses only the weight-$k$ modularity
+the auxiliary variables $(X, Y)$.  %Equivalently, $\omega_f$ is a
+%well-defined $V_n$-valued $1$-form on the modular curve $Y(1) =
+%\Gamma\backslash\HH$ (modulo the $\Gamma$-action on $V_n$).  %DAM: I don't really understand that sentence, so I am striking it. It is a reframing that I suspect adds no substance to the paper, other than competence cues that I cannot back-up/do not deserve.
+
+The construction of $\omega_f$ above uses only the weight-$k$ modularity
 of $f$ and makes no cuspidality assumption: $\omega_f$ is well-defined
 for every meromorphic modular form $f \in M^!_k$ (and indeed for
 meromorphic forms with poles in the fundamental domain, provided
@@ -503,7 +469,7 @@ condition for the period-polynomial coboundary equation.
 \paragraph{The cocycle.}
 The two-segment cocycle construction used in the present note
 originates in personal correspondence from F.\ Brown to the author
-\cite{Brown2019Email}, which describes the procedure of integrating a
+\cite{Brown2019Email}, which describes the procedure of integrating a%DAM: Let's double-check this, eh? Is he the origin of this technique? Doubt it, but perhaps.
 weakly holomorphic modular form against the polynomial coefficient
 system $(X - \tau Y)^n$ along contours from $\gamma^{-1}\tau_0$ to
 $\tau_0$ for the generators $\gamma \in \{S, T\}$ of $\Gamma$, and
@@ -536,7 +502,7 @@ Path-additivity gives
 \[
   \int_{(gh)^{-1}\tau_0}^{\tau_0}
   \;=\; \int_{h^{-1}g^{-1}\tau_0}^{h^{-1}\tau_0}
-  \;+\; \int_{h^{-1}\tau_0}^{\tau_0}.
+  \;+\; \int_{h^{-1}\tau_0}^{\tau_0}. %DAM: I think there is a typo in this equation. The proof smells ``right'', but I got slightly confused when trying to fix this...
 \]
 In the first integral substitute $\tau = h^{-1}\sigma$, so $\sigma$
 runs from $g^{-1}\tau_0$ to $\tau_0$.  The $\Gamma$-equivariance of
@@ -583,7 +549,7 @@ $\omega^\pm(f)$ from particular linear combinations of these moments.
 
 \paragraph{Basepoint dependence.}
 Varying $\tau_0$ changes $C^f$ by a coboundary, provided $f$ has no
-interior poles.  Define a primitive $F(\tau)$ of $\omega_f$ on a
+interior poles.  Define a primitive $F(\tau)$ of $\omega_f$ on a %DAM: tf is a ``primitive''??? I need to understand this term!
 simply connected open subset of $\HH$ avoiding $\Gamma\cdot f^{-1}
 (\infty)$.  Then for any two basepoints $\tau_0, \tau_0'$ in the same
 connected component, path-additivity gives
@@ -606,12 +572,12 @@ $\delta P$ representative.  The classical Eichler--Shimura theorem
 \cite{KZ1984} identifies the cuspidal subspace $H^1_{\rm cusp}(\Gamma;
 V_n)$ with $S_k \oplus \overline{S_k}$, and the linear coordinates of
 $[C^f]$ in this cuspidal subspace are the periods and quasi-periods
-$\omega^\pm(f), \eta^\pm(f)$ \cite{Brown2017}.
+$\omega^\pm(f), \eta^\pm(f)$ \cite{Brown2017}.%DAM: I have almost zero clue what is meant in this paragraph. I need a tutorial on this. 
 
 \section{Period extraction: proof of Theorem~\ref{thm:periods}}\label{sec:periods}
 
 Set $n := k - 2$ throughout.  The argument is $k$-uniform on the
-$\dim S_k = 1$ family $k \in \{12, 16, 18, 20, 22, 26\}$: every step
+$\dim S_k = 1$ family $k \in \{12$, $16$, $18$, $20$, $22$, $26\}$: every step
 below --- the cocycle structure of \S\ref{sec:cocycle}, the
 $\delta_T$-solvability of Lemma~\ref{lem:solvability-cuspidality},
 the Bernoulli closed-form inversion of
@@ -799,7 +765,7 @@ related by the polynomial identity
 \begin{equation}\label{eq:khat-vs-ktilde}
   \widehat{k}_T(\ell, \tau)
   \;=\; (-1)^{\ell - 1}\,\binom{n}{\ell - 1}\!\left[\,\widetilde{k}_T(\tau, \ell) \;-\; \widetilde{k}_T(0, \ell)\,\right]
-  \quad \text{in } \QQ[\tau].
+  \in \QQ[\tau]~.
 \end{equation}
 Equivalently, the difference
 $\widehat{k}_T(\ell, \tau) - (-1)^{\ell - 1}\binom{n}{\ell - 1}\widetilde{k}_T(\tau, \ell)
@@ -808,7 +774,7 @@ is a constant.  Consequently, for every $f \in S^!_k$ and every
 $\tau_0 \in \HH$,
 \begin{equation}\label{eq:T-piece-integral-equiv}
   \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widehat{k}_T(\ell, \tau)\,d\tau
-  \;=\; (-1)^{\ell - 1}\binom{n}{\ell - 1}\!\int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau.
+  \;=\; (-1)^{\ell - 1}\binom{n}{\ell - 1}\!\int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau~.
 \end{equation}
 \end{lemma}
 
@@ -856,10 +822,10 @@ representation
         \;+\; \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau\,\right],
 \end{equation}
 with $\widetilde{k}_T(\tau, s)$ the Hurwitz-zeta kernel of
-\eqref{eq:tildekT-def}.  Inside the two-segment bracket sit only the
-bare Mellin monomial $\tau^{\ell - 1}$ on the $S$-segment and the bare
-Hurwitz kernel $\widetilde{k}_T(\tau, \ell)$ on the $T$-segment; all
-combinatorial structure is absorbed into the prefactor outside.
+\eqref{eq:tildekT-def}.  %Inside the two-segment bracket sit only the
+%bare Mellin monomial $\tau^{\ell - 1}$ on the $S$-segment and the bare
+%Hurwitz kernel $\widetilde{k}_T(\tau, \ell)$ on the $T$-segment; all
+%combinatorial structure is absorbed into the prefactor outside.%DAM: Commented this out, as it seems like irrelevant details.
 \end{proposition}
 
 \begin{proof}
@@ -1020,15 +986,14 @@ specialisation collapses via $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$
   \widetilde{k}_T(\tau, \ell) \;=\; -\,\frac{B_\ell(\tau + 1)}{\ell} \;+\; (-1)^{\ell - 1}\,\frac{B_{k - \ell}(\tau + 1)}{k - \ell}
   \;\in\; \QQ[\tau]
 \end{equation}
-of degree at most $k - 2$.  The right side of
-\eqref{eq:periods-statement-restated} is independent of $\tau_0$ and of the
-choice of interior $\ell$ within its parity sector.  Inside the
-two-segment bracket sit only the bare Mellin monomial $\tau^{\ell - 1}$
-and the bare Hurwitz polynomial $\widetilde{k}_T(\tau, \ell)$ of
-\eqref{eq:kS-form-restated}; all combinatorial structure
-$\bigl((2\pi i)^{k - 1},\,(-1)^{\ell - 1},\,\binom{k - 2}{\ell - 1}\bigr)$
-together with the Brown basis coefficient $c_S^{\,\ell - 1}$ sits in the
-prefactor outside.
+of degree at most $k - 2$.  The integral for $\omega^\pm(f)$ in 
+\eqref{eq:periods-statement-restated} depends neither on $\tau_0$ nor $\ell \equiv \ell'(\!\!\!\!\mod 2)$.  %Inside the
+%two-segment bracket sit only the bare Mellin monomial $\tau^{\ell - 1}$
+%and the bare Hurwitz polynomial $\widetilde{k}_T(\tau, \ell)$ of
+%\eqref{eq:kS-form-restated}; all combinatorial structure
+%$\bigl((2\pi i)^{k - 1},\,(-1)^{\ell - 1},\,\binom{k - 2}{\ell - 1}\bigr)$
+%together with the Brown basis coefficient $c_S^{\,\ell - 1}$ sits in the
+%prefactor outside.%DAM: Commented this out, as it seems like irrelevant details.
 \end{theorem}
 
 % --- Outer proof of Theorem 1.1: assembles Steps 1-8 ---
@@ -1896,6 +1861,11 @@ helpful.  $\approx 2$--$3$ pages, terse.]
 
 \begin{thebibliography}{99}
 
+\bibitem{Brown2017}
+F.\ Brown,
+\emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+
 \bibitem{BFK2011}
 K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
 \emph{Special $L$-values and periods of weakly holomorphic modular forms},
@@ -1907,11 +1877,6 @@ D.\ A.\ McGady,
 Conformal Field Theory},
 arXiv:1806.09874 [hep-th] (2019);
 INSPIRE: \url{https://inspirehep.net/literature/1679799}.
-
-\bibitem{Brown2017}
-F.\ Brown,
-\emph{A class of non-holomorphic modular forms III},
-arXiv:1710.07912 (2017).
 
 \bibitem{Brown2019Email}
 F.\ Brown, personal communication to the author, 28 June 2019.  This
