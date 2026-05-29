@@ -378,3 +378,72 @@ if __name__ == '__main__':
     print(f" (v)   Bernoulli closed-form vs LU recursion (worst |p_m diff|):")
     print(f"         Delta:     {float(r_D_main['bernoulli_max_res']):.3e}")
     print(f"         hat-Delta: {float(r_H_main['bernoulli_max_res']):.3e}")
+
+    # ------------------------------------------------------------------------
+    # (vii) Polynomial identity of Lemma 3.5 (lem:T-piece-equiv):
+    #
+    #   khat_T(j, tau) - (-1)^{j-1} C(n, j-1) ktilde_T(tau, j)
+    #     = -(-1)^{j-1} C(n, j-1) ktilde_T(0, j)  in Q,
+    #
+    # i.e., the polynomial difference is a constant for each interior j.
+    # Exact rational check via sympy at all interior j in {2, ..., k-2}.
+    # ------------------------------------------------------------------------
+    print()
+    print("=" * 76)
+    print(" Polynomial identity of Lemma 3.5 (Bernoulli vs Hurwitz T-kernel):")
+    print(" check khat_T(j, tau) - (-1)^{j-1} C(n, j-1) ktilde_T(tau, j) is a constant in Q.")
+    print("=" * 76)
+
+    from sympy import Rational, binomial as Sbinomial, factorial as Sfactorial, bernoulli as Sbernoulli, symbols as Ssymbols, expand as Sexpand
+
+    tau_sym = Ssymbols('tau')
+
+    def B_kn_sympy(k):
+        # B_1 = -1/2 (standard convention); sympy default is +1/2, so flip.
+        return -Sbernoulli(1) if k == 1 else Sbernoulli(k)
+
+    def B_poly_sympy(n_, x):
+        return sum(Sbinomial(n_, k) * B_kn_sympy(k) * x**(n_ - k) for k in range(n_ + 1))
+
+    def beta_sympy(l, r):
+        if r < 1 or r > l + 1:
+            return Rational(0)
+        kk = l - r + 1
+        return ((-1)**r * Sbinomial(N, r) * B_kn_sympy(kk) * Sfactorial(N - r)
+                / (Sfactorial(kk) * Sfactorial(N - l)))
+
+    def khat_T_sympy(j_):
+        return sum((beta_sympy(j_ - 1, r) - (-1)**(j_ - 1) * beta_sympy(N - j_ + 1, r)) * tau_sym**r
+                   for r in range(1, N + 1))
+
+    def ktilde_T_sympy(j_):
+        K_ = N + 2  # k = 12
+        return -B_poly_sympy(j_, tau_sym + 1) / j_ + (-1)**(j_ - 1) * B_poly_sympy(K_ - j_, tau_sym + 1) / (K_ - j_)
+
+    print(f"  {'j':>2}  {'diff (khat - (-1)^{j-1} C(n,j-1) ktilde)':>54}  {'is constant?':>14}")
+    print("  " + "-" * 78)
+    worst_constant_match = Rational(0)
+    for j_test in range(2, N + 1):
+        diff = Sexpand(khat_T_sympy(j_test)
+                       - (-1)**(j_test - 1) * Sbinomial(N, j_test - 1) * ktilde_T_sympy(j_test))
+        predicted_const = -(-1)**(j_test - 1) * Sbinomial(N, j_test - 1) * ktilde_T_sympy(j_test).subs(tau_sym, 0)
+        predicted_const = Sexpand(predicted_const)
+        is_const = (diff - predicted_const) == 0
+        # Whether `diff` is independent of tau:
+        diff_as_poly_coeffs = diff.as_poly(tau_sym).all_coeffs() if diff != 0 else [Rational(0)]
+        non_const_coefs = diff_as_poly_coeffs[:-1] if len(diff_as_poly_coeffs) > 1 else []
+        is_pure_constant = all(c == 0 for c in non_const_coefs)
+        diff_str = str(diff)
+        if len(diff_str) > 50:
+            diff_str = diff_str[:47] + "..."
+        print(f"  {j_test:>2}  {diff_str:>54}  "
+              f"{('YES' if is_pure_constant else 'NO'):>14}  "
+              f"matches predicted: {is_const}")
+        if not is_const:
+            worst_constant_match = max(worst_constant_match, Rational(1))
+    print()
+    if worst_constant_match == 0:
+        print(" (vi)  Lemma 3.5 polynomial identity: all 9 interior j confirm constant difference")
+        print(f"        matching -(-1)^(j-1) C(n,j-1) ktilde_T(0,j) exactly in Q.")
+    else:
+        print(" (vi)  Lemma 3.5 polynomial identity: SOME j FAILED -- check sympy convention!")
