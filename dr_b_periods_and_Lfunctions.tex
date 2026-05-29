@@ -43,22 +43,14 @@ via finite contours}
 \maketitle
 
 \begin{abstract}
-In this note, we assign to every meromorphic modular form $f$ of weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote $f \mapsto L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$; here $\tau_0$ is a base-point in the upper half-plane, and $\gamma_S(\tau_0): -\tfrac{1}{\tau_0} \to \tau_0$ and $\gamma_T(\tau_0): \tau_0 -1 \to \tau_0$ denote integration contours. These L-integrals are finite for all base-points and contours. For the special case of weakly holomorphic modular forms, i.e. where $f$ is either bounded at the cusp or has poles exclusively at the cusp, this L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ and is fully independent of $\gamma_S(\tau_0)$ and $\gamma_T(\tau_0)$. We prove that this finite L-integral, as we define it, exactly matches the L-integral of holomorphic modular forms, and, separately, that it equals the non-holomorphically regularized L-integrals of~\cite{BFK2011}. When $f$ has poles away from the cusp, i.e.\ inside the fundamental domain, $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ is unique and constant for paths within the same homotopy class; related $L^*$-integrals of $f$, evaluated at $s$, which depend on paths outside the same homotopy class differ by well-defined wall-crossing residues. We prove that they match the L-function construction of~\cite{1806} for meromorphic modular forms regular at the cusps. Finally, we show that a slight modification of this linear functional in the Fourier coefficients of $f$ yields its associated period polynomial when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly reproduce the numerical periods reported in~\cite{Brown2017}. All results are both proven analytically and supported, where relevant, by our associated python scripts~\cite{VerifyScripts}.
+In this note, we assign to every meromorphic modular form $f$ of weight $k$ on $\Gamma = \SLZ$ a finite L-integral, which we denote $f \mapsto L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$; here $\tau_0$ is a base-point in the upper half-plane, and $\gamma^S_{\tau_0}$ is an integration path from $-\tfrac{1}{\tau_0}$ to $\tau_0$, while $\gamma^T_{\tau_0}$ an integration path from $\tau_0 -1$ to $\tau_0$. These L-integrals are finite for all base-points and contours. For the special case of weakly holomorphic modular forms, i.e. where $f$ is either bounded at the cusp or has poles exclusively at the cusp, this L-integral is uniquely defined, i.e. it is fully independent of $\tau_0$ and is fully independent of $\gamma_S(\tau_0)$ and $\gamma_T(\tau_0)$. We prove that this finite L-integral, as we define it, exactly matches the L-integral of holomorphic modular forms, and, separately, that it equals the non-holomorphically regularized L-integrals of~\cite{BFK2011}. When $f$ has poles away from the cusp, i.e.\ inside the fundamental domain, $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ is unique and constant for paths within the same homotopy class; related $L^*$-integrals of $f$, evaluated at $s$, which depend on paths outside the same homotopy class differ by well-defined wall-crossing residues. We prove that, for meromorphic modular forms regular at the cusps, our L-integrals/L-functions equal the L-integrals/L-functions constructed in~\cite{1806}. Finally, we show that a slight modification of this linear functional in the Fourier coefficients of $f$ yields its associated period polynomial when $k$ is such that $\dim(S_k) = 1$. Our period polynomials exactly reproduce the numerical periods reported in~\cite{Brown2017}. All results in formulas are are verified, and are verifiable, via our python scripts~\cite{VerifyScripts}.
 \end{abstract}
 
-%DAM: Some high-level notes. I have changed specific aspects of the document, but there are still some higher level aspects which might be productive to change/mention before this gets manual attention again. Specific high-level comments:
-%DAM: 1. Some basic errors. Check for basic math errors --- though maybe hold off until the document is more stabilized.
-%DAM: 2. There are A LOT of paragraphs, and blah blah blah. Not many lemmas/theorems. Please consult the references in the new subdir @previous_paper_examples_for_style to see the examples of style that I have been indoctrinated into. In each section, there is typically some narrative, and some discussions, but a lot of the main results are in clearly stated lemmas, propositions, and theorems. (Lemmas are small technical results, propositions are bigger intermediate results that are not the final result, and theorems are the big guns. The note we are writing has three.) The bulk of each section should be tight: Lemma X: [some sharply stated, clean, statement]. Proof of Lemma X: [proof of result, with a box-symbol at the end]. Also, at some point in section 3, you have a random box-symbol that is not tied to any explicit statement that is stated to prove.
-%DAM: 3. Section 5 is quite loose.
-%DAM: 4. Nix the named suffices for things. Further, nix the author-acronyms unless absolutely needed. I am pretty sure that this is not the convention in mathematics. (It is in physics, or at least more so. But seems to be much, much less so in math.)
-%DAM: 5. I tried to replace \Lambda^*(f, s: \tau_0) with \Lambda^*(f, s: \gamma_S(\tau_0), \gamma_T(\tau_0)). The reason is several fold. First, in my other papers, I used L^* and not \Lambda^* for the L-integral. Second, once things are meromorphic, then, sure, the base-point dependence matters. But, actually, not so much. The paths matter much more. Third, specifically in section 5, specifying the L-integral in this way makes the equation between the L^*-definition we propose in this note and the L^* I defined in my 1806-note. As written, without the path-dependence in our L^*-integral, the statement is slop. Not even wrong.
-%DAM: 6. This is actually kinda big. I made an explicit remark after Theorem 1.2, showing how it reproduces the L-integral for holomorphic MFs, why this limit of $\tau_0 \to i \infty$ which gives the classical Mellin-transform integration path is pathological if the MF blows-up at i \infty, and thus why BFK had to resort to awfulness to even try to define their L-function. In light of this, and in light of the tie-ins to Brown's work and the quasi-periods that come from restricting our L-integrals to values of s in the critical strip, we are the first to actually prove that L-functions are natural to define for weakly holomorphic MFs from first principles.
-%DAM: 7. You use the term/abbreviation 'cf' when referring to claims in the literature. Can you either drop this, or use common language in those specific lines/contexts where 'cf' is used?
-
+%DAM1: When we evaluate the L-integral at values of $s$ in the critical strip, i.e. when we extract the periods associated with Delta and Delta-Hat, we denote the integers in the set $\{ 2, ..., k-2\}$ by the letter $j$. This is slightly jarring, as $j$ also means $j = c \times E_4^3/(E_4^3-E_6^2)$ for some integer $c$ (I think it is $1728^{\pm 1}$ or something). Can we swap-out all instances of $j$ in our formulas with $\ell$ --- except if we are ACTUALLY referring to the j-invariant? 
+%DAM2: What is all of this ``lockstep'' business. I know what is meant, but I think it is not needed to emphasize throughout the note. One can just have one footnote, or a sentence following e.g. the statement of Theorem 1.1 that, even though there are $k-3$ values of $\ell$
+%DAM3: Numerics in proofs. In many instances, we include numerical verification assertions WITHIN proofs. This should be scrubbed. The numerical aspects of this
 
 \section{Introduction and main results}\label{sec:intro}
-
-%DAM: Start
 
 In this paper, we introduce a general framework that defines L-functions for generic modular forms on the full group $\SLZ$, and extracts their periods for the explicit case when the holomorphic cusp forms are one-dimensional, i.e. when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined and well-studied for holomorphic modular forms. However, there is a growing body of work exploring L-functions~\cite{BFK2011} and periods~\cite{Brown2017} for weakly holomorphic modular forms. Similarly, there are natural physical motivations to consider L-functions for properly meromorphic modular forms, which have poles \emph{within} the fundamental domain~\cite{1806}.
 
@@ -66,55 +58,49 @@ In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics
 
 In this short note, we introduce manifestly finite contour integral functionals to define L-functions for generic meromorphic modular forms that are of sufficient generality to handle any combination of poles at cusps and poles within the fundamental domain. Our construction is motivated by, and makes precise contact with, work which extracts period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are manifestly finite throughout, and reproduce all results in the literature, unifying the quasi-period results and the L-function extensions within one concrete, natural framework.
 
-%DAM: The above lines between the commented-out "%DAM: Start"-string and here are an attempt to introduce what I want to focus on in this note in a little bit more the style I had in mind...
-
-
 \paragraph{What we construct.}
 
 Let $\Gamma = \SLZ$, let $f$ be a meromorphic modular form of even
 weight $k \in \ZZ$ on $\Gamma$, and let $\tau_0 \in \HH$ be a basepoint
-with the property that the pair of line segments
-\begin{equation}\label{eq:contour-pair}
-  S\text{-segment}\colon\; [-1/\tau_0,\, \tau_0],
-  \qquad
-  T\text{-segment}\colon\; [\tau_0 - 1,\, \tau_0]
-\end{equation}
-in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.  Define
+with the property that the pair of paths
+\begin{align}\label{eq:contour-pair}
+  S\text{-segment}\colon\:\:\; \gamma^S_{\tau_0}:[0, 1] \to \HH~,~~ 
+  \gamma^S_{\tau_0}(0)=-1/\tau_0,\, \gamma^S_{\tau_0}(1) =\tau_0,
+  \\
+  T\text{-segment}\colon\:\:\; \gamma^T_{\tau_0}:[0, 1] \to \HH~,~~ 
+  \gamma^T_{\tau_0}(0)=\tau_0-1,\, \gamma^T_{\tau_0}(1) =\tau_0,
+  \nonumber
+\end{align}
+in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.  Using these contours, we define
 \begin{equation}\label{eq:Lambda-DR-def}
-  %\Lambda^*(f, s; \tau_0)
-  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
+  L^*(f, s; \gamma^S_{\tau_0}
+  , \gamma^T_{\tau_0})
   \;:=\; i^{-s}\!\left[
-    \int_{\gamma_S(\tau_0)}%_{-1/\tau_0}^{\tau_0}
+    \int_{\gamma^S_{\tau_0}}
     \! f(\tau)\,\tau^{s-1}\,d\tau
     \;+\;
-    \int_{\gamma_T(\tau_0)}%_{\tau_0 - 1}^{\tau_0}\! 
+    \int_{\gamma^T_{\tau_0}} 
     f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \right],
 \end{equation}
-where the integration contour $\gamma_S(\tau_0)$ runs between $\gamma_S(\tau_0, 0) = -1/\tau_0$ and $\gamma_S(\tau_0, 1) = \tau_0$, the integration contour $\gamma_T(\tau_0)$ runs between $\gamma_T(\tau_0, 0) = \tau_0-1$ and $\gamma_T(\tau_0, 1) = \tau_0$ and the $T$-kernel
+where the $T$-kernel is built from the following explicit two Hurwitz-zeta functions:
 \begin{equation}\label{eq:tildekT-def}
   \widetilde{k}_T(\tau, s)
   \;:=\; \zeta(1 - s,\, \tau + 1)
-  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)
+  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)~.
 \end{equation}
-is built from two Hurwitz-zeta functions. When the contour avoids poles in $f$,
-both contour integrals contributing to $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$
-in~\eqref{eq:Lambda-DR-def}
-%, and the prefactor $i^{-s}$
-%matches the standard $L^*(\Delta, s) = (2\pi)^{-s}\Gamma(s)L(\Delta, s)$
-%normalisation on the holomorphic-cusp-form subspace.  Both contour
-%integrals in \eqref{eq:Lambda-DR-def} 
-are finite for every basepoint
+
+When the contour avoids poles in $f$, both contour integrals contributing to 
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
+in~\eqref{eq:Lambda-DR-def} are finite for every basepoint
 $\tau_0 \in \HH$ admissible for $f$ and every $s \in \CC$; no regulator,
 asymptotic-subtraction argument, or analytic-continuation step is
-required.  Further, as we will show, $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ 
-is invariant under both $\tau_0$-variations and $\gamma_S(\tau_0), 
-\gamma_T(\tau_0)$-variations, as long as neither $\gamma_S(\tau_0)$ nor  
-$\gamma_T(\tau_0)$ cross any pole location within the fundamental domain. 
-%The construction makes sense for every even integer $k$, of
-%either sign, and is linear in $f$.
+required.  Further, as we will show, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
+is invariant under both $\tau_0$-variations and $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$-variations, 
+as long as neither $\gamma^S_{\tau_0}$ nor  $\gamma^T_{\tau_0}$ cross any pole location within 
+the fundamental domain. 
 
-We will show that $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ is the 
+We will show that $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is the 
 classical L-function for $f \in M_k(\SLZ)$. Further, because of its 
 $\tau_0$-independence and finiteness for $f \in M_k^!(\SLZ)$, and because 
 we reproduce the analytic formulae in~\cite{BFK2011}, we unambiguously 
@@ -122,7 +108,7 @@ show that their candidate L-function is the canonical L-function one would assoc
 with any weak modular form, $f \in M_k^!$.
 
 \paragraph{Three theorems.}
-The functional $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ %\Lambda^*(f, s; \tau_0)
+The functional $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ %\Lambda^*(f, s; \tau_0)
 obeys three properties
 that together identify it as the canonical finite-contour $L$-function
 of $f$:
@@ -139,7 +125,7 @@ of $f$:
   divergence at the cusp.
 \item \emph{(Theorem~\ref{thm:bfk-eq})}\,
   For $f \in M^!_k$,
-  $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$
+  $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
   is $\tau_0$-independent on $\HH$ and
   produces the completed $L$-function $L^*(f, s)$ at every $s
   \in \CC$ as a single closed-form incomplete-gamma sum, agreeing
@@ -149,8 +135,8 @@ of $f$:
   to a point and \eqref{eq:Lambda-DR-def} reduces to a single integral
   on the compact contour $[i - 1, i]$.
 \item \emph{(Theorem~\ref{thm:wall-crossing})}\,
-  For general meromorphic $f$, $L^*(f, s; \gamma_S, \gamma_T)$ depends
-  on $(\gamma_S, \gamma_T)$ only through their homotopy class in
+  For general meromorphic $f$, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ depends
+  on $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ only through their homotopy class in
   $\HH \setminus \Gamma\cdot f^{-1}(\infty)$, with explicit
   wall-crossing residue jumps when the homotopy class changes by
   crossing a pole.  Restricted to forms regular at the cusp, this
@@ -171,9 +157,9 @@ $\omega^\pm(f)$ are recovered as the integer-$s = j$ specialisation of
 the $L$-integral functional of Theorem~\ref{thm:bfk-eq} via
 \begin{equation}\label{eq:periods-statement}
   \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{j - 1}\,\binom{k - 2}{j - 1}}{c_S^{\,j - 1}}\!\left[
-    \int_{\gamma_S(\tau_0)}\!\! f(\tau)\,\tau^{j - 1}\,d\tau
+    \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{j - 1}\,d\tau
     \;+\;
-    \int_{\gamma_T(\tau_0)}\!\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau
+    \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau
   \right]
 \end{equation}
 for every $f \in S_k^!$, every $\tau_0 \in \HH$, and every interior
@@ -225,15 +211,15 @@ Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
 the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
 \in \HH$ and every $s \in \CC$,
 \begin{equation}\label{eq:Lambda-DR-general}
- L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
+ L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;:=\; i^{-s}\!\left[
-    \int_{\gamma_S(\tau_0)}\! f(\tau)\,\tau^{s-1}\,d\tau
+    \int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
     \;+\;
-    \int_{\gamma_T(\tau_0)}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+    \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \right]
 \end{equation}
 is finite and independent of both $\tau_0 \in \HH$ and of the
-admissible contour choices $\gamma_S(\tau_0), \gamma_T(\tau_0)$.  We
+admissible contour choices $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  We
 write $L^*(f, s)$ for the common value.
 
 Specialising to the elliptic fixed point $\tau_0 = i$ of the modular
@@ -268,7 +254,7 @@ the $T$-segment vanishes exponentially (since $f(\tau) =
 O(e^{-2\pi\im\tau})$ on the segment as $\im\tau \to \infty$):
 \begin{equation}\label{eq:Mellin-recovery}
   \lim_{\tau_0 \to i\infty}\!
-  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;=\; \int_0^\infty\! t^{s - 1}\,f(it)\,dt,
 \end{equation}
 the classical completed $L$-integral of $f$.  For $f \in M_k$ with
@@ -292,7 +278,7 @@ finite-contour functional \eqref{eq:Lambda-DR-general} compute the
 same object, term by term in the Fourier expansion.  In particular,
 $L^*(f, s)$ is independent of any choice of regularisation: it is
 the value of the finite-contour functional at any admissible
-$(\gamma_S(\tau_0), \gamma_T(\tau_0))$, and the BFK construction is
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$, and the BFK construction is
 one closed-form evaluation of it (at $\tau_0 = i$).
 
 
@@ -301,30 +287,30 @@ Let $k \in 2\ZZ$ and let $f$ be a meromorphic modular form of weight
 $k$ on $\Gamma$.  Write $\HH_f := \HH \setminus \Gamma\cdot
 f^{-1}(\infty)$ for the upper half-plane with the $\Gamma$-orbit of
 the interior poles of $f$ removed, and call the pair
-$(\gamma_S(\tau_0), \gamma_T(\tau_0))$ \emph{admissible} if
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ \emph{admissible} if
 $\tau_0 \in \HH_f$ and both contours lie in $\HH_f$, with
-$\gamma_S(\tau_0)$ running from $S^{-1}\tau_0 = -1/\tau_0$ to $\tau_0$
-and $\gamma_T(\tau_0)$ from $T^{-1}\tau_0 = \tau_0 - 1$ to $\tau_0$.
-Define $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ by
+$\gamma^S_{\tau_0}$ running from $S^{-1}\tau_0 = -1/\tau_0$ to $\tau_0$
+and $\gamma^T_{\tau_0}$ from $T^{-1}\tau_0 = \tau_0 - 1$ to $\tau_0$.
+Define $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ by
 \eqref{eq:Lambda-DR-def} with the Hurwitz-zeta kernel
 $\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def}.  Then:
 \begin{enumerate}[label=(\alph*),leftmargin=2em]\itemsep0.25em
 \item Both integrals in \eqref{eq:Lambda-DR-def} are finite for every
-  admissible $(\gamma_S(\tau_0), \gamma_T(\tau_0))$ and every $s \in
+  admissible $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ and every $s \in
   \CC$.
-\item $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ depends on the
+\item $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ depends on the
   admissible pair only through its homotopy class in $\HH_f$: any
   continuous one-parameter family of admissible pairs --- including
   variations of the anchoring basepoint $\tau_0$ --- leaves the value
   unchanged.
-\item If two admissible configurations $(\gamma_S(\tau_0),
-  \gamma_T(\tau_0))$ and $(\gamma_S(\tau_0'), \gamma_T(\tau_0'))$ lie
+\item If two admissible configurations $(\gamma^S_{\tau_0},
+  \gamma^T_{\tau_0})$ and $(\gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})$ lie
   in homotopy classes related by a single crossing of an interior
   pole $\tau_p \in \HH$ of $f$, then
 \begin{equation}\label{eq:wall-crossing-statement}
-  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^S_{\tau_0})
   \;-\;
-  L^*(f, s; \gamma_S(\tau_0'), \gamma_T(\tau_0'))
+  L^*(f, s; \gamma^S_{\tau_0'}, \gamma^S_{\tau_0'})
   \;=\; \mathcal{R}_{\tau_p}(f, s),
 \end{equation}
 where for a simple pole $\Res(f, \tau_p)$,
@@ -335,7 +321,7 @@ where for a simple pole $\Res(f, \tau_p)$,
   \;+\; \sigma^T_{\tau_p}\,\widetilde{k}_T(\tau_p, s)\right],
 \end{equation}
 with $\sigma^S_{\tau_p}, \sigma^T_{\tau_p} \in \{-1, 0, +1\}$ the
-winding-number contributions of $\gamma_S$ and $\gamma_T$ across
+winding-number contributions of $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$ across
 $\tau_p$ (the generic case has one nonzero and the other zero,
 according to which contour crossed).  Higher-order poles contribute
 via the corresponding derivatives in $\tau_p$ of
@@ -349,13 +335,13 @@ Let $f \in F_k$ be a meromorphic modular form of weight $k$ that is
 regular at the cusp.  Let $L_f^*(s)_{\rm int,\,\gamma}$ denote the
 deformed-Mellin $L$-function of $f$ along a contour $\gamma$ from
 $0$ to $i\infty$ lying in $\HH_f$ (see \cite[\S2]{1806}).  Then for
-every admissible $(\gamma_S(\tau_0), \gamma_T(\tau_0))$ whose
+every admissible $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ whose
 homotopy class in $\HH_f$ is compatible with $\gamma$ (in the sense
-that the contour $\gamma_S(\tau_0)$ together with the cusp-limit
-piece $\lim_{\tau_0 \to i\infty}\gamma_S(\tau_0) \to [0, i\infty]$
+that the contour $\gamma^S_{\tau_0}$ together with the cusp-limit
+piece $\lim_{\tau_0 \to i\infty}\gamma^S_{\tau_0} \to [0, i\infty]$
 can be deformed to $\gamma$ in $\HH_f$),
 \begin{equation}\label{eq:1806-coincidence}
-  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;=\; L_f^*(s)_{\rm int,\,\gamma}
   \qquad
   \text{for every } s \in \CC.
@@ -697,8 +683,8 @@ representation
 \begin{equation}\label{eq:rf-coeff-integral}
   [r_f]_{X^{n - (j - 1)} Y^{j - 1}}
   \;=\; (2\pi i)^{n + 1}\,(-1)^{j - 1}\binom{n}{j - 1}\!
-  \left[\,\int_{\gamma_S(\tau_0)}\! f(\tau)\,\tau^{j - 1}\,d\tau
-        \;+\; \int_{\gamma_T(\tau_0)}\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau\,\right],
+  \left[\,\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{j - 1}\,d\tau
+        \;+\; \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau\,\right],
 \end{equation}
 where $\widetilde{k}_T(\tau, s)$ is the Hurwitz-zeta kernel of
 \eqref{eq:tildekT-def} and the integral kernels --- bare Mellin
@@ -734,7 +720,7 @@ coefficient at the matched monomial --- this proves identity
 \]
 so $[C^f_S(\tau_0)]_{X^{n - (j - 1)} Y^{j - 1}} = (2\pi i)^{n + 1}
 \binom{n}{j - 1}(-1)^{j - 1}\,I_S^{j - 1}(f, \tau_0)$, with
-$I_S^{j - 1} = \int_{\gamma_S(\tau_0)} f(\tau)\,\tau^{j - 1}\,d\tau$;
+$I_S^{j - 1} = \int_{\gamma^S_{\tau_0}} f(\tau)\,\tau^{j - 1}\,d\tau$;
 this contributes the $S$-segment piece of \eqref{eq:rf-coeff-integral}
 against the bare Mellin kernel $\tau^{j - 1}$.
 
@@ -747,7 +733,7 @@ $I_T^r$, $r = 1, \ldots, n$, packaging $C^f_T(\tau_0)$; substituting and
 collecting on the $T$-integration side yields a $\QQ$-polynomial
 $\widehat{k}_T(j, \tau) \in \QQ[\tau]$ of degree $\le n$ such that the
 $T$-segment piece of $[r_f]_{X^{n - (j - 1)} Y^{j - 1}}$ reads
-$(2\pi i)^{n + 1}(-1)^{j - 1}\binom{n}{j - 1}\!\int_{\gamma_T(\tau_0)}\!
+$(2\pi i)^{n + 1}(-1)^{j - 1}\binom{n}{j - 1}\!\int_{\gamma^S_{\tau_0}}\!
 f(\tau)\,[\widehat{k}_T(j, \tau)/\binom{n}{j - 1}(-1)^{j - 1}]\,d\tau$.
 
 \emph{$T$-piece, Hurwitz form.}  The shift-difference equation
@@ -765,8 +751,8 @@ of $\delta_T$ (Lemma~\ref{lem:solvability-cuspidality}(a)), and
 contributes only to the boundary monomials $X^n, Y^n$ of $r_f$, not to
 the interior monomial $X^{n - (j - 1)} Y^{j - 1}$ for
 $j - 1 \in \{1, \ldots, n - 1\}$.  Hence
-$\int_{\gamma_T(\tau_0)} f(\tau)\,[\widehat{k}_T(j, \tau)/\binom{n}{j - 1}(-1)^{j - 1}]\,d\tau
-= \int_{\gamma_T(\tau_0)} f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau$,
+$\int_{\gamma^T_{\tau_0}} f(\tau)\,[\widehat{k}_T(j, \tau)/\binom{n}{j - 1}(-1)^{j - 1}]\,d\tau
+= \int_{\gamma^T_{\tau_0}} f(\tau)\,\widetilde{k}_T(\tau, j)\,d\tau$,
 yielding \eqref{eq:rf-coeff-integral} with the bare Hurwitz kernel
 $\widetilde{k}_T(\tau, j)$ inside.
 
@@ -976,7 +962,7 @@ Applying at $(\sigma, a) = (1 - s, \tau_0)$ and $(\sigma, a) =
 gives \eqref{eq:tildekT-def}.
 
 \begin{lemma}\label{lem:Lambda-DR-tau0-invariant}
-For $f \in M^!_k$, $  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$
+For $f \in M^!_k$, $  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
 %\Lambda^*(f, s; \tau_0)
 defined by
 \eqref{eq:Lambda-DR-general} is independent of $\tau_0 \in \HH$ for
@@ -1047,13 +1033,13 @@ all complex $\nu$.
 
 \subsection{Per-mode evaluation: proof of Theorem~\ref{thm:bfk-eq}}
 
-By Lemma~\ref{lem:Lambda-DR-tau0-invariant}, the value $L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0)) = L^*(f, s)$
+By Lemma~\ref{lem:Lambda-DR-tau0-invariant}, the value $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = L^*(f, s)$
 is common to all admissible contours and basepoints.  At the
 elliptic fixed-point basepoint $\tau_0 = i$, the $S$-segment $[-1/i,
 i] = [i, i]$ has zero length and the $S$-integral in
 \eqref{eq:Lambda-DR-general} vanishes identically, leaving
 \[
-  L^*(f, s; \gamma_S(i)=0, \gamma_T(i))
+  L^*(f, s; \gamma^S_{\tau_0}(i)=0, \gamma^T_{\tau_0}(i))
   \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau.
 \]
 Expanding $f = \sum_n c_f(n) q^n$ as a $q$-series and swapping sum
@@ -1126,31 +1112,6 @@ which is the $B = 1$ value of the cuspidal summand of
 Summing \eqref{eq:const-term} and \eqref{eq:nonconst-term} over all
 Fourier modes reproduces the closed-form sum
 \eqref{eq:bfk-eq-statement}.
-
-%\paragraph{Polar Fourier modes.}
-%For positive Fourier modes $n \ge 1$ the proof of
-%Lemma~\ref{lem:hurwitz-unfold} applies verbatim, and the per-mode
-%summand reproduces the BFK incomplete-gamma value with no further
-%work.  For polar Fourier modes $n \le -1$ (which can be present for
-%$f \in M^!_k \setminus M_k$), the substitution $t = -2\pi i n u$
-%takes the horizontal $u$-ray to a vertical $t$-ray going \emph{up}
-%from $-2\pi n > 0$ (so $-2\pi$ at $n = -1$) to $-2\pi n + i\infty$ in
-%the \emph{left} half-plane.  Deforming this contour to the positive
-%real axis crosses the branch cut of $t^{-\nu}$ at the origin, and the
-%resulting integral is the analytic continuation of $\Gamma(1 - \nu,
-%x)$ in $x$ from $x > 0$ to $x = -2\pi n > 0$.  At positive integer
-%$\nu' = 1 - \nu$, the explicit polynomial form
-%\[
-%  \Gamma(N, x)
-%  \;=\; (N - 1)!\,e^{-x}\!\sum_{m=0}^{N - 1}\!\frac{x^m}{m!}
-%  \qquad
-%  (N \in \ZZ_{\ge 1}, \; x \in \CC)
-%\]
-%is single-valued and entire in $x$, supplying the analytic-continuation
-%value unambiguously; non-integer $\nu'$ is then obtained by analytic
-%continuation in $\nu$ from a positive-integer neighbourhood.  This
-%matches the convention of \cite{BFK2011} on polar Fourier modes and
-%extends naturally to every $s \in \CC$.%DAM: Commented-out this whole paragraph, as it looks completely besides the point. Why is this relevant at all? You can reply in a comment in the .tex-file if it is more efficient.
 
 \subsection{Worked example at $k = 12$: Bernoulli polynomials and numerics}\label{subsec:k12-worked}
 
@@ -1226,7 +1187,7 @@ and let $\tau_0 \in \HH$ be a basepoint such that the contour pair
 every fixed $s \in \CC$ (the kernels are analytic in $\tau \in \HH$),
 so both integrals in \eqref{eq:Lambda-DR-def} are finite and
 %\Lambda^*(f, s; \tau_0)
-$L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ is well-defined.  This proves
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is well-defined.  This proves
 Theorem~\ref{thm:wall-crossing}(a).
 
 For local constancy, the argument of \S\ref{subsec:kT-derivation}
@@ -1242,7 +1203,7 @@ $f(-1/\tau_0) = \tau_0^k f(\tau_0)$ and $f(\tau_0 - 1) = f(\tau_0)$
 hold at the contour endpoints (which they do for every meromorphic
 modular form, irrespective of the location of interior poles).  Hence
 %\Lambda^*(f, s; \tau_0)
-$dL^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))/d\tau_0 = 0$ whenever the contour
+$dL^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})/d\tau_0 = 0$ whenever the contour
 pair varies within the admissible open subset of $\HH$.  This
 establishes Theorem~\ref{thm:wall-crossing}(b).
 
@@ -1274,8 +1235,8 @@ where $\sigma_p^T \in \{+1, -1\}$ encodes the orientation of the
 $T$-segment crossing.  Combining (with the $i^{-s}$ prefactor) gives
 \begin{equation}\label{eq:wall-crossing-explicit}
   %\Lambda^*(f, s; \tau_0)
-  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
-  \;-\; L^*(f, s; \gamma_S(\tau_0'), \gamma_T(\tau_0'))
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;-\; L^*(f, s; \gamma^S_{\tau_0'}, \gamma^S_{\tau_0'})
   \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!\left[
     \sigma_p^S\,\tau_p^{s-1} \;+\; \sigma_p^T\,\widetilde{k}_T(\tau_p, s)
   \right].
@@ -1350,8 +1311,8 @@ $f$ within a fixed connected component, by
 \S\ref{subsec:existence-local-constancy} above), the left side is
 $\Lambda$-independent, so
 \[
-  L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))
-  \;=\; \lim_{\Lambda \to \infty}\!L^*(f, s; \gamma_S(\eps + i\Lambda), \gamma_T(\eps + i\Lambda))
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;=\; \lim_{\Lambda \to \infty}\!L^*(f, s; \gamma^S_{\eps + i\Lambda}, \gamma^T_{\eps + i\Lambda})
   \;=\; L_f^*(s)_{\rm int,\,\gamma_\eps},
 \]
 where $\gamma_\eps$ is the deformed-Mellin contour along $\mathrm{Re}(\tau)
@@ -1360,8 +1321,8 @@ where $\gamma_\eps$ is the deformed-Mellin contour along $\mathrm{Re}(\tau)
 \subsection{Wall-crossing of the period-polynomial cocycle}\label{subsec:period-wall-crossing}
 
 The wall-crossing residue formula \eqref{eq:residue-formula} acts on
-the complex-$s$ functional $L^*(f, s; \gamma_S(\tau_0),
-\gamma_T(\tau_0))$.  Specialised at integer $s = j \in \{2, \ldots,
+the complex-$s$ functional $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$.  
+Specialised at integer $s = j \in \{2, \ldots,
 k-2\}$ and assembled into the $V_{k-2}$ moment expansion of
 \S\ref{sec:cocycle}, it gives the wall-crossing of the
 period-polynomial cocycle of $f$ under contour deformation across an
@@ -1369,14 +1330,14 @@ interior pole.
 
 \begin{corollary}[Period-polynomial wall-crossing residue]\label{cor:period-wall-crossing}
 Let $f$ be a meromorphic modular form of weight $k$ on $\Gamma$, and
-let $(\gamma_S(\tau_0), \gamma_T(\tau_0)), (\gamma_S(\tau_0'),
-\gamma_T(\tau_0'))$ be two admissible contour pairs related by a
+let $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0}), (\gamma^S_{\tau_0'},
+\gamma^S_{\tau_0'})$ be two admissible contour pairs related by a
 single crossing of an interior pole $\tau_p \in \HH$ of $f$.  Denote
-by $C^f_S(\gamma_S(\tau_0)), C^f_T(\gamma_T(\tau_0)) \in V_{k-2}\otimes\CC$
+by $C^f_S(\gamma^S_{\tau_0}), C^f_T(\gamma^T_{\tau_0}) \in V_{k-2}\otimes\CC$
 the corresponding $V_{k-2}$-valued cocycle values from
 \eqref{eq:cocycle-def}.  For a simple pole $\mathrm{Res}(f, \tau_p)$,
 \begin{equation}\label{eq:cocycle-residue-jump}
-  C^f_S(\gamma_S(\tau_0)) - C^f_S(\gamma_S(\tau_0'))
+  C^f_S(\gamma^S_{\tau_0}) - C^f_S(\gamma^S_{\tau_0'})
   \;=\; 2\pi i\,(2\pi i)^{k-2}\,\sigma^S_{\tau_p}\,
   \mathrm{Res}(f, \tau_p)\,(X - \tau_p Y)^{k-2},
 \end{equation}
@@ -1387,7 +1348,7 @@ $\binom{k-2}{j}(-1)^j X^{k-2-j} Y^j$ in
 \eqref{eq:cocycle-residue-jump} (combined for $S$ and $T$).  For
 $\dim S_k = 1$ and $f \in F_k$ meromorphic with interior poles, the
 period polynomial $r_f$ extracted via Theorem~\ref{thm:periods} from
-$(\gamma_S(\tau_0), \gamma_T(\tau_0))$ therefore depends on the
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ therefore depends on the
 homotopy class of the contour pair, with jump
 \eqref{eq:cocycle-residue-jump} across each wall.
 \end{corollary}
@@ -1501,7 +1462,7 @@ a coboundary statement in this larger system, is an open question.
 
 \paragraph{Poincar\'e-series structure of the cumulative wall-crossing.}
 The residue formula \eqref{eq:residue-formula} controls the jump of
-$L^*(f, s; \gamma_S, \gamma_T)$ across a single pole-crossing.
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ across a single pole-crossing.
 Summing such jumps along a continuous deformation of the contour pair
 from one that encloses no interior poles to one that encloses every
 pole in a single $\Gamma$-orbit $\Gamma\cdot\tau_p$ produces a
@@ -1516,7 +1477,7 @@ where the cocycle factor $(c\tau_p + d)^{k-2}$ comes from the
 transformation $\mathrm{Res}(f, \gamma\tau_p) = (c\tau_p + d)^{k-2}\,
 \mathrm{Res}(f, \tau_p)$ under modularity of $f$, $\Gamma_{\tau_p}$ is
 the stabiliser of $\tau_p$ in $\Gamma$, and $\sigma^{S, T}_\gamma$
-encode the winding numbers of $\gamma_S, \gamma_T$ across the
+encode the winding numbers of $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$ across the
 orbit-point $\gamma\tau_p$.  The summand is structurally a
 weight-$k$ Poincar\'e-series term in $\tau_p$, in the $s$-extended
 form built from $\tau_p^{s-1}$ and $\widetilde{k}_T(\tau_p, s)$.
@@ -1547,7 +1508,7 @@ properties are, is a natural direction for follow-up work.
 \paragraph{Towards systematic interior-pole $L$-function theory.}
 Theorem~\ref{thm:wall-crossing} establishes existence and wall-crossing
 for %\Lambda^*(f, s; \tau_0)
-$L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0))$ on arbitrary meromorphic $f$,
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ on arbitrary meromorphic $f$,
 but does not give a closed-form per-mode evaluation parallel to the
 incomplete-gamma sum \eqref{eq:bfk-eq-statement}.  Developing the
 systematic per-mode theory --- in particular adapting the
@@ -1623,8 +1584,8 @@ analytic in $\tau \in \HH$ and meromorphic in $s \in \CC$, such that
 for every $f \in S_k$ and every $\tau_0 \in \HH$.  If such a kernel
 exists, substituting \eqref{eq:appB-ansatz} into \eqref{eq:appB-gap}
 gives the two-segment functional
-$L^*(f, s; \gamma_S(\tau_0), \gamma_T(\tau_0)) = i^{-s}[\int_{\gamma_S} +
-\int_{\gamma_T}]$ as a $\tau_0$-independent expression equal to
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = i^{-s}[\int_{\gamma^S_{\tau_0}} +
+\int_{\gamma^T_{\tau_0}}]$ as a $\tau_0$-independent expression equal to
 $L^*(f, s)$.
 
 \paragraph{Step 3: $\tau_0$-derivative gives a shift-difference equation.}
