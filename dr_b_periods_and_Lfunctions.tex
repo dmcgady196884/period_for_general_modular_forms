@@ -1403,6 +1403,20 @@ with relative residuals $\lesssim 10^{-40}$, and the right side is
 independent of $\ell \in \{2, \ldots, 10\}$ and of the basepoint across
 all four $\tau_0$ choices.
 
+\paragraph{Complex-$s$ verification.}
+Beyond the integer-$\ell$ period extraction, the all-$s$ functional
+\eqref{eq:Lambda-DR-general} was checked directly against the canonical
+completed $L$-function $L^*(\Delta, s)$ of Theorem~\ref{thm:bfk-eq} at
+non-integer $s$ \cite{VerifyScripts}.  At half-integer points
+$s \in \{1.5, 2.5, \ldots, 6.5\}$, off-axis complex points
+$s \in \{2.7 + 0.4i,\; 5 + i,\; 5.5 + 2.5i\}$, and points outside the
+critical strip $s \in \{0.5,\, -0.3\}$, the finite-contour value agrees
+with $L^*(\Delta, s)$ to relative residual $\sim 10^{-53}$ at $50$-digit
+precision, and is independent of $\tau_0 \in \{0.3 + 1.2i,\; 1.5i,\;
+-0.4 + 0.8i,\; 0.2 + 2i\}$ at the same level.  The corresponding check
+for $\Dhat$ holds to $\sim 10^{-47}$, the loss of digits reflecting the
+$q^{-1}$ cusp mode.
+
 \section{Wall-crossing for meromorphic forms: proof of Theorem~\ref{thm:wall-crossing}}\label{sec:wall-crossing}
 
 \subsection{Existence and local constancy}\label{subsec:existence-local-constancy}
@@ -2099,23 +2113,46 @@ arXiv:1806.09874 [hep-th] (2019);
 INSPIRE: \url{https://inspirehep.net/literature/1679799}.
 
 \bibitem{VerifyScripts}
-Companion verification scripts at $50$-digit \texttt{mpmath} precision.
-\texttt{verify\_periods.py}: end-to-end verification of
-Theorem~\ref{thm:periods} for $f \in \{\Delta, \Dhat\}$ at $k = 12$,
-including (a) reproduction of Brown's $\omega^\pm(\Delta)$ and
-$\eta^\pm(\Dhat)$ from~\cite{Brown2017} via the finite-contour
-cocycle pipeline; (b) $\ell$-independence of the right side across
-all nine interior monomials $X^{n - (\ell - 1)}Y^{\ell - 1}$
-for $\ell \in \{2, \ldots, 10\}$; (c)
-basepoint independence between $\tau_0 = 0.3 + 1.2 i$ and
-$\tau_0 = -0.2 + 0.9 i$; and (d) agreement of the Bernoulli
-closed-form for $\delta_T^{-1}$ in Lemma~\ref{lem:Bernoulli-inv}
-with the forward-substitution solution of the strictly-lower-triangular
-linear system $\delta_T P = C^f_T$ on every coefficient $p_m$,
-$m = 0, \ldots, 9$.  \texttt{verify\_s6.py},
-\texttt{verify\_multi\_s.py}: per-mode verification of
-Theorem~\ref{thm:bfk-eq}.  Additional scripts for
-Theorem~\ref{thm:wall-crossing} to be added.
+Companion \texttt{mpmath} verification scripts (run at $50$-digit
+precision unless noted), each probing a specific result of this note:
+\begin{itemize}\itemsep0.15em
+\item \texttt{verify\_periods.py} --- end-to-end verification of
+  Theorem~\ref{thm:periods} for $f \in \{\Delta, \Dhat\}$ at $k = 12$:
+  (a) reproduction of Brown's $\omega^\pm(\Delta)$ and $\eta^\pm(\Dhat)$
+  \cite{Brown2017} via the finite-contour cocycle pipeline;
+  (b) $\ell$-independence across all nine interior monomials
+  $X^{n - (\ell - 1)}Y^{\ell - 1}$, $\ell \in \{2, \ldots, 10\}$;
+  (c) basepoint independence between $\tau_0 = 0.3 + 1.2 i$ and
+  $\tau_0 = -0.2 + 0.9 i$; (d) agreement of the closed-form
+  $\delta_T^{-1}$ of Lemma~\ref{lem:Bernoulli-inv} with the
+  strictly-lower-triangular forward substitution on every $p_m$
+  ($m = 0, \ldots, 9$); and (e) the polynomial identity of
+  Lemma~\ref{lem:T-piece-equiv} --- that
+  $\widehat{k}_T(\ell, \tau) - (-1)^{\ell - 1}\binom{n}{\ell - 1}\widetilde{k}_T(\tau, \ell)$
+  is constant in $\QQ$ --- verified exactly via \texttt{sympy} at all
+  nine interior $\ell$.
+\item \texttt{dr\_b\_Lfunction\_complex\_s.py} --- verification of the
+  complex-$s$ $L$-function of Theorem~\ref{thm:bfk-eq}: the
+  Hurwitz-extended functional \eqref{eq:Lambda-DR-general} reproduces
+  the canonical completed $L^*(\Delta, s)$ at half-integer, off-axis
+  complex ($s = 2.7 + 0.4i,\ 5 + i,\ 5.5 + 2.5i$), and outside-strip
+  ($s = 0.5,\, -0.3$) points to $\sim 10^{-53}$ --- and the
+  corresponding $L^*(\Dhat, s)$ to $\sim 10^{-47}$ --- together with
+  $\tau_0$-independence at non-integer $s$.
+\item \texttt{verify\_s6.py}, \texttt{verify\_multi\_s.py} --- per-mode
+  verification of Theorem~\ref{thm:bfk-eq} (the $\tau_0 = i$ collapse to
+  the BFK incomplete-gamma sum) at $s \in \{1, 3, 6, 9, 11\}$, including
+  the boundary cases $s = 1, 11$ outside the reach of the
+  integer-monomial construction and the polar mode $n = -1$.
+\end{itemize}
+No script accompanies Theorem~\ref{thm:wall-crossing}, which is
+established analytically in \S\ref{sec:wall-crossing}.
+%DAM: future dev --- the two bigger scripts (verify_periods.py,
+%dr_b_Lfunction_complex_s.py) each bundle several distinct checks.
+%Consider splitting them into smaller files named for the lemma/theorem
+%they probe (e.g. verify_lem_Bernoulli_inv.py, verify_lem_T_piece_equiv.py,
+%verify_thm_bfk_eq_complex_s.py), so each \cite points at one file with one
+%job. Not urgent; do when the script suite next gets touched.
 
 \bibitem{Brown2019Email}
 F.\ Brown, personal communication to the author, 28 June 2019.  This
