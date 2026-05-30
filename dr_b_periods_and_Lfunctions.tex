@@ -1147,67 +1147,173 @@ $c_S^{\,\ell - 1}$ at those weights and is structurally identical.
 
 \section{The Hurwitz-zeta extension and the $L$-function on $M^!_k$: proof of Theorem~\ref{thm:bfk-eq}}\label{sec:hurwitz-extension}
 
-\subsection{Derivation of the kernel $\widetilde{k}_T$}\label{subsec:kT-derivation}
+\subsection{Overview and the origin of the kernel}\label{subsec:hurwitz-overview}
 
-We seek a kernel $\widetilde{k}_T(\tau, s)$, analytic in $\tau \in
-\HH$ and meromorphic in $s \in \CC$, such that $L^*(f,
-s; \tau_0)$ as defined in \eqref{eq:Lambda-DR-general} is independent
-of $\tau_0$ for every $f \in M^!_k$.  Differentiating
-\eqref{eq:Lambda-DR-general} in $\tau_0$ and using $\Delta(-1/\tau_0)
-= \tau_0^k \Delta(\tau_0)$ (the $S$-modularity of $f$ at the
-$S$-segment endpoint $-1/\tau_0$) together with $f(\tau_0 - 1) =
-f(\tau_0)$ (the $T$-modularity at $\tau_0 - 1$) gives, after
-cancelling the common factor $i^{-s} f(\tau_0)$,
+We prove Theorem~\ref{thm:bfk-eq}: the functional
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ of
+\eqref{eq:Lambda-DR-general}, built from the Hurwitz-zeta $T$-kernel
+$\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def}, is finite and
+basepoint-independent on $M^!_k$, and at the elliptic basepoint
+$\tau_0 = i$ collapses to the completed $L$-function in closed form.
+The argument has three movements: (i) the kernel obeys a
+shift-difference identity (Lemma~\ref{lem:tildekT-coboundary}) that
+renders the two-segment functional finite (Lemma~\ref{lem:Lstar-finite})
+and locally constant in its contour data
+(Lemma~\ref{lem:Lstar-local-constancy}), so $L^*(f, s)$ is well
+defined; (ii) at $\tau_0 = i$ the $S$-segment degenerates and a single
+per-mode \emph{unfolding} (Proposition~\ref{prop:hurwitz-unfold}) turns
+the surviving $T$-integral into incomplete gammas; (iii) the resulting
+sum is the completed $L$-function.  Lemmas~\ref{lem:Lstar-finite}
+and~\ref{lem:Lstar-local-constancy} are stated for arbitrary
+meromorphic $f$, in preparation for \S\ref{sec:wall-crossing};
+Theorem~\ref{thm:bfk-eq} is their specialisation to $f \in M^!_k$,
+where no interior pole obstructs the contour pair.
+
+\paragraph{Why a Hurwitz-zeta kernel.}
+The kernel \eqref{eq:tildekT-def} is the all-$s$ continuation of the
+integer-$s$ inversion of \S\ref{sec:periods}.  There, killing the
+$T$-cocycle meant solving the shift-difference equation
+$\delta_T P = P|_T - P = Q$ on $V_n$, and the operator identity
+$\delta_T = e^{Y\partial_X} - 1$ inverted it through the Bernoulli
+generating function $z/(e^z - 1) = \sum_k B_k z^k/k!$
+(Lemma~\ref{lem:Bernoulli-inv}).  Dropping the polynomial restriction,
+the kernel must solve the same shift-difference equation with a
+power-law right-hand side --- the identity
+\eqref{eq:tildekT-coboundary} of
+Lemma~\ref{lem:tildekT-coboundary} below, whose right side is a
+combination of pure powers $\tau^{\sigma - 1}$.  The function that
+inverts the unit shift against a single power is the Hurwitz zeta,
+$\zeta(\sigma, \tau + 1) - \zeta(\sigma, \tau) = -\tau^{-\sigma}$, so a
+combination of Hurwitz zetas is the natural solution, and the
+Bernoulli inversion of \S\ref{sec:periods} is exactly its integer-$s$
+shadow through $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ --- the Bernoulli
+numbers being zeta values at non-positive integers.  An alternative
+derivation, starting from the classical Mellin transform and demanding
+contour-invariance, is recorded in
+Appendix~\ref{app:hurwitz-derivation}; the present section is
+self-contained without it.
+
+\subsection{Well-definedness of the two-segment functional}\label{subsec:well-defined}
+
+Write $\HH_f := \HH \setminus \Gamma\!\cdot\! f^{-1}(\infty)$ for the
+upper half-plane with the $\Gamma$-orbit of the interior poles of $f$
+removed, and call a contour pair
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ \emph{admissible} if
+$\tau_0 \in \HH_f$ and both segments lie in $\HH_f$.  For
+$f \in M^!_k$ there are no interior poles, so $\HH_f = \HH$ and every
+pair is admissible.
+
+\begin{lemma}[Shift-difference identity for $\widetilde{k}_T$]\label{lem:tildekT-coboundary}
+The kernel $\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def} is
+analytic in $\tau \in \HH$ and meromorphic in $s \in \CC$, and
+satisfies
 \begin{equation}\label{eq:tildekT-coboundary}
-  \widetilde{k}_T(\tau_0, s) \;-\; \widetilde{k}_T(\tau_0 - 1, s)
-  \;=\; -\tau_0^{s-1} \;+\; e^{i\pi(s-1)}\,\tau_0^{k - 1 - s}.
+  \widetilde{k}_T(\tau, s) \;-\; \widetilde{k}_T(\tau - 1, s)
+  \;=\; -\tau^{s-1} \;+\; e^{i\pi(s-1)}\,\tau^{k - 1 - s}
 \end{equation}
-The right side picks up the $S$-segment endpoint contribution at
-$-1/\tau_0 = e^{i\pi}\tau_0^{-1}/(-1) = e^{i\pi}/\tau_0$ via the
-branch identity $(-1/\tau_0)^{s-1} = e^{i\pi(s-1)}\tau_0^{-(s-1)}$
-combined with the Jacobian $d(-1/\tau_0)/d\tau_0 = \tau_0^{-2}$ and
-the modularity factor $\tau_0^k$, giving $e^{i\pi(s-1)}\tau_0^{k-1-s}$
-after simplification.
-
-Equation \eqref{eq:tildekT-coboundary} is the complex-$s$ analog of
-the polynomial coboundary equation $\delta_T P = Q$ of
-\S\ref{sec:periods}.  The Hurwitz raising identity
-\[
-  \zeta(\sigma, a + 1) \;-\; \zeta(\sigma, a)
-  \;=\; -a^{-\sigma}
-\]
-inverts the shift operator $\tau \mapsto \tau - 1$ for any complex
-$\sigma$, on the analytic function $\zeta(\sigma, \tau + 1)$.
-Applying at $(\sigma, a) = (1 - s, \tau_0)$ and $(\sigma, a) =
-(s - (k - 1), \tau_0)$, and combining with the sign $e^{i\pi(s-1)}$
-gives \eqref{eq:tildekT-def}.
-
-\begin{lemma}\label{lem:Lambda-DR-tau0-invariant}
-For $f \in M^!_k$, $  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
-%\Lambda^*(f, s; \tau_0)
-defined by
-\eqref{eq:Lambda-DR-general} is independent of $\tau_0 \in \HH$ for
-every $s \in \CC$.
+for every $\tau \in \HH$ and every $s \in \CC$.
 \end{lemma}
 \begin{proof}
-Direct $\tau_0$-differentiation, using \eqref{eq:tildekT-coboundary}
-to cancel the boundary contributions from the two segments.  Both
-integrals in \eqref{eq:Lambda-DR-general} are finite at every
-$\tau_0 \in \HH$ because $f$ has no poles in $\HH$ and the kernels
-$\tau^{s-1}$, $\widetilde{k}_T(\tau, s)$ are analytic in $\tau \in
-\HH$ for every fixed $s \in \CC$ (the Hurwitz $\zeta(\sigma, a)$ is
-analytic in $a$ on $\mathrm{Re}(a) > 0$).
+Analyticity in $\tau$ is immediate: each Hurwitz factor
+$\zeta(\,\cdot\,, \tau + 1)$ has second argument with
+$\mathrm{Re}(\tau + 1) > 1$ on $\HH$, where $\zeta(\sigma, a)$ is
+analytic in $a$.  For the identity, the Hurwitz raising relation
+$\zeta(\sigma, a + 1) - \zeta(\sigma, a) = -a^{-\sigma}$
+\cite[\S25.11.3]{DLMF} at $(\sigma, a) = (1 - s, \tau)$ and at
+$(\sigma, a) = (s - (k - 1), \tau)$ gives
+\[
+  \zeta(1 - s, \tau + 1) - \zeta(1 - s, \tau) = -\tau^{s-1},
+  \qquad
+  \zeta(s - (k-1), \tau + 1) - \zeta(s - (k-1), \tau) = -\tau^{k - 1 - s}.
+\]
+Since
+$\widetilde{k}_T(\tau, s) = \zeta(1-s, \tau+1) - e^{i\pi(s-1)}\zeta(s-(k-1), \tau+1)$
+and, shifting $\tau \mapsto \tau - 1$,
+$\widetilde{k}_T(\tau - 1, s) = \zeta(1-s, \tau) - e^{i\pi(s-1)}\zeta(s-(k-1), \tau)$,
+subtracting gives
+$\widetilde{k}_T(\tau, s) - \widetilde{k}_T(\tau - 1, s) = -\tau^{s-1}
++ e^{i\pi(s-1)}\tau^{k-1-s}$, which is \eqref{eq:tildekT-coboundary}.
 \end{proof}
 
-\subsection{The Hurwitz-unfolding lemma}\label{subsec:hurwitz-unfold}
+\begin{lemma}[Finiteness]\label{lem:Lstar-finite}
+Let $f$ be any meromorphic modular form of weight $k$ on $\Gamma$.
+For every admissible contour pair
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ and every $s \in \CC$, both
+integrals in \eqref{eq:Lambda-DR-general} are finite, so
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is well defined.  In
+particular this holds for every $f \in M^!_k$ and every
+$\tau_0 \in \HH$.
+\end{lemma}
+\begin{proof}
+By admissibility both segments are compact and lie in $\HH_f$, on
+which $f$ is holomorphic; the kernels $\tau^{s-1}$ and
+$\widetilde{k}_T(\tau, s)$ are analytic in $\tau \in \HH$ for each
+fixed $s$ (Lemma~\ref{lem:tildekT-coboundary}).  A continuous
+integrand on a compact contour has finite integral.  For
+$f \in M^!_k$ there are no interior poles, $\HH_f = \HH$, and every
+$\tau_0 \in \HH$ yields an admissible pair.
+\end{proof}
 
-\begin{lemma}[Hurwitz unfolding]\label{lem:hurwitz-unfold}
+\begin{lemma}[Local constancy and winding-invariance]\label{lem:Lstar-local-constancy}
+Let $f$ be any meromorphic modular form of weight $k$ on $\Gamma$.
+Then $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is unchanged
+under any continuous deformation of the admissible data
+$(\tau_0, \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ that does not move a
+segment across a point of $\Gamma\!\cdot\! f^{-1}(\infty)$;
+equivalently, it depends on the admissible pair only through the
+winding of the two segments about the interior poles of $f$.  In
+particular, for $f \in M^!_k$ --- where $\HH_f = \HH$ is simply
+connected --- $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is
+independent of $\tau_0 \in \HH$ and of the contour pair for every
+$s \in \CC$; we write $L^*(f, s)$ for the common value.
+\end{lemma}
+\begin{proof}
+Two kinds of variation can change the data: deforming the path shapes
+with endpoints fixed, and moving the basepoint $\tau_0$ (which drags
+the endpoints $-1/\tau_0$, $\tau_0 - 1$, $\tau_0$).
+
+\emph{Path shape.}  If a segment is deformed within $\HH_f$ with its
+endpoints fixed and without crossing a pole, the integrand
+$f(\tau)\,K(\tau, s)$ (with $K \in \{\tau^{s-1}, \widetilde{k}_T(\tau, s)\}$)
+is holomorphic on the swept region, so the integral is unchanged by
+Cauchy's theorem.
+
+\emph{Basepoint.}  Differentiating \eqref{eq:Lambda-DR-general} in
+$\tau_0$ --- legitimate by the finiteness of
+Lemma~\ref{lem:Lstar-finite} --- only the endpoints contribute.  The
+$T$-segment endpoints give
+$f(\tau_0)\,\widetilde{k}_T(\tau_0, s) - f(\tau_0 - 1)\,\widetilde{k}_T(\tau_0 - 1, s)$,
+and the $S$-segment endpoints give
+$f(\tau_0)\,\tau_0^{s-1} - f(-1/\tau_0)\,(-1/\tau_0)^{s-1}\,\tau_0^{-2}$.
+Using the modularity relations $f(\tau_0 - 1) = f(\tau_0)$ and
+$f(-1/\tau_0) = \tau_0^k f(\tau_0)$ together with
+$(-1/\tau_0)^{s-1} = e^{i\pi(s-1)}\tau_0^{1-s}$, the total
+$\tau_0$-derivative of $L^*$ reduces to
+\[
+  i^{-s} f(\tau_0)\!\left[\widetilde{k}_T(\tau_0, s) - \widetilde{k}_T(\tau_0 - 1, s) + \tau_0^{s-1} - e^{i\pi(s-1)}\tau_0^{k-1-s}\right] = 0
+\]
+by the shift-difference identity \eqref{eq:tildekT-coboundary} of
+Lemma~\ref{lem:tildekT-coboundary}.  Hence $L^*$ is constant under any
+admissible motion of $\tau_0$.
+
+Combining the two, $L^*$ is locally constant on the space of
+admissible configurations and can change only when a segment crosses a
+pole: it depends only on the winding data.  For $f \in M^!_k$ there
+are no interior poles, $\HH_f = \HH$ is simply connected, every
+admissible configuration is joined to every other without crossing a
+pole, and $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is
+therefore globally independent of $\tau_0$ and of the contour pair.
+\end{proof}
+
+\subsection{The unfolding engine}\label{subsec:hurwitz-unfold}
+
+\begin{proposition}[Hurwitz unfolding]\label{prop:hurwitz-unfold}
 For every positive integer $n$ and every $\nu \in \CC$,
 \begin{equation}\label{eq:hurwitz-unfold}
   \int_i^{i+1}\! e^{2\pi i n \sigma}\,\zeta(\nu, \sigma)\,d\sigma
   \;=\; i^{1 - \nu}\,(2\pi n)^{\nu - 1}\,\Gamma(1 - \nu,\, 2\pi n).
 \end{equation}
-\end{lemma}
+\end{proposition}
 \begin{proof}
 First assume $\mathrm{Re}(\nu) > 1$, where the Hurwitz series $\zeta(\nu,
 \sigma) = \sum_{m \ge 0}(\sigma + m)^{-\nu}$ converges uniformly on
@@ -1221,6 +1327,12 @@ $e^{2\pi i n m} = 1$:
   \;=\; \int_i^{i+\infty}\! e^{2\pi i n u}\,u^{-\nu}\,du,
 \]
 an integral along the horizontal ray $\{i + t : t \ge 0\} \subset \HH$.
+This collapse --- the integer translates $\sigma \mapsto \sigma + m$ in
+the Hurwitz series gluing the unit segments $[i + m, i + m + 1]$
+end-to-end into the ray $[i, i\infty)$ --- is the \emph{unfolding} of the
+period integral $\int_i^{i+1}$ into $\int_i^{i\infty}$, in the manner of
+the Rankin--Selberg unfolding method; it is what the name of the result
+refers to.
 
 Substitute $t = -2\pi i n u$: $u = it/(2\pi n)$, $du = i\,dt/(2\pi n)$,
 and $u^{-\nu} = i^{-\nu}(2\pi n)^\nu t^{-\nu}$ on the principal branch
@@ -1252,87 +1364,162 @@ Analytic continuation in $\nu$ extends \eqref{eq:hurwitz-unfold} to
 all complex $\nu$.
 \end{proof}
 
-\subsection{Per-mode evaluation: proof of Theorem~\ref{thm:bfk-eq}}
-
-By Lemma~\ref{lem:Lambda-DR-tau0-invariant}, the value $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = L^*(f, s)$
-is common to all admissible contours and basepoints.  At the
-elliptic fixed-point basepoint $\tau_0 = i$, the $S$-segment $[-1/i,
-i] = [i, i]$ has zero length and the $S$-integral in
-\eqref{eq:Lambda-DR-general} vanishes identically, leaving
-\[
-  L^*(f, s; \gamma^S_{\tau_0}(i)=0, \gamma^T_{\tau_0}(i))
-  \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau.
-\]
-Expanding $f = \sum_n c_f(n) q^n$ as a $q$-series and swapping sum
-and integral (justified by uniform convergence of the $q$-series on
-the compact segment $[i - 1, i]$, including any finite number of
-polar modes since $|q^{-1}| = e^{2\pi}$ is bounded there) gives
-\begin{equation}\label{eq:per-mode-tau0-i}
-  L^*(f, s)
-  \;=\; i^{-s}\!\sum_n\! c_f(n)\!\int_{i - 1}^{i}\! e^{2\pi i n \tau}\,
-  \widetilde{k}_T(\tau, s)\,d\tau.
+\begin{lemma}[Constant-mode integral]\label{lem:const-mode}
+For every $s \in \CC$,
+\begin{equation}\label{eq:const-mode-integral}
+  \int_{i - 1}^{i}\!\widetilde{k}_T(\tau, s)\,d\tau
+  \;=\; -\frac{i^s}{s} \;+\; e^{i\pi(s-1)}\,\frac{i^{k - s}}{k - s}.
 \end{equation}
-We treat the constant Fourier mode $n = 0$ and the non-constant modes
-$n \ne 0$ separately.
-
-\paragraph{The constant Fourier mode.}
-For $n = 0$, the integrand reduces to $\widetilde{k}_T(\tau, s)$
-itself.  The Hurwitz zeta has antiderivative $\int\zeta(\sigma,
-a)\,da = -\zeta(\sigma - 1, a)/(\sigma - 1) + C$ for $\sigma \ne 1$,
-and the Hurwitz raising identity $\zeta(\sigma - 1, a + 1) -
-\zeta(\sigma - 1, a) = -a^{1 - \sigma}$ at $a = i$ gives
+\end{lemma}
+\begin{proof}
+The Hurwitz zeta has antiderivative
+$\int \zeta(\sigma, a)\,da = -\zeta(\sigma - 1, a)/(\sigma - 1) + C$ for
+$\sigma \ne 1$; evaluating across the shifted segment and applying the
+raising identity
+$\zeta(\sigma - 1, a + 1) - \zeta(\sigma - 1, a) = -a^{1 - \sigma}$ at
+$a = i$ gives
 \begin{equation}\label{eq:hurwitz-antideriv}
   \int_{i - 1}^{i}\! \zeta(\sigma, \tau + 1)\,d\tau
   \;=\; \int_i^{i + 1}\!\zeta(\sigma, u)\,du
   \;=\; \frac{i^{1 - \sigma}}{\sigma - 1}.
 \end{equation}
-Applying \eqref{eq:hurwitz-antideriv} to each half of $\widetilde{k}_T$
-at $\sigma = 1 - s$ and $\sigma = s - (k - 1)$:
-\[
-  \int_{i - 1}^{i}\!\widetilde{k}_T(\tau, s)\,d\tau
-  \;=\; -\frac{i^s}{s}
-  \;+\; e^{i\pi(s-1)}\,\frac{i^{k - s}}{k - s}.
-\]
-The overall $i^{-s}$ prefactor and the phase collapse
-$i^{-s}\,e^{i\pi(s-1)}\,i^{k-s} = -i^k$ give the constant-term
-contribution
+Applying \eqref{eq:hurwitz-antideriv} to the two halves of
+$\widetilde{k}_T(\tau, s)$ at $\sigma = 1 - s$ and
+$\sigma = s - (k - 1)$ yields \eqref{eq:const-mode-integral}.
+\end{proof}
+
+\subsection{Restated theorem and proof}\label{subsec:bfk-proof}
+
+For reference, the theorem statement is the following.
+
+\begin{theorem}[$L$-function for weakly holomorphic forms -- Theorem~\ref{thm:bfk-eq}, restated]\label{thm:bfk-eq2}
+Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
+the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
+\in \HH$ and every $s \in \CC$,
+\begin{equation}\label{eq:Lambda-DR-general-restated}
+ L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;:=\; i^{-s}\!\left[
+    \int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
+    \;+\;
+    \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \right]
+\end{equation}
+is finite and independent of both $\tau_0 \in \HH$ and of the
+admissible contour choices $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  We
+write $L^*(f, s)$ for the common value.
+
+Specialising to the elliptic fixed point $\tau_0 = i$ of the modular
+involution $S\colon \tau \mapsto -1/\tau$, the $S$-segment $[-1/i, i]$
+collapses to the single point $i$, the $S$-integral in
+\eqref{eq:Lambda-DR-general-restated} vanishes, and $L^*$ reduces to a
+single integral on the compact contour $[i - 1, i] \subset \HH$, with
+closed-form sum
+\begin{equation}\label{eq:bfk-eq-statement-restated}
+  L^*(f, s)
+  \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \;=\; -c_f(0)\!\left(\frac{1}{s} + \frac{i^k}{k - s}\right)
+  + \sum_{n \ne 0}\! c_f(n)\!\left[
+    \frac{\Gamma(s,\, 2\pi n)}{(2\pi n)^s}
+    + i^k\,\frac{\Gamma(k - s,\, 2\pi n)}{(2\pi n)^{k-s}}
+  \right].
+\end{equation}
+The right side of \eqref{eq:bfk-eq-statement-restated} is the completed
+$L$-function $L^*(f, s)$ of $f$. For holomorphic modular forms it reduces
+to the classical Hecke--Weil Mellin transform. For weak modular forms, it
+reduces to the results of~\cite{BFK2011}, \emph{proving} that their
+non-holomorphic regulator prescription gives the unique, canonical
+$L$-function for every weak modular form.
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:bfk-eq}, aka Theorem~\ref{thm:bfk-eq2}.]
+The proof runs in seven steps: well-definedness (Steps 1--2), the
+collapse at $\tau_0 = i$ (Step 3), the per-mode evaluation
+(Steps 4--6), and the identification (Step 7).
+
+\paragraph{Step 1: finiteness.}
+For $f \in M^!_k$ one has $\HH_f = \HH$, so every $\tau_0 \in \HH$
+gives an admissible contour pair and both integrals in
+\eqref{eq:Lambda-DR-general-restated} are finite for every
+$s \in \CC$ by Lemma~\ref{lem:Lstar-finite}.
+
+\paragraph{Step 2: $\tau_0$- and contour-independence.}
+By Lemma~\ref{lem:Lstar-local-constancy}, specialised to the
+simply-connected $\HH_f = \HH$ of a weak form,
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is independent of
+$\tau_0$ and of the admissible contour pair.  This establishes the
+well-definedness assertion of \eqref{eq:Lambda-DR-general-restated}
+and licenses writing $L^*(f, s)$ for the common value.
+
+\paragraph{Step 3: collapse at $\tau_0 = i$.}
+At the elliptic fixed point $\tau_0 = i$ the $S$-segment endpoints
+coincide, $-1/i = i$, so $\gamma^S_i$ has zero length and the
+$S$-integral in \eqref{eq:Lambda-DR-general-restated} vanishes.  By
+Step 2 the value is unchanged, leaving
+\begin{equation}\label{eq:tau0-i-collapse}
+  L^*(f, s)
+  \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau.
+\end{equation}
+
+\paragraph{Step 4: per-mode expansion.}
+Expanding $f = \sum_n c_f(n)\,q^n$ in \eqref{eq:tau0-i-collapse} and
+swapping sum and integral --- justified by uniform convergence of the
+$q$-series on the compact segment $[i - 1, i]$, including the finitely
+many polar modes, since $|q^{-1}| = e^{2\pi}$ is bounded there ---
+gives
+\begin{equation}\label{eq:per-mode-tau0-i}
+  L^*(f, s)
+  \;=\; i^{-s}\!\sum_n\! c_f(n)\!\int_{i - 1}^{i}\! e^{2\pi i n \tau}\,
+  \widetilde{k}_T(\tau, s)\,d\tau.
+\end{equation}
+
+\paragraph{Step 5: the constant mode.}
+For $n = 0$, Lemma~\ref{lem:const-mode} and the phase collapse
+$i^{-s}\,e^{i\pi(s-1)}\,i^{k-s} = -i^k$ give the contribution
 \begin{equation}\label{eq:const-term}
   c_f(0)\cdot i^{-s}\!\int_{i - 1}^{i}\!\widetilde{k}_T(\tau, s)\,d\tau
-  \;=\; -c_f(0)\!\left(\frac{1}{s} + \frac{i^k}{k - s}\right).
+  \;=\; -c_f(0)\!\left(\frac{1}{s} + \frac{i^k}{k - s}\right),
 \end{equation}
-This matches the polar term of \cite[Lemma~2.1]{1806} (equivalently,
-the polar piece of \cite[Thm.~1.1]{BFK2011}) at the splitting point
-$B = 1$.
+the polar term of \cite[Lemma~2.1]{1806} (equivalently the polar piece
+of \cite[Thm.~1.1]{BFK2011}) at the splitting point $B = 1$.
 
-\paragraph{The non-constant Fourier modes.}
+\paragraph{Step 6: the non-constant modes.}
 For $n \ne 0$, substituting $\sigma = \tau + 1$ shifts the contour to
-$[i, i + 1]$ with the prefactor $e^{-2\pi i n} = 1$.  Apply
-Lemma~\ref{lem:hurwitz-unfold} to each half of $\widetilde{k}_T(\tau,
-s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$,
-i.e.\ at $\nu = 1 - s$ and $\nu = s - (k-1)$:
-\begin{align*}
+$[i, i + 1]$ with prefactor $e^{-2\pi i n} = 1$, and
+Proposition~\ref{prop:hurwitz-unfold} applied to the two halves of
+$\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$
+at $\nu = 1 - s$ and $\nu = s - (k - 1)$ gives
+\begin{align}
   \int_i^{i+1}\! e^{2\pi i n \sigma}\,\zeta(1 - s, \sigma)\,d\sigma
-  \;&=\; i^s\,(2\pi n)^{-s}\,\Gamma(s,\, 2\pi n),\\
+  \;&=\; i^s\,(2\pi n)^{-s}\,\Gamma(s,\, 2\pi n),
+  \label{eq:unfold-half1}\\
   \int_i^{i+1}\! e^{2\pi i n \sigma}\,\zeta(s - (k - 1), \sigma)\,d\sigma
   \;&=\; i^{k - s}\,(2\pi n)^{s - k}\,\Gamma(k - s,\, 2\pi n).
-\end{align*}
+  \label{eq:unfold-half2}
+\end{align}
 The first half against the $i^{-s}$ prefactor gives
-$\Gamma(s, 2\pi n)/(2\pi n)^s$; the second half against the relative
-phase $-e^{i\pi(s-1)}$ collapses via $-i^{-s}\,e^{i\pi(s-1)}\,i^{k-s}
-= i^k$ to $i^k\,\Gamma(k - s, 2\pi n)/(2\pi n)^{k - s}$.  Adding the
-two halves gives the per-mode summand
+$\Gamma(s, 2\pi n)/(2\pi n)^s$; the second against the relative phase
+$-e^{i\pi(s-1)}$ collapses via $-i^{-s}\,e^{i\pi(s-1)}\,i^{k-s} = i^k$
+to $i^k\,\Gamma(k - s, 2\pi n)/(2\pi n)^{k - s}$.  Hence the per-mode
+summand is
 \begin{equation}\label{eq:nonconst-term}
   c_f(n)\cdot i^{-s}\!\int_{i - 1}^{i}\! e^{2\pi i n \tau}\,
   \widetilde{k}_T(\tau, s)\,d\tau
   \;=\; c_f(n)\!\left[\frac{\Gamma(s, 2\pi n)}{(2\pi n)^s}
   + i^k\,\frac{\Gamma(k - s, 2\pi n)}{(2\pi n)^{k - s}}\right],
 \end{equation}
-which is the $B = 1$ value of the cuspidal summand of
-\cite[Lemma~2.1]{1806}.
-
+the $B = 1$ value of the cuspidal summand of \cite[Lemma~2.1]{1806}.
 Summing \eqref{eq:const-term} and \eqref{eq:nonconst-term} over all
-Fourier modes reproduces the closed-form sum
-\eqref{eq:bfk-eq-statement}.
+Fourier modes in \eqref{eq:per-mode-tau0-i} reproduces the closed-form
+sum \eqref{eq:bfk-eq-statement-restated}.
+
+\paragraph{Step 7: identification.}
+The right side of \eqref{eq:bfk-eq-statement-restated} is the completed
+$L$-function $L^*(f, s)$: for holomorphic $f$ it is the classical
+Hecke--Weil Mellin transform, and for weak $f$ it is the
+incomplete-gamma sum of \cite{BFK2011}, here obtained at every
+$s \in \CC$ from a finite contour with no regulator.  This completes
+the proof.
+\end{proof}
 
 \subsection{Worked example at $k = 12$: Bernoulli polynomials and numerics}\label{subsec:k12-worked}
 
@@ -1425,7 +1612,7 @@ so both integrals in \eqref{eq:Lambda-DR-def} are finite and
 $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is well-defined.  This proves
 Theorem~\ref{thm:wall-crossing}(a).
 
-For local constancy, the argument of \S\ref{subsec:kT-derivation}
+For local constancy, the argument of \S\ref{subsec:well-defined}
 applies verbatim: differentiating \eqref{eq:Lambda-DR-def} in $\tau_0$
 gives the boundary contributions
 \[
@@ -1541,7 +1728,7 @@ $\Gamma$-images of interior poles of $f$.  As $\Lambda \to \infty$:
   along $\mathrm{Re}(\tau) = \eps$ (modulo orientation, which fixes the
   $L^*_{\rm int}$ convention).
 \end{itemize}
-By Lemma~\ref{lem:Lambda-DR-tau0-invariant} (extended to meromorphic
+By Lemma~\ref{lem:Lstar-local-constancy} (extended to meromorphic
 $f$ within a fixed connected component, by
 \S\ref{subsec:existence-local-constancy} above), the left side is
 $\Lambda$-independent, so
@@ -1762,7 +1949,7 @@ arithmetic structure.
 
 \section{Algebraic derivation of the Hurwitz-zeta kernel}\label{app:hurwitz-derivation}
 
-The body of \S\ref{subsec:kT-derivation} derives $\widetilde{k}_T(\tau, s)$ by
+The body of \S\ref{subsec:well-defined} derives $\widetilde{k}_T(\tau, s)$ by
 differentiating the two-segment functional in $\tau_0$ and demanding the
 result vanish.  Here we record the parallel derivation that proceeds
 \emph{from} the classical Mellin transform of a holomorphic cusp form,
@@ -1878,7 +2065,7 @@ which by construction satisfies \eqref{eq:appB-shift-diff} and hence
 (both Hurwitz zetas have second argument $\tau + 1$ with
 $\mathrm{Re}(\tau + 1) > 0$) and meromorphic in $s$ with simple poles
 only at $s = 0$ and $s = k$, where the per-mode integrals collect
-removable cancellations (cf.\ Lemma~\ref{lem:hurwitz-unfold}).
+removable cancellations (see Proposition~\ref{prop:hurwitz-unfold}).
 Equation \eqref{eq:appB-kT-final} is the kernel
 \eqref{eq:tildekT-def} of the main text.
 
