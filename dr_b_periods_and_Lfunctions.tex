@@ -1599,90 +1599,167 @@ $q^{-1}$ cusp mode.
 
 \section{Wall-crossing for meromorphic forms: proof of Theorem~\ref{thm:wall-crossing}}\label{sec:wall-crossing}
 
-\subsection{Existence and local constancy}\label{subsec:existence-local-constancy}
-%DAM: THERE IS NO PROOF ANYWHERE IN THIS SECTION. THERE IS NOT EVEN A STATEMENT IN THIS SECTION OF THE STATEMENT THAT IS CLAIMED TO HAVE BEEN PROVEN. Needs significant sharpening.
-Let $f$ be a meromorphic modular form of even weight $k$ on $\Gamma$,
-and let $\tau_0 \in \HH$ be a basepoint such that the contour pair
-\eqref{eq:contour-pair} avoids the $\Gamma$-orbit of $f^{-1}(\infty)
-\cap \HH$.  The integrands $f(\tau)\,\tau^{s-1}$ and $f(\tau)\,
-\widetilde{k}_T(\tau, s)$ are continuous on each compact segment for
-every fixed $s \in \CC$ (the kernels are analytic in $\tau \in \HH$),
-so both integrals in \eqref{eq:Lambda-DR-def} are finite and
-%\Lambda^*(f, s; \tau_0)
-$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is well-defined.  This proves
-Theorem~\ref{thm:wall-crossing}(a).
+\subsection{Overview}\label{subsec:wall-crossing-overview}
 
-For local constancy, the argument of \S\ref{subsec:well-defined}
-applies verbatim: differentiating \eqref{eq:Lambda-DR-def} in $\tau_0$
-gives the boundary contributions
-\[
-  i^{-s} f(\tau_0)\!\left[\widetilde{k}_T(\tau_0, s)
-  - \widetilde{k}_T(\tau_0 - 1, s)
-  + \tau_0^{s-1} - e^{i\pi(s-1)}\,\tau_0^{k - 1 - s}\right] \;=\; 0
-\]
-by \eqref{eq:tildekT-coboundary}, provided the modularity identities
-$f(-1/\tau_0) = \tau_0^k f(\tau_0)$ and $f(\tau_0 - 1) = f(\tau_0)$
-hold at the contour endpoints (which they do for every meromorphic
-modular form, irrespective of the location of interior poles).  Hence
-%\Lambda^*(f, s; \tau_0)
-$dL^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})/d\tau_0 = 0$ whenever the contour
-pair varies within the admissible open subset of $\HH$.  This
-establishes Theorem~\ref{thm:wall-crossing}(b).
+Theorem~\ref{thm:wall-crossing} has three parts.  Parts (a)
+(finiteness) and (b) (dependence on the admissible contour pair only
+through its homotopy class in $\HH_f$) hold for arbitrary meromorphic
+$f$ and were already proved, without any cuspidality hypothesis, as
+Lemma~\ref{lem:Lstar-finite} and Lemma~\ref{lem:Lstar-local-constancy}
+of \S\ref{sec:hurwitz-extension} --- stated there in exactly this
+generality so as to serve here.  The new content of this section is
+part (c): the explicit residue $\mathcal{R}_{\tau_p}(f, s)$ by which
+$L^*$ jumps when the contour pair crosses an interior pole
+(Lemma~\ref{lem:segment-crossing},
+Proposition~\ref{prop:wall-crossing-residue}), assembled into the proof
+of Theorem~\ref{thm:wall-crossing} below.  We then reduce $L^*$ to the
+deformed-Mellin $L$-function $L_f^*(s)_{\rm int}$ of \cite{1806} on
+forms regular at the cusp (Corollary~\ref{cor:1806-coincide}), record
+the integer-$s$ period-polynomial form of the wall-crossing
+(Corollary~\ref{cor:period-wall-crossing}), and state the per-mode
+closed form for interior-pole forms regular at the cusp
+(Proposition~\ref{prop:interior-pole-modes}).
 
-\subsection{Wall-crossing across an interior pole}\label{subsec:wall-crossing}
+\subsection{The wall-crossing residue}\label{subsec:wall-crossing}
 
-Suppose a continuous one-parameter deformation of $\tau_0$ to
-$\tau_0'$ in $\HH$ moves the $S$-segment $[-1/\tau_0, \tau_0]$ across
-an interior pole $\tau_p \in \HH$ of $f$ (the $T$-segment case is
-identical up to the choice of kernel; see below).  Concretely, let
-$\Sigma_t \subset \HH$ denote the $S$-segment at parameter $t \in [0,
-1]$, with $\Sigma_0$ the $S$-segment at $\tau_0$ and $\Sigma_1$ at
-$\tau_0'$, and assume that the swept-out region $\bigcup_t \Sigma_t$
-encloses $\tau_p$ with winding number $\sigma_p^S \in \{+1, -1\}$
-(orientation of the crossing).  By Cauchy's theorem applied to the
-closed contour $\Sigma_1 - \Sigma_0$,
-\[
-  \int_{\Sigma_1}\! f(\tau)\,\tau^{s - 1}\,d\tau
-  \;-\; \int_{\Sigma_0}\! f(\tau)\,\tau^{s - 1}\,d\tau
-  \;=\; 2\pi i\,\sigma_p^S\,\Res(f, \tau_p)\,\tau_p^{s - 1}
-\]
-for a simple pole of $f$ at $\tau_p$.  An identical argument applies
-when the $T$-segment $[\tau_0 - 1, \tau_0]$ sweeps across $\tau_p$,
-yielding
-\[
-  \int_{T\text{-seg at }\tau_0'} \!-\! \int_{T\text{-seg at }\tau_0}
-  \;=\; 2\pi i\,\sigma_p^T\,\Res(f, \tau_p)\,\widetilde{k}_T(\tau_p, s),
-\]
-where $\sigma_p^T \in \{+1, -1\}$ encodes the orientation of the
-$T$-segment crossing.  Combining (with the $i^{-s}$ prefactor) gives
+We compute the jump in $L^*$ when a contour deformation drags one
+segment across a single interior pole.
+
+\begin{lemma}[Single-segment crossing]\label{lem:segment-crossing}
+Let $f$ be a meromorphic modular form of weight $k$ with a simple pole
+at $\tau_p \in \HH$, and let
+$K(\tau, s) \in \{\tau^{s-1},\, \widetilde{k}_T(\tau, s)\}$ be either
+kernel.  Suppose a continuous deformation carries a segment from
+$\Sigma_0$ to $\Sigma_1$ (within $\HH_f$ away from $\tau_p$) so that
+the closed loop $\Sigma_1 - \Sigma_0$ encircles $\tau_p$ once with
+orientation $\sigma \in \{+1, -1\}$ and no other pole.  Then
+\begin{equation}\label{eq:segment-crossing}
+  \int_{\Sigma_1}\! f(\tau)\,K(\tau, s)\,d\tau
+  \;-\; \int_{\Sigma_0}\! f(\tau)\,K(\tau, s)\,d\tau
+  \;=\; 2\pi i\,\sigma\,\Res(f, \tau_p)\,K(\tau_p, s).
+\end{equation}
+\end{lemma}
+\begin{proof}
+The kernel $K(\,\cdot\,, s)$ is analytic on $\HH$, so
+$f(\tau)\,K(\tau, s)$ has a simple pole at $\tau_p$ with residue
+$\Res(f, \tau_p)\,K(\tau_p, s)$ and no other singularity in the region
+swept between $\Sigma_0$ and $\Sigma_1$.  The difference of the two
+integrals is the integral over the closed loop $\Sigma_1 - \Sigma_0$,
+which by the residue theorem equals
+$2\pi i\,\sigma\,\Res(f, \tau_p)\,K(\tau_p, s)$.
+\end{proof}
+
+\begin{proposition}[Wall-crossing residue]\label{prop:wall-crossing-residue}
+Let $f$ be a meromorphic modular form of weight $k$, and let
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ and
+$(\gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})$ be two admissible contour
+pairs whose homotopy classes in $\HH_f$ differ by a single crossing of
+a simple interior pole $\tau_p \in \HH$ of $f$, with $S$- and
+$T$-segment winding numbers
+$\sigma^S_{\tau_p}, \sigma^T_{\tau_p} \in \{-1, 0, +1\}$.  Then
 \begin{equation}\label{eq:wall-crossing-explicit}
-  %\Lambda^*(f, s; \tau_0)
   L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;-\; L^*(f, s; \gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})
   \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!\left[
-    \sigma_p^S\,\tau_p^{s-1} \;+\; \sigma_p^T\,\widetilde{k}_T(\tau_p, s)
-  \right].
+    \sigma^S_{\tau_p}\,\tau_p^{s-1} \;+\; \sigma^T_{\tau_p}\,\widetilde{k}_T(\tau_p, s)
+  \right],
 \end{equation}
-This is the residue formula $\mathcal{R}_{\tau_p}(f, s)$ of
-\eqref{eq:residue-formula}, with the winding-number indices
-$\sigma_p^S, \sigma_p^T$ making explicit the dependence on which
-segment(s) cross.  At a generic wall only one of $\sigma_p^S,
-\sigma_p^T$ is nonzero; both can be nonzero on the codimension-two
-loci where the $S$- and $T$-segments simultaneously cross
-$\Gamma$-images of $\tau_p$.
+which is the residue $\mathcal{R}_{\tau_p}(f, s)$ of
+\eqref{eq:residue-formula}.
+\end{proposition}
+\begin{proof}
+Apply Lemma~\ref{lem:segment-crossing} to the $S$-segment with kernel
+$\tau^{s-1}$ and winding $\sigma^S_{\tau_p}$, and to the $T$-segment
+with kernel $\widetilde{k}_T(\tau, s)$ and winding $\sigma^T_{\tau_p}$.
+Carried through the common prefactor $i^{-s}$ of
+\eqref{eq:Lambda-DR-def}, the two contributions sum to
+\eqref{eq:wall-crossing-explicit}.  At a generic wall exactly one of
+$\sigma^S_{\tau_p}, \sigma^T_{\tau_p}$ is nonzero, according to which
+segment crosses; both are nonzero only on the codimension-two locus
+where the two segments meet $\Gamma$-images of $\tau_p$ simultaneously.
+\end{proof}
 
-For a pole of order $m \ge 1$ at $\tau_p$ with Laurent expansion
-$f(\tau) = \sum_{\ell \ge -m} r_{f, \tau_p}(\ell)(\tau - \tau_p)^\ell$,
-the residue formula \eqref{eq:wall-crossing-explicit} generalises by
-replacing $\Res(f, \tau_p)\,K(\tau_p, s)$ with
-$\sum_{\ell = 1}^{m}\!r_{f, \tau_p}(-\ell)\,
-\partial_{\tau_p}^{\ell - 1} K(\tau_p, s)/(\ell - 1)!$ for each
-relevant kernel $K \in \{\tau^{s-1}, \widetilde{k}_T(\tau, s)\}$, by
-the standard residue formula for higher-order poles.
+For a pole of order $m \ge 1$ the same computation applies verbatim,
+with $\Res(f, \tau_p)\,K(\tau_p, s)$ in \eqref{eq:segment-crossing}
+replaced by the order-$m$ residue
+$\sum_{\ell = 1}^{m} r_{f, \tau_p}(-\ell)\,\partial_{\tau_p}^{\ell - 1} K(\tau_p, s)/(\ell - 1)!$,
+where $r_{f, \tau_p}(-\ell)$ are the principal-part Laurent
+coefficients of $f$ at $\tau_p$; the generalisation is routine, and we
+record only the simple-pole case.
+
+\subsection{Restated theorem and proof}\label{subsec:wall-crossing-proof}
+
+For reference, the theorem statement is the following.
+
+\begin{theorem}[$L$-function for meromorphic modular forms -- Theorem~\ref{thm:wall-crossing}, restated]\label{thm:wall-crossing2}
+Let $k \in 2\ZZ$ and let $f$ be a meromorphic modular form of weight
+$k$ on $\Gamma$.  Write $\HH_f := \HH \setminus \Gamma\cdot
+f^{-1}(\infty)$ for the upper half-plane with the $\Gamma$-orbit of
+the interior poles of $f$ removed, and call the pair
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ \emph{admissible} if
+$\tau_0 \in \HH_f$ and both contours lie in $\HH_f$, with
+$\gamma^S_{\tau_0}$ running from $S^{-1}\tau_0 = -1/\tau_0$ to $\tau_0$
+and $\gamma^T_{\tau_0}$ from $T^{-1}\tau_0 = \tau_0 - 1$ to $\tau_0$.
+Define $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ by
+\eqref{eq:Lambda-DR-def} with the Hurwitz-zeta kernel
+$\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def}.  Then:
+\begin{enumerate}[label=(\alph*),leftmargin=2em]\itemsep0.25em
+\item Both integrals in \eqref{eq:Lambda-DR-def} are finite for every
+  admissible $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ and every $s \in
+  \CC$.
+\item $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ depends on the
+  admissible pair only through its homotopy class in $\HH_f$: any
+  continuous one-parameter family of admissible pairs --- including
+  variations of the anchoring basepoint $\tau_0$ --- leaves the value
+  unchanged.
+\item If two admissible configurations $(\gamma^S_{\tau_0},
+  \gamma^T_{\tau_0})$ and $(\gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})$ lie
+  in homotopy classes related by a single crossing of an interior
+  pole $\tau_p \in \HH$ of $f$, then
+\begin{equation}\label{eq:wall-crossing-statement-restated}
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;-\;
+  L^*(f, s; \gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})
+  \;=\; \mathcal{R}_{\tau_p}(f, s),
+\end{equation}
+where for a simple pole $\Res(f, \tau_p)$,
+\begin{equation}\label{eq:residue-formula-restated}
+  \mathcal{R}_{\tau_p}(f, s)
+  \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!
+  \left[\sigma^S_{\tau_p}\,\tau_p^{s - 1}
+  \;+\; \sigma^T_{\tau_p}\,\widetilde{k}_T(\tau_p, s)\right],
+\end{equation}
+with $\sigma^S_{\tau_p}, \sigma^T_{\tau_p} \in \{-1, 0, +1\}$ the
+winding-number contributions of $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$ across
+$\tau_p$ (the generic case has one nonzero and the other zero,
+according to which contour crossed).  Higher-order poles contribute
+via the corresponding derivatives in $\tau_p$ of
+\eqref{eq:residue-formula-restated}, as recorded after
+Proposition~\ref{prop:wall-crossing-residue}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:wall-crossing}, aka Theorem~\ref{thm:wall-crossing2}.]
+\emph{(a)} Finiteness of both integrals for any admissible pair is
+Lemma~\ref{lem:Lstar-finite}.
+\emph{(b)} Dependence on the admissible pair only through its homotopy
+class in $\HH_f$ --- invariance under any admissible deformation, the
+basepoint included --- is Lemma~\ref{lem:Lstar-local-constancy}.
+\emph{(c)} When two admissible classes differ by a single crossing of
+a simple interior pole $\tau_p$, the jump
+\eqref{eq:wall-crossing-statement-restated} is
+\eqref{eq:wall-crossing-explicit} of
+Proposition~\ref{prop:wall-crossing-residue}, equal to
+$\mathcal{R}_{\tau_p}(f, s)$ of \eqref{eq:residue-formula-restated};
+the order-$m$ case is the higher residue recorded after
+Proposition~\ref{prop:wall-crossing-residue}.
+\end{proof}
 
 \subsection{Reduction on regular-at-cusps meromorphic forms}\label{subsec:reduction-to-int}
 
-Let $f \in F_k$ be regular at the cusp $i\infty$, so $f(\tau) =
+We now reduce $L^*$ to the deformed-Mellin $L$-function
+$L_f^*(s)_{\rm int}$ of \cite{1806} on forms regular at the cusp.  Let
+$f \in F_k$ be regular at the cusp $i\infty$, so $f(\tau) =
 \sum_{n \ge N} c_f(n)\,q^n$ for some $N \ge 0$.
 
 \begin{lemma}[Cusp decay of the $T$-segment]\label{lem:cusp-decay}
@@ -1715,30 +1792,42 @@ polynomial-in-$\tau$ growth of $\widetilde{k}_T(\tau, s)$ from
 gives the stated bound.
 \end{proof}
 
-To match the deformed-Mellin construction of $L_f^*(s)_{\rm int}$
-(see \cite{1806}), take $\tau_0 = \eps + i\Lambda$ for some small
-$\eps \in \RR$ chosen so that $\mathrm{Re}(\tau_0) = \eps$ avoids all
-$\Gamma$-images of interior poles of $f$.  As $\Lambda \to \infty$:
-\begin{itemize}\itemsep0.1em
-\item The $T$-segment integral $\to 0$ by Lemma~\ref{lem:cusp-decay}
-  (using $N \ge 1$; for $N = 0$ the analog argument with the
-  constant-term subtraction $c_f(0)$ from \cite{1806} applies).
-\item The $S$-segment $[-1/\tau_0, \tau_0]$ approaches the
-  $\Lambda \to \infty$ limit of the $\Lambda$-truncated Mellin contour
-  along $\mathrm{Re}(\tau) = \eps$ (modulo orientation, which fixes the
-  $L^*_{\rm int}$ convention).
-\end{itemize}
-By Lemma~\ref{lem:Lstar-local-constancy} (extended to meromorphic
-$f$ within a fixed connected component, by
-\S\ref{subsec:existence-local-constancy} above), the left side is
-$\Lambda$-independent, so
+\begin{corollary}[$L^*$ on regular-at-cusps meromorphic forms -- Corollary~\ref{cor:1806-coincide}, restated]\label{cor:1806-coincide2}
+Let $f \in F_k$ be a meromorphic modular form of weight $k$ that is
+regular at the cusp.  Let $L_f^*(s)_{\rm int,\,\gamma}$ denote the
+deformed-Mellin $L$-function of $f$ along a contour $\gamma$ from
+$0$ to $i\infty$ lying in $\HH_f$ (see \cite[\S2]{1806}).  Then for
+every admissible $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ whose
+homotopy class in $\HH_f$ is compatible with $\gamma$ (in the sense
+that the contour $\gamma^S_{\tau_0}$ together with the cusp-limit
+piece $\lim_{\tau_0 \to i\infty}\gamma^S_{\tau_0} \to [0, i\infty]$
+can be deformed to $\gamma$ in $\HH_f$),
+\begin{equation}\label{eq:1806-coincidence-restated}
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;=\; L_f^*(s)_{\rm int,\,\gamma}
+  \qquad
+  \text{for every } s \in \CC.
+\end{equation}
+\end{corollary}
+\begin{proof}
+Take $\tau_0 = \eps + i\Lambda$ with $\eps \in \RR$ chosen so that
+$\mathrm{Re}(\tau) = \eps$ avoids every $\Gamma$-image of an interior
+pole of $f$, fixing the homotopy class compatible with $\gamma$.  By
+Lemma~\ref{lem:Lstar-local-constancy} the value
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is independent of
+$\Lambda$ within that class.  As $\Lambda \to \infty$, the $T$-segment
+integral tends to $0$ by Lemma~\ref{lem:cusp-decay} (for $N \ge 1$;
+for $N = 0$ the same holds after the constant-term subtraction of
+\cite[Lemma~2.1]{1806}), while the $S$-segment $[-1/\tau_0, \tau_0]$
+approaches the deformed-Mellin contour $\gamma_\eps$ along
+$\mathrm{Re}(\tau) = \eps$ from $0$ to $i\infty$.  Hence
 \[
   L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;=\; \lim_{\Lambda \to \infty}\!L^*(f, s; \gamma^S_{\eps + i\Lambda}, \gamma^T_{\eps + i\Lambda})
   \;=\; L_f^*(s)_{\rm int,\,\gamma_\eps},
 \]
-where $\gamma_\eps$ is the deformed-Mellin contour along $\mathrm{Re}(\tau)
-= \eps$.  This proves Corollary~\ref{cor:1806-coincide}.\qed
+which is \eqref{eq:1806-coincidence-restated}.
+\end{proof}
 
 \subsection{Wall-crossing of the period-polynomial cocycle}\label{subsec:period-wall-crossing}
 
@@ -1810,8 +1899,38 @@ polylog-projection machinery does remain relevant, however, for the
 incomplete gammas parallel to \eqref{eq:bfk-eq-statement}, where the
 Hagedorn-rate Fourier modes must be split off and dealt with
 separately before each mode contributes a clean incomplete-gamma
-term.  The systematic interior-pole closed form parallel to
-Theorem~\ref{thm:bfk-eq} is left to the sequel.%DAM: No, I think this should be in this note. Or at least the statement of the result should be in an appendix to this note, with a pointer towards my 1806-paper for where it is derived.
+term.  For forms regular at the cusp this per-mode evaluation is
+available in closed form, as follows.
+
+\begin{proposition}[Per-mode closed form for interior-pole forms regular at the cusp]\label{prop:interior-pole-modes}
+Let $f \in F_k$ be regular at the cusp, with interior poles at the
+points $\tau_p$ of a fundamental domain and principal-part data
+$r^*_{f, \tau_p}(m)$.  Then, for every admissible contour pair in the
+homotopy class of Corollary~\ref{cor:1806-coincide}, $L^*(f, s)$ has
+the per-mode closed form
+\begin{equation}\label{eq:interior-pole-modes}
+\begin{aligned}
+  L^*(f, s)
+  \;=\;& -c_f(0)\!\left(\frac{1}{s} + \frac{i^k}{k - s}\right)
+  \;+\; \sum_{n \ne 0} c_{Rf}(n)\!\left[\frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + i^k\,\frac{\Gamma(k - s, 2\pi n)}{(2\pi n)^{k - s}}\right]\\
+  &+\; \sum_{\tau_p}\sum_{m > 0} r^*_{f, \tau_p}(m)\,\bigl[\,I_{m-1}(s, \tau_p) \;+\; i^k\,I_{m-1}(k - s, \tau_p)\,\bigr],
+\end{aligned}
+\end{equation}
+where $c_{Rf}(n)$ are the Fourier coefficients of the
+polylog-regularised part $(1 - \widehat{P})f$ (with $\widehat{P} =
+\sum_{\tau_p}\widehat{P}_{\tau_p}$), and $I_{N}(s, \tau_p)$ are the
+polylog integrals of \cite[\S2]{1806}.
+\end{proposition}
+
+We state Proposition~\ref{prop:interior-pole-modes} without
+reproducing its derivation: it is the $B = 1$ specialisation of the
+$L$-function of \cite[\S2]{1806} for $L_f^*(s)_{\rm int}$, obtained
+there by the polylog projection $\widehat{P}_{\tau_p}$, and is
+inherited here through Corollary~\ref{cor:1806-coincide}.  The
+genuinely new regime --- $f$ with poles \emph{both} at interior points
+and at the cusp, where the $\widehat{P}_{\tau_p}$ projection of
+\cite{1806} must be combined with the finite-contour cusp treatment of
+\S\ref{sec:hurwitz-extension} --- is left to the sequel.
 
 \section{Outlook}\label{sec:outlook}
 
