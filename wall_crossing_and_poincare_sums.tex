@@ -1091,3 +1091,58 @@ particular integer $j$.
 \item The HR1919 / DJ2008 framework operates on the moment basis
   $\{P_j\}$ directly.
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Below: conceptual / physics-analogy paragraphs removed from the main note's
+%% Outlook (dr_b_periods_and_Lfunctions.tex, S6) on 2026-05-31 --- too
+%% discursive for a math-paper outlook.  Preserved here for the record.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Wilson-loop / holonomy interpretation.}
+The period-defining contour pair, projected to the modular curve $Y(1)$, descends
+to the two generators of the orbifold fundamental group
+$\pi_1^{\rm orb}(Y(1)) \cong \ZZ/2 * \ZZ/3$.  The polynomial
+coefficient system $V_{k-2}$ is a flat local system over $Y(1)$, and
+the cocycle $C^f_\gamma$ is the weighted holonomy of this flat
+connection along the loop $\gamma$, with $f$ supplying the
+gauge-invariant weight.  The cohomology class $[C^f] \in
+H^1(\Gamma; V_{k-2})$ is the analog of a gauge-invariant observable;
+$\tau_0$ is the analog of a trivialisation frame; $\omega^\pm(f)$ are
+coordinates of $[C^f]$ in the cuspidal subspace, the analog of physical
+observables read off a Wilson-loop expectation.  The period-defining finite-contour
+functional is, in this dictionary, the modular-form analog of a
+Wilson-loop holonomy on the modular curve.
+
+\paragraph{The on-shell methods analogy.}
+The classical Mellin construction is ``off-shell'' in the same sense as
+a Lagrangian gauge-theory amplitude calculation: the intermediate
+integrand $f(\tau)\,\tau^{s-1}\,d\tau$ encodes gauge-redundant
+information (the basepoint $\tau_0$, the contour to the cusp), and the
+gauge-invariant observable $L^*(f, s)$ is reached only after a
+non-canonical limit.  Theorem~\ref{thm:bfk-eq} is an ``on-shell''
+reformulation in which the gauge-invariant observable is the value of
+a finite-contour functional at any admissible basepoint, with no
+limit and no regulator.  The modular-form analog of the on-shell
+S-matrix programme \cite{McGadyHuang2013, McGadyHuangChen2014} ---
+constructing $\omega^\pm$ and $L^*(f, s)$ from $\{c_f(n)\}$ via a
+kernel that does not pass through the cocycle / coboundary scaffolding
+--- is partially answered by Theorem~\ref{thm:periods} on the period
+side and Theorem~\ref{thm:bfk-eq} on the $L$-function side, with the
+remaining question being whether the kernels themselves admit a
+construction independent of the $\delta_T^{-1}$ Bernoulli operator.
+
+\paragraph{Regularisation as a symptom of bad framing.}
+The disappearance of any regularisation step in
+\eqref{eq:Lambda-DR-def} is an instance of a recurring methodological
+pattern: \emph{when a divergence arises only after one has made a
+non-canonical upstream choice, finding the canonical formulation
+eliminates the divergence together with the regulator}.  The same
+move underlies the on-shell amplitudes programme
+\cite{McGadyHuang2013}.  The pattern is not universal --- chiral
+anomalies in even dimensions are a counterexample, with
+cohomologically robust ``regulator'' content invariant under
+reframings --- but it is a useful prior, and the finite-contour
+formulation here is a particularly clean instance in which the
+canonical $L^*(f, s)$ falls out as the value of a well-defined
+linear functional at any admissible basepoint, with no auxiliary
+parameter to take to infinity and no contour to deform to a cusp.
