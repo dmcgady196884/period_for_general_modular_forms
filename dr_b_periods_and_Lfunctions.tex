@@ -88,9 +88,20 @@ In this note, we introduce manifestly finite contour integral functionals to def
 
 \paragraph{What we construct.}
 
-Let $\Gamma = \SLZ$, let $f$ be a meromorphic modular form of even
-weight $k \in \ZZ$ on $\Gamma$, and let $\tau_0 \in \HH$ be a basepoint
-with the property that the pair of paths
+Throughout, $\Gamma = \SLZ$ and $j$ denotes the Hauptmodul.  Write
+$M_k$ for the holomorphic modular forms of weight $k$, $S_k \subset M_k$
+for the cusp forms, $M^!_k$ for the weakly holomorphic forms
+(holomorphic on $\HH$, with at most a pole at the cusp), and $F_k$ for
+the \emph{meromorphic modular forms} of weight $k$: the weight-$k$ part
+of the field of fractions of the graded ring $M_* = \bigoplus_k M_k$,
+i.e.\ the quotients $f = f_1/f_2$ with $f_i \in M_{k_i}$, $f_2 \ne 0$,
+and $k = k_1 - k_2$.  Thus $M_k \subset M^!_k \subset F_k$, and
+$F_k = g_0\,\CC(j)$ for any nonzero $g_0 \in F_k$; equivalently, $F_k$
+is the space of weight-$k$ functions meromorphic on $\HH$ and at the
+cusp.
+
+Let $f \in F_k$ be of weight $k \in 2\ZZ$, and let $\tau_0 \in \HH$ be a
+basepoint with the property that the pair of paths
 \begin{align}
 \begin{cases}
   S\text{-segment}\colon\:\:\; \gamma^S_{\tau_0}:[0, 1] \to \HH~,&~~ 
@@ -2018,30 +2029,46 @@ finite-contour cusp treatment of \S\ref{sec:hurwitz-extension}, through
 a Hauptmodul split that keeps both pieces modular.
 
 \begin{lemma}[Hauptmodul split]\label{lem:j-split}
-Let $k \ge 4$ be even and $f \in F_k$.  With $E_k$ the weight-$k$
-Eisenstein series ($E_k = 1 + O(q)$ at the cusp), the quotient $f/E_k$
-is a weight-$0$ modular function, hence a rational function of the
-Hauptmodul $j$.  Splitting it into its polynomial part and the partial
-fractions over the interior poles $\tau_p$ of $f$,
+Let $k \in 2\ZZ$ with $S_{2-k} = \{0\}$ --- equivalently $k \ge 0$, or
+$k \in \{-2, -4, -6, -8, -12\}$ --- and let $f \in F_k$.  Then $f$ splits
+as $f = g + h$, with $g \in M^!_k$ having poles only at the cusp and $h$
+regular at the cusp, carrying exactly $f$'s interior principal parts.
+For $k \ge 4$ the split is explicit: $f/E_k$ is a weight-$0$ modular
+function ($E_k = 1 + O(q)$ at the cusp), hence rational in the Hauptmodul
+$j$, and
 \begin{equation}\label{eq:j-split}
   f \;=\; \underbrace{E_k\,P(j)}_{\textstyle g}
   \;+\; \underbrace{\sum_{\tau_p}\sum_{l \ge 1} a_{\tau_p, l}\,
-        \frac{E_k}{(j - j(\tau_p))^{l}}}_{\textstyle h},
+        \frac{E_k}{(j - j(\tau_p))^{l}}}_{\textstyle h}
 \end{equation}
-gives $g \in M^!_k$ with poles only at the cusp, and $h$ regular at the
-cusp ($O(q)$ there) with poles only on the $\Gamma$-orbits of the
-$\tau_p$, carrying exactly $f$'s interior principal parts.  Equivalently
-$h$ collects the poles cleared multiplicatively by
-$\Phi = \prod_{\tau_p}(j - j(\tau_p))^{m_p}$ --- $f\Phi \in M^!_k$ ---
-followed by the $j$-partial-fraction of $f = (f\Phi)/\Phi$.  Both $g$
-and $h$ are modular of weight $k$, and the split exists for every
-$f \in F_k$ with no $S_{2-k}$ condition (at $\tau_p \in \{i, \rho\}$ the
-powers $l$ follow the ramification of $j$).
+is its polynomial part plus the partial fractions over the interior
+poles $\tau_p$, each $E_k/(j - j(\tau_p))^{l}$ being regular at the cusp
+($O(q^{l})$ there).  Equivalently, clearing the interior poles by
+$\Phi = \prod_{\tau_p}(j - j(\tau_p))^{m_p}$ gives $f\Phi \in M^!_k$, and
+\eqref{eq:j-split} is the $j$-partial-fraction of $f = (f\Phi)/\Phi$.
+Both $g$ and $h$ are weight-$k$ modular.
+
+\emph{Role of $S_{2-k}$.}  What the split needs is that $f$'s cusp
+principal part be realizable in $M^!_k$, and this is exactly the
+condition $S_{2-k} = \{0\}$.  Indeed, for $G \in S_{2-k}$ the product
+$f\,G\,d\tau$ has weight $k + (2-k) = 2$ and so is a meromorphic
+differential on $X(1)$, whose residues sum to zero:
+\begin{equation}\label{eq:residue-obstruction}
+  \Res_{\infty}(f\,G\,d\tau) \;=\; -\sum_{\tau_p}\Res_{\tau_p}(f\,G\,d\tau).
+\end{equation}
+The cusp principal part is realizable --- equivalently the split exists
+--- iff the left-hand side vanishes for every $G \in S_{2-k}$, which is
+automatic when $S_{2-k} = \{0\}$.  At the exotic weights $k = -10$ and
+$k \le -14$, where $S_{2-k} \ne \{0\}$, \eqref{eq:residue-obstruction}
+is a genuine constraint that can force $h$ to retain a cusp pole; there
+one evaluates $L^*(f)$ directly from the finite contour (still finite by
+Lemma~\ref{lem:Lstar-finite}).  (At $\tau_p \in \{i, \rho\}$ the powers
+$l$ follow the ramification of $j$.)
 \end{lemma}
 
 \begin{proposition}[Per-mode closed form, poles interior and at the cusp]\label{prop:both-poles}
-Let $k \ge 4$ be even and $f \in F_k$ have poles both in $\HH$ and at
-the cusp.  Then $L^*(f, s)$ is finite for every $s \in \CC$ at every
+Let $k \in 2\ZZ$ with $S_{2-k} = \{0\}$ and $f \in F_k$ have poles both
+in $\HH$ and at the cusp.  Then $L^*(f, s)$ is finite for every $s \in \CC$ at every
 admissible $\tau_0$ (Lemma~\ref{lem:Lstar-finite}) and has the per-mode
 closed form \eqref{eq:interior-pole-modes}, where now $c_{Rf}(n)$ are
 the Fourier coefficients of the cusp part $g \in M^!_k$ of
@@ -2072,11 +2099,10 @@ $\tau_0 \to i\infty$, where the $T$-segment dies
 \cite{1806} applies.  No new integral is computed:
 \eqref{eq:interior-pole-modes} is a regrouping of
 \eqref{eq:bfk-eq-statement} and the interior polylog terms.  The split
-\eqref{eq:j-split} uses a cusp-nonvanishing holomorphic generator,
-available at every even $k \ge 4$; at negative weight none exists, the
-cusp and interior parts no longer separate, and one takes $L^*(f)$
-directly from the finite contour (still finite by
-Lemma~\ref{lem:Lstar-finite}).
+is available exactly when $S_{2-k} = \{0\}$ (Lemma~\ref{lem:j-split});
+at the exotic weights where it is not, $L^*(f)$ is still finite
+(Lemma~\ref{lem:Lstar-finite}) and is taken directly from the finite
+contour.
 
 \section{Outlook}\label{sec:outlook}
 
