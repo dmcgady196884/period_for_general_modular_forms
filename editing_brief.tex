@@ -1,0 +1,279 @@
+% =====================================================================
+% EDITING BRIEF for dr_b_periods_and_Lfunctions.tex
+% Synthesised from a working session. Three actionable items:
+%   (1) CORRECTION : a missing i^k in Appendix A (two equations).
+%   (2) ADDITION A : wall-crossing residue reduces to the bare-Mellin
+%                    form; with the new s-pole structure of the T-kernel.
+%   (3) ADDITION B : the L-function for forms with poles BOTH interior
+%                    and at the cusp (resolves the "left to the sequel"
+%                    item after Prop. interior-pole-modes).
+%
+% This file compiles standalone (\ref's to the paper resolve to "??"
+% until pasted in). Macros below duplicate the paper's; delete the
+% preamble when transplanting. Search tokens for each edit are given.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newcommand{\HH}{\mathbb{H}}\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}\newcommand{\QQ}{\mathbb{Q}}
+\DeclareMathOperator{\Res}{Res}\DeclareMathOperator{\im}{Im}
+\newcommand{\eps}{\varepsilon}\newcommand{\ktil}{\widetilde{k}_T}
+\newcommand{\Phat}{\widehat{P}}
+\title{Editing brief: corrections and additions for\\
+\texttt{dr\_b\_periods\_and\_Lfunctions.tex}}
+\author{}\date{}
+\begin{document}\maketitle
+
+% =====================================================================
+\section*{0. Summary (changelog)}
+% =====================================================================
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+\item \textbf{Correction.} In Appendix~A the second incomplete-gamma
+term of \texttt{eq:appB-gap} and \texttt{eq:appB-ansatz} is missing a
+factor $i^k$. Eq.~(3)/\texttt{eq:tildekT-def} and the entire body are
+\emph{correct as written and must not be changed}: injecting $i^k$ into
+the kernel breaks $\tau_0$-independence. Verified numerically at $k=18$
+(where $i^k=-1$; the factor is invisible at $k=12$ since $i^{12}=1$).
+\item \textbf{Addition A.} The wall-crossing residue collapses to the
+bare-Mellin single-kernel form in the cusp limit, matching
+Eq.~(2.65) of \cite{1806}; the genuinely new ingredient is the
+$s$-pole structure of $\ktil$, which is what makes the special values
+$s=0,k$ insensitive to $S$-segment crossings. Slot into
+\S\ref{sec:wall-crossing} after Cor.~\ref{cor:1806-coincide2}.
+\item \textbf{Addition B.} The $L$-function for $f$ with poles both at
+interior points and at the cusp, via $f=(f+g)-g$ with $g\in M_k^!$
+matching the cusp principal part. This resolves the item ``left to the
+sequel'' in the paragraph after \texttt{eq:interior-pole-modes}; that
+sentence should be updated to point at the new theorem.
+\end{enumerate}
+
+% =====================================================================
+\section{Correction: missing $i^k$ in Appendix~A}
+% =====================================================================
+Two one-token insertions. Do \emph{not} touch Eq.~(3) or the body.
+
+\paragraph{FIX 1 --- \texttt{eq:appB-gap}.} Search label
+\texttt{eq:appB-gap}. The bracketed integrand
+\begin{verbatim}
+% OLD:
+  \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
+  \;+\; \frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right].
+% NEW (DAM: missing i^k on 2nd gamma; verified at k=18):
+  \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
+  \;+\; i^k\,\frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right].
+\end{verbatim}
+
+\paragraph{FIX 2 --- \texttt{eq:appB-ansatz}.} Search label
+\texttt{eq:appB-ansatz}. Same change (note: no trailing period):
+\begin{verbatim}
+% OLD:
+  \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
+  \;+\; \frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right]
+% NEW (DAM: same missing i^k; gap and ansatz must match):
+  \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
+  \;+\; i^k\,\frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right]
+\end{verbatim}
+
+\noindent\emph{Why this and not the kernel.} In the body the $i^k$ is
+produced downstream by the unfolding phase collapse
+$-i^{-s}e^{i\pi(s-1)}i^{k-s}=i^k$ (BFK proof, Step~6); the kernel
+carries only $e^{i\pi(s-1)}$. Appendix~A writes the post-unfolding
+incomplete-gamma form directly, so it must display $i^k$ explicitly.
+With the fix, differentiating \texttt{eq:appB-ansatz} in $\tau_0$ lands
+exactly on \texttt{eq:appB-shift-diff} (which is unchanged) and its
+solution \texttt{eq:appB-kT-final} remains Eq.~(3); kernel and body are
+untouched. ($i^k=i^{-k}$ for even $k$; match the body's $i^k$.)
+
+% =====================================================================
+\section{Addition A: bare-Mellin reduction of the wall-crossing residue}
+% =====================================================================
+\noindent\emph{Placement: \S\ref{sec:wall-crossing}, after
+Cor.~\ref{cor:1806-coincide2}. Uses the residue formula
+\texttt{eq:residue-formula} and $\ktil$ of \texttt{eq:tildekT-def}.}
+
+\begin{lemma}[$s$-pole structure of the $T$-kernel]\label{new:kT-poles}
+Fix $\tau_p\in\HH$, $k\in 2\ZZ\setminus\{0\}$. The kernel
+$\ktil(\tau_p,s)=\zeta(1-s,\tau_p+1)-e^{i\pi(s-1)}\zeta(s-(k-1),\tau_p+1)$
+is meromorphic in $s$ with exactly two simple poles, at $s=0$ and
+$s=k$, with
+\[
+  \Res_{s=0}\ktil(\tau_p,s)=-1,\qquad \Res_{s=k}\ktil(\tau_p,s)=+1,
+\]
+both independent of $\tau_p$. The kernel $\tau_p^{\,s-1}$ is entire in $s$.
+\end{lemma}
+\begin{proof}
+$\zeta(\nu,a)$ has a single simple pole, at $\nu=1$, residue $1$
+(DLMF \S25.11). First term: pole at $1-s=1$, i.e.\ $s=0$, with
+$\zeta(1-s,\cdot)=-1/s+O(1)$, residue $-1$; holomorphic at $s=k$.
+Second term: pole at $s-(k-1)=1$, i.e.\ $s=k$; near $s=k$,
+$\zeta(s-k+1,\cdot)=1/(s-k)+O(1)$ and the prefactor
+$-e^{i\pi(k-1)}=+1$ ($k$ even), residue $+1$; holomorphic at $s=0$.
+$\tau_p^{\,s-1}=e^{(s-1)\log\tau_p}$ is entire.
+\end{proof}
+
+\begin{corollary}[$s$-poles of the wall-crossing residue]\label{new:R-poles}
+In \texttt{eq:residue-formula}
+$\mathcal R_{\tau_p}(f,s)=-2\pi i\,i^{-s}\Res(f,\tau_p)
+[\sigma^S_{\tau_p}\tau_p^{\,s-1}+\sigma^T_{\tau_p}\ktil(\tau_p,s)]$:
+the $S$-part is entire in $s$, while the $T$-part has simple poles only
+at $s=0,k$, with
+$\Res_{s=0}\mathcal R_{\tau_p}=+2\pi i\,\sigma^T_{\tau_p}\Res(f,\tau_p)$
+and
+$\Res_{s=k}\mathcal R_{\tau_p}=-2\pi i\,i^{-k}\sigma^T_{\tau_p}\Res(f,\tau_p)$.
+Hence $\mathcal R_{\tau_p}$ is entire in $s$ iff $\sigma^T_{\tau_p}=0$.
+\end{corollary}
+
+\begin{remark}
+The constant mode contributes the special-value poles
+$-c_f(0)(1/s+i^k/(k-s))$. By Cor.~\ref{new:R-poles} an $S$-crossing
+shifts $L^*$ by an entire-in-$s$ amount and cannot disturb these; a
+$T$-crossing can. So the statement of \cite[\S2.4]{1806} that the
+special values are insensitive to the wall-crossing ambiguity is
+precisely the assertion $\sigma^T_{\tau_p}=0$ at every crossed pole,
+i.e.\ the cusp-limit class of Prop.~\ref{new:reduction}.
+\end{remark}
+
+\begin{proposition}[Reduction to \cite{1806} Eq.~(2.65)]\label{new:reduction}
+Let $f\in F_k$ be regular at the cusp, and take the two admissible
+pairs in the cusp-limit class of Cor.~\ref{cor:1806-coincide},
+differing by one crossing of an interior pole $\tau_p$. Then
+$\sigma^T_{\tau_p}=0$ (the $T$-segment retreats to the cusp and dies by
+Lemma~\ref{lem:cusp-decay}(a)), and
+\[
+  \mathcal R_{\tau_p}(f,s)
+  = -2\pi i\,i^{-s}\,\sigma^S_{\tau_p}\,\Res(f,\tau_p)\,\tau_p^{\,s-1},
+\]
+entire in $s$, equal to the single-pole term of \cite[Eq.~(2.65)]{1806}
+under $\chi(\tau_p)=-\sigma^S_{\tau_p}$ and
+$\Res(m_i,s,\tau_i)=i^{-s}\Res(f,\tau_i)\tau_i^{\,s-1}$ (the residue of
+the bare-Mellin integrand $i^{-s}f(\tau)\tau^{s-1}$, in this paper's
+normalisation).
+\end{proposition}
+
+\noindent\emph{Scope.} Eq.\ above needs cusp regularity: by
+Lemma~\ref{lem:cusp-decay}(b) a cusp pole of order $M$ makes the
+$T$-segment grow as $e^{2\pi M\im\tau_0}$, so it cannot be dropped. The
+two basepoints act oppositely: $\tau_0=i$ kills the $S$-segment
+(completed-$L$/BFK form), $\tau_0\to i\infty$ kills the $T$-segment
+(bare-Mellin). \emph{Honest weight:} Prop.~\ref{new:reduction} is a
+consistency repackaging of Cor.~\ref{cor:1806-coincide} plus the
+residue theorem; the only new content is Lemma~\ref{new:kT-poles} and
+its special-value consequence in Cor.~\ref{new:R-poles}.
+
+% =====================================================================
+\section{Addition B: $L$-function with poles interior \emph{and} at the cusp}
+% =====================================================================
+\noindent\emph{Placement: a new subsection in \S\ref{sec:wall-crossing}
+(or fold into \S\ref{sec:outlook}). It resolves the ``left to the
+sequel'' sentence after \texttt{eq:interior-pole-modes}; revise that
+sentence to cite Thm.~\ref{new:both-poles}.}
+
+\begin{lemma}[Cusp-part matching by a $j$-polynomial]\label{new:cusp-match}
+Let $k\in 2\ZZ$ with $S_{2-k}=\{0\}$ --- in particular every weight
+with $\dim S_k=1$, i.e.\ $k\in\{12,16,18,20,22,26\}$. Write
+$k=12\ell+k'$ with $k'\in\{0,4,6,8,10,14\}$ and set
+$f_k^{\min}:=E_{k'}\Delta^{\ell}$ (the least-polar generator of
+$M_k^!$: for $\ell<0$ a pole only at the cusp, of order $-\ell$; for
+$\ell\ge 0$ use $E_k=1+O(q)$ instead). Since $j=q^{-1}+744+O(q)$ is
+holomorphic on $\HH$ with a simple cusp pole, for any $f\in F_k$ there
+is a polynomial $P$ with $g:=P(j)\,f_k^{\min}\in M_k^!$ whose cusp
+principal part equals that of $f$ and with no poles in $\HH$;
+equivalently $g$ lies in the span of the Duke--Jenkins canonical basis
+$\{f_k^{\min}j^m\}$, with $P$ determined triangularly in the cusp
+Laurent data and $g$ unique up to $M_k$. Then $f+g\in F_k$ is regular
+at the cusp.
+\end{lemma}
+
+\begin{theorem}[Per-mode closed form, interior and cusp poles]\label{new:both-poles}
+Let $k$ be as in Lemma~\ref{new:cusp-match} and $f\in F_k$ have poles
+both in $\HH$ (data $r^*_{f,\tau_p}(m)$) and at the cusp; take $g$ as in
+Lemma~\ref{new:cusp-match}. Then $L^*(f,s)$ is finite for every
+$s\in\CC$ at every finite $\tau_0$ (Lemma~\ref{lem:Lstar-finite}, no
+cuspidality needed), equals $L^*(f+g,s)-L^*(g,s)$ independently of the
+choice of $g$, and admits the per-mode closed form
+\begin{equation}\label{new:both-poles-eq}
+\begin{aligned}
+ L^*(f,s)=\;& -c_f(0)\!\left(\frac1s+\frac{i^k}{k-s}\right)
+ + \sum_{n\ne 0} c_{Rf}(n)\!\left[\frac{\Gamma(s,2\pi n)}{(2\pi n)^s}
+   + i^k\,\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\right]\\
+ &+ \sum_{\tau_p}\sum_{m>0} r^*_{f,\tau_p}(m)
+   \bigl[I_{m-1}(s,\tau_p)+i^k\,I_{m-1}(k-s,\tau_p)\bigr],
+\end{aligned}
+\end{equation}
+identical in form to \texttt{eq:interior-pole-modes}, where now the
+coefficients $c_{Rf}(n)$ of $(1-\Phat)f$ include the finitely many
+cusp-polar modes ($n<0$), each evaluated to the same incomplete-gamma
+bracket by the unfolding of Prop.~\ref{prop:hurwitz-unfold} (entire in
+$\nu$, hence valid on polar modes).
+\end{theorem}
+\begin{proof}
+Finiteness: Lemma~\ref{lem:Lstar-finite}. Linearity:
+$L^*(f)=L^*(f+g)-L^*(g)$ on a common admissible contour ($f$ and $f+g$
+share interior poles; $g$ has none). Apply
+\texttt{eq:interior-pole-modes} to $f+g$ (regular at the cusp, same
+interior data $r^*_{f,\tau_p}$ since $g$ is holomorphic on $\HH$) and
+\texttt{eq:bfk-eq-statement} to $g\in M_k^!$. Because $\Phat g=0$, one
+has $\Phat(f+g)=\Phat f$, so
+$c_{R(f+g)}(n)-c_g(n)=c_{Rf}(n)$ and $c_{f+g}(0)-c_g(0)=c_f(0)$;
+substituting collapses the two cuspidal sums to the single sum in
+\eqref{new:both-poles-eq}. $g$-independence: two choices differ by an
+element of $M_k$, which cancels in $L^*(f+g)-L^*(g)$.
+\end{proof}
+
+\begin{remark}[Evaluation by opposite fixed points]
+Each piece is finite at finite $\tau_0$, so the basepoints may be
+chosen independently: $g\in M_k^!$ has $\HH_g=\HH$, is globally
+$\tau_0$-independent (no walls), and is read at $\tau_0=i$ (the
+$S$-segment degenerates) as the \S\ref{sec:hurwitz-extension}/BFK
+incomplete-gamma form; $f+g\in F_k$ is read at $\tau_0\to i\infty$ (the
+$T$-segment dies, Lemma~\ref{lem:cusp-decay}(a)) as the
+\S\ref{sec:wall-crossing}/\cite{1806} polylog-projection form. The
+decomposition pairs with the two fixed points that kill the two
+segments. No new integral is computed: \eqref{new:both-poles-eq} is a
+regrouping of \texttt{eq:interior-pole-modes} and
+\texttt{eq:bfk-eq-statement}.
+\end{remark}
+
+\begin{remark}[Wall-crossing and scope]
+The interior wall-crossing of $L^*(f)$ is inherited entirely from the
+$f+g$ piece ($g$ is wall-free), so $L^*(f)$ is canonical up to the same
+interior wall-crossing as the regular-at-cusp case --- governed by
+Prop.~\ref{new:reduction}/Cor.~\ref{new:R-poles}. The hypothesis
+$S_{2-k}=0$ is what makes $g$ exist: the achievable cusp principal
+parts are exactly those orthogonal to $S_{2-k}$. For negative weight
+($1/\Delta\in F_{-12}$, $1/E_6\in F_{-6}$, where $S_{2-k}\neq0$) the
+obstruction is itself a residue identity: for $G\in S_{2-k}$,
+$\Res_{\mathrm{cusp}}(fG\,d\tau)=-\sum_{\tau_p}\Res_{\tau_p}(fG\,d\tau)$
+on $X(1)$, generically nonzero, so $f$'s cusp principal part need not be
+matchable and the exact split fails --- there one falls back on the
+direct finite-contour $L^*(f)$ (still finite by
+Lemma~\ref{lem:Lstar-finite}). Complete for this paper's weights.
+\end{remark}
+
+% =====================================================================
+\section*{Verification record (numerical)}
+% =====================================================================
+\noindent All at $k=18$ ($i^{18}=-1$, so $i^k$ is visible; invisible at
+$k=12$), $f=\Delta E_6$, $s=5+\tfrac12 i$, \texttt{mpmath} 40 dps.
+\begin{itemize}[leftmargin=1.4em]
+\item Kernel Eq.~(3) as written (no $i^k$): two-segment $L^*$ at
+$\tau_0=i$ vs $\tau_0=0.3+1.5i$ agree to $1.8\times10^{-43}$
+($\tau_0$-independent --- correct).
+\item Kernel with $i^k$ injected (proposed change to Eq.~3): the same
+basepoints disagree by $6.4\times10^{-3}$ ($\tau_0$-independence broken
+--- wrong).
+\item \texttt{eq:appB-gap} with $i^k$ on the 2nd gamma: matches true
+$L^*$ to $4.5\times10^{-43}$ ($\tau_0=i$) and exactly (generic
+$\tau_0$). Without $i^k$ (current): off by $\sim3.8\times10^{-2}$
+(BUG confirmed).
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{1806} ``$L$-functions of meromorphic modular forms and sum
+rules in CFT,'' arXiv:1806.09874 (June 2018).
+\end{thebibliography}
+\end{document}

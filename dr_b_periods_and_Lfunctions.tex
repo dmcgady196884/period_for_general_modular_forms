@@ -1819,6 +1819,101 @@ $\mathrm{Re}(\tau) = \eps$ from $0$ to $i\infty$.  Hence
 which is \eqref{eq:1806-coincidence-restated}.
 \end{proof}
 
+\subsection{Special values and the bare-Mellin residue}\label{subsec:special-values}
+
+The wall-crossing residue $\mathcal{R}_{\tau_p}(f, s)$ of
+\eqref{eq:residue-formula-restated} inherits its $s$-dependence from the
+two kernels; only the $T$-kernel is singular in $s$.
+
+\begin{lemma}[$s$-poles of the $T$-kernel]\label{lem:kT-spoles}
+For fixed $\tau_p \in \HH$ and $k \in 2\ZZ \setminus \{0\}$, the kernel
+$\widetilde{k}_T(\tau_p, s)$ of \eqref{eq:tildekT-def} is meromorphic in
+$s$ with exactly two simple poles, at $s = 0$ and $s = k$, with
+\begin{equation}\label{eq:kT-spole-residues}
+  \Res_{s=0}\widetilde{k}_T(\tau_p, s) = -1,
+  \qquad
+  \Res_{s=k}\widetilde{k}_T(\tau_p, s) = +1,
+\end{equation}
+both independent of $\tau_p$; the bare-Mellin kernel $\tau_p^{\,s-1}$ is
+entire in $s$.
+\end{lemma}
+\begin{proof}
+The Hurwitz zeta $\zeta(\nu, a)$ has a single simple pole, at $\nu = 1$,
+of residue $1$ independent of $a$ \cite[\S25.11]{DLMF}.  In
+$\widetilde{k}_T(\tau_p, s) = \zeta(1 - s, \tau_p + 1) - e^{i\pi(s-1)}\zeta(s - (k - 1), \tau_p + 1)$,
+the first term is singular only at $1 - s = 1$, i.e.\ $s = 0$, where
+$\zeta(1 - s, \cdot) = -1/s + O(1)$ gives residue $-1$; the second only
+at $s - (k - 1) = 1$, i.e.\ $s = k$, where
+$\zeta(s - k + 1, \cdot) = 1/(s - k) + O(1)$ and the prefactor
+$-e^{i\pi(k-1)} = +1$ ($k$ even) give residue $+1$.  Both residues are
+$\tau_p$-independent, and $\tau_p^{\,s-1} = e^{(s-1)\log\tau_p}$ is
+entire.
+\end{proof}
+
+\begin{corollary}[$s$-poles of the wall-crossing residue]\label{cor:R-spoles}
+The residue $\mathcal{R}_{\tau_p}(f, s)$ of
+\eqref{eq:residue-formula-restated} is entire in $s$ in its $S$-segment
+part, while its $T$-segment part has simple poles only at $s = 0, k$,
+\begin{equation}\label{eq:R-spole-residues}
+  \Res_{s=0}\mathcal{R}_{\tau_p} = +2\pi i\,\sigma^T_{\tau_p}\,\Res(f, \tau_p),
+  \qquad
+  \Res_{s=k}\mathcal{R}_{\tau_p} = -2\pi i\,i^{-k}\,\sigma^T_{\tau_p}\,\Res(f, \tau_p).
+\end{equation}
+In particular $\mathcal{R}_{\tau_p}$ is entire in $s$ if and only if
+$\sigma^T_{\tau_p} = 0$.
+\end{corollary}
+\begin{proof}
+Immediate from Lemma~\ref{lem:kT-spoles} and the form
+$\mathcal{R}_{\tau_p}(f, s) = -2\pi i\,i^{-s}\Res(f, \tau_p)\bigl[\sigma^S_{\tau_p}\tau_p^{\,s-1} + \sigma^T_{\tau_p}\widetilde{k}_T(\tau_p, s)\bigr]$,
+with $i^{-s} = 1$ at $s = 0$.
+\end{proof}
+
+\paragraph{Remark.}
+The constant Fourier mode contributes the special-value poles
+$-c_f(0)(1/s + i^k/(k-s))$ of \eqref{eq:bfk-eq-statement}.  By
+Corollary~\ref{cor:R-spoles} an $S$-segment crossing shifts $L^*$ by an
+amount entire in $s$ and so cannot disturb these special values, whereas
+a $T$-segment crossing can.  This is the finite-contour reading of the
+statement of \cite[\S2.4]{1806} that the special values are insensitive
+to the wall-crossing ambiguity: it is exactly the assertion
+$\sigma^T_{\tau_p} = 0$ at every crossed pole, which holds in the
+cusp-limit class of Proposition~\ref{prop:1806-reduction}.
+
+\begin{proposition}[Bare-Mellin reduction in the cusp limit]\label{prop:1806-reduction}
+Let $f \in F_k$ be regular at the cusp, and let two admissible contour
+pairs in the cusp-limit class of Corollary~\ref{cor:1806-coincide2}
+differ by a single crossing of an interior pole $\tau_p$.  Then
+$\sigma^T_{\tau_p} = 0$ --- the $T$-segment has retreated to the cusp,
+where its $\widetilde{k}_T$-weighted integral vanishes by
+Lemma~\ref{lem:cusp-decay}(a) --- so the jump is the single bare-Mellin
+term
+\begin{equation}\label{eq:bare-mellin-residue}
+  \mathcal{R}_{\tau_p}(f, s)
+  \;=\; -2\pi i\,i^{-s}\,\sigma^S_{\tau_p}\,\Res(f, \tau_p)\,\tau_p^{\,s-1},
+\end{equation}
+entire in $s$.  This is the single-pole term of the deformed-Mellin
+wall-crossing \cite[Eq.~(2.65)]{1806} under the dictionary
+$\chi(\tau_p) = -\sigma^S_{\tau_p}$, with the bare-Mellin residue
+$i^{-s}\Res(f, \tau_p)\tau_p^{\,s-1}$ of the integrand
+$i^{-s} f(\tau)\,\tau^{s-1}$.
+\end{proposition}
+\begin{proof}
+In the cusp-limit class the $T$-segment is sent to the cusp; for
+$f$ regular there its $\widetilde{k}_T$-integral vanishes by
+Lemma~\ref{lem:cusp-decay}(a), so no $T$-crossing occurs and
+$\sigma^T_{\tau_p} = 0$.  Setting $\sigma^T_{\tau_p} = 0$ in
+\eqref{eq:residue-formula-restated} gives
+\eqref{eq:bare-mellin-residue}, entire in $s$ by
+Corollary~\ref{cor:R-spoles}; the match with \cite[Eq.~(2.65)]{1806} is
+Corollary~\ref{cor:1806-coincide2} applied to the residue.
+\end{proof}
+
+\noindent\emph{Honest weight.}  Proposition~\ref{prop:1806-reduction} is
+a consistency repackaging of Corollary~\ref{cor:1806-coincide2} and the
+residue theorem; the genuinely new content is
+Lemma~\ref{lem:kT-spoles} and its special-value consequence,
+Corollary~\ref{cor:R-spoles}.
+
 \subsection{Wall-crossing of the period-polynomial cocycle}\label{subsec:period-wall-crossing}
 
 The wall-crossing residue formula \eqref{eq:residue-formula} acts on
@@ -1917,10 +2012,71 @@ reproducing its derivation: it is the $B = 1$ specialisation of the
 $L$-function of \cite[\S2]{1806} for $L_f^*(s)_{\rm int}$, obtained
 there by the polylog projection $\widehat{P}_{\tau_p}$, and is
 inherited here through Corollary~\ref{cor:1806-coincide}.  The
-genuinely new regime --- $f$ with poles \emph{both} at interior points
-and at the cusp, where the $\widehat{P}_{\tau_p}$ projection of
-\cite{1806} must be combined with the finite-contour cusp treatment of
-\S\ref{sec:hurwitz-extension} --- is left to the sequel.
+genuinely new regime --- $f$ with poles \emph{both} in $\HH$ and at the
+cusp --- is reached by combining the interior projection with the
+finite-contour cusp treatment of \S\ref{sec:hurwitz-extension}, through
+a Hauptmodul split that keeps both pieces modular.
+
+\begin{lemma}[Hauptmodul split]\label{lem:j-split}
+Let $k \ge 4$ be even and $f \in F_k$.  With $E_k$ the weight-$k$
+Eisenstein series ($E_k = 1 + O(q)$ at the cusp), the quotient $f/E_k$
+is a weight-$0$ modular function, hence a rational function of the
+Hauptmodul $j$.  Splitting it into its polynomial part and the partial
+fractions over the interior poles $\tau_p$ of $f$,
+\begin{equation}\label{eq:j-split}
+  f \;=\; \underbrace{E_k\,P(j)}_{\textstyle g}
+  \;+\; \underbrace{\sum_{\tau_p}\sum_{l \ge 1} a_{\tau_p, l}\,
+        \frac{E_k}{(j - j(\tau_p))^{l}}}_{\textstyle h},
+\end{equation}
+gives $g \in M^!_k$ with poles only at the cusp, and $h$ regular at the
+cusp ($O(q)$ there) with poles only on the $\Gamma$-orbits of the
+$\tau_p$, carrying exactly $f$'s interior principal parts.  Equivalently
+$h$ collects the poles cleared multiplicatively by
+$\Phi = \prod_{\tau_p}(j - j(\tau_p))^{m_p}$ --- $f\Phi \in M^!_k$ ---
+followed by the $j$-partial-fraction of $f = (f\Phi)/\Phi$.  Both $g$
+and $h$ are modular of weight $k$, and the split exists for every
+$f \in F_k$ with no $S_{2-k}$ condition (at $\tau_p \in \{i, \rho\}$ the
+powers $l$ follow the ramification of $j$).
+\end{lemma}
+
+\begin{proposition}[Per-mode closed form, poles interior and at the cusp]\label{prop:both-poles}
+Let $k \ge 4$ be even and $f \in F_k$ have poles both in $\HH$ and at
+the cusp.  Then $L^*(f, s)$ is finite for every $s \in \CC$ at every
+admissible $\tau_0$ (Lemma~\ref{lem:Lstar-finite}) and has the per-mode
+closed form \eqref{eq:interior-pole-modes}, where now $c_{Rf}(n)$ are
+the Fourier coefficients of the cusp part $g \in M^!_k$ of
+Lemma~\ref{lem:j-split}, including its cusp-polar modes $n < 0$.  The
+cusp-regularity hypothesis of Proposition~\ref{prop:interior-pole-modes}
+is thereby removed.
+\end{proposition}
+\begin{proof}
+Write $f = g + h$ as in Lemma~\ref{lem:j-split}: $g \in M^!_k$, $h$ is
+regular at the cusp with $f$'s interior poles, and both share a contour
+admissible for $f$.  By linearity, $L^*(f, s) = L^*(g, s) + L^*(h, s)$.
+The cusp part is evaluated by Theorem~\ref{thm:bfk-eq} /
+\eqref{eq:bfk-eq-statement} --- valid for $g \in M^!_k$ of any cusp
+order --- giving $-c_f(0)(1/s + i^k/(k-s))$ and the incomplete-gamma
+sum over the Fourier modes of $g$; the cusp-regular $h$ is evaluated by
+Proposition~\ref{prop:interior-pole-modes}, contributing the interior
+polylog terms
+$\sum_{\tau_p}\sum_m r^*_{f, \tau_p}(m)\bigl[I_{m-1}(s, \tau_p) + i^k I_{m-1}(k-s, \tau_p)\bigr]$.
+Their sum is \eqref{eq:interior-pole-modes}.
+\end{proof}
+
+\paragraph{Remark.}
+The two parts are read at opposite fixed points: $g \in M^!_k$ at
+$\tau_0 = i$, where the $S$-segment degenerates and
+\eqref{eq:bfk-eq-statement} applies; $h$ in the cusp limit
+$\tau_0 \to i\infty$, where the $T$-segment dies
+(Lemma~\ref{lem:cusp-decay}(a)) and the deformed-Mellin form of
+\cite{1806} applies.  No new integral is computed:
+\eqref{eq:interior-pole-modes} is a regrouping of
+\eqref{eq:bfk-eq-statement} and the interior polylog terms.  The split
+\eqref{eq:j-split} uses a cusp-nonvanishing holomorphic generator,
+available at every even $k \ge 4$; at negative weight none exists, the
+cusp and interior parts no longer separate, and one takes $L^*(f)$
+directly from the finite contour (still finite by
+Lemma~\ref{lem:Lstar-finite}).
 
 \section{Outlook}\label{sec:outlook}
 
@@ -1979,7 +2135,7 @@ every $s \in \CC$,
   \;=\; i^{-s}\!\int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau
   \;+\; \sum_{n \ge 1} c_f(n)\!
   \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
-  \;+\; \frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right].
+  \;+\; i^k\,\frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right].
 \end{equation}
 The left side is $\tau_0$-independent (it is the classical $L$-value);
 both terms on the right side individually depend on $\tau_0$, but
@@ -1999,7 +2155,7 @@ analytic in $\tau \in \HH$ and meromorphic in $s \in \CC$, such that
   i^{-s}\!\int_{\tau_0-1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \;=\; \sum_{n \ge 1} c_f(n)\!
   \left[\frac{\Gamma(s,\,-2\pi i n \tau_0)}{(2\pi n)^s}
-  \;+\; \frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right]
+  \;+\; i^k\,\frac{\Gamma(k - s,\,-2\pi i n \tau_0)}{(2\pi n)^{k - s}}\right]
 \end{equation}
 for every $f \in S_k$ and every $\tau_0 \in \HH$.  If such a kernel
 exists, substituting \eqref{eq:appB-ansatz} into \eqref{eq:appB-gap}
