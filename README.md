@@ -1,160 +1,141 @@
-# Period polynomials for weight-12 modular forms
+# Periods and $L$-functions of meromorphic modular forms via finite contours
 
-Numerical and analytic period extraction for weight-12 modular forms on
-$\mathrm{SL}_2(\mathbb{Z})$ via the **Diamantis–Rolen finite-endpoint
-cocycle**, in the $\dim S_k = 1$ setting.
+A single, manifestly finite contour-integral functional — the **$L$-integral**
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ — that unifies three previously
+separate constructions for $\mathrm{SL}_2(\mathbb{Z})$ modular forms:
 
-The main result is a single linear functional that gives both the
-classical periods $\omega^\pm$ of the discriminant
-$\Delta \in S_{12}$ and Brown's quasi-periods $\eta^\pm$ of the weakly
-holomorphic cusp form $\widehat\Delta \in S_{12}^!$ — same formula, same
-kernels, different modular form under the integral.
+1. the periods $\omega^\pm$ and quasi-periods $\eta^\pm$ of (weakly holomorphic)
+   cusp forms — Brown, [arXiv:1710.07912](https://arxiv.org/abs/1710.07912);
+2. the $L$-function of weakly holomorphic forms $f \in M^!_k$ —
+   Bringmann–Fricke–Kent (BFK);
+3. the $L$-function of meromorphic forms with poles inside the fundamental
+   domain — McGady, [arXiv:1806.09874](https://arxiv.org/abs/1806.09874).
 
-## Main result
+All three fall out of the *same* functional — at integer $s$ it is the
+period extractor, at general $s$ it is the completed $L$-function — finite at
+every basepoint $\tau_0 \in \mathbb{H}$, with no regulator and no
+analytic-continuation step.
 
-For any $f \in S_{12}^!$ (weakly holomorphic weight 12 with vanishing
-constant Fourier coefficient — including the holomorphic
-$\Delta \in S_{12} \subset S_{12}^!$), any basepoint $\tau_0 \in \mathbb{H}$,
-and any interior monomial $j \in \{1, 2, \ldots, 9\}$:
+**Active paper: [`dr_b_periods_and_Lfunctions.tex`](dr_b_periods_and_Lfunctions.tex)** (~31 pp).
+
+## The functional
+
+For $f \in F_k$ and a basepoint $\tau_0 \in \mathbb{H}$ whose two contour
+segments avoid the $\Gamma$-orbit of $f$'s interior poles,
 
 $$
-  \omega^{\varepsilon_j}(f) \;=\; \frac{(2\pi i)^{11}}{c_S^j}\,
-  \Bigl[\,\int_{-1/\tau_0}^{\tau_0}\!f(\tau)\,k_S^j(\tau)\,d\tau
-     \;+\; \int_{\tau_0-1}^{\tau_0}\!f(\tau)\,k_T^j(\tau)\,d\tau\,\Bigr]
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;=\; i^{-s}\Bigl[\,
+    \int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
+    \;+\;
+    \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+  \,\Bigr],
 $$
 
-where $\varepsilon_j \in \{+, -\}$ is the parity sign of $j$, $c_S^j \in \mathbb{Q}$
-is Brown's basis coefficient at the monomial $X^{10-j} Y^j$, and
-$(k_S^j, k_T^j)$ are universal $\mathbb{Q}$-polynomial kernels of degree
-$\le 10$ in $\tau$ — independent of $f$ and of $\tau_0$, tabulated in
-[`period_polynomials_dim_Sk_one.pdf`](period_polynomials_dim_Sk_one.pdf).
+where $\gamma^S_{\tau_0}$ runs from $-1/\tau_0$ to $\tau_0$,
+$\gamma^T_{\tau_0}$ from $\tau_0 - 1$ to $\tau_0$, and the $T$-kernel is the
+two-term Hurwitz zeta
 
-Specialisations:
+$$
+  \widetilde{k}_T(\tau, s)
+  \;=\; \zeta(1 - s,\, \tau + 1)
+  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k-1),\, \tau + 1).
+$$
 
-- $f = \Delta \;\Rightarrow\; \omega^\pm(\Delta)$, the Eichler–Shimura periods.
-- $f = \widehat\Delta = \Delta(J^2 + 24J - 393444) \;\Rightarrow\; \eta^\pm(\widehat\Delta)$, Brown's quasi-periods.
+Here $F_k$ is the space of **meromorphic modular forms** of weight $k$ — the
+weight-$k$ part of the field of fractions of $M_* = \bigoplus_k M_k$ (quotients
+$f_1/f_2$ with $f_i \in M_{k_i}$, $k = k_1 - k_2$) — so
+$M_k \subset M^!_k \subset F_k$.
 
-## Numerical headline
+## Three theorems
 
-All four values match Brown ([arXiv:1710.07912](https://arxiv.org/abs/1710.07912)
-§ 8.3) to relative error $< 10^{-31}$ at 45-digit mpmath precision:
+- **Theorem 1.1 (periods, $\dim S_k = 1$).** For $f \in S^!_k$, the integer-$s = \ell$
+  specialisation reduces to an explicit $\mathbb{Q}$-rational linear functional in
+  the Fourier coefficients of $f$ that produces $\omega^\pm(f)$ / $\eta^\pm(f)$,
+  independent of $\tau_0$ and of the interior index $\ell$. At $k = 12$ it
+  reproduces Brown's $\omega^\pm(\Delta)$ and $\eta^\pm(\widehat\Delta)$.
+- **Theorem 1.2 ($L$-function on $M^!_k$, all even $k$).** For $f \in M^!_k$,
+  $L^*(f, s)$ is $\tau_0$-independent for every $s \in \mathbb{C}$; at the
+  elliptic fixed point $\tau_0 = i$ the $S$-segment collapses and $L^*$ becomes
+  a single integral on $[i-1, i]$ equal to the BFK incomplete-gamma sum — the
+  completed $L$-function, recovering Hecke–Weil for holomorphic forms and BFK
+  for weak forms.
+- **Theorem 1.3 (meromorphic forms).** For general meromorphic $f$, $L^*$
+  depends on the contour pair only through its homotopy class in
+  $\mathbb{H} \setminus \Gamma\!\cdot\! f^{-1}(\infty)$, with explicit
+  wall-crossing residue jumps across interior poles; on forms regular at the
+  cusp it coincides with the deformed-Mellin $L$-function of arXiv:1806.09874.
 
-|                            | extracted                                | Brown § 8.3                   |
-| -------------------------- | ---------------------------------------- | ----------------------------- |
-| $\omega^+(\Delta)$         | $-68\,916\,772.80959519475431\ldots$     | $-68\,916\,772.809595194754\ldots$ |
-| $\omega^-(\Delta)/i$       | $-5\,585\,015.379310401866877\ldots$     | $-5\,585\,015.3793104018668\ldots$ |
-| $\eta^+(\widehat\Delta)$   | $127\,202\,100\,647.1770947773\ldots$    | $127\,202\,100\,647.17709477\ldots$ |
-| $\eta^-(\widehat\Delta)/i$ | $10\,276\,732\,343.6491327508\ldots$     | $10\,276\,732\,343.649132750\ldots$ |
+The §5 material further gives a closed-form per-mode $L^*$ for forms with poles
+**both** at interior points and at the cusp (via a Hauptmodul split
+$f = g + h$, valid whenever $S_{2-k} = \{0\}$ — i.e. all $k \ge 0$ and
+$k \in \{-2,-4,-6,-8,-12\}$).
 
-## Documents
+## Numerical verification (50-digit `mpmath`)
 
-1. **[`periods.pdf`](periods.pdf)** — bare numerics. Implementation of the
-   DR cocycle in mpmath, verification against Brown's reported values.
-2. **[`analytic_periods_weight12.pdf`](analytic_periods_weight12.pdf)** —
-   long-form companion. Pedagogical derivation of the linear-functional
-   formula via the Bernoulli-operator inverse of the $T$-coboundary
-   $\delta_T$, worked numerical polynomials, full cohomological framework,
-   appendix walkthrough.
-3. **[`period_polynomials_dim_Sk_one.pdf`](period_polynomials_dim_Sk_one.pdf)** —
-   math-paper restatement. Theorem 1 (the linear functional) front-and-center,
-   supporting lemmas and propositions, outlook on (i) extending to
-   meromorphic modular forms with interior poles and (ii) a gauge-invariance
-   analogy with the on-shell S-matrix programme.
+| script | checks | residual |
+| --- | --- | --- |
+| [`verify_periods.py`](verify_periods.py) | Thm 1.1 at $k=12$: Brown's $\omega^\pm(\Delta)$, $\eta^\pm(\widehat\Delta)$; basepoint- and $\ell$-independence; Bernoulli $\delta_T^{-1}$; the kernel identity (sympy) | $\lesssim 10^{-40}$ |
+| [`dr_b_Lfunction_complex_s.py`](dr_b_Lfunction_complex_s.py) | Thm 1.2 at non-integer $s$ (half-integer, off-axis, outside-strip) | $\sim 10^{-53}$ ($\Delta$), $\sim 10^{-47}$ ($\widehat\Delta$) |
+| [`verify_s6.py`](verify_s6.py), [`verify_multi_s.py`](verify_multi_s.py) | Thm 1.2 per-mode at $\tau_0 = i$ = BFK, $s \in \{1,3,6,9,11\}$ incl. boundaries and the polar mode $n=-1$ | $\lesssim 10^{-40}$ |
 
-Each is self-contained but they share results; read in order or jump
-directly to (3) for the punchline.
+Brown's reference values (1710.07912 §8.3):
+$\omega^+(\Delta) = -68\,916\,772.8096\ldots$,
+$\omega^-(\Delta)/i = -5\,585\,015.3793\ldots$,
+$\eta^+(\widehat\Delta) = 1.27202\times10^{11}$,
+$\eta^-(\widehat\Delta)/i = 1.02767\times10^{10}$.
 
-## Computational toolchain
+## File map
 
-- **`period_extraction_DR_general.ipynb`** — the main pipeline. A single
-  $q$-series-agnostic function `extract_periods(coeffs_dict, tau0, k)`
-  that takes any weight-$k$ form's Laurent-series coefficients and returns
-  the periods. Blind to whether $f$ is holomorphic or weakly holomorphic
-  — same code, same precision, $\omega^\pm$ or $\eta^\pm$ as appropriate.
-- **`delta_and_hatdelta_periods_executed.ipynb`** — the original
-  verification notebook (the codebase the main pipeline grew out of).
-- **`compute_period_kernels.py`** — exact sympy-rational construction
-  of the 9 universal kernel pairs $(k_S^j, k_T^j)$.
-- **`compute_numerical_polynomials.py`** — explicit numerical
-  $(P|_S - P)$ and $C'^f_S$ polynomials at $\tau_0 = 0.3 + 1.2i$ for
-  both $\Delta$ and $\widehat\Delta$.
-- **`verify_bernoulli_formula.py`** — confirms the Bernoulli closed-form
-  for $P$ agrees with the upper-triangular recursion at $10^{-42}$
-  relative residual.
-- **`verify_omega_plus_formula.py`** — confirms the 9 explicit period
-  formulas reproduce $\omega^\pm(\Delta)$ via $L(\Delta, s)$ at $10^{-42}$
-  relative residual.
-
-## Handoff notes (BFK gap diagnosis)
-
-- **`bfk_regularization_handoff.md`** — why BFK's regularization gives a
-  polynomial outside $W_{12}$: single-parameter regulator has $S$-symmetry
-  but no $U$-symmetry; $(1 + S) = 0$ survives, $(1 + U + U^2) = 0$ fails.
-- **`bgko_bfk_W_membership_gap.md`** — structural proof that
-  BGKO Prop. 2.3's "$r(F; z) \in W$" silently discards exponentially-growing
-  pieces of the Eichler integral. Numerical evidence: BFK polynomial for
-  $\widehat\Delta$ fails $(1 + U + U^2) = 0$ by $\sim 22\times$ the typical
-  coefficient magnitude.
-- **`BFK_numerics_and_flaws/`** — the underlying numerical experiments,
-  Sage scripts, and writeup that established the BFK $\notin W$ diagnosis.
+- **[`dr_b_periods_and_Lfunctions.tex`](dr_b_periods_and_Lfunctions.tex)** — the paper (three theorems + full proofs).
+- **`wall_crossing_and_poincare_sums.tex`** — companion working notes: cumulative
+  wall-crossing as a weight-$(2-k)$ Poincaré-style orbit sum.
+- Verification scripts: the four listed above, plus older helpers
+  `compute_period_kernels.py`, `compute_numerical_polynomials.py`,
+  `verify_bernoulli_formula.py`, `verify_omega_plus_formula.py`,
+  `dr_vs_bfk_modewise_nogo.py`.
+- Superseded / historical (kept for the record): `period_polynomials_dim_Sk_one.tex`
+  (the older $\dim S_k=1$ note), `analytic_periods_weight12.tex`, `periods.tex`,
+  `tau0_eq_i_proof.tex` (now folded into Theorem 1.2).
+- `me_1806.pdf` — McGady, arXiv:1806.09874.
 
 ## Reproducing
 
 ```bash
 git clone https://github.com/dmcgady196884/period_for_general_modular_forms.git
 cd period_for_general_modular_forms
-python -m venv .venv
-source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# Register the venv as a Jupyter kernel named "mmf_venv" (matches what
-# the notebooks reference)
-python -m ipykernel install --user --name mmf_venv --display-name mmf_venv
+# numerics (~30 s each)
+python verify_periods.py
+python dr_b_Lfunction_complex_s.py
 
-# Execute the main pipeline (~2-3 minutes at 45-digit precision)
-jupyter nbconvert --to notebook --execute --inplace \
-        --ExecutePreprocessor.kernel_name=mmf_venv \
-        period_extraction_DR_general.ipynb
-
-# Compile the math-paper document (requires a TeX Live distribution)
-pdflatex period_polynomials_dim_Sk_one.tex
-pdflatex period_polynomials_dim_Sk_one.tex   # second pass for cross-refs
+# compile the paper (TeX Live; second pass for cross-refs)
+pdflatex dr_b_periods_and_Lfunctions.tex
+pdflatex dr_b_periods_and_Lfunctions.tex
 ```
 
-Tested with Python 3.14, mpmath 1.3.0, sympy 1.14.0, TeX Live 2025 on macOS.
+Tested with mpmath 1.3.0, sympy 1.14.0, TeX Live 2025.
 
 ## References
 
 - F. Brown, *A class of non-holomorphic modular forms III*,
-  [arXiv:1710.07912](https://arxiv.org/abs/1710.07912) (2017) — definition
-  and numerical values of $\eta^\pm(\widehat\Delta)$, the period-matrix
-  convention, Brown's basis at $S$ for $H^1_{\rm cusp}(\Gamma; V_{10})$.
+  [arXiv:1710.07912](https://arxiv.org/abs/1710.07912) (2017).
+- K. Bringmann, K.-H. Fricke, Z. Kent, *Special $L$-values and periods of weakly
+  holomorphic modular forms*, *Ramanujan J.* **24** (2011).
+- D. A. McGady, *$L$-functions for meromorphic modular forms and sum rules in
+  CFT*, [arXiv:1806.09874](https://arxiv.org/abs/1806.09874) (2019).
 - N. Diamantis & L. Rolen, *Period polynomials, derivatives of $L$-functions,
-  and zeros of polynomials*,
-  [arXiv:1707.04814](https://arxiv.org/abs/1707.04814) (2017) — the
-  finite-endpoint cocycle on which everything here rests.
-- W. Kohnen & D. Zagier, *Modular forms with rational periods*,
-  in *Modular Forms* (R. A. Rankin, ed.), Ellis Horwood, 1984 — Zagier's
-  basis $\\{P_0, P_1, P_2\\}$ for $W_{12}$.
-- K. Bringmann, K.-H. Fricke, Z. Kent, *Special $L$-values and periods
-  of weakly holomorphic modular forms*, *Ramanujan J.* **24** (2011) —
-  the BFK regularisation we diagnose.
+  and zeros of polynomials*, [arXiv:1707.04814](https://arxiv.org/abs/1707.04814) (2017).
+- W. Kohnen & D. Zagier, *Modular forms with rational periods*, in *Modular Forms*
+  (R. A. Rankin, ed.), Ellis Horwood, 1984.
 
-## Status and successor problems
+## Status
 
-The weight-12 / $\dim S_k = 1$ case is fully worked out. Open threads
-flagged for future work:
-
-- **Higher weights with $\dim S_k > 1$** (weights 24, 28, 30, …) —
-  cuspidal cohomology of higher dimension; multiple Hecke eigenforms;
-  what does the linear functional look like there?
-- **Fully meromorphic modular forms** with interior poles
-  (e.g. $1/E_6$) — residue contributions weighted by $(X - \tau_p Y)^j$
-  polynomials; relative-cohomology formulation; the natural successor
-  to the present repo, foreshadowed in
-  [`period_polynomials_dim_Sk_one.pdf`](period_polynomials_dim_Sk_one.pdf)
-  §8 Outlook.
-- **A "manifestly on-shell" formulation of periods** — bypassing the
-  cocycle/coboundary scaffolding entirely. Modular-form analog of
-  BCFW / on-shell unitarity; see same §8 Outlook for the gauge-invariance
-  framing.
+The $\dim S_k = 1$ periods (Thm 1.1) and the $M^!_k$ / meromorphic $L$-functions
+(Thms 1.2–1.3) are worked out with full proofs and numerics. Open threads:
+higher-dimensional $S_k$ (matrix-valued kernels); a systematic per-mode closed
+form on interior-pole forms parallel to the BFK sum; and the geometric content
+of the bare Mellin kernel $\tau^{s-1}\,f\,d\tau$ (conjecturally a section of a
+Lewis–Zagier-type local system on $Y(1)$).
