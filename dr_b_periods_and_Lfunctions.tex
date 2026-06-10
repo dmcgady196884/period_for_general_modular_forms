@@ -22,6 +22,8 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 
+\numberwithin{equation}{section}  % equations numbered (sec.eq), e.g. (4.3)
+
 \newcommand{\HH}{\mathbb{H}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\QQ}{\mathbb{Q}}
@@ -258,13 +260,9 @@ the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
 \end{equation}
 is finite and independent of both $\tau_0 \in \HH$ and of the
 admissible contour choices $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  We
-write $L^*(f, s)$ for the common value.
-
-Specialising to the elliptic fixed point $\tau_0 = i$ of the modular
-involution $S\colon \tau \mapsto -1/\tau$, the $S$-segment $[-1/i, i]$
-collapses to the single point $i$, the $S$-integral in
-\eqref{eq:Lambda-DR-general} vanishes, and $L^*$ reduces to a single
-integral on the compact contour $[i - 1, i] \subset \HH$, with
+write $L^*(f, s)$ for the common value. Specializing to $\tau_0 = i$ , the 
+$S$-integral in \eqref{eq:Lambda-DR-general} vanishes, and $L^*$ reduces 
+to a single integral on the compact contour $[i - 1, i] \subset \HH$, with
 closed-form sum
 \begin{equation}\label{eq:bfk-eq-statement}
   L^*(f, s)
@@ -276,11 +274,10 @@ closed-form sum
   \right].
 \end{equation}
 The right side of \eqref{eq:bfk-eq-statement} is the completed
-$L$-function $L^*(f, s)$ of $f$. For holomorphic modular forms it reduces
-to the classical Hecke--Weil Mellin transform. For weak modular forms, it
-reduces to the results of~\cite{BFK2011}, \emph{proving} that their
-non-holomorphic regulator prescription gives the unique, canonical 
-$L$-function for every weak modular form.
+$L$-function $L^*(f, s)$ of $f$. These L-integrals reproduce the 
+Hecke-Weil Mellin transform for holomorphic modular forms, as 
+well as reproduce extant formulae from the literature for weakly 
+holomorphic modular forms~\cite{BFK2011}.
 \end{theorem}
 
 \paragraph{Classical Mellin recovery and canonical uniqueness.}
@@ -444,16 +441,16 @@ intended to be removed before formal publication.
 Let $V_n := \CC[X, Y]_n$ be the space of complex homogeneous polynomials
 in two auxiliary variables $X, Y$ of degree $n$, equipped with the
 right $\Gamma$-action
-\[
+\begin{equation}
   (P|_\gamma)(X, Y) \;=\; P\bigl(aX + bY,\, cX + dY\bigr)
   \qquad
   \text{for } \gamma = \begin{pmatrix}a & b\\ c & d\end{pmatrix} \in \Gamma.
-\]
+\end{equation}
 For a meromorphic modular form $f$ of weight $k$, write $n := k - 2$
 throughout and form the $V_n$-valued $1$-form on $\HH$
-\[
+\begin{equation}
   \omega_f(\tau) \;:=\; f(\tau)\,(X - \tau Y)^n\,d\tau.
-\]
+\end{equation}
 Modularity of $f$ implies that $\omega_f$ is $\Gamma$-equivariant in
 the standard sense \cite{KZ1984}: under $\tau \mapsto \gamma^{-1}\tau$,
 the weight-$k$ transformation of $f$ cancels the weight-$(-n)$ slash
@@ -507,12 +504,12 @@ $1$-cocycle of $\Gamma$ with coefficients in $V_n \otimes \CC$.
 \begin{proof}
 Using $(gh)^{-1} = h^{-1}g^{-1}$ and path-additivity through the
 intermediate point $h^{-1}\tau_0$,
-\[
+\begin{equation}
   \int_{(gh)^{-1}\tau_0}^{\tau_0}
   \;=\; \int_{h^{-1}g^{-1}\tau_0}^{\tau_0}
   \;=\; \int_{h^{-1}g^{-1}\tau_0}^{h^{-1}\tau_0}
   \;+\; \int_{h^{-1}\tau_0}^{\tau_0}.
-\]
+\end{equation}
 In the first integral on the right substitute $\tau = h^{-1}\sigma$, so $\sigma$
 runs from $g^{-1}\tau_0$ to $\tau_0$.  The $\Gamma$-equivariance of
 $\omega_f$ converts the integrand to $\omega_f(\sigma)|_h$, yielding
@@ -522,11 +519,11 @@ gives the second summand directly.
 
 A cocycle on $\Gamma = \SLZ$ is determined by its values on the two
 generators
-\[
+\begin{equation}
   S \;=\; \begin{pmatrix} 0 & -1 \\ 1 & 0\end{pmatrix},
   \qquad
   T \;=\; \begin{pmatrix} 1 & 1 \\ 0 & 1\end{pmatrix},
-\]
+\end{equation}
 subject to the relations $S^2 = (ST)^3 = -I$ (which act trivially on
 $V_n$ for $n$ even).  We write
 \begin{equation}\label{eq:CS-CT-def}
@@ -548,11 +545,11 @@ the moment integrals
   I_T^\ell(f, \tau_0) \;:=\; \int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,\tau^\ell\,d\tau,
 \end{equation}
 for $\ell = 0, 1, \ldots, n$, in terms of which
-\[
+\begin{equation}
   C^f_S(\tau_0)
   \;=\; (2\pi i)^{n+1}\!\sum_{\ell=0}^{n}\!\binom{n}{\ell}(-1)^\ell\,
   I_S^\ell(f, \tau_0)\,X^{n-\ell}Y^\ell,
-\]
+\end{equation}
 and similarly for $C^f_T(\tau_0)$.  Theorem~\ref{thm:periods} extracts
 $\omega^\pm(f)$ from particular linear combinations of these moments.
 
@@ -650,12 +647,12 @@ $I^0_T(f, \tau_0) = \int_{\tau_0 - 1}^{\tau_0}\!f(\tau)\,d\tau$.
 Substituting the Fourier expansion $f(\tau) = \sum_n c_f(n)\,
 e^{2\pi i n \tau}$, absolutely convergent on the compact $T$-segment,
 and integrating term by term,
-\[
+\begin{equation}
   \int_{\tau_0 - 1}^{\tau_0}\!e^{2\pi i n \tau}\,d\tau
   \;=\; \begin{cases} 1 & \text{if } n = 0,\\
                        0 & \text{if } n \ne 0,
         \end{cases}
-\]
+\end{equation}
 by $T$-periodicity over a unit segment.  Hence $I^0_T(f, \tau_0) = c_f(0)$
 for every admissible $\tau_0$, which proves \eqref{eq:CfT-Xn-coeff}.
 
@@ -824,11 +821,11 @@ with $\widetilde{k}_T(\tau, s)$ the Hurwitz-zeta kernel of
 
 \begin{proof}
 \emph{$S$-piece.}  The moment expansion \eqref{eq:CS-CT-def} gives
-\[
+\begin{equation}
   C^f_S(\tau_0)
   \;=\; (2\pi i)^{n + 1}\!\sum_{\ell = 0}^{n}\!\binom{n}{\ell}(-1)^\ell\,
   I_S^\ell(f, \tau_0)\,X^{n - \ell} Y^\ell,
-\]
+\end{equation}
 so $[C^f_S(\tau_0)]_{X^{n - (\ell - 1)} Y^{\ell - 1}} = (2\pi i)^{n + 1}
 \binom{n}{\ell - 1}(-1)^{\ell - 1}\,I_S^{\ell - 1}(f, \tau_0)$, with
 $I_S^{\ell - 1} = \int_{\gamma^S_{\tau_0}} f(\tau)\,\tau^{\ell - 1}\,d\tau$;
@@ -1058,11 +1055,36 @@ Eisenstein direction).
 \end{proof}
 
 
-\subsection{Numerical verification}\label{subsec:numerics}
+\begin{corollary}[Incomplete Gamma Representation]\label{cor:periods}
+Lef $f \in S_k^!$, where $\dim(S_k)=1$, and let $\tau_0 = i$. The integral
+functional within period polynomial functional in Eq.~\eqref{eq:periods-statement-restated} 
+in Theorem~\ref{thm:periods} simplifies to
+\begin{equation}\label{eq:cor_periods}
+    i^{-s}\left(\int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell - 1}\,d\tau
+    \;+\;
+    \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau\right)
+    = \sum_{n \neq 0} c(n) \left(\frac{\Gamma(\ell, 2 \pi n)}{(2\pi n)^\ell}+\frac{\Gamma(k-\ell, 2\pi n)}{(2 \pi n)^{k-\ell}}\right)~,
+\end{equation}
+where $c(n)$ are the q-series coefficients of $f$: $f = \sum_n c(n) q^n$.
+\end{corollary}
+\begin{proof}
+We need to bring in the Hurwitz unfolding crapola here, I think, or something.
 
-At $k = 12$, every step of the period-extraction pipeline of
-Theorem~\ref{thm:periods} has been verified against Brown's published
-values \cite{Brown2017} for the canonical pair
+Steps are:
+\begin{enumerate}
+\item Note that at $\tau_0 = i$, $\gamma^S_{\tau_0} = 0$, whereas $\gamma^T_{\tau_0}$ goes simply between $i-1$ and $i$.
+\item Do the correct sequence of logical song-n-dance to argue that the integral and $q$-series commute 
+\item Recall that $\widetilde{k}_T(\tau, \ell) = \zeta_H(1-\ell, \tau+1) - e^{i \pi (\ell-1)} \zeta_H(1-(k-s), \tau+1))$
+\item Show that $\int_{i-1}^i d\tau~e^{2 \pi n \tau} \zeta_H(1-\ell, \tau+1) = \Gamma(\ell, 2 \pi n)/(2\pi n)^\ell$ or whatever
+\item Do the same for the other term
+\end{enumerate}
+Conclude the proof with combining these steps and giving the result.
+\end{proof}
+Explicitly, using the results of Theorem~\ref{thm:periods}, and its 
+corollary~\ref{cor:periods}, we can work at $k = 12$ and show that for
+%At $k = 12$, every step of the period-extraction pipeline of
+%Theorem~\ref{thm:periods} has been verified against Brown's published
+%values \cite{Brown2017} for the canonical pair
 $f \in \{\Delta, \Dhat\}$ in the companion script
 \texttt{verify\_periods.py}~\cite{VerifyScripts}, run at $50$-digit
 \texttt{mpmath} precision.
@@ -1082,6 +1104,8 @@ reproduced from the Fourier coefficients of $f$ by
 at $\tau_0 = 0.3 + 1.2i$.  Reference values from \cite{Brown2017}.}
 \label{tab:k12-periods}
 \end{table}
+
+\subsection{Numerical verification}\label{subsec:numerics}
 
 The verification is layered through the proof of
 Theorem~\ref{thm:periods} as follows; the relevant named functions in
@@ -1210,11 +1234,11 @@ analytic in $a$.  For the identity, the Hurwitz raising relation
 $\zeta(\sigma, a + 1) - \zeta(\sigma, a) = -a^{-\sigma}$
 \cite[\S25.11.3]{DLMF} at $(\sigma, a) = (1 - s, \tau)$ and at
 $(\sigma, a) = (s - (k - 1), \tau)$ gives
-\[
+\begin{equation}
   \zeta(1 - s, \tau + 1) - \zeta(1 - s, \tau) = -\tau^{s-1},
   \qquad
   \zeta(s - (k-1), \tau + 1) - \zeta(s - (k-1), \tau) = -\tau^{k - 1 - s}.
-\]
+\end{equation}
 Since
 $\widetilde{k}_T(\tau, s) = \zeta(1-s, \tau+1) - e^{i\pi(s-1)}\zeta(s-(k-1), \tau+1)$
 and, shifting $\tau \mapsto \tau - 1$,
@@ -1278,9 +1302,9 @@ Using the modularity relations $f(\tau_0 - 1) = f(\tau_0)$ and
 $f(-1/\tau_0) = \tau_0^k f(\tau_0)$ together with
 $(-1/\tau_0)^{s-1} = e^{i\pi(s-1)}\tau_0^{1-s}$, the total
 $\tau_0$-derivative of $L^*$ reduces to
-\[
+\begin{equation}
   i^{-s} f(\tau_0)\!\left[\widetilde{k}_T(\tau_0, s) - \widetilde{k}_T(\tau_0 - 1, s) + \tau_0^{s-1} - e^{i\pi(s-1)}\tau_0^{k-1-s}\right] = 0
-\]
+\end{equation}
 by the shift-difference identity \eqref{eq:tildekT-coboundary} of
 Lemma~\ref{lem:tildekT-coboundary}.  Hence $L^*$ is constant under any
 admissible motion of $\tau_0$.
@@ -1384,7 +1408,7 @@ For reference, the theorem statement is the following.
 Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
 the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
 \in \HH$ and every $s \in \CC$,
-\begin{equation}\label{eq:Lambda-DR-general-restated}
+\begin{equation}\label{eq:Lambda-DR-general}
  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;:=\; i^{-s}\!\left[
     \int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
@@ -1394,15 +1418,11 @@ the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
 \end{equation}
 is finite and independent of both $\tau_0 \in \HH$ and of the
 admissible contour choices $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  We
-write $L^*(f, s)$ for the common value.
-
-Specialising to the elliptic fixed point $\tau_0 = i$ of the modular
-involution $S\colon \tau \mapsto -1/\tau$, the $S$-segment $[-1/i, i]$
-collapses to the single point $i$, the $S$-integral in
-\eqref{eq:Lambda-DR-general-restated} vanishes, and $L^*$ reduces to a
-single integral on the compact contour $[i - 1, i] \subset \HH$, with
+write $L^*(f, s)$ for the common value. Specializing to $\tau_0 = i$ , the 
+$S$-integral in \eqref{eq:Lambda-DR-general} vanishes, and $L^*$ reduces 
+to a single integral on the compact contour $[i - 1, i] \subset \HH$, with
 closed-form sum
-\begin{equation}\label{eq:bfk-eq-statement-restated}
+\begin{equation}\label{eq:bfk-eq-statement}
   L^*(f, s)
   \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \;=\; -c_f(0)\!\left(\frac{1}{s} + \frac{i^k}{k - s}\right)
@@ -1411,12 +1431,11 @@ closed-form sum
     + i^k\,\frac{\Gamma(k - s,\, 2\pi n)}{(2\pi n)^{k-s}}
   \right].
 \end{equation}
-The right side of \eqref{eq:bfk-eq-statement-restated} is the completed
-$L$-function $L^*(f, s)$ of $f$. For holomorphic modular forms it reduces
-to the classical Hecke--Weil Mellin transform. For weak modular forms, it
-reduces to the results of~\cite{BFK2011}, \emph{proving} that their
-non-holomorphic regulator prescription gives the unique, canonical
-$L$-function for every weak modular form.
+The right side of \eqref{eq:bfk-eq-statement} is the completed
+$L$-function $L^*(f, s)$ of $f$. These L-integrals reproduce the 
+Hecke-Weil Mellin transform for holomorphic modular forms, as 
+well as reproduce extant formulae from the literature for weakly 
+holomorphic modular forms~\cite{BFK2011}.
 \end{theorem}
 
 \begin{proof}[Proof of Theorem~\ref{thm:bfk-eq}, aka Theorem~\ref{thm:bfk-eq2}.]
@@ -1512,27 +1531,27 @@ the proof.
 \subsection{Worked example at $k = 12$: Bernoulli polynomials and numerics}\label{subsec:k12-worked}
 
 At $k = 12$ the kernel of \eqref{eq:tildekT-def} is
-\[
+\begin{equation}
   \widetilde{k}_T(\tau, s)
   \;=\; \zeta(1 - s,\,\tau + 1)
   \;-\; e^{i\pi(s-1)}\,\zeta(s - 11,\,\tau + 1).
-\]
+\end{equation}
 At integer values of $s \in \{1, 2, \ldots, 11\}$, both Hurwitz zeta
 factors collapse to Bernoulli polynomials via $\zeta(-m, a) =
 -B_{m+1}(a)/(m+1)$ ($m \ge 0$), and $\widetilde{k}_T(\tau, s)$
 becomes a polynomial of degree $\le 11$ in $\tau$.  Three
 representative values:
-\[
+\begin{equation}
   \widetilde{k}_T(\tau, 1)
   \;=\; -\tau - \tfrac{1}{2} \;+\; \tfrac{1}{11}\,B_{11}(\tau + 1),
   \qquad
   \widetilde{k}_T(\tau, 6)
   \;=\; -\tfrac{1}{3}\,B_6(\tau + 1),
-\]
-\[
+\end{equation}
+\begin{equation}
   \widetilde{k}_T(\tau, 11)
   \;=\; -\tfrac{1}{11}\,B_{11}(\tau + 1) \;+\; \tau \;+\; \tfrac{1}{2}.
-\]
+\end{equation}
 The $s \leftrightarrow 12 - s$ symmetry follows from the
 $s \leftrightarrow k - s$ structure of the two-term kernel (with
 $i^k = +1$ at $k = 12$).
@@ -1822,11 +1841,11 @@ for $N = 0$ the same holds after the constant-term subtraction of
 \cite[Lemma~2.1]{1806}), while the $S$-segment $[-1/\tau_0, \tau_0]$
 approaches the deformed-Mellin contour $\gamma_\eps$ along
 $\mathrm{Re}(\tau) = \eps$ from $0$ to $i\infty$.  Hence
-\[
+\begin{equation}
   L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
   \;=\; \lim_{\Lambda \to \infty}\!L^*(f, s; \gamma^S_{\eps + i\Lambda}, \gamma^T_{\eps + i\Lambda})
   \;=\; L_f^*(s)_{\rm int,\,\gamma_\eps},
-\]
+\end{equation}
 which is \eqref{eq:1806-coincidence-restated}.
 \end{proof}
 
@@ -2142,11 +2161,11 @@ the Hurwitz-zeta combination manifest.
 \paragraph{Step 1: Mellin split at the contour endpoints.}
 Let $f \in S_k$ with $k$ even.  The classical completed $L$-function
 $L^*(f, s) = (2\pi)^{-s}\Gamma(s) L(f, s)$ has integral representation
-\[
+\begin{equation}
   L^*(f, s)
   \;=\; -i \int_0^{i\infty}\! f(\tau)\,(\tau/i)^{s-1}\,d\tau
   \;=\; i^{-s}\!\int_0^{i\infty}\! f(\tau)\,\tau^{s-1}\,d\tau,
-\]
+\end{equation}
 the second equality using $(\tau/i)^{s-1} = i^{1-s}\tau^{s-1}$ on the
 imaginary axis.  Pick $\tau_0 \in \HH$ and split the imaginary-axis
 contour at the two endpoints $\{-1/\tau_0, \tau_0\}$ in
@@ -2194,11 +2213,11 @@ $L^*(f, s)$.
 Differentiate both sides of \eqref{eq:appB-ansatz} in $\tau_0$.  On the
 left, the only $\tau_0$-dependence is in the integration limits, so
 $d/d\tau_0$ acts as
-\[
+\begin{equation}
   \frac{d}{d\tau_0}\!\int_{\tau_0-1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
   \;=\; f(\tau_0)\!\left[\widetilde{k}_T(\tau_0, s)
   - \widetilde{k}_T(\tau_0 - 1, s)\right],
-\]
+\end{equation}
 using $f(\tau_0 - 1) = f(\tau_0)$ for the lower limit.  On the right
 of \eqref{eq:appB-ansatz}, differentiating each incomplete gamma in
 its second argument (the explicit $\tau_0$-dependence) and assembling
@@ -2227,12 +2246,12 @@ identity
 \end{equation}
 (see \cite[\S25.11.3]{DLMF}).  Applied at $(\sigma, a) = (1 - s, \tau)$
 and $(\sigma, a) = (s - (k - 1), \tau)$ respectively, this gives
-\[
+\begin{equation}
   \zeta(1 - s, \tau + 1) - \zeta(1 - s, \tau) \;=\; -\tau^{s-1},
   \qquad
   \zeta(s - (k - 1), \tau + 1) - \zeta(s - (k - 1), \tau)
   \;=\; -\tau^{k - 1 - s}.
-\]
+\end{equation}
 Combining with the relative phase $e^{i\pi(s-1)}$ from the second
 term of \eqref{eq:appB-shift-diff} gives the kernel
 \begin{equation}\label{eq:appB-kT-final}
@@ -2252,10 +2271,10 @@ Equation \eqref{eq:appB-kT-final} is the kernel
 \paragraph{Where DR2022 stops.}
 The kernel \eqref{eq:appB-kT-final} has two Hurwitz-zeta terms.  The
 construction of \cite[Thm.~1.2]{DR2022} gives the single-term
-\[
+\begin{equation}
   \widetilde{k}_T^{\,\rm DR}(\tau, m)
   \;=\; \zeta^*(1 - m, \tau + 1)
-\]
+\end{equation}
 on the segment $[i, i+1]$, at integer $m$, which is the first term of
 \eqref{eq:appB-kT-final}.  The structural origin of this gap is the
 absence of an $S$-segment in their construction: without the
@@ -2268,190 +2287,6 @@ two-segment functional includes the $S$-segment and its endpoint at
 $-1/\tau_0$ contributes under $\tau_0$-differentiation via
 $S$-modularity.
 
-\section{Eichler--Shimura for physicists}\label{app:eichler-shimura}
-
-\emph{This appendix is intended as an exposition aid for readers
-approaching the subject from theoretical physics.  It is removable
-without affecting the logical content of the paper and is excluded
-from the journal/arXiv version.  Primary references:
-Brown~\cite{Brown2017}~\S2--3 (clean modern exposition), Kohnen--Zagier
-1984~\cite{KZ1984} (classical), and Lewis--Zagier~\cite{LewisZagier2001}
-(accessible motivation).}
-
-
-\subsection{The polynomial coefficient system $V_n$ and the slash action}
-\label{subsec:app-Vn}
-
-Fix $k$ even, set $n := k - 2$, and let $V_n$ be the $\QQ$-vector space
-of polynomials in two formal variables $X, Y$, homogeneous of total
-degree $n$.  $\Gamma = \SLZ$ acts on $V_n$ on the right by the
-\emph{slash action}
-\begin{equation}\label{eq:app-slash}
-  (P|_\gamma)(X, Y) \;:=\; P(aX + bY,\,cX + dY),
-  \qquad \gamma = \begin{pmatrix} a & b \\ c & d \end{pmatrix}.
-\end{equation}
-The two generators of $\Gamma$ act as
-$P|_T(X, Y) = P(X + Y, Y)$ and $P|_S(X, Y) = P(-Y, X)$ on the basis
-monomials $X^{n - \ell} Y^\ell$.
-
-
-\subsection{Group cohomology $H^1(\Gamma; V_n)$}\label{subsec:app-H1}
-
-A \emph{$1$-cocycle} of $\Gamma$ with coefficients in $V_n$ is a map
-$C : \Gamma \to V_n$ satisfying
-\begin{equation}\label{eq:app-cocycle-relation}
-  C_{gh} \;=\; C_g|_h \;+\; C_h,
-  \qquad g, h \in \Gamma.
-\end{equation}
-This is exactly the property derived in Lemma~\ref{lem:cocycle}.
-A \emph{$1$-coboundary} is one of the form $C_\gamma = P|_\gamma - P$
-for some fixed $P \in V_n$.  Coboundaries are automatically
-$1$-cocycles.  The \emph{first group cohomology} is
-\begin{equation}\label{eq:app-H1-def}
-  H^1(\Gamma; V_n) \;:=\;
-  \{1\text{-cocycles}\} \,/\, \{1\text{-coboundaries}\}.
-\end{equation}
-Because $\Gamma = \SLZ$ is generated by $S$ and $T$ subject to the
-relations $S^2 = -I$, $(ST)^3 = -I$, a $1$-cocycle is determined by
-the pair $(C_S, C_T) \in V_n \oplus V_n$ subject to the algebraic
-constraints
-\begin{equation}\label{eq:app-cocycle-constraints}
-  C_S|_S + C_S \;=\; 0, \qquad
-  C_T + C_{ST}|_{ST} + C_{ST}|_S \;=\; 0,
-\end{equation}
-the latter coming from $(ST)^3 = -I$ together with
-$C_{(ST)^3} = C_{ST}|_{(ST)^2} + C_{ST}|_{ST} + C_{ST}$.  Coboundaries
-$P|_\gamma - P$ contribute the pair $(P|_S - P, P|_T - P)$.
-
-
-\subsection{The Eichler integral cocycle}\label{subsec:app-eichler}
-
-For $f \in S_k^!$ and basepoint $\tau_0 \in \HH$, set
-\begin{equation}\label{eq:app-eichler-cocycle}
-  C^f_\gamma(\tau_0)
-  \;:=\; (2\pi i)^{n + 1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!
-         f(\tau)\,(X - \tau Y)^n\,d\tau \;\in\; V_n \otimes \CC.
-\end{equation}
-This is the \emph{Eichler integral cocycle} of $f$; it is a
-$1$-cocycle by Lemma~\ref{lem:cocycle}.  Its cohomology class
-$[C^f] \in H^1(\Gamma; V_n \otimes \CC)$ depends on $f$ but not on
-$\tau_0$ (for $f$ without interior poles), because changing $\tau_0$
-adds a coboundary by \eqref{eq:bp-cocycle-coboundary}.
-
-
-\subsection{The Eichler--Shimura theorem}\label{subsec:app-ES-theorem}
-
-The cohomology decomposes canonically as
-\begin{equation}\label{eq:app-ES-decomp}
-  H^1(\Gamma; V_n \otimes \CC)
-  \;\cong\; H^1_{\rm cusp}(\Gamma; V_n \otimes \CC)
-  \;\oplus\; H^1_{\rm Eis}(\Gamma; V_n \otimes \CC),
-\end{equation}
-with the cuspidal summand isomorphic to $S_k \oplus \overline{S_k}$
-via the map $f \mapsto [C^f]_{\rm cusp}$.  In the $\dim S_k = 1$
-substantive family $k \in \{12, 16, 18, 20, 22, 26\}$, the cuspidal
-summand is $2$-dimensional, spanned by the two \emph{cuspidal basis
-polynomials} $p^+_f, p^-_f \in V_n \otimes \CC$ \cite{Brown2017}.
-These are characterised by their behaviour under the $S$-action: $p^+_f$
-satisfies $p^+_f|_S = p^+_f$ (even parity) and $p^-_f$ satisfies
-$p^-_f|_S = -p^-_f$ (odd parity).  Concretely, $S$ acts on $V_n$ by
-$(X, Y) \mapsto (-Y, X)$, so for $P = \sum_\ell p_\ell X^{n - \ell} Y^\ell$,
-\begin{equation}\label{eq:app-S-parity}
-  P|_S \;=\; \sum_\ell p_\ell (-Y)^{n - \ell} X^\ell \;=\; \sum_\ell (-1)^{n - \ell} p_\ell X^\ell Y^{n - \ell};
-\end{equation}
-that is, $S$ interchanges $X \leftrightarrow Y$ and signs flip
-according to the monomial.  The $\pm$ parity is then the action of
-this involution on $V_n \otimes \CC$.
-
-The Eisenstein summand $H^1_{\rm Eis}$ is also non-trivial; for
-$\dim S_k = 1$, it is spanned by the Eisenstein coboundary class
-represented (up to scale) by the coboundary
-$\delta Y^n(\gamma) = Y^n|_\gamma - Y^n$.  At $\gamma = S$, this
-gives $(-X)^n - Y^n = X^n - Y^n$ (using $n$ even), the polynomial
-that contributes only to the boundary monomials $X^n, Y^n$ of any
-representative cocycle.
-
-
-\subsection{Periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$}
-\label{subsec:app-periods}
-
-For $f \in S_k$ (genuine holomorphic cusp form), the cuspidal
-projection of $[C^f]$ in the $(p^+_f, p^-_f)$ basis defines two
-complex scalars,
-\begin{equation}\label{eq:app-omega-def}
-  [C^f]_{\rm cusp} \;=\; \omega^+(f)\,p^+_f \;+\; \omega^-(f)\,p^-_f,
-\end{equation}
-called the \emph{periods} of $f$.  By the classical
-Manin/Eichler/Shimura identity, these encode the critical $L$-values
-$L(f, \ell) = \int_0^\infty t^{\ell - 1}\,f(it)\,dt$
-for integer $\ell$ in the critical strip $\{1, \ldots, k - 1\}$.
-
-For $f \in S_k^!$ with a cusp pole (e.g., $\Dhat = q^{-1} + O(q^2) \in
-S_{12}^!$), the Eichler integral $C^f$ is still a well-defined cocycle
-on a finite contour, and the cuspidal projection
-$[C^f]_{\rm cusp} = \omega^+(f)\,p^+_f + \omega^-(f)\,p^-_f$
-defines a pair of scalars by the same formula.  In this weakly
-holomorphic case they are denoted $\eta^\pm(f)$ and called
-\emph{quasi-periods}; their relation to L-values requires the
-finite-contour regularisation studied in the main note
-(Theorem~\ref{thm:periods}).
-
-
-\subsection{The Eisenstein-direction term in $r_f$ versus the period polynomial of an Eisenstein series}\label{subsec:app-eisenstein-direction}
-
-A subtlety worth stating directly, in response to a common
-confusion.  Two different objects are sometimes both called
-``period polynomials of Eisenstein origin'', and they have very
-different properties.
-
-\paragraph{Object A: The Eisenstein direction in $H^1$.}
-In the decomposition \eqref{eq:Brown-decomp-statement} of $r_f$ into
-cuspidal-basis polynomials $p^\pm_f$ plus an
-``Eisenstein-direction'' term, the latter is by construction a
-multiple of the coboundary representative $Y^n|_S - Y^n = X^n - Y^n$
-(or, equivalently, the polynomial $X^n - Y^n$ itself, which spans the
-Eisenstein direction in $H^1$).  This contribution touches
-\emph{only} the boundary monomials $X^n$ and $Y^n$ of $r_f$, leaving
-all interior monomials $X^{n - (\ell - 1)}\,Y^{\ell - 1}$,
-$\ell \in \{2, \ldots, k - 2\}$, free of Eisenstein contamination.
-This is what makes the interior-monomial extraction of
-$\omega^\pm(f)$ via \eqref{eq:periods-statement} clean.
-
-\paragraph{Object B: The period polynomial of an actual Eisenstein series.}
-The period polynomial $r_{E_k}(X, Y)$ of the weight-$k$ Eisenstein
-series $E_k(\tau)$ is a different object: it is the formal $S$-cocycle
-value of $C^{E_k}$ modulo coboundaries, computed for $f = E_k$
-itself.  By Manin/Zagier (see \cite{KZ1984}~\S2), $r_{E_k}$ is
-supported on \emph{all} monomials $X^\ell Y^{n - \ell}$ for
-$\ell \in \{0, 1, \ldots, n\}$, with coefficients given by products of
-critical zeta values:
-\begin{equation}\label{eq:app-r-Ek}
-  r_{E_k}(X, Y)
-  \;\sim\; \sum_{\ell = 0}^{n} \zeta^*(\ell + 1)\,\zeta^*(k - 1 - \ell)\,
-  \binom{n}{\ell}\,X^\ell\,Y^{n - \ell},
-\end{equation}
-where $\zeta^*(s) := \pi^{-s/2}\Gamma(s/2)\zeta(s)$ is the completed
-Riemann zeta.  The factorisation
-$L(E_k, s) = \zeta(s)\,\zeta(s - k + 1)$ sends \emph{some} interior
-coefficients to zero --- precisely those at $\ell$ with
-$\zeta(\ell - k + 2) = 0$, i.e., $\ell - k + 2 \in \{-2, -4, -6, \ldots\}$
-(trivial zeros of $\zeta$) --- but \emph{not} all interior
-coefficients.  For $k = 12$, the vanishing happens at
-$\ell \in \{3, 5, 7, 9\}$ (and the parity-paired $\ell \in \{8, 6, 4, 2\}$
-remain nonzero, modulo sign-pairing details).  So $r_{E_{12}}$ is
-\emph{not} supported only at the boundary monomials $\ell = 0, n$.
-
-\paragraph{The distinction.}
-Object A is a statement about \emph{the structure of $H^1$}: the
-Eisenstein direction projects onto a $1$-dimensional subspace whose
-representative coboundary touches only boundary monomials.  Object B
-is a statement about \emph{a specific cocycle representative} (the
-period polynomial of $E_k$), which generically has interior support.
-The two are not in conflict because what we actually use in the proof
-of Theorem~\ref{thm:periods} is Object A: the Eisenstein
-\emph{direction's} contribution to $r_f$ at interior monomials
-vanishes, regardless of what the period polynomial of an actual
-Eisenstein series looks like.
 
 \begin{thebibliography}{99}
 
