@@ -57,13 +57,14 @@ shows that these three lines of work not only naturally align, but derive from
 the \emph{same} manifestly finite linear functional acting on the space of $\SLZ$ 
 modular forms. 
 
-We call this linear functional the \emph{L-integral}, and denote it by 
-$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$, where 
+We call this linear functional the \emph{L-integral}, and denote it 
+$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$; here 
 $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$ are paths from 
 $S^{-1}\tau_0, T^{-1}\tau_0$, respectively, to $\tau_0$. When $f \in M_k$, 
-$L^*(f,s) = \Gamma(s) \sum_{n\neq0} \tfrac{c_f(n)}{(2\pi n)^s}$: it is \emph{the} 
-classical L-function. Our L-integral is finite and $\tau_0$-independent (within 
-each admissible contour homotopy class) for any meromorphic modular form $f$.
+$L^*(f,s) = \Gamma(s) \sum_{n\neq0} \tfrac{c_f(n)}{(2\pi n)^s}$: \emph{the} 
+classical L-function. Our L-integrals are finite, $\tau_0$-independent, and path 
+independent within each homotopy class (if $f$ has poles at $0 < {\rm Im}(\tau) 
+< \infty$), for any meromorphic modular form $f$.
 
 We use this L-integral to (1) extract published numerical values of the 
 periods of the weak cusp form $\Dhat := \tfrac{1}{q} + O(q^2) \in S_{12}^!$ 
@@ -77,18 +78,40 @@ in different homotopy classes differ by wall-crossing residues. Finally, all maj
 results were tested to arbitrary (50 digit) precision in our python scripts~\cite{VerifyScripts}.
 \end{abstract}
 
-
-%DAM2: CONSTANT VIGILANCE regarding acausal references. E.g., in a previous version of these notes, Theorem 1.1's statement referred to Theorem 1.2. NOT OK.
-
 \section{Introduction and main results}\label{sec:intro}
 
-In this paper, we introduce a general framework that defines L-functions for generic modular forms on the full group $\SLZ$, and extracts their periods for the explicit case when the holomorphic cusp forms are one-dimensional, i.e. when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined and well-studied for holomorphic modular forms. However, there is a growing body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011} for weakly holomorphic modular forms. Similarly, there are natural physical motivations to consider L-functions for properly meromorphic modular forms, which have poles \emph{within} the fundamental domain~\cite{1806}.
+In this paper, we introduce a general framework that defines L-functions for 
+generic modular forms on the full group $\SLZ$, and extracts their periods for 
+the explicit case when the holomorphic cusp forms are one-dimensional, i.e. 
+when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined 
+and well-studied for holomorphic modular forms. However, there is a growing 
+body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011} 
+for weakly holomorphic modular forms. Similarly, there are natural physical 
+motivations to consider L-functions for properly meromorphic modular forms, 
+which have poles \emph{within} the fundamental domain~\cite{1806}.
 
-In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics, divergences due to singularities in quantities of interest necessitate the introduction of regulators in order to define finite quantities. Regulators, though, often break symmetries, and care is needed to check that the regulator has not injected undue violence to the system. Of relevance here is that~\cite{BFK2011} introduced a non-holomorphic regulator to deal with the singularities at either end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate divergences at the cusps, but which violates holomorphy in the deformed contour-integral, ruining path-independence. Simultaneously, \cite{1806} concerned itself with L-functions for modular forms which diverge within the interior of the fundamental domain. Here, holomorphic dependence on $\tau$ is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
+In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics, 
+divergences due to singularities in quantities of interest necessitate the 
+introduction of regulators in order to define finite quantities. Regulators, though, 
+often break symmetries, and care is needed to check that the regulator has not 
+injected undue violence to the system. Of relevance here is that~\cite{BFK2011} 
+introduced a non-holomorphic regulator to deal with the singularities at either 
+end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate 
+divergences at the cusps, but which violates holomorphy in the deformed 
+contour-integral, ruining path-independence. Simultaneously, \cite{1806} 
+concerned itself with L-functions for modular forms which diverge within the 
+interior of the fundamental domain. Here, holomorphic dependence on $\tau$ 
+is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
 
-In this note, we introduce manifestly finite contour integral functionals to define L-functions for generic meromorphic modular forms that are of sufficient generality to handle any combination of poles at cusps and poles within the fundamental domain. Our construction is motivated by, and makes precise contact with, work which extracts period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are manifestly finite throughout, and reproduce all results in the literature, unifying the quasi-period results and the L-function extensions within one concrete, natural framework.
+In this note, we introduce manifestly finite contour integral functionals to define 
+L-functions for generic meromorphic modular forms that are of sufficient generality 
+to handle any combination of poles at cusps and poles within the fundamental domain. 
+Our construction is motivated by, and makes precise contact with, work which extracts 
+period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are 
+manifestly finite throughout, and reproduce all results in the literature, unifying the 
+quasi-period results and the L-function extensions within one concrete, natural framework.
 
-\paragraph{What we construct.}
+\subsection{Central definitions and theorems}\label{sec:intro-results}
 
 Throughout, $\Gamma = \SLZ$ and $j$ denotes the Hauptmodul.  Write
 $M_k$ for the holomorphic modular forms of weight $k$, $S_k \subset M_k$
@@ -100,10 +123,21 @@ i.e.\ the quotients $f = f_1/f_2$ with $f_i \in M_{k_i}$, $f_2 \ne 0$,
 and $k = k_1 - k_2$.  Thus $M_k \subset M^!_k \subset F_k$, and
 $F_k = g_0\,\CC(j)$ for any nonzero $g_0 \in F_k$; equivalently, $F_k$
 is the space of weight-$k$ functions meromorphic on $\HH$ and at the
-cusp.
+cusp. %DAM: This paragraph might need tightening.
 
-Let $f \in F_k$ be of weight $k \in 2\ZZ$, and let $\tau_0 \in \HH$ be a
-basepoint with the property that the pair of paths
+We begin with three definitions:
+
+\begin{definition}[Hurwitz T-kernel]\label{def:HurwitzT}
+Let $\zeta(s, x)$ denote the classical Hurwitz zeta-function, $\zeta(s,x):= \sum_{n \geq 1} (n+x)^{-s}$. We define the \emph{Hurwitz T-kernel} as,
+\begin{equation}\label{eq:tildekT-def}
+  \widetilde{k}_T(\tau, s)
+  \;:=\; \zeta(1 - s,\, \tau + 1)
+  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)~.
+\end{equation}
+\end{definition}
+
+\begin{definition}[General paths along torus cycles]\label{def:contours}
+Let $\tau_0 \in \HH$, and consider any $\sigma \in \SLZ$. We denote the path from $\sigma^{1}(\tau_0) \to \tau_0$ by $\gamma^\sigma_{\tau_0}$. Further, let $k \in 2\ZZ$ on $\SLZ$ be a meromorphic modular form which may have poles at cusps and may have poles within the interior of the upper half-plane. Now, consider $\sigma \in \{ S, T \} = \{ \left( \begin{smallmatrix} 0 & -1 \\ 1 & 0 \end{smallmatrix}\right), \left( \begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix}\right) \}$. Here, $\gamma^\sigma_{\tau_0}$ is a smooth contour,
 \begin{align}
 \begin{cases}
   S\text{-segment}\colon\:\:\; \gamma^S_{\tau_0}:[0, 1] \to \HH~,&~~ 
@@ -114,7 +148,11 @@ basepoint with the property that the pair of paths
 \end{cases}
 \label{eq:contour-pair}
 \end{align}
-in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.  Using these contours, we define
+in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.
+\end{definition}
+
+\begin{definition}[L-integral of a meromorphic modular form]\label{def:L-integral}
+Let $f \in F_k$ be a meromorphic modular form of weight $k \in 2\ZZ$ on $\SLZ$, and let $\tau_0 \in \HH$. Using the contour in Definition~\ref{def:contours} and the Hurwitz T-kernel in Definition~\ref{def:HurwitzT}, we define the \emph{L-integral} of $f$ to be,
 \begin{equation}\label{eq:Lambda-DR-def}
   L^*(f, s; \gamma^S_{\tau_0}
   , \gamma^T_{\tau_0})
@@ -124,14 +162,12 @@ in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.  Using these co
     \;+\;
     \int_{\gamma^T_{\tau_0}} 
     f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
-  \right],
+  \right].
 \end{equation}
-where the $T$-kernel is built from the following explicit two Hurwitz-zeta functions:
-\begin{equation}\label{eq:tildekT-def}
-  \widetilde{k}_T(\tau, s)
-  \;:=\; \zeta(1 - s,\, \tau + 1)
-  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)~.
-\end{equation}
+\end{definition}
+%Let $f \in F_k$ be of weight $k \in 2\ZZ$, and let $\tau_0 \in \HH$ be a
+%basepoint with the property that the pair of paths
+
 
 When the contour avoids poles in $f$, both contour integrals contributing to 
 $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
@@ -597,7 +633,7 @@ $k \in \{2, 4, 6, 8, 10, 14\}$ in the $\dim S_k \le 1$ family have
 $S_k = 0$, so the theorem is vacuous there.  Numerical verification at
 $k = 12$ against Brown's published values for the canonical pair
 $f \in \{\Delta, \Dhat\}$ is consolidated in
-\S\ref{subsec:numerics}.
+Appendix~\ref{sec:numerics}.
 
 % --- Step 3 anchor: solvability $\iff$ cuspidality ---
 \begin{lemma}[Solvability of $\delta_T P = C^f_T$ is cuspidality of $f$]\label{lem:solvability-cuspidality}
@@ -1063,9 +1099,9 @@ in Theorem~\ref{thm:periods} simplifies to
     i^{-s}\left(\int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell - 1}\,d\tau
     \;+\;
     \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau\right)
-    = \sum_{n \neq 0} c(n) \left(\frac{\Gamma(\ell, 2 \pi n)}{(2\pi n)^\ell}+\frac{\Gamma(k-\ell, 2\pi n)}{(2 \pi n)^{k-\ell}}\right)~,
+    = \sum_{n \neq 0} c(n) \left(\frac{\Gamma(\ell, 2 \pi n)}{(2\pi n)^\ell}+ i^k \frac{\Gamma(k-\ell, 2\pi n)}{(2 \pi n)^{k-\ell}}\right)~,
 \end{equation}
-where $c(n)$ are the q-series coefficients of $f$: $f = \sum_n c(n) q^n$.
+where $c(n)$ are the q-series coefficients of $f$, i.e. $f = \sum_n c(n) q^n$.
 \end{corollary}
 \begin{proof}
 We need to bring in the Hurwitz unfolding crapola here, I think, or something.
@@ -1073,89 +1109,31 @@ We need to bring in the Hurwitz unfolding crapola here, I think, or something.
 Steps are:
 \begin{enumerate}
 \item Note that at $\tau_0 = i$, $\gamma^S_{\tau_0} = 0$, whereas $\gamma^T_{\tau_0}$ goes simply between $i-1$ and $i$.
-\item Do the correct sequence of logical song-n-dance to argue that the integral and $q$-series commute 
+\item Note that, because the q-series converges absolutely along the finite-contour, as $\sim e^{-2 \pi (n - C \sqrt{n})}$ for some constant $C$, we can exchange the q-series and the contour integral. 
 \item Recall that $\widetilde{k}_T(\tau, \ell) = \zeta_H(1-\ell, \tau+1) - e^{i \pi (\ell-1)} \zeta_H(1-(k-s), \tau+1))$
 \item Show that $\int_{i-1}^i d\tau~e^{2 \pi n \tau} \zeta_H(1-\ell, \tau+1) = \Gamma(\ell, 2 \pi n)/(2\pi n)^\ell$ or whatever
-\item Do the same for the other term
+\item Note that the same holds, with $\ell \leftrightarrow k-\ell$ for the other term.\footnote{I am concerned that the relative factor of $i^k$ won't be respected in this line of the proof. Is this a legit concern?}
 \end{enumerate}
 Conclude the proof with combining these steps and giving the result.
 \end{proof}
-Explicitly, using the results of Theorem~\ref{thm:periods}, and its 
-corollary~\ref{cor:periods}, we can work at $k = 12$ and show that for
-%At $k = 12$, every step of the period-extraction pipeline of
-%Theorem~\ref{thm:periods} has been verified against Brown's published
-%values \cite{Brown2017} for the canonical pair
-$f \in \{\Delta, \Dhat\}$ in the companion script
-\texttt{verify\_periods.py}~\cite{VerifyScripts}, run at $50$-digit
-\texttt{mpmath} precision.
+Explicitly, by using Eq.~\eqref{eq:cor_periods} at $k = 12$ 
+for the canonical pair $f \in \{\Delta, \Dhat\}$, where $\Delta$ is the modular 
+discriminant, and $\Dhat := 1/q + {\cal O}(q^2) \in S_{12}^!$, we reproduce 
+the numerical, published values \cite{Brown2017}, in Table~\ref{tab:k12-periods}.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{c|cc}
-& $\Delta \in S_{12}$, period $\omega^\pm(\Delta)$
-& $\Dhat \in S_{12}^!$, quasi-period $\eta^\pm(\Dhat)$ \\
+& $f = \Delta \in S_{12}$
+& $f = \Dhat \in S_{12}^!$ \\
 \hline
-$+$    & $-68\,916\,772.80959519\ldots$  & $\phantom{-}127\,202\,100\,647.17709\ldots$ \\
-$-/i$  & $\phantom{-}-5\,585\,015.37931040\ldots$   & $\phantom{-}10\,276\,732\,343.64913\ldots$ \\
+$\omega^+(f)$    & $-68\,916\,772.80959519\ldots$  & $\phantom{-}127\,202\,100\,647.17709\ldots$ \\
+$\omega^-(f)$  & $\phantom{-}-i\,5\,585\,015.37931040\ldots$   & $\phantom{-}i\,10\,276\,732\,343.64913\ldots$ \\
 \end{tabular}
-\caption{Periods of $\Delta$ and quasi-periods of $\Dhat$ at $k = 12$,
-reproduced from the Fourier coefficients of $f$ by
-\eqref{eq:periods-statement} to relative residual $\lesssim 10^{-42}$
-at $\tau_0 = 0.3 + 1.2i$.  Reference values from \cite{Brown2017}.}
+\caption{Numerical periods of $\Delta$ and $\Dhat$ from~\cite{Brown2017},
+via pythonin incarnation of Eq.~\eqref{eq:cor_periods} in \texttt{SOME FUNCTION IN}~\cite{VerifyScripts}.}
 \label{tab:k12-periods}
 \end{table}
-
-\subsection{Numerical verification}\label{subsec:numerics}
-
-The verification is layered through the proof of
-Theorem~\ref{thm:periods} as follows; the relevant named functions in
-\texttt{verify\_periods.py}~\cite{VerifyScripts} are indicated in
-\texttt{typewriter}.
-
-\begin{itemize}
-\item \textbf{Cocycle integration} (\eqref{eq:cocycle-def},
-\eqref{eq:CS-CT-def}): \texttt{cocycle\_poly} computes
-$C^f_S(\tau_0), C^f_T(\tau_0) \in V_{10} \otimes \CC$ by $V_{10}$-valued
-contour integration along $\gamma^{S,T}_{\tau_0}$.
-
-\item \textbf{Coboundary inversion two ways} (Lemma~\ref{lem:Bernoulli-inv}):
-\texttt{solve\_coboundary\_LU} solves $\delta_T P = (2\pi i)^{-(n + 1)} C^f_T$ by
-forward substitution on the strictly-lower-triangular matrix
-\eqref{eq:delta-T-matrix}; \texttt{solve\_coboundary\_bernoulli}
-uses the closed form \eqref{eq:Bernoulli-inv} of
-Lemma~\ref{lem:Bernoulli-inv}.  The two outputs agree to relative
-residual $\sim 10^{-40}$, confirming \eqref{eq:Bernoulli-inv}.
-
-\item \textbf{Brown-basis extraction at $9$ interior monomials}
-(Lemma~\ref{lem:brown-decomp}): \texttt{extract\_periods} reads off
-$\omega^\pm(\Delta)$ and $\eta^\pm(\Dhat)$ from
-$r_f = C^f_S - (2\pi i)^{n + 1}(P|_S - P)$ at each interior
-$\ell \in \{2, \ldots, 10\}$.  That all $9$ agree to $\lesssim 10^{-42}$,
-matching the Brown values of Table~\ref{tab:k12-periods}, is the
-numerical check that the computed $r_f$ lands on the cuspidal line
-(Corollary~\ref{cor:tau0-ell-indep}).
-
-\item \textbf{Basepoint independence}
-(Corollary~\ref{cor:tau0-ell-indep}): re-extraction of
-$\eta^\pm(\Dhat)$ at $\tau_0' = -0.2 + 0.9i$ agrees with the
-$\tau_0 = 0.3 + 1.2i$ values to $\lesssim 10^{-42}$.
-
-\item \textbf{Clean-form identity \eqref{eq:periods-statement}}
-(Theorem~\ref{thm:periods}): \texttt{hurwitz\_extract} evaluates the
-bare-Mellin $+$ bare-Hurwitz integral form directly at
-$\ell \in \{2, 3, 4, 5\}$ for $f = \Delta$, agreeing with the Brown
-reference values in Table~\ref{tab:k12-periods} to
-$\lesssim 10^{-42}$.
-
-\item \textbf{$S$- vs $T$-segment growth-rate cancellation} for
-$f = \Dhat$: \texttt{bare\_integrals} confirms that $|I_S|, |I_T|$
-each grow ${\sim}10^7$-fold across $\im(\tau_0) \in [1.2, 2.5]$ while
-$I_S + I_T$ stays $\tau_0$-invariant.
-\end{itemize}
-
-Analogous verification at higher weights $k \in \{16, 18, 20, 22, 26\}$
-where $\dim S_k = 1$ requires only the Brown basis coefficients
-$c_S^{\,\ell - 1}$ at those weights and is structurally identical.
 
 
 \section{The Hurwitz-zeta extension and the $L$-function on $M^!_k$: proof of Theorem~\ref{thm:bfk-eq}}\label{sec:hurwitz-extension}
@@ -2145,6 +2123,60 @@ weight-$k$ Poincar\'e-style sum in the pole location, taken up
 separately.
 
 \appendix
+
+\section{Numerical verification}\label{sec:numerics}
+
+The verification is layered through the proof of
+Theorem~\ref{thm:periods} as follows; the relevant named functions in
+\texttt{verify\_periods.py}~\cite{VerifyScripts} are indicated in
+\texttt{typewriter}.
+
+\begin{itemize}
+\item \textbf{Cocycle integration} (\eqref{eq:cocycle-def},
+\eqref{eq:CS-CT-def}): \texttt{cocycle\_poly} computes
+$C^f_S(\tau_0), C^f_T(\tau_0) \in V_{10} \otimes \CC$ by $V_{10}$-valued
+contour integration along $\gamma^{S,T}_{\tau_0}$.
+
+\item \textbf{Coboundary inversion two ways} (Lemma~\ref{lem:Bernoulli-inv}):
+\texttt{solve\_coboundary\_LU} solves $\delta_T P = (2\pi i)^{-(n + 1)} C^f_T$ by
+forward substitution on the strictly-lower-triangular matrix
+\eqref{eq:delta-T-matrix}; \texttt{solve\_coboundary\_bernoulli}
+uses the closed form \eqref{eq:Bernoulli-inv} of
+Lemma~\ref{lem:Bernoulli-inv}.  The two outputs agree to relative
+residual $\sim 10^{-40}$, confirming \eqref{eq:Bernoulli-inv}.
+
+\item \textbf{Brown-basis extraction at $9$ interior monomials}
+(Lemma~\ref{lem:brown-decomp}): \texttt{extract\_periods} reads off
+$\omega^\pm(\Delta)$ and $\eta^\pm(\Dhat)$ from
+$r_f = C^f_S - (2\pi i)^{n + 1}(P|_S - P)$ at each interior
+$\ell \in \{2, \ldots, 10\}$.  That all $9$ agree to $\lesssim 10^{-42}$,
+matching the Brown values of Table~\ref{tab:k12-periods}, is the
+numerical check that the computed $r_f$ lands on the cuspidal line
+(Corollary~\ref{cor:tau0-ell-indep}).
+
+\item \textbf{Basepoint independence}
+(Corollary~\ref{cor:tau0-ell-indep}): re-extraction of
+$\eta^\pm(\Dhat)$ at $\tau_0' = -0.2 + 0.9i$ agrees with the
+$\tau_0 = 0.3 + 1.2i$ values to $\lesssim 10^{-42}$.
+
+\item \textbf{Clean-form identity \eqref{eq:periods-statement}}
+(Theorem~\ref{thm:periods}): \texttt{hurwitz\_extract} evaluates the
+bare-Mellin $+$ bare-Hurwitz integral form directly at
+$\ell \in \{2, 3, 4, 5\}$ for $f = \Delta$, agreeing with the Brown
+reference values in Table~\ref{tab:k12-periods} to
+$\lesssim 10^{-42}$.
+
+\item \textbf{$S$- vs $T$-segment growth-rate cancellation} for
+$f = \Dhat$: \texttt{bare\_integrals} confirms that $|I_S|, |I_T|$
+each grow ${\sim}10^7$-fold across $\im(\tau_0) \in [1.2, 2.5]$ while
+$I_S + I_T$ stays $\tau_0$-invariant.
+\end{itemize}
+
+Analogous verification at higher weights $k \in \{16, 18, 20, 22, 26\}$
+where $\dim S_k = 1$ requires only the Brown basis coefficients
+$c_S^{\,\ell - 1}$ at those weights and is structurally identical.
+
+
 
 \section{Algebraic derivation of the Hurwitz-zeta kernel}\label{app:hurwitz-derivation}
 
