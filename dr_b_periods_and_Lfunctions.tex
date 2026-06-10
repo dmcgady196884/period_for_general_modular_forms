@@ -113,7 +113,8 @@ quasi-period results and the L-function extensions within one concrete, natural 
 
 \subsection{Central definitions and theorems}\label{sec:intro-results}
 
-Throughout, $\Gamma = \SLZ$ and $j$ denotes the Hauptmodul.  Write
+Throughout, $\Gamma = \SLZ$. In this note, we focus on modular forms on 
+$\SLZ$ of integer weight and trivial multiplier system.  Write
 $M_k$ for the holomorphic modular forms of weight $k$, $S_k \subset M_k$
 for the cusp forms, $M^!_k$ for the weakly holomorphic forms
 (holomorphic on $\HH$, with at most a pole at the cusp), and $F_k$ for
@@ -125,10 +126,25 @@ $F_k = g_0\,\CC(j)$ for any nonzero $g_0 \in F_k$; equivalently, $F_k$
 is the space of weight-$k$ functions meromorphic on $\HH$ and at the
 cusp. %DAM: This paragraph might need tightening.
 
+Further, throughout, $S_k$ denotes the standard space of 
+\emph{holomorphic} cusp-forms of weight-$k$ in $\SLZ$ and $S_k^!$ denotes 
+the space of \emph{weakly holomorphic} cusp forms of weight $k$ for $\SLZ$. 
+Clearly, $S_k \subset S_k^!$ and any $f \in S_k^!$ has a q-series with zero 
+constant term, i.e. if $f = \sum_{n \in \ZZ} c(n) q^n$ then $c(0) = 0$ and 
+$c(n) = 0$ for every $n \leq N$ for some finite integer $N$.%DAM: This paragraph might need tightening.
+
+We denote the unit-normalized Eisenstein-series by $E_k$:
+$E_k = 1 + O(q) \in M_k$. In this context, the modular discriminant, $\Delta$, is
+$\Delta := (E_4^3-E_6^2) = q + {\cal O}(q^2) \in S_{12}$. Similarly, the j-invariant 
+$j = 1/q + {\cal O}(q^0) \in M_0^!$ is given by 
+$j = 1728 E_4^3/(E_4^3-E_6^2)$, and denotes the Hauptmodul of $\SLZ$. 
+Further, at $k = 12$ we may define $\Dhat := 1/q + {\cal O}(q^2) \in S_{12}^!$. 
+This $\Dhat = (j^2 - c_1 j + c_0) \Delta$ for very easily computed integers $c_1, c_0$. %DAM: This paragraph might need tightening. In particular, we want to write the correct $c_1, c_0$.
+
 We begin with three definitions:
 
 \begin{definition}[Hurwitz T-kernel]\label{def:HurwitzT}
-Let $\zeta(s, x)$ denote the classical Hurwitz zeta-function, $\zeta(s,x):= \sum_{n \geq 1} (n+x)^{-s}$. We define the \emph{Hurwitz T-kernel} as,
+Let $\zeta(s, x)$ denote the classical Hurwitz zeta-function, $\zeta(s,x):= \sum_{n \geq 0} (n+x)^{-s}$. We define the \emph{Hurwitz T-kernel} as,
 \begin{equation}\label{eq:tildekT-def}
   \widetilde{k}_T(\tau, s)
   \;:=\; \zeta(1 - s,\, \tau + 1)
@@ -165,9 +181,6 @@ Let $f \in F_k$ be a meromorphic modular form of weight $k \in 2\ZZ$ on $\SLZ$, 
   \right].
 \end{equation}
 \end{definition}
-%Let $f \in F_k$ be of weight $k \in 2\ZZ$, and let $\tau_0 \in \HH$ be a
-%basepoint with the property that the pair of paths
-
 
 When the contour avoids poles in $f$, both contour integrals contributing to 
 $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
@@ -186,101 +199,36 @@ we reproduce the analytic formulae in~\cite{BFK2011}, we unambiguously
 show that their candidate L-function is the canonical L-function one would associate 
 with any weak modular form, $f \in M_k^!$.
 
-\paragraph{Three theorems.}
-The functional $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ %\Lambda^*(f, s; \tau_0)
-obeys three properties
-that together identify it as the canonical finite-contour $L$-function
-of $f$:
+\emph{We need some small bridging paragraph between these kinda-shitty definitions and the theorems. But, now, we will state the main theorems, stated sharply. We will prove them in Sections~\ref{sec:periods}--\ref{sec:wall-crossing}.}
 
-\begin{enumerate}[label=(\roman*),leftmargin=2.5em]\itemsep0.25em
-\item \emph{(Theorem~\ref{thm:periods})}\,
-  When $\dim S_k = 1$, the integer-$s$ specialisations of
-  \eqref{eq:Lambda-DR-def} reduce to a polynomial-kernel form that
-  produces the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$
-  as an explicit linear functional in the Fourier coefficients of $f$.
-  For $f = \Delta$ at $k = 12$ this recovers the Brown values of
-  $\omega^\pm(\Delta)$; for $f = \Dhat$ this gives the quasi-periods
-  $\eta^\pm(\Dhat)$ from a finite-endpoint contour pair, with no
-  divergence at the cusp.
-\item \emph{(Theorem~\ref{thm:bfk-eq})}\,
-  For $f \in M^!_k$,
-  $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
-  is $\tau_0$-independent on $\HH$ and
-  produces the completed $L$-function $L^*(f, s)$ at every $s
-  \in \CC$ as a single closed-form incomplete-gamma sum, agreeing
-  term by term in the Fourier expansion with \cite{BFK2011}.  Our %At 
-  proof in fact exploits the simplicity at the elliptic fixed-point basepoint 
-  $\tau_0 = i$, where the $S$-segment collapses
-  to a point and \eqref{eq:Lambda-DR-def} reduces to a single integral
-  on the compact contour $[i - 1, i]$.
-\item \emph{(Theorem~\ref{thm:wall-crossing})}\,
-  For general meromorphic $f$, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ depends
-  on $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ only through their homotopy class in
-  $\HH \setminus \Gamma\cdot f^{-1}(\infty)$, with explicit
-  wall-crossing residue jumps when the homotopy class changes by
-  crossing a pole.  Restricted to forms regular at the cusp, this
-  reproduces the deformed-Mellin $L$-function $L_f^*(s)_{\rm int}$
-  (Corollary~\ref{cor:1806-coincide}; see \cite{1806}).
-\end{enumerate}
+\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k = 1$]\label{thm:periods}
+Let $k \in 2\ZZ$ with $\dim S_k = 1$, $f \in S_k^!$, and let 
+$\widetilde{k}_T(\tau, s)$ is be Hurwitz-zeta $T$-kernel in \eqref{eq:tildekT-def}. Further, let $c_S^{\,\ell-1} := [p_f^\pm]_{X^{n-(\ell-1)}Y^{\ell-1}} \in \mathbb{Q}$ is 
+the coefficient of $X^{n-(\ell-1)}Y^{\ell-1}$in the cuspidal basis element 
+$p_f^\pm$ of the period polynomial space $W_{k-2}^\pm$ 
+\cite{KZ1984}, in Brown's $S$-cocycle normalisation \cite{Brown2017}.
 
-\medskip
-
-The complete statements are below; their proofs occupy
-\S\ref{sec:periods}--\S\ref{sec:wall-crossing}.
-
-\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k \le 1$]\label{thm:periods}
-Let $k \in 2\ZZ$ with $\dim S_k \le 1$, and let $f \in S_k^!$.  For
-the substantive cases $k \in \{12, 16, 18, 20, 22, 26\}$ where
-$\dim S_k = 1$, the period and quasi-period coefficients
-$\omega^\pm(f)$ are given by the explicit two-segment linear
-functional
+For any $f \in S_k^!$, the period coefficients $\omega^\pm(f)$ are given 
+by the two-segment linear functional,
 \begin{equation}\label{eq:periods-statement}
   \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{\ell - 1}\,\binom{k - 2}{\ell - 1}}{c_S^{\,\ell - 1}}\!\left[
     \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell - 1}\,d\tau
     \;+\;
     \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau
-  \right]
+  \right]~.
 \end{equation}
-for every $f \in S_k^!$, every $\tau_0 \in \HH$, and every interior
-$\ell \in \{2, \ldots, k - 2\}$, with parity $\pm$ determined by
-$\ell - 1 \bmod 2$.  Here
-$c_S^{\,\ell - 1} := [p^\pm_f]_{X^{n - (\ell - 1)} Y^{\ell - 1}} \in \QQ$ is the
-Brown cuspidal-basis coefficient at the matched monomial
-(\cite{Brown2017,KZ1984}), $\widetilde{k}_T(\tau, s)$ is the
-Hurwitz-zeta $T$-kernel of \eqref{eq:tildekT-def}, and its integer-$s = \ell$
-specialisation collapses via $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$
-($m \ge 0$) to the $\QQ$-rational polynomial
-\begin{equation}\label{eq:kS-form}
-  \widetilde{k}_T(\tau, \ell) \;=\; -\,\frac{B_\ell(\tau + 1)}{\ell} \;+\; (-1)^{\ell - 1}\,\frac{B_{k - \ell}(\tau + 1)}{k - \ell}
-  \;\in\; \QQ[\tau]
-\end{equation}
-of degree at most $k - 2$.  The right side of
-\eqref{eq:periods-statement} is independent of $\tau_0 \in \HH$.
+This functional is independent of $\tau_0 \in \HH$ and independent of 
+$\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$. The final result for any $\ell$ 
+depends only on the parity of $\ell$, i.e. $(-1)^{\ell -1} = \pm 1$ dictates which period coefficient is extracted.%DAM: This is shittily worded. Needs a fix.
 \end{theorem}
 
-Inside the two-segment bracket of \eqref{eq:periods-statement} sit only
-the bare Mellin monomial $\tau^{\ell - 1}$ on $\gamma^S_{\tau_0}$ and the
-bare Hurwitz polynomial $\widetilde{k}_T(\tau, \ell)$ on
-$\gamma^T_{\tau_0}$; the factors $(2\pi i)^{k - 1}$, $(-1)^{\ell - 1}$,
-$\binom{k - 2}{\ell - 1}$ and the Brown basis coefficient
-$c_S^{\,\ell - 1}$ are absorbed into the prefactor.
-
-\paragraph{Higher-dimensional $S_k$.}
-For $k \ge 24$ with $\dim S_k \ge 2$, the Brown cuspidal-basis
-coefficient $c_S^{\,\ell - 1}$ in \eqref{eq:periods-statement} becomes
-matrix-valued: each $\ell \in \{2,
-\ldots, k-2\}$ gives a $\dim S_k$-component linear functional on
-$\{c_f(n)\}$ rather than a scalar.  The structural argument behind
-Theorem~\ref{thm:periods} --- coboundary inversion on $V_{k-2}$ via
-$\delta_T^{-1}$ in closed Bernoulli-operator form --- generalises
-without conceptual change, but the explicit kernel tables grow with
-$\dim S_k$, and the $\ell$- and $\tau_0$-independence statement of
-Corollary~\ref{cor:tau0-ell-indep} becomes a matrix identity.  Working out the explicit matrix-valued
-kernels for $k = 24, 28, 30, \ldots$ and connecting them to the
-existing Eichler--Shimura matrix-period basis literature is the
-natural generalisation of Theorem~\ref{thm:periods}, and we leave it
-to a follow-up.  Theorems~\ref{thm:bfk-eq} and~\ref{thm:wall-crossing}
-are unaffected and apply at every even $k$.
+It is straightforward to see that our linear 
+functional applies to any $k$ for e.g. $\dim S_k \ge 2$.
+Here, the corresponding statements become matrix identities.  
+Working out the explicit matrix-valued
+kernels for $\dim(S_k) \ge 2$, and connecting them to the
+existing Eichler--Shimura matrix-period basis literature, is a
+natural generalization of Theorem~\ref{thm:periods}. We do not pursue this generalization, here.
 
 \begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:bfk-eq}
 Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
@@ -316,43 +264,10 @@ well as reproduce extant formulae from the literature for weakly
 holomorphic modular forms~\cite{BFK2011}.
 \end{theorem}
 
-\paragraph{Classical Mellin recovery and canonical uniqueness.}
-For $f \in S_k$ a holomorphic cusp form, taking the cusp-limit
-$\tau_0 \to i\infty$ in \eqref{eq:Lambda-DR-general} collapses the
-$S$-segment onto the classical Mellin contour $[0, i\infty]$ while
-the $T$-segment vanishes exponentially (since $f(\tau) =
-O(e^{-2\pi\im\tau})$ on the segment as $\im\tau \to \infty$):
-\begin{equation}\label{eq:Mellin-recovery}
-  \lim_{\tau_0 \to i\infty}\!
-  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
-  \;=\; \int_0^\infty\! t^{s - 1}\,f(it)\,dt,
-\end{equation}
-the classical completed $L$-integral of $f$.  For $f \in M_k$ with
-$c_f(0) \ne 0$ the same limit holds after a standard constant-term
-subtraction (see \cite[Lemma~2.1]{1806} for the explicit polynomial
-correction).
-
-For $f \in M^!_k$ with cusp poles the cusp-limit is genuinely
-pathological: $f(\tau) \to \infty$ as $\im\tau \to \infty$, so the
-$S$-segment integral diverges along the imaginary axis, and the
-$T$-segment integral $\int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,
-\widetilde{k}_T(\tau, s)\,d\tau$ acquires a matching divergence of
-the opposite sign as $\im\tau_0 \to \infty$ --- made precise in
-Lemma~\ref{lem:cusp-decay}, where the $T$-segment is shown to equal an
-explicit incomplete-gamma sum whose polar mode $q^{-M}$ contributes a
-term growing like $|c_f(-M)|\,e^{2\pi M \im(\tau_0)}$.
-The two divergences cancel at every finite $\tau_0$, so $L^*(f, s)$
-is finite and well defined throughout $\HH$, but no naive Mellin
-contour limit exists.  The construction of \cite{BFK2011} recovers
-$L^*(f, s)$ on $M^!_k$ by a non-holomorphic regulator at the cusps;
-Theorem~\ref{thm:bfk-eq} shows that this regulator and the
-finite-contour functional \eqref{eq:Lambda-DR-general} compute the
-same object, term by term in the Fourier expansion.  In particular,
-$L^*(f, s)$ is independent of any choice of regularisation: it is
-the value of the finite-contour functional at any admissible
-$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$, and the BFK construction is
-one closed-form evaluation of it (at $\tau_0 = i$).
-
+We unpack how Theorem~\ref{thm:bfk-eq} naturally reproduces the 
+Hecke-Weil Mellin transform for holomorphic modular forms, as 
+well as reproduce extant formulae from the literature for weakly 
+holomorphic modular forms~\cite{BFK2011} in section~\ref{sec:Connection-w-previous-weak-MF-l-functions}.
 
 \begin{theorem}[$L$-function for meromorphic modular forms]\label{thm:wall-crossing}
 Let $k \in 2\ZZ$ and let $f$ be a meromorphic modular form of weight
@@ -398,9 +313,9 @@ $\tau_p$ (the generic case has one nonzero and the other zero,
 according to which contour crossed).  Higher-order poles contribute
 via the corresponding derivatives in $\tau_p$ of
 \eqref{eq:residue-formula}; the closed form is given in
-\S\ref{sec:wall-crossing}.
+Section~\ref{sec:wall-crossing}.
 \end{enumerate}
-\end{theorem}
+\end{theorem}%DAM: This theorem statement is just way-the-fuck too long. Needs chopping-up. Also, needs splitting-up into f = (f-g)+g, where g has all poles at the cusp and (f-g) has all the poles in the interior. In this context, the g-part is just BFK, and the (f-g)-part is regular at the cusp, so we can just take the $\tau_0 \to i \infty$ there and have the residues be just $\tau_p^{s-1}$ as we would the fuck like to have. Much prettier.
 
 \begin{corollary}[$L^*$ on regular-at-cusps meromorphic forms]\label{cor:1806-coincide}
 Let $f \in F_k$ be a meromorphic modular form of weight $k$ that is
@@ -418,7 +333,7 @@ can be deformed to $\gamma$ in $\HH_f$),
   \qquad
   \text{for every } s \in \CC.
 \end{equation}
-\end{corollary}
+\end{corollary}%DAM: I think this could just be replaced by a statement that we reproduce 1806's L-function, and refer to the Corrolary that is stated just once, and it is stated in the content-section, not the intro.
 
 \paragraph{The structural picture.}
 The contour pair \eqref{eq:contour-pair} has two natural one-parameter
@@ -440,20 +355,20 @@ of \cite{DR2017} (which itself recovers as the integer-$s$
 specialisation, by Theorem~\ref{thm:periods}).
 
 \paragraph{Outline.}
-\S\ref{sec:cocycle} introduces the period-defining
+Section~\ref{sec:cocycle} introduces the period-defining
 cocycle and its moment
 expansion in the polynomial coefficient system $V_{k-2}$.
-\S\ref{sec:periods} identifies the bare Mellin and Hurwitz integer-$s$
+Section~\ref{sec:periods} identifies the bare Mellin and Hurwitz integer-$s$
 specialisations as the period-extracting kernels and proves
-Theorem~\ref{thm:periods}.  \S\ref{sec:hurwitz-extension} derives
+Theorem~\ref{thm:periods}.  Section~\ref{sec:hurwitz-extension} derives
 the Hurwitz-zeta kernel $\widetilde{k}_T$ via a coboundary equation,
 proves Theorem~\ref{thm:bfk-eq} via a Hurwitz-unfolding lemma, and
 contains an explicit worked example at $k = 12$ exhibiting the
 Bernoulli-polynomial collapse of $\widetilde{k}_T$ at integer $s$
 together with numerical values of $\omega^\pm(\Delta)$ and
-$\eta^\pm(\Dhat)$.  \S\ref{sec:wall-crossing} proves
+$\eta^\pm(\Dhat)$.  Section~\ref{sec:wall-crossing} proves
 Theorem~\ref{thm:wall-crossing} and Corollary~\ref{cor:1806-coincide}.
-\S\ref{sec:outlook} collects conceptual framings (holonomy/Wilson-loop
+Section~\ref{sec:outlook} collects conceptual framings (holonomy/Wilson-loop
 interpretation, on-shell-amplitudes analogy, the
 regularisation-as-symptom heuristic, the open question on the
 geometric content of the $\tau^{s-1}\,f\,d\tau$ Mellin kernel, and
@@ -470,6 +385,7 @@ Appendix~\ref{app:eichler-shimura} is a brief Eichler--Shimura primer
 for readers approaching the subject from theoretical physics.  This
 appendix is included for the working-version of this note and is
 intended to be removed before formal publication.
+
 
 \section{The period-defining cocycle and its moment expansion}\label{sec:cocycle}
 
@@ -605,7 +521,7 @@ This is the coboundary $\delta P(\gamma) := P|_\gamma - P$.  When $f$
 has interior poles, dragging $\tau_0$ across a pole picks up a Cauchy
 residue contribution beyond \eqref{eq:bp-cocycle-coboundary}; this
 wall-crossing structure is the content of Theorem~\ref{thm:wall-crossing}
-in \S\ref{sec:wall-crossing}.
+in Section~\ref{sec:wall-crossing}.
 
 \paragraph{Cohomology and periods.}
 The cohomology class $[C^f] \in H^1(\Gamma; V_n)$ is independent of
@@ -620,7 +536,7 @@ $\omega^\pm(f), \eta^\pm(f)$ \cite{Brown2017}.%DAM: I have almost zero clue what
 
 Set $n := k - 2$ throughout.  The argument is $k$-uniform on the
 $\dim S_k = 1$ family $k \in \{12$, $16$, $18$, $20$, $22$, $26\}$: every step
-below --- the cocycle structure of \S\ref{sec:cocycle}, the
+below --- the cocycle structure of Section~\ref{sec:cocycle}, the
 $\delta_T$-solvability of Lemma~\ref{lem:solvability-cuspidality},
 the Bernoulli closed-form inversion of
 Lemma~\ref{lem:Bernoulli-inv}, the Hurwitz-zeta kernel
@@ -1156,13 +1072,13 @@ per-mode \emph{unfolding} (Proposition~\ref{prop:hurwitz-unfold}) turns
 the surviving $T$-integral into incomplete gammas; (iii) the resulting
 sum is the completed $L$-function.  Lemmas~\ref{lem:Lstar-finite}
 and~\ref{lem:Lstar-local-constancy} are stated for arbitrary
-meromorphic $f$, in preparation for \S\ref{sec:wall-crossing};
+meromorphic $f$, in preparation for Section~\ref{sec:wall-crossing};
 Theorem~\ref{thm:bfk-eq} is their specialisation to $f \in M^!_k$,
 where no interior pole obstructs the contour pair.
 
 \paragraph{Why a Hurwitz-zeta kernel.}
 The kernel \eqref{eq:tildekT-def} is the all-$s$ continuation of the
-integer-$s$ inversion of \S\ref{sec:periods}.  There, killing the
+integer-$s$ inversion of Section~\ref{sec:periods}.  There, killing the
 $T$-cocycle meant solving the shift-difference equation
 $\delta_T P = P|_T - P = Q$ on $V_n$, and the operator identity
 $\delta_T = e^{Y\partial_X} - 1$ inverted it through the Bernoulli
@@ -1176,7 +1092,7 @@ combination of pure powers $\tau^{\sigma - 1}$.  The function that
 inverts the unit shift against a single power is the Hurwitz zeta,
 $\zeta(\sigma, \tau + 1) - \zeta(\sigma, \tau) = -\tau^{-\sigma}$, so a
 combination of Hurwitz zetas is the natural solution, and the
-Bernoulli inversion of \S\ref{sec:periods} is exactly its integer-$s$
+Bernoulli inversion of Section~\ref{sec:periods} is exactly its integer-$s$
 shadow through $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ --- the Bernoulli
 numbers being zeta values at non-positive integers.  An alternative
 derivation, starting from the classical Mellin transform and demanding
@@ -1352,7 +1268,7 @@ $\mathrm{Re}(-2\pi i n\,\tau_0) = 2\pi n\,\im(\tau_0)$ --- positive for
 $n > 0$, negative for $n < 0$ --- with the $\arg = +\pi$ continuation in
 the latter case.  Equation \eqref{eq:hurwitz-unfold} is the case
 $\tau_0 = i$; we use \eqref{eq:hurwitz-unfold-general} in
-\S\ref{sec:wall-crossing}.
+Section~\ref{sec:wall-crossing}.
 
 \begin{lemma}[Constant-mode integral]\label{lem:const-mode}
 For every $s \in \CC$,
@@ -1572,6 +1488,47 @@ precision, and is independent of $\tau_0 \in \{0.3 + 1.2i,\; 1.5i,\;
 for $\Dhat$ holds to $\sim 10^{-47}$, the loss of digits reflecting the
 $q^{-1}$ cusp mode.
 
+\subsection{Classical Mellin recovery and canonical uniqueness.}\label{sec:Connection-w-previous-weak-MF-l-functions}
+For $f \in S_k$ a holomorphic cusp form, taking the cusp-limit
+$\tau_0 \to i\infty$ in \eqref{eq:Lambda-DR-general} collapses the
+$S$-segment onto the classical Mellin contour $[0, i\infty]$ while
+the $T$-segment vanishes exponentially (since $f(\tau) =
+O(e^{-2\pi\im\tau})$ on the segment as $\im\tau \to \infty$):
+\begin{equation}\label{eq:Mellin-recovery}
+  \lim_{\tau_0 \to i\infty}\!
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;=\; \int_0^\infty\! t^{s - 1}\,f(it)\,dt,
+\end{equation}
+the classical completed $L$-integral of $f$.  For $f \in M_k$ with
+$c_f(0) \ne 0$ the same limit holds after a standard constant-term
+subtraction (see \cite[Lemma~2.1]{1806} for the explicit polynomial
+correction).
+
+For $f \in M^!_k$ with cusp poles the cusp-limit is genuinely
+pathological: $f(\tau) \to \infty$ as $\im\tau \to \infty$, so the
+$S$-segment integral diverges along the imaginary axis, and the
+$T$-segment integral $\int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,
+\widetilde{k}_T(\tau, s)\,d\tau$ acquires a matching divergence of
+the opposite sign as $\im\tau_0 \to \infty$ --- made precise in
+Lemma~\ref{lem:cusp-decay}, where the $T$-segment is shown to equal an
+explicit incomplete-gamma sum whose polar mode $q^{-M}$ contributes a
+term growing like $|c_f(-M)|\,e^{2\pi M \im(\tau_0)}$.
+The two divergences cancel at every finite $\tau_0$, so $L^*(f, s)$
+is finite and well defined throughout $\HH$, but no naive Mellin
+contour limit exists. By throwing-out $\gamma^T_{\tau_0}$ at the outset, 
+one does violence to the result; the $\tau_0 \to i \infty$ limit of the S-contour 
+alone diverges, necessitating regularizations of the type introduced in~\cite{BFK2011}. 
+The construction of \cite{BFK2011} recovers
+$L^*(f, s)$ on $M^!_k$ by a non-holomorphic regulator at the cusps;
+Theorem~\ref{thm:bfk-eq} shows that this regulator and the
+finite-contour functional \eqref{eq:Lambda-DR-general} compute the
+same object, term by term in the Fourier expansion.  In particular,
+$L^*(f, s)$ is independent of any choice of regularisation: it is
+the value of the finite-contour functional at any admissible
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$, and the BFK construction is
+one closed-form evaluation of it (at $\tau_0 = i$).
+
+
 \section{Wall-crossing for meromorphic forms: proof of Theorem~\ref{thm:wall-crossing}}\label{sec:wall-crossing}
 
 \subsection{Overview}\label{subsec:wall-crossing-overview}
@@ -1581,7 +1538,7 @@ Theorem~\ref{thm:wall-crossing} has three parts.  Parts (a)
 through its homotopy class in $\HH_f$) hold for arbitrary meromorphic
 $f$ and were already proved, without any cuspidality hypothesis, as
 Lemma~\ref{lem:Lstar-finite} and Lemma~\ref{lem:Lstar-local-constancy}
-of \S\ref{sec:hurwitz-extension} --- stated there in exactly this
+of Section~\ref{sec:hurwitz-extension} --- stated there in exactly this
 generality so as to serve here.  The new content of this section is
 part (c): the explicit residue $\mathcal{R}_{\tau_p}(f, s)$ by which
 $L^*$ jumps when the contour pair crosses an interior pole
@@ -1659,7 +1616,7 @@ with $\Res(f, \tau_p)\,K(\tau_p, s)$ in \eqref{eq:segment-crossing}
 replaced by the order-$m$ residue
 $\sum_{\ell = 1}^{m} r_{f, \tau_p}(-\ell)\,\partial_{\tau_p}^{\ell - 1} K(\tau_p, s)/(\ell - 1)!$,
 where $r_{f, \tau_p}(-\ell)$ are the principal-part Laurent
-coefficients of $f$ at $\tau_p$; the generalisation is routine, and we
+coefficients of $f$ at $\tau_p$; the generalization is routine, and we
 record only the simple-pole case.
 
 \subsection{Restated theorem and proof}\label{subsec:wall-crossing-proof}
@@ -1712,7 +1669,7 @@ via the corresponding derivatives in $\tau_p$ of
 \eqref{eq:residue-formula-restated}, as recorded after
 Proposition~\ref{prop:wall-crossing-residue}.
 \end{enumerate}
-\end{theorem}
+\end{theorem}%DAM: This theorem statement is just way-the-fuck too long. Needs chopping-up. Also, needs splitting-up into f = (f-g)+g, where g has all poles at the cusp and (f-g) has all the poles in the interior. In this context, the g-part is just BFK, and the (f-g)-part is regular at the cusp, so we can just take the $\tau_0 \to i \infty$ there and have the residues be just $\tau_p^{s-1}$ as we would the fuck like to have. Much prettier.
 
 \begin{proof}[Proof of Theorem~\ref{thm:wall-crossing}, aka Theorem~\ref{thm:wall-crossing2}.]
 \emph{(a)} Finiteness of both integrals for any admissible pair is
@@ -1767,7 +1724,7 @@ term by term.  For $n \ne 0$, the base-$\tau_0$ unfolding
 \eqref{eq:hurwitz-unfold-general} applied to the two halves of
 $\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$
 at $\nu = 1 - s$ and $\nu = s - (k - 1)$, with the phase collapse
-$-i^{-s}e^{i\pi(s-1)}i^{k-s} = i^k$ of \S\ref{subsec:bfk-proof}, gives
+$-i^{-s}e^{i\pi(s-1)}i^{k-s} = i^k$ of Section~\ref{subsec:bfk-proof}, gives
 the $n \ne 0$ summand of \eqref{eq:T-segment-closed}.  For $n = 0$, the
 Hurwitz antiderivative of Lemma~\ref{lem:const-mode} at base $\tau_0$,
 $\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1-\sigma}/(\sigma - 1)$,
@@ -1928,7 +1885,7 @@ The wall-crossing residue formula \eqref{eq:residue-formula} acts on
 the complex-$s$ functional $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$.  
 Specialised at integer $s = \ell \in \{2, \ldots,
 k-2\}$ and assembled into the $V_{k-2}$ moment expansion of
-\S\ref{sec:cocycle}, it gives the wall-crossing of the
+Section~\ref{sec:cocycle}, it gives the wall-crossing of the
 period-polynomial cocycle of $f$ under contour deformation across an
 interior pole.
 
@@ -2022,7 +1979,7 @@ there by the polylog projection $\widehat{P}_{\tau_p}$, and is
 inherited here through Corollary~\ref{cor:1806-coincide}.  The
 genuinely new regime --- $f$ with poles \emph{both} in $\HH$ and at the
 cusp --- is reached by combining the interior projection with the
-finite-contour cusp treatment of \S\ref{sec:hurwitz-extension}, through
+finite-contour cusp treatment of Section~\ref{sec:hurwitz-extension}, through
 a Hauptmodul split that keeps both pieces modular.
 
 \begin{lemma}[Hauptmodul split]\label{lem:j-split}
@@ -2180,7 +2137,7 @@ $c_S^{\,\ell - 1}$ at those weights and is structurally identical.
 
 \section{Algebraic derivation of the Hurwitz-zeta kernel}\label{app:hurwitz-derivation}
 
-The body of \S\ref{subsec:well-defined} derives $\widetilde{k}_T(\tau, s)$ by
+The body of Section~\ref{subsec:well-defined} derives $\widetilde{k}_T(\tau, s)$ by
 differentiating the two-segment functional in $\tau_0$ and demanding the
 result vanish.  Here we record the parallel derivation that proceeds
 \emph{from} the classical Mellin transform of a holomorphic cusp form,
