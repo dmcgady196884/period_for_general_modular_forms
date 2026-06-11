@@ -205,43 +205,84 @@ Eisenstein series, $\Delta := (E_4^3 - E_6^2)/1728 = q + {\cal O}(q^2)
 \in S_{12}$ for the modular discriminant,
 and $j = 1728\,E_4^3/(E_4^3 - E_6^2) = 1/q + {\cal O}(q^0) \in M^!_0$
 for the Hauptmodul of $\SLZ$.
- 
-The construction is easiest to motivate by asking what, precisely, breaks
-when the classical definitions are moved from holomorphic to weakly
-holomorphic or meromorphic forms.  The period polynomial of a cusp form
-$f \in S_k$ is
+
+In a nutshell, this note is the natural extension of bridging the gap between the 
+manifestly finite extraction of quasi-periods of $\Dhat$ in \cite{Brown2017} and the 
+manifestly regulator-dependent derivation of effective L-functions for weak cusp forms 
+in \cite{BFK2011}. By leveraging the construction underlying the computation in \cite{Brown2017}, we 
+uncover a unified, manifestly finite formalism to define L-functions, and extract L-values 
+which define period polynomials, for truly generic meromorphic modular forms. 
+
+\subsection{Manifestly finite extractions of period polynomials for weak cusp forms}
+
+To understand the manifestly finite extraction of the quasi-periods in~\cite{Brown2017}, 
+we begin by studying the manifestly $\SLZ$-covariant differential,
+\begin{equation}
+d\omega := d\tau f(\tau) (X - \tau Y)^{k-2}~,
+\end{equation}
+where $f$ is a modular form of weight $k$ on $\SLZ$, and contour integrals of 
+$P(X, Y) := \int_a^b d\omega$ yield polynomials $P \in V_{k-2} := \CC[X, Y]_n$ 
+which have natural action under $\SLZ$, i.e. for each $\gamma = \left( 
+\begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right) \in \SLZ$, 
+$(f|_\gamma)(\tau) = (c\tau + d)^k f(\tau)$ and $(P|_\gamma)(X, Y) = 
+P(a X + b Y, c X + d Y)$.
+
+Period polynomials of holomorphic cusp forms $f \in S_k$, which are commonly 
+written as
+ %Our manifestly finite construction of period polynomials for weak cusp forms (when $\dim(S_k) = 1$)
+%is easiest to motivate by asking what, precisely, breaks
+%when the classical definitions are moved from holomorphic to weakly
+%holomorphic or meromorphic forms.  The period polynomial of a cusp form
+%$f \in S_k$ is classically written as,
 \begin{equation}\label{eq:classical-rf}
   r_f(X, Y) \;=\; \int_0^{i\infty}\! f(\tau)\,(X - \tau Y)^{k-2}\,d\tau,
 \end{equation}
-an integral between the cusps $i\infty$ and $0 = S\!\cdot\! i\infty$.  The
-choice of endpoints is doing real work here: because they are exchanged by
-the modular inversion $S$, the modularity of $f$ converts the contour data
-into the algebraic constraints --- the period relations --- that $r_f$
-satisfies.  The cusp is where the group enters the classical construction.
-It is also, for $f$ with a pole at the cusp, exactly where the integral
-diverges.  The extensions in the literature keep the contour and repair
-the divergence: \cite{BFK2011} with a non-holomorphic regulator at the
-endpoints, \cite{1806} with contour deformation and asymptotic
-subtraction.  We do the opposite: we keep the group and discard the
-contour's boundary anchoring, replacing the cusp's role with a
-$1$-cocycle for $\Gamma$.
+are clearly integrals of the $\SLZ$-covariant differential over a contour 
+stretching between the cusp at $\tau = 0$ and its S-image. Yet, one may
+choose a different contour, at the expense of introducing more general 
+machinery. 
+
+The machinery needed to define period polynomials as contour integrals over 
+more general contours is essentially ignorable in the case of holomorphic cusp 
+forms. However, it is essential to being able to cleanly extend the notion of a 
+modular form's period polynomial and L-functions beyond of the narrow, but 
+important, context of holomorphic cusp-forms. For instance, relaxing from a 
+holomorphic cusp form to a weakly holomorphic cusp form introduces essential 
+singularities at \emph{both} ends of the classical integration contour. 
+%an integral between the cusp of $\SLZ$ at zero and its S-image at infinity.  The
+%choice of endpoints is doing real work here: because they are exchanged by
+%the modular inversion $S$, the modularity of $f$ converts the contour data
+%into the algebraic constraints --- the period relations --- that $r_f$
+%satisfies.  The cusp is where the group enters the classical construction.
+%It is also, for $f$ with a pole at the cusp, exactly where the integral
+%diverges.  The extensions in the literature keep the contour and repair
+%the divergence: \cite{BFK2011} with a non-holomorphic regulator at the
+%endpoints, \cite{1806} with contour deformation and asymptotic
+%subtraction.  We do the opposite: we keep the group and discard the
+%contour's boundary anchoring, replacing the cusp's role with a
+%$1$-cocycle for $\Gamma$.
  
-To this end, set $n := k - 2$ and let $V_n = \CC[X, Y]_n$ carry the right
-$\Gamma$-action $(P|_\gamma)(X, Y) = P(aX + bY,\, cX + dY)$.  The
-weight-$k$ modularity of $f$ makes the $V_n$-valued form
-$\omega_f = f(\tau)(X - \tau Y)^n\,d\tau$ invariant under the simultaneous
-action of $\Gamma$ on $\tau$ and on $(X, Y)$, so the integrals
+Thus, we seek to understand period polynomials even 
+of holomorphic cusp forms via contour integrals between more generic end-points. 
+Thus, let $n := k - 2$, $\tau_0 \in \HH$, $\gamma \in \SLZ$, and %set $n := k - 2$ and let $V_n = \CC[X, Y]_n$ carry the right
+%$\Gamma$-action $(P|_\gamma)(X, Y) = P(aX + bY,\, cX + dY)$.  The
+%weight-$k$ modularity of $f$ makes the $V_n$-valued form
+%$\omega_f = f(\tau)(X - \tau Y)^n\,d\tau$ invariant under the simultaneous
+%action of $\Gamma$ on $\tau$ and on $(X, Y)$, so the integrals
+consider% the integral, 
 \begin{equation}\label{eq:ES-cocycle}
   C^f_\gamma(\tau_0)
   \;=\; (2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f,
   \qquad \gamma \in \Gamma,
 \end{equation}
-based at an arbitrary interior point $\tau_0 \in \HH$, satisfy the cocycle
-relation $C^f_{gh} = C^f_g|_h + C^f_h$.  This relation is the bookkeeping
-the cusp used to perform, now executed entirely in the interior of $\HH$.
+an integral along a path from $\gamma^{-1}\tau_0 \to \tau_0$. This integral satisfis 
+the cocycle relation $C^f_{gh} = C^f_g|_h + C^f_h$.  %This relation is the bookkeeping
+%the cusp used to perform, now executed entirely in the interior of $\HH$.
+
 Since $\Gamma = \langle S, T\rangle$, the cocycle is determined by its two
-generator values: the integrals of $\omega_f$ over the contour pair that
-we now fix once and for all.
+generator values, and it is natural to single-out the S- and T-contour associated with 
+the base-point $\tau_0$. We do this as follows:%: the integrals of $\omega_f$ over the contour pair that
+%we now fix once and for all.
  
 \begin{definition}[General paths along torus cycles]\label{def:contours}
 Let $\tau_0 \in \HH$, and consider any $\sigma \in \SLZ$. We denote the
@@ -336,7 +377,7 @@ period coefficients $\omega^{\pm}(f)$, which determine the period
 polynomial of $f \in S_k^!$ when $\dim(S_k) = 1$, via the following
 theorem: %CLAUDE: light grammar pass on your lead-in.
  
-\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k = 1$]\label{thm:periods}
+\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional, when $\dim S_k = 1$]\label{thm:periods}
 Let $k$, $f \in S_k^!$, and $c_S^{\,\ell}$ be as in
 Definition~\ref{def:poly-coeffs-dimSk1}, and let
 $\ell \in \{1, \ldots, k - 3\}$, so that $s = \ell + 1$ ranges over the
@@ -382,6 +423,8 @@ matrix-valued kernels for $\dim(S_k) \ge 2$, and connecting them to the
 existing Eichler--Shimura matrix-period basis literature, is a natural
 generalization of Theorem~\ref{thm:periods}. We do not pursue this
 generalization, here.
+
+\subsection{Manifestly finite L-functions for generic, meromorphic modular forms}
 
 Nothing in Definition~\ref{def:HurwitzT}, however, requires $s$ to be an
 integer --- and this is where the $L$-function arrives for free.
@@ -1074,7 +1117,7 @@ $[r_f]$ at interior monomials), Lemma~\ref{lem:Hurwitz-collapse}
 ($\ell$- and $\tau_0$-independence) in hand, we assemble the proof of
 Theorem~\ref{thm:periods}.  For reference, the theorem statement is:
 
-\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k \le 1$ -- Theorem~\ref{thm:periods}, restated]\label{thm:periods3}
+\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional ($\dim S_k = 1$) -- Theorem~\ref{thm:periods}, restated]\label{thm:periods3}
 Let $k \in 2\ZZ$ with $\dim S_k \le 1$, and let $f \in S_k^!$.  For
 the substantive cases $k \in \{12, 16, 18, 20, 22, 26\}$ where
 $\dim S_k = 1$, the period and quasi-period coefficients
@@ -2693,7 +2736,7 @@ with any weak modular form, $f \in M_k^!$.
 
 \emph{We need some small bridging paragraph between these kinda-shitty definitions and the theorems. But, now, we will state the main theorems, stated sharply. We will prove them in Sections~\ref{sec:periods}--\ref{sec:wall-crossing}.}
 
-\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k = 1$]\label{thm:periods}
+\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional ($\dim S_k = 1$)]\label{thm:periods}
 Let $k \in 2\ZZ$ with $\dim S_k = 1$, $f \in S_k^!$, and let 
 $\widetilde{k}_T(\tau, s)$ is be Hurwitz-zeta $T$-kernel in \eqref{eq:tildekT-def}. Further, let $c_S^{\,\ell-1} := [p_f^\pm]_{X^{n-(\ell-1)}Y^{\ell-1}} \in \mathbb{Q}$ is 
 the coefficient of $X^{n-(\ell-1)}Y^{\ell-1}$in the cuspidal basis element 
@@ -3082,7 +3125,7 @@ $p_f^\pm$ of the period polynomial space $W_{k-2}^\pm$
 %$\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ to exactly the $\QQ$-rational Bernoulli
 %pair appearing in \eqref{eq:intro-rf}: the polynomial inversion is the
 %integer-$s$ shadow of \eqref{eq:tildekT-def}.  
-\begin{theorem}[Periods and quasi-periods as an explicit linear functional, $\dim S_k = 1$]\label{thm:periods}
+\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional ($\dim S_k = 1$)]\label{thm:periods}
 For any $f \in S_k^!$, the period coefficients $\omega^\pm(f)$ are given
 by the two-segment linear functional,
 \begin{equation}\label{eq:periods-statement}
