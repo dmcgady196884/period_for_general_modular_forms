@@ -34,6 +34,7 @@
 \newcommand{\eps}{\varepsilon}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Hpar}{H^1_{\mathrm{par}}}
 
 \title{Periods and $L$-functions of meromorphic modular forms\\
 via finite contours}
@@ -280,8 +281,8 @@ the cocycle relation $C^f_{gh} = C^f_g|_h + C^f_h$.  %This relation is the bookk
 %the cusp used to perform, now executed entirely in the interior of $\HH$.
 
 Since $\Gamma = \langle S, T\rangle$, the cocycle is determined by its two
-generator values, and it is natural to single-out the S- and T-contour associated with 
-the base-point $\tau_0$. We do this as follows:%: the integrals of $\omega_f$ over the contour pair that
+generator values, and it is natural to single-out (homotopy classes of) S- and T-contours associated with 
+the base-point $\tau_0$:%: the integrals of $\omega_f$ over the contour pair that
 %we now fix once and for all.
  
 \begin{definition}[General paths along torus cycles]\label{def:contours}
@@ -306,39 +307,140 @@ where both contours avoid the $\Gamma$-orbit of the poles of $f$ in
 $\HH$.
 \end{definition}
  
-Both segments run between finite interior points of $\HH$.  Finiteness of
-every integral in this paper is therefore structural rather than
-arranged: no contour ever reaches the locus where divergence lives, so
-there is nothing to regulate.
+All contours in this note lie between finite interior points of $\HH$, 
+and all contour avoids singular points.  Finiteness of every integral is therefore 
+structural; there is never anything to regulate.
  
-The price of trading the contour for a cocycle is a redundancy.  Moving
-the basepoint $\tau_0$ shifts $C^f$ by a coboundary
-$\delta P = P|_{(\cdot)} - P$, so the well-defined invariant is the
-cohomology class $[C^f] \in H^1(\Gamma; V_n)$, and by Eichler--Shimura
-\cite{KZ1984, Brown2017} the periods $\omega^\pm(f)$ and quasi-periods
-$\eta^\pm(f)$ are coordinates of this class on the cuspidal subspace.
-Coordinates, however, are read off a representative, not a class, so
-extracting numbers requires fixing the gauge.  There is a canonical
-choice.  Among the generators, $T$ is the unique one subject to no
-relation of its own ($T$ has infinite order in $\Gamma$, while $S$ and
-$ST$ have finite order); it is the direction one is free to spend, and we
-spend it by demanding $C^f_T \mapsto 0$, i.e.\ by solving the coboundary
-equation $\delta_T P = (2\pi i)^{-(n+1)} C^f_T(\tau_0)$ on $V_n$.
-Solvability is itself arithmetic: $T$ acts on $V_n$ as the translation
-$X \mapsto X + Y$, so the operator $\delta_T = e^{Y\partial_X} - 1$
-misses exactly one coefficient, and unit-segment $T$-periodicity
-identifies that coefficient of $C^f_T$ as the constant Fourier mode of
-$f$.  The gauge exists if and only if $c_f(0) = 0$.  Cuspidality, in this
-framework, is not a convergence hypothesis; it is the integrability
-condition of the gauge.
+% ============================================================================
+%\section*{Block 1 --- replaces lines 313--351 (intro, \S1.1)}
+% ============================================================================
+%\blockrule
+
+% ==== BEGIN PASTE: BLOCK 1 (replaces lines 313--351; delete the %DAM note at line 321) ====
+
+The price of trading one divergent contour for a family of finite ones
+is redundancy: each $C^f_\gamma(\tau_0)$ depends on an auxiliary
+basepoint $\tau_0$ and on a group element $\gamma$, while the period
+polynomial must refer to neither.  Degree-one group cohomology is the
+standard bookkeeping for exactly this situation, and only three
+definitions are needed.  A \emph{$1$-cocycle} is a function
+$c\colon \Gamma \to V_n$ satisfying $c_{gh} = c_g|_h + c_h$, and
+$\gamma \mapsto C^f_\gamma(\tau_0)$ is one for each fixed $\tau_0$
+(Lemma~\ref{lem:cocycle}).  A \emph{$1$-coboundary} is the special
+cocycle $\delta P\colon \gamma \mapsto P|_\gamma - P$ built from a
+polynomial $P \in V_n$; by \eqref{eq:bp-cocycle-coboundary}, shifting
+$\tau_0 \to \tau_0'$ (no pole crossed) shifts the whole family
+$\{C^f_\gamma\}_\gamma$ by one such $\delta P$ --- the same $P$ for
+every $\gamma$, which is why the quotient retains anything at all.  The
+\emph{cohomology class}
+$[C^f] \in H^1(\Gamma; V_n) :=
+\{\text{cocycles}\}/\{\text{coboundaries}\}$ is therefore
+basepoint-free, and a \emph{representative} of it is any cocycle
+$C^f - \delta P$.  This kills the
+$\tau_0$. %CLAUDE: replaces the former lines 313--320, which described coboundaries as polynomials and the equivalence as acting on each C^f_\gamma separately.
+
+A reader outside the field might object that no machinery should be
+needed: the classical period polynomial is a single integral along one
+$S$-contour, so why not take the finite $S$-contour $C^f_S(\tau_0)$ and
+stop?  Because at a finite basepoint the raw $S$-value is pure
+redundancy.  Torsion alone forces
+$C^f_S\big|(1+S) = C^f_{S^2} = C^f_{-I} = 0$ at \emph{every} $\tau_0$,
+and since $S$ acts on $V_n$ as an involution, its $(-1)$-eigenspace is
+also the image of $\delta_S$: the value $C^f_S$ lies in
+$\ker(1+S) = \im \delta_S$, exactly the space of shifts that basepoint
+motion induces on it.  (At $k = 12$ this kernel is six-dimensional
+inside the eleven-dimensional $V_{10}$; membership selects a subspace,
+never a point.)  The two relations cutting out the Kohnen--Zagier space
+$W_{k-2}$ \cite{KZ1984} therefore have different statuses: the
+$S$-relation is \emph{free}, holding before any choice is made, while
+the $U$-relation must be \emph{purchased} --- it appears only after the
+representative is pinned, and pinning is the role of the other
+generator.
+
+The generator $T$ is built for the job.  It has infinite order and acts
+on $V_n$ unipotently --- a single Jordan block --- so
+$\delta_T := (\,\cdot\,)|_T - \mathrm{id}$ has one-dimensional kernel
+and cokernel: the equation has one scalar of obstruction and one scalar
+of slack.  We choose, within the class, the representative
+$C^f - \delta P$ \emph{whose $T$-value vanishes}, i.e.\ solve
+$\delta_T P = (2\pi i)^{-(n+1)} C^f_T(\tau_0)$ on $V_n$.  Solvability is
+itself arithmetic: unit-segment $T$-periodicity identifies the
+obstruction in $V_n / \im \delta_T \cong \CC \cdot [X^n]$ as the
+constant Fourier mode (Lemma~\ref{lem:solvability-cuspidality}),
+$[C^f_T]_{X^n} = (2\pi i)^{n+1} c_f(0)$ --- the residue of $\omega_f$ at
+the very cusp that $T$ stabilizes.  The normalized representative exists
+if and only if $c_f(0) = 0$; classes that pass are the \emph{parabolic}
+ones, identified by Eichler--Shimura \cite{KZ1984} with
+$S_k \oplus \overline{S_k}$, the lone obstructed direction being
+Eisenstein.  Cuspidality, in this framework, is not a convergence
+hypothesis; it is the solvability condition for the normalization.
+
+With the $T$-value normalized away, the entire cuspidal content sits on
+the surviving generator value,
+\begin{equation}\label{eq:rf-normalized}
+  r_f \;:=\; C^f_S(\tau_0) \;-\; (2\pi i)^{n+1}\bigl(P|_S - P\bigr),
+\end{equation}
+well-defined up to the line $\CC\,(X^n - Y^n)$ left over from
+$\ker \delta_T = \CC\, Y^n$ --- an ambiguity touching only the boundary
+monomials, which is why Theorem~\ref{thm:periods} ranges over the
+interior $\ell$ alone.  The $U$-relation now arrives, purchased as
+promised: conditioned on the vanishing $T$-value, the group relation
+$(ST)^3 = -I$ becomes $r_f|\bigl(1 + (TS) + (TS)^2\bigr) = 0$, and $r_f$
+\emph{is} the period polynomial.  Indeed, for holomorphic $f \in S_k$,
+sending $\tau_0 \to i\infty$ kills $C^f_T$ outright and
+\eqref{eq:rf-normalized} collapses to the classical integral
+\eqref{eq:classical-rf} --- whose familiar freedom from $\tau_0$ and
+$\gamma$ is thereby revealed as the silent choices $\gamma = S$,
+$\tau_0 = i\infty$.  Its interior coefficients are the periods against
+Brown's rational basis,
+$[r_f]_{X^{k-2-\ell}Y^\ell} = \omega^\pm(f)\, c_S^{\,\ell}$; the precise
+coordinate statement is given in Section~\ref{sec:cocycle}.  The finite
+$S$-contour was the right object all along, but it requires the
+correction term in \eqref{eq:rf-normalized}, sourced entirely by the
+$T$-contour --- and producing that correction in closed form is the
+business of this paper.
+
+% ==== END PASTE: BLOCK 1 ====
+
+%Clearly, because different base-points correspond to different 
+%end-points of open contours, the difference of $C^f_\gamma(w)$ 
+%and $C^f_\gamma(z) = P \in V_n$ for generic $w, z \in \HH$ will 
+%be a non-zero element $P \in V_{k-2}$. These non-zero 
+%polynomials are called coboundaries. Shifting base-points, 
+%nevertheless, defines a class of polynomials that are within the 
+%same class, $[C^f_\gamma]$. Known as a cohomology class, 
+%$[C^f_\gamma]$ lies within the space $H^1(\Gamma; V_{k-2})$. 
+%DAM: Editing-line. I am not quite comfortable with the notion of tf a cohomology class is, or even of what tf  $H^1(\Gamma; V_{k-2})$ even fuckin means to honestly go past this point. It is clear that there is an equivalence class of basepoint-shifts of each individual $C^f_\gamma$ for each $\gamma \in \Gamma$. But I need to better understand what $H^1(\Gamma; V_{k-2})$ really is/means before putting my name on this. Further, WHAT is a "representative"? Why does is it specified by two coordinates? How/why does fixing the T-variation give a representative? Similarly, up to this point, we discuss $C^f_\gamma(\tau_0)$. OK. Fine. But period polynomials neither refer to any specific base-point $\tau_0 \in \HH$ nor to any $\gamma \in \Gamma$ --- doubly-unlike these $C^f_\gamma(\tau_0)$s! Where does one go to map between these objects? Once these are answered, then I think I could more confidently move on from here. E.g., knowing why, and in what sense, these words are true should tell me that, once we find our representative, which we find by "fixing the T-gauge", then it should be the period polynomial. But I need to understand these questions, and related issues first!
+
+
+%The price of trading the contour for a cocycle is a redundancy.  
+%Moving the basepoint $\tau_0$ shifts $C^f$ by a coboundary
+%$\delta P = P|_{(\cdot)} - P$, so the well-defined invariant is the
+%cohomology class $[C^f] \in H^1(\Gamma; V_n)$, and by Eichler--Shimura
+%\cite{KZ1984} the periods $\omega^\pm(f)$ and quasi-periods~\cite{Brown2017}
+%$\eta^\pm(f)$ are coordinates of this class on the cuspidal subspace.
+%Coordinates, however, are read off a representative, not a class, so
+%extracting numbers requires fixing the gauge.  There is a canonical
+%choice.  Among the generators, $T$ is the unique one subject to no
+%relation of its own ($T$ has infinite order in $\Gamma$, while $S$ and
+%$ST$ have finite order); it is the direction one is free to spend, and we
+%spend it by demanding $C^f_T \mapsto 0$, i.e.\ by solving the coboundary
+%equation $\delta_T P = (2\pi i)^{-(n+1)} C^f_T(\tau_0)$ on $V_n$.
+%Solvability is itself arithmetic: $T$ acts on $V_n$ as the translation
+%$X \mapsto X + Y$, so the operator $\delta_T = e^{Y\partial_X} - 1$
+%misses exactly one coefficient, and unit-segment $T$-periodicity
+%identifies that coefficient of $C^f_T$ as the constant Fourier mode of
+%$f$.  The gauge exists if and only if $c_f(0) = 0$.  Cuspidality, in this
+%framework, is not a convergence hypothesis; it is the integrability
+%condition of the gauge.
  
-Fixing the gauge does two things at once.  First, it forces the entire
-cuspidal content onto the surviving cycle: with $C^f_T$ gauged away, the
-period polynomial \emph{is} the $S$-cycle value of the gauge-fixed
-cocycle, $r_f = C^f_S - (2\pi i)^{n+1}(P|_S - P)$, and the classical
-period relations on $r_f$ are the group relations of $\Gamma$ conditioned
-on the gauge.  Second, the gauge is not free of charge, and the receipt
-is the central object of this paper.
+%Fixing the gauge does two things at once.  First, it forces the entire
+%cuspidal content onto the surviving cycle: with $C^f_T$ gauged away, the
+%period polynomial \emph{is} the $S$-cycle value of the gauge-fixed
+%cocycle, $r_f = C^f_S - (2\pi i)^{n+1}(P|_S - P)$, and the classical
+%period relations on $r_f$ are the group relations of $\Gamma$ conditioned
+%on the gauge.  Second, the gauge is not free of charge, and the receipt
+%is the central object of this paper.
  
 The coboundary equation admits a closed-form inverse --- the polynomial
 inversion of \cite{DR2017} --- under which the correction $-(P|_S - P)$
@@ -753,15 +855,78 @@ has interior poles, dragging $\tau_0$ across a pole picks up a Cauchy
 residue contribution beyond \eqref{eq:bp-cocycle-coboundary}; this
 wall-crossing structure is the content of Theorem~\ref{thm:wall-crossing}
 in Section~\ref{sec:wall-crossing}.
+%DAM-Fable: Fable claims a sign mismatch, but then proposed the following GIANT edit. But I also ran outta tokens. So I am not sure what to do, here...
+%% ============================================================================
+%\section*{Block 3 --- sign fix in \texttt{eq:bp-cocycle-coboundary}
+%(lines 755--760)}
+%% ============================================================================
+%
+%\noindent
+%Minimal fix: in the final clause of the display, swap the arguments of
+%$F$, replacing $P = (2\pi i)^{n+1}\bigl(F(\tau_0') - F(\tau_0)\bigr)$ by
+%\[
+%  P \;=\; (2\pi i)^{n+1}\bigl(F(\tau_0) - F(\tau_0')\bigr) \in V_n
+%  \otimes \CC .
+%\]
+%Derivation (two lines, via the equivariance step of
+%Lemma~\ref{lem:cocycle}, $\int_{\gamma^{-1}a}^{\gamma^{-1}b}\omega_f =
+%\bigl(\int_a^b \omega_f\bigr)\big|_\gamma$): splitting
+%$\int_{\gamma^{-1}\tau_0'}^{\tau_0'} =
+%\int_{\gamma^{-1}\tau_0'}^{\gamma^{-1}\tau_0} +
+%\int_{\gamma^{-1}\tau_0}^{\tau_0} + \int_{\tau_0}^{\tau_0'}$ gives
+%\[
+%  C^f_\gamma(\tau_0') - C^f_\gamma(\tau_0)
+%  \;=\; (2\pi i)^{n+1}\Bigl[\Bigl(\textstyle\int_{\tau_0'}^{\tau_0}
+%  \omega_f\Bigr)\Big|_\gamma + \int_{\tau_0}^{\tau_0'}\omega_f\Bigr]
+%  \;=\; A - A|_\gamma,
+%  \qquad
+%  A := (2\pi i)^{n+1}\!\!\int_{\tau_0}^{\tau_0'}\!\omega_f ,
+%\]
+%which is $P|_\gamma - P$ for $P = -A$.  The cohomological conclusion is
+%unaffected; only the labelling of $P$ changes.  Check the convention once
+%at the single downstream point where $P$ appears explicitly, the
+%normalized value \eqref{eq:rf-normalized}.
 
-\paragraph{Cohomology and periods.}
+
+
+%\paragraph{Cohomology and periods.}
+%The cohomology class $[C^f] \in H^1(\Gamma; V_n)$ is independent of
+%$\tau_0$ (on the component) and independent of the choice of
+%$\delta P$ representative.  The classical Eichler--Shimura theorem
+%\cite{KZ1984} identifies the cuspidal subspace $H^1_{\rm cusp}(\Gamma;
+%V_n)$ with $S_k \oplus \overline{S_k}$, and the linear coordinates of
+%$[C^f]$ in this cuspidal subspace are the periods and quasi-periods
+%$\omega^\pm(f), \eta^\pm(f)$ \cite{Brown2017}.%DAM: I have almost zero clue what is meant in this paragraph. I need a tutorial on this. 
+% ==== BEGIN PASTE: BLOCK 2 (replaces lines 767--774; delete the %DAM note at line 774) ====
+
+\paragraph{Parabolic cohomology and periods.}
 The cohomology class $[C^f] \in H^1(\Gamma; V_n)$ is independent of
-$\tau_0$ (on the component) and independent of the choice of
-$\delta P$ representative.  The classical Eichler--Shimura theorem
-\cite{KZ1984} identifies the cuspidal subspace $H^1_{\rm cusp}(\Gamma;
-V_n)$ with $S_k \oplus \overline{S_k}$, and the linear coordinates of
-$[C^f]$ in this cuspidal subspace are the periods and quasi-periods
-$\omega^\pm(f), \eta^\pm(f)$ \cite{Brown2017}.%DAM: I have almost zero clue what is meant in this paragraph. I need a tutorial on this. 
+$\tau_0$ (on the connected component) and of the choice of $\delta P$
+representative.  Its restriction to the cusp stabilizer
+$\langle T \rangle \cong \ZZ$ lands in
+$H^1(\langle T \rangle; V_n) = V_n / \im \delta_T \cong \CC\cdot[X^n]$,
+and by Lemma~\ref{lem:solvability-cuspidality}(c) the restricted class is
+$(2\pi i)^{n+1}\, c_f(0) \cdot [X^n]$: the residue of $\omega_f$ at the
+cusp, valued in the $T$-coinvariants.  The class is \emph{parabolic} ---
+cohomologous to a cocycle with vanishing $T$-value --- if and only if
+this residue vanishes, i.e.\ if and only if $f \in S^!_k$.  The classical
+Eichler--Shimura theorem \cite{KZ1984} identifies
+$H^1(\Gamma; V_n) \cong S_k \oplus \overline{S_k} \oplus
+\CC_{\mathrm{Eis}}$ and the parabolic subspace
+$\Hpar(\Gamma; V_n) \cong S_k \oplus \overline{S_k}$; on cocycles
+normalized so that $c_T = 0$, the assignment $c \mapsto c_S$ further
+identifies $\Hpar(\Gamma; V_n) \cong W_{k-2}/\CC\,(X^n - Y^n)$, with the
+quotient line accounting for the residual freedom
+$P \mapsto P + \CC\, Y^n$.  When $\dim S_k = 1$, each parity eigenspace
+of $\Hpar$ is one-dimensional, and the two coordinates of a parabolic
+class in Brown's rational basis $p^\pm_f$ are its periods:
+$[C^f]^\pm = \omega^\pm(f)[p^\pm_f]$ for $f \in S_k$, while the
+quasi-periods $\eta^\pm$ arise as the coordinates of the class
+$[C^{f'}]$ of a weakly holomorphic Hecke partner $f' \in S^!_k$ (at
+$k = 12$: $f = \Delta$, $f' = \Dhat$)
+\cite{Brown2017}. %CLAUDE: corrected -- the previous version presented \omega^\pm and \eta^\pm jointly as "the linear coordinates of [C^f]"; a single class in the two-dimensional space \Hpar has two coordinates, and the four numbers of the period matrix come from the two classes [C^\Delta] and [C^\Dhat].
+
+% ==== END PASTE: BLOCK 2 ====
 
 \section{Period extraction: proof of Theorem~\ref{thm:periods}}\label{sec:periods}
 
@@ -3148,3 +3313,258 @@ integral is not a second physical contribution; it is the coboundary
 subtraction written as a contour integral. Extracting the period
 coefficients from \eqref{eq:intro-rf} is then a matter of pairing against
 the cuspidal basis, and gives our first theorem.
+
+
+\documentclass[11pt]{article}
+
+% ============================================================================
+% intro_cohomology_refactor_v3.tex   (supersedes v1, v2)
+%
+% v3 CHANGES (per discussion):
+%  (a) "Gauge" vocabulary scrubbed from all blocks. Standard cohomological
+%      language throughout: redundancy / choice of representative /
+%      normalization. The operative phrasing is yours: choose the
+%      representative C^f - \delta P whose T-value vanishes.
+%  (b) Block 1, par. 2 rebuilt around the referee objection ("why not just
+%      the finite S-contour?") and its one-line answer: torsion forces
+%      C_S|(1+S) = 0 at every basepoint, and ker(1+S) = im(delta_S), so the
+%      raw S-value lies inside its own ambiguity space. The two Kohnen--
+%      Zagier relations have different statuses: the S-relation is free,
+%      the U-relation is purchased by the T-normalization.
+%  (c) Single-P emphasis in par. 1 compressed to one clause.
+%  (d) Why T: infinite order, unipotent on V_n (single Jordan block), so
+%      delta_T has 1-dim kernel and cokernel -- one scalar obstruction
+%      (the residue at the cusp T stabilizes), one scalar of slack.
+%
+% CONSISTENCY SWEEP (gauge language remaining in the MAIN file, outside
+% the replaced spans; convert or keep deliberately, but uniformly):
+%   lines 412--413, 469, 589, 600 (Section 1.x prose), and the
+%   conclusions block at lines 3060--3079, which mirrors the old intro
+%   and should be re-mirrored on the new one.
+%
+% Blocks:
+%   BLOCK 1 -- replaces lines 313--351; delete the %DAM note at 321.
+%              Existing line 353 ("The coboundary equation admits a
+%              closed-form inverse...") follows directly.
+%   BLOCK 2 -- replaces lines 767--774 (incl. %DAM note at 774).
+%   BLOCK 3 -- sign fix in eq:bp-cocycle-coboundary (lines 755--760).
+%
+% \ref/\cite target the MAIN file and render as ??/[?] here by design.
+% Open check still open: +/- <-> parity assignment in thm:periods.
+% ============================================================================
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black, citecolor=blue!60!black}
+
+% --- macros copied from the main file ---
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\Dhat}{\widehat{\Delta}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Hpar}{H^1_{\mathrm{par}}}
+
+% --- presentation-only helpers for this standalone document ---
+\newcommand{\blockrule}{\par\noindent\rule{\textwidth}{0.8pt}\par}
+\newenvironment{whereitgoes}
+  {\par\medskip\noindent\begin{minipage}{\textwidth}\small\itshape\color{black!70}}
+  {\end{minipage}\par\medskip}
+
+\title{\bf Refactor of the cohomology passage, v3:\\ standard language,
+free-vs-purchased relations}
+\author{Editing companion; supersedes v1/v2}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{How to use this file.}
+Block 1 replaces lines 313--351 (delete the answered \texttt{\%DAM} note
+at 321; line 353 follows directly).  Block 2 replaces lines 767--774 in
+Section~\texttt{sec:cocycle} (delete the \texttt{\%DAM} note at 774).
+Block 3 is a one-line sign fix at \texttt{eq:bp-cocycle-coboundary}.
+Copy what lies between the \verb|% ==== BEGIN/END PASTE ====| markers in
+the source.  \verb|\ref|/\verb|\cite| target the main file and render
+here as ``??''/``[?]'' by design.  The source header lists the lines in
+the main file where leftover ``gauge'' language should be swept for
+consistency (notably the conclusions block at 3060--3079, which mirrors
+the old intro).
+
+% ============================================================================
+\section*{Block 1 --- replaces lines 313--351 (intro, \S1.1)}
+% ============================================================================
+\blockrule
+
+% ==== BEGIN PASTE: BLOCK 1 (replaces lines 313--351; delete the %DAM note at line 321) ====
+
+The price of trading one divergent contour for a family of finite ones
+is redundancy: each $C^f_\gamma(\tau_0)$ depends on an auxiliary
+basepoint $\tau_0$ and on a group element $\gamma$, while the period
+polynomial must refer to neither.  Degree-one group cohomology is the
+standard bookkeeping for exactly this situation, and only three
+definitions are needed.  A \emph{$1$-cocycle} is a function
+$c\colon \Gamma \to V_n$ satisfying $c_{gh} = c_g|_h + c_h$, and
+$\gamma \mapsto C^f_\gamma(\tau_0)$ is one for each fixed $\tau_0$
+(Lemma~\ref{lem:cocycle}).  A \emph{$1$-coboundary} is the special
+cocycle $\delta P\colon \gamma \mapsto P|_\gamma - P$ built from a
+polynomial $P \in V_n$; by \eqref{eq:bp-cocycle-coboundary}, shifting
+$\tau_0 \to \tau_0'$ (no pole crossed) shifts the whole family
+$\{C^f_\gamma\}_\gamma$ by one such $\delta P$ --- the same $P$ for
+every $\gamma$, which is why the quotient retains anything at all.  The
+\emph{cohomology class}
+$[C^f] \in H^1(\Gamma; V_n) :=
+\{\text{cocycles}\}/\{\text{coboundaries}\}$ is therefore
+basepoint-free, and a \emph{representative} of it is any cocycle
+$C^f - \delta P$.  This kills the
+$\tau_0$. %CLAUDE: replaces the former lines 313--320, which described coboundaries as polynomials and the equivalence as acting on each C^f_\gamma separately.
+
+A reader outside the field might object that no machinery should be
+needed: the classical period polynomial is a single integral along one
+$S$-contour, so why not take the finite $S$-contour $C^f_S(\tau_0)$ and
+stop?  Because at a finite basepoint the raw $S$-value is pure
+redundancy.  Torsion alone forces
+$C^f_S\big|(1+S) = C^f_{S^2} = C^f_{-I} = 0$ at \emph{every} $\tau_0$,
+and since $S$ acts on $V_n$ as an involution, its $(-1)$-eigenspace is
+also the image of $\delta_S$: the value $C^f_S$ lies in
+$\ker(1+S) = \im \delta_S$, exactly the space of shifts that basepoint
+motion induces on it.  (At $k = 12$ this kernel is six-dimensional
+inside the eleven-dimensional $V_{10}$; membership selects a subspace,
+never a point.)  The two relations cutting out the Kohnen--Zagier space
+$W_{k-2}$ \cite{KZ1984} therefore have different statuses: the
+$S$-relation is \emph{free}, holding before any choice is made, while
+the $U$-relation must be \emph{purchased} --- it appears only after the
+representative is pinned, and pinning is the role of the other
+generator.
+
+The generator $T$ is built for the job.  It has infinite order and acts
+on $V_n$ unipotently --- a single Jordan block --- so
+$\delta_T := (\,\cdot\,)|_T - \mathrm{id}$ has one-dimensional kernel
+and cokernel: the equation has one scalar of obstruction and one scalar
+of slack.  We choose, within the class, the representative
+$C^f - \delta P$ \emph{whose $T$-value vanishes}, i.e.\ solve
+$\delta_T P = (2\pi i)^{-(n+1)} C^f_T(\tau_0)$ on $V_n$.  Solvability is
+itself arithmetic: unit-segment $T$-periodicity identifies the
+obstruction in $V_n / \im \delta_T \cong \CC \cdot [X^n]$ as the
+constant Fourier mode (Lemma~\ref{lem:solvability-cuspidality}),
+$[C^f_T]_{X^n} = (2\pi i)^{n+1} c_f(0)$ --- the residue of $\omega_f$ at
+the very cusp that $T$ stabilizes.  The normalized representative exists
+if and only if $c_f(0) = 0$; classes that pass are the \emph{parabolic}
+ones, identified by Eichler--Shimura \cite{KZ1984} with
+$S_k \oplus \overline{S_k}$, the lone obstructed direction being
+Eisenstein.  Cuspidality, in this framework, is not a convergence
+hypothesis; it is the solvability condition for the normalization.
+
+With the $T$-value normalized away, the entire cuspidal content sits on
+the surviving generator value,
+\begin{equation}\label{eq:rf-normalized}
+  r_f \;:=\; C^f_S(\tau_0) \;-\; (2\pi i)^{n+1}\bigl(P|_S - P\bigr),
+\end{equation}
+well-defined up to the line $\CC\,(X^n - Y^n)$ left over from
+$\ker \delta_T = \CC\, Y^n$ --- an ambiguity touching only the boundary
+monomials, which is why Theorem~\ref{thm:periods} ranges over the
+interior $\ell$ alone.  The $U$-relation now arrives, purchased as
+promised: conditioned on the vanishing $T$-value, the group relation
+$(ST)^3 = -I$ becomes $r_f|\bigl(1 + (TS) + (TS)^2\bigr) = 0$, and $r_f$
+\emph{is} the period polynomial.  Indeed, for holomorphic $f \in S_k$,
+sending $\tau_0 \to i\infty$ kills $C^f_T$ outright and
+\eqref{eq:rf-normalized} collapses to the classical integral
+\eqref{eq:classical-rf} --- whose familiar freedom from $\tau_0$ and
+$\gamma$ is thereby revealed as the silent choices $\gamma = S$,
+$\tau_0 = i\infty$.  Its interior coefficients are the periods against
+Brown's rational basis,
+$[r_f]_{X^{k-2-\ell}Y^\ell} = \omega^\pm(f)\, c_S^{\,\ell}$; the precise
+coordinate statement is given in Section~\ref{sec:cocycle}.  The finite
+$S$-contour was the right object all along, but it requires the
+correction term in \eqref{eq:rf-normalized}, sourced entirely by the
+$T$-contour --- and producing that correction in closed form is the
+business of this paper.
+
+% ==== END PASTE: BLOCK 1 ====
+
+\blockrule
+\begin{whereitgoes}
+The existing line 353, ``The coboundary equation admits a closed-form
+inverse --- the polynomial inversion of [DR2017]\ldots'', follows the
+final sentence above directly; ``that correction in closed form'' is its
+antecedent.  For meromorphic $f$ with interior poles, the identity
+$C^f_S|(1+S) = 0$ holds per homotopy component; state that precisely in
+Section~\texttt{sec:wall-crossing}, not here.
+\end{whereitgoes}
+
+% ============================================================================
+\section*{Block 2 --- replaces lines 767--774 (Section \texttt{sec:cocycle})}
+% ============================================================================
+\blockrule
+
+% ==== BEGIN PASTE: BLOCK 2 (replaces lines 767--774; delete the %DAM note at line 774) ====
+
+\paragraph{Parabolic cohomology and periods.}
+The cohomology class $[C^f] \in H^1(\Gamma; V_n)$ is independent of
+$\tau_0$ (on the connected component) and of the choice of $\delta P$
+representative.  Its restriction to the cusp stabilizer
+$\langle T \rangle \cong \ZZ$ lands in
+$H^1(\langle T \rangle; V_n) = V_n / \im \delta_T \cong \CC\cdot[X^n]$,
+and by Lemma~\ref{lem:solvability-cuspidality}(c) the restricted class is
+$(2\pi i)^{n+1}\, c_f(0) \cdot [X^n]$: the residue of $\omega_f$ at the
+cusp, valued in the $T$-coinvariants.  The class is \emph{parabolic} ---
+cohomologous to a cocycle with vanishing $T$-value --- if and only if
+this residue vanishes, i.e.\ if and only if $f \in S^!_k$.  The classical
+Eichler--Shimura theorem \cite{KZ1984} identifies
+$H^1(\Gamma; V_n) \cong S_k \oplus \overline{S_k} \oplus
+\CC_{\mathrm{Eis}}$ and the parabolic subspace
+$\Hpar(\Gamma; V_n) \cong S_k \oplus \overline{S_k}$; on cocycles
+normalized so that $c_T = 0$, the assignment $c \mapsto c_S$ further
+identifies $\Hpar(\Gamma; V_n) \cong W_{k-2}/\CC\,(X^n - Y^n)$, with the
+quotient line accounting for the residual freedom
+$P \mapsto P + \CC\, Y^n$.  When $\dim S_k = 1$, each parity eigenspace
+of $\Hpar$ is one-dimensional, and the two coordinates of a parabolic
+class in Brown's rational basis $p^\pm_f$ are its periods:
+$[C^f]^\pm = \omega^\pm(f)[p^\pm_f]$ for $f \in S_k$, while the
+quasi-periods $\eta^\pm$ arise as the coordinates of the class
+$[C^{f'}]$ of a weakly holomorphic Hecke partner $f' \in S^!_k$ (at
+$k = 12$: $f = \Delta$, $f' = \Dhat$)
+\cite{Brown2017}. %CLAUDE: corrected -- the previous version presented \omega^\pm and \eta^\pm jointly as "the linear coordinates of [C^f]"; a single class in the two-dimensional space \Hpar has two coordinates, and the four numbers of the period matrix come from the two classes [C^\Delta] and [C^\Dhat].
+
+% ==== END PASTE: BLOCK 2 ====
+
+\blockrule
+
+% ============================================================================
+\section*{Block 3 --- sign fix in \texttt{eq:bp-cocycle-coboundary}
+(lines 755--760)}
+% ============================================================================
+
+\noindent
+Minimal fix: in the final clause of the display, swap the arguments of
+$F$, replacing $P = (2\pi i)^{n+1}\bigl(F(\tau_0') - F(\tau_0)\bigr)$ by
+\[
+  P \;=\; (2\pi i)^{n+1}\bigl(F(\tau_0) - F(\tau_0')\bigr) \in V_n
+  \otimes \CC .
+\]
+Derivation (two lines, via the equivariance step of
+Lemma~\ref{lem:cocycle}, $\int_{\gamma^{-1}a}^{\gamma^{-1}b}\omega_f =
+\bigl(\int_a^b \omega_f\bigr)\big|_\gamma$): splitting
+$\int_{\gamma^{-1}\tau_0'}^{\tau_0'} =
+\int_{\gamma^{-1}\tau_0'}^{\gamma^{-1}\tau_0} +
+\int_{\gamma^{-1}\tau_0}^{\tau_0} + \int_{\tau_0}^{\tau_0'}$ gives
+\[
+  C^f_\gamma(\tau_0') - C^f_\gamma(\tau_0)
+  \;=\; (2\pi i)^{n+1}\Bigl[\Bigl(\textstyle\int_{\tau_0'}^{\tau_0}
+  \omega_f\Bigr)\Big|_\gamma + \int_{\tau_0}^{\tau_0'}\omega_f\Bigr]
+  \;=\; A - A|_\gamma,
+  \qquad
+  A := (2\pi i)^{n+1}\!\!\int_{\tau_0}^{\tau_0'}\!\omega_f ,
+\]
+which is $P|_\gamma - P$ for $P = -A$.  The cohomological conclusion is
+unaffected; only the labelling of $P$ changes.  Check the convention once
+at the single downstream point where $P$ appears explicitly, the
+normalized value \eqref{eq:rf-normalized}.
+
+\end{document}
