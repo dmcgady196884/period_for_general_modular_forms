@@ -337,13 +337,6 @@ All contours in this note lie between finite interior points of $\HH$,
 and all contour avoids singular points.  Finiteness of every integral is therefore 
 structural; there is never anything to regulate.
  
-% ============================================================================
-%\section*{Block 1 --- replaces lines 313--351 (intro, \S1.1)}
-% ============================================================================
-%\blockrule
-
-% ==== BEGIN PASTE: BLOCK 1 (replaces lines 313--351; delete the %DAM note at line 321) ====
-
 The price of trading one divergent contour for a family of finite ones is
 \emph{redundancy}: each $C^f_\gamma(\tau_0)$ carries both a group element
 $\gamma$ and an auxiliary basepoint $\tau_0$, whereas the period polynomial
@@ -441,16 +434,7 @@ correction term in \eqref{eq:rf-normalized}, sourced entirely by the
 $T$-contour --- and producing that correction in closed form is the
 business of this paper.
 
-% ==== END PASTE: BLOCK 1 ====
 
-%Clearly, because different base-points correspond to different 
-%end-points of open contours, the difference of $C^f_\gamma(w)$ 
-%and $C^f_\gamma(z) = P \in V_n$ for generic $w, z \in \HH$ will 
-%be a non-zero element $P \in V_{k-2}$. These non-zero 
-%polynomials are called coboundaries. Shifting base-points, 
-%nevertheless, defines a class of polynomials that are within the 
-%same class, $[C^f_\gamma]$. Known as a cohomology class, 
-%$[C^f_\gamma]$ lies within the space $H^1(\Gamma; V_{k-2})$. 
 %DAM-CHECKLIST [re-targeted 2026-06-17 from the old editing-note; the intro
 % prose must answer each of these, in order, before the reader "moves on".
 % Framing decided: Path #2 -- primitive/branch is the primary narrative, the
@@ -463,34 +447,7 @@ business of this paper.
 %      [Answer = tau_0 is the finite stand-in for "which branch of F".]
 
 
-%The price of trading the contour for a cocycle is a redundancy.  
-%Moving the basepoint $\tau_0$ shifts $C^f$ by a coboundary
-%$\delta P = P|_{(\cdot)} - P$, so the well-defined invariant is the
-%cohomology class $[C^f] \in H^1(\Gamma; V_n)$, and by Eichler--Shimura
-%\cite{KZ1984} the periods $\omega^\pm(f)$ and quasi-periods~\cite{Brown2017}
-%$\eta^\pm(f)$ are coordinates of this class on the cuspidal subspace.
-%Coordinates, however, are read off a representative, not a class, so
-%extracting numbers requires fixing the gauge.  There is a canonical
-%choice.  Among the generators, $T$ is the unique one subject to no
-%relation of its own ($T$ has infinite order in $\Gamma$, while $S$ and
-%$ST$ have finite order); it is the direction one is free to spend, and we
-%spend it by demanding $C^f_T \mapsto 0$, i.e.\ by solving the coboundary
-%equation $\delta_T P = (2\pi i)^{-(n+1)} C^f_T(\tau_0)$ on $V_n$.
-%Solvability is itself arithmetic: $T$ acts on $V_n$ as the translation
-%$X \mapsto X + Y$, so the operator $\delta_T = e^{Y\partial_X} - 1$
-%misses exactly one coefficient, and unit-segment $T$-periodicity
-%identifies that coefficient of $C^f_T$ as the constant Fourier mode of
-%$f$.  The gauge exists if and only if $c_f(0) = 0$.  Cuspidality, in this
-%framework, is not a convergence hypothesis; it is the integrability
-%condition of the gauge.
  
-%Fixing the gauge does two things at once.  First, it forces the entire
-%cuspidal content onto the surviving cycle: with $C^f_T$ gauged away, the
-%period polynomial \emph{is} the $S$-cycle value of the gauge-fixed
-%cocycle, $r_f = C^f_S - (2\pi i)^{n+1}(P|_S - P)$, and the classical
-%period relations on $r_f$ are the group relations of $\Gamma$ conditioned
-%on the gauge.  Second, the gauge is not free of charge, and the receipt
-%is the central object of this paper.
  
 The coboundary equation admits a closed-form inverse --- the polynomial
 inversion of \cite{DR2017} --- under which the correction $-(P|_S - P)$
