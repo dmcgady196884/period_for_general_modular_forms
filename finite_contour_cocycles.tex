@@ -845,7 +845,7 @@ Set $n := k - 2$ throughout.  The argument is $k$-uniform on the
 $\dim S_k = 1$ family $k \in \{12$, $16$, $18$, $20$, $22$, $26\}$: every step
 below --- the cocycle structure of Section~\ref{sec:cocycle}, the
 $\delta_T$-solvability of Lemma~\ref{lem:solvability-cuspidality},
-the Bernoulli closed-form inversion of
+the closed-form inversion of
 Lemma~\ref{lem:Bernoulli-inv}, the Hurwitz-zeta kernel
 identification of Proposition~\ref{prop:kernels}, and the
 $\ell$- and $\tau_0$-independence of Corollary~\ref{cor:tau0-ell-indep} ---
@@ -919,7 +919,7 @@ Combining (b) and (c) gives the solvability statement.
 \end{proof}
 
 % --- Step 4 anchor: Bernoulli closed-form inversion of \delta_T ---
-\begin{lemma}[Bernoulli closed form for $\delta_T^{-1}$]\label{lem:Bernoulli-inv}
+\begin{lemma}[Closed-form inverse of $\delta_T$]\label{lem:Bernoulli-inv}
 For every $Q \in V_n$ with vanishing $X^n$-coefficient there exists
 $P \in V_n$ unique modulo $\CC \cdot Y^n$ with $\delta_T P = Q$.
 Writing $Q = \sum_{r = 1}^{n} q_r\,X^{n - r} Y^r$ and
@@ -969,7 +969,7 @@ $\CC \cdot Y^n$ follow from Lemma~\ref{lem:solvability-cuspidality}(a, b).
 \end{proof}
 
 % --- Definition: Bernoulli T-segment kernel khat_T(\ell, tau) ---
-\begin{definition}[Bernoulli $T$-segment kernel $\widehat{k}_T(\ell, \tau)$]\label{def:khat-T}
+\begin{definition}[Rational $T$-segment kernel $\widehat{k}_T(\ell, \tau)$]\label{def:khat-T}
 For non-negative integers $l$ with $l \le n - 1$, set the
 $\QQ$-rational coefficients
 \begin{equation}\label{eq:beta-def}
@@ -1010,8 +1010,8 @@ $s = \ell$ to \eqref{eq:kT-form}.
 \end{proof}
 
 % --- Bernoulli/Hurwitz polynomial identity + T-segment integral equivalence ---
-\begin{lemma}[Bernoulli-form vs.\ Hurwitz-form $T$-kernel: polynomial identity and integral equivalence]\label{lem:T-piece-equiv}
-For each interior $\ell \in \{2, \ldots, k - 2\}$, the Bernoulli
+\begin{lemma}[Agreement of the rational and Hurwitz $T$-kernels]\label{lem:T-piece-equiv}
+For each interior $\ell \in \{2, \ldots, k - 2\}$, the rational
 $T$-kernel $\widehat{k}_T(\ell, \tau)$ of \eqref{eq:khat-T-def} and the
 Hurwitz $T$-kernel $\widetilde{k}_T(\tau, \ell)$ of \eqref{eq:kT-form} are
 related by the polynomial identity
@@ -1091,7 +1091,7 @@ $I_S^{\ell - 1} = \int_{\gamma^S_{\tau_0}} f(\tau)\,\tau^{\ell - 1}\,d\tau$;
 this contributes the $S$-segment piece of \eqref{eq:rf-coeff-integral}
 against the bare Mellin kernel $\tau^{\ell - 1}$.
 
-\emph{$T$-piece, Bernoulli form.}  $S$ acts on $V_n$ as
+\emph{$T$-piece, rational form.}  $S$ acts on $V_n$ as
 $(X, Y) \mapsto (-Y, X)$, so for $P = \sum_l p_l X^{n - l} Y^l$ one has
 $[P|_S - P]_{X^{n - (\ell - 1)} Y^{\ell - 1}} = (-1)^{\ell - 1}\,p_{n - \ell + 1}
 - p_{\ell - 1}$ ($n$ even).  By Lemma~\ref{lem:Bernoulli-inv}, each
@@ -1106,7 +1106,7 @@ $T$-segment piece of $[r_f]_{X^{n - (\ell - 1)} Y^{\ell - 1}}$ reads
 $(2\pi i)^{n + 1}\!\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widehat{k}_T(\ell, \tau)\,d\tau$.
 
 \emph{$T$-piece, Hurwitz form.}  By Lemma~\ref{lem:T-piece-equiv},
-\eqref{eq:T-piece-integral-equiv}, the Bernoulli $T$-integral of the
+\eqref{eq:T-piece-integral-equiv}, the rational $T$-integral of the
 preceding paragraph equals
 $(-1)^{\ell - 1}\binom{n}{\ell - 1}\!\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau$.
 Combined with the $S$-piece, this yields \eqref{eq:rf-coeff-integral}
@@ -1264,11 +1264,10 @@ input to the construction: it
 is the solvability condition of the
 coboundary equation in Step 2.
 
-\paragraph{Step 4: closed-form Bernoulli inversion of $\delta_T$.}
+\paragraph{Step 4: closed-form inversion of $\delta_T$.}
 Lemma~\ref{lem:Bernoulli-inv} inverts $\delta_T$ in closed form, giving
 the coboundary representative
-$P = \delta_T^{-1}\bigl((2\pi i)^{-(n+1)} C^f_T(\tau_0)\bigr) \in V_n/\CC Y^n$
-explicitly in Bernoulli numbers.
+$P = \delta_T^{-1}\bigl((2\pi i)^{-(n+1)} C^f_T(\tau_0)\bigr) \in V_n/\CC Y^n$.
 
 \paragraph{Step 5: the modified cocycle and its $S$-component $r_f$.}
 With $P := \delta_T^{-1}\bigl((2\pi i)^{-(n + 1)} C^f_T(\tau_0)\bigr) \in
@@ -1285,7 +1284,7 @@ $p^\pm_f$ in the $1$-dimensional cuspidal direction.
 
 \paragraph{Step 6: unpacking $r_f$ into bare Mellin and Hurwitz integrals.}
 Substituting the moment expansion of $C^f_S(\tau_0)$ from
-\eqref{eq:CS-CT-def} and the Bernoulli expression for $P$ from Step 4
+\eqref{eq:CS-CT-def} and the closed-form expression for $P$ from Step 4
 into \eqref{eq:rf-def}, and reading off the coefficient of $X^{n - (\ell - 1)}
 Y^{\ell - 1}$ for each interior $\ell \in \{2, \ldots, k - 2\}$,
 Proposition~\ref{prop:kernels} produces the integral representation
@@ -1386,8 +1385,7 @@ The kernel \eqref{eq:tildekT-def} is the all-$s$ continuation of the
 integer-$s$ inversion of Section~\ref{sec:periods}.  There, killing the
 $T$-cocycle meant solving the shift-difference equation
 $\delta_T P = P|_T - P = Q$ on $V_n$, and the operator identity
-$\delta_T = e^{Y\partial_X} - 1$ inverted it through the Bernoulli
-generating function $z/(e^z - 1) = \sum_k B_k z^k/k!$
+$\delta_T = e^{Y\partial_X} - 1$ inverted it in closed form
 (Lemma~\ref{lem:Bernoulli-inv}).  Dropping the polynomial restriction,
 the kernel must solve the same shift-difference equation with a
 power-law right-hand side --- the identity
@@ -1397,9 +1395,8 @@ combination of pure powers $\tau^{\sigma - 1}$.  The function that
 inverts the unit shift against a single power is the Hurwitz zeta,
 $\zeta(\sigma, \tau + 1) - \zeta(\sigma, \tau) = -\tau^{-\sigma}$, so a
 combination of Hurwitz zetas is the natural solution, and the
-Bernoulli inversion of Section~\ref{sec:periods} is exactly its integer-$s$
-shadow through $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ --- the Bernoulli
-numbers being zeta values at non-positive integers.  An alternative
+closed-form inversion of Section~\ref{sec:periods} is exactly its integer-$s$
+shadow, through $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$.  An alternative
 derivation, starting from the classical Mellin transform and demanding
 contour-invariance, is recorded in
 Appendix~\ref{app:hurwitz-derivation}; the present section is
@@ -1727,7 +1724,7 @@ $s \in \CC$ from a finite contour with no regulator.  This completes
 the proof.
 \end{proof}
 
-\subsection{Worked example at $k = 12$: Bernoulli polynomials and numerics}\label{subsec:k12-worked}
+\subsection{Worked example at $k = 12$}\label{subsec:k12-worked}
 
 At $k = 12$ the kernel of \eqref{eq:tildekT-def} is
 \begin{equation}
