@@ -1,0 +1,360 @@
+\documentclass[11pt]{article}
+
+% ============================================================================
+% periods_quasiperiods_determinant.tex
+%
+% Standalone explanatory note (NOT manuscript text): where the
+% period/quasi-period determinant relation comes from, and why "period"
+% / "quasi-period" / "first kind" / "second kind" are the right words.
+% Side-by-side: elliptic curve (dx/y, x dx/y) vs. modular (Delta, Dhat).
+%
+% Sourced from the project knowledge:
+%  - Brown, "Quasi-periods of some cusp forms..." (QP.pdf): de Rham
+%    construction, period matrix (eta^+ omega^+ ; i eta^- i omega^-),
+%    det proportional to a power of 2 pi i.
+%  - Brown 1710.07912v2 §1.3, §2: M^!_{n+2}/D^{n+1}M^!_{-n} = H^1_dR,
+%    "modular forms of the second kind", Bol operator D = q d/dq,
+%    period matrix P_f, det(P_f) proportional to power of 2 pi i.
+%  - Fonseca, "On coefficients of Poincare series..." : explicit EC
+%    example (omega,eta)=(dx/(2y+1), x dx/(2y+1)), det P = 2 pi i
+%    (Legendre), and the modular dictionary X = sigma_1^v, Y = -sigma_tau^v,
+%    comp(omega) = 2 pi i (X - tau Y).
+%  - Zagier 1991 (MF_Periods_and_Jacobi_theta): k=12 values, the rank-1
+%    Lemma forcing omega^pm / eigenform alignment, and
+%    omega^+ omega^- / i(Delta,Delta) = 2^10.
+%
+% Standalone; compiles alone; no \ref/\cite into the main file.
+% ============================================================================
+
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!55!black, urlcolor=blue!55!black}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\Dhat}{\widehat{\Delta}}
+\newcommand{\HdR}{H^1_{\mathrm{dR}}}
+\newcommand{\HB}{H^1_{\mathrm{B}}}
+\DeclareMathOperator{\Sym}{Sym}
+
+\newtheorem*{slogan}{In one line}
+
+\title{\bf Periods, quasi-periods, and where the determinant comes from\\[2pt]
+\large An elliptic-curve / modular-form Rosetta stone}
+\author{Working note --- conceptual, not manuscript text}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent\emph{Goal: explain why $\omega^+\eta^- - \omega^-\eta^+$ is a
+power of $2\pi i$ (up to rationals), and why Brown's words --- ``period,''
+``quasi-period,'' ``first kind,'' ``second kind'' --- are the sensible
+ones. The whole story is one structural fact (a $2\times 2$ period matrix
+between a de Rham and a Betti basis, with a symplectic pairing) seen
+twice: once for an elliptic curve, where it is the classical Legendre
+relation, and once for $\Delta$, where it is Brown's determinant. The
+determinant is an intersection number, and that is why your construction
+should be able to \emph{derive} it rather than merely match it
+numerically.}
+
+\bigskip\hrule\bigskip
+
+\section{The elliptic curve, concretely (the case to anchor on)}
+
+Let $E$ be an elliptic curve over $\QQ$. Its first algebraic de Rham
+cohomology $\HdR(E)$ is $2$-dimensional, and it has a distinguished basis
+of \emph{differentials}:
+\[
+  \omega = \frac{dx}{2y+1} \quad(\text{first kind}),
+  \qquad
+  \eta = \frac{x\,dx}{2y+1} \quad(\text{second kind}).
+\]
+``First kind'' means \emph{holomorphic} (no poles anywhere, including at
+infinity); it is the everywhere-regular differential. ``Second kind''
+means it has poles but \emph{no residues} --- so it still defines a
+cohomology class (a residue would make the period path-dependent /
+ill-defined). $\eta$ has a double pole at the origin of $E$ and no
+residue. The pair $(\omega, \eta)$ is a basis of $\HdR$, and the second
+basis vector is genuinely \emph{not} holomorphic --- that is the entire
+point of needing two of them.
+
+On the Betti side, $H_1(E(\CC); \ZZ) \cong \ZZ^2$ has a basis of
+\emph{cycles} $(\gamma_1, \gamma_2)$ (the two loops of the torus). Pairing
+differentials against cycles --- integrate a form over a loop --- gives
+the \textbf{period matrix}
+\[
+  P = \begin{pmatrix}
+    \int_{\gamma_1}\omega & \int_{\gamma_1}\eta \\[3pt]
+    \int_{\gamma_2}\omega & \int_{\gamma_2}\eta
+  \end{pmatrix}
+  = \begin{pmatrix} \omega_1 & \eta_1 \\ \omega_2 & \eta_2 \end{pmatrix}.
+\]
+The left column ($\omega_1, \omega_2$) are the \textbf{periods} --- the
+integrals of the holomorphic differential, the lattice generators. The
+right column ($\eta_1, \eta_2$) are the \textbf{quasi-periods} --- the
+integrals of the second-kind differential. (Classically, with
+$\omega = dz$ and $\eta = \wp(z)\,dz$ in Weierstrass coordinates, the
+$\eta_i$ are the values of the Weierstrass $\zeta$-function increments;
+``quasi-period'' is the period of the second-kind partner of the period.)
+
+\begin{slogan}
+Periods integrate the first-kind (holomorphic) differential; quasi-periods
+integrate its second-kind (meromorphic, residue-free) partner. Both are
+columns of one $2\times 2$ period matrix.
+\end{slogan}
+
+\section{Legendre's relation \emph{is} the determinant}
+
+The determinant of $P$ is not a generic transcendental --- it is forced:
+\[
+  \boxed{\ \det P
+  = \omega_1\eta_2 - \omega_2\eta_1
+  = 2\pi i\ }\qquad(\text{Legendre's period relation}).
+\]
+(With the normalization $(\omega,\eta) = (dx/(2y+1),\, x\,dx/(2y+1))$ this
+is exactly $2\pi i$; in Fonseca's worked $\QQ$-curve it is verified
+numerically to $\det P = 2\pi i$ on the nose.)
+
+Why is the determinant special, when the individual entries are
+honest transcendentals (the $\omega_i$ alone are not algebraic)? Because
+$\HdR(E)$ carries a \textbf{symplectic pairing} --- the cup product / the
+algebraic intersection pairing on $H^1$ --- and $\langle \omega, \eta
+\rangle$ is a \emph{rational} (here, essentially integer) number, since it
+is computed algebraically from the differentials. The Betti side carries
+the dual pairing, the topological intersection number $\gamma_1 \cdot
+\gamma_2 = 1$ of the two torus loops. The comparison isomorphism
+$\HdR \otimes \CC \cong \HB \otimes \CC$ --- ``integrate the form over the
+cycle,'' i.e.\ the matrix $P$ --- must \emph{intertwine} the two pairings,
+and the factor by which a comparison isomorphism scales a symplectic form
+is its determinant. Concretely:
+\[
+  \underbrace{\langle \omega, \eta\rangle_{\mathrm{dR}}}_{\in\,\QQ}
+  \;=\; \frac{1}{2\pi i}\,
+  \det P \cdot \underbrace{(\gamma_1\cdot\gamma_2)}_{=\,1}.
+\]
+So $\det P$ is pinned to $2\pi i$ times a rational \emph{because} it is the
+ratio of two rational symplectic volumes (de Rham and Betti), with the
+$2\pi i$ the normalization of the comparison on $H^1$ of a curve. The
+determinant is an \textbf{intersection number in disguise}; that is the
+whole content of Legendre.
+
+\begin{slogan}
+$\det P = 2\pi i$ holds because $P$ matches a rational de Rham symplectic
+pairing to a rational Betti one; the determinant is the scaling factor,
+and $2\pi i$ is the normalization of the comparison on a curve. Legendre =
+``the periods respect the intersection form.''
+\end{slogan}
+
+\section{The modular form, same skeleton}
+
+Now replace the curve by the \emph{family} of all elliptic curves --- the
+modular curve / moduli stack $\mathcal{M}_{1,1}$ --- and take symmetric
+powers of the rank-$2$ bundle. Brown's Theorem (1710.07912 §2; QP §1) is
+the family version of ``$\HdR(E)$ is $2$-dimensional with a first- and
+second-kind basis'':
+\[
+  M^!_{n+2}(\QQ)\big/ D^{\,n+1} M^!_{-n}(\QQ)
+  \;\xrightarrow{\ \sim\ }\;
+  \HdR\!\big(\mathcal{M}_{1,1};\, \Sym^n\big),
+  \qquad D = q\frac{d}{dq}.
+\]
+Read this slowly, because it is the crux. The left side is weakly
+holomorphic modular forms of weight $n+2$, \emph{modulo} $(n{+}1)$-fold
+$q$-derivatives of weight-$(-n)$ forms (Bol's operator $D^{n+1}$ raises
+weight $-n$ to $n+2$). The quotient is what Brown calls \textbf{modular
+forms of the second kind}, and the theorem says it \emph{is} the de Rham
+cohomology of the local system. So:
+\begin{center}
+\begin{tabular}{>{\raggedright}p{0.46\textwidth} >{\raggedright\arraybackslash}p{0.46\textwidth}}
+\textbf{Elliptic curve} & \textbf{Modular ($k=12$, $n=10$)}\\
+\hline
+$\HdR(E)$, rank $2$ &
+$\HdR(\mathcal{M}_{1,1}; \Sym^{10})$, rank $2$ per Hecke eigenspace\\[4pt]
+$\omega = dx/(2y{+}1)$, first kind (holomorphic) &
+$\Delta \in S_{12}$, the holomorphic cusp form\\[4pt]
+$\eta = x\,dx/(2y{+}1)$, second kind (pole, no residue) &
+$\Dhat \in S^!_{12}$, weakly holomorphic --- the second-kind partner\\[4pt]
+de Rham symplectic pairing $\langle\omega,\eta\rangle \in \QQ$ &
+the Poincar\'e / cup pairing on $\HdR(\Sym^{10})$, $\QQ$-valued\\[4pt]
+Betti cycles $\gamma_1, \gamma_2$, $\gamma_1\cdot\gamma_2 = 1$ &
+the cuspidal cohomology $H^1_{\mathrm{cusp}}(\Gamma; V_{10})$, rank $2$\\[4pt]
+period matrix $P = \big(\int_{\gamma_i}\omega \ \big|\ \int_{\gamma_i}\eta\big)$ &
+$P_f = \begin{psmallmatrix} \eta^+ & \omega^+ \\ i\eta^- & i\omega^- \end{psmallmatrix}$ (Brown)\\[8pt]
+$\det P = 2\pi i$ (Legendre) &
+$\det P_f \doteq (2\pi i)^{k-1}$ (up to $\QQ^\times$)\\
+\end{tabular}
+\end{center}
+
+The dictionary is not analogy-by-vibes; it is literally the same theorem
+applied to $\Sym^n$ of the curve's $H^1$ instead of $H^1$ itself. The
+left ($\omega^\pm$) column integrates the \emph{holomorphic} representative
+$\Delta$ --- these are Eichler--Shimura's classical periods, your
+$\int_0^{i\infty}\Delta\,(X-\tau Y)^{10}d\tau$. The right ($\eta^\pm$)
+column integrates the \emph{second-kind} representative $\Dhat$ --- the
+quasi-periods. ``Quasi-period'' is the right word for exactly the reason
+it is on the curve: it is the period of the second-kind partner of the
+period.
+
+\begin{slogan}
+$\Delta : \Dhat = \omega : \eta = $ first kind : second kind. The
+quasi-periods of $\Dhat$ are the modular analog of the quasi-periods
+$\eta_i = \int_{\gamma_i} x\,dx/y$ of an elliptic curve. Same matrix, same
+determinant story, one symmetric power up.
+\end{slogan}
+
+\section{So where does the modular determinant come from?}
+
+Exactly where Legendre's does, with one distinction worth stating up
+front because it is easy to get wrong: the relevant pairing is the
+\emph{determinant of the period matrix} $P_f$ --- the comparison
+isomorphism between de Rham and Betti realizations --- and this is
+\textbf{not} the same as the cup product on cohomology. (The cup product
+is a different invariant; see the box below.) The determinant of $P_f$
+is the scaling factor by which the comparison isomorphism relates the
+rational de Rham structure to the rational Betti structure, and that
+scaling is forced to be a rational multiple of the normalizing
+$(2\pi i)^{k-1}$. The power is $k-1 = n+1$ because the realizations live
+on $\Sym^n$ of $H^1$, not $H^1$.
+
+Numerically (next section), the rational is exactly $n! = 10!$:
+\[
+  \omega^+\eta^- - \omega^-\eta^+ \;=\; n!\,(2\pi)^{n+1}
+  \;=\; 10!\,(2\pi)^{11}\quad(k=12).
+\]
+In Brown's normalization the $\omega^\pm$ are defined
+only up to $K^\times$ (the Hecke field) and the $\eta^\pm$ up to $K^\times$
+\emph{and} up to adding $K$-multiples of $\omega^\pm$ --- which is exactly
+the statement that the second-kind class is well-defined only modulo the
+first-kind one (you can always add a holomorphic form to a second-kind
+form). That ``modulo $\omega^\pm$'' freedom is the \emph{same} ambiguity as
+your $\CC(X^n - Y^n)$ / $\CC Y^n$ slack: it is the de Rham analog of ``a
+second-kind differential is defined up to first-kind differentials and
+exact forms.''
+
+\medskip
+\noindent\fbox{\parbox{0.95\textwidth}{\small
+\textbf{Determinant vs.\ cup product --- do not conflate them (a
+correction).} An earlier version of this note claimed the determinant
+$\omega^+\eta^- - \omega^-\eta^+$ \emph{is} the cup pairing
+$\langle[C^\Delta],[C^{\Dhat}]\rangle$ on $H^1$. That is wrong, and a
+direct computation shows why. The invariant symplectic pairing
+$\langle\cdot,\cdot\rangle$ on $V_n$ \emph{diagonalizes by parity}: it
+couples the even part with the even part and the odd with the odd
+(numerically, $\langle B^+, B^-\rangle = 0$ for the Zagier bracket
+polynomials). So the cup product of two period polynomials is a
+\emph{parity-diagonal} combination,
+$\;\omega^+\eta^+\langle B^+,B^+\rangle - \omega^-\eta^-\langle
+B^-,B^-\rangle$, which couples $+$ with $+$. The determinant couples $+$
+with $-$. They are different bilinear forms in the same four numbers, and
+no normalization turns one into the other.
+\\[4pt]
+What each one computes: the \emph{cup product} (Haberland's formula) is
+proportional to the \emph{Petersson norm} --- for $f = g = \Delta$ it
+returns $i(\Delta,\Delta)$, matching Zagier's
+$\omega^+\omega^-/i(\Delta,\Delta) = 2^{10}$ up to the $V_n$-pairing
+normalization. The \emph{determinant} of $P_f$ is the comparison-isomorphism
+volume ratio --- the Legendre/quasi-period relation, $=10!\,(2\pi)^{11}$.
+Both are real, finite, computable; they are simply different invariants,
+one diagonal and one cross in the parity grading.
+}}
+
+\medskip
+Two cross-checks on the determinant reading, both from your project
+knowledge:
+
+\emph{(i) Zagier 1991, $k=12$.} Zagier records
+$\omega^+_\Delta \omega^-_\Delta / i(\Delta,\Delta) = 2^{10} \in \QQ$,
+where $(\Delta,\Delta)$ is the Petersson norm. This is the
+\emph{diagonal} (cup-product / Petersson) statement --- the partner of, but
+distinct from, the off-diagonal determinant. It confirms the
+rational-times-normalization pattern on the diagonal.
+
+\emph{(ii) Brown 1710.07912 §1.3.} The ``single-valued period'' $s(f)$ is
+built as $P^{-1}\overline{P}$ (Fonseca eq.\ 4), and Brown's eq.\ (1.6)
+writes $s(f)$ with denominator $\eta^-\omega^+ - \eta^+\omega^- = \det P_f$
+(up to sign/$i$), explicitly noting $\det(P_f)$ is proportional to a power
+of $2\pi i$ and that $\omega^+\omega^-$ is related to the Petersson norm.
+The determinant appears there precisely as the normalizing denominator of
+a comparison-isomorphism construction --- i.e.\ as the symplectic scaling
+factor.
+
+\section{What this does and doesn't pin down}
+
+If the determinant were a free parameter you could tune, matching it would
+mean something. It isn't: $\det P_f = (\text{rational})\cdot(2\pi i)^{k-1}$
+is a structural identity (the de Rham/Betti comparison volume ratio), so
+\emph{any} four numbers that are genuine periods/quasi-periods satisfy it.
+This cuts both ways. If your $\omega^\pm, \eta^\pm$ match Brown's tabulated
+values --- which they do, to 20 digits --- then the determinant relation
+holds automatically, and ``verifying'' it is checking Brown against Brown
+through your arithmetic. It is empty as a test of either Brown or your
+construction.
+
+I previously proposed computing the cup pairing
+$\langle[C^\Delta],[C^{\Dhat}]\rangle$ from cocycle data as an
+\emph{independent} route to the determinant. That proposal was based on a
+conflation, now corrected (see the box in \S4): the cup pairing is
+parity-diagonal and computes the \emph{Petersson norm}, not the
+\emph{cross}-parity determinant. So computing the cup product does not give
+an independent handle on $\omega^+\eta^- - \omega^-\eta^+$; it gives
+$i(\Delta,\Delta)$ instead. There is no quick cocycle-pairing check of the
+determinant, because the determinant simply is not that pairing.
+
+What \emph{would} carry independent information is more pedestrian and you
+are already most of the way there: your nine-way agreement across distinct
+basepoints $\tau_0$ already stresses the extraction pipeline hard, and the
+fact that the \emph{same} finite-contour formula yields $\omega^\pm(\Delta)$
+and $\eta^\pm(\Dhat)$ by only changing the integrand is the real structural
+content --- that is what places periods and quasi-periods on one footing,
+and it is verified by the construction itself, not by any external pairing.
+
+\medskip
+\noindent\textbf{The constant, pinned numerically.} From Brown's four
+$k=12$ values one finds, to $16$ digits,
+\[
+  \omega^+\eta^- - \omega^-\eta^+ \;=\; 10!\,(2\pi)^{11}
+  \;=\; n!\,(2\pi)^{n+1}
+  \qquad (n = 10),
+\]
+i.e.\ the ``rational $\times$ normalization'' constant is exactly the
+factorial $n! = 3628800$ (with $(2\pi)^{n+1}$; equivalently $\pm n!\,(2\pi
+i)^{n+1}$, the sign/$i$ depending on the convention carried for the
+imaginary $\omega^-,\eta^-$). This used only the four numerical values and
+$(2\pi)^{11}$ --- no $V_n$-pairing normalization entered it, so the $n!$ is
+solid. It is not a test of Brown (these are his numbers, and the relation
+is a theorem they satisfy by construction); it merely records the specific
+rational, in case you state the Legendre relation in print.
+
+\bigskip\hrule\bigskip
+
+\noindent\textbf{The note in four sentences.}
+An elliptic curve has a rank-$2$ de Rham cohomology with a first-kind
+(holomorphic) differential $dx/y$ and a second-kind (residue-free
+meromorphic) partner $x\,dx/y$; integrating them over the two torus cycles
+gives the period matrix, whose determinant is Legendre's $2\pi i$ because
+the matrix intertwines the rational de Rham and Betti intersection
+pairings. Brown's theorem says weakly holomorphic modular forms modulo
+$D^{n+1}$(lower-weight) \emph{are} the de Rham cohomology of $\Sym^n$ of
+that family, with $\Delta$ the first-kind class and $\Dhat$ its second-kind
+partner, so $\omega^\pm$ (periods of $\Delta$) and $\eta^\pm$
+(quasi-periods of $\Dhat$) are the two columns of the same kind of period
+matrix, one symmetric power up. The determinant $\omega^+\eta^- -
+\omega^-\eta^+ = n!\,(2\pi)^{n+1}$ (numerically $10!\,(2\pi)^{11}$ at
+$k=12$) is the modular Legendre relation: the de Rham/Betti comparison
+volume, forced to be rational $\times (2\pi i)^{k-1}$. This is distinct
+from the cup product on cohomology, which is parity-diagonal and computes
+the Petersson norm instead --- so there is no shortcut ``cup-pairing''
+check of the determinant, and matching it against Brown's values is
+empty (the relation holds for any genuine periods by construction); the
+real structural content of your construction is that one finite-contour
+formula yields both $\omega^\pm(\Delta)$ and $\eta^\pm(\Dhat)$.
+
+\end{document}

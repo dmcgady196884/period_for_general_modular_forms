@@ -1,0 +1,369 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\Lstar}{L^{*}}
+\newcommand{\taup}{\tau_p}
+
+\title{\textbf{Meromorphic periods, finite-contour $L$-functions, and the\\
+positive-weight Rademacher problem: context and novelty assessment}}
+\author{Working note (collaborator-facing)}
+\date{14 June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note records the full context around the de Rham--Betti (DRB) finite-contour
+construction of periods, quasi-periods, and $L$-functions for meromorphic modular
+forms, the original motivating goal (a positive-weight Rademacher-type coefficient
+formula), the precise analytic obstruction, and an end-to-end novelty assessment
+against the locally-harmonic-Maass-form (LHMF) / cycle-integral literature. The
+headline conclusions: (i) the ``drag-the-contour-and-sum-residues'' route reconstructs
+a known, divergent object for weight $\ge 0$; (ii) the Duncan--Frenkel and DRB-$s$
+regularizations are both the wrong regulator for that divergence; (iii) the
+wall-crossing/chamber phenomenon is occupied ground (Bringmann--Kane--Kohnen;
+L\"obrich--Schwagenscheidt; Choie--Zagier), but the finite-contour extraction of the
+completed all-$s$ $L$-function together with de Rham--Betti quasi-periods appears
+transverse to that literature and is the defensible novel core.
+\end{abstract}
+
+\section{The research program and its goal}
+
+The overarching aim is to relax the standard restriction ``poles only at the cusps''
+to genuine interior poles in the upper half-plane $\HH$, and to develop the analytic
+number theory (coefficients, $L$-functions, periods) of meromorphic modular forms with
+such poles.
+
+The classical template is \textbf{Hardy--Ramanujan 1919} (the multiple-interior-poles
+result, distinct from their more frequently cited circle-method work on weakly
+holomorphic forms such as the partition generating function). HR~1919 produces exact,
+rapidly convergent expansions for the Fourier coefficients of forms like $1/E_6$, which
+is meromorphic of weight $-6$ with a pole at $\tau=i$ (where $E_6(i)=0$) and at all
+$\Gam$-translates of $i$; the analogous $1/E_4$ has a pole at $\rho=e^{\pi i/3}$. These
+are properly meromorphic, interior-pole objects.
+
+The program comprises:
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{The 1806 paper} (\texttt{arXiv:1806.09874}): $L$-functions for meromorphic
+modular forms regular at the cusps, built from a pole-subtraction (polylogarithm)
+step plus a deformed-Mellin contour. It explicitly flags the positive-weight
+Rademacher-coefficient problem as open.
+\item \textbf{The DRB note} (de Rham--Betti / Brown framework): a finite-contour cocycle
+construction yielding the periods $\omega^{\pm}(f)$, the quasi-periods $\eta^{\pm}(f)$,
+and an all-$s$ completed $L$-function $\Lstar(f,s)$ for $\Delta$, for the weakly
+holomorphic $\widehat\Delta$, and for general meromorphic $f$, with explicit
+wall-crossing across interior poles.
+\end{itemize}
+
+\section{The objects and the drafts}
+
+\paragraph{The BFK $L$-function (the object DRB reproduces).}
+``BFK'' is Bringmann, Fricke, and Kent, \emph{Special $L$-values and periods of weakly
+holomorphic modular forms}, Proc.\ Amer.\ Math.\ Soc.\ \textbf{142} (2014), 3425--3439
+(the user dates the preprint $\approx$2011). It associates a regularized,
+incomplete-gamma completed $L$-series to weakly holomorphic modular forms and reads
+critical $L$-values off the error of modularity of an Eichler integral. It is widely
+cited ($\sim 50$), but---per the user's own audit of its citation tree---no citing work
+performs a \emph{finite} (non-cusp, regularization-free) extraction of that $L$-function.
+
+\paragraph{What DRB does to it.}
+DRB integrates $f$ against the polynomial kernel along a \emph{finite} contour pair
+between interior basepoints and reads the cocycle off the result. The $S$-segment runs
+$-1/\tau_0 \to \tau_0$, the $T$-segment runs $\tau_0-1 \to \tau_0$; at the elliptic
+basepoint $\tau_0=i$ the $S$-segment collapses and a single compact integral on
+$[i-1,i]$ carries everything. The construction (a) reproduces the BFK completed
+$\Lstar(f,s)$ term by term in the Fourier expansion at every $s\in\C$, with numerical
+agreement to $\sim 10^{-53}$ for $\Delta$ and $\sim 10^{-47}$ for $\widehat\Delta$;
+(b) yields Brown's periods $\omega^{\pm}(\Delta)$ and quasi-periods $\eta^{\pm}(\Delta)$
+from a finite endpoint contour with no cusp divergence; and (c) makes ``finiteness
+structural'': every integral is between interior points avoiding singularities, so
+there is nothing to regulate. The claimed value-add over BFK is therefore a
+\emph{proof of correctness plus an explicit, numerically convergent reconstruction},
+where BFK had a working-but-unexplained formula.
+
+\section{The original target and the analytic obstruction}
+
+\paragraph{Target.}
+A convergent, Rademacher-type exact formula for the Fourier coefficients $c_f(n)$ of a
+\emph{positive-weight} meromorphic modular form with interior poles, regular at the
+cusp---the natural generalization of HR~1919 past negative weight.
+
+\paragraph{Status of the negative-weight case (solved).}
+For weight $<0$ the orbit sum converges and the problem is settled: Petersson's
+meromorphic Poincar\'e series; Bringmann--Kane's polar harmonic Maass forms give
+Hardy--Ramanujan-type expansions for all negative-weight meromorphic cusp forms bounded
+toward $i\infty$; HR~1919 itself handles $1/E_6$.
+
+\paragraph{The crux obstruction (residue scaling).}
+The literal ``drag the contour to the cusp and sum the residues over the whole orbit''
+move reconstructs a Poincar\'e/Rademacher series whose convergence is governed by the
+modular transformation of residues. For $f$ of weight $k$ with a simple pole at $\taup$,
+the residue at an image transforms as
+\[
+  \Res_{\gamma\taup}(f) \;=\; (c\taup+d)^{\,k-2}\,\Res_{\taup}(f),
+  \qquad \gamma=\begin{pmatrix} a & b\\ c & d\end{pmatrix}.
+\]
+Since $\#\{(c,d): |c\taup+d|\le X\}\sim X^2$, the orbit sum $\sum_{(c,d)}|c\taup+d|^{k-2}$
+converges \emph{iff} $k<0$ and diverges for every $k\ge 0$. A weight-$4$ example is thus
+on the wrong side of the line; HR's $1/E_6$ (weight $-6$) is on the easy side. This is
+exactly the obstruction named in 1806 (``when $k\ge1$ they do not converge at all'').
+
+\paragraph{Two convergence problems, not one.}
+The polylogarithm subtraction (subtract $\sum_{\taup}\tfrac1{w_Q}\mathrm{Li}_{1-p}(e(\tau-\alpha_Q))$
+at each pole image) cures the \emph{lower-strip $q$-series} convergence; it does nothing
+about the \emph{orbit-sum} growth $|c\taup+d|^{k-2}$. Conflating the two is the source of
+the temptation. The weight-$0$ borderline is exactly where Bringmann--Kane's
+``problem of Petersson'' lives: the naive Poincar\'e series diverges and must be
+continued by Hecke's trick, ``further complicated by the fact that the Fourier expansion
+does not converge everywhere due to singularities in the upper half-plane.''
+
+\section{Two escape routes and their verdicts}
+
+\paragraph{(a) The DRB $s$-variable as a Hecke-trick regulator --- does not work as posed.}
+Hecke's trick tames the orbit sum by inserting a damping factor $|c\tau+d|^{-2\nu}$ and
+continuing $\nu\to0$. The DRB kernel supplies $\taup^{\,s-1}$ (and the Hurwitz-zeta
+$T$-kernel), which controls the \emph{vertical position} of the pole image, not the
+\emph{automorphy factor} $|c\taup+d|$ driving the divergence. So $s$ is the wrong
+regulator: it does not damp the $(c,d)$ sum. (One genuine subtlety: the residue phases
+$(c\taup+d)^{k-2}$ oscillate, so conditional summation / analytic continuation is not a
+priori hopeless---but the continuation that works is Hecke's trick, not the $s$-variable.)
+
+\paragraph{(b) Duncan--Frenkel Rademacher-sum regularization --- wrong failure mode.}
+Duncan--Frenkel (\emph{Rademacher sums, moonshine and gravity}) regularize sums whose
+\emph{seeds are cusp polar parts} ($q^{-m}$ at $i\infty$), with the delicate case being
+weight $\le 0$ / conditional convergence. For positive weight their sums are just the
+holomorphic Poincar\'e series, absolutely and locally uniformly convergent for weight
+$>1$---cusp seed, no interior poles. The divergence here is different in kind: interior-pole
+seeds whose summands grow in \emph{modulus} like $|c\taup+d|^{k-2}$ (absolute divergence,
+not a conditional/phase problem). Their truncate-and-correct machinery has no purchase on
+that growth. The correct precedent is again Hecke's trick \`a la Bringmann--Kane (weight
+$0$). Duncan--Frenkel is the right tool for the (already solved) negative-weight side, not
+the open positive-weight side.
+
+\section{The inversion, and the LHMF / L\"obrich--Schwagenscheidt comparison}
+
+\paragraph{The inversion.}
+Rather than form the divergent orbit sum, take the finite-contour period/$L$-function as
+the regularization-free invariant the divergent sum was only ever a proxy for, and let
+the wall-crossing residues track the chamber-to-chamber jumps. The question is whether
+this is new.
+
+\paragraph{What the literature already contains.}
+\emph{Locally harmonic Maass forms} (Bringmann--Kane--Kohnen, IMRN 2015): functions
+harmonic except across geodesics, where they jump, becoming continuous only after adding
+an explicit \emph{local polynomial} depending on the chamber. \emph{L\"obrich--Schwagenscheidt}
+(\texttt{arXiv:2006.10549}, \emph{Locally harmonic Maass forms and periods of meromorphic
+modular forms}) construct $\mathcal{H}_{1-k,n}(\tau)$ of weight $2-2k$ as the $n$-th
+\emph{period} (in $z$) of Petersson's two-variable kernel
+\[
+  H_{k,k-1}(z,\tau)=\sum_{M\in\Gam} v^{2k-1}(z-\tau)^{-1}(z-\bar\tau)^{1-2k}\big|_{2-2k,\tau}M,
+\]
+which in $z$ is a weight-$2k$ meromorphic modular form with poles exactly at the
+$\Gam$-translates of $\tau$. Their Theorem~1.3 splits $\mathcal{H}_{1-k,n}$ into
+holomorphic and non-holomorphic Eichler integrals plus a locally polynomial part
+$\mathcal{P}_{1-k,n}(\tau)$, harmonic off $E_1=\Gam\cdot i\mathbb{R}_+$ (translates of the
+imaginary axis), with the chamber-dependent jump given by the \emph{finite} sum
+\[
+  \frac{i^{1-n}}{2}\!\!\sum_{\substack{M=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in\Gam\\ ac>0,\ \operatorname{Re}(M\tau)<0}}\!\!\bigl(\tau^{n}-(-1)^{n}\tau^{2k-2-n}\bigr)\big|_{2-2k}M .
+\]
+As an application they obtain finite rational formulas for periods of the meromorphic
+forms $f_{k,P}$ attached to positive definite binary quadratic forms (poles at CM points,
+weight $2k>0$).
+
+\paragraph{Term-by-term comparison with DRB.}
+Write the DRB weight as $w$ (so $w=2k$ in LS notation; period-monomial degree $w-2=2k-2$).
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Shared / occupied --- the wall-crossing local polynomial.} DRB's
+per-crossing residue jump is $2\pi i\,\sigma\,\Res(f,\taup)\,(X-\taup Y)^{w-2}$. LS's jump
+terms are the period-monomials $\tau^n-(-1)^n\tau^{w-2-n}$ slashed by the finitely many
+$M$ whose wall has been crossed. These are the \emph{same graded object}: DRB bundles the
+monomials $\taup^{\ell}$ into the single generating polynomial $(X-\taup Y)^{w-2}$; LS
+exposes them componentwise. The chamber/wall-crossing phenomenon is therefore \emph{not
+new to DRB}.
+\item \textbf{Weaker-than-hoped: ``general $f$.''} The Petersson kernel $H_{k,k-1}(z,\tau)$
+already handles an \emph{arbitrary} single pole orbit (any $\tau$, not just CM), with
+higher order accessed by $\tau$-derivatives; multiple orbits are linear combinations. So
+generality of the pole configuration is not by itself a strong distinction.
+\item \textbf{Transverse --- not present in LS.}
+  \begin{enumerate}[label=(\roman*),leftmargin=1.8em]
+  \item The completed \emph{all-$s$} $L$-function $\Lstar(f,s)$. LS computes the
+  \emph{integer} periods $r_n$ ($0\le n\le 2k-2$)---period-polynomial coefficients---not
+  an $L$-function over $s\in\C$.
+  \item The \emph{quasi-periods} $\eta^{\pm}$ and the de Rham--Betti period matrix. LS is
+  Betti-side periods only; there is no Brown-style quasi-period / de Rham--Betti
+  coordinatization.
+  \item The \emph{finite contour between interior basepoints}. LS's period is a Mellin
+  integral $\int_0^\infty\!\cdots y^n\,dy$ anchored at the cusps (Cauchy principal value on
+  walls); DRB never touches the cusp.
+  \end{enumerate}
+\end{itemize}
+
+\paragraph{Verdict.}
+The overlap is essentially confined to the wall-crossing phenomenon, which is
+independently known and which the construction itself treats as structural rather than
+headline. The finite-contour extraction of the completed $L$-function and the joint
+period/quasi-period reconstruction are transverse to the LHMF / cycle-integral line. The
+observation that the Bringmann--Schwagenscheidt cycle-integral papers do not cite 1806 is
+consistent with this: their deliverable is cycle-integral \emph{periods} of $f_{k,P}$ via
+Shintani lifts, a different object from the completed $L$-function of a general
+interior-pole meromorphic form. ``Not cited'' is weak evidence on its own; the substantive
+argument is the difference in deliverable, and that argument holds.
+
+\section{Novelty ledger}
+
+\paragraph{Occupied (do not claim).}
+The chamber / wall-crossing local-polynomial structure for periods of meromorphic forms
+(Bringmann--Kane--Kohnen; L\"obrich--Schwagenscheidt; the pole-bearing period
+\emph{functions} of Choie--Zagier; the cohomological framework of Bruggeman--Choie--Diamantis).
+Negative-weight and weight-$0$ coefficient formulas (Petersson; Bringmann--Kane; HR~1919).
+Positive-weight coefficients for the special family $f_{k,D}$ via theta lifts
+(L\"obrich--Schwagenscheidt arithmetic; Li--Neururer; Bengoechea).
+
+\paragraph{Plausibly novel (not found pre-empted; must be positioned).}
+The finite-contour de Rham--Betti extraction of $\omega^{\pm}$ \emph{and} $\eta^{\pm}$ for
+general meromorphic $f$; the all-$s$ $\Lstar(f,s)$ carrying explicit wall-crossing; and the
+proof that the BFK incomplete-gamma $L$-function is the correct finite object, with an
+explicit numerically convergent reconstruction.
+
+\paragraph{Still open (delivered by none of the above).}
+A convergent positive-weight Rademacher \emph{coefficient} formula for $c_f(n)$ of general
+meromorphic forms regular at the cusp. The obstruction is the $|c\taup+d|^{k-2}$ growth;
+the only known route is Hecke-trick analytic continuation, and it has not been carried out
+in this generality.
+
+\section{Priority and prior art (forward-citation sweep)}
+
+A forward-citation sweep of BFK and 1806, filtered for any finite-contour or
+de Rham--Betti extraction of the completed $L$-function, returns the following.
+
+\begin{itemize}[leftmargin=1.4em]
+\item The completed $L$-function of an interior-pole or weakly holomorphic form is by now
+a small but real subfield: BFK (weakly holomorphic); 1806 (meromorphic, regular at the
+cusp); L\"obrich--Schwagenscheidt ($L$-values of special meromorphic forms via Cauchy
+principal value); Wang--Zhang, \emph{Meromorphic quasi-modular forms and their
+$L$-functions} (2022), via regularized integrals; and a completed $L$-function for a
+weight-$2$ polar harmonic Maass form (\texttt{arXiv:2201.03146}). Hence ``first
+$L$-function of a meromorphic form'' is not an available claim, and $\Lstar(f,s)$ as a
+value is the same completed object these define.
+\item The 1806 paper \emph{is} cited within this lineage: Wang--Zhang reference it (as
+McGady) for ``$L$-functions for meromorphic modular forms holomorphic at infinity.'' By
+contrast the LHMF / cycle-integral papers (Bringmann--Kane--Kohnen;
+L\"obrich--Schwagenscheidt; Alfes-Neumann--Bringmann--Schwagenscheidt) do not cite it,
+consistent with their deliverable being cycle-integral periods rather than the completed
+$L$-function. Cited where the object coincides, not cited where it differs---the pattern
+is itself evidence of transversality, not oversight.
+\item Every paper in the $L$-function niche defines the $L$-function through a
+\emph{regularized} Mellin integral from $0$ to $i\infty$ (cusp regularization and/or Cauchy
+principal value at poles). None performs the finite-contour cocycle extraction between
+interior basepoints; none extracts quasi-periods $\eta^{\pm}$ alongside periods
+$\omega^{\pm}$; none frames the result in Brown's de Rham--Betti period structure. The
+priority window on the \emph{method} and on the \emph{joint period/quasi-period/$L$-function
+package} therefore appears clean.
+\end{itemize}
+
+\section{Recommended framing and proposed title}
+
+\textbf{Lead with the $L$-function.} The distinctive content is \emph{uniformity}: a single
+construction whose completed $L$-function is the same object across cuspidal, weakly
+holomorphic, and interior-pole forms---regimes that previously required mutually incompatible
+tools. BFK's regulator is regime-locked (it leans on the harmonic-Maass / non-holomorphic
+completion and has no purchase on interior poles); the finite-contour deformation handles
+interior poles and also processes $\widehat\Delta$ with the identical kernel; Brown's cocycle
+yields $\omega^{\pm},\eta^{\pm}$ but no $L$-function. Nobody has run all of this through one
+object. The $L$-function is the right lead object precisely because it is what stays fixed
+while the input ranges over the three regimes.
+
+\textbf{The claim to make:} a single finite-contour cocycle yielding the completed all-$s$
+$L$-function \emph{together with} the periods $\omega^{\pm}$ and quasi-periods $\eta^{\pm}$,
+uniformly across cuspidal, weakly holomorphic, and interior-pole forms, with nothing to
+regulate.
+
+\textbf{The phrasing to avoid:} ``first $L$-function for both weakly holomorphic and
+meromorphic forms.'' Wang--Zhang's regularized integral arguably already spans
+cusp-exponential growth and interior poles within one formalism, so they can contest that
+exact priority. What they lack is the rest of the bundle---no periods, no quasi-periods, no
+cocycle, regularized rather than finite. State the unification as the cocycle bundle, not as
+priority over Wang--Zhang on the bare $L$-function.
+
+\textbf{Proposed manuscript title} (replacing the current working title):
+\begin{quote}
+\emph{Finite-contour cocycles for (quasi-)periods and $L$-functions of meromorphic modular
+forms on $\mathrm{SL}_2(\Z)$.}
+\end{quote}
+``Finite-contour cocycles'' puts the method---the part with no other occupant---up front;
+``(quasi-)periods'' surfaces the $\eta^{\pm}$ / de Rham--Betti differentiator while folding in
+$\omega^{\pm}$; ``$L$-functions'' stays in the lead per the uniformity argument above;
+``on $\mathrm{SL}_2(\Z)$'' is honest level-$1$ scoping that pre-empts the higher-level reflex.
+Read maximally, ``meromorphic'' subsumes the weakly holomorphic and cuspidal cases, so the
+span lives in the title; the abstract's opening must then make ``one construction, all three
+regimes, $L$ and (quasi-)periods together'' load-bearing from the first line, or a skimmer
+files the paper under the occupied $L$-function niche.
+
+\emph{Leaner fallbacks:} \emph{Finite-contour cocycles for (quasi-)periods and $L$-functions
+of meromorphic modular forms}; or \emph{(Quasi-)periods and $L$-functions of meromorphic
+modular forms via finite-contour cocycles}.
+
+\section{Recommended actions}
+
+\begin{enumerate}[leftmargin=1.6em]
+\item Retitle the main manuscript to the proposed title in \S8, and make the uniformity
+claim (one cocycle; the $L$-function with $\omega^{\pm},\eta^{\pm}$; three regimes)
+load-bearing in the first two sentences of the abstract.
+\item Cite Bringmann--Kane--Kohnen (2015) and L\"obrich--Schwagenscheidt (2020) in the DRB
+note; they are the closest references and are currently absent.
+\item Position the residue jump $(X-\taup Y)^{w-2}$ explicitly against the LS local
+polynomial, and test whether, for poles at CM points, the DRB pole-crossing residues are
+the specialization of Choie--Zagier rational period functions. This either claims or
+disclaims the point-crossing structure cleanly.
+\item Frame the contribution as ``finite-contour de Rham--Betti $L$-function and
+quasi-period reconstruction'' (transverse to LHMF/LS), \emph{not} as a new wall-crossing
+phenomenon and \emph{not} as a positive-weight coefficient formula.
+\item If pursuing positive-weight coefficients: the regulator is Hecke's trick (as in the
+Bringmann--Kane weight-$0$ Petersson problem), not the DRB $s$-variable and not
+Duncan--Frenkel.
+\end{enumerate}
+
+\section*{Key references}
+\begin{itemize}[leftmargin=1.4em]
+\item G.~H.~Hardy, S.~Ramanujan, \emph{Asymptotic formulae in combinatory analysis} and
+the 1918/1919 interior-pole work (e.g.\ $1/E_6$).
+\item K.~Bringmann, K.-H.~Fricke, Z.~A.~Kent, \emph{Special $L$-values and periods of
+weakly holomorphic modular forms}, Proc.\ Amer.\ Math.\ Soc.\ 142 (2014), 3425--3439.
+\item [1806] \emph{$L$-functions for meromorphic modular forms} (\texttt{arXiv:1806.09874}).
+\item K.~Bringmann, B.~Kane, \emph{Ramanujan and coefficients of meromorphic modular
+forms}, J.\ Math.\ Pures Appl.\ (\texttt{arXiv:1603.07079}); \emph{Ramanujan-like formulas
+for Fourier coefficients of all meromorphic cusp forms} (\texttt{arXiv:1603.09250}).
+\item K.~Bringmann, B.~Kane, \emph{A problem of Petersson about weight $0$ meromorphic
+modular forms}, Res.\ Math.\ Sci.\ 3 (2016).
+\item K.~Bringmann, B.~Kane, W.~Kohnen, \emph{Locally harmonic Maass forms and the kernel
+of the Shintani lift}, IMRN 2015, 3185--3224.
+\item S.~L\"obrich, M.~Schwagenscheidt, \emph{Locally harmonic Maass forms and periods of
+meromorphic modular forms} (\texttt{arXiv:2006.10549}); \emph{Arithmetic properties of
+Fourier coefficients of meromorphic modular forms} (\texttt{arXiv:2010.06297}).
+\item W.~Wang, H.~Zhang, \emph{Meromorphic quasi-modular forms and their $L$-functions}
+(\texttt{arXiv:2202.09542}, 2022)---completed $L$-functions of meromorphic quasi-modular
+forms via regularized integrals; cites 1806 (as McGady).
+\item \emph{The completed $L$-function attached to the weight-$2$ polar harmonic Maass form
+$H^{*}_{N,z}$} (\texttt{arXiv:2201.03146}).
+\item Y.~Choie, D.~Zagier, \emph{Rational period functions for $\mathrm{PSL}_2(\Z)$},
+Contemp.\ Math.\ 143 (1993), 89--108; W.~Kohnen, D.~Zagier, \emph{Modular forms with
+rational periods} (1984).
+\item R.~Bruggeman, Y.~Choie, N.~Diamantis, \emph{Holomorphic automorphic forms and
+cohomology}, Mem.\ Amer.\ Math.\ Soc.\ 253 (2018), no.\ 1212.
+\item J.~Duncan, I.~Frenkel, \emph{Rademacher sums, moonshine and gravity}, Commun.\
+Number Theory Phys.\ 5 (2011), 1--128.
+\item F.~Brown, \emph{A class of non-holomorphic modular forms III: real analytic cusp
+forms for $SL_2(\Z)$} (\texttt{arXiv:1710.07912}); and personal communication (2019) on
+the two-segment cocycle procedure.
+\end{itemize}
+
+\end{document}

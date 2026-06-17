@@ -1,0 +1,291 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black]{hyperref}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\ktil}{\widetilde{k}_T}
+\newcommand{\khat}{\widehat{k}_T}
+
+\theoremstyle{plain}
+\newtheorem*{claim}{The single thread}
+
+\title{\bf The cocyclic origin of the manifestly finite\\ period polynomials and $L$-functions}
+\author{Conceptual companion to \texttt{dr\_b\_periods\_and\_Lfunctions.tex}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent
+This note explains, at the level of \emph{why} rather than \emph{how}, what
+ties the period-polynomial construction of \S\S2--3 to the $L$-function of
+\S4 in the main file. It is the conceptual skeleton; the verifications all
+live in the source. It is also a direct answer to the two margin notes in
+the source (at the cohomology/periods paragraph of \S2 and the
+$\Gamma$-equivariance remark), which ask for exactly this tutorial.
+
+\begin{claim}
+The period polynomial and the $L$-function are not two constructions. They
+are one object --- a single \emph{gauge-fixed cocycle generator value} ---
+read at two values of a complex parameter $s$: integer $s$ gives the period
+polynomial, general $s$ gives the $L$-function. The Hurwitz kernel
+$\ktil(\tau,s)$ is the unique device that gauge-fixes that cocycle, and the
+\emph{same} equation that defines it is, simultaneously, (i) the
+coboundary equation whose solvability is cuspidality, (ii) the identity
+that makes the two-segment functional finite and basepoint-independent, and
+(iii) the all-$s$ continuation of the Bernoulli inversion that produces the
+classical period polynomial. ``Manifestly finite'' and ``cocyclic'' are the
+same statement.
+\end{claim}
+
+\section{Why a cocycle at all?}
+
+The object one wants is the period polynomial, classically
+$r_f(X,Y)=\int_0^{i\infty} f(\tau)(X-\tau Y)^{k-2}\,d\tau$. The integral
+runs between two cusps, $0 = S\!\cdot\! i\infty$ and $i\infty$, so it is
+morally ``the $S$-edge with the basepoint pushed to the cusp.'' For a
+genuine cusp form this converges and one stops. For a \emph{weakly
+holomorphic} or meromorphic form it diverges at the cusp, and the classical
+contour is unavailable.
+
+The cocycle is the replacement for that broken open contour. Set
+$n:=k-2$, let $V_n=\CC[X,Y]_n$ carry the weight-$n$ slash action, and form
+the $V_n$-valued $1$-form $\omega_f(\tau)=f(\tau)(X-\tau Y)^n\,d\tau$. The
+content of the $\Gamma$-equivariance remark (the first margin note) is
+exactly this: the weight-$k$ transformation of $f$ cancels the
+weight-$(-n)$ slash on $(X-\tau Y)^n$, so $\omega_f$ is invariant under the
+\emph{simultaneous} action of $\Gamma$ on $\tau$ and on $(X,Y)$. That is the
+one fact that makes everything downstream work, and it is the whole reason
+the auxiliary variables $X,Y$ are introduced.
+
+Equivariance lets us trade the single divergent open contour for a
+\emph{system of finite contours, one per group element}:
+\[
+  C^f_\gamma(\tau_0)
+  \;:=\; (2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\! \omega_f
+  \quad\in\quad V_n\otimes\CC .
+\]
+Path-additivity through the intermediate point $h^{-1}\tau_0$, together
+with equivariance, gives the cocycle relation
+\[
+  C^f_{gh}=C^f_g\big|_h + C^f_h .
+\]
+This relation is the bookkeeping that ``closes the contour under
+$\Gamma$'': it says the $\gamma$-integrals are mutually consistent under
+composition, which is precisely the structure a boundary-at-infinity
+integral loses. A cocycle on $\SLZ=\langle S,T\rangle$ is determined by its
+two generator values
+\[
+  C^f_S(\tau_0)=(2\pi i)^{n+1}\!\!\int_{-1/\tau_0}^{\tau_0}\!\omega_f,
+  \qquad
+  C^f_T(\tau_0)=(2\pi i)^{n+1}\!\!\int_{\tau_0-1}^{\tau_0}\!\omega_f .
+\]
+Both run between \emph{finite} interior points of $\HH$. Nothing has gone to
+the cusp; this is where ``manifestly finite'' begins.
+
+\paragraph{What the cohomology paragraph means (the second margin note).}
+Varying the basepoint $\tau_0$ changes $C^f_\gamma$ by a coboundary
+$\delta P(\gamma)=P|_\gamma-P$ (provided no pole is crossed), so the class
+$[C^f]\in H^1(\Gamma;V_n)$ is basepoint-free. The Eichler--Shimura theorem
+says the cuspidal part of $H^1(\Gamma;V_n)$ is a copy of
+$S_k\oplus\overline{S_k}$, and the coordinates of $[C^f]$ in that space are
+the periods $\omega^\pm(f)$ and quasi-periods $\eta^\pm(f)$. In plain terms:
+\emph{the period polynomial is a set of coordinates on a cohomology class,
+and a cohomology class is a cocycle modulo coboundaries.} So to read off the
+periods you must first pick a concrete cocycle representative --- you must
+\emph{gauge-fix} the coboundary freedom. That is the entire job of \S3, and
+the next two sections are what the gauge-fixing costs.
+
+\section{Why cancel the $T$-variation?}
+
+Among the generators, $T$ is special: in the presentation
+$\langle S,T\,|\,S^4=(ST)^6=1\rangle$ it is the one generator carrying
+\emph{no} relation of its own. It is therefore the coboundary direction one
+is free to spend. Concretely, $T$ acts on $V_n$ as the translation
+$X\mapsto X+Y$, so $\delta_T:=(\,\cdot\,)|_T-\mathrm{id}=e^{Y\partial_X}-1$
+is strictly nilpotent, with
+\[
+  \ker\delta_T=\CC\cdot Y^n,
+  \qquad
+  \operatorname{im}\delta_T=\{Q:[Q]_{X^n}=0\}.
+\]
+Now the decisive computation. The $X^n$-coefficient of $C^f_T$ is the bare
+$T$-segment integral $\int_{\tau_0-1}^{\tau_0} f(\tau)\,d\tau$, and unit-
+segment $T$-periodicity collapses this to the constant Fourier coefficient:
+\[
+  [C^f_T(\tau_0)]_{X^n}=(2\pi i)^{n+1}\,c_f(0).
+\]
+Hence the coboundary equation
+\[
+  \boxed{\;\delta_T P = (2\pi i)^{-(n+1)}\,C^f_T(\tau_0)\;}
+\]
+is solvable for $P\in V_n$ \emph{if and only if} $c_f(0)=0$, i.e.\ if and
+only if $f$ is a (weak) cusp form. This is the conceptual punchline of \S3:
+\emph{cuspidality is not an analytic hypothesis here; it is exactly the
+solvability of the equation that kills the $T$-variation.} The constant
+mode $c_f(0)$ --- the Eisenstein-direction obstruction --- is precisely the
+single coefficient $\delta_T$ cannot reach, and a cusp form is one for which
+it vanishes.
+
+So we cancel the $T$-variation because that is the gauge-fixing demanded by
+\S2: removing $C^f_T$ as a coboundary $\delta P$ pushes the non-period
+(constant-mode / boundary-monomial) content out of the
+cohomologically-meaningful coordinates and leaves a representative that
+genuinely \emph{is} the period polynomial. The leftover is the single
+generator value
+\[
+  r_f \;:=\; C^f_S(\tau_0)\;-\;(2\pi i)^{n+1}\big(P|_S-P\big).
+\]
+
+\paragraph{A subtlety worth stating precisely.}
+$r_f$ is \emph{one} generator value --- the $S$-value of the gauge-fixed
+cocycle $C'=C-\delta\big((2\pi i)^{n+1}P\big)$. It is \emph{not}
+$C_S+C_T$. The period relations on $r_f$ (the $S$- and $U$-relations) come
+from the group relations \emph{conditioned on} $C_T=0$: once $T$ is gauged,
+$C_U=C_S|_T$, so the third generator is not independent data and the
+$U$-relation reappears as a constraint on $C_S$. This is why two numbers,
+not four, come out, and why it is wrong to think of the construction as
+adding two cycles.
+
+\section{Why does cancelling $T$ introduce the kernel $\ktil$?}
+
+This is the step that looks mysterious until one sees that the kernel is
+nothing but the coboundary correction, re-expressed as an integral.
+
+The gauge-fixed value $r_f$ carries the explicit subtraction
+$-(2\pi i)^{n+1}(P|_S-P)$. To turn that into something one can read, solve
+the boxed coboundary equation in closed form. Because $\delta_T=
+e^{Y\partial_X}-1$ and $Y\partial_X$ is nilpotent on $V_n$, the Bernoulli
+generating function $z/(e^z-1)=\sum_k B_k z^k/k!$ truncates and supplies the
+exact inverse
+\[
+  \delta_T^{-1}=\sum_{k\ge0}\frac{B_k}{k!}\,(Y\partial_X)^{\,k-1}.
+\]
+Feeding the $T$-moments of $C^f_T$ through this inverse and collecting the
+matched monomial coefficient, the coboundary subtraction
+$-(P|_S-P)$ \emph{re-expresses itself as a $T$-segment integral against a
+$\QQ$-rational polynomial kernel} $\khat(\ell,\tau)$ --- equivalently,
+after a constant shift that integrates to zero on a cusp form, against the
+Hurwitz polynomial $\ktil(\tau,\ell)$. The upshot, for each interior
+$\ell$, is
+\[
+  [r_f]_{X^{n-(\ell-1)}Y^{\ell-1}}
+  \;=\;(2\pi i)^{n+1}(-1)^{\ell-1}\tbinom{n}{\ell-1}
+  \Big[\underbrace{\textstyle\int_{\gamma^S_{\tau_0}}\! f\,\tau^{\ell-1}\,d\tau}_{\text{bare $S$-piece}}
+  +\underbrace{\textstyle\int_{\gamma^T_{\tau_0}}\! f\,\ktil(\tau,\ell)\,d\tau}_{\text{the coboundary, as a $T$-integral}}\Big].
+\]
+So the ``$T$-kernel'' is not a second physical contribution. It is the
+gauge-fixing coboundary $-(P|_S-P)$ wearing the costume of a $T$-integral.
+This is the honest content of the two-segment formula: it is one
+gauge-fixed generator value, and the second term is what the coboundary
+subtraction looks like once $\delta_T^{-1}$ is written out.
+
+\paragraph{Why Hurwitz, specifically.}
+Drop the integer/polynomial restriction and ask for the same gauge-fixing
+at a general power $\tau^{s-1}$. One needs a kernel solving the unit-shift
+equation
+\[
+  \ktil(\tau,s)-\ktil(\tau-1,s)=-\tau^{s-1}+e^{i\pi(s-1)}\tau^{k-1-s}.
+\]
+The function that inverts a unit shift against a single power is the Hurwitz
+zeta, $\zeta(\sigma,\tau+1)-\zeta(\sigma,\tau)=-\tau^{-\sigma}$, so a
+combination of two Hurwitz zetas,
+\[
+  \ktil(\tau,s)=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\zeta(s-(k-1),\tau+1),
+\]
+is the natural solution. The Bernoulli inversion of \S3 is exactly its
+integer-$s$ shadow, through $\zeta(-m,a)=-B_{m+1}(a)/(m+1)$ --- Bernoulli
+numbers being zeta values at non-positive integers. The two are not
+analogous; they are the same inversion at two ranges of $s$.
+
+\section{The unification: ``manifestly finite'' \emph{is} ``cocyclic''}
+
+Now the thread closes. The shift-difference equation of the previous
+section is not a coincidence of the kernel's definition --- it is forced by
+basepoint-independence. Differentiating the two-segment functional
+\[
+  L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
+  = i^{-s}\!\Big[\textstyle\int_{\gamma^S_{\tau_0}} f\,\tau^{s-1}\,d\tau
+  +\int_{\gamma^T_{\tau_0}} f\,\ktil(\tau,s)\,d\tau\Big]
+\]
+in $\tau_0$, only endpoint terms survive, and the modularity relations
+$f(\tau_0-1)=f(\tau_0)$, $f(-1/\tau_0)=\tau_0^k f(\tau_0)$ collapse the
+$\tau_0$-derivative to exactly
+\[
+  i^{-s}f(\tau_0)\big[\ktil(\tau_0,s)-\ktil(\tau_0-1,s)+\tau_0^{s-1}
+  -e^{i\pi(s-1)}\tau_0^{k-1-s}\big]=0 .
+\]
+The bracket vanishes \emph{by the shift-difference identity}. Read this
+slowly: $\tau_0$-independence of $L^*$ holds \emph{if and only if} the
+kernel satisfies the shift-difference equation, which at integer $s$ is the
+coboundary equation $\delta_T P=C^f_T$ that gauge-fixes the cocycle.
+Basepoint-independence of the $L$-function and the killability of the
+$T$-cocycle are one statement.
+
+This gives the whole picture in one line:
+
+\begin{center}
+\fbox{\parbox{0.92\textwidth}{\centering
+$L$-function (general $s$) $\;\xleftarrow{\ \text{same gauge-fixed value}\ }\;$
+period polynomial (integer $s$),\\[2pt]
+both finite and basepoint-free \emph{because} the kernel solves the
+coboundary / shift-difference equation.}}
+\end{center}
+
+\noindent And the finiteness is manifest, not engineered:
+\begin{itemize}[leftmargin=1.5em]
+\item The two contours run between finite interior points of $\HH$. The
+divergent cusp limit of the classical Mellin contour is simply never taken
+--- it has been replaced by the cocycle's closed-under-$\Gamma$ bookkeeping.
+There is no regulator, no asymptotic subtraction, no analytic continuation
+in the definition.
+\item What \emph{would} have been the divergent boundary term at the cusp is
+instead the finite coboundary correction $-(P|_S-P)$, living on a compact
+$T$-segment and represented by $\ktil$.
+\item For weakly holomorphic $f$ (no interior poles) $\HH$ is simply
+connected, so local constancy upgrades to global $\tau_0$-independence: a
+single well-defined $L^*(f,s)$. Evaluating at the elliptic fixed point
+$\tau_0=i$ collapses the $S$-segment to a point, leaving one integral on
+$[i-1,i]$ whose unfolding is the completed $L$-function. The BFK
+non-holomorphic regulator is then not a separate definition but
+\emph{one closed-form evaluation} of this finite functional at $\tau_0=i$;
+that is why the two agree term by term, and why $L^*$ is independent of any
+regularisation choice.
+\item For meromorphic $f$, simple connectivity fails, local constancy is all
+one can have, and the residue picked up on crossing an interior pole is the
+wall-crossing term. The same functional, now winding-dependent, is the
+meromorphic $L$-function.
+\end{itemize}
+
+\section{What is and is not being claimed}
+
+To keep the signal clean: the unification above is an organising
+\emph{reading} of the construction in the source, not an independent
+theorem. Its three legs --- cuspidality $\Leftrightarrow$ $\delta_T$-
+solvability, $\tau_0$-independence $\Leftrightarrow$ the shift-difference
+identity, and Bernoulli-as-integer-shadow-of-Hurwitz --- are each
+established in the file (Lemmas on $\delta_T$, the local-constancy lemma,
+and the Hurwitz-collapse lemma respectively). What this note adds is only
+the observation that they are the \emph{same} equation seen three ways,
+which is what makes ``manifestly finite'' and ``cocyclic'' synonymous here.
+
+The genuinely load-bearing identification --- that the finite-contour
+functional and the BFK regularised value are equal, not merely structurally
+similar --- rests on the term-by-term unfolding at $\tau_0=i$ and on the
+normalisation matching between the two constructions. That is a computation,
+not a slogan, and it is the right place to keep one's guard up: agreement
+``up to an elementary $\Gamma$/$2\pi$/$i^k$ factor'' is a weaker statement
+than identity, and the honest check is the symbol-for-symbol comparison
+against the BFK values at a fixed weight. The conceptual story does not
+substitute for that check; it only explains why the two objects are
+candidates to coincide.
+
+\end{document}
