@@ -650,7 +650,6 @@ Hurwitz-zeta combination of \eqref{eq:tildekT-def}.
 
 \section{The period-defining cocycle and its moment expansion}\label{sec:cocycle}
 
-\paragraph{The polynomial coefficient system.}
 Let $V_n := \CC[X, Y]_n$ be the space of complex homogeneous polynomials
 in two auxiliary variables $X, Y$ of degree $n$, equipped with the
 right $\Gamma$-action
@@ -682,8 +681,8 @@ hypothesis $f \in S^!_k$ entering only later via
 Lemma~\ref{lem:solvability-cuspidality}(c) as the solvability
 condition for the period-polynomial coboundary equation.
 
-\paragraph{The cocycle.}
-The two-segment cocycle construction used in the present note is the
+With $\omega_f$ in hand we form the cocycle.
+The two-segment construction used here is the
 standard Eichler--Shimura cohomological setup~\cite{KZ1984}, in which a
 weakly holomorphic modular form is integrated against the polynomial
 coefficient system $(X - \tau Y)^n$ along contours from $\gamma^{-1}\tau_0$
@@ -748,7 +747,7 @@ since $S^{-1}\tau_0 = -1/\tau_0$ and $T^{-1}\tau_0 = \tau_0 - 1$.
 These are the two integrals over the contour pair
 \eqref{eq:contour-pair}.
 
-\paragraph{Moment expansion.}
+It is convenient to record the cocycle in coordinates.
 Expanding $(X - \tau Y)^n = \sum_{\ell=0}^{n} \binom{n}{\ell}(-\tau)^\ell
 X^{n-\ell} Y^\ell$ and pulling the polynomial out of the integral defines
 the moment integrals
@@ -766,8 +765,8 @@ for $\ell = 0, 1, \ldots, n$, in terms of which
 and similarly for $C^f_T(\tau_0)$.  Theorem~\ref{thm:periods} extracts
 $\omega^\pm(f)$ from particular linear combinations of these moments.
 
-\paragraph{Basepoint dependence.}
-Varying $\tau_0$ changes $C^f$ by a coboundary, provided $f$ has no
+The basepoint is not yet pinned, and the cocycle depends on it only
+mildly: varying $\tau_0$ changes $C^f$ by a coboundary, provided $f$ has no
 interior poles.  Define an antiderivative $F(\tau)$ of $\omega_f$ (so
 $dF = \omega_f$) on a simply connected open subset of $\HH$ avoiding
 $\Gamma\cdot f^{-1}(\infty)$.  Then for any two basepoints
@@ -810,10 +809,9 @@ in Section~\ref{sec:wall-crossing}.
 %$\omega^\pm(f), \eta^\pm(f)$ \cite{Brown2017}.%DAM: I have almost zero clue what is meant in this paragraph. I need a tutorial on this. 
 % ==== BEGIN PASTE: BLOCK 2 (replaces lines 767--774; delete the %DAM note at line 774) ====
 
-\paragraph{Parabolic cohomology and periods.}
-The cohomology class $[C^f] \in H^1(\Gamma; V_n)$ is independent of
-$\tau_0$ (on the connected component) and of the choice of $\delta P$
-representative.  Its restriction to the cusp stabilizer
+The basepoint-free invariant is therefore the cohomology class
+$[C^f] \in H^1(\Gamma; V_n)$, independent of $\tau_0$ (on the connected
+component) and of the choice of $\delta P$ representative.  Its restriction to the cusp stabilizer
 $\langle T \rangle \cong \ZZ$ lands in
 $H^1(\langle T \rangle; V_n) = V_n / \im \delta_T \cong \CC\cdot[X^n]$,
 and by Lemma~\ref{lem:solvability-cuspidality}(c) the restricted class is
