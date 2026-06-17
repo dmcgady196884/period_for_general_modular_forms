@@ -265,20 +265,46 @@ singularities at \emph{both} ends of the classical integration contour.
  
 Thus, we seek to understand period polynomials even 
 of holomorphic cusp forms via contour integrals between more generic end-points. 
-Thus, let $n := k - 2$, $\tau_0 \in \HH$, $\gamma \in \SLZ$, and %set $n := k - 2$ and let $V_n = \CC[X, Y]_n$ carry the right
-%$\Gamma$-action $(P|_\gamma)(X, Y) = P(aX + bY,\, cX + dY)$.  The
-%weight-$k$ modularity of $f$ makes the $V_n$-valued form
-%$\omega_f = f(\tau)(X - \tau Y)^n\,d\tau$ invariant under the simultaneous
-%action of $\Gamma$ on $\tau$ and on $(X, Y)$, so the integrals
-consider% the integral, 
+Fix the even weight $k$, set $n := k-2$, and let $V_n = \CC[X,Y]_n$ carry
+the weight-$n$ action $(P|_\gamma)(X,Y) = P(aX+bY,\,cX+dY)$ of
+$\Gamma = \SLZ$.  The weight-$k$ modularity of $f$ makes the $V_n$-valued
+one-form
+\begin{equation}\label{eq:omega-f}
+  \omega_f \;:=\; f(\tau)\,(X - \tau Y)^n\,d\tau
+\end{equation}
+invariant under the simultaneous action of $\Gamma$ on $\tau$ and on
+$(X,Y)$.
+
+The object we are really after is a \emph{primitive} of $\omega_f$.  Since
+$\omega_f$ is closed on $\HH$ away from the poles of $f$, every
+simply-connected pole-free region carries an antiderivative $F$ with
+$dF = \omega_f$ --- a $V_n$-valued function, determined up to an additive
+$V_n$-constant.  Were $F$ itself $\Gamma$-invariant, $f$ would have no
+periods; it is not, and that failure is the entire subject.  (The
+primitive $F$ is the \emph{indefinite} integral of $\omega_f$, a
+transcendental function of $\tau$; the period polynomial we ultimately
+extract is a \emph{definite} one --- a difference of $F$ across a contour,
+hence a fixed element of $V_n$, the polynomial \emph{defect} of $F$'s
+modularity rather than a primitive itself.)  We record the
+failure one group element at a time and --- the point of the whole
+construction --- \emph{between finite interior points of $\HH$, never at a
+cusp}:
 \begin{equation}\label{eq:ES-cocycle}
   C^f_\gamma(\tau_0)
+  \;:=\; (2\pi i)^{n+1}\bigl(F(\tau_0) - F(\gamma^{-1}\tau_0)\bigr)
   \;=\; (2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f,
-  \qquad \gamma \in \Gamma,
+  \qquad \gamma \in \Gamma.
 \end{equation}
-an integral along a path from $\gamma^{-1}\tau_0 \to \tau_0$. This integral satisfis 
-the cocycle relation $C^f_{gh} = C^f_g|_h + C^f_h$.  %This relation is the bookkeeping
-%the cusp used to perform, now executed entirely in the interior of $\HH$.
+The right-hand equality makes $C^f_\gamma(\tau_0)$ manifestly finite and
+independent of which primitive $F$ was chosen (the additive constant
+cancels in the difference); the middle one makes its meaning plain ---
+$C^f_\gamma(\tau_0)$ is the primitive's failure to be $\Gamma$-modular,
+read at the basepoint $\tau_0$.  That basepoint is where we \emph{anchor}
+the primitive: it is the finite, convergent stand-in for the cusp at which
+the classical Eichler integral is silently anchored, recovered in the
+holomorphic case as $\tau_0 \to i\infty$ (\S\ref{sec:cocycle}).  The map
+$\gamma \mapsto C^f_\gamma(\tau_0)$ satisfies the cocycle relation
+$C^f_{gh} = C^f_g|_h + C^f_h$ (Lemma~\ref{lem:cocycle}).
 
 Since $\Gamma = \langle S, T\rangle$, the cocycle is determined by its two
 generator values, and it is natural to single-out (homotopy classes of) S- and T-contours associated with 
@@ -318,26 +344,34 @@ structural; there is never anything to regulate.
 
 % ==== BEGIN PASTE: BLOCK 1 (replaces lines 313--351; delete the %DAM note at line 321) ====
 
-The price of trading one divergent contour for a family of finite ones
-is redundancy: each $C^f_\gamma(\tau_0)$ depends on an auxiliary
-basepoint $\tau_0$ and on a group element $\gamma$, while the period
-polynomial must refer to neither.  Degree-one group cohomology is the
-standard bookkeeping for exactly this situation, and only three
-definitions are needed.  A \emph{$1$-cocycle} is a function
-$c\colon \Gamma \to V_n$ satisfying $c_{gh} = c_g|_h + c_h$, and
+The price of trading one divergent contour for a family of finite ones is
+\emph{redundancy}: each $C^f_\gamma(\tau_0)$ carries both a group element
+$\gamma$ and an auxiliary basepoint $\tau_0$, whereas the period polynomial
+must refer to neither.  The two carry-alongs are not on the same footing.
+The $\gamma$-dependence is the data --- it is the cocycle.  The
+$\tau_0$-dependence is pure redundancy, and the primitive picture names it
+exactly: $\tau_0$ is where we anchored $F$, so moving it re-anchors the
+primitive and, by \eqref{eq:bp-cocycle-coboundary}, shifts the \emph{whole}
+family $\{C^f_\gamma\}_\gamma$ by one and the same polynomial
+$P = (2\pi i)^{n+1}\bigl(F(\tau_0)-F(\tau_0')\bigr)$ --- the same $P$ for
+every $\gamma$, which is what lets a quotient remember anything at all.
+
+Degree-one group cohomology is the standard bookkeeping for exactly this,
+and three definitions suffice.  A \emph{$1$-cocycle} is a function
+$c\colon \Gamma \to V_n$ with $c_{gh} = c_g|_h + c_h$, and
 $\gamma \mapsto C^f_\gamma(\tau_0)$ is one for each fixed $\tau_0$
-(Lemma~\ref{lem:cocycle}).  A \emph{$1$-coboundary} is the special
-cocycle $\delta P\colon \gamma \mapsto P|_\gamma - P$ built from a
-polynomial $P \in V_n$; by \eqref{eq:bp-cocycle-coboundary}, shifting
-$\tau_0 \to \tau_0'$ (no pole crossed) shifts the whole family
-$\{C^f_\gamma\}_\gamma$ by one such $\delta P$ --- the same $P$ for
-every $\gamma$, which is why the quotient retains anything at all.  The
+(Lemma~\ref{lem:cocycle}).  A \emph{$1$-coboundary} is the special cocycle
+$\delta P\colon \gamma \mapsto P|_\gamma - P$ from a polynomial
+$P \in V_n$ --- precisely the re-anchoring shift above.  The
 \emph{cohomology class}
-$[C^f] \in H^1(\Gamma; V_n) :=
-\{\text{cocycles}\}/\{\text{coboundaries}\}$ is therefore
-basepoint-free, and a \emph{representative} of it is any cocycle
-$C^f - \delta P$.  This kills the
-$\tau_0$. %CLAUDE: replaces the former lines 313--320, which described coboundaries as polynomials and the equivalence as acting on each C^f_\gamma separately.
+$[C^f] \in H^1(\Gamma; V_n) := \{\text{cocycles}\}/\{\text{coboundaries}\}$
+is what survives forgetting the anchor: it no longer remembers $\tau_0$,
+and a \emph{representative} of it is any single cocycle $C^f - \delta P$.
+This is half the journey from $C^f_\gamma(\tau_0)$ to $r_f$ --- forget the
+basepoint by passing to the class.  The other half --- pinning one
+representative, which is what turns a class back into a polynomial --- is
+forced by the remaining structure of $\Gamma$, and \emph{which} generator
+does the pinning is the subject of the next two paragraphs.
 
 A reader outside the field might object that no machinery should be
 needed: the classical period polynomial is a single integral along one
@@ -383,7 +417,14 @@ the surviving generator value,
 well-defined up to the line $\CC\,(X^n - Y^n)$ left over from
 $\ker \delta_T = \CC\, Y^n$ --- an ambiguity touching only the boundary
 monomials, which is why Theorem~\ref{thm:periods} ranges over the
-interior $\ell$ alone.  The $U$-relation now arrives, purchased as
+interior $\ell$ alone.  The solved $P$ is itself basepoint-dependent ---
+re-anchoring at $\tau_0'$ sends it to $P + \bigl(F(\tau_0)-F(\tau_0')\bigr)$
+modulo $\CC Y^n$ --- but that increment is the \emph{same}
+$F(\tau_0)-F(\tau_0')$ that shifts $C^f_S$ under
+\eqref{eq:bp-cocycle-coboundary}, so the two move in lockstep and cancel
+in \eqref{eq:rf-normalized}: the interior coefficients of $r_f$ are
+$\tau_0$-independent (Corollary~\ref{cor:tau0-ell-indep}), and only the
+boundary line $\CC(X^n - Y^n)$ can shift with the anchor.  The $U$-relation now arrives, purchased as
 promised: conditioned on the vanishing $T$-value, the group relation
 $(ST)^3 = -I$ becomes $r_f|\bigl(1 + (TS) + (TS)^2\bigr) = 0$, and $r_f$
 \emph{is} the period polynomial.  Indeed, for holomorphic $f \in S_k$,
@@ -410,7 +451,16 @@ business of this paper.
 %nevertheless, defines a class of polynomials that are within the 
 %same class, $[C^f_\gamma]$. Known as a cohomology class, 
 %$[C^f_\gamma]$ lies within the space $H^1(\Gamma; V_{k-2})$. 
-%DAM: Editing-line. I am not quite comfortable with the notion of tf a cohomology class is, or even of what tf  $H^1(\Gamma; V_{k-2})$ even fuckin means to honestly go past this point. It is clear that there is an equivalence class of basepoint-shifts of each individual $C^f_\gamma$ for each $\gamma \in \Gamma$. But I need to better understand what $H^1(\Gamma; V_{k-2})$ really is/means before putting my name on this. Further, WHAT is a "representative"? Why does is it specified by two coordinates? How/why does fixing the T-variation give a representative? Similarly, up to this point, we discuss $C^f_\gamma(\tau_0)$. OK. Fine. But period polynomials neither refer to any specific base-point $\tau_0 \in \HH$ nor to any $\gamma \in \Gamma$ --- doubly-unlike these $C^f_\gamma(\tau_0)$s! Where does one go to map between these objects? Once these are answered, then I think I could more confidently move on from here. E.g., knowing why, and in what sense, these words are true should tell me that, once we find our representative, which we find by "fixing the T-gauge", then it should be the period polynomial. But I need to understand these questions, and related issues first!
+%DAM-CHECKLIST [re-targeted 2026-06-17 from the old editing-note; the intro
+% prose must answer each of these, in order, before the reader "moves on".
+% Framing decided: Path #2 -- primitive/branch is the primary narrative, the
+% finite tau_0-cocycles stay explicit, tau_0 <-> branch is the bridge.]:
+%  (1) What is H^1(Gamma; V_n), and what does "cohomology class" mean here?
+%  (2) What is a "representative", and why is r_f pinned by two coordinates?
+%  (3) How/why does normalizing the T-value select a representative?
+%  (4) How do the tau_0- and gamma-dependent C^f_gamma(tau_0) map to the
+%      period polynomial, which refers to neither tau_0 nor gamma?
+%      [Answer = tau_0 is the finite stand-in for "which branch of F".]
 
 
 %The price of trading the contour for a cocycle is a redundancy.  
@@ -501,8 +551,8 @@ odd. %CLAUDE: parity statement carried over to the new indexing ((-1)^{\ell_old 
 \end{theorem}
  
 The structure of \eqref{eq:periods-statement} is exactly that of the
-gauge-fixed cocycle: the bare Mellin monomial on the $S$-cycle, plus the
-gauge-fixing term on the $T$-cycle.  The second integral is not a second
+normalized cocycle: the bare Mellin monomial on the $S$-cycle, plus the
+normalization term on the $T$-cycle.  The second integral is not a second
 physical contribution; it is the coboundary subtraction written as a
 contour integral. %CLAUDE: rehabilitated your orphaned post-theorem text as a remark; dropped the obsolete "Extracting the period coefficients from \eqref{eq:intro-rf}... gives our first theorem" (that equation is gone, and the theorem now precedes this text).
  
@@ -558,7 +608,7 @@ in $\tau_0$ leaves only endpoint terms, which the modularity of $f$
 collapses to $f(\tau_0)$ multiplied by precisely the combination that the
 unit-shift equation defining $\widetilde{k}_T$ sets to zero.  The
 identity that defines the kernel is the identity that makes the
-functional basepoint-independent: gauge-fixability of the cocycle and
+functional basepoint-independent: normalizability of the cocycle and
 well-definedness of the $L$-function are the same statement.
 
 The specializations of \eqref{eq:Lambda-DR-def} now recover the classical
@@ -678,7 +728,7 @@ reproduces the deformed-Mellin $L$-function of \cite{1806}; the precise
 compatibility statement is Corollary~\ref{cor:1806-coincide} in
 Section~\ref{sec:wall-crossing}.
 
-In sum: a single $T$-gauge-fixed cocycle value, read at integer $s$, is
+In sum: a single $T$-normalized cocycle value, read at integer $s$, is
 the period polynomial (Theorem~\ref{thm:periods}); read at general $s$,
 it is the completed $L$-function (Theorem~\ref{thm:bfk-eq}); read on
 nontrivial homotopy classes, it is the $L$-function of a meromorphic
@@ -689,7 +739,7 @@ The remainder of this note is organized as follows.
 Section~\ref{sec:cocycle} introduces the period-defining cocycle and its
 moment expansion in the polynomial coefficient system $V_{k-2}$, making
 the narrative above precise.  Section~\ref{sec:periods} solves the
-$T$-gauge-fixing coboundary equation in closed Bernoulli form, identifies
+$T$-normalizing coboundary equation in closed Bernoulli form, identifies
 the resulting two-segment kernels, and proves Theorem~\ref{thm:periods}.
 Section~\ref{sec:hurwitz-extension} derives the Hurwitz-zeta kernel
 $\widetilde{k}_T$ as the all-$s$ solution of the same coboundary
@@ -2756,798 +2806,5 @@ J.\ Lewis and D.\ Zagier,
 Ann.\ of Math.\ \textbf{153} (2001), 191--258.
 
 \end{thebibliography}
-
-\end{document}
-
-
-
-\section{Introduction and main results}\label{sec:intro}
-
-In this paper, we introduce a general framework that defines L-functions for 
-generic modular forms on the full group $\SLZ$, and extracts their periods for 
-the explicit case when the holomorphic cusp forms are one-dimensional, i.e. 
-when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined 
-and well-studied for holomorphic modular forms. However, there is a growing 
-body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011} 
-for weakly holomorphic modular forms. Similarly, there are natural physical 
-motivations to consider L-functions for properly meromorphic modular forms, 
-which have poles \emph{within} the fundamental domain~\cite{1806}.
-
-In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics, 
-divergences due to singularities in quantities of interest necessitate the 
-introduction of regulators in order to define finite quantities. Regulators, though, 
-often break symmetries, and care is needed to check that the regulator has not 
-injected undue violence to the system. Of relevance here is that~\cite{BFK2011} 
-introduced a non-holomorphic regulator to deal with the singularities at either 
-end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate 
-divergences at the cusps, but which violates holomorphy in the deformed 
-contour-integral, ruining path-independence. Simultaneously, \cite{1806} 
-concerned itself with L-functions for modular forms which diverge within the 
-interior of the fundamental domain. Here, holomorphic dependence on $\tau$ 
-is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
-
-In this note, we introduce manifestly finite contour integral functionals to define 
-L-functions for generic meromorphic modular forms that are of sufficient generality 
-to handle any combination of poles at cusps and poles within the fundamental domain. 
-Our construction is motivated by, and makes precise contact with, work which extracts 
-period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are 
-manifestly finite throughout, and reproduce all results in the literature, unifying the 
-quasi-period results and the L-function extensions within one concrete, natural framework.
-
-\subsection{Central definitions and theorems}\label{sec:intro-results}
-
-Throughout, $\Gamma = \SLZ$. In this note, we focus on modular forms on 
-$\SLZ$ of integer weight and trivial multiplier system.  Write
-$M_k$ for the holomorphic modular forms of weight $k$, $S_k \subset M_k$
-for the cusp forms, $M^!_k$ for the weakly holomorphic forms
-(holomorphic on $\HH$, with at most a pole at the cusp), and $F_k$ for
-the \emph{meromorphic modular forms} of weight $k$: the weight-$k$ part
-of the field of fractions of the graded ring $M_* = \bigoplus_k M_k$,
-i.e.\ the quotients $f = f_1/f_2$ with $f_i \in M_{k_i}$, $f_2 \ne 0$,
-and $k = k_1 - k_2$.  Thus $M_k \subset M^!_k \subset F_k$, and
-$F_k = g_0\,\CC(j)$ for any nonzero $g_0 \in F_k$; equivalently, $F_k$
-is the space of weight-$k$ functions meromorphic on $\HH$ and at the
-cusp. %DAM: This paragraph might need tightening.
-
-Further, throughout, $S_k$ denotes the standard space of 
-\emph{holomorphic} cusp-forms of weight-$k$ in $\SLZ$ and $S_k^!$ denotes 
-the space of \emph{weakly holomorphic} cusp forms of weight $k$ for $\SLZ$. 
-Clearly, $S_k \subset S_k^!$ and any $f \in S_k^!$ has a q-series with zero 
-constant term, i.e. if $f = \sum_{n \in \ZZ} c(n) q^n$ then $c(0) = 0$ and 
-$c(n) = 0$ for every $n \leq N$ for some finite integer $N$.%DAM: This paragraph might need tightening.
-
-We denote the unit-normalized Eisenstein-series by $E_k$:
-$E_k = 1 + O(q) \in M_k$. In this context, the modular discriminant, $\Delta$, is
-$\Delta := (E_4^3-E_6^2) = q + {\cal O}(q^2) \in S_{12}$. Similarly, the j-invariant 
-$j = 1/q + {\cal O}(q^0) \in M_0^!$ is given by 
-$j = 1728 E_4^3/(E_4^3-E_6^2)$, and denotes the Hauptmodul of $\SLZ$. 
-Further, at $k = 12$ we may define $\Dhat := 1/q + {\cal O}(q^2) \in S_{12}^!$. 
-This $\Dhat = (j^2 - c_1 j + c_0) \Delta$ for very easily computed integers $c_1, c_0$. %DAM: This paragraph might need tightening. In particular, we want to write the correct $c_1, c_0$.
-
-We begin with three definitions:
-
-\begin{definition}[Hurwitz T-kernel]\label{def:HurwitzT}
-Let $\zeta(s, x)$ denote the classical Hurwitz zeta-function, $\zeta(s,x):= \sum_{n \geq 0} (n+x)^{-s}$. We define the \emph{Hurwitz T-kernel} as,
-\begin{equation}\label{eq:tildekT-def}
-  \widetilde{k}_T(\tau, s)
-  \;:=\; \zeta(1 - s,\, \tau + 1)
-  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)~.
-\end{equation}
-\end{definition}
-
-\begin{definition}[General paths along torus cycles]\label{def:contours}
-Let $\tau_0 \in \HH$, and consider any $\sigma \in \SLZ$. We denote the path from $\sigma^{1}(\tau_0) \to \tau_0$ by $\gamma^\sigma_{\tau_0}$. Further, let $k \in 2\ZZ$ on $\SLZ$ be a meromorphic modular form which may have poles at cusps and may have poles within the interior of the upper half-plane. Now, consider $\sigma \in \{ S, T \} = \{ \left( \begin{smallmatrix} 0 & -1 \\ 1 & 0 \end{smallmatrix}\right), \left( \begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix}\right) \}$. Here, $\gamma^\sigma_{\tau_0}$ is a smooth contour,
-\begin{align}
-\begin{cases}
-  S\text{-segment}\colon\:\:\; \gamma^S_{\tau_0}:[0, 1] \to \HH~,&~~ 
-  \gamma^S_{\tau_0}(0)=-1/\tau_0,\, \gamma^S_{\tau_0}(1) =\tau_0,
-  \\
-  T\text{-segment}\colon\:\:\; \gamma^T_{\tau_0}:[0, 1] \to \HH~,&~~ 
-  \gamma^T_{\tau_0}(0)=\tau_0-1,\, \gamma^T_{\tau_0}(1) =\tau_0,
-\end{cases}
-\label{eq:contour-pair}
-\end{align}
-in $\HH$ avoids the $\Gamma$-orbit of the poles of $f$ in $\HH$.
-\end{definition}
-
-\begin{definition}[L-integral of a meromorphic modular form]\label{def:L-integral}
-Let $f \in F_k$ be a meromorphic modular form of weight $k \in 2\ZZ$ on $\SLZ$, and let $\tau_0 \in \HH$. Using the contour in Definition~\ref{def:contours} and the Hurwitz T-kernel in Definition~\ref{def:HurwitzT}, we define the \emph{L-integral} of $f$ to be,
-\begin{equation}\label{eq:Lambda-DR-def}
-  L^*(f, s; \gamma^S_{\tau_0}
-  , \gamma^T_{\tau_0})
-  \;:=\; i^{-s}\!\left[
-    \int_{\gamma^S_{\tau_0}}
-    \! f(\tau)\,\tau^{s-1}\,d\tau
-    \;+\;
-    \int_{\gamma^T_{\tau_0}} 
-    f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
-  \right].
-\end{equation}
-\end{definition}
-
-When the contour avoids poles in $f$, both contour integrals contributing to 
-$L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$
-in~\eqref{eq:Lambda-DR-def} are finite for every basepoint
-$\tau_0 \in \HH$ admissible for $f$ and every $s \in \CC$; no regulator,
-asymptotic-subtraction argument, or analytic-continuation step is
-required.  Further, as we will show, $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
-is invariant under both $\tau_0$-variations and $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$-variations, 
-as long as neither $\gamma^S_{\tau_0}$ nor  $\gamma^T_{\tau_0}$ cross any pole location within 
-the fundamental domain. 
-
-We will show that $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is the 
-classical L-function for $f \in M_k(\SLZ)$. Further, because of its 
-$\tau_0$-independence and finiteness for $f \in M_k^!(\SLZ)$, and because 
-we reproduce the analytic formulae in~\cite{BFK2011}, we unambiguously 
-show that their candidate L-function is the canonical L-function one would associate 
-with any weak modular form, $f \in M_k^!$.
-
-\emph{We need some small bridging paragraph between these kinda-shitty definitions and the theorems. But, now, we will state the main theorems, stated sharply. We will prove them in Sections~\ref{sec:periods}--\ref{sec:wall-crossing}.}
-
-\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional ($\dim S_k = 1$)]\label{thm:periods}
-Let $k \in 2\ZZ$ with $\dim S_k = 1$, $f \in S_k^!$, and let 
-$\widetilde{k}_T(\tau, s)$ is be Hurwitz-zeta $T$-kernel in \eqref{eq:tildekT-def}. Further, let $c_S^{\,\ell-1} := [p_f^\pm]_{X^{n-(\ell-1)}Y^{\ell-1}} \in \mathbb{Q}$ is 
-the coefficient of $X^{n-(\ell-1)}Y^{\ell-1}$in the cuspidal basis element 
-$p_f^\pm$ of the period polynomial space $W_{k-2}^\pm$ 
-\cite{KZ1984}, in Brown's $S$-cocycle normalisation \cite{Brown2017}.
-
-For any $f \in S_k^!$, the period coefficients $\omega^\pm(f)$ are given 
-by the two-segment linear functional,
-\begin{equation}\label{eq:periods-statement}
-  \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{\ell - 1}\,\binom{k - 2}{\ell - 1}}{c_S^{\,\ell - 1}}\!\left[
-    \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell - 1}\,d\tau
-    \;+\;
-    \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau
-  \right]~.
-\end{equation}
-This functional is independent of $\tau_0 \in \HH$ and independent of 
-$\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$. The final result for any $\ell$ 
-depends only on the parity of $\ell$, i.e. $(-1)^{\ell -1} = \pm 1$ dictates which period coefficient is extracted.%DAM: This is shittily worded. Needs a fix.
-\end{theorem}
-
-It is straightforward to see that our linear 
-functional applies to any $k$ for e.g. $\dim S_k \ge 2$.
-Here, the corresponding statements become matrix identities.  
-Working out the explicit matrix-valued
-kernels for $\dim(S_k) \ge 2$, and connecting them to the
-existing Eichler--Shimura matrix-period basis literature, is a
-natural generalization of Theorem~\ref{thm:periods}. We do not pursue this generalization, here.
-
-\begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:bfk-eq}
-Let $k \in 2\ZZ$ and $f \in M^!_k$.  With $\widetilde{k}_T(\tau, s)$
-the Hurwitz-zeta kernel of \eqref{eq:tildekT-def}, for every $\tau_0
-\in \HH$ and every $s \in \CC$,
-\begin{equation}\label{eq:Lambda-DR-general}
- L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
-  \;:=\; i^{-s}\!\left[
-    \int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
-    \;+\;
-    \int_{\gamma^T_{\tau_0}}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
-  \right]
-\end{equation}
-is finite and independent of both $\tau_0 \in \HH$ and of the
-admissible contour choices $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  We
-write $L^*(f, s)$ for the common value. Specializing to $\tau_0 = i$ , the 
-$S$-integral in \eqref{eq:Lambda-DR-general} vanishes, and $L^*$ reduces 
-to a single integral on the compact contour $[i - 1, i] \subset \HH$, with
-closed-form sum
-\begin{equation}\label{eq:bfk-eq-statement}
-  L^*(f, s)
-  \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
-  \;=\; -c_f(0)\!\left(\frac{1}{s} + \frac{i^k}{k - s}\right)
-  + \sum_{n \ne 0}\! c_f(n)\!\left[
-    \frac{\Gamma(s,\, 2\pi n)}{(2\pi n)^s}
-    + i^k\,\frac{\Gamma(k - s,\, 2\pi n)}{(2\pi n)^{k-s}}
-  \right].
-\end{equation}
-The right side of \eqref{eq:bfk-eq-statement} is the completed
-$L$-function $L^*(f, s)$ of $f$. These L-integrals reproduce the 
-Hecke-Weil Mellin transform for holomorphic modular forms, as 
-well as reproduce extant formulae from the literature for weakly 
-holomorphic modular forms~\cite{BFK2011}.
-\end{theorem}
-
-We unpack how Theorem~\ref{thm:bfk-eq} naturally reproduces the 
-Hecke-Weil Mellin transform for holomorphic modular forms, as 
-well as reproduce extant formulae from the literature for weakly 
-holomorphic modular forms~\cite{BFK2011} in section~\ref{sec:Connection-w-previous-weak-MF-l-functions}.
-
-\begin{theorem}[$L$-function for meromorphic modular forms]\label{thm:wall-crossing}
-Let $k \in 2\ZZ$ and let $f$ be a meromorphic modular form of weight
-$k$ on $\Gamma$.  Write $\HH_f := \HH \setminus \Gamma\cdot
-f^{-1}(\infty)$ for the upper half-plane with the $\Gamma$-orbit of
-the interior poles of $f$ removed, and call the pair
-$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ \emph{admissible} if
-$\tau_0 \in \HH_f$ and both contours lie in $\HH_f$, with
-$\gamma^S_{\tau_0}$ running from $S^{-1}\tau_0 = -1/\tau_0$ to $\tau_0$
-and $\gamma^T_{\tau_0}$ from $T^{-1}\tau_0 = \tau_0 - 1$ to $\tau_0$.
-Define $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ by
-\eqref{eq:Lambda-DR-def} with the Hurwitz-zeta kernel
-$\widetilde{k}_T(\tau, s)$ of \eqref{eq:tildekT-def}.  Then:
-\begin{enumerate}[label=(\alph*),leftmargin=2em]\itemsep0.25em
-\item Both integrals in \eqref{eq:Lambda-DR-def} are finite for every
-  admissible $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ and every $s \in
-  \CC$.
-\item $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ depends on the
-  admissible pair only through its homotopy class in $\HH_f$: any
-  continuous one-parameter family of admissible pairs --- including
-  variations of the anchoring basepoint $\tau_0$ --- leaves the value
-  unchanged.
-\item If two admissible configurations $(\gamma^S_{\tau_0},
-  \gamma^T_{\tau_0})$ and $(\gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})$ lie
-  in homotopy classes related by a single crossing of an interior
-  pole $\tau_p \in \HH$ of $f$, then
-\begin{equation}\label{eq:wall-crossing-statement}
-  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
-  \;-\;
-  L^*(f, s; \gamma^S_{\tau_0'}, \gamma^T_{\tau_0'})
-  \;=\; \mathcal{R}_{\tau_p}(f, s),
-\end{equation}
-where for a simple pole $\Res(f, \tau_p)$,
-\begin{equation}\label{eq:residue-formula}
-  \mathcal{R}_{\tau_p}(f, s)
-  \;=\; -2\pi i\,i^{-s}\,\Res(f, \tau_p)\!
-  \left[\sigma^S_{\tau_p}\,\tau_p^{s - 1}
-  \;+\; \sigma^T_{\tau_p}\,\widetilde{k}_T(\tau_p, s)\right],
-\end{equation}
-with $\sigma^S_{\tau_p}, \sigma^T_{\tau_p} \in \{-1, 0, +1\}$ the
-winding-number contributions of $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$ across
-$\tau_p$ (the generic case has one nonzero and the other zero,
-according to which contour crossed).  Higher-order poles contribute
-via the corresponding derivatives in $\tau_p$ of
-\eqref{eq:residue-formula}; the closed form is given in
-Section~\ref{sec:wall-crossing}.
-\end{enumerate}
-\end{theorem}%DAM: This theorem statement is just way-the-fuck too long. Needs chopping-up. Also, needs splitting-up into f = (f-g)+g, where g has all poles at the cusp and (f-g) has all the poles in the interior. In this context, the g-part is just BFK, and the (f-g)-part is regular at the cusp, so we can just take the $\tau_0 \to i \infty$ there and have the residues be just $\tau_p^{s-1}$ as we would the fuck like to have. Much prettier.
-
-\begin{corollary}[$L^*$ on regular-at-cusps meromorphic forms]\label{cor:1806-coincide}
-Let $f \in F_k$ be a meromorphic modular form of weight $k$ that is
-regular at the cusp.  Let $L_f^*(s)_{\rm int,\,\gamma}$ denote the
-deformed-Mellin $L$-function of $f$ along a contour $\gamma$ from
-$0$ to $i\infty$ lying in $\HH_f$ (see \cite[\S2]{1806}).  Then for
-every admissible $(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ whose
-homotopy class in $\HH_f$ is compatible with $\gamma$ (in the sense
-that the contour $\gamma^S_{\tau_0}$ together with the cusp-limit
-piece $\lim_{\tau_0 \to i\infty}\gamma^S_{\tau_0} \to [0, i\infty]$
-can be deformed to $\gamma$ in $\HH_f$),
-\begin{equation}\label{eq:1806-coincidence}
-  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
-  \;=\; L_f^*(s)_{\rm int,\,\gamma}
-  \qquad
-  \text{for every } s \in \CC.
-\end{equation}
-\end{corollary}%DAM: I think this could just be replaced by a statement that we reproduce 1806's L-function, and refer to the Corrolary that is stated just once, and it is stated in the content-section, not the intro.
-
-\paragraph{The structural picture.}
-The contour pair \eqref{eq:contour-pair} has two natural one-parameter
-specialisations of the basepoint, each exploiting a fixed point of the
-modular curve $Y(1)$: the cusp specialisation $\tau_0 \to i\infty$
-sends the $S$-segment to the classical Mellin contour $[0, i\infty]$
-and the $T$-segment to $0$ exponentially; the elliptic specialisation
-$\tau_0 = i$ kills the $S$-segment identically and leaves
-$L^*$ as a single integral on $[i - 1, i]$.  The cusp
-specialisation, applied at finite $\tau_0 = i\Lambda$, gives the
-$\Lambda$-truncated Mellin contour of $L_f^*(s)_{\rm int}$
-(see \cite{1806}) as the $S$-segment alone, with the $T$-segment
-serving as the missing ingredient that produces the cocycle and
-renders the $\Lambda \to \infty$ limit unnecessary.  The Hurwitz-zeta kernel
-$\widetilde{k}_T(\tau, s)$ in \eqref{eq:tildekT-def} is the closed
-form of the $T$-segment kernel: it is the unique $V_{n}$-analog,
-valid at every $s \in \CC$, of the polynomial coboundary inversion
-of \cite{DR2017} (which itself recovers as the integer-$s$
-specialisation, by Theorem~\ref{thm:periods}).
-
-\paragraph{Outline.}
-Section~\ref{sec:cocycle} introduces the period-defining
-cocycle and its moment
-expansion in the polynomial coefficient system $V_{k-2}$.
-Section~\ref{sec:periods} identifies the bare Mellin and Hurwitz integer-$s$
-specialisations as the period-extracting kernels and proves
-Theorem~\ref{thm:periods}.  Section~\ref{sec:hurwitz-extension} derives
-the Hurwitz-zeta kernel $\widetilde{k}_T$ via a coboundary equation,
-proves Theorem~\ref{thm:bfk-eq} via a Hurwitz-unfolding lemma, and
-contains an explicit worked example at $k = 12$ exhibiting the
-Bernoulli-polynomial collapse of $\widetilde{k}_T$ at integer $s$
-together with numerical values of $\omega^\pm(\Delta)$ and
-$\eta^\pm(\Dhat)$.  Section~\ref{sec:wall-crossing} proves
-Theorem~\ref{thm:wall-crossing} and Corollary~\ref{cor:1806-coincide}.
-Section~\ref{sec:outlook} collects conceptual framings (holonomy/Wilson-loop
-interpretation, on-shell-amplitudes analogy, the
-regularisation-as-symptom heuristic, the open question on the
-geometric content of the $\tau^{s-1}\,f\,d\tau$ Mellin kernel, and
-pointers to the sequel on systematic per-mode theory for interior-pole
-forms).  Appendix~\ref{app:hurwitz-derivation} records the algebraic
-derivation of the Hurwitz-zeta kernel $\widetilde{k}_T(\tau, s)$ from
-contour-invariance of the two-segment functional: starting from the
-classical Mellin transform split at the contour endpoints
-$\{-1/\tau_0, \tau_0\}$ and demanding that the resulting
-incomplete-gamma tail be representable as a $T$-segment integral, one
-derives a shift-difference equation whose solution is the Hurwitz-zeta
-combination of \eqref{eq:tildekT-def}.
-Appendix~\ref{app:eichler-shimura} is a brief Eichler--Shimura primer
-for readers approaching the subject from theoretical physics.  This
-appendix is included for the working-version of this note and is
-intended to be removed before formal publication.
-
-
-\section{Introduction and main results}\label{sec:intro}\label{sec:intro-results}
-
-In this paper, we introduce a general framework that defines L-functions for
-generic modular forms on the full group $\SLZ$, and extracts their periods for
-the explicit case when the holomorphic cusp forms are one-dimensional, i.e.
-when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined
-and well-studied for holomorphic modular forms. However, there is a growing
-body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011}
-for weakly holomorphic modular forms. Similarly, there are natural physical
-motivations to consider L-functions for properly meromorphic modular forms,
-which have poles \emph{within} the fundamental domain~\cite{1806}.
-
-In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics,
-divergences due to singularities in quantities of interest necessitate the
-introduction of regulators in order to define finite quantities. Regulators, though,
-often break symmetries, and care is needed to check that the regulator has not
-injected undue violence to the system. Of relevance here is that~\cite{BFK2011}
-introduced a non-holomorphic regulator to deal with the singularities at either
-end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate
-divergences at the cusps, but which violates holomorphy in the deformed
-contour-integral, ruining path-independence. Simultaneously, \cite{1806}
-concerned itself with L-functions for modular forms which diverge within the
-interior of the fundamental domain. Here, holomorphic dependence on $\tau$
-is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
-
-In this note, we introduce manifestly finite contour integral functionals to define
-L-functions for generic meromorphic modular forms that are of sufficient generality
-to handle any combination of poles at cusps and poles within the fundamental domain.
-Our construction is motivated by, and makes precise contact with, work which extracts
-period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are
-manifestly finite throughout, and reproduce all results in the literature, unifying the
-quasi-period results and the L-function extensions within one concrete, natural framework.
-
-%CLAUDE: notation, compressed from your three paragraphs; Dhat moved down
-%next to Theorem 1; your %DAM notes kept on what remains.
-Throughout, $\Gamma = \SLZ$, and we consider modular forms on $\Gamma$ of
-even integer weight and trivial multiplier system.  Write $M_k$ for the
-holomorphic modular forms of weight $k$, $S_k \subset M_k$ for the cusp
-forms, and $M^!_k$ for the weakly holomorphic forms (holomorphic on
-$\HH$, with at most a pole at the cusp).  Write $F_k$ for the
-\emph{meromorphic modular forms} of weight $k$: the weight-$k$ part of
-the field of fractions of the graded ring $M_* = \bigoplus_k M_k$, i.e.\
-the quotients $f = f_1/f_2$ with $f_i \in M_{k_i}$, $f_2 \ne 0$, and
-$k = k_1 - k_2$; equivalently, the weight-$k$ functions meromorphic on
-$\HH$ and at the cusp.  Thus $M_k \subset M^!_k \subset F_k$.  Finally,
-$S^!_k \supset S_k$ denotes the \emph{weakly holomorphic cusp forms}:
-those $f = \sum_{n \in \ZZ} c(n)\,q^n \in M^!_k$ with vanishing constant
-term, $c(0) = 0$. %DAM: This paragraph might need tightening.
-We write $E_k = 1 + O(q) \in M_k$ for the unit-normalized
-Eisenstein series, $\Delta := (E_4^3 - E_6^2)/1728 = q + {\cal O}(q^2)
-\in S_{12}$ for the modular discriminant, %CLAUDE: inserted the /1728 -- as previously written, E_4^3 - E_6^2 = 1728q + O(q^2).
-and $j = 1728\,E_4^3/(E_4^3 - E_6^2) = 1/q + {\cal O}(q^0) \in M^!_0$
-for the Hauptmodul of $\SLZ$.
-
-The construction is easiest to motivate by asking what, precisely, breaks
-when the classical definitions are moved from holomorphic to weakly
-holomorphic or meromorphic forms.  The period polynomial of a cusp form
-$f \in S_k$ is
-\[
-  r_f(X, Y) \;=\; \int_0^{i\infty}\! f(\tau)\,(X - \tau Y)^{k-2}\,d\tau,
-\]
-an integral between the cusps $i\infty$ and $0 = S\!\cdot\! i\infty$.  The
-choice of endpoints is doing real work here: because they are exchanged by
-the modular inversion $S$, the modularity of $f$ converts the contour data
-into the algebraic constraints --- the period relations --- that $r_f$
-satisfies.  The cusp is where the group enters the classical construction.
-It is also, for $f$ with a pole at the cusp, exactly where the integral
-diverges.  The extensions in the literature keep the contour and repair
-the divergence: \cite{BFK2011} with a non-holomorphic regulator at the
-endpoints, \cite{1806} with contour deformation and asymptotic
-subtraction.  We do the opposite: we keep the group and discard the
-contour's boundary anchoring, replacing the cusp's role with a
-$1$-cocycle for $\Gamma$.
-
-To this end, set $n := k - 2$ and let $V_n = \CC[X, Y]_n$ carry the right
-$\Gamma$-action $(P|_\gamma)(X, Y) = P(aX + bY,\, cX + dY)$.  The
-weight-$k$ modularity of $f$ makes the $V_n$-valued form
-$\omega_f = f(\tau)(X - \tau Y)^n\,d\tau$ invariant under the simultaneous
-action of $\Gamma$ on $\tau$ and on $(X, Y)$, so the integrals
-\[
-  C^f_\gamma(\tau_0)
-  \;=\; (2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f,
-  \qquad \gamma \in \Gamma,
-\]
-based at an arbitrary interior point $\tau_0 \in \HH$, satisfy the cocycle
-relation $C^f_{gh} = C^f_g|_h + C^f_h$.  This relation is the bookkeeping
-the cusp used to perform, now executed entirely in the interior of $\HH$.
-Since $\Gamma = \langle S, T\rangle$, the cocycle is determined by its two
-generator values: the integrals of $\omega_f$ over the contour pair that
-we now fix once and for all.
-
-\begin{definition}[General paths along torus cycles]\label{def:contours}
-Let $\tau_0 \in \HH$, and consider any $\sigma \in \SLZ$. We denote the
-path from $\sigma^{-1}(\tau_0) \to \tau_0$ by
-$\gamma^\sigma_{\tau_0}$. %CLAUDE: fixed sigma^{1} -> sigma^{-1}
-Further, let $f$ be a meromorphic modular form of weight $k \in 2\ZZ$ on
-$\SLZ$, which may have poles at cusps and may have poles within the
-interior of the upper half-plane. %CLAUDE: fixed garbled "let k \in 2\ZZ on \SLZ be a meromorphic modular form"
-Now, consider $\sigma \in \{ S, T \} = \{ \left( \begin{smallmatrix} 0 & -1 \\ 1 & 0 \end{smallmatrix}\right), \left( \begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix}\right) \}$. Here, $\gamma^\sigma_{\tau_0}$ is a smooth contour,
-\begin{align}
-\begin{cases}
-  S\text{-segment}\colon\:\:\; \gamma^S_{\tau_0}:[0, 1] \to \HH~,&~~
-  \gamma^S_{\tau_0}(0)=-1/\tau_0,\, \gamma^S_{\tau_0}(1) =\tau_0,
-  \\
-  T\text{-segment}\colon\:\:\; \gamma^T_{\tau_0}:[0, 1] \to \HH~,&~~
-  \gamma^T_{\tau_0}(0)=\tau_0-1,\, \gamma^T_{\tau_0}(1) =\tau_0,
-\end{cases}
-\label{eq:contour-pair}
-\end{align}
-where both contours avoid the $\Gamma$-orbit of the poles of $f$ in
-$\HH$. %CLAUDE: fixed the dangling "in \HH avoids the..."
-\end{definition}
-
-Both segments run between finite interior points of $\HH$.  Finiteness of
-every integral in this paper is therefore structural rather than
-arranged: no contour ever reaches the locus where divergence lives, so
-there is nothing to regulate.
-
-The price of trading the contour for a cocycle is a redundancy.  Moving
-the basepoint $\tau_0$ shifts $C^f$ by a coboundary
-$\delta P = P|_{(\cdot)} - P$, so the well-defined invariant is the
-cohomology class $[C^f] \in H^1(\Gamma; V_n)$, and by Eichler--Shimura
-\cite{KZ1984, Brown2017} the periods $\omega^\pm(f)$ and quasi-periods
-$\eta^\pm(f)$ are coordinates of this class on the cuspidal subspace.
-Coordinates, however, are read off a representative, not a class, so
-extracting numbers requires fixing the gauge.  There is a canonical
-choice.  Among the generators, $T$ is the unique one subject to no
-relation of its own ($T$ has infinite order in $\Gamma$, while $S$ and
-$ST$ have finite order); it is the direction one is free to spend, and we
-spend it by demanding $C^f_T \mapsto 0$, i.e.\ by solving the coboundary
-equation $\delta_T P = (2\pi i)^{-(n+1)} C^f_T(\tau_0)$ on $V_n$.
-Solvability is itself arithmetic: $T$ acts on $V_n$ as the translation
-$X \mapsto X + Y$, so the operator $\delta_T = e^{Y\partial_X} - 1$
-misses exactly one coefficient, and unit-segment $T$-periodicity
-identifies that coefficient of $C^f_T$ as the constant Fourier mode of
-$f$.  The gauge exists if and only if $c_f(0) = 0$.  Cuspidality, in this
-framework, is not a convergence hypothesis; it is the integrability
-condition of the gauge.
-
-Fixing the gauge does two things at once.  First, it forces the entire
-cuspidal content onto the surviving cycle: with $C^f_T$ gauged away, the
-period polynomial \emph{is} the $S$-cycle value of the gauge-fixed
-cocycle, $r_f = C^f_S - (2\pi i)^{n+1}(P|_S - P)$, and the classical
-period relations on $r_f$ are the group relations of $\Gamma$ conditioned
-on the gauge.  Second, the gauge is not free of charge, and the receipt
-is the central object of this paper.  
-
-The Bernoulli generating function $z/(e^z - 1)$ inverts the nilpotent 
-$\delta_T$ in closed form --- this is the polynomial coboundary inversion 
-of \cite{DR2017} --- and when the correction $-(P|_S - P)$ is unpacked, 
-it re-expresses itself as a second contour integral, along the $T$-cycle, 
-against an explicit $\QQ$-rational kernel: for each interior 
-$\ell \in \{2, \ldots, k - 2\}$. More to the point, as we show in 
-Section~\ref{sec:periods}, the Bernoulli polynomials for integer $\ell$ inside 
-the critical strip simplify considerably into special values of a difference of 
-Hurwitz zeta functions. The following two definitions are very helpful:
-\begin{definition}[Hurwitz T-kernel]\label{def:HurwitzT}
-Let $\zeta(s, x)$ denote the classical Hurwitz zeta-function, $\zeta(s,x):= \sum_{n \geq 0} (n+x)^{-s}$. We define the \emph{Hurwitz T-kernel} as,
-\begin{equation}\label{eq:tildekT-def}
-  \widetilde{k}_T(\tau, s)
-  \;:=\; \zeta(1 - s,\, \tau + 1)
-  \;-\; e^{i\pi(s-1)}\,\zeta(s - (k - 1),\, \tau + 1)~.
-\end{equation}
-\end{definition}
-
-\begin{definition}[Hurwitz T-kernel]\label{def:poly-coeffs-dimSk1}
-Let $k \in 2\ZZ$ with $\dim S_k = 1$, $f \in S_k^!$, and let
-$\widetilde{k}_T(\tau, s)$ be the Hurwitz-zeta $T$-kernel of
-\eqref{eq:tildekT-def}. %CLAUDE: fixed "is be Hurwitz-zeta"
-Further, let $c_S^{\ell} := [p_f^\pm]_{X^{k-2-\ell}Y^{\ell}} \in \mathbb{Q}$
-denote %CLAUDE: fixed "is"
-the coefficient of $X^{n-\ell}Y^{\ell}$ in the cuspidal basis element
-$p_f^\pm$ of the period polynomial space $W_{k-2}^\pm$
-\cite{KZ1984}, in Brown's $S$-cocycle normalisation \cite{Brown2017}.
-\end{definition}
-
-\noindent With these definitions, we may compactly express the two periods, $\omega^{\pm}(f)$ which define the polynomial of $f \in S_k^!$ when $\dim(S_k)=1$, directly via the following Theorem: 
-%\begin{equation}\label{eq:intro-rf}
-%  [r_f]_{X^{n - (\ell-1)} Y^{\ell - 1}}
-%  \;=\; C(n,\ell)
-%  \left[\,
-%  \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell - 1}\,d\tau
-%  \;+\;
-%  \int_{\gamma^T_{\tau_0}}\!\! f(\tau) \widetilde{k}_T(\tau, \ell) d\tau
-%  \,\right],
-%\end{equation}
-%where $C(n, \ell) = (2\pi i)^{n+1}(-1)^{\ell}\tbinom{n}{\ell-1}$ and 
-%with $B_m(x)$ the Bernoulli polynomials: 
-
-%The Bernoulli pair in \eqref{eq:intro-rf} is begging to be continued off
-%the integers.  Bernoulli polynomials are Hurwitz-zeta values at
-%non-positive integer argument, $\zeta(-m, a) = -B_{m+1}(a)/(m+1)$, and
-%the equation that produced the kernel --- a unit-shift coboundary
-%equation whose right-hand side is a combination of pure powers --- makes
-%sense at every $s \in \CC$.  The function that inverts a unit shift
-%against a single power is the Hurwitz zeta itself,
-%$\zeta(\sigma, \tau + 1) - \zeta(\sigma, \tau) = -\tau^{-\sigma}$.  The
-%all-$s$ parent of the kernel in \eqref{eq:intro-rf} is therefore:
-
-%At integer $s = \ell \in \{2, \ldots, k-2\}$, the kernel collapses through
-%$\zeta(-m, a) = -B_{m+1}(a)/(m+1)$ to exactly the $\QQ$-rational Bernoulli
-%pair appearing in \eqref{eq:intro-rf}: the polynomial inversion is the
-%integer-$s$ shadow of \eqref{eq:tildekT-def}.  
-\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional ($\dim S_k = 1$)]\label{thm:periods}
-For any $f \in S_k^!$, the period coefficients $\omega^\pm(f)$ are given
-by the two-segment linear functional,
-\begin{equation}\label{eq:periods-statement}
-  \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{\ell - 1}\,\binom{k - 2}{\ell - 1}}{c_S^{\,\ell - 1}}\!\left[
-    \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell - 1}\,d\tau
-    \;+\;
-    \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau
-  \right]~.
-\end{equation}%DAM: WHAT THE FUCK IS UP WITH THIS \ell-1 SHITOLA? Just have it be fuckin' \ell, and restrict it to be in the interior of the critical strip. 
-This functional is independent of $\tau_0 \in \HH$ and of the admissible
-contours $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  Its value depends on
-the interior index $\ell \in \{2, \ldots, k-2\}$ only through the parity
-of $\ell - 1$, which selects the extracted coefficient: $\omega^+(f)$
-for $\ell - 1$ even, and $\omega^-(f)$ for $\ell - 1$
-odd. %CLAUDE: proposed fix for the DAM-flagged final sentence; verify the +/- to even/odd assignment against Brown's conventions before keeping.
-\end{theorem}
-the bare Mellin monomial on the
-$S$-cycle, plus the gauge-fixing term on the $T$-cycle.  The second
-integral is not a second physical contribution; it is the coboundary
-subtraction written as a contour integral. Extracting the period
-coefficients from \eqref{eq:intro-rf} is then a matter of pairing against
-the cuspidal basis, and gives our first theorem.
-
-
-\documentclass[11pt]{article}
-
-% ============================================================================
-% intro_cohomology_refactor_v3.tex   (supersedes v1, v2)
-%
-% v3 CHANGES (per discussion):
-%  (a) "Gauge" vocabulary scrubbed from all blocks. Standard cohomological
-%      language throughout: redundancy / choice of representative /
-%      normalization. The operative phrasing is yours: choose the
-%      representative C^f - \delta P whose T-value vanishes.
-%  (b) Block 1, par. 2 rebuilt around the referee objection ("why not just
-%      the finite S-contour?") and its one-line answer: torsion forces
-%      C_S|(1+S) = 0 at every basepoint, and ker(1+S) = im(delta_S), so the
-%      raw S-value lies inside its own ambiguity space. The two Kohnen--
-%      Zagier relations have different statuses: the S-relation is free,
-%      the U-relation is purchased by the T-normalization.
-%  (c) Single-P emphasis in par. 1 compressed to one clause.
-%  (d) Why T: infinite order, unipotent on V_n (single Jordan block), so
-%      delta_T has 1-dim kernel and cokernel -- one scalar obstruction
-%      (the residue at the cusp T stabilizes), one scalar of slack.
-%
-% CONSISTENCY SWEEP (gauge language remaining in the MAIN file, outside
-% the replaced spans; convert or keep deliberately, but uniformly):
-%   lines 412--413, 469, 589, 600 (Section 1.x prose), and the
-%   conclusions block at lines 3060--3079, which mirrors the old intro
-%   and should be re-mirrored on the new one.
-%
-% Blocks:
-%   BLOCK 1 -- replaces lines 313--351; delete the %DAM note at 321.
-%              Existing line 353 ("The coboundary equation admits a
-%              closed-form inverse...") follows directly.
-%   BLOCK 2 -- replaces lines 767--774 (incl. %DAM note at 774).
-%   BLOCK 3 -- sign fix in eq:bp-cocycle-coboundary (lines 755--760).
-%
-% \ref/\cite target the MAIN file and render as ??/[?] here by design.
-% Open check still open: +/- <-> parity assignment in thm:periods.
-% ============================================================================
-
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{mathtools}
-\usepackage{xcolor}
-\usepackage{hyperref}
-
-\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black, citecolor=blue!60!black}
-
-% --- macros copied from the main file ---
-\newcommand{\HH}{\mathbb{H}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
-\newcommand{\Dhat}{\widehat{\Delta}}
-\DeclareMathOperator{\im}{im}
-\DeclareMathOperator{\Hpar}{H^1_{\mathrm{par}}}
-
-% --- presentation-only helpers for this standalone document ---
-\newcommand{\blockrule}{\par\noindent\rule{\textwidth}{0.8pt}\par}
-\newenvironment{whereitgoes}
-  {\par\medskip\noindent\begin{minipage}{\textwidth}\small\itshape\color{black!70}}
-  {\end{minipage}\par\medskip}
-
-\title{\bf Refactor of the cohomology passage, v3:\\ standard language,
-free-vs-purchased relations}
-\author{Editing companion; supersedes v1/v2}
-\date{\today}
-
-\begin{document}
-\maketitle
-
-\noindent\textbf{How to use this file.}
-Block 1 replaces lines 313--351 (delete the answered \texttt{\%DAM} note
-at 321; line 353 follows directly).  Block 2 replaces lines 767--774 in
-Section~\texttt{sec:cocycle} (delete the \texttt{\%DAM} note at 774).
-Block 3 is a one-line sign fix at \texttt{eq:bp-cocycle-coboundary}.
-Copy what lies between the \verb|% ==== BEGIN/END PASTE ====| markers in
-the source.  \verb|\ref|/\verb|\cite| target the main file and render
-here as ``??''/``[?]'' by design.  The source header lists the lines in
-the main file where leftover ``gauge'' language should be swept for
-consistency (notably the conclusions block at 3060--3079, which mirrors
-the old intro).
-
-% ============================================================================
-\section*{Block 1 --- replaces lines 313--351 (intro, \S1.1)}
-% ============================================================================
-\blockrule
-
-% ==== BEGIN PASTE: BLOCK 1 (replaces lines 313--351; delete the %DAM note at line 321) ====
-
-The price of trading one divergent contour for a family of finite ones
-is redundancy: each $C^f_\gamma(\tau_0)$ depends on an auxiliary
-basepoint $\tau_0$ and on a group element $\gamma$, while the period
-polynomial must refer to neither.  Degree-one group cohomology is the
-standard bookkeeping for exactly this situation, and only three
-definitions are needed.  A \emph{$1$-cocycle} is a function
-$c\colon \Gamma \to V_n$ satisfying $c_{gh} = c_g|_h + c_h$, and
-$\gamma \mapsto C^f_\gamma(\tau_0)$ is one for each fixed $\tau_0$
-(Lemma~\ref{lem:cocycle}).  A \emph{$1$-coboundary} is the special
-cocycle $\delta P\colon \gamma \mapsto P|_\gamma - P$ built from a
-polynomial $P \in V_n$; by \eqref{eq:bp-cocycle-coboundary}, shifting
-$\tau_0 \to \tau_0'$ (no pole crossed) shifts the whole family
-$\{C^f_\gamma\}_\gamma$ by one such $\delta P$ --- the same $P$ for
-every $\gamma$, which is why the quotient retains anything at all.  The
-\emph{cohomology class}
-$[C^f] \in H^1(\Gamma; V_n) :=
-\{\text{cocycles}\}/\{\text{coboundaries}\}$ is therefore
-basepoint-free, and a \emph{representative} of it is any cocycle
-$C^f - \delta P$.  This kills the
-$\tau_0$. %CLAUDE: replaces the former lines 313--320, which described coboundaries as polynomials and the equivalence as acting on each C^f_\gamma separately.
-
-A reader outside the field might object that no machinery should be
-needed: the classical period polynomial is a single integral along one
-$S$-contour, so why not take the finite $S$-contour $C^f_S(\tau_0)$ and
-stop?  Because at a finite basepoint the raw $S$-value is pure
-redundancy.  Torsion alone forces
-$C^f_S\big|(1+S) = C^f_{S^2} = C^f_{-I} = 0$ at \emph{every} $\tau_0$,
-and since $S$ acts on $V_n$ as an involution, its $(-1)$-eigenspace is
-also the image of $\delta_S$: the value $C^f_S$ lies in
-$\ker(1+S) = \im \delta_S$, exactly the space of shifts that basepoint
-motion induces on it.  (At $k = 12$ this kernel is six-dimensional
-inside the eleven-dimensional $V_{10}$; membership selects a subspace,
-never a point.)  The two relations cutting out the Kohnen--Zagier space
-$W_{k-2}$ \cite{KZ1984} therefore have different statuses: the
-$S$-relation is \emph{free}, holding before any choice is made, while
-the $U$-relation must be \emph{purchased} --- it appears only after the
-representative is pinned, and pinning is the role of the other
-generator.
-
-The generator $T$ is built for the job.  It has infinite order and acts
-on $V_n$ unipotently --- a single Jordan block --- so
-$\delta_T := (\,\cdot\,)|_T - \mathrm{id}$ has one-dimensional kernel
-and cokernel: the equation has one scalar of obstruction and one scalar
-of slack.  We choose, within the class, the representative
-$C^f - \delta P$ \emph{whose $T$-value vanishes}, i.e.\ solve
-$\delta_T P = (2\pi i)^{-(n+1)} C^f_T(\tau_0)$ on $V_n$.  Solvability is
-itself arithmetic: unit-segment $T$-periodicity identifies the
-obstruction in $V_n / \im \delta_T \cong \CC \cdot [X^n]$ as the
-constant Fourier mode (Lemma~\ref{lem:solvability-cuspidality}),
-$[C^f_T]_{X^n} = (2\pi i)^{n+1} c_f(0)$ --- the residue of $\omega_f$ at
-the very cusp that $T$ stabilizes.  The normalized representative exists
-if and only if $c_f(0) = 0$; classes that pass are the \emph{parabolic}
-ones, identified by Eichler--Shimura \cite{KZ1984} with
-$S_k \oplus \overline{S_k}$, the lone obstructed direction being
-Eisenstein.  Cuspidality, in this framework, is not a convergence
-hypothesis; it is the solvability condition for the normalization.
-
-With the $T$-value normalized away, the entire cuspidal content sits on
-the surviving generator value,
-\begin{equation}\label{eq:rf-normalized}
-  r_f \;:=\; C^f_S(\tau_0) \;-\; (2\pi i)^{n+1}\bigl(P|_S - P\bigr),
-\end{equation}
-well-defined up to the line $\CC\,(X^n - Y^n)$ left over from
-$\ker \delta_T = \CC\, Y^n$ --- an ambiguity touching only the boundary
-monomials, which is why Theorem~\ref{thm:periods} ranges over the
-interior $\ell$ alone.  The $U$-relation now arrives, purchased as
-promised: conditioned on the vanishing $T$-value, the group relation
-$(ST)^3 = -I$ becomes $r_f|\bigl(1 + (TS) + (TS)^2\bigr) = 0$, and $r_f$
-\emph{is} the period polynomial.  Indeed, for holomorphic $f \in S_k$,
-sending $\tau_0 \to i\infty$ kills $C^f_T$ outright and
-\eqref{eq:rf-normalized} collapses to the classical integral
-\eqref{eq:classical-rf} --- whose familiar freedom from $\tau_0$ and
-$\gamma$ is thereby revealed as the silent choices $\gamma = S$,
-$\tau_0 = i\infty$.  Its interior coefficients are the periods against
-Brown's rational basis,
-$[r_f]_{X^{k-2-\ell}Y^\ell} = \omega^\pm(f)\, c_S^{\,\ell}$; the precise
-coordinate statement is given in Section~\ref{sec:cocycle}.  The finite
-$S$-contour was the right object all along, but it requires the
-correction term in \eqref{eq:rf-normalized}, sourced entirely by the
-$T$-contour --- and producing that correction in closed form is the
-business of this paper.
-
-% ==== END PASTE: BLOCK 1 ====
-
-\blockrule
-\begin{whereitgoes}
-The existing line 353, ``The coboundary equation admits a closed-form
-inverse --- the polynomial inversion of [DR2017]\ldots'', follows the
-final sentence above directly; ``that correction in closed form'' is its
-antecedent.  For meromorphic $f$ with interior poles, the identity
-$C^f_S|(1+S) = 0$ holds per homotopy component; state that precisely in
-Section~\texttt{sec:wall-crossing}, not here.
-\end{whereitgoes}
-
-% ============================================================================
-\section*{Block 2 --- replaces lines 767--774 (Section \texttt{sec:cocycle})}
-% ============================================================================
-\blockrule
-
-% ==== BEGIN PASTE: BLOCK 2 (replaces lines 767--774; delete the %DAM note at line 774) ====
-
-\paragraph{Parabolic cohomology and periods.}
-The cohomology class $[C^f] \in H^1(\Gamma; V_n)$ is independent of
-$\tau_0$ (on the connected component) and of the choice of $\delta P$
-representative.  Its restriction to the cusp stabilizer
-$\langle T \rangle \cong \ZZ$ lands in
-$H^1(\langle T \rangle; V_n) = V_n / \im \delta_T \cong \CC\cdot[X^n]$,
-and by Lemma~\ref{lem:solvability-cuspidality}(c) the restricted class is
-$(2\pi i)^{n+1}\, c_f(0) \cdot [X^n]$: the residue of $\omega_f$ at the
-cusp, valued in the $T$-coinvariants.  The class is \emph{parabolic} ---
-cohomologous to a cocycle with vanishing $T$-value --- if and only if
-this residue vanishes, i.e.\ if and only if $f \in S^!_k$.  The classical
-Eichler--Shimura theorem \cite{KZ1984} identifies
-$H^1(\Gamma; V_n) \cong S_k \oplus \overline{S_k} \oplus
-\CC_{\mathrm{Eis}}$ and the parabolic subspace
-$\Hpar(\Gamma; V_n) \cong S_k \oplus \overline{S_k}$; on cocycles
-normalized so that $c_T = 0$, the assignment $c \mapsto c_S$ further
-identifies $\Hpar(\Gamma; V_n) \cong W_{k-2}/\CC\,(X^n - Y^n)$, with the
-quotient line accounting for the residual freedom
-$P \mapsto P + \CC\, Y^n$.  When $\dim S_k = 1$, each parity eigenspace
-of $\Hpar$ is one-dimensional, and the two coordinates of a parabolic
-class in Brown's rational basis $p^\pm_f$ are its periods:
-$[C^f]^\pm = \omega^\pm(f)[p^\pm_f]$ for $f \in S_k$, while the
-quasi-periods $\eta^\pm$ arise as the coordinates of the class
-$[C^{f'}]$ of a weakly holomorphic Hecke partner $f' \in S^!_k$ (at
-$k = 12$: $f = \Delta$, $f' = \Dhat$)
-\cite{Brown2017}. %CLAUDE: corrected -- the previous version presented \omega^\pm and \eta^\pm jointly as "the linear coordinates of [C^f]"; a single class in the two-dimensional space \Hpar has two coordinates, and the four numbers of the period matrix come from the two classes [C^\Delta] and [C^\Dhat].
-
-% ==== END PASTE: BLOCK 2 ====
-
-\blockrule
-
-% ============================================================================
-\section*{Block 3 --- sign fix in \texttt{eq:bp-cocycle-coboundary}
-(lines 755--760)}
-% ============================================================================
-
-\noindent
-Minimal fix: in the final clause of the display, swap the arguments of
-$F$, replacing $P = (2\pi i)^{n+1}\bigl(F(\tau_0') - F(\tau_0)\bigr)$ by
-\[
-  P \;=\; (2\pi i)^{n+1}\bigl(F(\tau_0) - F(\tau_0')\bigr) \in V_n
-  \otimes \CC .
-\]
-Derivation (two lines, via the equivariance step of
-Lemma~\ref{lem:cocycle}, $\int_{\gamma^{-1}a}^{\gamma^{-1}b}\omega_f =
-\bigl(\int_a^b \omega_f\bigr)\big|_\gamma$): splitting
-$\int_{\gamma^{-1}\tau_0'}^{\tau_0'} =
-\int_{\gamma^{-1}\tau_0'}^{\gamma^{-1}\tau_0} +
-\int_{\gamma^{-1}\tau_0}^{\tau_0} + \int_{\tau_0}^{\tau_0'}$ gives
-\[
-  C^f_\gamma(\tau_0') - C^f_\gamma(\tau_0)
-  \;=\; (2\pi i)^{n+1}\Bigl[\Bigl(\textstyle\int_{\tau_0'}^{\tau_0}
-  \omega_f\Bigr)\Big|_\gamma + \int_{\tau_0}^{\tau_0'}\omega_f\Bigr]
-  \;=\; A - A|_\gamma,
-  \qquad
-  A := (2\pi i)^{n+1}\!\!\int_{\tau_0}^{\tau_0'}\!\omega_f ,
-\]
-which is $P|_\gamma - P$ for $P = -A$.  The cohomological conclusion is
-unaffected; only the labelling of $P$ changes.  Check the convention once
-at the single downstream point where $P$ appears explicitly, the
-normalized value \eqref{eq:rf-normalized}.
 
 \end{document}
