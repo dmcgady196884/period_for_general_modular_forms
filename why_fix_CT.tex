@@ -1,0 +1,608 @@
+\documentclass[11pt]{article}
+
+% ============================================================================
+% why_fix_CT.tex  --  standalone explanatory note (NOT for the manuscript)
+%
+% Purpose: lay out, from the ground up, WHY one normalizes C_T = 0 when
+% extracting the period polynomial from the period cocycle. This is the
+% conceptual origin, not a convenience or a historical-match argument:
+%
+%   the period cocycle is the coboundary of the Eichler integral (a
+%   primitive of omega_f), and C_T = 0 selects the cusp-regular branch
+%   of that primitive -- the unique antiderivative single-valued around
+%   the cusp. The classical construction sat in this normalization
+%   silently (anchored at i-infinity); for weakly holomorphic f the
+%   anchor diverges, so the normalization must be re-imposed as an
+%   equation -- which is the T-segment integral.
+%
+% Self-contained. No \ref/\cite into the main file. Compiles alone.
+% ============================================================================
+
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!55!black, urlcolor=blue!55!black}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\PSLZ}{\mathrm{PSL}_2(\ZZ)}
+\newcommand{\Vn}{V_n}
+\newcommand{\Eich}{\widetilde{F}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+
+\newtheorem*{claim}{Claim}
+\newtheorem*{slogan}{In one line}
+
+\title{\bf Why normalize $C_T = 0$?\\[2pt]
+\large The Eichler-integral origin of the period-polynomial normalization}
+\author{Working note --- conceptual scaffolding, not manuscript text}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent\emph{This note exists to be read slowly and stress-tested. It
+answers one question: among all the representatives of the period
+cohomology class, why is the one with $C_T = 0$ the right one, and where
+did the very need to choose come from? Nothing here is meant to be pasted
+into the paper; it is the thing you have to believe before the paper is
+yours to sign.}
+
+\bigskip
+\hrule
+\bigskip
+
+\section{The object we actually want is a primitive, not a cocycle}
+
+Fix an integer weight $k$, set $n := k-2$, and let $\Vn = \CC[X,Y]_n$
+carry the weight-$n$ action of $\SLZ$,
+\[
+  (P\big|_\gamma)(X,Y) := P(aX+bY,\, cX+dY),
+  \qquad \gamma = \begin{pmatrix} a & b \\ c & d\end{pmatrix}.
+\]
+Attach to a (weakly holomorphic, weight-$k$) form $f$ the $\Vn$-valued
+$1$-form
+\[
+  \omega_f := f(\tau)\,(X - \tau Y)^{n}\, d\tau ,
+\]
+built so that $\omega_f$ is invariant under the simultaneous action on
+$\tau$ and on $(X,Y)$.
+
+The classical period polynomial is a single integral,
+\begin{equation}\label{eq:rf-classical}
+  r_f := \int_0^{i\infty} \omega_f
+       = \int_0^{i\infty} f(\tau)(X-\tau Y)^n\, d\tau .
+\end{equation}
+The first thing to internalize is that \eqref{eq:rf-classical} is
+secretly a statement about an \emph{antiderivative} of $\omega_f$.
+Define the \textbf{Eichler integral}
+\begin{equation}\label{eq:eichler}
+  \Eich(\tau) := \int_\tau^{i\infty} f(z)\,(X - zY)^n\, dz
+  \qquad (\text{a } \Vn\text{-valued \emph{function} on } \HH).
+\end{equation}
+It is a genuine \textbf{primitive} (synonym: \textbf{antiderivative}) of
+$\omega_f$, meaning a function whose differential returns the form:
+$d\Eich = -\omega_f$, i.e.\ $\tfrac{d}{d\tau}\Eich(\tau) = -f(\tau)(X-\tau
+Y)^n$. (The sign is a bookkeeping artifact of integrating \emph{down}
+from $i\infty$ in \eqref{eq:eichler} rather than up to $\tau$; orient the
+path the other way and it disappears. Just as a function on $\RR$ has
+many antiderivatives differing by a constant, a primitive of $\omega_f$
+is determined only up to an additive $\Vn$-valued constant --- the choice
+of fixed (upper) endpoint $i\infty$ in \eqref{eq:eichler} is exactly such
+a choice,
+and that ambiguity is what \S2--\S6 are about.) It is transcendental, not
+a polynomial, and it depends on the point $\tau$. Because the integrand
+transforms nicely, $\Eich$ is \emph{almost} $\SLZ$-invariant; its failure
+to be invariant is the entire subject.
+
+\begin{claim}[The cocycle is the coboundary of the primitive]
+For each $\gamma \in \SLZ$,
+\begin{equation}\label{eq:C-as-coboundary-of-F}
+  C^f_\gamma := \Eich - \Eich\big|_\gamma
+  \qquad\Longleftrightarrow\qquad
+  C^f_\gamma = \int_{\gamma^{-1}\cdot}^{\,\cdot} \omega_f \ (\text{up to the constant }(2\pi i)^{n+1}).
+\end{equation}
+\end{claim}
+
+\noindent
+This is the sentence to hang everything on. A period cocycle is not a
+mysterious new gadget: it is the measurement of \emph{how badly a chosen
+primitive of $\omega_f$ fails to be modular}, recorded one group element
+at a time. The cocycle relation
+$C_{gh} = C_g|_h + C_h$ is then automatic --- it is just
+\[
+  \Eich - \Eich|_{gh}
+  = \bigl(\Eich - \Eich|_g\bigr)\big|_h + \bigl(\Eich - \Eich|_h\bigr)
+\]
+rearranged --- so you never have to ``verify the cocycle condition'' as
+an article of faith; it is the additivity of ``$\Eich$ minus its
+translate.''
+
+\begin{slogan}
+A period cocycle measures the non-modularity of a primitive of
+$\omega_f$. Different primitives differ by the cohomology ambiguity; the
+period polynomial is the non-modularity of \emph{one particular}
+primitive.
+\end{slogan}
+
+\section{So ``choose a representative'' means ``choose a branch of the primitive''}
+
+The cohomology class $[C^f]$ throws away the choice of primitive: adding
+a constant (more precisely, a $\Vn$-valued constant of integration, or
+shifting the basepoint of \eqref{eq:eichler}) changes $\Eich$ by some
+fixed $P \in \Vn$, hence changes every $C^f_\gamma$ by the coboundary
+$P|_\gamma - P$. Passing to $[C^f] \in H^1(\SLZ;\Vn)$ is exactly
+forgetting which antiderivative you used.
+
+But a polynomial --- an actual period polynomial with numbers in it ---
+lives at the level of a \emph{representative}, i.e.\ a specific
+primitive. So:
+\[
+  \boxed{\ \text{choosing a representative of } [C^f]
+  \;=\; \text{choosing a branch of the antiderivative } \Eich.\ }
+\]
+The question ``why fix $C_T = 0$?'' is therefore the question ``which
+antiderivative is the right one to stand on?''
+
+\section{$C_T = 0$ is the cusp-regular branch}
+
+Here is the payoff. Look at what $C_T$ measures. The slash $\Eich|_T$ is
+the \emph{full} weight-$n$ action: it couples the argument shift
+$\tau \mapsto \tau+1$ with the polynomial substitution $X \mapsto X+Y$
+(recall $X|_T = X+Y$, $Y|_T = Y$). Evaluating the coboundary
+\eqref{eq:C-as-coboundary-of-F} as a contour gives
+$\Eich|_\gamma(\tau) = \int_\tau^{\gamma^{-1}i\infty}\omega_f$, so for the
+cusp-anchored branch
+\begin{equation}\label{eq:CT-is-periodicity}
+  C^f_T \;=\; \Eich - \Eich\big|_T
+        \;=\; \int_{T^{-1}i\infty}^{\,i\infty}\omega_f \;=\; 0
+  \qquad(\text{whenever the integral converges}),
+\end{equation}
+the contour collapsing because $T$ \emph{fixes} the cusp $i\infty$. This
+vanishing is the precise content of ``no monodromy around the cusp'':
+$C^f_T = 0$ says $\Eich$ is invariant under the \emph{full} $T$-action,
+i.e.\ a \emph{flat section of the local system $\Vn$ around the cusp}. It
+is emphatically \emph{not} the bare periodicity $\Eich(\tau) =
+\Eich(\tau+1)$ --- that statement is false, since
+$\Eich(\tau) - \Eich(\tau+1) = \int_\tau^{\tau+1}\omega_f \neq 0$. The
+monodromy of $\Eich$ around the cusp lives in $\Vn$ (it is the unipotent
+$T$ acting on $X,Y$), not in the scalar coordinate $q = e^{2\pi i\tau}$;
+conflating the two is the one trap here.
+
+\paragraph{Two representatives of one class --- and which one \S5--\S6
+use.} Equation \eqref{eq:CT-is-periodicity} is the \emph{cusp-anchored}
+value, and it vanishes identically for every branch that converges. So the
+live content of ``solve $C_T = 0$'' below is not carried by this
+representative at all, but by a \emph{cohomologous} one: the
+finite-basepoint cocycle $C^f_T(\tau_0) = \int_{\tau_0-1}^{\tau_0}\omega_f$
+(the form used in \S6), whose $X^n$-component is the constant Fourier
+coefficient $c_f(0)$. The two differ by the coboundary that moves the
+basepoint off the cusp. ``Re-impose $C_T = 0$'' then means: correct the
+available finite-basepoint branch back to a flat section --- free for
+holomorphic $f$ (the cusp anchor is available, \S5), but for weakly
+holomorphic $f$ the anchor diverges and the correction becomes the
+$T$-segment integral.
+
+This is distinguished, not arbitrary --- but it is worth being exact
+about \emph{in what sense}, because ``canonical'' and ``forced'' are not
+the same claim and it is easy to smuggle one in under the other. Three
+levels, from most to least compulsory.
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=4pt]
+\item \textbf{Forced (you must pick \emph{something}).} The class $[C^f]$
+is all you have basepoint-independently, and a class contains no
+polynomial. To get numbers at all you must descend to a representative,
+i.e.\ fix a branch of $\Eich$. This step is not optional: no
+representative, no period polynomial.
+
+\item \textbf{Forced (it must be $T$, not $S$).} This is the real
+compulsion, and it is structural, not aesthetic: \emph{$T$ is essentially
+the only generator whose value you are permitted to normalize away.}
+Normalizing the $g$-value means solving $\delta_g P := P|_g - P = C_g$ for
+$P \in \Vn$. For $g = T$ this is almost always solvable, because $T$ acts
+unipotently and $\delta_T$ is nilpotent, hence near-surjective --- it
+fails only on a one-dimensional obstruction (the cusp residue; \S6). For
+$g = S$ it is almost always \emph{un}solvable: $S$ acts as an involution,
+so $\im \delta_S = \ker(1+S)$ is a fixed proper subspace, and a generic
+$C_S$ generically does not lie in it. (For the actual period cocycle the
+$S$-obstruction \emph{does} vanish --- that is the $S$-relation,
+\S7 --- so one could sometimes solve $\delta_S P = C_S$; the point is that
+doing so would trivialize the very $S$-value that carries the periods,
+whereas $\delta_T$ removes the cusp monodromy while leaving the $S$-value
+with content. $T$ is the direction one can spend \emph{usefully}.) So
+among the generators, $T$ is not the pretty choice --- it is the one
+whose normalization both exists in general and preserves the period
+content, and the surviving $S$-value carries that content precisely
+because it is the one we do not spend.
+
+\item \textbf{Canonical given the goal (which $T$-slice).} Even granting
+``normalize via $T$,'' the condition still has slack: $\delta_T P = C_T$
+determines $P$ only up to $\ker\delta_T = \CC Y^n$ (\S6), so $C_T = 0$ is
+an affine \emph{family} of representatives, not one. That $T$ is the
+generator to spend is settled by level~2; \emph{why exactly-zero, and not
+some other $T$-slice}, is settled by the external definition of $r_f$,
+and is important enough to get its own section (\S4). The short version:
+$C_T = 0$ is exactly the family of branches agreeing with the
+cusp-anchored Eichler integral, and any other normalizable slice shifts
+the \emph{interior} coefficients of the $S$-value --- the very critical
+$L$-values --- by a spurious offset.
+% DAM (#3): this "shifts interior coefficients" mechanism is imprecise --
+% see the note at Step 4 in S4. The real exclusion of an alternative slice
+% is C_T \neq 0 (not T-normalizable), not the S-value shift.
+\end{enumerate}
+
+The honest one-sentence status: the truly invariant object is the
+parabolic class in $W_{k-2}/\CC(X^n - Y^n)$ (equivalently $C_T = 0$ up to
+$\CC Y^n$); ``$C_T = 0$ exactly'' is the convenient concrete lift of it,
+forced \emph{relative to the goal} of continuing the classical $r_f$, and
+forced \emph{structurally} in that $T$ is the only direction one can
+normalize at all.
+
+\begin{slogan}
+$C_T = 0 \iff$ the primitive is single-valued around the cusp. Two things
+make this the choice: structurally, $T$ is the only generator whose value
+can be normalized away ($S$ cannot); and relative to the goal,
+no-cusp-monodromy is exactly the branch whose $S$-obstruction
+\emph{is} the classical period polynomial. The leftover $\CC Y^n$ slack
+is the one honestly conventional bit.
+\end{slogan}
+
+\noindent
+Once that branch is fixed, the surviving datum $C_S = \Eich - \Eich|_S$
+measures non-modularity under $\tau \mapsto -1/\tau$, and \emph{that}
+$S$-obstruction of the cusp-regular primitive is the period polynomial.
+This is the content of \eqref{eq:rf-classical}: the endpoints $0$ and
+$i\infty$ are an $S$-pair, and $r_f = \Eich|_S - \Eich$ read at the
+cusp-anchored branch.
+
+\section{Why \emph{exactly} zero: the argument that $C_T=0$ reproduces $r_f$}
+
+This is the main argument, and it deserves to be spelled out rather than
+asserted, because it is the only thing that makes $C_T = 0$ the
+\emph{right} normalization rather than merely \emph{a} normalization. The
+claim is goal-relative and that is not a weakness; it is the honest shape
+of the statement.
+
+\paragraph{Step 1: the classical object is one branch's $S$-value.}
+Write $\Eich_\infty$ for the cusp-anchored primitive --- the Eichler
+integral \eqref{eq:eichler}, whose fixed (upper) endpoint is the cusp
+$i\infty$ and whose free lower limit is the running variable $\tau$. By definition
+\eqref{eq:rf-classical},
+\[
+  r_f = \int_0^{i\infty}\omega_f = \Eich_\infty\big|_S - \Eich_\infty
+      = -\,C^f_S \ \text{evaluated at the branch } \Eich_\infty .
+\]
+So ``the period polynomial'' is not the $S$-value of \emph{some}
+representative; it is the $S$-value of \emph{this particular} branch. Any
+argument that $C_T=0$ gives $r_f$ must show that the $C_T=0$ condition
+selects the branch $\Eich_\infty$ --- or selects it closely enough.
+
+\paragraph{Step 2: $\Eich_\infty$ satisfies $C_T = 0$, but $C_T = 0$ does
+not pin it uniquely.} For holomorphic $f$, $\Eich_\infty$ is $T$-invariant
+in the full slash, so
+$C^f_T = \Eich_\infty - \Eich_\infty|_T = 0$: the classical branch is
+\emph{a} solution of the normalization. It is not the only one. Two
+branches with the same $T$-value differ by $R$ with $\delta_T R = 0$,
+i.e.\ $R \in \ker\delta_T = \CC Y^n$. So ``$C_T = 0$'' carves out a
+\emph{one-parameter family} of branches, $\Eich_\infty + \CC Y^n$, and
+$\Eich_\infty$ is one point of it.
+
+\paragraph{Step 3: the residual ambiguity is exactly the ambiguity of
+$r_f$ itself.} Moving along the family, $R = cY^n$, changes the $S$-value
+by
+\[
+  R\big|_S - R = c\,(Y^n|_S - Y^n) = c\,(X^n - Y^n)
+  \qquad (Y|_S = X).
+\]
+This is the punchline of the whole matter: the freedom that $C_T = 0$
+fails to remove acts on the $S$-value \emph{only} through
+$\CC(X^n - Y^n)$, i.e.\ only on the two boundary monomials. Therefore
+\[
+  \boxed{\ C_T = 0 \ \text{reproduces } r_f \ \text{exactly as an element of }
+  W_{k-2}/\CC(X^n - Y^n).\ }
+\]
+That is not ``$r_f$ up to slop''; it is $r_f$ \emph{at the precision at
+which $r_f$ is itself well-defined}, since the classical period
+polynomial carries the same intrinsic $\CC(X^n - Y^n)$ ambiguity (the
+even part is only defined modulo the period polynomial of the Eisenstein
+series). The interior coefficients $\ell \in \{1,\dots,n-1\}$ --- the
+critical $L$-values --- are pinned exactly.
+
+% DAM (stress-test, #3): the mechanism stated in this Step is imprecise.
+% The real reason an alternative slice R is excluded is that
+% R \notin \ker\delta_T  =>  delta_T R \neq 0  =>  C_T \neq 0, i.e. it is
+% not T-normalizable at all -- NOT that it "shifts an interior coefficient."
+% Counterexample to the latter: any S-invariant R (R \in \ker\delta_S = V_n^S,
+% e.g. R = X^n + Y^n) has R|_S - R = 0, so it leaves the ENTIRE S-value
+% fixed, yet R \notin \CC Y^n. So "any other normalizable slice shifts at
+% least one interior coefficient" is false as written; the exclusion is by
+% C_T, not by the S-value. Rewrite this Step before promoting it to the draft.
+\paragraph{Step 4: no genuinely different slice does this.} Suppose one
+normalized along a different rule, landing on a branch $\Eich_\infty + R$
+with $R \notin \CC Y^n$. The resulting $S$-value is
+$r_f - (R|_S - R)$, and $R|_S - R \in \CC(X^n-Y^n)$ forces $R \in \CC Y^n
++ \ker\!\big(\delta(\cdot)(S)\big)$. Unwinding, the only way to keep the
+interior coefficients equal to the classical critical $L$-values is to
+have chosen, up to $\CC Y^n$, the cusp-anchored branch after all. Any
+\emph{other} normalizable slice shifts at least one interior coefficient
+by a nonzero offset sourced purely by the choice of branch: you obtain a
+clean polynomial satisfying clean relations, whose interior coordinates
+are the true critical $L$-values \emph{plus a spurious constant}. Clean,
+well-defined --- and not the period polynomial.
+
+\paragraph{What is and isn't being claimed.} The argument is relative to
+the target: \emph{given} that we are continuing the classical $r_f$,
+$C_T = 0$ is the unique normalization (mod the intrinsic
+$\CC(X^n - Y^n)$) that does so. It is \emph{not} a claim that $C_T = 0$ is
+forced in a vacuum --- absent any attachment to the classical object,
+another slice would define an equally consistent ``period polynomial.''
+The cusp is privileged not by pure algebra but because the object being
+generalized was built at the cusp. This is also why, for weakly
+holomorphic $f$, one cannot simply ``use $\Eich_\infty$'': it diverges
+(\S5), so the branch that would have agreed with the cusp-anchored one is
+no longer obtainable by integrating from $i\infty$. Solving
+$\delta_T P = C^f_T$ is precisely the algebraic continuation of ``be the
+cusp-regular branch'' into the regime where the cusp anchor is gone --- and
+that solved-for $P$ is the $T$-segment integral.
+
+\section{Why this is invisible classically but a step here}
+
+For a \emph{holomorphic} cusp form, the cusp-anchored primitive
+\eqref{eq:eichler} is automatically a flat section around the cusp:
+$f(\tau+1) = f(\tau)$ and $f$ decays at $i\infty$, so the integral defining
+$\Eich$ converges and the substitution $z \mapsto z-1$ gives
+$\Eich|_T = \Eich$ (the shift $\tau \mapsto \tau+1$ exactly compensates the
+polynomial shear $X \mapsto X+Y$). Hence
+\[
+  C^f_T = 0 \quad\text{\emph{for free}, with no choice made.}
+\]
+Nobody in the classical theory ever ``normalizes'' anything; they simply
+write $\int_0^{i\infty}$, which silently bases the primitive at the cusp,
+which silently enforces $C_T = 0$. The normalization was always present
+--- it was just inherited from the geometry rather than imposed.
+
+For a \emph{weakly holomorphic} form like $\widehat\Delta = q^{-1} +
+O(q^2)$, the $q^{-1}$ term makes \eqref{eq:eichler} diverge at $i\infty$:
+there is no convergent cusp-anchored primitive to inherit periodicity
+from. The naive primitive you \emph{can} write down acquires a genuine
+winding at the cusp, so $C^f_T \neq 0$ as handed to you. The move of the
+construction is then forced and concrete:
+\begin{equation}\label{eq:reimpose}
+  \text{solve } \quad \delta_T P := P\big|_T - P = C^f_T
+  \quad\text{for } P \in \Vn, \quad\text{then subtract } P.
+\end{equation}
+Subtracting $P$ re-installs periodicity by hand --- it manufactures the
+cusp-regular branch algebraically, since the analytic one no longer
+exists. \textbf{The polynomial $P$ you solve for is exactly the
+$T$-segment integral} (the second integral in the main theorem, with its
+Bernoulli/Hurwitz kernel). That integral is not a regulator; it is the
+correction that turns the available primitive into the cusp-regular one.
+
+\begin{slogan}
+Classically, ``base at $i\infty$'' enforces $C_T=0$ silently. When the
+form is weakly holomorphic the cusp is no longer a place you can stand,
+so the same normalization must be \emph{solved for} --- and the solution
+is the $T$-segment integral.
+\end{slogan}
+
+\section{The leftover constant, and the obstruction}
+
+Two loose ends, both meaningful.
+
+\paragraph{The residual freedom is the constant of integration.}
+Equation \eqref{eq:reimpose} does not determine $P$ uniquely: $\delta_T$
+has a one-dimensional kernel,
+\[
+  \ker \delta_T = \{P : P|_T = P\} = \CC\, Y^n
+\]
+(the only $T$-invariant polynomials are powers of $Y$, since
+$Y|_T = Y$ while $X|_T = X+Y$). So $P$ is fixed only modulo $\CC Y^n$,
+and correspondingly $r_f = C_S - (P|_S - P)$ is well-defined only modulo
+\[
+  \delta(\,\cdot\,)(S)\,[\CC Y^n] = \CC\,(Y^n|_S - Y^n) = \CC\,(X^n - Y^n)
+  \qquad (\text{since } Y|_S = X).
+\]
+This is not noise to be discarded: it is the genuine \emph{constant of
+integration} of the primitive, the one datum a single antiderivative
+cannot pin. It touches only the boundary monomials $X^n, Y^n$, which is
+exactly why the interior coefficients
+($\ell \in \{1,\dots,n-1\}$) are unambiguous and the main theorem ranges
+over them. (This is the point that the word ``gauge'' actively
+\emph{hides}: it is data, not redundancy.) The moral, restated from \S3:
+the genuinely invariant object extracted from $[C^f]$ is not a polynomial
+but the parabolic class
+\[
+  [r_f] \in W_{k-2}\big/\CC\,(X^n - Y^n)
+  \quad\bigl(\cong H^1_{\mathrm{par}}(\SLZ; \Vn)\bigr),
+\]
+and ``$C_T = 0$ exactly, with a chosen $\CC Y^n$ representative'' is one
+concrete lift of that class to an honest polynomial. The forced content
+lives in the quotient; the lift is the convenient part.
+
+\paragraph{The normalization can fail to exist --- and that failure is correct.}
+Equation \eqref{eq:reimpose} is solvable iff $C^f_T$ lies in
+$\im \delta_T$. The cokernel is one-dimensional,
+\[
+  \Vn / \im \delta_T \cong \CC\cdot[X^n],
+\]
+and the component of $C^f_T$ there is the constant Fourier coefficient
+$c_f(0)$ --- the residue of $\omega_f$ at the cusp. So:
+\[
+  \text{a cusp-regular primitive exists}
+  \iff c_f(0) = 0
+  \iff f \in S^!_k \ (\text{cuspidal, incl.\ weakly holomorphic}).
+\]
+When $c_f(0) \neq 0$ (the Eisenstein case), \emph{no} winding-free branch
+exists, no $C_T=0$ normalization exists, and the construction correctly
+declines to produce a period polynomial. The normalization and its
+obstruction are the two ends of a single fact: you can remove the cusp
+monodromy precisely when there is no residue forcing it.
+
+\section{What survives once $C_T = 0$ (the normal form)}
+
+A bonus, and the part of the original ``gauge'' instinct worth keeping.
+With $C_T = 0$ the cocycle is determined by the single polynomial
+$r := C_S$, because $\PSLZ = \langle S\rangle * \langle ST\rangle$ is a
+free product of the two torsion groups and the cocycle relation
+telescopes. Iterating $C_{g_1\cdots g_m} = \sum_i C_{g_i}\big|_{g_{i+1}
+\cdots g_m}$ and killing every $T$-letter, a general element
+$\gamma = S\,T^{n_1} S\,T^{n_2}\cdots S\,T^{n_L}$ has
+\begin{equation}\label{eq:normal-form}
+  C^f_\gamma = \sum_{j=1}^{L} r\big|_{\,h_j},
+  \qquad h_j = T^{n_j} S\, T^{n_{j+1}} \cdots S\, T^{n_L}.
+\end{equation}
+The value on a word of $S$-length $L$ is a finite sum of $L$ transported
+copies of the one polynomial $r$ --- not two; one per $S$-syllable. The
+two group relations prune \emph{short} words: $S^2 = 1$ gives
+$r|_S = -r$, and $(ST)^3 = 1$ gives $r|(1 + TS + (TS)^2) = 0$; these are
+the classical period relations and they cut redundancy but do not shrink
+a generic length-$L$ sum below $\sim L$ terms.
+
+\medskip
+\noindent\textit{Caveat for the meromorphic case.} The collapse in
+\eqref{eq:normal-form} uses $C_{S^2}=0$ and path-independence, both
+statements about a fixed homotopy class of contour. With interior poles
+the free-product normal form still holds algebraically, but ``the value
+of $\gamma$'' becomes per-chamber; crossing a pole adds a residue jump on
+top of the telescoped sum. The normal form is the within-chamber
+skeleton, not the whole answer.
+
+\section{Status of the claims: what is, and isn't, a theorem}
+
+It is worth asking your own question directly --- \emph{if $C_T = 0$ is
+really needed, shouldn't that be a proposition?} The useful answer is that
+the demand forces a sorting, because several statements of different
+strength have been circling, and only some are theorems. One of them is a
+non-claim; two are genuine propositions provable by linear algebra and
+cohomology with \emph{no} special functions; one is the analytic theorem
+of the paper, and that last is the only one whose proof is ``the
+incomplete gammas match.'' Keeping these apart is the whole point: a
+proof attached to the wrong claim is a seam.
+
+\paragraph{(A) ``$C_T = 0$ is necessary'' --- \emph{not} a theorem.}
+There is no absolute necessity to prove, and attempting it is the trap.
+As \S3--\S4 show, the necessity is goal-relative: absent any attachment to
+the classical $r_f$, a different normalizable slice defines a different,
+internally consistent polynomial obeying clean relations. So the
+statement one is tempted to elevate is precisely the one that cannot be a
+theorem. State it as a non-claim and move on.
+
+\paragraph{(B) Existence and uniqueness of the normalization --- a
+proposition (linear algebra).}
+\begin{quote}\itshape
+Let $f$ be weakly holomorphic of weight $k$, $n = k-2$, with
+$c_f(0) = 0$. Then there exists $P \in \Vn$ with $\delta_T P = C^f_T$,
+unique modulo $\ker\delta_T = \CC Y^n$. Consequently the cocycle
+$C^f - \delta P$ has vanishing $T$-component, and its $S$-value is
+well-defined in $W_{k-2}/\CC(X^n - Y^n)$. If $c_f(0) \neq 0$, no such $P$
+exists.
+\end{quote}
+\noindent\emph{Proof.} Pure linear algebra on the unipotent operator
+$\delta_T = (\,\cdot\,)|_T - \mathrm{id}$. In the basis $\{X^{n-j}Y^j\}$,
+$\delta_T$ is strictly upper-triangular (it lowers the $X$-degree),
+so $\im\delta_T = \langle X^{n-j}Y^j : 1 \le j \le n\rangle
+= \{Q : [Q]_{X^n} = 0\}$ has codimension one
+with $\coker \cong \CC[X^n]$, and $\ker\delta_T = \CC Y^n$ has dimension
+one. Solvability is the vanishing of the $\coker$-component of $C^f_T$,
+which Lemma~(residue) identifies with $c_f(0)$; uniqueness mod $\CC Y^n$
+is $\ker\delta_T$. The induced ambiguity on the $S$-value is
+$\delta(\,\cdot\,)(S)[\CC Y^n] = \CC(Y^n|_S - Y^n) = \CC(X^n - Y^n)$.
+\hfill$\square$
+
+\paragraph{(C) The normalization computes the period polynomial --- a
+proposition (cohomology, no special functions).}
+\begin{quote}\itshape
+For $f \in S_k$ holomorphic, the $S$-value of the $C_T = 0$
+representative equals the classical period polynomial
+$r_f = \int_0^{i\infty}\omega_f$ as an element of
+$W_{k-2}/\CC(X^n - Y^n)$.
+\end{quote}
+\noindent\emph{Proof.} This is \S4, Steps 1--3, boxed. The cusp-anchored
+branch $\Eich_\infty$ converges (holomorphic $f$) and is periodic, so it
+satisfies $C_T = 0$ and its $S$-value is exactly $r_f$ by
+\eqref{eq:rf-classical}. Any other $C_T = 0$ branch differs from
+$\Eich_\infty$ by an element of $\ker\delta_T = \CC Y^n$ (B), which shifts
+the $S$-value only within $\CC(X^n - Y^n)$. Hence all $C_T = 0$
+representatives agree with $r_f$ in the quotient. \hfill$\square$
+\smallskip\noindent
+Note the proof uses no $q$-expansion, no Mellin transform, and no
+incomplete gamma function. C is true at the level of the cocycle, before
+any analytic object is computed; it is what makes the construction
+\emph{the} period polynomial rather than merely \emph{a} polynomial.
+
+\paragraph{(D) The analytic agreement --- the paper's theorem, and the
+only place the incomplete gammas enter.}
+\begin{quote}\itshape
+The $C_T = 0$ $L$-integral, read at integer $s = \ell+1$, equals BFK's
+completed $L$-function: expanding the surviving $T$-segment integral
+yields the incomplete-gamma sums
+$\sum_{n\neq0} c(n)\bigl[\Gamma(\ell, 2\pi n)/(2\pi n)^\ell + i^k
+\Gamma(k-\ell, 2\pi n)/(2\pi n)^{k-\ell}\bigr]$.
+\end{quote}
+\noindent\emph{Proof sketch.} \emph{This} is where ``the incomplete
+gammas match'': the Hurwitz-zeta kernel of the $T$-segment unfolds, term
+by term in the $q$-expansion, into upper incomplete gammas
+$\Gamma(\ell, 2\pi n)$, reproducing the BFK completed $L$-function. This
+is the paper's Theorem~(\texttt{thm:bfk-eq}), proved by the
+Hurwitz-unfolding lemma.
+
+\medskip
+\noindent\textbf{Why D is not B or C.} D presupposes C. C says the
+$S$-value \emph{is} the period polynomial (a statement about a polynomial
+and its class); D takes the coefficients of that polynomial --- which are
+critical $L$-values --- and writes \emph{those} as incomplete-gamma sums.
+The chain is $\text{B} \Rightarrow \text{C} \Rightarrow \text{D}$:
+existence of the normalized representative, identification of its $S$-value
+as the period polynomial, expansion of that polynomial's coefficients
+into the analytic completed $L$-function. The incomplete gammas live only
+on the last arrow. Attaching them to C (or to ``why $C_T = 0$'') would be
+proving the wrong statement.
+
+\paragraph{To verify before any of this is a Proposition in the
+\emph{paper}.} C as stated compares against a pre-existing classical
+$r_f$, which exists only for $f \in S_k$. For weakly holomorphic
+$f \in S^!_k \setminus S_k$ there is no prior period polynomial to agree
+with, so C must be \emph{replaced} by an extension-uniqueness statement:
+\begin{quote}\itshape
+(C$'$, to verify) The $C_T = 0$ $S$-value is the unique linear extension
+of $r_{(\cdot)}$ from $S_k$ to $S^!_k$ that is Hecke-equivariant
+[/computed by the $T$-segment integral / satisfies the period relations
+mod $\CC(X^n-Y^n)$ --- pick the characterization you can actually prove].
+\end{quote}
+This is subtler than B or holomorphic-C and is where a referee will push.
+It should be checked against the verification numerics (the $k = 12$
+$\Delta, \widehat\Delta$ data) before the word ``Proposition'' goes near
+it.
+
+\bigskip
+\hrule
+\bigskip
+
+\noindent\textbf{The whole note in five sentences.}
+The period cocycle is the coboundary of the Eichler integral $\Eich$, a
+primitive of $\omega_f$; choosing a representative means choosing a branch
+of $\Eich$, and you are forced to choose \emph{something} because a class
+holds no polynomial. Among the generators only $T$ can be normalized away
+at all --- $\delta_T$ is near-surjective while $\delta_S$ is not --- so
+the surviving $S$-value carrying the period content is forced
+structurally, not by taste. The condition $C_T = 0$ says $\Eich$ is
+single-valued around the cusp, and that branch is the one whose
+$S$-obstruction reproduces the classical $r_f$, so it is forced
+\emph{relative to the goal} of continuing $r_f$ to weak forms --- though
+the last $\CC Y^n$ of slack is honestly conventional. For holomorphic
+cusp forms this branch is inherited free by basing the integral at
+$i\infty$; for weakly holomorphic forms the cusp anchor diverges, so the
+cusp-regular branch is re-installed by solving $\delta_T P = C_T$, whose
+solution is the $T$-segment integral. The genuinely invariant object is
+the parabolic class $[r_f] \in W_{k-2}/\CC(X^n - Y^n)$, the whole
+construction exists iff the cusp residue $c_f(0)$ vanishes, and
+``$C_T = 0$ exactly'' is a convenient lift of that class to a polynomial.
+
+\end{document}
