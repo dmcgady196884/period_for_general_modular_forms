@@ -840,52 +840,35 @@ $\omega^\pm(f)$ from particular linear combinations of these moments.
 
 \paragraph{Basepoint dependence.}
 Varying $\tau_0$ changes $C^f$ by a coboundary, provided $f$ has no
-interior poles.  Define an antiderivative $F(\tau)$ of $\omega_f$ on a
-simply connected open subset of $\HH$ avoiding $\Gamma\cdot f^{-1}
-(\infty)$.  Then for any two basepoints $\tau_0, \tau_0'$ in the same
-connected component, path-additivity gives
+interior poles.  Define an antiderivative $F(\tau)$ of $\omega_f$ (so
+$dF = \omega_f$) on a simply connected open subset of $\HH$ avoiding
+$\Gamma\cdot f^{-1}(\infty)$.  Then for any two basepoints
+$\tau_0, \tau_0'$ in the same connected component, path-additivity and the
+$\Gamma$-equivariance of $\omega_f$ give
 \begin{equation}\label{eq:bp-cocycle-coboundary}
   C^f_\gamma(\tau_0') - C^f_\gamma(\tau_0)
   \;=\; \bigl(P|_\gamma - P\bigr)
   \quad \text{with}\quad
-  P \;=\; (2\pi i)^{n+1}\bigl(F(\tau_0') - F(\tau_0)\bigr) \in V_n\otimes\CC.
+  P \;=\; (2\pi i)^{n+1}\bigl(F(\tau_0) - F(\tau_0')\bigr)
+  \;=\; (2\pi i)^{n+1}\!\int_{\tau_0'}^{\tau_0}\!\omega_f
+  \;\in\; V_n\otimes\CC.
 \end{equation}
 This is the coboundary $\delta P(\gamma) := P|_\gamma - P$.  When $f$
 has interior poles, dragging $\tau_0$ across a pole picks up a Cauchy
 residue contribution beyond \eqref{eq:bp-cocycle-coboundary}; this
 wall-crossing structure is the content of Theorem~\ref{thm:wall-crossing}
 in Section~\ref{sec:wall-crossing}.
-%DAM-Fable: Fable claims a sign mismatch, but then proposed the following GIANT edit. But I also ran outta tokens. So I am not sure what to do, here...
-%% ============================================================================
-%\section*{Block 3 --- sign fix in \texttt{eq:bp-cocycle-coboundary}
-%(lines 755--760)}
-%% ============================================================================
-%
-%\noindent
-%Minimal fix: in the final clause of the display, swap the arguments of
-%$F$, replacing $P = (2\pi i)^{n+1}\bigl(F(\tau_0') - F(\tau_0)\bigr)$ by
-%\[
-%  P \;=\; (2\pi i)^{n+1}\bigl(F(\tau_0) - F(\tau_0')\bigr) \in V_n
-%  \otimes \CC .
-%\]
-%Derivation (two lines, via the equivariance step of
-%Lemma~\ref{lem:cocycle}, $\int_{\gamma^{-1}a}^{\gamma^{-1}b}\omega_f =
-%\bigl(\int_a^b \omega_f\bigr)\big|_\gamma$): splitting
-%$\int_{\gamma^{-1}\tau_0'}^{\tau_0'} =
-%\int_{\gamma^{-1}\tau_0'}^{\gamma^{-1}\tau_0} +
-%\int_{\gamma^{-1}\tau_0}^{\tau_0} + \int_{\tau_0}^{\tau_0'}$ gives
-%\[
-%  C^f_\gamma(\tau_0') - C^f_\gamma(\tau_0)
-%  \;=\; (2\pi i)^{n+1}\Bigl[\Bigl(\textstyle\int_{\tau_0'}^{\tau_0}
-%  \omega_f\Bigr)\Big|_\gamma + \int_{\tau_0}^{\tau_0'}\omega_f\Bigr]
-%  \;=\; A - A|_\gamma,
-%  \qquad
-%  A := (2\pi i)^{n+1}\!\!\int_{\tau_0}^{\tau_0'}\!\omega_f ,
-%\]
-%which is $P|_\gamma - P$ for $P = -A$.  The cohomological conclusion is
-%unaffected; only the labelling of $P$ changes.  Check the convention once
-%at the single downstream point where $P$ appears explicitly, the
-%normalized value \eqref{eq:rf-normalized}.
+% DAM-Fable [RESOLVED 2026-06-17]: Fable's sign claim was correct. With the
+% antiderivative convention dF = omega_f, the basepoint-shift coboundary is
+%   P = (2pi i)^{n+1}(F(tau_0) - F(tau_0')) = (2pi i)^{n+1} int_{tau_0'}^{tau_0} omega_f,
+% now written in eq:bp-cocycle-coboundary above (was F(tau_0') - F(tau_0)).
+% Derivation: split int_{g^{-1}tau_0'}^{tau_0'} = int_{g^{-1}tau_0'}^{g^{-1}tau_0}
+%   + int_{g^{-1}tau_0}^{tau_0} + int_{tau_0}^{tau_0'}; equivariance (Lemma lem:cocycle)
+% turns the first summand into (int_{tau_0'}^{tau_0} omega_f)|_gamma, giving A - A|_gamma
+% with A := (2pi i)^{n+1} int_{tau_0}^{tau_0'} omega_f, i.e. P|_gamma - P for P = -A.
+% This basepoint-shift P is a DIFFERENT object from the P in eq:rf-normalized (the
+% delta_T-normalization solution), so there is no downstream propagation. The same
+% sign was corrected at the tau_0-independence proof (~line 1260).
 
 
 
@@ -1257,7 +1240,7 @@ $[C^f] \in H^1(\Gamma; V_n \otimes \CC)$ and the choice of coboundary
 representative $P$.  The class is $\tau_0$-invariant by the
 basepoint-shift coboundary identity
 $C^f_\gamma(\tau_0') - C^f_\gamma(\tau_0) = P|_\gamma - P$ for the
-antiderivative $P = (2\pi i)^{n + 1}(F(\tau_0') - F(\tau_0))$ of
+antiderivative $P = (2\pi i)^{n + 1}(F(\tau_0) - F(\tau_0'))$ of
 \eqref{eq:bp-cocycle-coboundary} (valid
 for $f$ without interior poles), and the coboundary representative
 $P(\tau_0)$ from Lemma~\ref{lem:Bernoulli-inv} is the
