@@ -36,8 +36,8 @@
 \DeclareMathOperator{\Res}{Res}
 \DeclareMathOperator{\Hpar}{H^1_{\mathrm{par}}}
 
-\title{Periods and $L$-functions of meromorphic modular forms\\
-via finite contours}
+\title{Finite-contour cocycles for (quasi-)periods and $L$-functions\\
+of meromorphic modular forms on $\SLZ$}
 \author{David A.\ McGady}
 \date{}
 
@@ -79,81 +79,6 @@ in different homotopy classes differ by wall-crossing residues. Finally, all maj
 results were tested to arbitrary (50 digit) precision in our python scripts~\cite{VerifyScripts}.
 \end{abstract}
 
-% ============================================================================
-% Assembled introduction, v4: fully interleaved.
-%
-% Structure: your three opening paragraphs (verbatim) -> compressed
-% notation -> narrative with Definitions 1-3 and Theorems 1-3 placed where
-% the narrative produces them -> prose outline. No \subsection, no
-% \paragraph. The bridging paragraph of v3 is gone (the narrative is the
-% bridge), as are the duplicated finiteness/invariance paragraphs.
-%
-% Per the agreed leans: (1) notation compressed up front, Dhat moved down
-% next to Theorem 1 with computed c1, c0; (2) no subsection breaks --
-% NOTE: \label{sec:intro-results} is kept on the section so body refs
-% survive, but grep for \ref{sec:intro-results} anyway; (3) Theorem 2
-% trimmed to reference eq:Lambda-DR-def -- the label eq:Lambda-DR-general
-% is GONE, so grep the body for \ref{eq:Lambda-DR-general} and re-point
-% to eq:Lambda-DR-def.
-%
-% All edits to your prose are flagged with %CLAUDE comments.
-% ============================================================================
-
-% ============================================================================
-% Cleaned fragment, v6 (v5 + two global directives).
-%
-% v6 CHANGES:
-%   - ALL displays numbered: eq:classical-rf, eq:ES-cocycle, eq:cS-def
-%     added; eq:contour-pair and eq:periods-statement already were.
-%   - Bernoulli machinery REMOVED from the intro. The inversion is
-%     credited to DR2017 without the generating function; the kernel is
-%     characterized directly as Hurwitz-zeta special values. NOTE: if you
-%     kept the v4 continuation, grep it for "Bernoulli" -- it appears in
-%     the post-Def-HurwitzT collapse remark, the pre-Def-L-integral
-%     "Promoting...the Bernoulli pair to its Hurwitz parent" sentence, and
-%     twice in the outline ("closed Bernoulli form",
-%     "Bernoulli-polynomial collapse"). Suggested replacements:
-%     "Promoting the Mellin monomial \tau^{\ell} to \tau^{s-1} on the
-%     S-cycle and evaluating the T-kernel at general s" / outline: "solves
-%     the T-gauge-fixing coboundary equation in closed form" and
-%     "exhibiting the integer-s specialization of \widetilde{k}_T".
-%
-% Below is the original v5 header (placement + earlier surgery notes).
-% ---------------------------------------------------------------------------
-% Cleaned fragment, v5 (your edit of intro_v4, cleaned for paste-back).
-%
-% Covers exactly the span you sent: \section{...} through the post-Theorem-1
-% remark. Your file's continuation ("At $k = 12$ the canonical test pair...")
-% picks up directly after the last paragraph here.
-%
-% MAIN SURGERY -- the \ell re-index (your DAM complaint):
-%   Theorem 1 is now indexed by the MONOMIAL EXPONENT \ell, matching your
-%   new c_S^\ell := [p_f^pm]_{X^{k-2-\ell} Y^\ell}. All the \ell-1 dressing
-%   is gone: sign (-1)^\ell, binomial \binom{k-2}{\ell}, integrand
-%   \tau^\ell, denominator c_S^\ell. Ranges: \ell in {1,...,k-3}, i.e.
-%   s = \ell + 1 in {2,...,k-2}, the interior integer points of the
-%   critical strip. The ONE surviving offset is the kernel argument
-%   \widetilde{k}_T(\tau, \ell+1), which is intrinsic: the kernel's s-slot
-%   is a Mellin s-value, and exponent and s-value genuinely differ by 1.
-%   The alternative (index by s-value) puts \ell-1 back in four places.
-%   NOTE: the body of the paper (Section sec:periods) still uses the old
-%   s-value indexing -- grep it for the \ell conventions when you rework
-%   the proofs, or the restated theorem will mismatch.
-%
-% Other fixes, each flagged inline:
-%   - dangling "...kernel: for each interior \ell..." (the display it
-%     introduced is gone) -- sentence completed.
-%   - second definition was titled [Hurwitz T-kernel] (copy-paste) --
-%     retitled; redundant kernel-hypothesis sentence inside it dropped;
-%     X^{k-2-\ell} vs X^{n-\ell} unified; \ell-range added.
-%   - Theorem 1 reconnected to the definition it now depends on.
-%   - orphan text after the theorem ("the bare Mellin monomial...gives our
-%     first theorem") rehabilitated as a post-theorem remark; the obsolete
-%     "gives our first theorem" clause dropped.
-%   - dead commented-out blocks (old eq:intro-rf etc.) deleted; they
-%     survive in intro_v4.tex if you want them back. eq:intro-rf no longer
-%     exists -- nothing live references it.
-% ============================================================================
  
 \section{Introduction and main results}\label{sec:intro}\label{sec:intro-results}
  
@@ -504,7 +429,7 @@ This functional is independent of $\tau_0 \in \HH$ and of the admissible
 contours $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  Its value depends on
 $\ell$ only through its parity, which selects the extracted coefficient:
 $\omega^+(f)$ for $\ell$ even, and $\omega^-(f)$ for $\ell$
-odd. %CLAUDE: parity statement carried over to the new indexing ((-1)^{\ell_old - 1} = (-1)^{\ell_new}); the +/- to even/odd assignment is still UNVERIFIED against Brown's conventions.
+odd. %CLAUDE: parity VERIFIED against Brown -- verify_periods.py reads omega^- at ell=1 (odd) and omega^+ at ell=2 (even), matching Brown's published omega^pm(Delta) (App.~\ref{sec:numerics}); even->+, odd->- confirmed.
 \end{theorem}
  
 The structure of \eqref{eq:periods-statement} is exactly that of the
@@ -718,10 +643,6 @@ contour endpoints $\{-1/\tau_0, \tau_0\}$ and demanding that the
 resulting incomplete-gamma tail be representable as a $T$-segment
 integral, one derives a shift-difference equation whose solution is the
 Hurwitz-zeta combination of \eqref{eq:tildekT-def}.
-Appendix~\ref{app:eichler-shimura} is a brief Eichler--Shimura primer for
-readers approaching the subject from theoretical physics.  This appendix
-is included for the working-version of this note and is intended to be
-removed before formal publication.
 
 % ============================================================================
 % end of assembled introduction v4
@@ -1203,9 +1124,7 @@ decomposition (\cite{Brown2017,KZ1984}) reads
 \end{equation}
 with the Eisenstein-direction term contributing only to the boundary
 monomials $X^n$, $Y^n$ of $r_f$ (as it is a multiple of the coboundary
-$Y^n|_S - Y^n = X^n - Y^n$; see Appendix~\ref{app:eichler-shimura} for
-the distinction between this Eisenstein-\emph{direction} contribution
-to $r_f$ and the period polynomial of an actual Eisenstein series).  Combined with the integral
+$Y^n|_S - Y^n = X^n - Y^n$).  Combined with the integral
 representation \eqref{eq:rf-coeff-integral} of
 Proposition~\ref{prop:kernels}, this yields
 \begin{equation}\label{eq:periods-derived}
