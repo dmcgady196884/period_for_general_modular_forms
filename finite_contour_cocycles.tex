@@ -26,6 +26,7 @@
 
 \newcommand{\HH}{\mathbb{H}}
 \newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\RR}{\mathbb{R}}
@@ -82,11 +83,70 @@ results were tested to arbitrary (50 digit) precision in our python scripts~\cit
  
 \section{Introduction and main results}\label{sec:intro}\label{sec:intro-results}
  
-In this paper, we introduce a general framework that defines L-functions for
-generic modular forms on the full group $\SLZ$, and extracts their periods for
+\subsection{Modular forms with poles, period polynomials and L-functions}
+
+In this paper, we define L-functions and period polynomials that are attached 
+to meromorphic modular forms which may have finite order poles at finite, non-zero 
+imaginary parts, at infinity (and all $\SLZ$ images of these points). 
+
+To begin, consider a \emph{holomorphic}, integer-weight modular form 
+$f(\tau) \in M_k$ with trivial multiplier system, i.e. 
+\begin{equation}
+f\left(\frac{a\tau + b}{c\tau + d}\right) = (c\tau + d)^k f(\tau)~,~
+k \in 2\ZZ~,~\&~
+\left( \begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right) \in \Gamma := \SLZ,
+\label{modularityEq}
+\end{equation}
+defined on the upper half-plane $\HH$. Because $f(\tau) = f(\tau+1)$, it has 
+a Fourier decomposition, $f(\tau) = \sum_n c_f(n) e^{2 \pi i n \tau}$. These 
+are known as q-series coefficients, where $q := e^{2 \pi i \tau}$. Any such
+function is said to be an element in the finite-dimensional vector space $M_k$. 
+
+As $f \in M_k$ is holomorphic, its q-series coefficients grow at most polynomially 
+with $n$: $|c_f(n)| \lesssim n^{2k}$\cite{01-Apostol}. Taking the Mellin transform 
+of $f$ yields the associated {\em L-function}~\cite{01-Apostol},
+\begin{align}
+L_f(s):= \sum_{n \neq 0} \frac{c_f(n)}{n^s}~.
+\end{align}
+This pairing between modular forms and Dirichlet series, 
+$f(\tau) \leftrightarrow L_f(s)$, is one reason modularity plays an important role 
+in open problems involving Dirichlet series, such as the Riemann hypothesis. 
+Indeed, the L-function of the Jacobi theta function, a weight $1/2$ modular form, 
+is the Riemann zeta function: 
+$\theta(\tau) := \sum_{n \in \ZZ} e^{\pi i n^2 \tau} \leftrightarrow L_{\theta}(s) = 2\zeta(2s)$.
+
+Our focus in this note is onmodular forms on $\Gamma$ of
+even integer weight and trivial multiplier system. Just as $M_k$ is the
+vector space of holomorphic modular forms of weight $k$, $S_k \subset M_k$ 
+denotes the vector space of cusp forms, where $c_f(n) = 0$ whenever $n \leq 0$. 
+Further, we denote $M^!_k$ to be the space of weakly holomorphic forms, i.e. 
+functions satisfying~\eqref{modularityEq}, but where $\exists$ a finite set of integers 
+$s_f \subset -\NN$ where $c_f(n) \neq 0$ for all $n \in s_f$. Similarly, $S_k^!$ denotes 
+the subspace of $M_k^!$ where $c_f(0) = 0$; this space is called the space of weak 
+cusp forms. 
+
+Further, we denote $F_k$ to be \emph{meromorphic modular forms} of weight $k$: 
+the weight-$k$ part of the field of fractions of the graded ring $M_* = \bigoplus_k M_k$, i.e.\
+the quotients $f = f_1/f_2$ with $f_i \in M_{k_i}$, $f_2 \ne 0$, and
+$k = k_1 - k_2$; equivalently, the weight-$k$ functions meromorphic on
+$\HH$ and at the cusp.  Thus $M_k \subset M^!_k \subset F_k$.  Finally,
+$S^!_k \supset S_k$ denotes the \emph{weakly holomorphic cusp forms}:
+those $f = \sum_{n \in \ZZ} c(n)\,q^n \in M^!_k$ with vanishing constant
+term, $c(0) = 0$. %DAM: This paragraph might need tightening.
+We write $E_k = 1 + O(q) \in M_k$ for the unit-normalized
+Eisenstein series, $\Delta := (E_4^3 - E_6^2)/1728 = q + {\cal O}(q^2)
+\in S_{12}$ for the modular discriminant,
+and $j = 1728\,E_4^3/(E_4^3 - E_6^2) = 1/q + {\cal O}(q^0) \in M^!_0$
+for the Hauptmodul of $\SLZ$.
+
+Thus, with basic definitions given, we may now state that the goal of this paper 
+is to introduce a general framework that defines L-functions for
+generic modular forms on the full group $\SLZ$, and to extract their periods for
 the explicit case when the holomorphic cusp forms are one-dimensional, i.e.
-when $\dim(S_k) = 1$. Classically, L-functions and periods are both well-defined
-and well-studied for holomorphic modular forms. However, there is a growing
+when $\dim(S_k) = 1$. This fits into the extant literature as follows:
+
+While L-functions and periods are both well-defined
+and well-studied for holomorphic modular forms, there is a growing
 body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011}
 for weakly holomorphic modular forms. Similarly, there are natural physical
 motivations to consider L-functions for properly meromorphic modular forms,
@@ -105,32 +165,14 @@ concerned itself with L-functions for modular forms which diverge within the
 interior of the fundamental domain. Here, holomorphic dependence on $\tau$
 is paramount, which puts this treatment at odds with the regulator in~\cite{BFK2011}.
  
-In this note, we introduce manifestly finite contour integral functionals to define
-L-functions for generic meromorphic modular forms that are of sufficient generality
+In order to synthesize these partial results into a coherent whole, in this note
+we introduce manifestly finite contour integral functionals to define 
+\emph{L-integrals} for generic meromorphic modular forms that are of sufficient generality
 to handle any combination of poles at cusps and poles within the fundamental domain.
 Our construction is motivated by, and makes precise contact with, work which extracts
 period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are
 manifestly finite throughout, and reproduce all results in the literature, unifying the
 quasi-period results and the L-function extensions within one concrete, natural framework.
- 
-Throughout, $\Gamma = \SLZ$, and we consider modular forms on $\Gamma$ of
-even integer weight and trivial multiplier system.  Write $M_k$ for the
-holomorphic modular forms of weight $k$, $S_k \subset M_k$ for the cusp
-forms, and $M^!_k$ for the weakly holomorphic forms (holomorphic on
-$\HH$, with at most a pole at the cusp).  Write $F_k$ for the
-\emph{meromorphic modular forms} of weight $k$: the weight-$k$ part of
-the field of fractions of the graded ring $M_* = \bigoplus_k M_k$, i.e.\
-the quotients $f = f_1/f_2$ with $f_i \in M_{k_i}$, $f_2 \ne 0$, and
-$k = k_1 - k_2$; equivalently, the weight-$k$ functions meromorphic on
-$\HH$ and at the cusp.  Thus $M_k \subset M^!_k \subset F_k$.  Finally,
-$S^!_k \supset S_k$ denotes the \emph{weakly holomorphic cusp forms}:
-those $f = \sum_{n \in \ZZ} c(n)\,q^n \in M^!_k$ with vanishing constant
-term, $c(0) = 0$. %DAM: This paragraph might need tightening.
-We write $E_k = 1 + O(q) \in M_k$ for the unit-normalized
-Eisenstein series, $\Delta := (E_4^3 - E_6^2)/1728 = q + {\cal O}(q^2)
-\in S_{12}$ for the modular discriminant,
-and $j = 1728\,E_4^3/(E_4^3 - E_6^2) = 1/q + {\cal O}(q^0) \in M^!_0$
-for the Hauptmodul of $\SLZ$.
 
 In a nutshell, this note is the natural extension of bridging the gap between the 
 manifestly finite extraction of quasi-periods of $\Dhat$ in \cite{Brown2017} and the 
@@ -2548,6 +2590,11 @@ polar mode $n = -1$.
 %they probe (e.g. verify_lem_Bernoulli_inv.py, verify_lem_T_piece_equiv.py,
 %verify_thm_bfk_eq_complex_s.py), so each \cite points at one file with one
 %job. Not urgent; do when the script suite next gets touched.
+
+\bibitem{01-Apostol}
+T. M. Apostol, 
+``Modular functions and Dirichlet series in number theory,''
+Graduate Texts in Mathematics, London, Springer (1997).
 
 \bibitem{Brown2019Email}
 F.\ Brown, personal communication to the author, 28 June 2019.  This
