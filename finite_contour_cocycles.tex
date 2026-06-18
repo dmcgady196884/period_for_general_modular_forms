@@ -1192,34 +1192,24 @@ $[r_f]$ at interior monomials), Lemma~\ref{lem:Hurwitz-collapse}
 ($\ell$- and $\tau_0$-independence) in hand, we assemble the proof of
 Theorem~\ref{thm:periods}.  For reference, the theorem statement is:
 
-\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional ($\dim S_k = 1$) -- Theorem~\ref{thm:periods}, restated]\label{thm:periods3}
-Let $k \in 2\ZZ$ with $\dim S_k \le 1$, and let $f \in S_k^!$.  For
-the substantive cases $k \in \{12, 16, 18, 20, 22, 26\}$ where
-$\dim S_k = 1$, the period and quasi-period coefficients
-$\omega^\pm(f)$ are given by the explicit two-segment linear
-functional
+\begin{theorem}[Periods of $f \in S_k^!$ as an explicit linear functional, when $\dim S_k = 1$ -- Theorem~\ref{thm:periods}, restated]\label{thm:periods3}
+Let $k$, $f \in S_k^!$, and $c_S^{\,\ell}$ be as in
+Definition~\ref{def:poly-coeffs-dimSk1}, and let
+$\ell \in \{1, \ldots, k - 3\}$, so that $s = \ell + 1$ ranges over the
+interior integer points $\{2, \ldots, k-2\}$ of the critical strip.
+Then the period coefficients $\omega^\pm(f)$ are given by the
+two-segment linear functional,
 \begin{equation}\label{eq:periods-statement-restated}
-  \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{\ell - 1}\,\binom{k - 2}{\ell - 1}}{c_S^{\,\ell - 1}}\!\left[
-    \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell - 1}\,d\tau
+  \omega^\pm(f) \;=\; \frac{(2\pi i)^{k - 1}\,(-1)^{\ell}\,\binom{k - 2}{\ell}}{c_S^{\,\ell}}\!\left[
+    \int_{\gamma^S_{\tau_0}}\!\! f(\tau)\,\tau^{\ell}\,d\tau
     \;+\;
-    \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell)\,d\tau
-  \right]
+    \int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\widetilde{k}_T(\tau, \ell + 1)\,d\tau
+  \right]~.
 \end{equation}
-for every $f \in S_k^!$, every $\tau_0 \in \HH$, and every interior
-$\ell \in \{2, \ldots, k - 2\}$, with parity $\pm$ determined by
-$\ell - 1 \bmod 2$.  Here
-$c_S^{\,\ell - 1} := [p^\pm_f]_{X^{n - (\ell - 1)} Y^{\ell - 1}} \in \QQ$ is the
-Brown cuspidal-basis coefficient at the matched monomial
-(\cite{Brown2017,KZ1984}), $\widetilde{k}_T(\tau, s)$ is the
-Hurwitz-zeta $T$-kernel of \eqref{eq:tildekT-def}, and its integer-$s = \ell$
-specialisation collapses via $\zeta(-m, a) = -B_{m + 1}(a)/(m + 1)$
-($m \ge 0$) to the $\QQ$-rational polynomial
-\begin{equation}\label{eq:kS-form-restated}
-  \widetilde{k}_T(\tau, \ell) \;=\; -\,\frac{B_\ell(\tau + 1)}{\ell} \;+\; (-1)^{\ell - 1}\,\frac{B_{k - \ell}(\tau + 1)}{k - \ell}
-  \;\in\; \QQ[\tau]
-\end{equation}
-of degree at most $k - 2$.  The right side of
-\eqref{eq:periods-statement-restated} is independent of $\tau_0 \in \HH$.
+This functional is independent of $\tau_0 \in \HH$ and of the admissible
+contours $\gamma^S_{\tau_0}, \gamma^T_{\tau_0}$.  Its value depends on
+$\ell$ only through its parity, which selects the extracted coefficient:
+$\omega^+(f)$ for $\ell$ even, and $\omega^-(f)$ for $\ell$ odd.
 \end{theorem}
 
 % --- Outer proof of Theorem 1.1: assembles Steps 1-8 ---
@@ -1353,7 +1343,6 @@ meromorphic $f$, in preparation for Section~\ref{sec:wall-crossing};
 Theorem~\ref{thm:bfk-eq} is their specialisation to $f \in M^!_k$,
 where no interior pole obstructs the contour pair.
 
-\paragraph{Why a Hurwitz-zeta kernel.}
 The kernel \eqref{eq:tildekT-def} is the all-$s$ continuation of the
 integer-$s$ inversion of Section~\ref{sec:periods}.  There, killing the
 $T$-cocycle meant solving the shift-difference equation
@@ -1608,26 +1597,19 @@ holomorphic modular forms~\cite{BFK2011}.
 \end{theorem}
 
 \begin{proof}[Proof of Theorem~\ref{thm:bfk-eq}, aka Theorem~\ref{thm:bfk-eq2}.]
-The proof runs in seven steps: well-definedness (Steps 1--2), the
-collapse at $\tau_0 = i$ (Step 3), the per-mode evaluation
-(Steps 4--6), and the identification (Step 7).
-
-\paragraph{Step 1: finiteness.}
 For $f \in M^!_k$ one has $\HH_f = \HH$, so every $\tau_0 \in \HH$
 gives an admissible contour pair and both integrals in
 \eqref{eq:Lambda-DR-general} are finite for every
-$s \in \CC$ by Lemma~\ref{lem:Lstar-finite}.
-
-\paragraph{Step 2: $\tau_0$- and contour-independence.}
-By Lemma~\ref{lem:Lstar-local-constancy}, specialised to the
+$s \in \CC$ by Lemma~\ref{lem:Lstar-finite}.  By
+Lemma~\ref{lem:Lstar-local-constancy}, specialised to the
 simply-connected $\HH_f = \HH$ of a weak form,
 $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ is independent of
 $\tau_0$ and of the admissible contour pair.  This establishes the
 well-definedness assertion of \eqref{eq:Lambda-DR-general}
 and licenses writing $L^*(f, s)$ for the common value.
 
-\paragraph{Step 3: collapse at $\tau_0 = i$.}
-At the elliptic fixed point $\tau_0 = i$ the $S$-segment endpoints
+We evaluate it at the elliptic fixed point $\tau_0 = i$, where the
+$S$-segment endpoints
 coincide, $-1/i = i$, so $\gamma^S_i$ has zero length and the
 $S$-integral in \eqref{eq:Lambda-DR-general} vanishes.  By
 Step 2 the value is unchanged, leaving
@@ -1636,7 +1618,6 @@ Step 2 the value is unchanged, leaving
   \;=\; i^{-s}\!\int_{i - 1}^{i}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau.
 \end{equation}
 
-\paragraph{Step 4: per-mode expansion.}
 Expanding $f = \sum_n c_f(n)\,q^n$ in \eqref{eq:tau0-i-collapse} and
 swapping sum and integral --- justified by uniform convergence of the
 $q$-series on the compact segment $[i - 1, i]$, including the finitely
@@ -1648,18 +1629,15 @@ gives
   \widetilde{k}_T(\tau, s)\,d\tau.
 \end{equation}
 
-\paragraph{Step 5: the constant mode.}
-For $n = 0$, Lemma~\ref{lem:const-mode} and the phase collapse
+The modes now evaluate in closed form.  For $n = 0$, Lemma~\ref{lem:const-mode} and the phase collapse
 $i^{-s}\,e^{i\pi(s-1)}\,i^{k-s} = -i^k$ give the contribution
 \begin{equation}\label{eq:const-term}
   c_f(0)\cdot i^{-s}\!\int_{i - 1}^{i}\!\widetilde{k}_T(\tau, s)\,d\tau
   \;=\; -c_f(0)\!\left(\frac{1}{s} + \frac{i^k}{k - s}\right),
 \end{equation}
 the polar term of \cite[Lemma~2.1]{1806} (equivalently the polar piece
-of \cite[Thm.~1.1]{BFK2011}) at the splitting point $B = 1$.
-
-\paragraph{Step 6: the non-constant modes.}
-For $n \ne 0$, substituting $\sigma = \tau + 1$ shifts the contour to
+of \cite[Thm.~1.1]{BFK2011}) at the splitting point $B = 1$.  For
+$n \ne 0$, substituting $\sigma = \tau + 1$ shifts the contour to
 $[i, i + 1]$ with prefactor $e^{-2\pi i n} = 1$, and
 Proposition~\ref{prop:hurwitz-unfold} applied to the two halves of
 $\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$
@@ -1686,10 +1664,7 @@ summand is
 the $B = 1$ value of the cuspidal summand of \cite[Lemma~2.1]{1806}.
 Summing \eqref{eq:const-term} and \eqref{eq:nonconst-term} over all
 Fourier modes in \eqref{eq:per-mode-tau0-i} reproduces the closed-form
-sum \eqref{eq:bfk-eq-statement-restated}.
-
-\paragraph{Step 7: identification.}
-The right side of \eqref{eq:bfk-eq-statement-restated} is the completed
+sum \eqref{eq:bfk-eq-statement-restated}, whose right side is the completed
 $L$-function $L^*(f, s)$: for holomorphic $f$ it is the classical
 Hecke--Weil Mellin transform, and for weak $f$ it is the
 incomplete-gamma sum of \cite{BFK2011}, here obtained at every
@@ -1725,8 +1700,8 @@ The $s \leftrightarrow 12 - s$ symmetry follows from the
 $s \leftrightarrow k - s$ structure of the two-term kernel (with
 $i^k = +1$ at $k = 12$).
 
-\paragraph{Identification with Theorem~\ref{thm:periods}.}
-With the clean form of Theorem~\ref{thm:periods}, the $T$-segment
+The two theorems are two readings of one object.  With the clean form of
+Theorem~\ref{thm:periods}, the $T$-segment
 kernel of \eqref{eq:periods-statement} is exactly the integer-$s = \ell$
 specialisation $\widetilde{k}_T(\tau, \ell)$ of the Hurwitz-zeta kernel
 of \eqref{eq:tildekT-def}, with no convention conversion required:
@@ -1740,8 +1715,8 @@ Hurwitz $\widetilde{k}_T(\tau, s)$ kernels mapped to their integer-$s = \ell$
 specialisations and the analytic prefactor $i^{-s}$ replaced by the
 combinatorial Brown-basis factor.
 
-\paragraph{Numerical values.}
-The companion \texttt{mpmath} scripts \cite{VerifyScripts}, run at
+Both readings are borne out numerically.  The companion \texttt{mpmath}
+scripts \cite{VerifyScripts}, run at
 $50$-digit precision with $f \in \{\Delta, \Dhat\}$, reproduce the
 periods $\omega^\pm(\Delta)$ and quasi-periods $\eta^\pm(\Dhat)$ of
 \cite{Brown2017} listed in Table~\ref{tab:k12-periods}, to relative
@@ -1749,7 +1724,6 @@ residual $\lesssim 10^{-40}$, the same for every interior
 $\ell \in \{2, \ldots, 10\}$ and every basepoint
 $\tau_0 \in \{0.3 + 1.2 i,\; i,\; 1.5 i,\; -0.4 + 0.8 i\}$.
 
-\paragraph{Complex-$s$ verification.}
 Beyond the integer-$\ell$ period extraction, the all-$s$ functional
 \eqref{eq:Lambda-DR-general} was checked directly against the canonical
 completed $L$-function $L^*(\Delta, s)$ of Theorem~\ref{thm:bfk-eq} at
