@@ -10,6 +10,8 @@ Calibration = `previous_paper_examples_for_style/{20190115lfn,mfdhp_s2}.tex` (DA
 - Retitle + `git mv` → `finite_contour_cocycles.{tex,pdf}`.
 - **Bernoulli nuked from the intro** (3 spots → Hurwitz-primary).
 - **Bernoulli de-named across §3–§4** (0f6f635): titles renamed after what they do; machinery (`\widehat{k}_T`, `lem:T-piece-equiv`) KEPT per DAM ("had to be there for the generalization"); Bernoulli now only where it computes. → item 4 DONE.
+- **De-paragraph §§2–4 + appendix** (f541601, e4ac3da, 46fe7b0, a825187): all 28 body+proof `\paragraph` headers dissolved into flowing prose (§2 narrative; §3 + §4 + App proofs flowed from `Step N` staccato; H^1 now displayed `eq:H1-def`). Only §5's 2 `\paragraph{Remark}` remain (deferred). → item 1 DONE (ex-§5).
+- **Thm 3.9 (`thm:periods3`) realigned to Thm 1.4** (46fe7b0): ℓ-indexing, bloat/unref'd display removed. Overhang scan: bfk pair aligned; §5 restatements deferred.
 
 ## Holistic agenda (DAM's directives + found issues)
 
