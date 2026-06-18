@@ -45,6 +45,11 @@ look at DLMF."
   weakly-holomorphic case ($\hat\Delta$) the naive matching *fails* — i.e.
   this looks like the point right before the fix.
 
+**ACTION NEEDED: open in browser and read manually.**
+`https://claude.ai/chat/74dee996-f9a6-4262-b7a4-1bca50e52d8f`
+Claude Code cannot access claude.ai web chats; this one was never verified
+beyond the original snippet. The following is the case for why it matters:
+
 **Why 2a is probably the missing episode.** Commit `c30552f` (2026-05-18
 12:00 UTC) is the first commit containing the entire-in-$s$ Hurwitz extension
 (commit message: "generalize DR-B period polynomial extraction from special
