@@ -275,15 +275,18 @@ $P = (2\pi i)^{n+1}\bigl(F(\tau_0)-F(\tau_0')\bigr)$ --- the same $P$ for
 every $\gamma$, which is what lets a quotient remember anything at all.
 
 Degree-one group cohomology is the standard bookkeeping for exactly this,
-and three definitions suffice.  A \emph{$1$-cocycle} is a function
-$c\colon \Gamma \to V_n$ with $c_{gh} = c_g|_h + c_h$, and
-$\gamma \mapsto C^f_\gamma(\tau_0)$ is one for each fixed $\tau_0$
-(Lemma~\ref{lem:cocycle}).  A \emph{$1$-coboundary} is the special cocycle
-$\delta P\colon \gamma \mapsto P|_\gamma - P$ from a polynomial
-$P \in V_n$ --- precisely the re-anchoring shift above.  The
-\emph{cohomology class}
-$[C^f] \in H^1(\Gamma; V_n) := \{\text{cocycles}\}/\{\text{coboundaries}\}$
-is what survives forgetting the anchor: it no longer remembers $\tau_0$,
+and three definitions suffice.  The \emph{$1$-cocycles} are the functions
+$c\colon \Gamma \to V_n$ with $c_{gh} = c_g|_h + c_h$; they form a vector
+space $Z^1(\Gamma; V_n)$, and $\gamma \mapsto C^f_\gamma(\tau_0)$ is one for
+each fixed $\tau_0$ (Lemma~\ref{lem:cocycle}).  The \emph{$1$-coboundaries}
+are the special cocycles $\delta P\colon \gamma \mapsto P|_\gamma - P$ built
+from a polynomial $P \in V_n$ --- precisely the re-anchoring shifts above
+--- and they form the subspace $B^1(\Gamma; V_n) \subseteq Z^1(\Gamma; V_n)$.
+The \emph{cohomology class} $[C^f]$ then lives in the quotient
+\begin{equation}\label{eq:H1-def}
+  H^1(\Gamma; V_n) \;:=\; Z^1(\Gamma; V_n)\,\big/\,B^1(\Gamma; V_n),
+\end{equation}
+what survives forgetting the anchor: $[C^f]$ no longer remembers $\tau_0$,
 and a \emph{representative} of it is any single cocycle $C^f - \delta P$.
 This is half the journey from $C^f_\gamma(\tau_0)$ to $r_f$ --- forget the
 basepoint by passing to the class.  The other half --- pinning one
@@ -1221,90 +1224,62 @@ of degree at most $k - 2$.  The right side of
 
 % --- Outer proof of Theorem 1.1: assembles Steps 1-8 ---
 \begin{proof}[Proof of Theorem~\ref{thm:periods}, aka Theorem~\ref{thm:periods3}.]
-The proof proceeds in seven steps.  Steps 1--3 motivate the operator
-$\delta_T$ as the natural object whose inversion delivers the cuspidal
-cocycle representative.  Step 4 (Lemma~\ref{lem:Bernoulli-inv})
-performs the inversion in closed form.  Steps 5--7 read $\omega^\pm(f)$
-off the resulting period polynomial.
-
-\paragraph{Step 1: the canonical cuspidal representative has $C^f_T = 0$.}
 Within the cohomology class $[C^f] \in H^1(\Gamma; V_n)$, consider the
-representative with vanishing $T$-component.  When $C_T = 0$, the
-cocycle relations $C_{S^2} = 0$ and $C_{(ST)^3} = 0$ collapse onto
-$C_S$ alone, and the surviving relations on $C_S$ are exactly the two
-Eichler--Shimura period-polynomial relations $r_f|(1 + S) = 0$ and
-$r_f|(1 + U + U^2) = 0$ with $U = TS$.  The $C_T = 0$ representative
-therefore has its $S$-value in the Eichler--Shimura period-polynomial
-space, where Brown's basis $\{p^+_f,\, p^-_f,\, \text{Eisenstein}\}$
-is defined and the cuspidal coordinates are $\omega^\pm(f)$.  The
-proof below kills $C^f_T$ by a coboundary modification.
+representative with vanishing $T$-component.  When $C_T = 0$ the cocycle
+relations $C_{S^2} = 0$ and $C_{(ST)^3} = 0$ collapse onto $C_S$ alone,
+and the surviving relations on $C_S$ are exactly the two Eichler--Shimura
+period-polynomial relations $r_f|(1 + S) = 0$ and $r_f|(1 + U + U^2) = 0$
+with $U = TS$.  This representative therefore has its $S$-value in the
+period-polynomial space, where Brown's basis
+$\{p^+_f,\, p^-_f,\, \text{Eisenstein}\}$ is defined and the cuspidal
+coordinates are $\omega^\pm(f)$; the task is to reach it explicitly.
 
-\paragraph{Step 2: kill $C^f_T$ by a coboundary modification.}
-The only freedom inside the cohomology class is to add a coboundary
-$\delta P(\gamma) := P|_\gamma - P$ for some $P \in V_n$.  Under this
-modification, $C^f_T(\tau_0) \mapsto C^f_T(\tau_0) - (P|_T - P)$.
-Killing $C^f_T$ becomes the equation
+The only freedom inside the class is to add a coboundary
+$\delta P(\gamma) := P|_\gamma - P$ for some $P \in V_n$, under which
+$C^f_T(\tau_0) \mapsto C^f_T(\tau_0) - (P|_T - P)$, so killing $C^f_T$
+becomes the equation
 \begin{equation}\label{eq:delta-T-equation}
   \delta_T P \;:=\; P|_T - P \;=\; C^f_T(\tau_0),
 \end{equation}
-to be solved for $P \in V_n$.  This identifies the linear endomorphism
+to be solved for $P \in V_n$.  This singles out the linear endomorphism
 $\delta_T \colon V_n \to V_n$ of Lemma~\ref{lem:solvability-cuspidality}
-as the precise object whose inversion delivers the desired coboundary
-representative.
+as the object whose inversion delivers the representative.  That lemma
+computes $[C^f_T(\tau_0)]_{X^n} = (2\pi i)^{n+1} c_f(0)$ and identifies
+$\operatorname{im}(\delta_T) = \{Q \in V_n : [Q]_{X^n} = 0\}$, so
+\eqref{eq:delta-T-equation} is solvable precisely when $c_f(0) = 0$ ---
+that is, when $f$ is a (weak) cusp form.  Cuspidality is thus not a
+separate input but the solvability condition of the coboundary equation
+itself.
 
-\paragraph{Step 3: solvability of $\delta_T P = C^f_T$ is exactly cuspidality of $f$.}
-Lemma~\ref{lem:solvability-cuspidality} computes $[C^f_T(\tau_0)]_{X^n}
-= (2\pi i)^{n+1} c_f(0)$ and shows that $\operatorname{im}(\delta_T) = \{Q
-\in V_n : [Q]_{X^n} = 0\}$.  Solvability of \eqref{eq:delta-T-equation}
-is therefore equivalent to $c_f(0) = 0$, i.e.\ to $f$ being a (weak)
-cusp form.  The cuspidality hypothesis $f \in S^!_k$ is not a separate
-input to the construction: it 
-is the solvability condition of the
-coboundary equation in Step 2.
-
-\paragraph{Step 4: closed-form inversion of $\delta_T$.}
-Lemma~\ref{lem:Bernoulli-inv} inverts $\delta_T$ in closed form, giving
-the coboundary representative
+When it is met, Lemma~\ref{lem:Bernoulli-inv} inverts $\delta_T$ in closed
+form, giving the representative
 $P = \delta_T^{-1}\bigl((2\pi i)^{-(n+1)} C^f_T(\tau_0)\bigr) \in V_n/\CC Y^n$.
-
-\paragraph{Step 5: the modified cocycle and its $S$-component $r_f$.}
-With $P := \delta_T^{-1}\bigl((2\pi i)^{-(n + 1)} C^f_T(\tau_0)\bigr) \in
-V_n/\CC Y^n$ from Step 4, the modified cocycle
-$C'^f := C^f - (2\pi i)^{n + 1}\delta P$ has $C'^f_T = 0$ by construction,
-and its $S$-value
-$r_f := C'^f_S(\tau_0) = C^f_S(\tau_0) - (2\pi i)^{n + 1}(P|_S - P)$
-of \eqref{eq:rf-def} is
-the Eichler--Shimura period polynomial of $f$.  By the
-Eichler--Shimura / Brown cuspidal-basis decomposition
-\eqref{eq:Brown-decomp-statement} of Lemma~\ref{lem:brown-decomp},
-$\omega^\pm(f)$ are the explicit linear coordinates of $r_f$ along
+The modified cocycle $C'^f := C^f - (2\pi i)^{n + 1}\delta P$ then has
+$C'^f_T = 0$ by construction, and its $S$-value
+$r_f := C'^f_S(\tau_0) = C^f_S(\tau_0) - (2\pi i)^{n + 1}(P|_S - P)$ of
+\eqref{eq:rf-def} is the Eichler--Shimura period polynomial of $f$; by the
+cuspidal-basis decomposition \eqref{eq:Brown-decomp-statement} of
+Lemma~\ref{lem:brown-decomp}, $\omega^\pm(f)$ are its coordinates along
 $p^\pm_f$ in the $1$-dimensional cuspidal direction.
 
-\paragraph{Step 6: unpacking $r_f$ into bare Mellin and Hurwitz integrals.}
-Substituting the moment expansion of $C^f_S(\tau_0)$ from
-\eqref{eq:CS-CT-def} and the closed-form expression for $P$ from Step 4
-into \eqref{eq:rf-def}, and reading off the coefficient of $X^{n - (\ell - 1)}
-Y^{\ell - 1}$ for each interior $\ell \in \{2, \ldots, k - 2\}$,
-Proposition~\ref{prop:kernels} produces the integral representation
-\eqref{eq:rf-coeff-integral} of $[r_f]_{X^{n - (\ell - 1)} Y^{\ell - 1}}$
-with the bare Mellin kernel $\tau^{\ell - 1}$ on the $S$-segment and the
-bare Hurwitz kernel $\widetilde{k}_T(\tau, \ell)$ on the $T$-segment.
-Lemma~\ref{lem:Hurwitz-collapse} (the integer-$s$ collapse of
-$\widetilde{k}_T$) exhibits the $T$-kernel as a $\QQ$-rational
-polynomial of degree $\le k - 2$.  Lemma~\ref{lem:brown-decomp}
-(Brown-basis extraction) then divides through by $c_S^{\,\ell - 1}$ to
-give \eqref{eq:periods-statement}.%, with all combinatorial structure
-%$\bigl((2\pi i)^{k - 1},\,(-1)^{\ell - 1},\,\binom{k - 2}{\ell - 1}\bigr)$
-%and the Brown basis-coefficient $c_S^{\,\ell - 1}$ sitting in the
-%prefactor outside the bracket.
-
-\paragraph{Step 7: $\ell$- and $\tau_0$-independence.}
-Corollary~\ref{cor:tau0-ell-indep} supplies both: $r_f$ is a single
-polynomial in the $1$-dimensional cuspidal direction, so every interior
-monomial returns the same $\omega^\pm(f)$ (parity-selected by $\ell$),
-while $\tau_0$-invariance follows from $[C^f]$ being a cohomology-class
-invariant (the residual $\CC Y^n$ ambiguity touching only the
-Eisenstein direction).
+It remains to make those coordinates explicit.  Substituting the moment
+expansion of $C^f_S(\tau_0)$ from \eqref{eq:CS-CT-def} and the closed-form
+$P$ into \eqref{eq:rf-def}, and reading off the coefficient of
+$X^{n - (\ell - 1)} Y^{\ell - 1}$ for each interior
+$\ell \in \{2, \ldots, k - 2\}$, Proposition~\ref{prop:kernels} produces
+the integral representation \eqref{eq:rf-coeff-integral} of
+$[r_f]_{X^{n - (\ell - 1)} Y^{\ell - 1}}$, with the bare Mellin kernel
+$\tau^{\ell - 1}$ on the $S$-segment and the Hurwitz kernel
+$\widetilde{k}_T(\tau, \ell)$ on the $T$-segment; Lemma~\ref{lem:Hurwitz-collapse}
+exhibits the latter as a $\QQ$-rational polynomial of degree $\le k - 2$,
+and dividing through by $c_S^{\,\ell - 1}$ (Lemma~\ref{lem:brown-decomp})
+gives \eqref{eq:periods-statement}.  Finally,
+Corollary~\ref{cor:tau0-ell-indep} supplies the independence claims:
+$r_f$ is a single polynomial in the $1$-dimensional cuspidal direction, so
+every interior monomial returns the same $\omega^\pm(f)$ (parity-selected
+by $\ell$), while $\tau_0$-invariance follows from $[C^f]$ being a
+cohomology-class invariant, the residual $\CC Y^n$ ambiguity touching only
+the Eisenstein direction.
 
 \end{proof}
 
