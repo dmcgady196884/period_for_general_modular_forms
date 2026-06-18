@@ -2396,7 +2396,6 @@ integral.  Both derivations produce the same shift-difference equation
 and the same kernel; this appendix makes the algebraic provenance of
 the Hurwitz-zeta combination manifest.
 
-\paragraph{Step 1: Mellin split at the contour endpoints.}
 Let $f \in S_k$ with $k$ even.  The classical completed $L$-function
 $L^*(f, s) = (2\pi)^{-s}\Gamma(s) L(f, s)$ has integral representation
 \begin{equation}
@@ -2431,8 +2430,7 @@ $i^{-s}\int_{-1/\tau_0}^{\tau_0}$ explicitly; the remaining
 incomplete-gamma sum plays the role that we want to be a $T$-segment
 integral.
 
-\paragraph{Step 2: ansatz for the $T$-segment kernel.}
-Postulate that there exists a kernel $\widetilde{k}_T(\tau, s)$,
+We postulate a kernel $\widetilde{k}_T(\tau, s)$,
 analytic in $\tau \in \HH$ and meromorphic in $s \in \CC$, such that
 \begin{equation}\label{eq:appB-ansatz}
   i^{-s}\!\int_{\tau_0-1}^{\tau_0}\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
@@ -2447,8 +2445,7 @@ $L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = i^{-s}[\int_{\gamma^S_{\tau_0
 \int_{\gamma^T_{\tau_0}}]$ as a $\tau_0$-independent expression equal to
 $L^*(f, s)$.
 
-\paragraph{Step 3: $\tau_0$-derivative gives a shift-difference equation.}
-Differentiate both sides of \eqref{eq:appB-ansatz} in $\tau_0$.  On the
+To pin the kernel, differentiate both sides of \eqref{eq:appB-ansatz} in $\tau_0$.  On the
 left, the only $\tau_0$-dependence is in the integration limits, so
 $d/d\tau_0$ acts as
 \begin{equation}
@@ -2475,8 +2472,8 @@ together with the modularity Jacobian $\tau_0^k$.  Equation
 one in $\tau$, with a sum of two power-of-$\tau$ terms on the right
 side.
 
-\paragraph{Step 4: Hurwitz raising solves the shift-difference equation.}
-The Hurwitz zeta function $\zeta(\sigma, a)$ satisfies the raising
+The shift-difference equation is solved by Hurwitz raising: the Hurwitz
+zeta function $\zeta(\sigma, a)$ satisfies the raising
 identity
 \begin{equation}\label{eq:appB-hurwitz-raising}
   \zeta(\sigma, a + 1) \;-\; \zeta(\sigma, a) \;=\; -\,a^{-\sigma}
@@ -2506,8 +2503,8 @@ removable cancellations (see Proposition~\ref{prop:hurwitz-unfold}).
 Equation \eqref{eq:appB-kT-final} is the kernel
 \eqref{eq:tildekT-def} of the main text.
 
-\paragraph{Where DR2022 stops.}
-The kernel \eqref{eq:appB-kT-final} has two Hurwitz-zeta terms.  The
+It is instructive to see where the related construction of \cite{DR2022}
+stops.  The kernel \eqref{eq:appB-kT-final} has two Hurwitz-zeta terms.  The
 construction of \cite[Thm.~1.2]{DR2022} gives the single-term
 \begin{equation}
   \widetilde{k}_T^{\,\rm DR}(\tau, m)
