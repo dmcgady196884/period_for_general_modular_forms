@@ -1715,27 +1715,14 @@ Hurwitz $\widetilde{k}_T(\tau, s)$ kernels mapped to their integer-$s = \ell$
 specialisations and the analytic prefactor $i^{-s}$ replaced by the
 combinatorial Brown-basis factor.
 
-Both readings are borne out numerically.  The companion \texttt{mpmath}
-scripts \cite{VerifyScripts}, run at
-$50$-digit precision with $f \in \{\Delta, \Dhat\}$, reproduce the
-periods $\omega^\pm(\Delta)$ and quasi-periods $\eta^\pm(\Dhat)$ of
-\cite{Brown2017} listed in Table~\ref{tab:k12-periods}, to relative
-residual $\lesssim 10^{-40}$, the same for every interior
-$\ell \in \{2, \ldots, 10\}$ and every basepoint
-$\tau_0 \in \{0.3 + 1.2 i,\; i,\; 1.5 i,\; -0.4 + 0.8 i\}$.
-
-Beyond the integer-$\ell$ period extraction, the all-$s$ functional
-\eqref{eq:Lambda-DR-general} was checked directly against the canonical
-completed $L$-function $L^*(\Delta, s)$ of Theorem~\ref{thm:bfk-eq} at
-non-integer $s$ \cite{VerifyScripts}.  At half-integer points
-$s \in \{1.5, 2.5, \ldots, 6.5\}$, off-axis complex points
-$s \in \{2.7 + 0.4i,\; 5 + i,\; 5.5 + 2.5i\}$, and points outside the
-critical strip $s \in \{0.5,\, -0.3\}$, the finite-contour value agrees
-with $L^*(\Delta, s)$ to relative residual $\sim 10^{-53}$ at $50$-digit
-precision, and is independent of $\tau_0 \in \{0.3 + 1.2i,\; 1.5i,\;
--0.4 + 0.8i,\; 0.2 + 2i\}$ at the same level.  The corresponding check
-for $\Dhat$ holds to $\sim 10^{-47}$, the loss of digits reflecting the
-$q^{-1}$ cusp mode.
+Both readings are borne out numerically: the companion \texttt{mpmath}
+scripts \cite{VerifyScripts} reproduce Brown's periods
+$\omega^\pm(\Delta)$ and quasi-periods $\eta^\pm(\Dhat)$ of
+Table~\ref{tab:k12-periods}, basepoint-independently and identically at
+every interior $\ell$ (Appendix~\ref{sec:numerics}).  The all-$s$
+functional \eqref{eq:Lambda-DR-general} likewise agrees with the completed
+$L^*(\Delta, s)$ of Theorem~\ref{thm:bfk-eq} across non-integer, off-axis,
+and out-of-strip $s$, and for $\Dhat$, at the same precision.
 
 \subsection{Classical Mellin recovery and canonical uniqueness.}\label{sec:Connection-w-previous-weak-MF-l-functions}
 For $f \in S_k$ a holomorphic cusp form, taking the cusp-limit
