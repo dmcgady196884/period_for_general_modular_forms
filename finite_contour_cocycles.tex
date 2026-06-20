@@ -120,13 +120,16 @@ where we have written $L_{\rm classical}^*(f,s)$ in the stead of the more common
 $L^*(f,s)$, which is the L-integral $f$ for the classical case where $f$ has no poles 
 within $\HH$ and is polynomially bounded at the cusp of $\SLZ$. 
 
-Loosely speaking, whenever some sufficiently ``nice''\footnote{The aim of this note is to state 
-precisely what this term ``nice'' means.} 
-\emph{L-integral} $L^*(f,s)$ of $f$ exits, i.e. whenever an integral transform of the modular form $f$ of the schematic form
-\begin{align}
-L^*(f,s) = i \int_\gamma f(\tau) (\tau/i)^{s-1} d\tau
-\end{align}
-exists and is well-defined, modularity of $f$ then implies $L^*(f, s) = i^k L^*(f, k-s)$.
+%Loosely speaking, whenever some sufficiently ``nice''\footnote{The aim of this note is to state 
+%precisely what this term ``nice'' means.} 
+%\emph{L-integral} $L^*(f,s)$ of $f$ exits, i.e. whenever an integral transform of the modular 
+%form $f$ of the schematic form
+%\begin{align}
+%L^*(f,s) = \sum_{\alpha} \int_{\gamma(\alpha)} f(\tau) {\rm ker}_\alpha(f, s) d\tau~,
+%\end{align}
+%where $\sum_\alpha$ is a possible sum over contours $\int_{\gamma(\alpha)}$ and ${\rm ker}_\alpha(f, s)$ is some 
+%finite kernel that acts naturally under $s \leftrightarrow k-s$, exists and is well-defined, 
+%modularity of $f$ then implies $L^*(f, s) = i^k L^*(f, k-s)$.
 
 %This pairing between modular forms and Dirichlet series, 
 %$f(\tau) \leftrightarrow L(f, s)$, is one reason modularity plays an important role 
@@ -138,7 +141,7 @@ exists and is well-defined, modularity of $f$ then implies $L^*(f, s) = i^k L^*(
 In a similar direction, when $f \mapsto L^*(f, s)$ is defined, we may assign a 
 \emph{period polynomial} to $f$~\cite{ZagierPeriods1991},
 \begin{align}
-f \mapsto r_f(X, Y) = -\sum_{\ell=0}^{k-2} {k-2\choose \ell}\frac{L^*(f,\ell)}{(2\pi i)^{k-1}} X^{k-2-\ell} Y^{\ell} \in V_{k-2} := \CC[X, Y]_{k-2}~.
+f \mapsto r_f(X, Y) =~ -\sum_{\ell=0}^{k-2} {k-2\choose \ell}\frac{L^*(f,\ell)}{(2\pi i)^{k-1}} X^{k-2-\ell} Y^{\ell} ~= ~~\sum_{\ell = 0}^{k-2} p_\ell~ X^\ell Y^{k-2-\ell}~.
 \end{align}
 In a sense, the goal of this note is to establish a definition of $L^*(f,s)$ which 
 is robust enough to encapsulate a modular form $f$ that depends holomorphically 
@@ -156,15 +159,23 @@ manifestly regulator-dependent derivation of effective L-functions for weak cusp
 in \cite{BFK2011}. By leveraging the construction underlying the computation in \cite{Brown2017}, 
 we uncover a unified, manifestly finite formalism to define L-functions, and extract L-values 
 which define period polynomials, for truly generic meromorphic modular forms. 
+Our main approach mimics that outlined in~\cite{Brown2017}: By constructing period 
+polynomials as finite-contour cocycles, we ensure all quantities are manifestly finite and 
+free of any need to regularize. This framework reproduces the classical period polynomials 
+in e.g.~\cite{01-Apostol}, the quasi-periods in~\cite{Brown2017}, and naturally defines L-functions 
+in~\cite{BFK2011} and~\cite{1806}. We provide numerics supporting our results in~\cite{VerifyScripts}.
 
 {\bf Spaces of modular forms:}
 Our focus in this note is on modular forms on $\Gamma = \SLZ$ of
 even integer weight and trivial multiplier system. Just as $M_k$ is the
 vector space of holomorphic modular forms of weight $k$, $S_k \subset M_k$ 
 denotes the vector space of cusp forms, where $c_f(n) = 0$ whenever $n \leq 0$. 
-Further, we denote $M^!_k$ to be the space of weakly holomorphic forms, i.e. 
-functions satisfying~\eqref{modularityEq}, but where $\exists$ a finite set of integers 
-$s_f \subset -\NN$ where $c_f(n) \neq 0$ for all $n \in s_f$. Similarly, $S_k^!$ denotes 
+Further, we denote $M^!_k$ to be the space of functions satisfying~\eqref{modularityEq}, 
+but which may have poles of finite order at the cusp of $\SLZ$, i.e. there is an integer $N$ 
+such that $c_f(n) = 0$ for all $n < -N$. Similarly, $S_k^!$ denotes 
+%Further, we denote $M^!_k$ to be the space of weakly holomorphic forms, i.e. 
+%functions satisfying~\eqref{modularityEq}, but where $\exists$ a finite set of integers 
+%$s_f \subset -\NN$ where $c_f(n) \neq 0$ for all $n \in s_f$. Similarly, $S_k^!$ denotes 
 the subspace of $M_k^!$ where $c_f(0) = 0$; this space is called the space of weak 
 cusp forms. 
 
@@ -172,8 +183,11 @@ Further, we denote $F_k$ to be \emph{meromorphic modular forms} of weight $k$:
 the weight-$k$ part of the field of fractions of the graded ring $M_* = \bigoplus_k M_k$, i.e.\
 the quotients $f = f_1/f_2$ with $f_i \in M_{k_i}$, $f_2 \ne 0$, and
 $k = k_1 - k_2$; equivalently, the weight-$k$ functions meromorphic on
-$\HH$ and at the cusp.  Thus $M_k \subset M^!_k \subset F_k$.  
+$\HH$ and at the cusp. Such functions may have poles within the interior of the fundamental 
+domain, ${\cal F} := \HH/\SLZ$, or at the cusp of $\SLZ$. It follows that  
+$M_k \subset M^!_k \subset F_k$.  
 
+{\bf Notation for specific modular forms:} 
 We write $E_k = 1 + O(q) \in M_k$ for the unit-normalized
 Eisenstein series, $\Delta := (E_4^3 - E_6^2)/1728 = q + {\cal O}(q^2)
 \in S_{12}$ for the modular discriminant,
@@ -216,10 +230,16 @@ for the Hauptmodul of $\SLZ$.
 %manifestly finite throughout, and reproduce all results in the literature, unifying the
 %quasi-period results and the L-function extensions within one concrete, natural framework.
 
+%~
+
+%~
+
 \subsection{Manifestly finite extractions of period polynomials for weak cusp forms}
 
 %DAM: I want to restructure the intro. We just refer to the existence of cocycles, and state the definitions and results, with connective tissue referring to the concept  of cocycles. We then push the cocyclical introductory discussion to the relevant sections of the paper.
-
+%Silly 
+%\subsection{Manifestly finite extractions of period polynomials for weak cusp forms}
+\pagebreak
 %BS-line beginning
 
 A crucial aspect to our story is the classically defined period polynomial associated to 
