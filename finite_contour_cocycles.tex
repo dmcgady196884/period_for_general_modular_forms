@@ -83,7 +83,7 @@ results were tested to arbitrary (50 digit) precision in our python scripts~\cit
  
 \section{Introduction and main results}\label{sec:intro}\label{sec:intro-results}
  
-\subsection{Modular forms with poles, period polynomials and L-functions}
+\subsection{Modular forms with poles, L-functions, and period polynomials}
 
 In this paper, we define L-functions and period polynomials that are attached 
 to meromorphic modular forms which may have finite order poles at finite, non-zero 
@@ -114,17 +114,51 @@ series naturally arise from the Mellin transform of $f$. Thus, when $f$ has poly
 bounded q-series coefficients, its associated {\em L-function} can be \emph{defined} 
 via this Mellin-transform:
 \begin{align}
-L(f, s) := i \frac{(2\pi)^s}{\Gamma(s)} L^*(f, s) ~,~ L^*(f, s) := \int_0^{i \infty} f(\tau) \left(\frac{\tau}{i}\right)^s \frac{d\tau}{\tau}~.
+L(f, s) := i \frac{(2\pi)^s}{\Gamma(s)} L^*(f, s) ~,~\&~ 
+L_{\rm classical}^*(f, s) := \int_0^{i \infty} f(\tau) \left(\frac{\tau}{i}\right)^s \frac{d\tau}{\tau}~,
 \end{align}
-Modularity then trivially implies $L^*(f, s) = i^k L^*(f, k-s)$~\cite{01-Apostol}.
+where we have written $L_{\rm classical}^*(f,s)$ in the stead of the more common 
+$L^*(f,s)$, which is the L-integral $f$ for the classical case where $f$ has no poles 
+within $\HH$ and is polynomially bounded at the cusp of $\SLZ$. 
 
-This pairing between modular forms and Dirichlet series, 
-$f(\tau) \leftrightarrow L(f, s)$, is one reason modularity plays an important role 
-in open problems involving Dirichlet series, such as the Riemann hypothesis. 
-Indeed, the L-function of the Jacobi theta function, a weight $1/2$ modular form, 
-is the Riemann zeta function: 
-$\theta(\tau) := \sum_{n \in \ZZ} e^{\pi i n^2 \tau} \leftrightarrow L(\theta, s) = 2\zeta(2s)$.
+Loosely speaking, whenever some sufficiently ``nice''\footnote{The aim of this note is to state 
+precisely what this term ``nice'' means.} 
+\emph{L-integral} $L^*(f,s)$ of $f$ exits, i.e. whenever an integral transform of the modular form $f$ of the schematic form
+\begin{align}
+L^*(f,s) = i \int_\gamma f(\tau) (\tau/i)^{s-1} d\tau
+\end{align}
+exists and is well-defined, modularity of $f$ then implies $L^*(f, s) = i^k L^*(f, k-s)$.
 
+%This pairing between modular forms and Dirichlet series, 
+%$f(\tau) \leftrightarrow L(f, s)$, is one reason modularity plays an important role 
+%in open problems involving Dirichlet series, such as the Riemann hypothesis. 
+%Indeed, the L-function of the Jacobi theta function, a weight $1/2$ modular form, 
+%is the Riemann zeta function: 
+%$\theta(\tau) := \sum_{n \in \ZZ} e^{\pi i n^2 \tau} \leftrightarrow L(\theta, s) = 2\zeta(2s)$.
+
+In a similar direction, when $f \mapsto L^*(f, s)$ is defined, we may assign a 
+\emph{period polynomial} to $f$~\cite{ZagierPeriods1991},
+\begin{align}
+f \mapsto r_f(X, Y) = -\sum_{\ell=0}^{k-2} {k-2\choose \ell}\frac{L^*(f,\ell)}{(2\pi i)^{k-1}} X^{k-2-\ell} Y^{\ell} \in V_{k-2} := \CC[X, Y]_{k-2}~.
+\end{align}
+In a sense, the goal of this note is to establish a definition of $L^*(f,s)$ which 
+is robust enough to encapsulate a modular form $f$ that depends holomorphically 
+on $\tau$, but which may have arbitrary poles within $\HH$ and at the cusp of $\SLZ$.
+
+A central theme of this note is to the notion of the underlying L-integral, and period 
+polynomials, to weight $k \in 2\ZZ$ modular forms $f$ on $\SLZ$ such that $L^*(f,s)$ 
+which may have isolated singularities within $\HH$ and at cusps of $\SLZ$. Our results 
+naturally and cleanly generalize the classical cases discussed above~\cite{01-Apostol}, 
+and unify the disparate extensions in the literature~\cite{Brown2017, BFK2011, 1806}.  
+
+In a nutshell, this note is the natural extension of bridging the gap between the 
+manifestly finite extraction of quasi-periods of $\Dhat$ in \cite{Brown2017} and the 
+manifestly regulator-dependent derivation of effective L-functions for weak cusp forms 
+in \cite{BFK2011}. By leveraging the construction underlying the computation in \cite{Brown2017}, 
+we uncover a unified, manifestly finite formalism to define L-functions, and extract L-values 
+which define period polynomials, for truly generic meromorphic modular forms. 
+
+{\bf Spaces of modular forms:}
 Our focus in this note is on modular forms on $\Gamma = \SLZ$ of
 even integer weight and trivial multiplier system. Just as $M_k$ is the
 vector space of holomorphic modular forms of weight $k$, $S_k \subset M_k$ 
@@ -147,49 +181,63 @@ Eisenstein series, $\Delta := (E_4^3 - E_6^2)/1728 = q + {\cal O}(q^2)
 and $j = 1728\,E_4^3/(E_4^3 - E_6^2) = 1/q + {\cal O}(q^0) \in M^!_0$
 for the Hauptmodul of $\SLZ$.
 
-Thus, with basic definitions given, we may now state that the goal of this paper 
-is to introduce a general framework that defines L-functions for
-generic modular forms on the full group $\SLZ$, and to extract their periods for
-the explicit case when the holomorphic cusp forms are one-dimensional, i.e.
-when $\dim(S_k) = 1$. This fits into the extant literature as follows:
+%{\bf Context for paper}
+%Thus, with basic definitions given, we may now state that the goal of this paper 
+%is to introduce a general framework that defines L-functions for
+%generic modular forms on the full group $\SLZ$, and to extract their periods for
+%the explicit case when the holomorphic cusp forms are one-dimensional, i.e.
+%when $\dim(S_k) = 1$. This fits into the extant literature as follows:
 
-While L-functions and periods are both well-defined
-and well-studied for holomorphic modular forms, there is a growing
-body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011}
-for weakly holomorphic modular forms. Similarly, there are natural physical
-motivations to consider L-functions for properly meromorphic modular forms,
-which have poles \emph{within} the fundamental domain~\cite{1806}.
+%While L-functions and periods are both well-defined
+%and well-studied for holomorphic modular forms, there is a growing
+%body of work exploring periods~\cite{Brown2017} and L-functions~\cite{BFK2011}
+%for weakly holomorphic modular forms. Similarly, there are natural physical
+%motivations to consider L-functions for properly meromorphic modular forms,
+%which have poles \emph{within} the fundamental domain~\cite{1806}.
  
-In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics,
-divergences due to singularities in quantities of interest necessitate the
-introduction of regulators in order to define finite quantities. Regulators, though,
-often break symmetries, and care is needed to check that the regulator has not
-injected undue violence to the system. Of relevance here is that~\cite{BFK2011}
-introduced a non-holomorphic regulator to deal with the singularities at either
-end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate
-divergences at the cusps, but which violates holomorphy in the deformed
-contour-integral, ruining path-independence. On the other end, \cite{1806}
-concerned itself with L-functions for modular forms which diverge only within the
-interior of the fundamental domain; holomorphy in $\tau$ was paramount.
-This put treatments in~\cite{BFK2011} and~\cite{1806} at odds with one another.
+%In these works, and specifically in~\cite{BFK2011, 1806}, and throughout physics,
+%divergences due to singularities in quantities of interest necessitate the
+%introduction of regulators in order to define finite quantities. Regulators, though,
+%often break symmetries, and care is needed to check that the regulator has not
+%injected undue violence to the system. Of relevance here is that~\cite{BFK2011}
+%introduced a non-holomorphic regulator to deal with the singularities at either
+%end of the classical Mellin contour, $\int_0^\infty$, sufficient to regulate
+%divergences at the cusps, but which violates holomorphy in the deformed
+%contour-integral, ruining path-independence. On the other end, \cite{1806}
+%concerned itself with L-functions for modular forms which diverge only within the
+%interior of the fundamental domain; holomorphy in $\tau$ was paramount.
+%This put treatments in~\cite{BFK2011} and~\cite{1806} at odds with one another.
  
-In order to synthesize these partial results into a coherent whole, in this note
-we introduce manifestly finite contour integral functionals to define 
-\emph{L-integrals} for generic meromorphic modular forms that are of sufficient generality
-to handle any combination of poles at cusps and poles within the fundamental domain.
-Our construction is motivated by, and makes precise contact with, work which extracts
-period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are
-manifestly finite throughout, and reproduce all results in the literature, unifying the
-quasi-period results and the L-function extensions within one concrete, natural framework.
-
-In a nutshell, this note is the natural extension of bridging the gap between the 
-manifestly finite extraction of quasi-periods of $\Dhat$ in \cite{Brown2017} and the 
-manifestly regulator-dependent derivation of effective L-functions for weak cusp forms 
-in \cite{BFK2011}. By leveraging the construction underlying the computation in \cite{Brown2017}, we 
-uncover a unified, manifestly finite formalism to define L-functions, and extract L-values 
-which define period polynomials, for truly generic meromorphic modular forms. 
+%In order to synthesize these partial results into a coherent whole, in this note
+%we introduce manifestly finite contour integral functionals to define 
+%\emph{L-integrals} for generic meromorphic modular forms that are of sufficient generality
+%to handle any combination of poles at cusps and poles within the fundamental domain.
+%Our construction is motivated by, and makes precise contact with, work which extracts
+%period-coefficients from weak cusp forms~\cite{Brown2017}. Our integrals are
+%manifestly finite throughout, and reproduce all results in the literature, unifying the
+%quasi-period results and the L-function extensions within one concrete, natural framework.
 
 \subsection{Manifestly finite extractions of period polynomials for weak cusp forms}
+
+%DAM: I want to restructure the intro. We just refer to the existence of cocycles, and state the definitions and results, with connective tissue referring to the concept  of cocycles. We then push the cocyclical introductory discussion to the relevant sections of the paper.
+
+%BS-line beginning
+
+A crucial aspect to our story is the classically defined period polynomial associated to 
+a \emph{holomorphic cusp form}, $f \in S_k$:
+\begin{equation}
+r_f(X, Y)\bigg|_{f \in S_k} := \int_0^{i \infty} f(\tau) (X - \tau Y)^{k-2} d\tau ~.
+\end{equation}
+Here, clearly, the coefficient of $X^{k-2-\ell} Y^{\ell}$ is proportional to $\int_0^\infty t^{\ell} f(it) dt$,
+i.e. $L(f,\ell+1)$. By virtue of this fact, insights on period polynomials port over to definitions of 
+L-functions attached to modular forms outside of the narrow space of holomorphic cusp forms.
+
+Such period polynomials are [fff]
+
+Concretely, it is well known that 
+
+%BS-line ending
+\pagebreak
 
 To understand how to do this, it is instructive to consider the manifestly finite extraction 
 of the quasi-periods in~\cite{Brown2017}. This, we begin by studying the manifestly 
@@ -2629,6 +2677,12 @@ polar mode $n = -1$.
 T. M. Apostol, 
 ``Modular functions and Dirichlet series in number theory,''
 Graduate Texts in Mathematics, London, Springer (1997).
+
+\bibitem{ZagierPeriods1991}
+Don Zagier, 
+``Periods of modular forms and Jacobi theta functions'', 
+Inventiones mathematicae 104 (1991), 449--465.
+
 
 \bibitem{Brown2019Email}
 F.\ Brown, personal communication to the author, 28 June 2019.  This
