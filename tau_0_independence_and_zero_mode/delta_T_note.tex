@@ -1,0 +1,139 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{parskip}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue!60!black]{hyperref}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\tk}{\widetilde{k}_T}
+\newcommand{\dT}{\delta_T}
+
+\title{\vspace{-2.5em}Basepoint independence without cohomology,\\[0.2em]
+\large and why $c_f(0)=0$ is a subtraction, not a restriction}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-3.5em}
+
+\section*{The one identity that does the work}
+
+Define the linear functional on a two-segment finite contour,
+\[
+  L^*(f,s;\tau_0)=\int_{C_S(\tau_0)} f(\tau)\,\tau^{s-1}\,d\tau
+  \;+\;\int_{C_T(\tau_0)} f(\tau)\,\tk(\tau,s)\,d\tau ,
+\]
+with the Hurwitz $T$-kernel built from two terms,
+$\tk(\tau,s)=\zeta(1-s,\tau+1)-\varpi_k\,\zeta\!\big(s-(k-1),\tau+1\big)$,
+where $\varpi_k$ is the constant $S$-fold weight phase ($\varpi_k=i^k$ in the
+convention of arXiv:1806.09874; \emph{not} an $s$-dependent factor). The kernel
+exists to satisfy a single difference equation under
+$\dT g(\tau):=g(\tau+1)-g(\tau)$:
+\[
+  \dT\,\tk(\tau,s)\;=\;-(\tau+1)^{s-1}+\varpi_k\,(\tau+1)^{\,k-1-s}.
+\]
+The two terms of $\tk$ are present precisely to produce \emph{both} powers,
+$\tau^{s-1}$ and $\tau^{k-1-s}$ --- enough to cancel both the direct and the
+$S$-image boundary terms below. (Exact prefactors are contour-specific; read them
+off the actual geometry.)
+
+\section*{$\dT$-inversion \emph{is} basepoint independence}
+
+These are not two facts. Vary the base point and differentiate. The $T$-segment
+endpoints move together, and the only property of $f$ used is $T$-periodicity
+$f(\tau_0+1)=f(\tau_0)$, so the $T$-boundary variation is
+\[
+  \partial_{\tau_0}\!\!\int_{C_T}\! f\,\tk
+  \;=\; f(\tau_0)\,\dT\tk(\tau_0,s).
+\]
+This is engineered to cancel the $S$-segment variation mode by mode. Every Fourier
+mode of $f$ cancels except the constant, leaving
+\[
+  \boxed{\;\partial_{\tau_0} L^*(f,s;\tau_0)\;=\;c_f(0)\,\Phi(\tau_0,s)\;}
+\]
+with $\Phi$ \emph{universal} --- independent of $f$, of its principal part, of
+everything but the single coefficient $c_f(0)$. So ``$\tk$ inverts $\dT$'' and
+``$L^*$ is $\tau_0$-independent'' are the same statement. The cohomology was only
+the name; the difference equation is the content, and it survives stripping the
+cohomology away.
+
+\section*{$c_f(0)=0$ is a subtraction, not a restriction}
+
+The boxed identity says the entire base-point dependence is the one constant mode.
+Hence, by linearity,
+\[
+  L^*\!\big(f-c_f(0),\,s;\tau_0\big)=L^*(f,s;\tau_0)-c_f(0)\,L^*(1,s;\tau_0)
+\]
+has $\partial_{\tau_0}=c_f(0)\Phi-c_f(0)\Phi=0$. Therefore \textbf{every} meromorphic
+modular form --- any pole structure, constant term present or not --- has a
+base-point-independent $L^*$ once the constant mode is removed. The subtracted piece
+$c_f(0)\,L^*(1,s;\tau_0)$ is explicit, and is exactly where the poles of $\Lambda$
+sit. Nothing is discarded; the constant is relocated to the polar part.
+
+\paragraph{Precision (do not skip when writing the proof).}
+$f-c_f(0)$ is \emph{not} a modular form: subtracting a weight-$0$ constant from a
+weight-$k$ form breaks the $S$-law. So the independence is \emph{not} justified by
+calling $f-c_f(0)$ ``the cusp form.'' It is justified by linearity together with the
+universal-mode identity above --- i.e.\ by $\dT$-inversion. What the cancellation
+actually uses, and what \emph{is} preserved under the subtraction, is
+$T$-periodicity. Keep those two straight: $T$-periodicity survives the subtraction
+and is used; $S$-modularity is broken by it and is not what carries the argument.
+
+\section*{The poles come from the kernel, not from a divergence}
+
+Classically, with $\Lambda(f,s)=\int_0^\infty\!\big(f(iy)-c_0\big)y^{s-1}dy$, one splits
+at $y=1$ and folds the lower piece by $f(i/y)=(iy)^k f(iy)$; the $(f-c_0)$ integrals
+are entire and the leftover elementary integrals of the constant give
+\[
+  \Lambda(f,s)=(\text{entire})-\frac{c_0}{s}-\frac{i^k c_0}{k-s},
+\]
+a simple pole at $s=0$ with residue $-c_0$ and one at $s=k$ with residue $i^k c_0$.
+These sit on top of the $n\neq0$ incomplete-gamma sum without touching it: the BFK
+part is entire, the poles are purely the $n=0$ mode.
+
+In the finite contour there is no cusp, so the poles cannot come from a divergence at
+$y\to0,\infty$. They come from the kernel. The Hurwitz function $\zeta(\sigma,a)$ has
+its only pole at $\sigma=1$, with residue $1$ independent of $a$. The first kernel
+term $\zeta(1-s,\tau+1)$ meets it at $s=0$; the second Hurwitz term, carrying the
+$S$-fold weight phase, meets it at $s=k$. Near $s=0$,
+\[
+  \int_{C_T} f(\tau)\,\tk(\tau,s)\,d\tau
+  \;\sim\; -\frac1s\int_{\tau_0}^{\tau_0+1} f(\tau)\,d\tau ,
+\]
+and the unit-length $T$-segment annihilates every nonzero Fourier mode,
+$\int_{\tau_0}^{\tau_0+1} e^{2\pi i n\tau}\,d\tau=0$ for $n\neq0$, leaving exactly
+$c_0$. So the residue at $s=0$ is $-c_0$, and it is \emph{basepoint-independent} even
+though the regular part of $c_0\,L^*(1;\tau_0)$ is not. The $s=k$ pole arises the same
+way through the second term; its residue is $i^k c_0$.
+
+This matches McGady, arXiv:1806.09874, Thm.~1.2:
+\[
+  L_f^*(s)^{\mathrm{reg}}
+  =-c_f(0)\!\left(\frac{B^s}{s}+\frac{i^k B^{k-s}}{k-s}\right)+\mathrm{regular}(s)
+  = i^k L_f^*(k-s)^{\mathrm{reg}},
+\]
+so residue $-c_f(0)$ at $s=0$, residue $+i^k c_f(0)$ at $s=k$, and functional equation
+$L^*(s)=i^k L^*(k-s)$, for every weight-$k$ meromorphic form regular at cusps.
+
+\paragraph{Origin of the $i^k$.} The phase is the \emph{$S$-fold} factor, weight-indexed,
+not $s$-indexed. On the imaginary axis $\tau=iy$, modularity $f(-1/\tau)=\tau^k f(\tau)$
+folds the contour with $S(i/y)=iy$ and pulls out $(1/i)^k=(-i)^k$ --- a constant in $s$
+depending only on the weight. That is why it survives as $i^k$ for \emph{all} even $k$
+and attaches to the $s=k$ pole rather than the $s=0$ one. Any $s$-dependent phase of
+the form $e^{i\pi(s-1)}$ is wrong here: at integer $s$ it is $\pm1$ and can never
+produce a factor of $i$. The second kernel term's prefactor must be the constant
+$S$-fold weight phase; take its exact form from the fold, not from an $s$-dependent
+reconstruction.
+
+\paragraph{Summary.}
+The variation-in-$T$ operator is load-bearing, not an artifact. It is one operator
+seen on two slices: on $V_{k-2}$ for the period polynomial (integer $s$), and on
+functions with Hurwitz $\zeta$ as the antidifference of $\tau^{s-1}$ for the
+$L$-function (all $s$). Its single difference equation is simultaneously the
+parabolic gauge, the base-point independence, and the reason a constant-term
+subtraction --- rather than a hypothesis on $f$ --- suffices for arbitrary pole
+structure.
+
+\end{document}

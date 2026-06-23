@@ -227,7 +227,7 @@ $\Gamma$-inequivalent representatives, and write $\Li_s(z)=\sum_{n>0}z^n n^{-s}$
 $\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a pole of order $m$ at $\tau_p$, the principal part of
 $f$ there is matched by a unique \emph{polylog projection}
 \begin{equation}
-\widehat P_{\tau_p}f(\tau):=\sum_{m>0}r^*_{f,\tau_p}(m)\,\Li_{1-m}\big(e(\tau-\tau_p)\big),
+\widehat P_{\tau_p}f(\tau):=\sum_{m>0}r^*_{f,\tau_p}(m)\,\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
 \end{equation}
 its coefficients $r^*_{f,\tau_p}(m)$ being the principal-part data of $f$ at $\tau_p$. The
 \emph{projection} $\widehat P:=\sum_{\im\tau_p\ge1}\widehat P_{\tau_p}$ removes the principal
@@ -266,24 +266,61 @@ $n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$~\cite[Lem.~2.6]{1806}.
 
 \begin{definition}[Polylog integral]\label{def:polylog}
 For $N\ge0$ and $z\in\HH$, the \emph{polylog integral} is the $L$-integral of a single tail
-$\Li_{-N}(e(\tau-z))$ along the $T$-segment at $\tau_0=i$ (where $\gamma^S$ degenerates, since
+$\Li_{-N}(e^{2\pi i(\tau-z)})$ along the $T$-segment at $\tau_0=i$ (where $\gamma^S$ degenerates, since
 $-1/i=i$):
 \begin{equation}
-I_N(s,z):=i^{-s}\int_{i-1}^{i}\Li_{-N}\big(e(\tau-z)\big)\,\tk(\tau,s)\,d\tau.
+I_N(s,z):=i^{-s}\int_{i-1}^{i}\Li_{-N}\big(e^{2\pi i(\tau-z)}\big)\,\tk(\tau,s)\,d\tau.
 \end{equation}
 \end{definition}
 
 \begin{lemma}[Closed form of the polylog integral]\label{lem:polylogcf}
-For ${\rm Im}\,z<1$, the polylog integral is the cusp unfolding
-(Proposition~\ref{prop:unfold}) summed against the tail's coefficients:
+Write $\mathcal G(s,m):=\dfrac{\Gamma(s,2\pi m)}{(2\pi m)^s}+i^k\dfrac{\Gamma(k-s,2\pi m)}{(2\pi m)^{k-s}}$,
+the building block of Theorem~\ref{thm:weakL} continued to $m<0$. For the projected poles
+${\rm Im}\,z>1$, where $|e(\tau-z)|\ge1$ on the contour, polylog inversion
+$\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums the integral into the convergent series
 \begin{equation}
-I_N(s,z)=\sum_{n\ge1} n^N e^{-2\pi inz}\Big[\frac{\Gamma(s,2\pi n)}{(2\pi n)^s}
-+i^k\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\Big].
+I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,\mathcal G(s,-n).
 \end{equation}
-For ${\rm Im}\,z\ge1$ --- the projected poles --- $I_N(s,z)$ is the analytic continuation in
-$z$ of the right-hand side, corrected by the residue crossed at ${\rm Im}\,\tau=1$
-(Lemma~\ref{lem:cross}).
 \end{lemma}
+
+\begin{theorem}[$L$-function of a meromorphic modular form]\label{thm:mero}
+For $f\in F_k$ with no pole on the edge ${\rm Im}\,\tau=1$, at $\tau_0=i$,
+\begin{equation}
+L^*(f,s)=-c_{Rf}(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++\sum_{n\ne0}c_{Rf}(n)\,\mathcal G(s,n)
++\sum_{{\rm Im}\,\tau_p>1}\sum_{m>0}r^*_{f,\tau_p}(m)\,I_{m-1}(s,\tau_p),
+\end{equation}
+$\mathcal G(s,n)=\dfrac{\Gamma(s,2\pi n)}{(2\pi n)^s}+i^k\dfrac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}$;
+the regularized cusp sum (Definition~\ref{def:cRf}, Theorem~\ref{thm:weakL}) plus one polylog
+integral (Lemma~\ref{lem:polylogcf}) per interior pole above the edge. Poles on the edge enter
+by the principal value of Lemma~\ref{lem:onedge}.
+\end{theorem}
+
+\begin{lemma}[$L$-function, a pole on the edge]\label{lem:onedge}
+Routing the $T$-path just below versus just above a pole $\tau_p$ of $f\in F_k$ at height
+${\rm Im}\,\tau_p=1$ gives finite values differing by the residue,
+\begin{equation}
+L^*_{\rm below}(f,s)-L^*_{\rm above}(f,s)
+=2\pi i\,i^{-s}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big].
+\end{equation}
+We define the edge value as the principal value $L^*=\tfrac12(L^*_{\rm above}+L^*_{\rm below})
+=L^*_{\rm below}-\pi i\,i^{-s}\Res_{\tau=\tau_p}[f\,\tk]$. At the elliptic point $\tau_p=i$ the
+pole lies on the $S$-segment instead; its principal value, reached as $\tau_0\to i$, is finite
+and basepoint-independent.
+\end{lemma}
+
+\begin{corollary}[Wall-crossing]\label{cor:wall}
+For $f\in F_k$, $L^*(f,s)$ is constant in $\tau_0$ within each chamber of
+$\HH\setminus f^{-1}(\infty)$; crossing a wall, where the contour sweeps past an interior pole
+$\tau_p$, changes it by
+\begin{equation}
+\Delta L^*(f,s)=2\pi i\,i^{-s}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big]
+\end{equation}
+when the $T$-segment crosses $\tau_p$ (and by the same with $\tau^{s-1}$ in place of $\tk$ when
+the $S$-segment does). Thus $L^*$ is fixed by the contour up to the residues it crosses --- the
+meromorphic counterpart of Proposition~\ref{prop:indep}, recovering its constancy on $M^!_k$.
+\end{corollary}
 
 
 \begin{thebibliography}{99}
@@ -350,38 +387,45 @@ Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
 \end{thebibliography}
 
 
-%  §1 Setup (prose) — modularity is the weight-$k$ slash; spaces $S_k\subset M_k\subset M^!_k\subset F_k$ and $S_k\subset S^!_k\subset M^!_k$; $n:=k-2$.
-  
-%  §2 Motivation (prose) — $L$-functions for weak cusp forms (BGKO: critical $L$-values encoded by weak cusp forms, the KZ extra relation); BFK's deformed-Mellin regularization; the case for one uniform finite construction. (respectful BFK framing throughout)
-
-%  §3 The $L$-integral  [sec:Lint]   --- ALL INJECTED
-%   1. [Def] def:segments   S/T segments at tau_0 (pole-avoiding)
-%   2. [Def] def:kernel     Hurwitz T-kernel
-%   3. [Def] def:Lint       L-integral L*(f,s;gS,gT) on F_k
-%   4. [Def] def:Lfun       L-function L = (2pi)^s/Gamma(s) L*
-%   5. [Lem] lem:finite     finiteness on F_k
-%   6. [Prop] prop:indep    basepoint/path independence (M^!_k)
-%   7. [Rem] rem:mellin     classical Mellin recovery (tau_0 -> i infty, cusp forms)
-
-%  §4 The $L$-function  [sec:Lfun]  (placeholder title)   --- ALL INJECTED: prop:unfold, thm:weakL, def:cocycle, lem:gate, def:rf, prop:periods, cor:quasi, rem:legendre, rem:canonical(§4.3)
-%  8. [Prop] cusp unfolding (the incomplete-$\Gamma$ identity)
-%  9. [Thm] at $\tau_0=i$, the $L$-integral is BFK's incomplete-$\Gamma$ sum
-%  10. [Def] Cocycle
-%  11. [Prop] for $f\in S^!_k$, the integer-$s$ values $i^{\ell+1}L^(f,\ell+1)=\int_{\gamma^S}f\tau^\ell+\int_{\gamma^T}f\tk(\tau,\ell+1)$ are the coefficients of the period polynomial $r_f$ — the $S$-value of the parabolic representative of $f$'s period cocycle.
-%  12. [Cor] ...and these coordinates are Brown's $\eta^\pm$, to 50 digits. 
-%  13. [Remark — its own subsection §4.3] why the Mellin contour can never be the $L$-integral for weak forms (the two oppositely-diverging pieces, cancelling at finite $\tau_0$); the dual Brown+BFK match certifies canonicality
-
-%  §5 Meromorphic forms ($F_k$)  [sec:mero]   --- contour = OUR gamma^T at tau_0=i; B dropped, split at Im(tau)=1
-%  17. [Def] def:proj      polylog projection (poles Im(tau_p)>=1)     INJECTED (revised: B -> Im=1)
-%  18. [Def] def:cRf       regularized cusp coeffs c_{Rf}(n)           INJECTED (revised)                                                                                       
-%  18b.[Def] def:Finfty     T-periodic space F(infty) (a la 1806); projection lands here, not in F_k   INJECTED
-%  19. [Lem] lem:commute    q-series commutes iff no pole Im>=1 (suff = Fourier conv above remaining <1 poles; necessity = 1806 Lemma 2.6, cited not reproved)   INJECTED
-%  20. [Def] def:polylog    polylog integral I_N(s,z) over OUR gamma^T (not gamma_B^+)   INJECTED
-%  21. [Lem] lem:polylogcf  closed form of I_N   INJECTED (Im z<1 verified ~1e-32, check_polylog.py; Im z>=1 = continuation+residue, to verify w/ lem:cross)
-%  22. [Lem] lem:haupt      Hauptmodul split f = g + h   PENDING
-%  23. [Lem] lem:cross      single-pole crossing (residue)   PENDING
-%  24. [Thm] thm:mero       L-function for meromorphic forms (genericLthm)   PENDING
-%  25. [Cor] cor:wall       wall-crossing   PENDING
+%  ============================  SKELETON (final organization)  ============================
+%  §1 Setup (prose) --- modularity = weight-k slash; S_k < M_k < M^!_k < F_k and S_k < S^!_k < M^!_k; n := k-2; q = e(tau), e(x) := e^{2 pi i x}.
+%  §2 Motivation (prose) --- L-functions of weak cusp forms (BGKO; the KZ extra relation); BFK's deformed-Mellin regularization; the case for one uniform finite construction.  (respectful BFK framing)
+%
+%  §3 The L-integral   [sec:Lint]
+%     def:segments    S- and T-segments at tau_0 (pole-avoiding)
+%     def:kernel      Hurwitz T-kernel
+%     def:Lint        L-integral L*(f,s; gamma^S, gamma^T) on F_k
+%     def:Lfun        L-function L = (2 pi)^s / Gamma(s) * L*
+%     lem:finite      finiteness on F_k
+%     prop:indep      basepoint/path independence on M^!_k
+%     rem:mellin      classical Mellin recovery (tau_0 -> i infty, cusp forms)
+%
+%  §4 The L-function   [sec:Lfun]
+%     prop:unfold     cusp unfolding (the incomplete-Gamma identity)
+%     thm:weakL       L* at tau_0 = i is the incomplete-Gamma sum; functional equation
+%     def:cocycle     period cocycle C^f_gamma
+%     lem:gate        parabolic representatives exist iff c_f(0) = 0
+%     def:rf          period polynomial r_f = the parabolic S-value
+%     prop:periods    period coefficients are special L-values
+%     cor:quasi       ... and are Brown's quasi-periods (k = 12,16,18,20,22,26)
+%     rem:legendre    period/quasi-period determinant lies in Q^x (2 pi i)^{k-1}
+%     rem:canonical   [subsection] why a finite contour, not the Mellin transform
+%
+%  §5 Meromorphic forms   [sec:mero]   (poles split at the edge Im(tau) = 1)
+%     def:proj        polylog projection (removes poles with Im(tau_p) >= 1)
+%     def:cRf         regularized cusp coefficients c_{Rf}(n)
+%     def:Finfty      the T-periodic space F(infty)
+%     lem:commute     q-series commutes with the integral iff no pole has Im >= 1
+%     def:polylog     polylog integral I_N(s,z)
+%     lem:polylogcf   closed form of I_N for Im z > 1 (polylog inversion)
+%     thm:mero        the explicit L-function formula (cusp sum + interior polylog integrals)
+%     lem:onedge      a pole on the edge: principal value (half-residue; tau = i is the S-segment PV)
+%     cor:wall        wall-crossing: L* is per-chamber constant in tau_0, jumping by the residue crossed
+%
+%  NUMERICS [VerifyScripts]:  verify_periods_all_weights.py (cor:quasi, rem:legendre);
+%     check_inversion.py (lem:polylogcf);  check_offedge.py (thm:mero);
+%     check_onedge.py + check_lambda.py (lem:onedge, cor:wall).
+%  =====================================================================================
 
 
 \end{document}

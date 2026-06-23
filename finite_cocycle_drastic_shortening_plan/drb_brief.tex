@@ -1,0 +1,166 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue!60!black,citecolor=black]{hyperref}
+\usepackage{parskip}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\tk}{\widetilde{k}_T}
+
+\newmdenv[
+  linecolor=gray!50,
+  linewidth=0.5pt,
+  backgroundcolor=gray!6,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  roundcorner=3pt
+]{promptbox}
+
+\title{\vspace{-2.5em}Build brief --- the spine\\[0.3em]
+\large DR--B periods \& \texorpdfstring{$L$}{L}-functions note}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-3.5em}
+
+\section*{Contribution, stated narrowly}
+
+The object is a finite, regulator-free, two-segment contour functional with a
+Hurwitz-zeta $T$-kernel that delivers period polynomials and $L$-values from one
+construction, recovers BFK on specialization, and extends --- within a homotopy
+class --- to interior-pole meromorphic forms. The framework is Brown's
+(arXiv:1710.07912): finite base point, $\tau_0$-independent cohomology class,
+$T$-gauge. The contribution is the explicit closed kernel and the unified finite
+realization, \emph{not} new objects --- the $L$-values are BFK's, the periods are
+Brown's quasi-periods made closed-form.
+
+Language: a manifestly convergent finite formula that \emph{equals} the regularized
+value is a certificate of canonicality --- scheme-, continuation-, and
+cusp-choice-independent --- not a correction to results that were already rigorous.
+Lean on \emph{canonical / certified}, never on \emph{correct}.
+
+\section*{The spine}
+
+Lead with the construction question, so the kernel is an \emph{answer}:
+
+\begin{center}\itshape
+Periods are a cocycle. How do you build one --- parabolic --- for a modular form
+from a generic finite base point?
+\end{center}
+
+\paragraph{Precision 1: the gate is the constant term, not the pole structure.}
+The parabolic gauge (killing $C_T$) exists iff $c_f(0)=0$; the principal part never
+obstructs it, interior poles included. ``Generic pole structure'' is the right
+phrase and a selling point --- arbitrary poles are fine. But ``generic form'' at the
+cocycle step is too generous: $c_f(0)\neq0$ (an Eisenstein series) cannot be made
+parabolic and yields the rational/Eisenstein piece. Clean statement: \emph{any form
+with vanishing constant term, regardless of pole structure, admits the parabolic
+gauge.} The gate is one Fourier coefficient.
+
+\paragraph{Precision 2: the two legs have different gates --- don't bundle them.}
+The period-polynomial leg needs the parabolic gauge ($c_f(0)=0$, i.e.\ $f\in S_k^!$).
+The $L$-function leg does not: the two-segment functional is defined on all of
+$M_k^!$, constant term allowed, with the expected poles of $\Lambda$ coming from
+$c_f(0)$ as classically. The arc \emph{widens} as it goes; let that be visible.
+
+\paragraph{Presentation: define and verify; derive in a footnote.}
+Do not walk the reader through the variation-in-$T$ operator, the linear algebra,
+and the Bernoulli combinatorics. Present $\tk$ as a definition, apply $\delta_T$, and
+show the parabolic obstruction vanishes (for $f$ with $c_f(0)=0$) at all $s$ --- a
+two-line check. Push the provenance to a footnote: (1) construct the
+variation-in-$T$ operator $\delta_T$; (2) set up the coboundary linear algebra;
+(3) read off the combinatorics; (4) recognize them as Bernoulli, i.e.\ special
+values of $\zeta(s,x)$ at integer $s$; (5) note that this $\zeta(s,x)$ is already
+entire in $x$ and meromorphic in $s$, so the inversion is a \emph{function} identity
+with the integers as one slice. The footnote says the integer case \emph{revealed
+which analytic object was operating} --- not that a discrete identity was
+analytically continued. The second framing invites a continuation-validity question
+the construction does not carry.
+
+\paragraph{The four beats ($\sim$5 pp with disciplined front/back matter).}
+\begin{enumerate}[leftmargin=1.6em,topsep=2pt,itemsep=4pt]
+\item \textbf{Periods are a cocycle; the construction question.} Eichler--Shimura in
+a paragraph; the task is a parabolic cocycle from a generic finite base point. This
+is Brown (arXiv:1710.07912) --- recall it, with the gate $c_f(0)=0$ and its earlier
+form as constant-term subtraction $\widetilde f|(1-T)=0$ (arXiv:1202.5802).
+\item \textbf{Define the Hurwitz $T$-kernel; verify it inverts $\delta_T$.}
+$\tk(\tau,s)=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\zeta(s-(k-1),\tau+1)$, implicit in
+Brown's $P$; the contribution is the explicit all-$s$ form. Verify, don't derive:
+$\delta_T\,\zeta(1-s,\tau+1)=-(\tau+1)^{s-1}$ inverts $\delta_T$ uniformly in $s$, so
+applying $\delta_T$ to the kernel leaves exactly the constant-term piece --- which is
+why the obstruction vanishes \emph{iff} $c_f(0)=0$. State that gate here even in the
+short version; the verification is precisely where it appears. On $S_k^!$ this beat
+delivers the period polynomial $r_f$/$\omega^\pm$ as the two-segment functional.
+\item \textbf{Swap the period monomial for $\tau^{s-1}$ $\to$ the $L$-function.}
+Same kernel; the functional is entire in $s$, and $L^*(f,s)$ is entire on $S_k^!$,
+with the expected poles otherwise --- on $M_k^!$ it is meromorphic, carrying exactly
+the poles forced by $c_f(0)$, as classical $\Lambda$ does. (Say ``entire on $S_k^!$,
+expected poles otherwise''; do not call the $M_k^!$ object entire.) The $\tau_0=i$
+specialization recovers BFK with the pair $\Gamma(s,2\pi n)$ and
+$i^k\Gamma(k-s,2\pi n)$ --- the $s\leftrightarrow k-s$ reflection making
+$\Lambda^*(s)=i^k\Lambda^*(k-s)$ manifest; $b=1$ is the split \emph{height}
+($\tau=i$, the $S$-fixed point), not the $s$-center. All-$s$ is a \emph{result}: the
+term-by-term unfolding gives a manifestly meromorphic incomplete-gamma series
+matching the classical / Apostol / BFK expressions coefficient by coefficient, so
+there is no continuation step --- only the finite principal-part interchange (the
+Hurwitz-unfolding proposition).
+\item \textbf{Encapsulation.} One object covers both literature regimes: weak /
+regular cusps with arbitrary principal part (fully canonical, simply connected),
+\emph{and} interior-pole meromorphic forms --- canonical given a contour, the
+cross-wall dependence being residues. State the winding prescription explicitly (the
+symmetric $\tfrac12\sum_{\pm\epsilon}$ of arXiv:1806.09874): the identity is then
+definitional. The jump at an interior pole is exactly $f$'s residue times the finite
+kernel value there --- $\zeta(\sigma,\tau+1)$ is holomorphic throughout $\HH$, so the
+kernel contributes no residue of its own.
+\end{enumerate}
+
+\section*{References to genuflect toward}
+
+BFK (2014); arXiv:1809.02938 (the incomplete-gamma $L$ the unfolding reproduces);
+arXiv:1603.03056; arXiv:2202.09542; Diamantis et al.\ (RMS 2020); Brown--Fonseca
+(arXiv:2508.04844). Frame the contribution as the finite, regulator-free
+Hurwitz-kernel \emph{representation} unifying periods and $L$-values.
+
+\section*{Paste-ready prompt for a Claude Code instance}
+
+\begin{promptbox}
+\small
+Write a $\sim$5-page note from this spine. Define-and-verify, not derive-and-discover.
+\begin{enumerate}[leftmargin=1.4em,topsep=1pt,itemsep=1pt,nosep]
+\item Open with the construction question: how to build a parabolic cocycle for a
+modular form from a generic finite base point. Recall Brown (arXiv:1710.07912) in one
+paragraph; state the gate $c_f(0)=0$.
+\item Present the Hurwitz $T$-kernel
+$\tk(\tau,s)=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\zeta(s-(k-1),\tau+1)$ as a definition.
+Verify $\delta_T\,\zeta(1-s,\tau+1)=-(\tau+1)^{s-1}$ and that the parabolic obstruction
+vanishes iff $c_f(0)=0$. Footnote the five-step provenance; frame step 5 as revealing
+the entire-in-$x$, meromorphic-in-$s$ object, not as continuing a discrete identity.
+\item Period polynomials on $S_k^!$ from the two-segment functional.
+\item $L$-function by swapping the period monomial for $\tau^{s-1}$: entire on $S_k^!$,
+expected poles on $M_k^!$. $\tau_0=i$ recovers BFK with $\Gamma(s,2\pi n)$,
+$i^k\Gamma(k-s,2\pi n)$; $b=1$ is the split height, not the $s$-center. State all-$s$
+as a result (coefficient-by-coefficient match to the incomplete-gamma series), not a
+sketch.
+\item Encapsulation: weak/regular cusps (fully canonical) and interior poles
+(canonical given a contour; cross-wall jumps are $f$'s residues times the finite
+kernel value). State the symmetric winding prescription explicitly.
+\item Relate to prior work: BFK (2014), arXiv:1809.02938, 1603.03056, 2202.09542,
+Diamantis et al.\ (RMS 2020), Brown--Fonseca (arXiv:2508.04844). Contribution is the
+finite regulator-free Hurwitz-kernel representation, not new objects.
+\end{enumerate}
+Tone: canonical/certified, never ``correct''; parsimonious novelty language; no claim
+broader than the simply-connected case without the winding clause.
+\end{promptbox}
+
+\end{document}
