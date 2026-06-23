@@ -85,8 +85,8 @@ results were tested to arbitrary (50 digit) precision in our python scripts~\cit
 \subsection{Modular forms with poles, L-functions, and period polynomials}
 
 In this paper, we define L-functions and period polynomials that are attached 
-to meromorphic modular forms which may have finite order poles at finite, non-zero 
-imaginary parts, at infinity (and all $\SLZ$ images of these points). 
+to meromorphic modular forms which may have order-$p$ poles at locations 
+$\tau_p$ with ${\rm Im}(\tau_p) > 0$ or the cusp of $\SLZ$. 
 
 To begin, consider a \emph{holomorphic}, integer-weight modular form 
 $f(\tau) \in M_k$ with trivial multiplier system, i.e. 
@@ -96,54 +96,46 @@ k \in 2\ZZ~,~\&~
 \left( \begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right) \in \Gamma := \SLZ,
 \label{modularityEq}
 \end{equation}
-defined on the upper half-plane $\HH$. Because $f(\tau) = f(\tau+1)$, it has 
-a Fourier decomposition, $f(\tau) = \sum_n c_f(n) e^{2 \pi i n \tau}$. These 
-are known as q-series coefficients, where $q := e^{2 \pi i \tau}$. Any such
-function is said to be an element in the finite-dimensional vector space $M_k$. 
+defined on the upper half-plane $\HH := \{ z | z \in \CC~, ~{\rm Im}(z) \geq 0\}$. 
+Because $f(\tau) = f(\tau+1)$, it has a Fourier decomposition, 
+$f(\tau) = \sum_n c_f(n) e^{2 \pi i n \tau}$. These are known as q-series coefficients, 
+where $q := e^{2 \pi i \tau}$. Any such function is said to be an element in the 
+finite-dimensional vector space $M_k$. 
 
 As $f \in M_k$ is holomorphic, its q-series coefficients grow at most polynomially 
-with $n$: $|c_f(n)| \lesssim n^{2k}$\cite{01-Apostol}. Because they are bounded, 
-then the so-named L-function associated to $f$, $L(f, s)$, defined by the Dirichlet
+with $n$: $|c_f(n)| \lesssim C n^{2k-1}$ for some finite constant $C$~\cite{01-Apostol}. 
+Because they are bounded, then the so-named L-function associated to $f$, 
+$L(f, s)|_{\rm classical}$, defined by the Dirichlet
 series,
 \begin{align}
-L(f, s):= \sum_{n \neq 0} \frac{c_f(n)}{n^s}~,
+L(f, s)|_{\rm classical} = \sum_{n \neq 0} \frac{c_f(n)}{n^s}~,
 \end{align}
-converges when ${\rm Re}(s) > 2k$. In fact, it is a standard fact that such Dirichlet 
+this series converges when ${\rm Re}(s) > 2k$. In fact, it is a standard fact that such Dirichlet 
 series naturally arise from the Mellin transform of $f$. Thus, when $f$ has polynomially 
 bounded q-series coefficients, its associated {\em L-function} can be \emph{defined} 
 via this Mellin-transform:
 \begin{align}
-L(f, s) := i \frac{(2\pi)^s}{\Gamma(s)} L^*(f, s) ~,~\&~ 
-L_{\rm classical}^*(f, s) := \int_0^{i \infty} f(\tau) \left(\frac{\tau}{i}\right)^s \frac{d\tau}{\tau}~,
+\label{eqLint}
+L(f, s) &:= i \frac{(2\pi)^s}{\Gamma(s)} L^*(f, s)~,~\\ 
+\nonumber
+L_{\rm classical}^*(f, s) &:= \int_0^{i \infty} \big( f(\tau) - c_f(0) \big) \left(\frac{\tau}{i}\right)^s \frac{d\tau}{\tau}~,
 \end{align}
 where we have written $L_{\rm classical}^*(f,s)$ in the stead of the more common 
-$L^*(f,s)$, which is the L-integral $f$ for the classical case where $f$ has no poles 
-within $\HH$ and is polynomially bounded at the cusp of $\SLZ$. 
-
-%Loosely speaking, whenever some sufficiently ``nice''\footnote{The aim of this note is to state 
-%precisely what this term ``nice'' means.} 
-%\emph{L-integral} $L^*(f,s)$ of $f$ exits, i.e. whenever an integral transform of the modular 
-%form $f$ of the schematic form
-%\begin{align}
-%L^*(f,s) = \sum_{\alpha} \int_{\gamma(\alpha)} f(\tau) {\rm ker}_\alpha(f, s) d\tau~,
-%\end{align}
-%where $\sum_\alpha$ is a possible sum over contours $\int_{\gamma(\alpha)}$ and ${\rm ker}_\alpha(f, s)$ is some 
-%finite kernel that acts naturally under $s \leftrightarrow k-s$, exists and is well-defined, 
-%modularity of $f$ then implies $L^*(f, s) = i^k L^*(f, k-s)$.
-
-%This pairing between modular forms and Dirichlet series, 
-%$f(\tau) \leftrightarrow L(f, s)$, is one reason modularity plays an important role 
-%in open problems involving Dirichlet series, such as the Riemann hypothesis. 
-%Indeed, the L-function of the Jacobi theta function, a weight $1/2$ modular form, 
-%is the Riemann zeta function: 
-%$\theta(\tau) := \sum_{n \in \ZZ} e^{\pi i n^2 \tau} \leftrightarrow L(\theta, s) = 2\zeta(2s)$.
+$L^*(f,s)$, which is the L-integral of $f$ for the classical case when $f$ has no poles 
+in $\HH$ has $c_f(n) = 0$ for $n < 0$. Modularity, via the relation $f(-1/\tau) = \tau^k f(\tau)$, 
+directly implies $L^*(s) = i^k L^*(f, k-s)$ and thus extends the L-function in~\eqref{eqLint} to an 
+entire function in the complex-$s$ plane. 
 
 In a similar direction, when $f \mapsto L^*(f, s)$ is defined, we may assign a 
 \emph{period polynomial} to $f$~\cite{ZagierPeriods1991},
 \begin{align}
-f \mapsto r_f(X, Y) =~ -\sum_{\ell=0}^{k-2} {k-2\choose \ell}\frac{L^*(f,\ell)}{(2\pi i)^{k-1}} X^{k-2-\ell} Y^{\ell} ~= ~~\sum_{\ell = 0}^{k-2} p_\ell~ X^\ell Y^{k-2-\ell}~.
+\label{eqPeriodPoly}
+f \mapsto r_f(X, Y) &=~ -\sum_{\ell=0}^{k-2} {k-2\choose \ell}\frac{L^*(f,\ell)}{(2\pi i)^{k-1}} X^{k-2-\ell} Y^{\ell} ~= ~~\sum_{\ell = 0}^{k-2} p_\ell~ X^\ell Y^{k-2-\ell}~.
 \end{align}
-In a sense, the goal of this note is to establish a definition of $L^*(f,s)$ which 
+Note that for the special case where $L(f,s)|_{\rm classical}$ exists as a well-defined 
+Dirichlet series, we can rewrite $r_f(X, Y)$ as $r_f(X, Y) = \int_0^{\infty} f(\tau) (X - \tau Y)^{k-2} d\tau$. 
+%In a sense, 
+The goal of this note is to establish a definition of $L^*(f,s)$ which 
 is robust enough to encapsulate a modular form $f$ that depends holomorphically 
 on $\tau$, but which may have arbitrary poles within $\HH$ and at the cusp of $\SLZ$.
 
@@ -172,12 +164,8 @@ vector space of holomorphic modular forms of weight $k$, $S_k \subset M_k$
 denotes the vector space of cusp forms, where $c_f(n) = 0$ whenever $n \leq 0$. 
 Further, we denote $M^!_k$ to be the space of functions satisfying~\eqref{modularityEq}, 
 but which may have poles of finite order at the cusp of $\SLZ$, i.e. there is an integer $N$ 
-such that $c_f(n) = 0$ for all $n < -N$. Similarly, $S_k^!$ denotes 
-%Further, we denote $M^!_k$ to be the space of weakly holomorphic forms, i.e. 
-%functions satisfying~\eqref{modularityEq}, but where $\exists$ a finite set of integers 
-%$s_f \subset -\NN$ where $c_f(n) \neq 0$ for all $n \in s_f$. Similarly, $S_k^!$ denotes 
-the subspace of $M_k^!$ where $c_f(0) = 0$; this space is called the space of weak 
-cusp forms. 
+such that $c_f(n) = 0$ for all $n < -N$. When $f \in M_k^!$ and $c_f(0) = 0$, we write 
+$f \in S_k^!$, the space of weak cusp forms of weight $k$. 
 
 Further, we denote $F_k$ to be \emph{meromorphic modular forms} of weight $k$: 
 the weight-$k$ part of the field of fractions of the graded ring $M_* = \bigoplus_k M_k$, i.e.\
@@ -237,9 +225,31 @@ for the Hauptmodul of $\SLZ$.
 \subsection{Manifestly finite extractions of period polynomials for weak cusp forms}
 
 %DAM: I want to restructure the intro. We just refer to the existence of cocycles, and state the definitions and results, with connective tissue referring to the concept  of cocycles. We then push the cocyclical introductory discussion to the relevant sections of the paper.
-%Silly 
-%\subsection{Manifestly finite extractions of period polynomials for weak cusp forms}
+
+To extract period polynomials associated with cusp forms and weak cusp forms, we 
+follow the cocycle construction of~\cite{Brown2017}. Before defining our cocycle, for 
+every $f \in S_k^!$ we introduce the manifestly $\SLZ$ covariant differential,
+\begin{align}
+f \mapsto \omega_f := f(\tau) (X - \tau Y)^n d\tau~,
+\end{align}
+where $n := k-2$. Polynomials, $P(X, Y)$ given by definite integrals of $\omega_f$, 
+$P(X,Y):= \int_a^b \omega_f$ have a natural $\SLZ$ action, $(P|_\gamma)(X, Y) = P(aX + bY, cC + dY)$ 
+for $\gamma = \left( \begin{smallmatrix} a & b \\ c & d\end{smallmatrix} \right) \in \SLZ$.
+With these polynomials, we define our cocycles of $\SLZ$:
+\begin{definition}[defCocycle]
+A \emph{cocycle} is something.
+\end{definition}
+It is helpful to further define a \emph{$T$-normalized} cocycle, i.e.\ the \emph{parabolic representative}~\cite{BCD2018},
+\begin{definition}[defNormedCocycle]
+A \emph{cocycle}
+\end{definition}
+With these, 
+
+% CLAUDE [stub sentence --- reword/relocate to taste]: pointer to the parabolic / $T$-normalized cocycle convention you asked about, via Kohnen--Zagier 1984 and Bruggeman--Choie--Diamantis (BCD states $\psi_T = 0$ explicitly --- see \S2.2 and eqs.\ (2.16), (2.23) of arXiv:1404.6718).
+The identification of the period polynomial with a $T$-normalized (\emph{parabolic}, i.e.\ trivial on $T$) cocycle of a holomorphic cusp form is classical: the Eichler--Shimura cocycle of such a form is parabolic, and its value on the generator $S$ is precisely the period polynomial~\cite{KZ1984, BCD2018}.
+
 \pagebreak
+%\subsection{Manifestly finite extractions of period polynomials for weak cusp forms}
 %BS-line beginning
 
 A crucial aspect to our story is the classically defined period polynomial associated to 
@@ -426,9 +436,9 @@ itself arithmetic: unit-segment $T$-periodicity identifies the
 obstruction in $V_n / \im \delta_T \cong \CC \cdot [X^n]$ as the
 constant Fourier mode (Lemma~\ref{lem:solvability-cuspidality}),
 $[C^f_T]_{X^n} = (2\pi i)^{n+1} c_f(0)$ --- the residue of $\omega_f$ at
-the very cusp that $T$ stabilizes.  The normalized representative exists
-if and only if $c_f(0) = 0$; classes that pass are the \emph{parabolic}
-ones, identified by Eichler--Shimura \cite{KZ1984} with
+the very cusp that $T$ stabilizes.  The $T$-normalized (parabolic) representative exists
+if and only if $c_f(0) = 0$; the classes that pass are the \emph{parabolic}
+ones, identified by Eichler--Shimura \cite{KZ1984, BCD2018} with
 $S_k \oplus \overline{S_k}$, the lone obstructed direction being
 Eisenstein.  Cuspidality, in this framework, is not a convergence
 hypothesis; it is the solvability condition for the normalization.
@@ -638,7 +648,7 @@ manifest rather than accommodated: interior poles cannot affect
 finiteness, only topology, and the functional answers topology with
 computable wall-crossing residues.
 
-\begin{theorem}[$L$-function for meromorphic modular forms]\label{genericLthm}
+%\begin{theorem}[$L$-function for meromorphic modular forms]\label{genericLthm}
 %Let $k \in 2\ZZ$ and let $f$ be a meromorphic modular form of weight
 %$k$ on $\Gamma$.  Write $\HH_f := \HH \setminus \Gamma\cdot
 %f^{-1}(\infty)$ for the upper half-plane with the $\Gamma$-orbit of
@@ -684,6 +694,7 @@ computable wall-crossing residues.
 %\eqref{eq:residue-formula}; the closed form is given in
 %Section~\ref{sec:wall-crossing}.
 %\end{enumerate}
+\begin{theorem}[$L$-function for meromorphic modular forms]\label{genericLthm}
 Let $f \in F_k$, and let $c_{Rf}(n)$, $\Gamma(s,x)$, $\tau_p$, $V_i$, $r^*_{f,\tau_P}(m)$, and $I_N(s,z)$ be as defined in section~\ref{sec:wall-crossing}, and consider the $\gamma^T_i$ such that it does not enclose any pole in $f$. Then the L-integral that yields the L-function is
 \begin{align} 
 L^*(f, s) =&-c_f(0) \bigg(\frac{1}{s} + \frac{i^k}{k-s} \bigg) + \sum_{n \neq 0} c_{Rf}(n|B) \bigg( \frac{\Gamma(s,2\pi n)}{(2\pi n)^s}  + i^k \frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}  \bigg) \nonumber\\
@@ -967,7 +978,7 @@ Eichler--Shimura theorem \cite{KZ1984} identifies
 $H^1(\Gamma; V_n) \cong S_k \oplus \overline{S_k} \oplus
 \CC_{\mathrm{Eis}}$ and the parabolic subspace
 $\Hpar(\Gamma; V_n) \cong S_k \oplus \overline{S_k}$; on cocycles
-normalized so that $c_T = 0$, the assignment $c \mapsto c_S$ further
+\emph{$T$-normalized} to the parabolic representative ($c_T = 0$; cf.\ \cite[\S2.2]{BCD2018}), the assignment $c \mapsto c_S$ further
 identifies $\Hpar(\Gamma; V_n) \cong W_{k-2}/\CC\,(X^n - Y^n)$, with the
 quotient line accounting for the residual freedom
 $P \mapsto P + \CC\, Y^n$.  When $\dim S_k = 1$, each parity eigenspace
@@ -2754,6 +2765,11 @@ arXiv:1112.3444 [math.NT] (2011); J.\ Reine Angew.\ Math.\ \textbf{703} (2015), 
 W.\ Kohnen and D.\ Zagier,
 \emph{Modular forms with rational periods},
 in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
+
+\bibitem{BCD2018}
+R.\ Bruggeman, Y.\ Choie, and N.\ Diamantis,
+\emph{Holomorphic automorphic forms and cohomology},
+Mem.\ Amer.\ Math.\ Soc.\ \textbf{253} (2018), no.\ 1212; arXiv:1404.6718.
 
 \bibitem{LewisZagier2001}
 J.\ Lewis and D.\ Zagier,

@@ -1,0 +1,803 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,citecolor=blue!55!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\Dhat}{\widehat{\Delta}}
+\newcommand{\tk}{\widetilde{k}_T}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Li}{Li}
+
+\title{A finite Hurwitz-kernel cocycle for periods and $L$-functions
+of meromorphic modular forms on $\SLZ$}
+\author{David A.\ McGady}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give one finite, regulator-free contour functional --- a two-segment
+cocycle integral with an explicit Hurwitz-zeta $T$-kernel --- that
+realizes both the period polynomials and the $L$-functions of modular
+forms on $\SLZ$ whose poles may lie anywhere: inside the fundamental
+domain and at the cusp. From a finite base point $\tau_0\in\HH$ one builds
+a cocycle whose cohomology class is independent of $\tau_0$. Removing its
+$T$-component by a coboundary --- possible if and only if the constant
+Fourier coefficient $c_f(0)$ vanishes --- yields the parabolic
+representative, whose $S$-value is the period polynomial. The same kernel,
+with the period monomial $\tau^{\ell}$ replaced by $\tau^{s-1}$, gives the
+completed $L$-function on all of $M^!_k$, constant term allowed, with the
+classical poles of $\Lambda$; for forms with interior poles it is
+determined by the contour up to the residues crossed. The construction
+introduces no new objects: the periods are Brown's quasi-periods in closed
+form~\cite{Brown2017}, the $L$-values are those of
+Bringmann--Fricke--Kent~\cite{BFK2011}. The contribution is the explicit
+all-$s$ kernel and the single finite realization. All formulae are checked
+numerically to $50$ digits~\cite{VerifyScripts}.
+\end{abstract}
+
+\section{A finite L-integral}\label{sec:Lint}
+
+\begin{definition}[$S$- and $T$-segments]\label{def:segments}
+Let $\tau_0\in\HH$ and $f\in F_k$, and let
+$S=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)$,
+$T=\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$ generate $\Gamma=\SLZ$.
+The \emph{$S$- and $T$-segments at $\tau_0$} are smooth paths in
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$,
+\begin{equation}
+\gamma^S_{\tau_0}:\ -1/\tau_0\ \longrightarrow\ \tau_0,\qquad
+\gamma^T_{\tau_0}:\ \tau_0-1\ \longrightarrow\ \tau_0,
+\end{equation}
+running from $S^{-1}\tau_0=-1/\tau_0$ and $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$.
+\end{definition}
+
+The pole-avoidance is inert for $f\in M^!_k$: with no interior poles,
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)=\HH$ and the segments are unobstructed.
+Interior poles --- and the homotopy classes of contours they create --- become
+relevant only for meromorphic $f$, in the final section.
+
+\begin{definition}[Hurwitz $T$-kernel]\label{def:kernel}
+The \emph{Hurwitz $T$-kernel} is, with $\zeta(s,x)=\sum_{m\ge0}(m+x)^{-s}$ the Hurwitz
+zeta function (meromorphic in $s$, holomorphic in $x\in\HH$),
+\begin{equation}
+\tk(\tau,s):=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\,\zeta\big(s-(k-1),\tau+1\big).
+\end{equation}
+\end{definition}
+
+\begin{definition}[$L$-integral]\label{def:Lint}
+Let $f\in F_k$, $\tau_0\in\HH$, and $s\in\CC$, and let $\gamma^S_{\tau_0}$,
+$\gamma^T_{\tau_0}$ be the $S$- and $T$-segments at $\tau_0$, as in
+Definition~\ref{def:segments}. The \emph{$L$-integral} of $f$ is
+\begin{equation}
+L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
+:=i^{-s}\Big[\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
++\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\tk(\tau,s)\,d\tau\Big].
+\end{equation}
+\end{definition}
+
+Its $\tau_0$- and path-dependence is dealt with below, in the main body.
+
+\begin{definition}[$L$-function]\label{def:Lfun}
+The \emph{$L$-function} of $f\in F_k$ is
+\begin{equation}
+L(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
+:=\frac{(2\pi)^s}{\Gamma(s)}\,L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0}).
+\end{equation}
+\end{definition}
+
+Likewise; once that dependence is settled below, we drop the arguments and write
+simply $L^*(f,s)$ and $L(f,s)$.
+
+\begin{lemma}[Finiteness]\label{lem:finite}
+For $f\in F_k$, both integrals in Definition~\ref{def:Lint} are finite for every
+$s\in\CC$, every $\tau_0\in\HH$, and every choice of paths
+$\gamma^S_{\tau_0},\gamma^T_{\tau_0}$.
+\end{lemma}
+
+\begin{proposition}[Basepoint and path independence]\label{prop:indep}
+For $f\in M^!_k$ the value $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ is independent
+of $\tau_0\in\HH$ and of the paths: with no interior poles, $\HH$ is simply connected,
+so all admissible contours are homotopic. We write $L^*(f,s)$ for the common value and
+$L(f,s):=\frac{(2\pi)^s}{\Gamma(s)}L^*(f,s)$.
+\end{proposition}
+
+\begin{remark}[Classical Mellin recovery]\label{rem:mellin}
+For a holomorphic cusp form $f\in S_k$, the cusp limit $\tau_0\to i\infty$ collapses
+the $S$-segment onto $[0,i\infty]$ while the $T$-segment vanishes exponentially, so
+\begin{equation}
+\lim_{\tau_0\to i\infty}L^*(f,s)=\int_0^{\infty}\! t^{s-1}f(it)\,dt,
+\end{equation}
+the classical completed $L$-integral.
+\end{remark}
+
+\section{The $L$-function}\label{sec:Lfun}% TODO placeholder title --- no person-names yet
+
+\begin{proposition}[Cusp unfolding]\label{prop:unfold}
+For $n>0$ and $\nu\in\CC$,
+\begin{equation}
+\int_i^{i+1}\! e^{2\pi inu}\,\zeta(\nu,u)\,du=i^{1-\nu}(2\pi n)^{\nu-1}\,\Gamma(1-\nu,2\pi n).
+\end{equation}
+\end{proposition}
+
+\begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:weakL}
+For $f\in M^!_k$, at $\tau_0=i$,
+\begin{equation}
+L^*(f,s)=-c_f(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++\sum_{n\ne0}c_f(n)\Big[\tfrac{\Gamma(s,2\pi n)}{(2\pi n)^s}+i^k\tfrac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\Big]
+=i^kL^*(f,k-s).
+\end{equation}
+\end{theorem}
+
+\begin{definition}[Period cocycle]\label{def:cocycle}
+Let $V_n:=\CC[X,Y]_n$ with the action $(P|_\gamma)(X,Y):=P(aX+bY,cX+dY)$, and
+$\omega_f:=f(\tau)\,(X-\tau Y)^n\,d\tau$. For $f\in F_k$ and $\tau_0\in\HH$, the
+\emph{period cocycle} is
+\begin{equation}
+C^f_\gamma(\tau_0):=(2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f\ \in V_n,
+\qquad \gamma\in\Gamma,
+\end{equation}
+satisfying $C^f_{gh}=C^f_g|_h+C^f_h$.
+\end{definition}
+
+\begin{lemma}[Parabolic representatives exist iff $c_f(0)=0$]\label{lem:gate}
+With $\delta_T P:=P|_T-P$ on $V_n$, one has $[C^f_T(\tau_0)]_{X^n}=(2\pi i)^{n+1}c_f(0)$,
+so $C^f_T\in\im\delta_T$ if and only if $c_f(0)=0$ --- the principal part of $f$ never obstructs.
+\end{lemma}
+
+\begin{definition}[Period polynomial]\label{def:rf}
+For $f\in S^!_k$ (so $c_f(0)=0$), the \emph{period polynomial} is the $S$-value of the
+parabolic representative,
+\begin{equation}
+r_f:=C^f_S(\tau_0)-\big(P|_S-P\big)\ \in V_n,
+\end{equation}
+with $P\in V_n$ chosen so that $\delta_T P=C^f_T$ (Lemma~\ref{lem:gate}).
+\end{definition}
+
+\begin{proposition}[Period coefficients are special $L$-values]\label{prop:periods}
+For $f\in S^!_k$ and $\ell\in\{1,\dots,k-3\}$,
+\begin{equation}
+[r_f]_{X^{n-\ell}Y^\ell}=(2\pi i)^{n+1}(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}\,L^*(f,\ell+1).
+\end{equation}
+\end{proposition}
+
+\begin{corollary}[Period coefficients are quasi-period coordinates]\label{cor:quasi}
+For every weight with $\dim S_k=1$ --- $k\in\{12,16,18,20,22,26\}$ --- and a weak cusp
+form $f\in S^!_k$, the coefficients of $r_f$ (Proposition~\ref{prop:periods}) are the
+quasi-period coordinates $\omega^\pm(f)$ in the sense of~\cite{Brown2017}: $\omega^+$ from
+$\ell$ even, $\omega^-$ from $\ell$ odd. At $k=12$ they reproduce Brown's published
+$\eta^\pm(\Dhat)$; at the remaining five weights they furnish the quasi-periods
+anew~\cite{VerifyScripts}.
+\end{corollary}
+
+\begin{remark}[Period-determinant cross-check]\label{rem:legendre}
+The extracted periods and quasi-periods satisfy, numerically, a Legendre-type relation:
+the determinant $\omega^+\eta^- - \omega^-\eta^+$ lies in $\QQ^\times\cdot(2\pi i)^{k-1}$,
+equal to $-(k-2)!\,(2\pi i)^{k-1}$ at $k=12$ in Brown's normalization (the weight-$k$ analog
+of $\omega_1\eta_2-\omega_2\eta_1=2\pi i$). This is a global consistency check on the
+extraction, claiming nothing new~\cite{VerifyScripts}.
+% TODO literature check: is this period/quasi-period determinant (Legendre) relation
+% --- det in Q^x (2pi i)^{k-1}, = (k-2)! at k=12 --- already established (Brown
+% arXiv:1710.07912?  Kohnen--Zagier?  a higher-weight period-determinant relation)?
+% If so, cite it; this remark only verifies consistency, claims nothing new.
+\end{remark}
+
+\subsection{Why a finite contour}\label{subsec:why}% TODO placeholder title
+
+\begin{remark}\label{rem:canonical}
+For a weak cusp form $f\in S^!_k$ the classical Mellin integral
+$\int_0^{i\infty}f(\tau)(\tau/i)^s\tfrac{d\tau}{\tau}$ does not converge --- $f$ grows at
+the cusp --- and the deformed-Mellin construction of~\cite{BFK2011} supplies a finite value
+through a non-holomorphic regularization there. The functional of Definition~\ref{def:Lint}
+reaches the same value with no regularization: written as its two segments, each diverges as
+$\tau_0\to i\infty$, with opposite signs, and the two cancel at every finite $\tau_0$, so
+$L^*(f,s)$ is finite throughout $\HH$ although the Mellin contour itself has no limit. By
+Proposition~\ref{prop:indep} the value is independent of $\tau_0$ and of the paths; BFK's
+regularized value is its evaluation at $\tau_0=i$ (Theorem~\ref{thm:weakL}), and its
+integer-$s$ values are Brown's quasi-periods (Corollary~\ref{cor:quasi}). Two independent
+finite computations --- Brown's cohomological periods and the BFK $L$-values, obtained
+without reference to one another --- meet at this one contour, which fixes it as the
+canonical object. Finiteness and $\tau_0$-independence are the analytic shadow of the
+parabolic representative~\cite{Brown2017,BCD2018,BGKO}.
+\end{remark}
+
+\section{Meromorphic modular forms}\label{sec:mero}% TODO placeholder title
+
+% §5.14a — [Def] polylog projection (def:proj)
+\begin{definition}[Polylog projection]\label{def:proj}
+Let $f\in F_k$ have interior poles at the points $\tau_p$ of a set $\mathcal P_f$ of
+$\Gamma$-inequivalent representatives, and write $\Li_s(z)=\sum_{n>0}z^n n^{-s}$. Since
+$\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a pole of order $m$ at $\tau_p$, the principal part of
+$f$ there is matched by a unique \emph{polylog projection}
+\begin{equation}
+\widehat P_{\tau_p}f(\tau):=\sum_{m>0}r^*_{f,\tau_p}(m)\,\Li_{1-m}\big(e(\tau-\tau_p)\big),
+\end{equation}
+its coefficients $r^*_{f,\tau_p}(m)$ being the principal-part data of $f$ at $\tau_p$. The
+\emph{projection} $\widehat P:=\sum_{\im\tau_p\ge1}\widehat P_{\tau_p}$ removes the principal
+part of every pole on or above the line $\im\tau=1$.
+\end{definition}
+
+% §5.14b — [Def] regularized cusp coefficients (def:cRf)
+\begin{definition}[Regularized cusp coefficients]\label{def:cRf}
+With $\widehat P$ as in Definition~\ref{def:proj},
+\begin{equation}
+c_{Rf}(n):=\big[(I-\widehat P)f\big]_{q^n}.
+\end{equation}
+\end{definition}
+
+\begin{definition}[The space $F(\infty)$]\label{def:Finfty}
+$F(\infty)$ is the space of meromorphic $g$ on $\HH$ with $g(\tau)=g(\tau+1)$, finitely many
+poles in any compact subset of the strip $\{{\rm Im}\,\tau>0,\ |{\rm Re}\,\tau|\le\tfrac12\}$,
+and $g(\tau)=O(e^{C\,{\rm Im}\,\tau})$ as ${\rm Im}\,\tau\to\infty$ for some $C$. Each such
+$g$ has a Fourier expansion $g=\sum_n c_g(n)q^n$.
+\end{definition}
+
+Then $F_k\subset F(\infty)$, and $(I-\widehat P)f\in F(\infty)$ --- the polylog tails are
+$T$-periodic but not modular, so the projection leaves $F_k$.
+
+\begin{lemma}[$q$-series--integral commutation]\label{lem:commute}
+Let $g\in F(\infty)$ have no pole on or above the line ${\rm Im}\,\tau=1$ (e.g.\
+$g=(I-\widehat P)f$). Then $g=\sum_n c_g(n)q^n$ converges along the $T$-segment at $\tau_0=i$
+and integrates term by term:
+\begin{equation}
+\int_{\gamma^T_i} g(\tau)\,\tk(\tau,s)\,d\tau
+=\sum_n c_g(n)\int_{i-1}^{i} e^{2\pi in\tau}\,\tk(\tau,s)\,d\tau.
+\end{equation}
+A pole at ${\rm Im}\,\tau_p\ge1$ defeats this --- there the coefficients grow at least like
+$n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$~\cite[Lem.~2.6]{1806}.
+\end{lemma}
+
+\begin{definition}[Polylog integral]\label{def:polylog}
+For $N\ge0$ and $z\in\HH$, the \emph{polylog integral} is the $L$-integral of a single tail
+$\Li_{-N}(e(\tau-z))$ along the $T$-segment at $\tau_0=i$ (where $\gamma^S$ degenerates, since
+$-1/i=i$):
+\begin{equation}
+I_N(s,z):=i^{-s}\int_{i-1}^{i}\Li_{-N}\big(e(\tau-z)\big)\,\tk(\tau,s)\,d\tau.
+\end{equation}
+\end{definition}
+
+\begin{lemma}[Closed form of the polylog integral]\label{lem:polylogcf}
+For ${\rm Im}\,z<1$, the polylog integral is the cusp unfolding
+(Proposition~\ref{prop:unfold}) summed against the tail's coefficients:
+\begin{equation}
+I_N(s,z)=\sum_{n\ge1} n^N e^{-2\pi inz}\Big[\frac{\Gamma(s,2\pi n)}{(2\pi n)^s}
++i^k\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\Big].
+\end{equation}
+For ${\rm Im}\,z\ge1$ --- the projected poles --- $I_N(s,z)$ is the analytic continuation in
+$z$ of the right-hand side, corrected by the residue crossed at ${\rm Im}\,\tau=1$
+(Lemma~\ref{lem:cross}).
+\end{lemma}
+
+
+\begin{thebibliography}{99}
+
+\bibitem{Brown2017}
+F.\ Brown, \emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+
+\bibitem{BFK2011}
+K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
+\emph{Special $L$-values and periods of weakly holomorphic modular forms},
+Ramanujan J.\ \textbf{24} (2011), 119--139.
+
+\bibitem{1806}
+D.\ A.\ McGady,
+\emph{$L$-functions for meromorphic modular forms and sum rules in
+conformal field theory},
+arXiv:1806.09874 (2018).
+
+\bibitem{KZ1984}
+W.\ Kohnen and D.\ Zagier,
+\emph{Modular forms with rational periods},
+in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
+
+\bibitem{BCD2018}
+R.\ Bruggeman, Y.\ Choie, and N.\ Diamantis,
+\emph{Holomorphic automorphic forms and cohomology},
+Mem.\ Amer.\ Math.\ Soc.\ \textbf{253} (2018), no.\ 1212; arXiv:1404.6718.
+
+\bibitem{BGKO}
+K. Bringmann, P. Guerzhoy, Z. Kent and K. Ono,
+\emph{Eichler-Shimura Theory for Mock Modular Forms},
+Mathematische Annalen, March 2013 355(3).
+
+\bibitem{PasolPopa2013}
+V.\ Pa\c{s}ol and A.\ A.\ Popa,
+\emph{Modular forms and period polynomials},
+Proc.\ London Math.\ Soc.\ (3) \textbf{107} (2013), 713--743; arXiv:1202.5802.
+
+\bibitem{WangZhang2022}
+W.\ Wang and H.\ Zhang,
+\emph{Meromorphic quasi-modular forms and their $L$-functions},
+arXiv:2202.09542 (2022).
+
+\bibitem{BrownFonseca2025}
+F.\ Brown and T.\ J.\ Fonseca,
+\emph{Single-valued periods of meromorphic modular forms and a motivic
+interpretation of the Gross--Zagier conjecture},
+arXiv:2508.04844 (2025).
+
+\bibitem{BDE2016}
+K.\ Bringmann, N.\ Diamantis, and S.\ Ehlen,
+\emph{Regularized inner products and errors of modularity},
+Int.\ Math.\ Res.\ Not.\ IMRN (2016); arXiv:1603.03056.
+
+\bibitem{DiamantisDrewitt2020}
+N.\ Diamantis and J.\ Drewitt,
+\emph{Period functions associated to real-analytic modular forms},
+Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
+
+\bibitem{VerifyScripts}
+\emph{Numerical verification scripts} (companion code), 2026.
+
+\end{thebibliography}
+
+
+%  §1 Setup (prose) — modularity is the weight-$k$ slash; spaces $S_k\subset M_k\subset M^!_k\subset F_k$ and $S_k\subset S^!_k\subset M^!_k$; $n:=k-2$.
+  
+%  §2 Motivation (prose) — $L$-functions for weak cusp forms (BGKO: critical $L$-values encoded by weak cusp forms, the KZ extra relation); BFK's deformed-Mellin regularization; the case for one uniform finite construction. (respectful BFK framing throughout)
+
+%  §3 The $L$-integral  [sec:Lint]   --- ALL INJECTED
+%   1. [Def] def:segments   S/T segments at tau_0 (pole-avoiding)
+%   2. [Def] def:kernel     Hurwitz T-kernel
+%   3. [Def] def:Lint       L-integral L*(f,s;gS,gT) on F_k
+%   4. [Def] def:Lfun       L-function L = (2pi)^s/Gamma(s) L*
+%   5. [Lem] lem:finite     finiteness on F_k
+%   6. [Prop] prop:indep    basepoint/path independence (M^!_k)
+%   7. [Rem] rem:mellin     classical Mellin recovery (tau_0 -> i infty, cusp forms)
+
+%  §4 The $L$-function  [sec:Lfun]  (placeholder title)   --- ALL INJECTED: prop:unfold, thm:weakL, def:cocycle, lem:gate, def:rf, prop:periods, cor:quasi, rem:legendre, rem:canonical(§4.3)
+%  8. [Prop] cusp unfolding (the incomplete-$\Gamma$ identity)
+%  9. [Thm] at $\tau_0=i$, the $L$-integral is BFK's incomplete-$\Gamma$ sum
+%  10. [Def] Cocycle
+%  11. [Prop] for $f\in S^!_k$, the integer-$s$ values $i^{\ell+1}L^(f,\ell+1)=\int_{\gamma^S}f\tau^\ell+\int_{\gamma^T}f\tk(\tau,\ell+1)$ are the coefficients of the period polynomial $r_f$ — the $S$-value of the parabolic representative of $f$'s period cocycle.
+%  12. [Cor] ...and these coordinates are Brown's $\eta^\pm$, to 50 digits. 
+%  13. [Remark — its own subsection §4.3] why the Mellin contour can never be the $L$-integral for weak forms (the two oppositely-diverging pieces, cancelling at finite $\tau_0$); the dual Brown+BFK match certifies canonicality
+
+%  §5 Meromorphic forms ($F_k$)  [sec:mero]   --- contour = OUR gamma^T at tau_0=i; B dropped, split at Im(tau)=1
+%  17. [Def] def:proj      polylog projection (poles Im(tau_p)>=1)     INJECTED (revised: B -> Im=1)
+%  18. [Def] def:cRf       regularized cusp coeffs c_{Rf}(n)           INJECTED (revised)                                                                                       
+%  18b.[Def] def:Finfty     T-periodic space F(infty) (a la 1806); projection lands here, not in F_k   INJECTED
+%  19. [Lem] lem:commute    q-series commutes iff no pole Im>=1 (suff = Fourier conv above remaining <1 poles; necessity = 1806 Lemma 2.6, cited not reproved)   INJECTED
+%  20. [Def] def:polylog    polylog integral I_N(s,z) over OUR gamma^T (not gamma_B^+)   INJECTED
+%  21. [Lem] lem:polylogcf  closed form of I_N   INJECTED (Im z<1 verified ~1e-32, check_polylog.py; Im z>=1 = continuation+residue, to verify w/ lem:cross)
+%  22. [Lem] lem:haupt      Hauptmodul split f = g + h   PENDING
+%  23. [Lem] lem:cross      single-pole crossing (residue)   PENDING
+%  24. [Thm] thm:mero       L-function for meromorphic forms (genericLthm)   PENDING
+%  25. [Cor] cor:wall       wall-crossing   PENDING
+
+
+\end{document}
+
+
+
+\section{Setup}\label{sec:setup}
+
+Throughout, $\Gamma:=\SLZ$, $k\in2\ZZ$, and $n:=k-2$. For
+$\gamma=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in\Gamma$
+write the weight-$k$ slash $(f|_k\gamma)(\tau):=(c\tau+d)^{-k}\,f(\gamma\tau)$,
+$\gamma\tau:=\tfrac{a\tau+b}{c\tau+d}$. A function $f$ on $\HH$ is
+\emph{modular of weight $k$} if
+\begin{equation}\label{eq:modular}
+  f|_k\gamma=f\qquad\text{for all }\gamma\in\Gamma.
+\end{equation}
+As $f|_kT=f$ forces
+$f(\tau+1)=f(\tau)$, every modular $f$ has a $q$-expansion $f=\sum_n
+c_f(n)\,q^n$, $q:=e^{2\pi i\tau}$.
+
+The spaces are carved out of \eqref{eq:modular} by \emph{analytic}
+conditions, imposed on top of modularity and orthogonal to it. Largest is
+$F_k$, the modular $f$ meromorphic on $\HH$ and at the cusp --- the
+\emph{meromorphic modular forms}, equivalently the weight-$k$ part of the
+field of fractions of $M_*=\bigoplus_k M_k$ (quotients $f_1/f_2$ with
+$f_i\in M_{k_i}$, $k=k_1-k_2$), whose poles may sit in the interior of
+$\mathcal F:=\HH/\Gamma$ or at the cusp. Inside it, $M^!_k$ asks $f$ to be
+holomorphic on $\HH$ with at worst a finite-order pole at the cusp
+($c_f(n)=0$ for $n<-N$, some $N$); $M_k\subset M^!_k$ asks holomorphy also
+at the cusp ($c_f(n)=0$ for $n<0$); and $S_k\subset M_k$,
+$S^!_k\subset M^!_k$ add the single condition $c_f(0)=0$. Thus
+$M_k\subset M^!_k\subset F_k$ all share the modularity \eqref{eq:modular}
+and differ only in what is assumed about poles. We write $\Delta=q+\mathcal
+O(q^2)\in S_{12}$ for the discriminant and $\Dhat=1/q+\mathcal O(q^2)\in
+S^!_{12}$ for the unique weak cusp form with that principal part.
+
+\begin{definition}[Period polynomial and $L$-function]\label{def:classical}
+For $f\in S_k$ the \emph{period polynomial} is
+\begin{equation}\label{eq:rf-classical}
+  r_f(X,Y):=\int_0^{i\infty} f(\tau)\,(X-\tau Y)^{n}\,d\tau\;\in\;V_{n},
+  \qquad V_{n}:=\CC[X,Y]_{n},
+\end{equation}
+the homogeneous degree-$n$ polynomials, with action
+$(P|_\gamma)(X,Y):=P(aX+bY,\,cX+dY)$. The coefficient of
+$X^{n-\ell}Y^{\ell}$ in $r_f$ is proportional to
+$\int_0^\infty t^{\ell}f(it)\,dt$, i.e.\ to $L(f,\ell+1)$, where the
+\emph{completed $L$-function} is the Mellin transform
+\begin{equation}\label{eq:Lstar-classical}
+  L^*(f,s):=\int_0^{i\infty}\!\big(f(\tau)-c_f(0)\big)\Big(\tfrac{\tau}{i}\Big)^{\!s}\frac{d\tau}{\tau}
+  =\Gamma(s)\sum_{n\ne0}\frac{c_f(n)}{(2\pi n)^s},
+\end{equation}
+related to $L(f,s)=\sum_{n\ne0}c_f(n)n^{-s}$ by
+$L^*(f,s)=\Gamma(s)(2\pi)^{-s}L(f,s)$, and obeying
+$L^*(f,s)=i^k L^*(f,k-s)$.
+\end{definition}
+
+Both \eqref{eq:rf-classical} and \eqref{eq:Lstar-classical} require the
+cusp integral $\int_0^{i\infty}$ to converge, which fails once $f$ has a
+pole at the cusp or in the interior. The construction below replaces that
+one divergent contour by a finite two-segment one, valid for every
+$f\in F_k$.
+
+\begin{definition}[The covariant differential and its cocycle]\label{def:cocycle}
+For $f\in F_k$ set $\omega_f:=f(\tau)\,(X-\tau Y)^{n}\,d\tau$. For a primitive
+$F$ with $dF=\omega_f$, the failure of $\Gamma$-modularity recorded at a
+finite base point $\tau_0\in\HH$ is
+\begin{equation}\label{eq:cocycle}
+  C^f_\gamma(\tau_0):=(2\pi i)^{n+1}\big(F(\tau_0)-F(\gamma^{-1}\tau_0)\big)
+  =(2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f,
+  \qquad \gamma\in\Gamma.
+\end{equation}
+The right-hand equality is manifestly finite and independent of the choice
+of $F$. The map $\gamma\mapsto C^f_\gamma(\tau_0)$ is a $V_n$-valued
+cocycle, $C^f_{gh}=C^f_g|_h+C^f_h$, whose cohomology class is independent
+of $\tau_0$ (Lemma~\ref{lem:cocycle}).
+\end{definition}
+
+\begin{definition}[$S$- and $T$-segments]\label{def:contours}
+For $\tau_0\in\HH$ and $\sigma\in\Gamma$ let $\gamma^\sigma_{\tau_0}$
+denote a smooth path from $\sigma^{-1}\tau_0$ to $\tau_0$ lying in
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$ (the interior poles of $f$
+removed). Since $\Gamma=\langle S,T\rangle$ with
+$S=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)$,
+$T=\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$, the cocycle
+is fixed by the two values $C^f_S,C^f_T$ on $\gamma^S_{\tau_0}$ and
+$\gamma^T_{\tau_0}$.
+\end{definition}
+
+The period polynomial is the parabolic representative of this cocycle.
+Passing to it means removing $C^f_T$ by a coboundary; the surviving
+$C^f_S$ is then a fixed element of $V_n$. The next lemma records when this
+is possible.
+
+\begin{lemma}[Cocycle property and the obstruction]\label{lem:cocycle}
+The map \eqref{eq:cocycle} is a cocycle with $\tau_0$-independent class.
+Let $\delta_T P:=P|_T-P$ on $V_n$. The equation $\delta_T P=(2\pi
+i)^{-(n+1)}C^f_T(\tau_0)$ is solvable for $P\in V_n$ if and only if
+$c_f(0)=0$; the obstruction is the constant Fourier mode,
+$[C^f_T]_{X^n}=(2\pi i)^{n+1}c_f(0)$, and the interior principal part of
+$f$ never obstructs it. Solvable classes are exactly the \emph{parabolic}
+ones, identified by Eichler--Shimura with $S_k\oplus\overline{S_k}$;
+the lone obstructed direction is Eisenstein~\cite{KZ1984,BCD2018}.
+\end{lemma}
+
+\begin{proof}
+The cocycle relation and $\tau_0$-independence are the standard
+computation: from \eqref{eq:cocycle},
+$C^f_{gh}=(2\pi i)^{n+1}(F(\tau_0)-F((gh)^{-1}\tau_0))$, and inserting
+$F(h^{-1}\tau_0)$ gives $C^f_g|_h+C^f_h$ after using the modular
+covariance of $\omega_f$; changing $\tau_0$ shifts the cocycle by the
+coboundary $\gamma\mapsto B|_\gamma-B$ with $B=(2\pi
+i)^{n+1}(F(\tau_0')-F(\tau_0))$. Since $T$ fixes the cusp, $C^f_T(\tau_0)$
+is the integral of $\omega_f$ over a unit horizontal shift; its top
+coefficient is $(2\pi i)^{n+1}\int_{\tau_0-1}^{\tau_0}f(\tau)\,d\tau=(2\pi
+i)^{n+1}c_f(0)$. As $\im\delta_T=\{P:[P]_{X^n}=0\}$, the equation is
+solvable iff this coefficient vanishes, i.e.\ iff $c_f(0)=0$. The pole
+locations enter only the lower coefficients, never $[\,\cdot\,]_{X^n}$.
+\end{proof}
+
+\section{The Hurwitz $T$-kernel}\label{sec:kernel}
+
+Removing $C^f_T$ requires inverting $\delta_T$ against the data on the
+$T$-segment. On $V_n$ this is the operator identity
+$\delta_T=e^{Y\partial_X}-1$, inverted in closed form by Bernoulli
+numbers; the inverse against a single power $\tau^{\sigma-1}$ is a Hurwitz
+zeta function, of which the integer-$s$ Bernoulli inversion is one slice
+(Remark~\ref{rem:provenance}). We take the all-$s$ kernel as a definition
+and verify it inverts the shift.
+
+\begin{definition}[Hurwitz $T$-kernel]\label{def:kernel}
+With $\zeta(s,x)=\sum_{m\ge0}(m+x)^{-s}$ the Hurwitz zeta function,
+\begin{equation}\label{eq:kernel}
+  \tk(\tau,s):=\zeta(1-s,\,\tau+1)\;-\;e^{i\pi(s-1)}\,\zeta\big(s-(k-1),\,\tau+1\big).
+\end{equation}
+\end{definition}
+
+\begin{lemma}[The kernel inverts $\delta_T$, uniformly in $s$]\label{lem:invert}
+For every $s\in\CC$,
+\begin{equation}\label{eq:invert}
+  \zeta(1-s,\tau+2)-\zeta(1-s,\tau+1)=-(\tau+1)^{s-1},
+\end{equation}
+so $\delta_T$ applied to either Hurwitz term of $\tk(\tau,s)$ returns a
+pure power, and $\tk$ solves the shift-difference equation whose
+right-hand side is the moment data of $C^f_T$. Consequently the obstruction
+remaining after the kernel acts is the constant mode, which vanishes iff
+$c_f(0)=0$ (Lemma~\ref{lem:cocycle}).
+\end{lemma}
+
+\begin{proof}
+The functional relation $\zeta(\sigma,x+1)-\zeta(\sigma,x)=-x^{-\sigma}$
+is immediate from $\zeta(\sigma,x)=\sum_{m\ge0}(m+x)^{-\sigma}$. Setting
+$x=\tau+1$, $\sigma=1-s$ gives \eqref{eq:invert}; the second Hurwitz term
+is handled identically at $\sigma=s-(k-1)$. The pure powers produced are
+exactly the monomials of the $T$-segment data, so $\tk$ inverts the shift
+term by term in $s$.
+\end{proof}
+
+\begin{remark}[Provenance of the kernel]\label{rem:provenance}
+At integer $s=\ell$, $\tk(\tau,\ell)$ collapses to the $\QQ$-rational
+polynomial kernel produced by the Bernoulli inversion of $\delta_T$ on
+$V_n$, through $\zeta(-m,a)=-B_{m+1}(a)/(m+1)$. Because $\zeta(s,x)$ is
+already entire in $x$ and meromorphic in $s$, \eqref{eq:kernel} is a
+function identity of which the integers are one slice; no analytic
+continuation of a discrete identity is involved. The full polynomial
+inversion is carried out in the companion note.
+\end{remark}
+
+\section{Periods on \texorpdfstring{$S^!_k$}{S\_k!}}\label{sec:periods}
+
+On a weak cusp form $c_f(0)=0$ holds, so by Lemma~\ref{lem:cocycle} the
+parabolic representative exists for arbitrary principal part. Its $S$-value
+is the period polynomial, and for $\dim S_k=1$ the extraction is an
+explicit two-segment functional.
+
+\begin{theorem}[Periods as a finite linear functional, $\dim S_k=1$]\label{thm:periods}
+Let $\dim S_k=1$ and $f\in S^!_k$. For $\ell\in\{1,\dots,k-3\}$, so that
+$s=\ell+1$ ranges over the interior integers $\{2,\dots,k-2\}$ of the
+critical strip, let $c_S^{\,\ell}:=[p_f^\pm]_{X^{n-\ell}Y^{\ell}}\in\QQ$
+be the coefficient of $X^{n-\ell}Y^{\ell}$ in the cuspidal basis element
+of the period-polynomial space~\cite{KZ1984}, in Brown's
+$S$-normalization~\cite{Brown2017}. Then the period coefficients are
+\begin{equation}\label{eq:periods}
+  \omega^\pm(f)
+  =\frac{(2\pi i)^{k-1}(-1)^\ell\binom{n}{\ell}}{c_S^{\,\ell}}
+  \left[\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{\ell}\,d\tau
+  +\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\tk(\tau,\ell+1)\,d\tau\right],
+\end{equation}
+independent of $\tau_0\in\HH$ and of the admissible contours, with parity
+selecting the coefficient: $\omega^+(f)$ for $\ell$ even, $\omega^-(f)$
+for $\ell$ odd.
+\end{theorem}
+
+\begin{proof}
+Write $P\in V_n/\CC Y^n$ for the unique solution of $\delta_T
+P=(2\pi i)^{-(n+1)}C^f_T(\tau_0)$ from Lemma~\ref{lem:cocycle}, and set
+$r_f:=C^f_S(\tau_0)-(2\pi i)^{n+1}(P|_S-P)$, the parabolic ($S$-)value.
+We compute the coefficient of the interior monomial $X^{n-\ell}Y^{\ell}$.
+
+The moment expansion of \eqref{eq:cocycle} along the $S$-segment gives
+$C^f_S(\tau_0)=(2\pi i)^{n+1}\sum_{j=0}^{n}\binom{n}{j}(-1)^j
+\big(\int_{\gamma^S_{\tau_0}}f\,\tau^{j}d\tau\big)X^{n-j}Y^{j}$, so the
+$X^{n-\ell}Y^{\ell}$ coefficient of the $S$-piece is $(2\pi
+i)^{n+1}\binom{n}{\ell}(-1)^{\ell}\int_{\gamma^S_{\tau_0}}f\,\tau^{\ell}d\tau$
+--- the bare Mellin monomial.
+
+For the $T$-piece, $S$ acts by $(X,Y)\mapsto(-Y,X)$, so $P|_S-P$ has the
+$X^{n-\ell}Y^{\ell}$ coefficient a $\QQ$-linear combination of the
+$p_j$, each of which is by Lemma~\ref{lem:invert} (integer-$s$ slice,
+Remark~\ref{rem:provenance}) the rational kernel $\widehat k_T(\ell+1,\tau)$.
+That rational kernel and $\tk$ agree as $T$-integrals against $f$: their
+difference is a constant, and $\int_{\gamma^T_{\tau_0}}f\,d\tau=c_f(0)=0$
+for $f\in S^!_k$, so the constant integrates to zero. Hence the $T$-piece
+coefficient equals $(2\pi i)^{n+1}\binom{n}{\ell}(-1)^{\ell}
+\int_{\gamma^T_{\tau_0}}f\,\tk(\tau,\ell+1)\,d\tau$. Adding the two pieces
+and dividing by the rational basis coefficient $c_S^{\,\ell}$ to read off
+$\omega^\pm$ gives \eqref{eq:periods}. Independence of $\tau_0$ and the
+contours is Lemma~\ref{lem:cocycle}; the parity statement is verified
+numerically against Brown's $\omega^\pm(\Delta)$ in~\cite{VerifyScripts}.
+\end{proof}
+
+At $k=12$, \eqref{eq:periods} applied to $\Delta$ returns Brown's
+$\omega^\pm(\Delta)$, and applied to $\Dhat$ returns the quasi-periods
+$\eta^\pm(\Dhat)$ from a finite-endpoint contour pair, with no divergence
+at the cusp. For $\dim S_k\ge2$ the statement becomes a matrix identity,
+which we do not pursue here.
+
+\section{$L$-functions on \texorpdfstring{$M^!_k$}{M\_k!}}\label{sec:L}
+
+The $L$-function does not need the parabolic representative, so it is
+defined without the condition $c_f(0)=0$. Replacing the monomial
+$\tau^{\ell}$ by $\tau^{s-1}$ on the $S$-segment, and $\tk$ by its general-$s$
+form, defines a functional on all of $M^!_k$.
+
+\begin{definition}[$L$-integral]\label{def:Lstar}
+For $f\in M^!_k$, $\tau_0\in\HH$, and $s\in\CC$,
+\begin{equation}\label{eq:Lstar}
+  L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
+  :=i^{-s}\!\left[\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
+  +\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\tk(\tau,s)\,d\tau\right].
+\end{equation}
+\end{definition}
+
+\begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:L}
+For $k\in2\ZZ$ and $f\in M^!_k$, the integral \eqref{eq:Lstar} is finite
+and independent of $\tau_0$ and of the admissible contours, for every
+$s\in\CC$; write $L^*(f,s)$ for the common value. At $\tau_0=i$ the
+$S$-segment degenerates and
+\begin{equation}\label{eq:bfk}
+  L^*(f,s)
+  =i^{-s}\!\int_{i-1}^{i}\! f(\tau)\,\tk(\tau,s)\,d\tau
+  =-c_f(0)\!\left(\frac1s+\frac{i^k}{k-s}\right)
+  +\sum_{n\ne0} c_f(n)\!\left[\frac{\Gamma(s,2\pi n)}{(2\pi n)^s}
+  +i^k\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\right].
+\end{equation}
+The right side is the completed $L$-function: entire on $S^!_k$, and on
+$M^!_k$ meromorphic with exactly the poles forced by $c_f(0)$, as classical
+$\Lambda$. The $s\leftrightarrow k-s$ symmetry of the incomplete-gamma pair
+makes the functional equation $L^*(f,s)=i^k\,L^*(f,k-s)$ manifest.
+\end{theorem}
+
+\begin{proof}
+For $f\in M^!_k$ no interior pole obstructs the contour pair, so both
+integrals in \eqref{eq:Lstar} are finite for every $s$ (compact contours
+in $\HH$). The shift-difference identity \eqref{eq:invert} that defines the
+kernel is exactly the identity that makes the $\tau_0$-derivative of
+\eqref{eq:Lstar} vanish: differentiating in $\tau_0$ leaves endpoint terms
+which modularity collapses to $f(\tau_0)$ times the combination
+\eqref{eq:invert} sets to zero. Hence $L^*$ is independent of $\tau_0$ and,
+on the simply connected $\HH$, of the contours.
+
+Evaluate at the elliptic fixed point $\tau_0=i$ of $S$: the $S$-segment
+endpoints coincide ($-1/i=i$), so the $S$-integral vanishes and
+$L^*(f,s)=i^{-s}\int_{i-1}^{i}f(\tau)\,\tk(\tau,s)\,d\tau$. Expand
+$f=\sum_n c_f(n)q^n$ and exchange sum and integral, justified by uniform
+convergence on the compact segment $[i-1,i]$ (the finitely many polar modes
+included, as $|q^{-1}|=e^{2\pi}$ is bounded there). The constant mode
+$n=0$, via $\int_{i-1}^{i}\zeta(\sigma,\tau+1)\,d\tau=\int_i^{i+1}
+\zeta(\sigma,u)\,du=i^{1-\sigma}/(\sigma-1)$ and the phase collapse
+$i^{-s}e^{i\pi(s-1)}i^{k-s}=-i^k$, gives $-c_f(0)(1/s+i^k/(k-s))$. For
+$n\ne0$, substituting $u=\tau+1$ (prefactor $e^{-2\pi in}=1$) and unfolding
+each Hurwitz half,
+\begin{equation}\label{eq:unfold}
+  \int_i^{i+1}\! e^{2\pi in u}\,\zeta(\nu,u)\,du
+  =i^{\nu}(2\pi n)^{-\nu}\,\Gamma(\nu,2\pi n),
+\end{equation}
+at $\nu=1-s$ and $\nu=s-(k-1)$, gives the summand
+$c_f(n)\big[\Gamma(s,2\pi n)/(2\pi n)^s+i^k\Gamma(k-s,2\pi n)/(2\pi
+n)^{k-s}\big]$ after the same phase collapse. Summing over $n$ reproduces
+\eqref{eq:bfk}; for holomorphic $f$ this is the Hecke--Weil Mellin
+transform, and for weak $f$ the incomplete-gamma sum of~\cite{BFK2011},
+here obtained at every $s$ from a finite contour with no regulator.
+\end{proof}
+
+Two points fix the status of \eqref{eq:bfk}. It is a result of the
+term-by-term unfolding, not an analytic continuation: the right side is
+manifestly meromorphic and matches the classical and BFK expressions
+coefficient by coefficient, so no continuation step enters --- only the
+finite interchange of sum and integral. And the split height $\tau=i$, the
+$S$-fixed point, is what fixes the BFK normalization $b=1$; it is not the
+$s$-center. Because the functional is finite and $\tau_0$-independent on
+all of $M^!_k$, the BFK prescription~\cite{BFK2011}, recovered as one
+closed-form evaluation of it, is its canonical value rather than an
+independent definition.
+
+\section{Interior poles}\label{sec:wall}
+
+For $f$ regular in the interior the contour pair carries no choice: $\HH$
+is simply connected. For $f\in F_k$ with poles inside the fundamental
+domain, $L^*$ depends on the contours only through their homotopy class in
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$; the freedom is which poles the
+segments enclose. We fix it by the symmetric winding prescription
+$\tfrac12\sum_{\pm\epsilon}$ of~\cite{1806}, which makes the value
+definitional, and record the dependence on the homotopy class.
+
+\begin{corollary}[Wall-crossing]\label{cor:wall}
+Let $\gamma^T_i$ enclose a simple interior pole $\tau_p$ of $f$ clockwise,
+relative to the canonical contour. Then
+\begin{equation}\label{eq:wall}
+  L^*(f,s)-L^*(f,s;\gamma^T_i)\;=\;-2\pi i\,i^{-s}\,\Res(f,\tau_p)\,\tk(\tau_p,s),
+\end{equation}
+and the analogous $S$-segment crossing contributes
+$-2\pi i\,i^{-s}\Res(f,\tau_p)\,\tau_p^{s-1}$.
+\end{corollary}
+
+\begin{proof}
+The two contours differ by a small loop about $\tau_p$. By the residue
+theorem the difference of the $T$-integrals in \eqref{eq:Lstar} is $2\pi i$
+times the residue of $f(\tau)\,\tk(\tau,s)$ at $\tau_p$; since
+$\zeta(\sigma,\tau+1)$ is holomorphic throughout $\HH$, the kernel
+contributes no pole of its own, and the residue is $\Res(f,\tau_p)\,
+\tk(\tau_p,s)$. The $i^{-s}$ prefactor and the clockwise orientation give
+\eqref{eq:wall}; the $S$-segment case is identical with kernel
+$\tau^{s-1}$.
+\end{proof}
+
+The cross-wall dependence is thus exactly $f$'s residue times the finite
+kernel value there, and nothing more. Within a homotopy class the value is
+canonical.
+
+\section{Relation to prior work}\label{sec:lit}
+
+The contribution is the finite, regulator-free Hurwitz-kernel
+representation unifying periods and $L$-values; the objects are not new.
+The cocycle framework, finite base point, and $\tau_0$-independent class
+are Brown's~\cite{Brown2017}, with the constant-term coboundary already in
+Pa\c{s}ol--Popa~\cite{PasolPopa2013} and the parabolic-representative
+dictionary in Bruggeman--Choie--Diamantis~\cite{BCD2018}. The weak-form
+$L$-values are those of Bringmann--Fricke--Kent~\cite{BFK2011}; the
+interior-pole contour and its winding are from~\cite{1806}. Among recent
+work, Wang--Zhang treat $L$-functions of meromorphic quasi-modular
+forms~\cite{WangZhang2022} and Brown--Fonseca the single-valued periods of
+meromorphic modular forms~\cite{BrownFonseca2025}; the
+regularization/cohomology context is Bringmann--Diamantis--Ehlen
+\cite{BDE2016} and the real-analytic period-function analogues are
+Diamantis--Drewitt~\cite{DiamantisDrewitt2020}. Throughout, a manifestly
+convergent finite formula equal to the regularized value fixes that value
+as canonical --- scheme-, continuation-, and cusp-choice-independent ---
+not as a correction to results already rigorous. The numerical checks are
+in~\cite{VerifyScripts}.
+
+\begin{thebibliography}{99}
+
+\bibitem{Brown2017}
+F.\ Brown, \emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+
+\bibitem{BFK2011}
+K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
+\emph{Special $L$-values and periods of weakly holomorphic modular forms},
+Ramanujan J.\ \textbf{24} (2011), 119--139.
+
+\bibitem{1806}
+D.\ A.\ McGady,
+\emph{$L$-functions for meromorphic modular forms and sum rules in
+conformal field theory},
+arXiv:1806.09874 (2018).
+
+\bibitem{KZ1984}
+W.\ Kohnen and D.\ Zagier,
+\emph{Modular forms with rational periods},
+in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
+
+\bibitem{BCD2018}
+R.\ Bruggeman, Y.\ Choie, and N.\ Diamantis,
+\emph{Holomorphic automorphic forms and cohomology},
+Mem.\ Amer.\ Math.\ Soc.\ \textbf{253} (2018), no.\ 1212; arXiv:1404.6718.
+
+\bibitem{PasolPopa2013}
+V.\ Pa\c{s}ol and A.\ A.\ Popa,
+\emph{Modular forms and period polynomials},
+Proc.\ London Math.\ Soc.\ (3) \textbf{107} (2013), 713--743; arXiv:1202.5802.
+
+\bibitem{WangZhang2022}
+W.\ Wang and H.\ Zhang,
+\emph{Meromorphic quasi-modular forms and their $L$-functions},
+arXiv:2202.09542 (2022).
+
+\bibitem{BrownFonseca2025}
+F.\ Brown and T.\ J.\ Fonseca,
+\emph{Single-valued periods of meromorphic modular forms and a motivic
+interpretation of the Gross--Zagier conjecture},
+arXiv:2508.04844 (2025).
+
+\bibitem{BDE2016}
+K.\ Bringmann, N.\ Diamantis, and S.\ Ehlen,
+\emph{Regularized inner products and errors of modularity},
+Int.\ Math.\ Res.\ Not.\ IMRN (2016); arXiv:1603.03056.
+
+\bibitem{DiamantisDrewitt2020}
+N.\ Diamantis and J.\ Drewitt,
+\emph{Period functions associated to real-analytic modular forms},
+Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
+
+\bibitem{VerifyScripts}
+\emph{Numerical verification scripts} (companion code), 2026.
+
+\end{thebibliography}
+
+\end{document}
