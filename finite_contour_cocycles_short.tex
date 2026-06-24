@@ -53,9 +53,11 @@ checked numerically~\cite{VerifyScripts}.
 \section{A finite L-integral}\label{sec:Lint}
 
 \begin{definition}[$S$- and $T$-segments]\label{def:segments}
-Let $\tau_0\in\HH$ and $f\in F_k$, and let
+Let $\tau_0\in\HH$ and $f\in F_k$, let
 $S=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)$,
-$T=\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$ generate $\Gamma=\SLZ$.
+$T=\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$ denote 
+the generators of $\Gamma=\SLZ$, and let $f^{-1}(\infty)$ be the locus 
+of all poles of $f \in \HH$ (inclusive of the cusp of $\SLZ$).  
 The \emph{$S$- and $T$-segments at $\tau_0$} are smooth paths in
 $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$,
 \begin{equation}
@@ -65,42 +67,58 @@ $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$,
 running from $S^{-1}\tau_0=-1/\tau_0$ and $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$.
 \end{definition}
 
-The pole-avoidance is inert for $f\in M^!_k$: with no interior poles,
-$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)=\HH$ and the segments are unobstructed.
-Interior poles --- and the homotopy classes of contours they create --- become
-relevant only for meromorphic $f$, in the final section.
+Note: When $f \in M_k^!$, avoiding poles is automatic, as long as $\tau_0$, 
+i.e. the base-point of any of these paths is not at a cusp of $\SLZ$, i.e. there is 
+only the trivial homotopy class. However, when $f \in F_k$, and $f$ has poles 
+at finite and non-zero imaginary heights, then these integration contours fall into 
+nontrivial homotopy classes.
+
+\begin{definition}[Branch prescription for exponentials]\label{def:exp}
+Let $e^x$ denote the exponential map from $\CC \to \CC$. It is helpful to define 
+the following shorthand: $ e(x) := e^{2 \pi i x}$ 
+\end{definition}
 
 \begin{definition}[Hurwitz $T$-kernel]\label{def:kernel}
-The \emph{Hurwitz $T$-kernel} is, with $\zeta(s,x)=\sum_{m\ge0}(m+x)^{-s}$ the Hurwitz
-zeta function (meromorphic in $s$, holomorphic in $x\in\HH$),
+Let $\zeta(s,x)=\sum_{m\ge0}(m+x)^{-s}$ as a function 
+$\zeta: \CC_s \times (\CC\setminus\{0\})_x \to \CC$ denote the 
+Hurwitz zeta function (meromorphic in $s$, holomorphic in $x\in\HH$). 
+We define \emph{Hurwitz $T$-kernel} as
 \begin{equation}
-\tk(\tau,s):=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\,\zeta\big(s-(k-1),\tau+1\big).
+\tk(\tau,s):=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\,\zeta\big(1-(k-s),\tau+1\big).
 \end{equation}
 \end{definition}
 
 \begin{definition}[$L$-integral]\label{def:Lint}
-Let $f\in F_k$, $\tau_0\in\HH$, and $s\in\CC$, and let $\gamma^S_{\tau_0}$,
+Let $f\in F_k$, $\tau_0\in\HH$, and $s\in\CC$. Further, let $\gamma^S_{\tau_0}$,
 $\gamma^T_{\tau_0}$ be the $S$- and $T$-segments at $\tau_0$, as in
-Definition~\ref{def:segments}. The \emph{$L$-integral} of $f$ is
+Definition~\ref{def:segments}, and let $e(x)$ and $\tk$ be as defined in 
+Definitions~\ref{def:exp} and~\ref{def:kernel}. The \emph{$L$-integral} of $f$ is
 \begin{equation}
 L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
-:=i^{-s}\Big[\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
+:=e^{-\pi i s/2}\Big[\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
 +\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\tk(\tau,s)\,d\tau\Big].
 \end{equation}
 \end{definition}
 
-Its $\tau_0$- and path-dependence is dealt with below, in the main body.
+Path-dependence and $\tau_0$-independence of 
+$L^*(f,s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ are dealt with below, 
+in the main body. But, first, we use this \emph{L-integral} to define a generalized 
+\emph{L-function}:
 
 \begin{definition}[$L$-function]\label{def:Lfun}
-The \emph{$L$-function} of $f\in F_k$ is
+Let $L^*(f,s;\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ be as defined in~\ref{def:Lint}. 
+We define the generalized \emph{$L$-function} of $f\in F_k$ to be,
 \begin{equation}
 L(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
 :=\frac{(2\pi)^s}{\Gamma(s)}\,L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0}).
 \end{equation}
 \end{definition}
 
-Likewise; once that dependence is settled below, we drop the arguments and write
-simply $L^*(f,s)$ and $L(f,s)$.
+In this vein, $\tau_0$-independence and path-dependence of the L-integral and the 
+L-function of $f \in F_k$ are in lockstep. For $f \in F_k$ such that 
+$L^*(f,s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}$) is \emph{both} $\tau_0$-independant 
+and path-independent, then we may write $L^*(f, s: \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = L^*(f,s)$ 
+and similarly for $L(f,s)$. First, though, finiteness: 
 
 \begin{lemma}[Finiteness]\label{lem:finite}
 For $f\in F_k$, both integrals in Definition~\ref{def:Lint} are finite for every
@@ -128,18 +146,22 @@ holomorphic on $\HH$, which is simply connected; by Cauchy's theorem each integr
 under any deformation fixing its endpoints, hence depends on those endpoints alone. This is
 path-independence.
 
-For independence of $\tau_0$ we differentiate. From $\zeta(\nu,x)=\sum_{m\ge0}(m+x)^{-\nu}$ one
-has $\zeta(\nu,x+1)-\zeta(\nu,x)=-x^{-\nu}$; applied to both terms of the kernel at $x=\tau+1$,
-\begin{equation}
-\delta_T\tk(\tau,s):=\tk(\tau+1,s)-\tk(\tau,s)=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s}.
-\end{equation}
-The $T$-segment runs $\tau_0-1\to\tau_0$, so \emph{both} endpoints move with $\tau_0$; by
-Leibniz's rule and the $T$-periodicity $f(\tau_0-1)=f(\tau_0)$,
+For independence of $\tau_0$ we differentiate the two integrals and watch them cancel. The
+$T$-segment runs from $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$ --- two endpoints a unit apart,
+moving together with $\tau_0$ --- so by Leibniz's rule and the $T$-periodicity $f(\tau_0-1)=f(\tau_0)$,
 \begin{equation}
 \partial_{\tau_0}\!\!\int_{\gamma^T}\!\! f\,\tk
-=f(\tau_0)\tk(\tau_0,s)-f(\tau_0-1)\tk(\tau_0-1,s)
-=f(\tau_0)\,\delta_T\tk(\tau_0-1,s)
-=f(\tau_0)\big[-\tau_0^{s-1}+e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
+=f(\tau_0)\,\tk(\tau_0,s)-f(\tau_0-1)\,\tk(\tau_0-1,s)
+=f(\tau_0)\,\delta_T\tk(\tau_0-1,s),
+\end{equation}
+where $\delta_T\tk(\tau,s):=\tk(\tau+1,s)-\tk(\tau,s)$. This is the whole role of $\delta_T$: the
+unit gap between the endpoints turns the $\partial_{\tau_0}$ boundary term into a unit shift of
+the kernel. That shift is elementary --- the kernel was built for it --- since
+$\zeta(\nu,x+1)-\zeta(\nu,x)=-x^{-\nu}$ gives, on both terms at $x=\tau+1$,
+\begin{equation}
+\delta_T\tk(\tau,s)=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s},
+\qquad\text{hence}\qquad
+\partial_{\tau_0}\!\!\int_{\gamma^T}\!\! f\,\tk=f(\tau_0)\big[-\tau_0^{s-1}+e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
 \end{equation}
 The $S$-segment runs $-1/\tau_0\to\tau_0$; its lower endpoint moves with
 $\partial_{\tau_0}(-1/\tau_0)=\tau_0^{-2}$, so by Leibniz, the modularity
@@ -150,7 +172,7 @@ $f(-1/\tau_0)=\tau_0^k f(\tau_0)$, and the phase $(-1/\tau_0)^{s-1}=e^{i\pi(s-1)
 =f(\tau_0)\big[\tau_0^{s-1}-e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
 \end{equation}
 The two brackets are negatives of each other, so
-$\partial_{\tau_0}L^*=i^{-s}\big(\partial_{\tau_0}\!\int_{\gamma^S}+\partial_{\tau_0}\!\int_{\gamma^T}\big)=0$.
+$\partial_{\tau_0}L^*=e^{-\pi i s/2}\big(\partial_{\tau_0}\!\int_{\gamma^S}+\partial_{\tau_0}\!\int_{\gamma^T}\big)=0$.
 \end{proof}
 
 \begin{remark}[Classical Mellin recovery]\label{rem:mellin}
@@ -164,10 +186,10 @@ the classical completed $L$-integral.
 
 \section{The $L$-function}\label{sec:Lfun}% TODO placeholder title --- no person-names yet
 
-\begin{proposition}[Cusp unfolding]\label{prop:unfold}
-For $n>0$ and $\nu\in\CC$,
+\begin{proposition}[Hurwitz-Gamma]\label{prop:HG}
+For $n\ne0$ and $\nu\in\CC$,
 \begin{equation}
-\int_i^{i+1}\! e^{2\pi inu}\,\zeta(\nu,u)\,du=i^{1-\nu}(2\pi n)^{\nu-1}\,\Gamma(1-\nu,2\pi n).
+\int_i^{i+1}\! e^{2\pi inu}\,\zeta(\nu,u)\,du=e^{i \pi (1-\nu)/2} (2\pi n)^{\nu-1}\,\Gamma(1-\nu,2\pi n).
 \end{equation}
 \end{proposition}
 
@@ -182,12 +204,17 @@ $e^{2\pi in(u+m)}=e^{2\pi inu}$ for integer $m$, the unit segments stack into on
 For $n>0$ the integrand is holomorphic in the first quadrant and decays as $\im v\to\infty$
 (since $|e^{2\pi inv}|=e^{-2\pi n\im v}$), so the horizontal ray rotates to the vertical
 $[i,i\infty)$. With $v=it$ ($t\ge1$; then $dv=i\,dt$, $e^{2\pi inv}=e^{-2\pi nt}$,
-$v^{-\nu}=i^{-\nu}t^{-\nu}$) and $w=2\pi nt$,
+$v^{-\nu}=e^{-\pi i \nu/2}t^{-\nu}$) and $w=2\pi nt$,
 \begin{equation}
 \int_i^{i+\infty}\! e^{2\pi inv}v^{-\nu}\,dv
-=i^{1-\nu}\!\int_1^\infty\! e^{-2\pi nt}t^{-\nu}\,dt
-=i^{1-\nu}(2\pi n)^{\nu-1}\Gamma(1-\nu,2\pi n).
+=e^{i \pi (1-\nu)/2}\!\int_1^\infty\! e^{-2\pi nt}t^{-\nu}\,dt
+=e^{i \pi (1-\nu)/2}(2\pi n)^{\nu-1}\Gamma(1-\nu,2\pi n).
 \end{equation}
+For $n<0$ the integrand instead grows as $\im v\to\infty$, so the closing arc survives and the
+rotation is illegal; but both sides are analytic in $n$ and agree for $n>0$, so the identity
+continues to $n<0$, with $\Gamma(1-\nu,2\pi n)$ on its principal branch. At $n=0$ the prefactor
+$(2\pi n)^{\nu-1}$ is singular --- that mode, the constant Fourier coefficient, is handled
+separately.
 \end{proof}
 
 \begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:weakL}
@@ -201,23 +228,27 @@ L^*(f,s)=-c_f(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 
 \begin{proof}
 At $\tau_0=i$ the $S$-segment degenerates ($-1/i=i$), so
-$L^*(f,s)=i^{-s}\int_{i-1}^{i} f\,\tk\,d\tau$. Expand $f=\sum_n c_f(n)e^{2\pi in\tau}$ and
-substitute $u=\tau+1$ ($e^{2\pi in(u-1)}=e^{2\pi inu}$): each $n>0$ mode is a cusp unfolding
-(Proposition~\ref{prop:unfold}), and the closed form persists to the finitely many $n<0$ modes
-(the cusp principal part) by analytic continuation. The first kernel term ($\nu=1-s$, so
-$1-\nu=s$) gives $i^{-s}\,i^{s}(2\pi n)^{-s}\Gamma(s,2\pi n)=\Gamma(s,2\pi n)/(2\pi n)^{s}$; the
-second ($\nu=s-k+1$, so $1-\nu=k-s$) gives
+$L^*(f,s)=e^{-\pi i s/2}\int_{i-1}^{i} f\,\tk\,d\tau$. Expand $f=\sum_n c_f(n)e^{2\pi in\tau}$ and
+substitute $u=\tau+1$ ($e^{2\pi in(u-1)}=e^{2\pi inu}$): each $n\neq0$ mode is handled by 
+Proposition~\ref{prop:HG}. The first kernel term with $\nu=1-s \leftrightarrow 1-\nu=s$ gives $e^{-\pi i s/2}\,e^{\pi i s/2}(2\pi n)^{-s}\Gamma(s,2\pi n)=\Gamma(s,2\pi n)/(2\pi n)^{s}$; the
+second kernel term with $\nu=s-k+1 \leftrightarrow 1-\nu=k-s$ gives
 \begin{equation}
--\,i^{-s}e^{i\pi(s-1)}\,i^{\,k-s}\,(2\pi n)^{s-k}\,\Gamma(k-s,2\pi n)
+-\,e^{-\pi i s/2}e^{i\pi(s-1)}\,e^{\pi i (k-s)/2}\,(2\pi n)^{s-k}\,\Gamma(k-s,2\pi n)
 =i^{k}\,\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}},
 \end{equation}
-the $s$ cancelling in the phase $-i^{-s}e^{i\pi(s-1)}i^{k-s}=i^{k}$. So each $n\ne0$ mode
-contributes $\Gamma(s,2\pi n)/(2\pi n)^{s}+i^{k}\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}$, while the
-$n=0$ mode contributes $c_f(0)\,i^{-s}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\big(\tfrac1s+\tfrac{i^k}{k-s}\big)$.
+the $s$ cancelling in the phase $-e^{-\pi i s/2}e^{i\pi(s-1)}e^{\pi i (k-s)/2} = e^{\pi i k/2} =i^{k}$. So each $n\ne0$ mode
+%the $s$ cancelling in the phase $-e^{-\pi i s/2}e^{i\pi(s-1)}e^{\pi i (k-s)/2}=i^{k}$. So each $n\ne0$ mode
+contributes $\Gamma(s,2\pi n)/(2\pi n)^{s}+i^{k}\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}$. 
+
+Crucially, the
+$n=0$ mode contributes $c_f(0)\,e^{-\pi i s/2}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\big(\tfrac1s+\tfrac{i^k}{k-s}\big)$.
+
 Swapping the two $\Gamma$-terms and using $i^{2k}=(-1)^k=1$ (the weight $k$ is even) shows that
 bracket equals $i^k$ times its $s\mapsto k-s$ image; the polar term is $i^k$-symmetric likewise,
 giving $L^*(f,s)=i^kL^*(f,k-s)$.
 \end{proof}
+
+\subsection{Period polynomials, periods and quasi-periods}
 
 \begin{definition}[Period cocycle]\label{def:cocycle}
 Let $V_n:=\CC[X,Y]_n$ with the action $(P|_\gamma)(X,Y):=P(aX+bY,cX+dY)$, and
@@ -225,18 +256,16 @@ $\omega_f:=f(\tau)\,(X-\tau Y)^n\,d\tau$. For $f\in F_k$ and $\tau_0\in\HH$, the
 \emph{period cocycle} is
 \begin{equation}
 C^f_\gamma(\tau_0):=(2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f\ \in V_n,
-\qquad \gamma\in\Gamma,
+\qquad \gamma\in\Gamma.
 \end{equation}
-satisfying $C^f_{gh}=C^f_g|_h+C^f_h$.
 \end{definition}
 
-\begin{proof}[Proof of the cocycle relation]
-Split the contour of $C^f_{gh}$ at $h^{-1}\tau_0$:
+From this definition, it is straightforward to see that $C^f_{gh}=C^f_g|_h+C^f_h$. 
+The proof is straightforward and canonical: Split the contour of $C^f_{gh}$ at $h^{-1}\tau_0$:
 $\int_{h^{-1}g^{-1}\tau_0}^{\tau_0}\omega_f=\int_{h^{-1}g^{-1}\tau_0}^{h^{-1}\tau_0}\omega_f+\int_{h^{-1}\tau_0}^{\tau_0}\omega_f$.
 The second term is $C^f_h$; by the $\Gamma$-equivariance of $\omega_f$ ($f|_k h=f$ gives
 $\int_{h^{-1}a}^{h^{-1}b}\omega_f=(\int_a^b\omega_f)\big|_h$) the first is $C^f_g|_h$, whence
 $C^f_{gh}=C^f_g|_h+C^f_h$.
-\end{proof}
 
 \begin{lemma}[Parabolic representatives exist iff $c_f(0)=0$]\label{lem:gate}
 With $\delta_T P:=P|_T-P$ on $V_n$, one has $[C^f_T(\tau_0)]_{X^n}=(2\pi i)^{n+1}c_f(0)$,
@@ -291,23 +320,27 @@ Therefore
 using $L^*(f,\ell+1)=i^{-(\ell+1)}[\int_{\gamma^S}f\tau^\ell+\int_{\gamma^T}f\tk(\tau,\ell+1)]$.
 \end{proof}
 
-\begin{remark}[Quasi-periods and their determinant]\label{rem:legendre}
-For the weights with $\dim S_k=1$ --- $k\in\{12,16,18,20,22,26\}$ --- and a weak cusp form
-$f\in S^!_k$, the coefficients of $r_f$ (Proposition~\ref{prop:periods}) are Brown's
+\paragraph{Quasi-periods and their determinant: }
+As an aside, the Hurwitz T-kernel in this note was originally uncovered in order to reproduce 
+the manifestly finite computations of the quasi-periods for $\Dhat = 1/q + {\cal O}(q^2) \in S_{12}^!$
+originally given in~\cite{Brown2017}. In this vein, it is interesting to show collect quasi-periods 
+computable from our L-integrals/period-polynomials for $f \in S_k^!$ (when $\dim(S_k) = 1$):
+
+Consider the case of a weak cusp form $f \in S_k^!$ for $k$ such that $\dim S_k=1$, 
+i.e. $k\in\{12$, $16$, $18$, $20$, $22$, $26\}$. The coefficients of $r_f$ (Proposition~\ref{prop:periods}) are Brown's
 quasi-period coordinates $\omega^\pm(f)$~\cite{Brown2017}: $\omega^+$ from $\ell$ even,
-$\omega^-$ from $\ell$ odd. Taking $f=\Dhat_k:=q^{-1}+O(q^{\dim S_k+1})\in S^!_k$, the canonical
-Duke--Jenkins weak cusp form~\cite{DukeJenkins} ($=q^{-1}+O(q^2)$ here, as $\dim S_k=1$), they
-reproduce Brown's published $\eta^\pm(\Dhat_{12})$ at $k=12$ and furnish the quasi-periods anew
+$\omega^-$ from $\ell$ odd. Taking $f=\Dhat_k:=q^{-1}+O(q^{3})\in S^!_k$, our period polynomials 
+reproduce Brown's published $\eta^\pm(\Dhat_{12})$ at $k=12$ and give related quasi-periods 
 at the remaining five weights (Table~\ref{tab:periods}). Their determinant satisfies a Legendre-type relation,
 $\omega^+\eta^- - \omega^-\eta^+\in\QQ^\times\cdot(2\pi i)^{k-1}$, equal to
 $-(k-2)!\,(2\pi i)^{k-1}$ at $k=12$ in Brown's normalization (the weight-$k$ analog of
 $\omega_1\eta_2-\omega_2\eta_1=2\pi i$). Both are global consistency checks, claiming nothing
-new~\cite{VerifyScripts}.
+new~\cite{VerifyScripts}.\emph{this paragraph needs to 
+be drastically de-LLM-ized!!!}
 % TODO literature check: is this period/quasi-period determinant (Legendre) relation
 % --- det in Q^x (2pi i)^{k-1}, = (k-2)! at k=12 --- already established (Brown
 % arXiv:1710.07912?  Kohnen--Zagier?  a higher-weight period-determinant relation)?
 % If so, cite it; this remark only verifies consistency, claims nothing new.
-\end{remark}
 
 \begin{table}[h]\centering\small
 \begin{tabular}{r|rrrr|r}
@@ -319,14 +352,17 @@ $k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)
 22 & $-1.49974\mathrm{e}{18}$ & $-4.24489\mathrm{e}{16}$ & $1.43795\mathrm{e}{18}$ & $-4.41050\mathrm{e}{16}$ & $2201197055016960000$\\
 26 & $-1.18673\mathrm{e}{22}$ & $-3.60961\mathrm{e}{21}$ & $1.18653\mathrm{e}{22}$ & $-3.61016\mathrm{e}{21}$ & $951354215990967140352000$\\
 \end{tabular}
-\caption{Periods $\omega^\pm(f_k)$ of $f_k=E_{k-12}\Delta$ and quasi-periods $\eta^\pm(\Dhat_k)$
-of the weak cusp form $\Dhat_k$, and the integer $\det/(2\pi i)^{k-1}$ with
-$\det=\omega^+\eta^--\omega^-\eta^+$. Full 50-digit values in~\cite{VerifyScripts}.}\label{tab:periods}
+\caption{Periods $\omega^\pm(\Delta_k)$ of $\Delta_k=E_{k-12}\Delta$ (and $E_0 = 1$) 
+and quasi-periods $\eta^\pm(\Dhat_k)$ of the weak cusp form 
+$\Dhat_k = \Delta_k(J_2 + a_{k, 1} J_1 + a_{k, 0}) = 1/q + {\cal O}(q^2) \in S_k^!$ (
+where $a_{k, 1}$, $a_{k, 0}$ are rational numbers that ensure the q-series gap and 
+$J_k = 1/q^k + {\cal O}(q) \in S_0^!$), and the integer $\det/(2\pi i)^{k-1}$ with
+$\det=\omega^+\eta^--\omega^-\eta^+$. Full 50-digit values in~\cite{VerifyScripts}. \emph{this paragraph needs to 
+be drastically de-LLM-ized!!!}}\label{tab:periods}
 \end{table}
 
 \subsection{Why a finite contour}\label{subsec:why}% TODO placeholder title
 
-\begin{remark}\label{rem:canonical}
 For a weak cusp form $f\in S^!_k$ the classical Mellin integral
 $\int_0^{i\infty}f(\tau)(\tau/i)^s\tfrac{d\tau}{\tau}$ does not converge --- $f$ grows at
 the cusp --- and the deformed-Mellin construction of~\cite{BFK2011} supplies a finite value
@@ -336,14 +372,34 @@ $\tau_0\to i\infty$, with opposite signs, and the two cancel at every finite $\t
 $L^*(f,s)$ is finite throughout $\HH$ although the Mellin contour itself has no limit. By
 Proposition~\ref{prop:indep} the value is independent of $\tau_0$ and of the paths; BFK's
 regularized value is its evaluation at $\tau_0=i$ (Theorem~\ref{thm:weakL}), and its
-integer-$s$ values are Brown's quasi-periods (Remark~\ref{rem:legendre}). Two independent
+integer-$s$ values are Brown's quasi-periods. Two independent
 finite computations --- Brown's cohomological periods and the BFK $L$-values, obtained
 without reference to one another --- meet at this one contour, which fixes it as the
 canonical object. Finiteness and $\tau_0$-independence are the analytic shadow of the
-parabolic representative~\cite{Brown2017,BCD2018,BGKO}.
-\end{remark}
+parabolic representative~\cite{Brown2017,BCD2018,BGKO}. \emph{this paragraph needs to 
+be drastically de-LLM-ized!!!}
 
 \section{Meromorphic modular forms}\label{sec:mero}% TODO placeholder title
+
+\begin{proposition}[Basepoint and path independence within a homotopy class]\label{prop:indepHomotopy}
+For $f\in F_k$, the value $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ is independent of $\tau_0$
+and of the path so long as both vary within a single homotopy class of admissible contours in
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$. For $f\in M^!_k$ there is one class and
+Proposition~\ref{prop:indep} is recovered; the dependence between classes is the residue crossing
+of Corollary~\ref{cor:wall}.
+\end{proposition}
+
+\begin{proof}
+The $\tau_0$-derivative of Proposition~\ref{prop:indep} uses only the $T$-periodicity
+$f(\tau_0-1)=f(\tau_0)$ and the modularity $f(-1/\tau_0)=\tau_0^k f(\tau_0)$, both valid for every
+$f\in F_k$, and is evaluated at the moving endpoints alone. While $\tau_0$ stays in one chamber of
+$\HH\setminus f^{-1}(\infty)$ --- where the segments meet no pole --- the boundary terms cancel
+exactly as there, so $\partial_{\tau_0}L^*=0$; the interior poles lie off the contour and never
+enter. Within a fixed class the integrands $f\,\tau^{s-1}$ and $f\,\tk$ are holomorphic along the
+contours, so any two are joined by a deformation avoiding $\Gamma\!\cdot\!f^{-1}(\infty)$, and
+Cauchy's theorem equates their integrals.
+\end{proof}
+
 
 % §5.14a — [Def] polylog projection (def:proj)
 \begin{definition}[Polylog projection]\label{def:proj}
@@ -405,7 +461,7 @@ For $N\ge0$ and $z\in\HH$, the \emph{polylog integral} is the $L$-integral of a 
 $\Li_{-N}(e^{2\pi i(\tau-z)})$ along the $T$-segment at $\tau_0=i$ (where $\gamma^S$ degenerates, since
 $-1/i=i$):
 \begin{equation}
-I_N(s,z):=i^{-s}\int_{i-1}^{i}\Li_{-N}\big(e^{2\pi i(\tau-z)}\big)\,\tk(\tau,s)\,d\tau.
+I_N(s,z):=e^{-\pi i s/2}\int_{i-1}^{i}\Li_{-N}\big(e^{2\pi i(\tau-z)}\big)\,\tk(\tau,s)\,d\tau.
 \end{equation}
 \end{definition}
 
@@ -424,9 +480,9 @@ I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 For ${\rm Im}\,z>1$, $|e(\tau-z)|\ge1$ on $[i-1,i]$, so the series of $\Li_{-N}(e(\tau-z))$
 diverges; the inversion rewrites it through $\Li_{-N}(e(z-\tau))=\sum_{n\ge1}n^N e^{2\pi in(z-\tau)}$,
 convergent since $|e(z-\tau)|\le1$. Integrating term by term against $\tk$, each
-$i^{-s}\!\int_{i-1}^i e^{-2\pi in\tau}\tk\,d\tau$ is the building block $\mathcal G(s,-n)$ of
+$e^{-\pi i s/2}\!\int_{i-1}^i e^{-2\pi in\tau}\tk\,d\tau$ is the building block $\mathcal G(s,-n)$ of
 Theorem~\ref{thm:weakL} at mode $-n$, giving the displayed sum; for $N=0$ the leftover $-1$ in
-$\Li_0(w)=-1-\Li_0(1/w)$ adds $-i^{-s}\!\int_{i-1}^i\tk=\tfrac1s+\tfrac{i^k}{k-s}$.
+$\Li_0(w)=-1-\Li_0(1/w)$ adds $-e^{-\pi i s/2}\!\int_{i-1}^i\tk=\tfrac1s+\tfrac{i^k}{k-s}$.
 \end{proof}
 
 \begin{theorem}[$L$-function of a meromorphic modular form]\label{thm:mero}
@@ -443,7 +499,7 @@ by the principal value of Lemma~\ref{lem:onedge}.
 \end{theorem}
 
 \begin{proof}
-At $\tau_0=i$ the $S$-segment degenerates, so $L^*(f,s)=i^{-s}\int_{i-1}^i f\,\tk\,d\tau$. Split
+At $\tau_0=i$ the $S$-segment degenerates, so $L^*(f,s)=e^{-\pi i s/2}\int_{i-1}^i f\,\tk\,d\tau$. Split
 $f=(I-\widehat P)f+\widehat Pf$. The regularized part has no pole on or above ${\rm Im}\,\tau=1$
 (Definition~\ref{def:proj}), so by Lemma~\ref{lem:commute} its Fourier series integrates term by
 term; mode by mode this is Theorem~\ref{thm:weakL}, giving
@@ -458,17 +514,17 @@ Routing the $T$-path just below versus just above a pole $\tau_p$ of $f\in F_k$ 
 ${\rm Im}\,\tau_p=1$ gives finite values differing by the residue,
 \begin{equation}
 L^*_{\rm below}(f,s)-L^*_{\rm above}(f,s)
-=2\pi i\,i^{-s}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big].
+=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big].
 \end{equation}
 We define the edge value as the principal value $L^*=\tfrac12(L^*_{\rm above}+L^*_{\rm below})
-=L^*_{\rm below}-\pi i\,i^{-s}\Res_{\tau=\tau_p}[f\,\tk]$. At the elliptic point $\tau_p=i$ the
+=L^*_{\rm below}-\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$. At the elliptic point $\tau_p=i$ the
 pole lies on the $S$-segment instead; its principal value, reached as $\tau_0\to i$, is finite
 and basepoint-independent.
 \end{lemma}
 
 \begin{proof}
 The two routings of $\gamma^T$ differ by a contour encircling $\tau_p$ once, so the residue
-theorem gives $L^*_{\rm below}-L^*_{\rm above}=2\pi i\,i^{-s}\Res_{\tau=\tau_p}[f\,\tk]$, and the
+theorem gives $L^*_{\rm below}-L^*_{\rm above}=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$, and the
 principal value is their mean. At $\tau_p=i$ the pole sits on the degenerate $S$-segment;
 displacing to $\tau_0=i(1+\delta)$ keeps it on $\gamma^S$ for all small $\delta>0$, so no wall is
 crossed and $L^*$ is finite and $\delta$-independent (verified numerically~\cite{VerifyScripts};
@@ -476,22 +532,19 @@ a closed proof is the $S$-segment principal value of~\cite{1806}).
 \end{proof}
 
 \begin{corollary}[Wall-crossing]\label{cor:wall}
-For $f\in F_k$, $L^*(f,s)$ is constant in $\tau_0$ within each chamber of
-$\HH\setminus f^{-1}(\infty)$; crossing a wall, where the contour sweeps past an interior pole
-$\tau_p$, changes it by
+By Proposition~\ref{prop:indepHomotopy}, $L^*(f,s)$ is fixed within each homotopy class. Crossing a
+wall, where the contour sweeps past an interior pole $\tau_p$, changes it by
 \begin{equation}
-\Delta L^*(f,s)=2\pi i\,i^{-s}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big]
+\Delta L^*(f,s)=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big]
 \end{equation}
 when the $T$-segment crosses $\tau_p$ (and by the same with $\tau^{s-1}$ in place of $\tk$ when
-the $S$-segment does). Thus $L^*$ is fixed by the contour up to the residues it crosses --- the
-meromorphic counterpart of Proposition~\ref{prop:indep}, recovering its constancy on $M^!_k$.
+the $S$-segment does). Thus $L^*$ is fixed by the contour up to the residues it crosses.
 \end{corollary}
 
 \begin{proof}
-Within a chamber the contour meets no pole, so the $\delta_T$-inversion of
-Proposition~\ref{prop:indep} applies unchanged and $\partial_{\tau_0}L^*=0$. Crossing a wall, the
-contour sweeps once past $\tau_p$; the residue theorem adds
-$2\pi i\,i^{-s}\Res_{\tau=\tau_p}[f\,\tk]$ when the $T$-segment crosses it, or the same with
+The within-class constancy is Proposition~\ref{prop:indepHomotopy}. Crossing a wall, the contour
+sweeps once past $\tau_p$; the residue theorem then adds
+$2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$ when the $T$-segment crosses it, or the same with
 $\tau^{s-1}$ when the $S$-segment does.
 \end{proof}
 
@@ -578,7 +631,7 @@ Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
 %     rem:mellin      classical Mellin recovery (tau_0 -> i infty, cusp forms)
 %
 %  §4 The L-function   [sec:Lfun]
-%     prop:unfold     cusp unfolding (the incomplete-Gamma identity)
+%     prop:HG     Hurwitz-Gamma identity
 %     thm:weakL       L* at tau_0 = i is the incomplete-Gamma sum; functional equation
 %     def:cocycle     period cocycle C^f_gamma
 %     lem:gate        parabolic representatives exist iff c_f(0) = 0
