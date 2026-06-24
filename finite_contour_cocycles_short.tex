@@ -2,6 +2,7 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{float}      % provides the [H] float specifier (force-here placement)
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,citecolor=blue!55!black]{hyperref}
@@ -73,11 +74,6 @@ only the trivial homotopy class. However, when $f \in F_k$, and $f$ has poles
 at finite and non-zero imaginary heights, then these integration contours fall into 
 nontrivial homotopy classes.
 
-\begin{definition}[Branch prescription for exponentials]\label{def:exp}
-Let $e^x$ denote the exponential map from $\CC \to \CC$. It is helpful to define 
-the following shorthand: $ e(x) := e^{2 \pi i x}$ 
-\end{definition}
-
 \begin{definition}[Hurwitz $T$-kernel]\label{def:kernel}
 Let $\zeta(s,x)=\sum_{m\ge0}(m+x)^{-s}$ as a function 
 $\zeta: \CC_s \times (\CC\setminus\{0\})_x \to \CC$ denote the 
@@ -91,8 +87,8 @@ We define \emph{Hurwitz $T$-kernel} as
 \begin{definition}[$L$-integral]\label{def:Lint}
 Let $f\in F_k$, $\tau_0\in\HH$, and $s\in\CC$. Further, let $\gamma^S_{\tau_0}$,
 $\gamma^T_{\tau_0}$ be the $S$- and $T$-segments at $\tau_0$, as in
-Definition~\ref{def:segments}, and let $e(x)$ and $\tk$ be as defined in 
-Definitions~\ref{def:exp} and~\ref{def:kernel}. The \emph{$L$-integral} of $f$ is
+Definition~\ref{def:segments}, and let $\tk$ be as defined in 
+Definition~\ref{def:kernel}. The \emph{$L$-integral} of $f$ is
 \begin{equation}
 L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
 :=e^{-\pi i s/2}\Big[\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
@@ -184,7 +180,7 @@ the $S$-segment onto $[0,i\infty]$ while the $T$-segment vanishes exponentially,
 the classical completed $L$-integral.
 \end{remark}
 
-\section{The $L$-function}\label{sec:Lfun}% TODO placeholder title --- no person-names yet
+\section{$L$-functions for weak modular forms}\label{sec:Lfun}% TODO placeholder title --- no person-names yet
 
 \begin{proposition}[Hurwitz-Gamma]\label{prop:HG}
 For $n\ne0$ and $\nu\in\CC$,
@@ -218,116 +214,110 @@ separately.
 \end{proof}
 
 \begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:weakL}
-For $f\in M^!_k$, at $\tau_0=i$,
-\begin{equation}
-L^*(f,s)=-c_f(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+\sum_{n\ne0}c_f(n)\Big[\tfrac{\Gamma(s,2\pi n)}{(2\pi n)^s}+i^k\tfrac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\Big]
-=i^kL^*(f,k-s).
+For $f\in M^!_k$, we may set $\tau_0=i$, and prove
+\begin{equation}\label{eq:weakL}
+L^*(f,s)=-c_f(0)\left(\frac1s+\frac{i^k}{k-s}\right)
++\sum_{n\ne0}c_f(n)\left(\frac{\Gamma(s,2\pi n)}{(2\pi n)^s}+i^k\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\right)~.
 \end{equation}
+This L-integral satisfies the functional equation $L^*(f,s) = i^k L^*(f,k-s)$.
 \end{theorem}
 
 \begin{proof}
-At $\tau_0=i$ the $S$-segment degenerates ($-1/i=i$), so
-$L^*(f,s)=e^{-\pi i s/2}\int_{i-1}^{i} f\,\tk\,d\tau$. Expand $f=\sum_n c_f(n)e^{2\pi in\tau}$ and
-substitute $u=\tau+1$ ($e^{2\pi in(u-1)}=e^{2\pi inu}$): each $n\neq0$ mode is handled by 
-Proposition~\ref{prop:HG}. The first kernel term with $\nu=1-s \leftrightarrow 1-\nu=s$ gives $e^{-\pi i s/2}\,e^{\pi i s/2}(2\pi n)^{-s}\Gamma(s,2\pi n)=\Gamma(s,2\pi n)/(2\pi n)^{s}$; the
-second kernel term with $\nu=s-k+1 \leftrightarrow 1-\nu=k-s$ gives
+By path independence and base-point independence from Proposition~\ref{prop:indep}, 
+we may freely set $\tau_0=i$. Here, the $S$-segment degenerates ($-1/i=i$), and 
+the L-integral simplifies dramatically:
+\begin{equation}
+L^*(f,s)=e^{-\pi i s/2}\int_{i-1}^{i} f\,\tk\,d\tau~. 
+\end{equation}
+We then expand $f$ in terms of its q-series, $\sum_n c_f(n)e^{2\pi in\tau}$,
+and substitute $u=\tau+1$, and note that $e^{2\pi i n(u-1)}=e^{2\pi i n u}$. 
+Here, each $n\neq0$ mode is handled by  Proposition~\ref{prop:HG}. 
+The first kernel term with $\nu=1-s \leftrightarrow 1-\nu=s$ gives 
+\begin{equation}
+e^{-\pi i s/2}\,e^{\pi i s/2}(2\pi n)^{-s}\Gamma(s,2\pi n)=\Gamma(s,2\pi n)/(2\pi n)^{s}~,
+\end{equation}
+and the second kernel term with $\nu=s-k+1 \leftrightarrow 1-\nu=k-s$ gives
 \begin{equation}
 -\,e^{-\pi i s/2}e^{i\pi(s-1)}\,e^{\pi i (k-s)/2}\,(2\pi n)^{s-k}\,\Gamma(k-s,2\pi n)
-=i^{k}\,\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}},
+=i^{k}\,\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}.
 \end{equation}
-the $s$ cancelling in the phase $-e^{-\pi i s/2}e^{i\pi(s-1)}e^{\pi i (k-s)/2} = e^{\pi i k/2} =i^{k}$. So each $n\ne0$ mode
-%the $s$ cancelling in the phase $-e^{-\pi i s/2}e^{i\pi(s-1)}e^{\pi i (k-s)/2}=i^{k}$. So each $n\ne0$ mode
-contributes $\Gamma(s,2\pi n)/(2\pi n)^{s}+i^{k}\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}$. 
-
-Crucially, the
-$n=0$ mode contributes $c_f(0)\,e^{-\pi i s/2}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\big(\tfrac1s+\tfrac{i^k}{k-s}\big)$.
-
-Swapping the two $\Gamma$-terms and using $i^{2k}=(-1)^k=1$ (the weight $k$ is even) shows that
-bracket equals $i^k$ times its $s\mapsto k-s$ image; the polar term is $i^k$-symmetric likewise,
-giving $L^*(f,s)=i^kL^*(f,k-s)$.
+So each $n\ne0$ mode contributes $\Gamma(s,2\pi n)/(2\pi n)^{s}+i^{k}\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}$. 
+Crucially, the $n=0$ mode contributes 
+\begin{equation}
+c_f(0)\,e^{-\pi i s/2}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\left(\frac1s+\frac{i^k}{k-s}\right)~.
+\end{equation}
+Combining these reproduces Eq.~\eqref{eq:weakL}. Finally, the functional equation, $L^*(f,s)=i^k L^*(f,k-s)$, follows by direct inspection.
 \end{proof}
 
 \subsection{Period polynomials, periods and quasi-periods}
 
-\begin{definition}[Period cocycle]\label{def:cocycle}
-Let $V_n:=\CC[X,Y]_n$ with the action $(P|_\gamma)(X,Y):=P(aX+bY,cX+dY)$, and
-$\omega_f:=f(\tau)\,(X-\tau Y)^n\,d\tau$. For $f\in F_k$ and $\tau_0\in\HH$, the
-\emph{period cocycle} is
-\begin{equation}
-C^f_\gamma(\tau_0):=(2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f\ \in V_n,
-\qquad \gamma\in\Gamma.
-\end{equation}
-\end{definition}
-
-From this definition, it is straightforward to see that $C^f_{gh}=C^f_g|_h+C^f_h$. 
-The proof is straightforward and canonical: Split the contour of $C^f_{gh}$ at $h^{-1}\tau_0$:
-$\int_{h^{-1}g^{-1}\tau_0}^{\tau_0}\omega_f=\int_{h^{-1}g^{-1}\tau_0}^{h^{-1}\tau_0}\omega_f+\int_{h^{-1}\tau_0}^{\tau_0}\omega_f$.
-The second term is $C^f_h$; by the $\Gamma$-equivariance of $\omega_f$ ($f|_k h=f$ gives
-$\int_{h^{-1}a}^{h^{-1}b}\omega_f=(\int_a^b\omega_f)\big|_h$) the first is $C^f_g|_h$, whence
-$C^f_{gh}=C^f_g|_h+C^f_h$.
-
-\begin{lemma}[Parabolic representatives exist iff $c_f(0)=0$]\label{lem:gate}
-With $\delta_T P:=P|_T-P$ on $V_n$, one has $[C^f_T(\tau_0)]_{X^n}=(2\pi i)^{n+1}c_f(0)$,
-so $C^f_T\in\im\delta_T$ if and only if $c_f(0)=0$ --- the principal part of $f$ never obstructs.
-\end{lemma}
-
-\begin{proof}
-The $X^n$-coefficient of $\omega_f$ is $f(\tau)\,d\tau$, so
-$[C^f_T(\tau_0)]_{X^n}=(2\pi i)^{n+1}\!\int_{\tau_0-1}^{\tau_0}\! f\,d\tau=(2\pi i)^{n+1}c_f(0)$,
-the $m\ne0$ Fourier modes integrating to zero over a unit period. On the other side,
-$(P|_T)(X,Y)=P(X+Y,Y)$ has the same $X^n$-coefficient as $P$, so $[\delta_T P]_{X^n}=0$ for every
-$P\in V_n$; since $\ker\delta_T=\CC\,Y^n$ is one-dimensional, $\im\delta_T$ is the entire
-hyperplane $\{Q:[Q]_{X^n}=0\}$. Hence $C^f_T\in\im\delta_T$ iff $[C^f_T]_{X^n}=0$ iff $c_f(0)=0$.
-\end{proof}
+Because $L^*(f,s)$ is canonical for every $f\in M^!_k$, the period polynomial needs no separate
+construction --- it is the generating polynomial of the critical values.
 
 \begin{definition}[Period polynomial]\label{def:rf}
-For $f\in S^!_k$ (so $c_f(0)=0$), the \emph{period polynomial} is the $S$-value of the
-parabolic representative,
+For $f\in S^!_k$ and $n=k-2$, the \emph{period polynomial} is
 \begin{equation}
-r_f:=C^f_S(\tau_0)-\big(P|_S-P\big)\ \in V_n,
+r_f(X,Y):=(2\pi i)^{n+1}\sum_{\ell=0}^{n}(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}\,L^*(f,\ell+1)\,X^{n-\ell}Y^\ell.
 \end{equation}
-with $P\in V_n$ chosen so that $\delta_T P=C^f_T$ (Lemma~\ref{lem:gate}).
 \end{definition}
 
-\begin{proposition}[Period coefficients are special $L$-values]\label{prop:periods}
-For $f\in S^!_k$ and $\ell\in\{1,\dots,k-3\}$,
+\begin{proposition}[Period polynomial as a contour integral]\label{prop:periodint}
+With $(X-\tau Y)^n$ in place of the $L$-weight $\tau^{s-1}$, and
+$\mathbf K_T(\tau;X,Y):=\sum_{\ell=0}^{n}\binom{n}{\ell}(-1)^\ell\,\tk(\tau,\ell+1)\,X^{n-\ell}Y^\ell$
+in place of $\tk$, the same two segments assemble $r_f$ directly:
 \begin{equation}
-[r_f]_{X^{n-\ell}Y^\ell}=(2\pi i)^{n+1}(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}\,L^*(f,\ell+1).
+r_f=(2\pi i)^{n+1}\Big[\int_{\gamma^S} f(\tau)\,(X-\tau Y)^n\,d\tau
++\int_{\gamma^T} f(\tau)\,\mathbf K_T(\tau;X,Y)\,d\tau\Big].
 \end{equation}
 \end{proposition}
-
 \begin{proof}
-The cocycle is the coboundary of the Eichler primitive
-$\widetilde F(\tau)=\int^{\tau}\! f(z)(X-zY)^n\,dz$, namely $C^f_\gamma=\widetilde F-\widetilde F|_\gamma$,
-and $r_f=C^f_S-(P|_S-P)$ is the $S$-value of its cusp-regular ($T$-flat) branch, $P$ solving
-$\delta_T P=C^f_T$ (Lemma~\ref{lem:gate}). Read the $X^{n-\ell}Y^\ell$-coefficient. From
-$(X-\tau Y)^n=\sum_j\binom{n}{j}(-\tau)^jX^{n-j}Y^j$,
+By Definition~\ref{def:Lint}, the $X^{n-\ell}Y^\ell$ coefficient of the bracket is
 \begin{equation}
-[C^f_S]_{X^{n-\ell}Y^\ell}=(2\pi i)^{n+1}(-1)^\ell\binom{n}{\ell}\!\int_{\gamma^S}\! f\,\tau^\ell\,d\tau .
+r_f|_{X^{n-\ell}Y^\ell} = (-1)^\ell\binom{n}{\ell}\big[\int_{\gamma^S} f\,\tau^\ell+\int_{\gamma^T} f\,\tk(\tau,\ell+1)\big]
+=(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}L^*(f,\ell+1)~.
 \end{equation}
-The kernel realizes the correction: $\tk(\tau,\ell+1)$ is the antidifference
-$\delta_T\tk(\tau,\ell+1)=-(\tau+1)^\ell+(-1)^\ell(\tau+1)^{n-\ell}$, whose two monomials are the
-$\ell$- and $(n-\ell)$-components exchanged by $Y|_S=X$; so the $T$-segment integral against
-$\tk$ is the coboundary $P$ inverting $\delta_T$, with
-$[P|_S-P]_{X^{n-\ell}Y^\ell}=-(2\pi i)^{n+1}(-1)^\ell\binom{n}{\ell}\!\int_{\gamma^T}\! f\,\tk(\tau,\ell+1)$.
-Therefore
-\begin{equation}
-[r_f]_{X^{n-\ell}Y^\ell}
-=(2\pi i)^{n+1}(-1)^\ell\binom{n}{\ell}\Big[\int_{\gamma^S}\! f\,\tau^\ell+\int_{\gamma^T}\! f\,\tk(\tau,\ell+1)\Big]
-=(2\pi i)^{n+1}(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}L^*(f,\ell+1),
-\end{equation}
-using $L^*(f,\ell+1)=i^{-(\ell+1)}[\int_{\gamma^S}f\tau^\ell+\int_{\gamma^T}f\tk(\tau,\ell+1)]$.
+This matches definition~\ref{def:rf} term by term, and proves the claim.
 \end{proof}
 
-\paragraph{Quasi-periods and their determinant: }
+%At integer $s$ $\tk(\tau,\ell+1)$ is a difference of Bernoulli
+%polynomials,
+%\begin{equation}
+%\tk(\tau,\ell+1)=-\frac{B_{\ell+1}(\tau+1)}{\ell+1}+(-1)^\ell\frac{B_{n-\ell+1}(\tau+1)}{n-\ell+1},
+%\end{equation}
+%the kernel of the classical Eichler period integral --- the route by which it was found. That
+%$r_f$ is moreover an Eichler--Shimura cocycle is left to the companion note~\cite{companion}.
+
+\paragraph{Quasi-periods and their determinant:} 
 As an aside, the Hurwitz T-kernel in this note was originally uncovered in order to reproduce 
 the manifestly finite computations of the quasi-periods for $\Dhat = 1/q + {\cal O}(q^2) \in S_{12}^!$
 originally given in~\cite{Brown2017}. In this vein, it is interesting to show collect quasi-periods 
 computable from our L-integrals/period-polynomials for $f \in S_k^!$ (when $\dim(S_k) = 1$):
 
+\begin{table}[H]\centering\small
+\begin{tabular}{r|rrrr|c}
+$k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)/i$ & $\frac{-i^k\det}{(2\pi)^{k-1}(k-2)!}$\\\hline
+12 & $-6.89168\mathrm{e}7$  & $-5.58502\mathrm{e}6$  & $1.27202\mathrm{e}{11}$ & $1.02767\mathrm{e}{10}$  & $1$\\
+16 & $-8.81481\mathrm{e}{11}$ & $-1.54063\mathrm{e}{10}$ & $4.14120\mathrm{e}{13}$ & $6.83541\mathrm{e}{11}$ & $13/30$\\
+18 & $-5.07833\mathrm{e}{13}$ & $-5.43305\mathrm{e}{12}$ & $-2.19200\mathrm{e}{14}$ & $-3.36339\mathrm{e}{13}$ & $2/3$\\
+20 & $-4.22882\mathrm{e}{16}$ & $-3.73170\mathrm{e}{14}$ & $6.38640\mathrm{e}{16}$ & $-1.89823\mathrm{e}{14}$ & $17/5$\\
+22 & $-1.49974\mathrm{e}{18}$ & $-4.24489\mathrm{e}{16}$ & $1.43795\mathrm{e}{18}$ & $-4.41050\mathrm{e}{16}$ & $19/21$\\
+26 & $-1.18673\mathrm{e}{22}$ & $-3.60961\mathrm{e}{21}$ & $1.18653\mathrm{e}{22}$ & $-3.61016\mathrm{e}{21}$ & $23/15$\\
+\end{tabular}
+\caption{Periods $\omega^\pm(\Delta_k)$ of $\Delta_k=E_{k-12}\Delta$ (and $E_0 = 1$) 
+and quasi-periods $\eta^\pm(\Dhat_k)$ of the weak cusp form 
+$\Dhat_k = \Delta_k(J_2 + a_{k, 1} J_1 + a_{k, 0}) = 1/q + {\cal O}(q^2) \in S_k^!$ (
+where $a_{k, 1}$, $a_{k, 0}$ are rational numbers that ensure the q-series gap and 
+$J_k = 1/q^k + {\cal O}(q) \in S_0^!$), and the rational
+$(-1)^{1+k/2}\det/\big((2\pi i)^{k-1}(k-2)!\big)$ with
+$\det=\omega^+\eta^--\omega^-\eta^+$. Full 50-digit values in~\cite{VerifyScripts}.
+Only the sign, the factor $(k-2)!\,(k-3)$, and the rationality of
+$\det/(2\pi i)^{k-1}$ are intrinsic; the residual rational tracks the (here primitive-integer)
+normalization of the $P^\pm$ basis, matching a named constant --- $-(k-2)!$ in Brown's
+normalization --- only at $k=12$. \emph{this paragraph needs to
+be drastically de-LLM-ized!!!}}\label{tab:periods}
+\end{table}
 Consider the case of a weak cusp form $f \in S_k^!$ for $k$ such that $\dim S_k=1$, 
-i.e. $k\in\{12$, $16$, $18$, $20$, $22$, $26\}$. The coefficients of $r_f$ (Proposition~\ref{prop:periods}) are Brown's
+i.e. $k\in\{12$, $16$, $18$, $20$, $22$, $26\}$. The coefficients of $r_f$ (Definition~\ref{def:rf}) are Brown's
 quasi-period coordinates $\omega^\pm(f)$~\cite{Brown2017}: $\omega^+$ from $\ell$ even,
 $\omega^-$ from $\ell$ odd. Taking $f=\Dhat_k:=q^{-1}+O(q^{3})\in S^!_k$, our period polynomials 
 reproduce Brown's published $\eta^\pm(\Dhat_{12})$ at $k=12$ and give related quasi-periods 
@@ -337,47 +327,12 @@ $-(k-2)!\,(2\pi i)^{k-1}$ at $k=12$ in Brown's normalization (the weight-$k$ ana
 $\omega_1\eta_2-\omega_2\eta_1=2\pi i$). Both are global consistency checks, claiming nothing
 new~\cite{VerifyScripts}.\emph{this paragraph needs to 
 be drastically de-LLM-ized!!!}
+
 % TODO literature check: is this period/quasi-period determinant (Legendre) relation
 % --- det in Q^x (2pi i)^{k-1}, = (k-2)! at k=12 --- already established (Brown
 % arXiv:1710.07912?  Kohnen--Zagier?  a higher-weight period-determinant relation)?
 % If so, cite it; this remark only verifies consistency, claims nothing new.
 
-\begin{table}[h]\centering\small
-\begin{tabular}{r|rrrr|r}
-$k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)/i$ & $\det/(2\pi i)^{k-1}$\\\hline
-12 & $-6.89168\mathrm{e}7$  & $-5.58502\mathrm{e}6$  & $1.27202\mathrm{e}{11}$ & $1.02767\mathrm{e}{10}$  & $-3628800$\\
-16 & $-8.81481\mathrm{e}{11}$ & $-1.54063\mathrm{e}{10}$ & $4.14120\mathrm{e}{13}$ & $6.83541\mathrm{e}{11}$ & $-37777259520$\\
-18 & $-5.07833\mathrm{e}{13}$ & $-5.43305\mathrm{e}{12}$ & $-2.19200\mathrm{e}{14}$ & $-3.36339\mathrm{e}{13}$ & $13948526592000$\\
-20 & $-4.22882\mathrm{e}{16}$ & $-3.73170\mathrm{e}{14}$ & $6.38640\mathrm{e}{16}$ & $-1.89823\mathrm{e}{14}$ & $-21768070599475200$\\
-22 & $-1.49974\mathrm{e}{18}$ & $-4.24489\mathrm{e}{16}$ & $1.43795\mathrm{e}{18}$ & $-4.41050\mathrm{e}{16}$ & $2201197055016960000$\\
-26 & $-1.18673\mathrm{e}{22}$ & $-3.60961\mathrm{e}{21}$ & $1.18653\mathrm{e}{22}$ & $-3.61016\mathrm{e}{21}$ & $951354215990967140352000$\\
-\end{tabular}
-\caption{Periods $\omega^\pm(\Delta_k)$ of $\Delta_k=E_{k-12}\Delta$ (and $E_0 = 1$) 
-and quasi-periods $\eta^\pm(\Dhat_k)$ of the weak cusp form 
-$\Dhat_k = \Delta_k(J_2 + a_{k, 1} J_1 + a_{k, 0}) = 1/q + {\cal O}(q^2) \in S_k^!$ (
-where $a_{k, 1}$, $a_{k, 0}$ are rational numbers that ensure the q-series gap and 
-$J_k = 1/q^k + {\cal O}(q) \in S_0^!$), and the integer $\det/(2\pi i)^{k-1}$ with
-$\det=\omega^+\eta^--\omega^-\eta^+$. Full 50-digit values in~\cite{VerifyScripts}. \emph{this paragraph needs to 
-be drastically de-LLM-ized!!!}}\label{tab:periods}
-\end{table}
-
-\subsection{Why a finite contour}\label{subsec:why}% TODO placeholder title
-
-For a weak cusp form $f\in S^!_k$ the classical Mellin integral
-$\int_0^{i\infty}f(\tau)(\tau/i)^s\tfrac{d\tau}{\tau}$ does not converge --- $f$ grows at
-the cusp --- and the deformed-Mellin construction of~\cite{BFK2011} supplies a finite value
-through a non-holomorphic regularization there. The functional of Definition~\ref{def:Lint}
-reaches the same value with no regularization: written as its two segments, each diverges as
-$\tau_0\to i\infty$, with opposite signs, and the two cancel at every finite $\tau_0$, so
-$L^*(f,s)$ is finite throughout $\HH$ although the Mellin contour itself has no limit. By
-Proposition~\ref{prop:indep} the value is independent of $\tau_0$ and of the paths; BFK's
-regularized value is its evaluation at $\tau_0=i$ (Theorem~\ref{thm:weakL}), and its
-integer-$s$ values are Brown's quasi-periods. Two independent
-finite computations --- Brown's cohomological periods and the BFK $L$-values, obtained
-without reference to one another --- meet at this one contour, which fixes it as the
-canonical object. Finiteness and $\tau_0$-independence are the analytic shadow of the
-parabolic representative~\cite{Brown2017,BCD2018,BGKO}. \emph{this paragraph needs to 
-be drastically de-LLM-ized!!!}
 
 \section{Meromorphic modular forms}\label{sec:mero}% TODO placeholder title
 
@@ -468,7 +423,7 @@ I_N(s,z):=e^{-\pi i s/2}\int_{i-1}^{i}\Li_{-N}\big(e^{2\pi i(\tau-z)}\big)\,\tk(
 \begin{lemma}[Closed form of the polylog integral]\label{lem:polylogcf}
 Write $\mathcal G(s,m):=\dfrac{\Gamma(s,2\pi m)}{(2\pi m)^s}+i^k\dfrac{\Gamma(k-s,2\pi m)}{(2\pi m)^{k-s}}$,
 the building block of Theorem~\ref{thm:weakL} continued to $m<0$. For the projected poles
-${\rm Im}\,z>1$, where $|e(\tau-z)|\ge1$ on the contour, polylog inversion
+${\rm Im}\,z>1$, where $|e^{2\pi i(\tau-z)}|\ge1$ on the contour, polylog inversion
 $\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums the integral into the convergent series
 \begin{equation}
 I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
@@ -477,9 +432,9 @@ I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 \end{lemma}
 
 \begin{proof}
-For ${\rm Im}\,z>1$, $|e(\tau-z)|\ge1$ on $[i-1,i]$, so the series of $\Li_{-N}(e(\tau-z))$
-diverges; the inversion rewrites it through $\Li_{-N}(e(z-\tau))=\sum_{n\ge1}n^N e^{2\pi in(z-\tau)}$,
-convergent since $|e(z-\tau)|\le1$. Integrating term by term against $\tk$, each
+For ${\rm Im}\,z>1$, $|e^{2\pi i(\tau-z)}|\ge1$ on $[i-1,i]$, so the series of $\Li_{-N}(e^{2\pi i(\tau-z)})$
+diverges; the inversion rewrites it through $\Li_{-N}(e^{2\pi i(z-\tau)})=\sum_{n\ge1}n^N e^{2\pi in(z-\tau)}$,
+convergent since $|e^{2\pi i(z-\tau)}|\le1$. Integrating term by term against $\tk$, each
 $e^{-\pi i s/2}\!\int_{i-1}^i e^{-2\pi in\tau}\tk\,d\tau$ is the building block $\mathcal G(s,-n)$ of
 Theorem~\ref{thm:weakL} at mode $-n$, giving the displayed sum; for $N=0$ the leftover $-1$ in
 $\Li_0(w)=-1-\Li_0(1/w)$ adds $-e^{-\pi i s/2}\!\int_{i-1}^i\tk=\tfrac1s+\tfrac{i^k}{k-s}$.
@@ -504,7 +459,7 @@ $f=(I-\widehat P)f+\widehat Pf$. The regularized part has no pole on or above ${
 (Definition~\ref{def:proj}), so by Lemma~\ref{lem:commute} its Fourier series integrates term by
 term; mode by mode this is Theorem~\ref{thm:weakL}, giving
 $-c_{Rf}(0)(\tfrac1s+\tfrac{i^k}{k-s})+\sum_{n\ne0}c_{Rf}(n)\mathcal G(s,n)$. The projected part
-$\widehat Pf=\sum_{\tau_p}\sum_{m>0}r^*_{f,\tau_p}(m)\Li_{1-m}(e(\tau-\tau_p))$ integrates to
+$\widehat Pf=\sum_{\tau_p}\sum_{m>0}r^*_{f,\tau_p}(m)\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$ integrates to
 $\sum_{{\rm Im}\,\tau_p>1}\sum_{m>0}r^*_{f,\tau_p}(m)I_{m-1}(s,\tau_p)$ by
 Lemma~\ref{lem:polylogcf}. Their sum is the stated formula.
 \end{proof}
@@ -547,7 +502,6 @@ sweeps once past $\tau_p$; the residue theorem then adds
 $2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$ when the $T$-segment crosses it, or the same with
 $\tau^{s-1}$ when the $S$-segment does.
 \end{proof}
-
 
 \begin{thebibliography}{99}
 
@@ -614,6 +568,13 @@ Int.\ Math.\ Res.\ Not.\ IMRN (2016); arXiv:1603.03056.
 N.\ Diamantis and J.\ Drewitt,
 \emph{Period functions associated to real-analytic modular forms},
 Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
+
+%\bibitem{companion}
+%  D.\ A.\ McGady,
+%  \emph{Quasi-periods, periods and $L$-functions of meromorphic modular forms on
+%  $\mathrm{SL}_2(\mathbb{Z})$ via finite-contour cocycles},
+%  \emph{in preparation}.
+  
 \end{thebibliography}
 
 
