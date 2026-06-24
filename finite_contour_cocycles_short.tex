@@ -234,6 +234,14 @@ C^f_\gamma(\tau_0):=(2\pi i)^{n+1}\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\omega_f\
 satisfying $C^f_{gh}=C^f_g|_h+C^f_h$.
 \end{definition}
 
+\begin{proof}[Proof of the cocycle relation]
+Split the contour of $C^f_{gh}$ at $h^{-1}\tau_0$:
+$\int_{h^{-1}g^{-1}\tau_0}^{\tau_0}\omega_f=\int_{h^{-1}g^{-1}\tau_0}^{h^{-1}\tau_0}\omega_f+\int_{h^{-1}\tau_0}^{\tau_0}\omega_f$.
+The second term is $C^f_h$; by the $\Gamma$-equivariance of $\omega_f$ ($f|_k h=f$ gives
+$\int_{h^{-1}a}^{h^{-1}b}\omega_f=(\int_a^b\omega_f)\big|_h$) the first is $C^f_g|_h$, whence
+$C^f_{gh}=C^f_g|_h+C^f_h$.
+\end{proof}
+
 \begin{lemma}[Parabolic representatives exist iff $c_f(0)=0$]\label{lem:gate}
 With $\delta_T P:=P|_T-P$ on $V_n$, one has $[C^f_T(\tau_0)]_{X^n}=(2\pi i)^{n+1}c_f(0)$,
 so $C^f_T\in\im\delta_T$ if and only if $c_f(0)=0$ --- the principal part of $f$ never obstructs.
@@ -332,7 +340,7 @@ $\tau_0\to i\infty$, with opposite signs, and the two cancel at every finite $\t
 $L^*(f,s)$ is finite throughout $\HH$ although the Mellin contour itself has no limit. By
 Proposition~\ref{prop:indep} the value is independent of $\tau_0$ and of the paths; BFK's
 regularized value is its evaluation at $\tau_0=i$ (Theorem~\ref{thm:weakL}), and its
-integer-$s$ values are Brown's quasi-periods (Corollary~\ref{cor:quasi}). Two independent
+integer-$s$ values are Brown's quasi-periods (Remark~\ref{rem:legendre}). Two independent
 finite computations --- Brown's cohomological periods and the BFK $L$-values, obtained
 without reference to one another --- meet at this one contour, which fixes it as the
 canonical object. Finiteness and $\tau_0$-independence are the analytic shadow of the
@@ -385,6 +393,17 @@ A pole at ${\rm Im}\,\tau_p\ge1$ defeats this --- there the coefficients grow at
 $n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$~\cite[Lem.~2.6]{1806}.
 \end{lemma}
 
+\begin{proof}
+With no pole on or above ${\rm Im}\,\tau=1$, the finitely many poles of $g$ in the strip have
+heights $<1$; let $h<1$ be the largest. The Fourier series $g=\sum_n c_g(n)q^n$ converges
+absolutely and uniformly on compact subsets of $\{{\rm Im}\,\tau>h\}$, in particular on the
+$T$-segment $[i-1,i]$; with $\tk(\tau,s)$ bounded there, the sum passes through the integral,
+which is the displayed identity. Conversely a pole at height ${\rm Im}\,\tau_p\ge1$ forces
+$|c_g(n)|\gtrsim n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$~\cite[Lem.~2.6]{1806}, so
+$|c_g(n)q^n|\gtrsim n^{m-1}e^{2\pi n({\rm Im}\,\tau_p-1)}\not\to0$ on $[i-1,i]$ and the series
+diverges.
+\end{proof}
+
 \begin{definition}[Polylog integral]\label{def:polylog}
 For $N\ge0$ and $z\in\HH$, the \emph{polylog integral} is the $L$-integral of a single tail
 $\Li_{-N}(e^{2\pi i(\tau-z)})$ along the $T$-segment at $\tau_0=i$ (where $\gamma^S$ degenerates, since
@@ -405,6 +424,15 @@ I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 \end{equation}
 \end{lemma}
 
+\begin{proof}
+For ${\rm Im}\,z>1$, $|e(\tau-z)|\ge1$ on $[i-1,i]$, so the series of $\Li_{-N}(e(\tau-z))$
+diverges; the inversion rewrites it through $\Li_{-N}(e(z-\tau))=\sum_{n\ge1}n^N e^{2\pi in(z-\tau)}$,
+convergent since $|e(z-\tau)|\le1$. Integrating term by term against $\tk$, each
+$i^{-s}\!\int_{i-1}^i e^{-2\pi in\tau}\tk\,d\tau$ is the building block $\mathcal G(s,-n)$ of
+Theorem~\ref{thm:weakL} at mode $-n$, giving the displayed sum; for $N=0$ the leftover $-1$ in
+$\Li_0(w)=-1-\Li_0(1/w)$ adds $-i^{-s}\!\int_{i-1}^i\tk=\tfrac1s+\tfrac{i^k}{k-s}$.
+\end{proof}
+
 \begin{theorem}[$L$-function of a meromorphic modular form]\label{thm:mero}
 For $f\in F_k$ with no pole on the edge ${\rm Im}\,\tau=1$, at $\tau_0=i$,
 \begin{equation}
@@ -417,6 +445,17 @@ the regularized cusp sum (Definition~\ref{def:cRf}, Theorem~\ref{thm:weakL}) plu
 integral (Lemma~\ref{lem:polylogcf}) per interior pole above the edge. Poles on the edge enter
 by the principal value of Lemma~\ref{lem:onedge}.
 \end{theorem}
+
+\begin{proof}
+At $\tau_0=i$ the $S$-segment degenerates, so $L^*(f,s)=i^{-s}\int_{i-1}^i f\,\tk\,d\tau$. Split
+$f=(I-\widehat P)f+\widehat Pf$. The regularized part has no pole on or above ${\rm Im}\,\tau=1$
+(Definition~\ref{def:proj}), so by Lemma~\ref{lem:commute} its Fourier series integrates term by
+term; mode by mode this is Theorem~\ref{thm:weakL}, giving
+$-c_{Rf}(0)(\tfrac1s+\tfrac{i^k}{k-s})+\sum_{n\ne0}c_{Rf}(n)\mathcal G(s,n)$. The projected part
+$\widehat Pf=\sum_{\tau_p}\sum_{m>0}r^*_{f,\tau_p}(m)\Li_{1-m}(e(\tau-\tau_p))$ integrates to
+$\sum_{{\rm Im}\,\tau_p>1}\sum_{m>0}r^*_{f,\tau_p}(m)I_{m-1}(s,\tau_p)$ by
+Lemma~\ref{lem:polylogcf}. Their sum is the stated formula.
+\end{proof}
 
 \begin{lemma}[$L$-function, a pole on the edge]\label{lem:onedge}
 Routing the $T$-path just below versus just above a pole $\tau_p$ of $f\in F_k$ at height
@@ -431,6 +470,15 @@ pole lies on the $S$-segment instead; its principal value, reached as $\tau_0\to
 and basepoint-independent.
 \end{lemma}
 
+\begin{proof}
+The two routings of $\gamma^T$ differ by a contour encircling $\tau_p$ once, so the residue
+theorem gives $L^*_{\rm below}-L^*_{\rm above}=2\pi i\,i^{-s}\Res_{\tau=\tau_p}[f\,\tk]$, and the
+principal value is their mean. At $\tau_p=i$ the pole sits on the degenerate $S$-segment;
+displacing to $\tau_0=i(1+\delta)$ keeps it on $\gamma^S$ for all small $\delta>0$, so no wall is
+crossed and $L^*$ is finite and $\delta$-independent (verified numerically~\cite{VerifyScripts};
+a closed proof is the $S$-segment principal value of~\cite{1806}).
+\end{proof}
+
 \begin{corollary}[Wall-crossing]\label{cor:wall}
 For $f\in F_k$, $L^*(f,s)$ is constant in $\tau_0$ within each chamber of
 $\HH\setminus f^{-1}(\infty)$; crossing a wall, where the contour sweeps past an interior pole
@@ -442,6 +490,14 @@ when the $T$-segment crosses $\tau_p$ (and by the same with $\tau^{s-1}$ in plac
 the $S$-segment does). Thus $L^*$ is fixed by the contour up to the residues it crosses --- the
 meromorphic counterpart of Proposition~\ref{prop:indep}, recovering its constancy on $M^!_k$.
 \end{corollary}
+
+\begin{proof}
+Within a chamber the contour meets no pole, so the $\delta_T$-inversion of
+Proposition~\ref{prop:indep} applies unchanged and $\partial_{\tau_0}L^*=0$. Crossing a wall, the
+contour sweeps once past $\tau_p$; the residue theorem adds
+$2\pi i\,i^{-s}\Res_{\tau=\tau_p}[f\,\tk]$ when the $T$-segment crosses it, or the same with
+$\tau^{s-1}$ when the $S$-segment does.
+\end{proof}
 
 
 \begin{thebibliography}{99}
@@ -501,6 +557,11 @@ Int.\ Math.\ Res.\ Not.\ IMRN (2016); arXiv:1603.03056.
 N.\ Diamantis and J.\ Drewitt,
 \emph{Period functions associated to real-analytic modular forms},
 Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
+
+\bibitem{DukeJenkins}
+W.\ Duke and P.\ Jenkins,
+\emph{On the zeros and coefficients of certain weakly holomorphic modular forms},
+Pure Appl.\ Math.\ Q.\ \textbf{4} (2008), no.\ 4, 1327--1340.
 
 \bibitem{VerifyScripts}
 \emph{Numerical verification scripts} (companion code), 2026.
