@@ -25,8 +25,8 @@
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\Li}{Li}
 
-\title{A finite Hurwitz-kernel cocycle for periods and $L$-functions
-of meromorphic modular forms on $\SLZ$}
+\title{$L$-functions for all meromorphic $\SLZ$ modular forms,\\
+via manifestly finite contours}
 \author{David A.\ McGady}
 \date{}
 
@@ -34,24 +34,20 @@ of meromorphic modular forms on $\SLZ$}
 \maketitle
 
 \begin{abstract}
-We give one finite, regulator-free contour functional --- a two-segment
-cocycle integral with an explicit Hurwitz-zeta $T$-kernel --- that
-realizes both the period polynomials and the $L$-functions of modular
-forms on $\SLZ$ whose poles may lie anywhere: inside the fundamental
-domain and at the cusp. From a finite base point $\tau_0\in\HH$ one builds
-a cocycle whose cohomology class is independent of $\tau_0$. Removing its
-$T$-component by a coboundary --- possible if and only if the constant
-Fourier coefficient $c_f(0)$ vanishes --- yields the parabolic
-representative, whose $S$-value is the period polynomial. The same kernel,
-with the period monomial $\tau^{\ell}$ replaced by $\tau^{s-1}$, gives the
-completed $L$-function on all of $M^!_k$, constant term allowed, with the
-classical poles of $\Lambda$; for forms with interior poles it is
-determined by the contour up to the residues crossed. The construction
-introduces no new objects: the periods are Brown's quasi-periods in closed
-form~\cite{Brown2017}, the $L$-values are those of
-Bringmann--Fricke--Kent~\cite{BFK2011}. The contribution is the explicit
-all-$s$ kernel and the single finite realization. All formulae are checked
-numerically to $50$ digits~\cite{VerifyScripts}.
+We give a single finite, regulator-free functional realizing in one object the period
+polynomials (at integer $s$) and the completed $L$-functions (at general $s$) of meromorphic
+modular forms on $\SLZ$, with poles anywhere: at the cusp and in the interior. It is a
+two-segment contour integral with an explicit Hurwitz-zeta $T$-kernel, built from any finite
+base point $\tau_0\in\HH$ and manifestly finite. For weakly holomorphic forms it is independent
+of $\tau_0$ and of the path, reproducing at $\tau_0=i$ the special $L$-values of
+Bringmann--Fricke--Kent~\cite{BFK2011}; its integer-$s$ values give the period polynomial,
+Brown's quasi-periods~\cite{Brown2017} in closed form. For forms with interior poles the value
+depends only on the homotopy class of the contour --- fixed up to the residues it crosses ---
+and a natural choice of class, the one prescription a pole on the line $\im\tau=1$ requires,
+renders it canonical. The resulting closed form generalizes~\cite{1806}: a regularized cusp sum
+plus one polylog integral per interior pole. The construction introduces no new objects,
+unifying these periods and $L$-values through a single all-$s$ kernel, and every formula is
+checked numerically~\cite{VerifyScripts}.
 \end{abstract}
 
 \section{A finite L-integral}\label{sec:Lint}
@@ -502,14 +498,14 @@ $\tau^{s-1}$ when the $S$-segment does.
 
 \begin{thebibliography}{99}
 
-\bibitem{Brown2017}
-F.\ Brown, \emph{A class of non-holomorphic modular forms III},
-arXiv:1710.07912 (2017).
-
 \bibitem{BFK2011}
 K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
 \emph{Special $L$-values and periods of weakly holomorphic modular forms},
 Ramanujan J.\ \textbf{24} (2011), 119--139.
+
+\bibitem{Brown2017}
+F.\ Brown, \emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
 
 \bibitem{1806}
 D.\ A.\ McGady,
@@ -517,10 +513,13 @@ D.\ A.\ McGady,
 conformal field theory},
 arXiv:1806.09874 (2018).
 
-\bibitem{KZ1984}
-W.\ Kohnen and D.\ Zagier,
-\emph{Modular forms with rational periods},
-in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
+\bibitem{VerifyScripts}
+\emph{Numerical verification scripts} (companion code), 2026.
+
+\bibitem{DukeJenkins}
+W.\ Duke and P.\ Jenkins,
+\emph{On the zeros and coefficients of certain weakly holomorphic modular forms},
+Pure Appl.\ Math.\ Q.\ \textbf{4} (2008), no.\ 4, 1327--1340.
 
 \bibitem{BCD2018}
 R.\ Bruggeman, Y.\ Choie, and N.\ Diamantis,
@@ -531,6 +530,11 @@ Mem.\ Amer.\ Math.\ Soc.\ \textbf{253} (2018), no.\ 1212; arXiv:1404.6718.
 K. Bringmann, P. Guerzhoy, Z. Kent and K. Ono,
 \emph{Eichler-Shimura Theory for Mock Modular Forms},
 Mathematische Annalen, March 2013 355(3).
+
+\bibitem{KZ1984}
+W.\ Kohnen and D.\ Zagier,
+\emph{Modular forms with rational periods},
+in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
 
 \bibitem{PasolPopa2013}
 V.\ Pa\c{s}ol and A.\ A.\ Popa,
@@ -557,15 +561,6 @@ Int.\ Math.\ Res.\ Not.\ IMRN (2016); arXiv:1603.03056.
 N.\ Diamantis and J.\ Drewitt,
 \emph{Period functions associated to real-analytic modular forms},
 Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
-
-\bibitem{DukeJenkins}
-W.\ Duke and P.\ Jenkins,
-\emph{On the zeros and coefficients of certain weakly holomorphic modular forms},
-Pure Appl.\ Math.\ Q.\ \textbf{4} (2008), no.\ 4, 1327--1340.
-
-\bibitem{VerifyScripts}
-\emph{Numerical verification scripts} (companion code), 2026.
-
 \end{thebibliography}
 
 
