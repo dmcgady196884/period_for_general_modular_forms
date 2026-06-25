@@ -17,6 +17,7 @@
 \newcommand{\HH}{\mathbb{H}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
@@ -35,20 +36,19 @@ via manifestly finite contours}
 \maketitle
 
 \begin{abstract}
-We give a single finite, regulator-free functional realizing in one object the period
-polynomials (at integer $s$) and the completed $L$-functions (at general $s$) of meromorphic
-modular forms on $\SLZ$, with poles anywhere: at the cusp and in the interior. It is a
-two-segment contour integral with an explicit Hurwitz-zeta $T$-kernel, built from any finite
-base point $\tau_0\in\HH$ and manifestly finite. For weakly holomorphic forms it is independent
-of $\tau_0$ and of the path, reproducing at $\tau_0=i$ the special $L$-values of
-Bringmann--Fricke--Kent~\cite{BFK2011}; its integer-$s$ values give the period polynomial,
-Brown's quasi-periods~\cite{Brown2017} in closed form. For forms with interior poles the value
-depends only on the homotopy class of the contour --- fixed up to the residues it crosses ---
-and a natural choice of class, the one prescription a pole on the line $\im\tau=1$ requires,
-renders it canonical. The resulting closed form generalizes~\cite{1806}: a regularized cusp sum
-plus one polylog integral per interior pole. The construction introduces no new objects,
-unifying these periods and $L$-values through a single all-$s$ kernel, and every formula is
-checked numerically~\cite{VerifyScripts}.
+We give a single finite, regulator-free functional realizing in one object $L$-functions
+quasi-periods and period polynomials of meromorphic modular forms on $\SLZ$, with generic 
+poles throughout the upper half-plane $\HH$ and at the cusp of $\SLZ$. Our construction is 
+manifestly finite, preserves holomorphicity. 
+It is a two-segment contour integral with an explicit Hurwitz-zeta $T$-kernel, built from any finite
+base point $\tau_0\in\HH$ and manifestly finite. For weakly holomorphic forms our L-function is 
+independent of $\tau_0$ and of the path, reproduces the for L-functions of weak modular forms 
+in~\cite{BFK2011}, which previously needed non-holomorphic regularization to be defined. 
+Further, when specifying to $s \in \{ 2, \ldots, k-2\}$ in the critical strip give the period polynomial,
+and reproduces Brown's quasi-periods~\cite{Brown2017}. For forms with interior poles the value
+depends on the homotopy classes, defined in terms of pole-crossings. There is a natural choice 
+of trivial homotopy class, which renders our L-functions canonical when the modular form has a 
+pole in the interior of the fundamental domain, generalizing~\cite{1806}.
 \end{abstract}
 
 \section{A finite L-integral}\label{sec:Lint}
@@ -107,7 +107,7 @@ L(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
 \end{equation}
 \end{definition}
 
-Having defined the L-integral and L-function, we now prove both are manifestly finite throughout: 
+Having defined the L-integral and L-function, we prove they are manifestly finite for $f \in F_k$: 
 
 \begin{lemma}[Finiteness]\label{lem:finite}
 For $f\in F_k$, both integrals in Definition~\ref{def:Lint} are finite for every
@@ -250,6 +250,49 @@ c_f(0)\,e^{-\pi i s/2}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\left(\frac1s+\frac{i^k}
 Combining these reproduces Eq.~\eqref{eq:weakL}. Finally, the functional equation, $L^*(f,s)=i^k L^*(f,k-s)$, follows by direct inspection.
 \end{proof}
 
+\subsection{Poles at the cusp vs the classical Mellin contour}
+
+\subsection{Classical Mellin recovery and canonical uniqueness.}\label{sec:Connection-w-previous-weak-MF-l-functions}
+For $f \in S_k$ a holomorphic cusp form, taking the cusp-limit
+$\tau_0 \to i\infty$ in Theorem~\ref{thm:weakL} collapses the
+$S$-segment onto the classical Mellin contour $[0, i\infty]$ while
+the $T$-segment vanishes exponentially (since $f(\tau) =
+O(e^{-2\pi\im\tau})$ on the segment as $\im\tau \to \infty$):
+\begin{equation}\label{eq:Mellin-recovery}
+  \lim_{\tau_0 \to i\infty}\!
+  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+  \;=\; \int_0^\infty\! t^{s - 1}\,f(it)\,dt,
+\end{equation}
+the classical completed $L$-integral of $f$.  For $f \in M_k$ with
+$c_f(0) \ne 0$ the same limit holds after a standard constant-term
+subtraction (see \cite[Lemma~2.1]{1806} for the explicit polynomial
+correction).
+
+For $f \in M^!_k$ with cusp poles the cusp-limit is genuinely
+pathological: $f(\tau) \to \infty$ as $\im\tau \to \infty$, so the
+$S$-segment integral diverges along the imaginary axis, and the
+$T$-segment integral $\int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,
+\widetilde{k}_T(\tau, s)\,d\tau$ acquires a matching divergence of
+the opposite sign as $\im\tau_0 \to \infty$ --- made precise in
+Lemma~\ref{lem:cusp-decay}, where the $T$-segment is shown to equal an
+explicit incomplete-gamma sum whose polar mode $q^{-M}$ contributes a
+term growing like $|c_f(-M)|\,e^{2\pi M \im(\tau_0)}$.
+The two divergences cancel at every finite $\tau_0$, so $L^*(f, s)$
+is finite and well defined throughout $\HH$, but no naive Mellin
+contour limit exists. By throwing-out $\gamma^T_{\tau_0}$ at the outset, 
+one does violence to the result; the $\tau_0 \to i \infty$ limit of the S-contour 
+alone diverges, necessitating regularizations of the type introduced in~\cite{BFK2011}. 
+The construction of \cite{BFK2011} recovers
+$L^*(f, s)$ on $M^!_k$ by a non-holomorphic regulator at the cusps;
+Theorem~\ref{thm:weakL} shows that this regulator and the
+finite-contour functional in Definition~\ref{def:Lint} compute the
+same object, term by term in the Fourier expansion.  In particular,
+$L^*(f, s)$ is independent of any choice of regularization: it is
+the value of the finite-contour functional at any admissible
+$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$, and the BFK construction is
+one closed-form evaluation of it (at $\tau_0 = i$).
+
+
 \subsection{Period polynomials, periods and quasi-periods}
 
 Because $L^*(f,s)$ is canonical for every $f\in M^!_k$, the period polynomial needs no separate
@@ -286,22 +329,22 @@ the manifestly finite computations of the quasi-periods for $\Dhat = 1/q + {\cal
 originally given in~\cite{Brown2017}. In this vein, it is interesting to show collect quasi-periods 
 computable from our L-integrals/period-polynomials for $f \in S_k^!$ (when $\dim(S_k) = 1$).
 
-To this effect, we recall the notation of~\cite{DukeJenkins}. Decompose the modular weight 
-$k = 12 \lambda + k'$ where $k' \in \{ 0, 4, 6, 8, 10, 14\}$; thus $\lambda = \dim(S_k)$. For 
-any $\lambda$, we may denote $f_{k, m} := 1/q^m + O(q^{\lambda+1}) \in M_k^!$. When 
-$\dim(S_k) = \lambda = 1$, we have $f_{k,m} = 1/q^m + O(q^2)$. Here, define 
+To this effect, we recall the notation of~\cite{DukeJenkins}. Decomposing the modular weight 
+$k = 12 \lambda + k'$ where $k' \in \{ 0, 4, 6, 8, 10, 14\}$, we see $\lambda = \dim(S_k)$ when 
+$\lambda \geq 0$. For any $\lambda$, we may denote $f_{k, m} := 1/q^m + O(q^{\lambda+1}) \in M_k^!$. 
+When $\dim(S_k) = 1$, we have $f_{k,m} = 1/q^m + O(q^2)$. Here, define 
 $\Delta_k := f_{k,-1} = q + O(q^2) \in S_k$ and $\Dhat_k := f_{k,1} = 1/q + O(q^2) \in S_k^!$.
 Further, define
 \begin{align}
 {\rm pd}_k := \left( \begin{smallmatrix} 
-\omega(\Delta_k)^+ & \omega(\Delta_k)^- \\
-\eta(\Dhat_k)^+ & \eta(\Dhat_k)^-
+\omega^+(\Delta_k) & \omega^-(\Delta_k) \\
+\eta^+(\Dhat_k) & \eta^-(\Dhat_k)
 \end{smallmatrix}\right)
 \end{align}
 As shown in~\cite{Brown2017}, the determinant of ${\rm pd}_k$ satisfies a Legendre-type relation,
 $\det({\rm pd}_k) \in\QQ^\times\cdot(2\pi i)^{k-1}$; when $k = 12$ this determinant is equal to
 $-(k-2)!\,(2\pi i)^{k-1}$. We reproduce this result, and analogous rational multiples in $\QQ$ for 
-$k \in \{ 146, 18, 20, 22, 26\}$, in Table~\ref{tab:periods}, below:
+$k \in \{ 14, 16, 18, 20, 22, 26\}$, in Table~\ref{tab:periods}, below:
 
 \begin{table}[H]\centering\small
 \begin{tabular}{r|rrrr|c}
@@ -315,10 +358,10 @@ $k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)
 \end{tabular}
 \caption{
 Periods $\omega^\pm(\Delta_k)$ and 
-quasi-periods $\eta^\pm(\Dhat_k)$, and the rational
+quasi-periods $\eta^\pm(\Dhat_k)$, and the rational number
 $(-1)^{1+k/2}\det/\big((2\pi i)^{k-1}(k-2)!\big)$ with
-$\det=\omega^+\eta^--\omega^-\eta^+$.
-Our rational results for the $\det({\rm pd}_k)$ match those in~\cite{Brown2017}, 
+$\det({\rm pd}_k) =\omega^+\eta^--\omega^-\eta^+$.
+Our rational results for $\det({\rm pd}_k)$ match those in~\cite{Brown2017}, 
 which presented the results for $k = 12$. We are unaware what governs 
 the sequence of non-unity ratios in the $\det({\rm pd}_k)$-column of this table. 
 Full 50-digit values in~\cite{VerifyScripts}
@@ -332,12 +375,19 @@ Full 50-digit values in~\cite{VerifyScripts}
 
 \section{Meromorphic modular forms}\label{sec:mero}% TODO placeholder title
 
+We find it convenient to define the following function,
+\begin{align}\label{eq:gc}
+G_{s, k}(n) := \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2 \pi n)}{(2\pi n)^{k-2}}.
+\end{align}
+
+
 \begin{proposition}[Basepoint and path independence within a homotopy class]\label{prop:indepHomotopy}
 For $f\in F_k$, the value $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ is independent of $\tau_0$
 and of the path so long as both vary within a single homotopy class of admissible contours in
-$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$. For $f\in M^!_k$ there is one class and
-Proposition~\ref{prop:indep} is recovered; the dependence between classes is the residue crossing
-of Corollary~\ref{cor:wall}.
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$. %For $f\in M^!_k$ there is one class and
+%Proposition~\ref{prop:indep} is recovered; the dependence between classes is the residue crossing
+%of Corollary~\ref{cor:wall}.%DAM: tf? Do not reference a (wrong!) Lemma before it is even mentioned!
+L-integrals defined on contours in different homotopy classes differ by wall-crossing residues. 
 \end{proposition}
 
 \begin{proof}
@@ -416,37 +466,72 @@ I_N(s,z):=e^{-\pi i s/2}\int_{i-1}^{i}\Li_{-N}\big(e^{2\pi i(\tau-z)}\big)\,\tk(
 \end{equation}
 \end{definition}
 
-\begin{lemma}[Closed form of the polylog integral]\label{lem:polylogcf}
-Write $\mathcal G(s,m):=\dfrac{\Gamma(s,2\pi m)}{(2\pi m)^s}+i^k\dfrac{\Gamma(k-s,2\pi m)}{(2\pi m)^{k-s}}$,
-the building block of Theorem~\ref{thm:weakL} continued to $m<0$. For the projected poles
+\begin{lemma}[Specialized polylog integral]\label{lem:polylogcf}
+Recall $G_{s, k}(n)$ from Eq.~\eqref{eq:gc}. For the projected poles
 ${\rm Im}\,z>1$, where $|e^{2\pi i(\tau-z)}|\ge1$ on the contour, polylog inversion
 $\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums the integral into the convergent series
 \begin{equation}
 I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,\mathcal G(s,-n).
++(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,G_{s,k}(-n).
 \end{equation}
+This sum converges exponentially quickly, with base $e^{-2\pi n (y -1)}$, where $y = {\rm Im}(z)$.
+%\emph{QUESTION/CONCERN: DID WE FUCK UP? THIS LOOKS NOT CONVERGENT AT ALL!! I think the polylog integral should be convergent. But I am not sure. It for sure is at least ALMOST convergent when one integrates negative weight polylogs along the standard Mellin contour... I think? GOTTA CHECK!!!}
 \end{lemma}
 
 \begin{proof}
 For ${\rm Im}\,z>1$, $|e^{2\pi i(\tau-z)}|\ge1$ on $[i-1,i]$, so the series of $\Li_{-N}(e^{2\pi i(\tau-z)})$
 diverges; the inversion rewrites it through $\Li_{-N}(e^{2\pi i(z-\tau)})=\sum_{n\ge1}n^N e^{2\pi in(z-\tau)}$,
 convergent since $|e^{2\pi i(z-\tau)}|\le1$. Integrating term by term against $\tk$, each
-$e^{-\pi i s/2}\!\int_{i-1}^i e^{-2\pi in\tau}\tk\,d\tau$ is the building block $\mathcal G(s,-n)$ of
+$e^{-\pi i s/2}\!\int_{i-1}^i e^{-2\pi in\tau}\tk\,d\tau$ is the building block $G_{s,k}(n)$ of
 Theorem~\ref{thm:weakL} at mode $-n$, giving the displayed sum; for $N=0$ the leftover $-1$ in
-$\Li_0(w)=-1-\Li_0(1/w)$ adds $-e^{-\pi i s/2}\!\int_{i-1}^i\tk=\tfrac1s+\tfrac{i^k}{k-s}$.
+$\Li_0(w)=-1-\Li_0(1/w)$ adds $-e^{-\pi i s/2}\!\int_{i-1}^i\tk=\tfrac1s+\tfrac{i^k}{k-s}$. 
+
+Exponential convergence $\sim e^{-2\pi n(y-1)}$ for $y = {\rm Im}(z) > 1$ follows from combining the asymptotic 
+scaling $\Gamma(s,-2\pi n) \sim (2\pi n)^{s-1} e^{2\pi n}$ and the exact result $|e^{2\pi i n z}| = e^{-2\pi n y}$.
+\end{proof}
+
+\begin{lemma}[Generalized polylog integral]\label{lem:polylogEdge}
+Recall $G_{s, k}(n)$ from Eq.~\eqref{eq:gc}. For the projected poles
+$z = i + x$ where $x \in \RR\setminus\{0\}$, and where $|e^{2\pi i(\tau-z)}|\ge1$ on the contour, polylog inversion
+$\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums the integral into the convergent series
+\begin{equation}
+I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,G_{s, k}(-n).
+\end{equation}
+This sum converges polynomially for \emph{some non-empty subset of $S_x \subset \CC$} of the complex-$s$ plane. (What subset?? Can we continue?? Such a continuation must be possible! See my 1806.09874-paper)
+\end{lemma}
+
+\begin{proof}
+Something non-terrible, if possible. This really seems like it should be true, by analytic continuation.
+\end{proof}
+
+\begin{lemma}[Generalized polylog integral]\label{lem:polylogCorner}
+Recall $G_{s, k}(n)$ from Eq.~\eqref{eq:gc}. For the projected poles
+$z = i$, and where $|e^{2\pi i(\tau-z)}|\ge1$ on the contour, polylog inversion
+$\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums the integral into the convergent series
+\begin{equation}
+I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,G_{s, k}(-n).
+\end{equation}
+This sum converges polynomially for \emph{some non-empty subset of $S_0 \subset \CC$} of the complex-$s$ plane. (What subset?? Can we continue??)
+\end{lemma}
+
+\begin{proof}
+Something non-terrible, if possible. This really seems like it should be true, by analytic continuation.
 \end{proof}
 
 \begin{theorem}[$L$-function of a meromorphic modular form]\label{thm:mero}
 For $f\in F_k$ with no pole on the edge ${\rm Im}\,\tau=1$, at $\tau_0=i$,
 \begin{equation}
 L^*(f,s)=-c_{Rf}(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+\sum_{n\ne0}c_{Rf}(n)\,\mathcal G(s,n)
++\sum_{n\ne0}c_{Rf}(n)\,G_{s, k}(n)
 +\sum_{{\rm Im}\,\tau_p>1}\sum_{m>0}r^*_{f,\tau_p}(m)\,I_{m-1}(s,\tau_p),
 \end{equation}
-$\mathcal G(s,n)=\dfrac{\Gamma(s,2\pi n)}{(2\pi n)^s}+i^k\dfrac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}$;
+where, again $G_{s, k}(n)$ is the sum of incomplete gammas defined in Eq.~\eqref{eq:gc};
 the regularized cusp sum (Definition~\ref{def:cRf}, Theorem~\ref{thm:weakL}) plus one polylog
-integral (Lemma~\ref{lem:polylogcf}) per interior pole above the edge. Poles on the edge enter
-by the principal value of Lemma~\ref{lem:onedge}.
+integral (Lemma~\ref{lem:polylogcf}) per interior pole above the edge. Poles on the form $z = i + x$, 
+where $x \in \RR$, are dealt with by the analytic continuations in Lemmas~\ref{lem:polylogEdge} 
+and~\ref{lem:polylogCorner}.
 \end{theorem}
 
 \begin{proof}
@@ -460,27 +545,30 @@ $\sum_{{\rm Im}\,\tau_p>1}\sum_{m>0}r^*_{f,\tau_p}(m)I_{m-1}(s,\tau_p)$ by
 Lemma~\ref{lem:polylogcf}. Their sum is the stated formula.
 \end{proof}
 
-\begin{lemma}[$L$-function, a pole on the edge]\label{lem:onedge}
-Routing the $T$-path just below versus just above a pole $\tau_p$ of $f\in F_k$ at height
-${\rm Im}\,\tau_p=1$ gives finite values differing by the residue,
-\begin{equation}
-L^*_{\rm below}(f,s)-L^*_{\rm above}(f,s)
-=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big].
-\end{equation}
-We define the edge value as the principal value $L^*=\tfrac12(L^*_{\rm above}+L^*_{\rm below})
-=L^*_{\rm below}-\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$. At the elliptic point $\tau_p=i$ the
-pole lies on the $S$-segment instead; its principal value, reached as $\tau_0\to i$, is finite
-and basepoint-independent.
-\end{lemma}
-
-\begin{proof}
-The two routings of $\gamma^T$ differ by a contour encircling $\tau_p$ once, so the residue
-theorem gives $L^*_{\rm below}-L^*_{\rm above}=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$, and the
-principal value is their mean. At $\tau_p=i$ the pole sits on the degenerate $S$-segment;
-displacing to $\tau_0=i(1+\delta)$ keeps it on $\gamma^S$ for all small $\delta>0$, so no wall is
-crossed and $L^*$ is finite and $\delta$-independent (verified numerically~\cite{VerifyScripts};
-a closed proof is the $S$-segment principal value of~\cite{1806}).
-\end{proof}
+%DAM: I think this lemma is not needed. I think we can do a generalization of~\ref{lem:polylogcf} 
+%where we simply analytically continue the closed-form result to the special cases of $\tau_0 = i$ 
+%or $\tau_0) = i + x$ for $x \in \RR$. 
+%\begin{lemma}[$L$-function, a pole on the edge]\label{lem:onedge}
+%Routing the $T$-path just below versus just above a pole $\tau_p$ of $f\in F_k$ at height
+%${\rm Im}\,\tau_p=1$ gives finite values differing by the residue,
+%\begin{equation}
+%L^*_{\rm below}(f,s)-L^*_{\rm above}(f,s)
+%=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big].
+%\end{equation}
+%We define the edge value as the principal value $L^*=\tfrac12(L^*_{\rm above}+L^*_{\rm below})
+%=L^*_{\rm below}-\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$. At the elliptic point $\tau_p=i$ the
+%pole lies on the $S$-segment instead; its principal value, reached as $\tau_0\to i$, is finite
+%and basepoint-independent.
+%\end{lemma}
+%
+%\begin{proof}
+%The two routings of $\gamma^T$ differ by a contour encircling $\tau_p$ once, so the residue
+%theorem gives $L^*_{\rm below}-L^*_{\rm above}=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$, and the
+%principal value is their mean. At $\tau_p=i$ the pole sits on the degenerate $S$-segment;
+%displacing to $\tau_0=i(1+\delta)$ keeps it on $\gamma^S$ for all small $\delta>0$, so no wall is
+%crossed and $L^*$ is finite and $\delta$-independent (verified numerically~\cite{VerifyScripts};
+%a closed proof is the $S$-segment principal value of~\cite{1806}).
+%\end{proof}
 
 \begin{corollary}[Wall-crossing]\label{cor:wall}
 By Proposition~\ref{prop:indepHomotopy}, $L^*(f,s)$ is fixed within each homotopy class. Crossing a
@@ -491,13 +579,22 @@ wall, where the contour sweeps past an interior pole $\tau_p$, changes it by
 when the $T$-segment crosses $\tau_p$ (and by the same with $\tau^{s-1}$ in place of $\tk$ when
 the $S$-segment does). Thus $L^*$ is fixed by the contour up to the residues it crosses.
 \end{corollary}
-
+\emph{DAM: I do not think that this result is correct/general enough: The S-contour or the T-contour could enclose poles, and the residues would be different. Note that, unlike for the case of $f \in M_k^!$, the fact that the S-contour has end-points that coincide, the contribution can be non-zero. Indeed, that is exactly the case for enclosing a pole in a closed contour!}
 \begin{proof}
 The within-class constancy is Proposition~\ref{prop:indepHomotopy}. Crossing a wall, the contour
 sweeps once past $\tau_p$; the residue theorem then adds
 $2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$ when the $T$-segment crosses it, or the same with
 $\tau^{s-1}$ when the $S$-segment does.
 \end{proof}
+
+\section{To do list...}
+\begin{enumerate}
+\item DAM: Need to make sure each bibitem is relevant for this doc!!!
+\item Reinstate the "why did BFK have to regularize? BECAUSE THEY DIDN'T USE THE CORRECT CONTOUR AND THREW OUT THE DIVERGENT T-PIECE WITHOUT EVEN KNOWING!"-section
+\item Should find a better definition of the homotopy class. Like, $L^*(f, s; X_S, X_Y)$ where $X_S = \{$ the set of all windings of all poles of $f$ enclosed by the S-contour, and $X_T$ does the same for the T-contour.
+\item Make spellings American, not British
+\item other stuff...
+\end{enumerate}
 
 \begin{thebibliography}{99}
 
