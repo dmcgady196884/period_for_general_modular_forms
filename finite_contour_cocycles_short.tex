@@ -68,11 +68,10 @@ $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$,
 running from $S^{-1}\tau_0=-1/\tau_0$ and $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$.
 \end{definition}
 
-Note: When $f \in M_k^!$, avoiding poles is automatic, as long as $\tau_0$, 
-i.e. the base-point of any of these paths is not at a cusp of $\SLZ$, i.e. there is 
-only the trivial homotopy class. However, when $f \in F_k$, and $f$ has poles 
-at finite and non-zero imaginary heights, then these integration contours fall into 
-nontrivial homotopy classes.
+Avoiding poles is automatic for $f \in M_k^!$, as long as the base-point $\tau_0$, 
+is not at a cusp of $\SLZ$, i.e. there is only the trivial homotopy class. 
+When $f \in F_k$, and $f$ has poles at finite and non-zero imaginary heights, 
+integration contours fall into nontrivial homotopy classes.
 
 \begin{definition}[Hurwitz $T$-kernel]\label{def:kernel}
 Let $\zeta(s,x)=\sum_{m\ge0}(m+x)^{-s}$ as a function 
@@ -96,9 +95,7 @@ L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
 \end{equation}
 \end{definition}
 
-Path-dependence and $\tau_0$-independence of 
-$L^*(f,s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ are dealt with below, 
-in the main body. But, first, we use this \emph{L-integral} to define a generalized 
+We use this \emph{L-integral} to define a generalized 
 \emph{L-function}:
 
 \begin{definition}[$L$-function]\label{def:Lfun}
@@ -110,11 +107,7 @@ L(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
 \end{equation}
 \end{definition}
 
-In this vein, $\tau_0$-independence and path-dependence of the L-integral and the 
-L-function of $f \in F_k$ are in lockstep. For $f \in F_k$ such that 
-$L^*(f,s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0}$) is \emph{both} $\tau_0$-independant 
-and path-independent, then we may write $L^*(f, s: \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = L^*(f,s)$ 
-and similarly for $L(f,s)$. First, though, finiteness: 
+Having defined the L-integral and L-function, we now prove both are manifestly finite throughout: 
 
 \begin{lemma}[Finiteness]\label{lem:finite}
 For $f\in F_k$, both integrals in Definition~\ref{def:Lint} are finite for every
@@ -128,6 +121,13 @@ continuous on them; $\tau^{s-1}$ is continuous on $\HH$, and $\tk(\tau,s)$ is co
 since $\zeta(\nu,\tau+1)$ is holomorphic in $\tau\in\HH$ (Definition~\ref{def:kernel}). A
 continuous integrand on a compact path is integrable, for every $s\in\CC$.
 \end{proof}
+
+We now turn to path-dependence and $\tau_0$-independence of 
+the L-integral and the L-function of $f \in F_k$. 
+%For $f \in F_k$ such that $L^*(f,s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
+%is \emph{both} $\tau_0$-independant and path-independent, and we simply 
+%write $L^*(f, s: \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = L^*(f,s)$; similarly for $L(f,s)$. 
+This holds for all $f \in M_k^!$:
 
 \begin{proposition}[Basepoint and path independence]\label{prop:indep}
 For $f\in M^!_k$ the value $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ is independent
@@ -154,11 +154,11 @@ where $\delta_T\tk(\tau,s):=\tk(\tau+1,s)-\tk(\tau,s)$. This is the whole role o
 unit gap between the endpoints turns the $\partial_{\tau_0}$ boundary term into a unit shift of
 the kernel. That shift is elementary --- the kernel was built for it --- since
 $\zeta(\nu,x+1)-\zeta(\nu,x)=-x^{-\nu}$ gives, on both terms at $x=\tau+1$,
-\begin{equation}
-\delta_T\tk(\tau,s)=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s},
-\qquad\text{hence}\qquad
-\partial_{\tau_0}\!\!\int_{\gamma^T}\!\! f\,\tk=f(\tau_0)\big[-\tau_0^{s-1}+e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
-\end{equation}
+\begin{align}
+\delta_T\tk(\tau,s)&=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s}
+\\
+\implies \partial_{\tau_0}\!\!\int_{\gamma^T}\!\! f\,\tk&=f(\tau_0)\big[-\tau_0^{s-1}+e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
+\end{align}
 The $S$-segment runs $-1/\tau_0\to\tau_0$; its lower endpoint moves with
 $\partial_{\tau_0}(-1/\tau_0)=\tau_0^{-2}$, so by Leibniz, the modularity
 $f(-1/\tau_0)=\tau_0^k f(\tau_0)$, and the phase $(-1/\tau_0)^{s-1}=e^{i\pi(s-1)}\tau_0^{1-s}$,
@@ -171,13 +171,14 @@ The two brackets are negatives of each other, so
 $\partial_{\tau_0}L^*=e^{-\pi i s/2}\big(\partial_{\tau_0}\!\int_{\gamma^S}+\partial_{\tau_0}\!\int_{\gamma^T}\big)=0$.
 \end{proof}
 
-\begin{remark}[Classical Mellin recovery]\label{rem:mellin}
-For a holomorphic cusp form $f\in S_k$, the cusp limit $\tau_0\to i\infty$ collapses
-the $S$-segment onto $[0,i\infty]$ while the $T$-segment vanishes exponentially, so
+\begin{remark}[Classical L-function contour]\label{rem:mellin}
+Let $f\in S_k$. As $\tau_0\to i\infty$, the $S$-segment maps onto the standard 
+L-function contour, $[0,i\infty]$. Simultaneously, as $f(it) \sim e^{-2\pi t}$ as 
+$t \to \infty$, the $T$-segment vanishes exponentially. Thus, in this limit, $L^*(f,s)$ 
+exactly maps onto the classical L-function integral~\cite{01-Apostol}:
 \begin{equation}
-\lim_{\tau_0\to i\infty}L^*(f,s)=\int_0^{\infty}\! t^{s-1}f(it)\,dt,
+\lim_{\tau_0\to i\infty}L^*(f,s)=\int_0^{\infty}\! t^{s-1}f(it)\,dt.
 \end{equation}
-the classical completed $L$-integral.
 \end{remark}
 
 \section{$L$-functions for weak modular forms}\label{sec:Lfun}% TODO placeholder title --- no person-names yet
@@ -279,23 +280,32 @@ r_f|_{X^{n-\ell}Y^\ell} = (-1)^\ell\binom{n}{\ell}\big[\int_{\gamma^S} f\,\tau^\
 This matches definition~\ref{def:rf} term by term, and proves the claim.
 \end{proof}
 
-%At integer $s$ $\tk(\tau,\ell+1)$ is a difference of Bernoulli
-%polynomials,
-%\begin{equation}
-%\tk(\tau,\ell+1)=-\frac{B_{\ell+1}(\tau+1)}{\ell+1}+(-1)^\ell\frac{B_{n-\ell+1}(\tau+1)}{n-\ell+1},
-%\end{equation}
-%the kernel of the classical Eichler period integral --- the route by which it was found. That
-%$r_f$ is moreover an Eichler--Shimura cocycle is left to the companion note~\cite{companion}.
-
 \paragraph{Quasi-periods and their determinant:} 
 As an aside, the Hurwitz T-kernel in this note was originally uncovered in order to reproduce 
 the manifestly finite computations of the quasi-periods for $\Dhat = 1/q + {\cal O}(q^2) \in S_{12}^!$
 originally given in~\cite{Brown2017}. In this vein, it is interesting to show collect quasi-periods 
-computable from our L-integrals/period-polynomials for $f \in S_k^!$ (when $\dim(S_k) = 1$):
+computable from our L-integrals/period-polynomials for $f \in S_k^!$ (when $\dim(S_k) = 1$).
+
+To this effect, we recall the notation of~\cite{DukeJenkins}. Decompose the modular weight 
+$k = 12 \lambda + k'$ where $k' \in \{ 0, 4, 6, 8, 10, 14\}$; thus $\lambda = \dim(S_k)$. For 
+any $\lambda$, we may denote $f_{k, m} := 1/q^m + O(q^{\lambda+1}) \in M_k^!$. When 
+$\dim(S_k) = \lambda = 1$, we have $f_{k,m} = 1/q^m + O(q^2)$. Here, define 
+$\Delta_k := f_{k,-1} = q + O(q^2) \in S_k$ and $\Dhat_k := f_{k,1} = 1/q + O(q^2) \in S_k^!$.
+Further, define
+\begin{align}
+{\rm pd}_k := \left( \begin{smallmatrix} 
+\omega(\Delta_k)^+ & \omega(\Delta_k)^- \\
+\eta(\Dhat_k)^+ & \eta(\Dhat_k)^-
+\end{smallmatrix}\right)
+\end{align}
+As shown in~\cite{Brown2017}, the determinant of ${\rm pd}_k$ satisfies a Legendre-type relation,
+$\det({\rm pd}_k) \in\QQ^\times\cdot(2\pi i)^{k-1}$; when $k = 12$ this determinant is equal to
+$-(k-2)!\,(2\pi i)^{k-1}$. We reproduce this result, and analogous rational multiples in $\QQ$ for 
+$k \in \{ 146, 18, 20, 22, 26\}$, in Table~\ref{tab:periods}, below:
 
 \begin{table}[H]\centering\small
 \begin{tabular}{r|rrrr|c}
-$k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)/i$ & $\frac{-i^k\det}{(2\pi)^{k-1}(k-2)!}$\\\hline
+$k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)/i$ & $\frac{-i^k\det({\rm pd}_k)}{(2\pi)^{k-1}(k-2)!}$\\\hline
 12 & $-6.89168\mathrm{e}7$  & $-5.58502\mathrm{e}6$  & $1.27202\mathrm{e}{11}$ & $1.02767\mathrm{e}{10}$  & $1$\\
 16 & $-8.81481\mathrm{e}{11}$ & $-1.54063\mathrm{e}{10}$ & $4.14120\mathrm{e}{13}$ & $6.83541\mathrm{e}{11}$ & $13/30$\\
 18 & $-5.07833\mathrm{e}{13}$ & $-5.43305\mathrm{e}{12}$ & $-2.19200\mathrm{e}{14}$ & $-3.36339\mathrm{e}{13}$ & $2/3$\\
@@ -303,31 +313,17 @@ $k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)
 22 & $-1.49974\mathrm{e}{18}$ & $-4.24489\mathrm{e}{16}$ & $1.43795\mathrm{e}{18}$ & $-4.41050\mathrm{e}{16}$ & $19/21$\\
 26 & $-1.18673\mathrm{e}{22}$ & $-3.60961\mathrm{e}{21}$ & $1.18653\mathrm{e}{22}$ & $-3.61016\mathrm{e}{21}$ & $23/15$\\
 \end{tabular}
-\caption{Periods $\omega^\pm(\Delta_k)$ of $\Delta_k=E_{k-12}\Delta$ (and $E_0 = 1$) 
-and quasi-periods $\eta^\pm(\Dhat_k)$ of the weak cusp form 
-$\Dhat_k = \Delta_k(J_2 + a_{k, 1} J_1 + a_{k, 0}) = 1/q + {\cal O}(q^2) \in S_k^!$ (
-where $a_{k, 1}$, $a_{k, 0}$ are rational numbers that ensure the q-series gap and 
-$J_k = 1/q^k + {\cal O}(q) \in S_0^!$), and the rational
+\caption{
+Periods $\omega^\pm(\Delta_k)$ and 
+quasi-periods $\eta^\pm(\Dhat_k)$, and the rational
 $(-1)^{1+k/2}\det/\big((2\pi i)^{k-1}(k-2)!\big)$ with
-$\det=\omega^+\eta^--\omega^-\eta^+$. Full 50-digit values in~\cite{VerifyScripts}.
-Only the sign, the factor $(k-2)!\,(k-3)$, and the rationality of
-$\det/(2\pi i)^{k-1}$ are intrinsic; the residual rational tracks the (here primitive-integer)
-normalization of the $P^\pm$ basis, matching a named constant --- $-(k-2)!$ in Brown's
-normalization --- only at $k=12$. \emph{this paragraph needs to
-be drastically de-LLM-ized!!!}}\label{tab:periods}
+$\det=\omega^+\eta^--\omega^-\eta^+$.
+Our rational results for the $\det({\rm pd}_k)$ match those in~\cite{Brown2017}, 
+which presented the results for $k = 12$. We are unaware what governs 
+the sequence of non-unity ratios in the $\det({\rm pd}_k)$-column of this table. 
+Full 50-digit values in~\cite{VerifyScripts}
+}\label{tab:periods}
 \end{table}
-Consider the case of a weak cusp form $f \in S_k^!$ for $k$ such that $\dim S_k=1$, 
-i.e. $k\in\{12$, $16$, $18$, $20$, $22$, $26\}$. The coefficients of $r_f$ (Definition~\ref{def:rf}) are Brown's
-quasi-period coordinates $\omega^\pm(f)$~\cite{Brown2017}: $\omega^+$ from $\ell$ even,
-$\omega^-$ from $\ell$ odd. Taking $f=\Dhat_k:=q^{-1}+O(q^{3})\in S^!_k$, our period polynomials 
-reproduce Brown's published $\eta^\pm(\Dhat_{12})$ at $k=12$ and give related quasi-periods 
-at the remaining five weights (Table~\ref{tab:periods}). Their determinant satisfies a Legendre-type relation,
-$\omega^+\eta^- - \omega^-\eta^+\in\QQ^\times\cdot(2\pi i)^{k-1}$, equal to
-$-(k-2)!\,(2\pi i)^{k-1}$ at $k=12$ in Brown's normalization (the weight-$k$ analog of
-$\omega_1\eta_2-\omega_2\eta_1=2\pi i$). Both are global consistency checks, claiming nothing
-new~\cite{VerifyScripts}.\emph{this paragraph needs to 
-be drastically de-LLM-ized!!!}
-
 % TODO literature check: is this period/quasi-period determinant (Legendre) relation
 % --- det in Q^x (2pi i)^{k-1}, = (k-2)! at k=12 --- already established (Brown
 % arXiv:1710.07912?  Kohnen--Zagier?  a higher-weight period-determinant relation)?
@@ -568,6 +564,12 @@ Int.\ Math.\ Res.\ Not.\ IMRN (2016); arXiv:1603.03056.
 N.\ Diamantis and J.\ Drewitt,
 \emph{Period functions associated to real-analytic modular forms},
 Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
+
+\bibitem{01-Apostol}
+T. M. Apostol, 
+``Modular functions and Dirichlet series in number theory,''
+Graduate Texts in Mathematics, London, Springer (1997).
+
 
 %\bibitem{companion}
 %  D.\ A.\ McGady,
