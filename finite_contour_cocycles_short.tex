@@ -250,70 +250,11 @@ c_f(0)\,e^{-\pi i s/2}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\left(\frac1s+\frac{i^k}
 Combining these reproduces Eq.~\eqref{eq:weakL}. Finally, the functional equation, $L^*(f,s)=i^k L^*(f,k-s)$, follows by direct inspection.
 \end{proof}
 
-\subsection{Classical Mellin recovery and canonical uniqueness.}\label{sec:Connection-w-previous-weak-MF-l-functions}
-For $f \in S_k$ a holomorphic cusp form, taking the cusp-limit
-$\tau_0 \to i\infty$ in Theorem~\ref{thm:weakL} collapses the
-$S$-segment onto the classical Mellin contour $[0, i\infty]$ while
-the $T$-segment vanishes exponentially (since $f(\tau) =
-O(e^{-2\pi\im\tau})$ on the segment as $\im\tau \to \infty$):
-\begin{equation}\label{eq:Mellin-recovery}
-  \lim_{\tau_0 \to i\infty}\!
-  L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
-  \;=\; \int_0^\infty\! t^{s - 1}\,f(it)\,dt,
-\end{equation}
-the classical completed $L$-integral of $f$.  For $f \in M_k$ with
-$c_f(0) \ne 0$ the same limit holds after a standard constant-term
-subtraction (see \cite[Lemma~2.1]{1806} for the explicit polynomial
-correction).
-
-Path- and base-point independence of $L^*(f, s) = L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
-is, of course, guaranteed by Theorem~\ref{thm:weakL} for all $f \in M_k^!$. 
-However, these L-integrals are the sums of the S-contour and T-contour. 
-Finiteness is ensured only of the sum of these two parts. Both contours may, 
-and indeed, do grow without bound when $f \notin M_k$. For example:
-
-\begin{lemma}[$T$-segment closed form and cusp asymptotics]\label{lem:cusp-decay}
-Let $f \in S^!_k$ with Fourier expansion $f = \sum_{n \geq -N} c_f(n)\,q^n$ for $-N$; when $-N > 0$, $f \in S_k$.  
-For every $\tau_0 \in \HH$ and every $s \in \CC$, the T-contour's contribution to $L^*(f,s)$ is
-\begin{equation}\label{eq:T-segment-closed}
-L_T^*(f, s; \gamma^T_{\tau_0}) := e^{-\pi i s/2} \int_{\tau_0 - 1}^{\tau_0}\!\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
-=  \sum_{n \ne 0}\! c_f(n)\left(\frac{\Gamma(s, -2\pi i n\tau_0)}{(2\pi n)^s} + i^k\frac{\Gamma(k - s, -2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right)~.
-\end{equation}
-In the limit where $\tau_0 = it \to i\infty$, for $t \in \RR^+$, the 
-$T$-contribution grows as $L_T^*(f, s; \gamma^T_{\tau_0}) \sim e^{2\pi N t}$, 
-matching the cusp-pole growth/decay of $f(it) \sim e^{-2\pi N t}$ itself.
-\end{lemma}
-\begin{proof}
-Expand $f = \sum_n c_f(n)\,q^n$ on the compact segment
-$[\tau_0 - 1, \tau_0]$, and apply the Proposition~\ref{prop:HGG} to each term in
-$\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$
-at $\nu = 1 - s$ and $\nu = s - (k - 1)$. The phases for the second term work-out 
-identically as in the proof of Theorem~\ref{thm:weakL}.  %For $n = 0$, the
-%Hurwitz antiderivative of Lemma~\ref{lem:const-mode} at base $\tau_0$,
-%$\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1-\sigma}/(\sigma - 1)$,
-%produces the bracketed constant-mode term (which at $\tau_0 = i$
-%reduces to the $-c_f(0)(1/s + i^k/(k-s))$ of
-%\eqref{eq:bfk-eq-statement}).
-
-For the asymptotics, $\Gamma(\sigma, z) \sim z^{\sigma - 1}e^{-z}$
-as $|z| \to \infty$ for $|\arg z| < \tfrac{3\pi}{2}$ \cite[\S8.11]{DLMF}
-gives $|c_f(n)|$-weighted go as $e^{-2\pi n\,\im(\tau_0)}$.  Taking the lowest
-present mode yields the desired asymptotics.
-\end{proof}
-
-Lemma~\ref{lem:cusp-decay} locates the obstruction. As $\tau_0\to i\infty$ the polar mode $q^{-N}$ of
-an $f\notin M_k$ makes the $T$-contribution grow like $e^{2\pi N\,\im\tau_0}$ and the $S$-contribution
-diverge oppositely, yet their sum --- the $\tau_0$-independent value $L^*(f,s)$ --- stays finite at
-every $\tau_0$. Discarding $\gamma^T_{\tau_0}$ therefore does violence to the result: the $S$-contour
-alone diverges, which is exactly why~\cite{BFK2011} must regularize at the cusp. Theorem~\ref{thm:weakL}
-identifies that regularized value, mode by mode, with the finite-contour functional of
-Definition~\ref{def:Lint} at $\tau_0=i$; so $L^*(f,s)$ is independent of any regularization, the BFK
-construction being one closed-form evaluation of it.
-
 \subsection{Explicit S- and T-contours for general $\tau_0$}
 
-\begin{corollary}[$T$-segment closed form on $M^!_k$]\label{cor:Tclosed-Mk}
-For $f\in M^!_k$ the closed form \eqref{eq:T-segment-closed} acquires the constant Fourier mode:
+\begin{lemma}[$T$-segment closed form on $M^!_k$]\label{lem:Tclosed-Mk}
+For $f\in M^!_k$, for generic $\tau_0 \in \HH$ away from cusps, denote the T-contour's
+contribution to $L^*(f, s)$ as $L^*_T(f, s; \gamma^T_{\tau_0})$. For generic $\tau_0$, we have:
 \begin{equation}\label{eq:T-segment-closed-Mk}
 \begin{split}
 L_T^*(f, s; \gamma^T_{\tau_0})
@@ -322,10 +263,16 @@ L_T^*(f, s; \gamma^T_{\tau_0})
 \end{split}
 \end{equation}
 At $\tau_0 = i$ the constant mode collapses to $-c_f(0)(1/s + i^k/(k-s))$, recovering Theorem~\ref{thm:weakL}.
-\end{corollary}
+\end{lemma}
 \begin{proof}
-The $n \ne 0$ modes are Lemma~\ref{lem:cusp-decay}, whose unfolding never used $c_f(0)=0$.  For
-$n = 0$, the constant $c_f(0)$ multiplies $e^{-\pi i s/2}\!\int_{\tau_0 - 1}^{\tau_0}\!\widetilde k_T(\tau, s)\,d\tau$;
+Expand $f = \sum_n c_f(n)\,q^n$ on the compact segment
+$[\tau_0 - 1, \tau_0]$, and restrict attention to the sub-sum, $\sum_{n \neq 0}$. 
+For each such $n \neq 0$, apply the Proposition~\ref{prop:HGG} in
+$\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$
+at $\nu = 1 - s$ and $\nu = s - (k - 1)$. The phases for the second term work-out 
+identically as in the proof of Theorem~\ref{thm:weakL}.  
+
+For $n = 0$, the constant $c_f(0)$ multiplies $e^{-\pi i s/2}\!\int_{\tau_0 - 1}^{\tau_0}\!\widetilde k_T(\tau, s)\,d\tau$;
 the Hurwitz antiderivative $\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1 - \sigma}/(\sigma - 1)$
 --- from $\partial_\tau\zeta(\sigma - 1, \tau + 1) = -(\sigma - 1)\zeta(\sigma, \tau + 1)$ and the shift
 $\zeta(\sigma - 1, \tau_0 + 1) - \zeta(\sigma - 1, \tau_0) = -\tau_0^{1 - \sigma}$ --- applied to the two
@@ -333,7 +280,25 @@ halves of $\widetilde k_T$ at $\sigma = 1 - s$ and $\sigma = s - k + 1$ yields
 $-e^{-\pi i s/2}\tau_0^{\,s}/s$ and $-e^{\pi i s/2}\tau_0^{\,k-s}/(k-s)$ respectively.
 \end{proof}
 
-The $S$-contour needs no integration of its own --- basepoint independence fixes it.
+
+\begin{corollary}[$T$-segment cusp asymptotics]\label{lem:cusp-decay}
+Let $f \in S^!_k$, where $f = \sum_{n \geq -N} c_f(n)q^n$ for some $-N \in \ZZ$. 
+The T-contour's contribution to $L^*(f,s)$ is given by 
+Lemma~\ref{lem:Tclosed-Mk}. As $\tau_0 = it$ goes to the cusp $i\infty$,
+the $T$-contour and scales exactly as $f(it)$ scales: 
+$L_T^*(f, s; \gamma^T_{\tau_0}) \sim f(it) \sim e^{2\pi N t}$.
+\end{corollary}
+\begin{proof}
+For the asymptotics, $\Gamma(\sigma, z) \sim z^{\sigma - 1}e^{-z}$
+as $|z| \to \infty$ for $|\arg z| < \tfrac{3\pi}{2}$ \cite[\S8.11]{DLMF}
+gives $|c_f(n)|$-weighted go as $e^{-2\pi n\,\im(\tau_0)}$.  The smallest 
+mode $n$ in the q-series, i.e. $n = -N$, dominates the scaling of $f(it)$ and of 
+$L^*_T(f, s; \gamma^T_{i t})$. Combining these results yields the claimed asymptotics.
+\end{proof}
+
+Now, exploiting $\tau_0$-independence of $L^*(f, s)$, its explicit value as given in 
+Theorem~\ref{thm:weakL}, and the explicit T-contribution $L^*_T(f, s; \gamma^T_{\tau_0})$ trivially 
+implies clean, closed-form expressions for the S-contour's contribution to $L^*(f,s)$: 
 
 \begin{corollary}[$S$-segment closed form]\label{cor:Sclosed}
 For $f\in M^!_k$ and $\tau_0\in\HH$, the $S$-contribution
@@ -343,30 +308,51 @@ of incomplete gammas between the base points $i$ and $\tau_0$:
 \begin{align}
 L_S^*(f,s;\gamma^S_{\tau_0})
 &= L^*(f,s) - L_T^*(f,s;\gamma^T_{\tau_0}) \label{eq:S-segment-closed}\\
-&= \sum_{n\ne0} c_f(n)\!\left[\frac{\Gamma(s,2\pi n)-\Gamma(s,-2\pi i n\tau_0)}{(2\pi n)^s}
-+ i^k\,\frac{\Gamma(k-s,2\pi n)-\Gamma(k-s,-2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right] \nonumber\\
-&\quad + c_f(0)\left[\frac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}
-+ \frac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\right]. \label{eq:S-segment-explicit}
+&= c_f(0)\left(\frac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}
++ \frac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\right) \label{eq:S-segment-explicit}\\
+&+ \sum_{n\ne0} c_f(n)\!\left(\frac{\Gamma(s,2\pi n)-\Gamma(s,-2\pi i n\tau_0)}{(2\pi n)^s}
++ i^k\,\frac{\Gamma(k-s,2\pi n)-\Gamma(k-s,-2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right)~. \nonumber
 \end{align}
-Here $L^*(f,s)=L_T^*(f,s;\gamma^T_i)$ is the basepoint-independent value of Theorem~\ref{thm:weakL}:
-at $\tau_0=i$ the $S$-segment degenerates ($-1/i=i$), so the whole $L$-value is carried by the
-$T$-segment and every term on the right vanishes.
 \end{corollary}
 \begin{proof}
 Line \eqref{eq:S-segment-closed} is the definition $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
 = L_S^*(\gamma^S_{\tau_0}) + L_T^*(\gamma^T_{\tau_0})$ together with the $\tau_0$-independence of $L^*$
 (Proposition~\ref{prop:indep}); evaluating at $\tau_0=i$, where $L_S^*(\gamma^S_i)=0$, identifies
 $L^*(f,s)=L_T^*(\gamma^T_i)$. Line \eqref{eq:S-segment-explicit} then inserts the closed forms of
-Theorem~\ref{thm:weakL} for $L^*(f,s)$ and Corollary~\ref{cor:Tclosed-Mk} for $L_T^*(\gamma^T_{\tau_0})$:
+Theorem~\ref{thm:weakL} for $L^*(f,s)$ and Corollary~\ref{lem:Tclosed-Mk} for $L_T^*(\gamma^T_{\tau_0})$:
 the $n\ne0$ modes subtract base point by base point into the incomplete-gamma differences, and the two
-constant modes subtract to
-\begin{equation*}
--c_f(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+ c_f(0)\Big(\tfrac{e^{-\pi i s/2}\tau_0^{\,s}}{s}+\tfrac{e^{\pi i s/2}\tau_0^{\,k-s}}{k-s}\Big)
-= c_f(0)\Big(\tfrac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}+\tfrac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\Big).
-\end{equation*}
+constant modes subtract to the $c_f(0)$-terms in Eq.~\eqref{eq:S-segment-explicit}.
+%\begin{equation}
+%-c_f(0)\Big(\frac1s+\frac{i^k}{k-s}\Big)
+%+ c_f(0)\Big(\frac{e^{-\pi i s/2}\tau_0^{\,s}}{s}+\frac{e^{\pi i s/2}\tau_0^{\,k-s}}{k-s}\Big)
+%= c_f(0)\Big(\frac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}+\frac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\Big).
+%\end{equation}
 \end{proof}
 
+
+\subsection{Classical Mellin recovery and canonical uniqueness.}\label{sec:Connection-w-previous-weak-MF-l-functions}
+As discussed in Remark~\ref{rem:mellin}, for $f \in S_k$, taking the cusp-limit
+$\tau_0 \to i\infty$ in Theorem~\ref{thm:weakL} collapses the $S$-segment 
+onto the classical Mellin contour $[0, i\infty]$ while the $T$-segment vanishes 
+exponentially, since $f(it) = O(e^{-2\pi t})$ on the segment as $\tau = it \to i\infty$. I.e., here, one recovers the classical L-integral of $f$ without obstruction:
+\begin{equation}\label{eq:Mellin-recovery}
+\lim_{\tau_0 \to i\infty}\!
+L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
+\;=\; \int_0^\infty\! t^{s - 1}\,f(it)\,dt~.
+\end{equation}  
+
+Of course, path- and base-point independence of $L^*(f, s) = L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
+is, guaranteed by Theorem~\ref{thm:weakL} for all $f \in M_k^!$. However, these 
+L-integrals are the sums of the S-contour and T-contour. Finiteness is ensured only 
+of the sum of these two parts. Both contours may, and indeed, do grow without bound 
+when $f \notin M_k$, as is highlighted in Lemma~\ref{lem:cusp-decay}:
+
+As $\tau_0\to i\infty$ the polar mode $q^{-N}$ of
+an $f\notin M_k$ makes the $T$-contribution grow like $e^{2\pi N\,\im\tau_0}$ and the $S$-contribution
+diverge oppositely. Yet their sum, the $\tau_0$-independent value $L^*(f,s)$, remains finite and constant
+over all finite $\tau_0 \in \HH$. Discarding $\gamma^T_{\tau_0}$ therefore does violence to the result: 
+When the $S$-contour is isolated from its T-partnet, and $\tau_0 \to i \infty$, it diverges. This is the precise 
+reason that~\cite{BFK2011} needed regularize their divergent L-integral representation for properly weak cusp forms. 
 
 \subsection{Period polynomials, periods and quasi-periods}
 
