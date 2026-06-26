@@ -341,10 +341,12 @@ Further, define
 \eta^+(\Dhat_k) & \eta^-(\Dhat_k)
 \end{smallmatrix}\right)
 \end{align}
-As shown in~\cite{Brown2017}, the determinant of ${\rm pd}_k$ satisfies a Legendre-type relation,
-$\det({\rm pd}_k) \in\QQ^\times\cdot(2\pi i)^{k-1}$; when $k = 12$ this determinant is equal to
-$-(k-2)!\,(2\pi i)^{k-1}$. We reproduce this result, and analogous rational multiples in $\QQ$ for 
-$k \in \{ 14, 16, 18, 20, 22, 26\}$, in Table~\ref{tab:periods}, below:
+That $\det({\rm pd}_k)$ satisfies a Legendre-type relation, $\det({\rm pd}_k)\in\QQ^\times\cdot(2\pi i)^{k-1}$,
+is the de Rham theory of Brown--Hain~\cite[Prop.~5.6]{BrownHain2018}. Brown~\cite[\S8.3]{Brown2017}
+evaluates the constant at $k=12$, finding $\det({\rm pd}_k)=-(k-2)!\,(2\pi i)^{k-1}$ --- his period
+matrix orders the quasi-periods first, giving $+(k-2)!$, where ours orders the periods first --- and
+remarks that he could locate no reference for the value. We reproduce $k=12$ and give the analogous
+rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below:
 
 \begin{table}[H]\centering\small
 \begin{tabular}{r|rrrr|c}
@@ -361,33 +363,29 @@ Periods $\omega^\pm(\Delta_k)$ and
 quasi-periods $\eta^\pm(\Dhat_k)$, and the rational number
 $(-1)^{1+k/2}\det/\big((2\pi i)^{k-1}(k-2)!\big)$ with
 $\det({\rm pd}_k) =\omega^+\eta^--\omega^-\eta^+$.
-Our rational results for $\det({\rm pd}_k)$ match those in~\cite{Brown2017}, 
-which presented the results for $k = 12$. We are unaware what governs 
-the sequence of non-unity ratios in the $\det({\rm pd}_k)$-column of this table. 
-Full 50-digit values in~\cite{VerifyScripts}
+At $k=12$ the value matches Brown~\cite{Brown2017}; the entries for $k\ge16$ appear to be new.
+These ratios are not intrinsic to $f$: they depend on how the rational period-polynomial basis
+$P^\pm$ is normalized (we use a primitive-integer normalization; Brown's normalization gives
+$-(k-2)!$ at $k=12$). We have not found a closed form for them.
+Full 50-digit values in~\cite{VerifyScripts}.
 }\label{tab:periods}
 \end{table}
-% TODO literature check: is this period/quasi-period determinant (Legendre) relation
-% --- det in Q^x (2pi i)^{k-1}, = (k-2)! at k=12 --- already established (Brown
-% arXiv:1710.07912?  Kohnen--Zagier?  a higher-weight period-determinant relation)?
-% If so, cite it; this remark only verifies consistency, claims nothing new.
 
 
 \section{Meromorphic modular forms}\label{sec:mero}% TODO placeholder title
 
 We find it convenient to define the following function,
 \begin{align}\label{eq:gc}
-G_{s, k}(n) := \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2 \pi n)}{(2\pi n)^{k-2}}.
+G_{s, k}(n) := \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2 \pi n)}{(2\pi n)^{k-s}}.
 \end{align}
 
 
 \begin{proposition}[Basepoint and path independence within a homotopy class]\label{prop:indepHomotopy}
 For $f\in F_k$, the value $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ is independent of $\tau_0$
 and of the path so long as both vary within a single homotopy class of admissible contours in
-$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$. %For $f\in M^!_k$ there is one class and
-%Proposition~\ref{prop:indep} is recovered; the dependence between classes is the residue crossing
-%of Corollary~\ref{cor:wall}.%DAM: tf? Do not reference a (wrong!) Lemma before it is even mentioned!
-L-integrals defined on contours in different homotopy classes differ by wall-crossing residues. 
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$. For $f\in M^!_k$ there is a single class, recovering
+Proposition~\ref{prop:indep}; across different classes the value changes by the residues the
+contour sweeps, as quantified in Corollary~\ref{cor:wall}.
 \end{proposition}
 
 \begin{proof}
@@ -475,7 +473,6 @@ I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 +(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,G_{s,k}(-n).
 \end{equation}
 This sum converges exponentially quickly, with base $e^{-2\pi n (y -1)}$, where $y = {\rm Im}(z)$.
-%\emph{QUESTION/CONCERN: DID WE FUCK UP? THIS LOOKS NOT CONVERGENT AT ALL!! I think the polylog integral should be convergent. But I am not sure. It for sure is at least ALMOST convergent when one integrates negative weight polylogs along the standard Mellin contour... I think? GOTTA CHECK!!!}
 \end{lemma}
 
 \begin{proof}
@@ -490,35 +487,11 @@ Exponential convergence $\sim e^{-2\pi n(y-1)}$ for $y = {\rm Im}(z) > 1$ follow
 scaling $\Gamma(s,-2\pi n) \sim (2\pi n)^{s-1} e^{2\pi n}$ and the exact result $|e^{2\pi i n z}| = e^{-2\pi n y}$.
 \end{proof}
 
-\begin{lemma}[Generalized polylog integral]\label{lem:polylogEdge}
-Recall $G_{s, k}(n)$ from Eq.~\eqref{eq:gc}. For the projected poles
-$z = i + x$ where $x \in \RR\setminus\{0\}$, and where $|e^{2\pi i(\tau-z)}|\ge1$ on the contour, polylog inversion
-$\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums the integral into the convergent series
-\begin{equation}
-I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,G_{s, k}(-n).
-\end{equation}
-This sum converges polynomially for \emph{some non-empty subset of $S_x \subset \CC$} of the complex-$s$ plane. (What subset?? Can we continue?? Such a continuation must be possible! See my 1806.09874-paper)
-\end{lemma}
-
-\begin{proof}
-Something non-terrible, if possible. This really seems like it should be true, by analytic continuation.
-\end{proof}
-
-\begin{lemma}[Generalized polylog integral]\label{lem:polylogCorner}
-Recall $G_{s, k}(n)$ from Eq.~\eqref{eq:gc}. For the projected poles
-$z = i$, and where $|e^{2\pi i(\tau-z)}|\ge1$ on the contour, polylog inversion
-$\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums the integral into the convergent series
-\begin{equation}
-I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+(-1)^{N+1}\sum_{n\ge1} n^N e^{2\pi inz}\,G_{s, k}(-n).
-\end{equation}
-This sum converges polynomially for \emph{some non-empty subset of $S_0 \subset \CC$} of the complex-$s$ plane. (What subset?? Can we continue??)
-\end{lemma}
-
-\begin{proof}
-Something non-terrible, if possible. This really seems like it should be true, by analytic continuation.
-\end{proof}
+% [Former lem:polylogEdge / lem:polylogCorner (edge z=i+x and corner z=i) removed in the §4
+%  reorg: a pole on the line Im(tau)=1 sits ON the contour, so it is an ordinary on-contour
+%  pole --- principal value, with the residue jump governed by Corollary~\ref{cor:wall} ---
+%  not a projected pole needing its own closed form.  L* for such a form is basepoint-
+%  independent (numerically verified, incl. the double pole of E_4 Delta/E_6^2 at tau=i).]
 
 \begin{theorem}[$L$-function of a meromorphic modular form]\label{thm:mero}
 For $f\in F_k$ with no pole on the edge ${\rm Im}\,\tau=1$, at $\tau_0=i$,
@@ -529,9 +502,10 @@ L^*(f,s)=-c_{Rf}(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 \end{equation}
 where, again $G_{s, k}(n)$ is the sum of incomplete gammas defined in Eq.~\eqref{eq:gc};
 the regularized cusp sum (Definition~\ref{def:cRf}, Theorem~\ref{thm:weakL}) plus one polylog
-integral (Lemma~\ref{lem:polylogcf}) per interior pole above the edge. Poles on the form $z = i + x$, 
-where $x \in \RR$, are dealt with by the analytic continuations in Lemmas~\ref{lem:polylogEdge} 
-and~\ref{lem:polylogCorner}.
+integral (Lemma~\ref{lem:polylogcf}) per interior pole above the edge. A pole on the edge
+${\rm Im}\,\tau=1$ --- the elliptic point $\tau=i$ included --- instead sits on the contour: there
+$L^*$ is the principal value, and sweeping the contour across the pole changes it by the residue
+of Corollary~\ref{cor:wall}.
 \end{theorem}
 
 \begin{proof}
@@ -539,7 +513,7 @@ At $\tau_0=i$ the $S$-segment degenerates, so $L^*(f,s)=e^{-\pi i s/2}\int_{i-1}
 $f=(I-\widehat P)f+\widehat Pf$. The regularized part has no pole on or above ${\rm Im}\,\tau=1$
 (Definition~\ref{def:proj}), so by Lemma~\ref{lem:commute} its Fourier series integrates term by
 term; mode by mode this is Theorem~\ref{thm:weakL}, giving
-$-c_{Rf}(0)(\tfrac1s+\tfrac{i^k}{k-s})+\sum_{n\ne0}c_{Rf}(n)\mathcal G(s,n)$. The projected part
+$-c_{Rf}(0)(\tfrac1s+\tfrac{i^k}{k-s})+\sum_{n\ne0}c_{Rf}(n)G_{s,k}(n)$. The projected part
 $\widehat Pf=\sum_{\tau_p}\sum_{m>0}r^*_{f,\tau_p}(m)\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$ integrates to
 $\sum_{{\rm Im}\,\tau_p>1}\sum_{m>0}r^*_{f,\tau_p}(m)I_{m-1}(s,\tau_p)$ by
 Lemma~\ref{lem:polylogcf}. Their sum is the stated formula.
@@ -606,6 +580,11 @@ Ramanujan J.\ \textbf{24} (2011), 119--139.
 \bibitem{Brown2017}
 F.\ Brown, \emph{A class of non-holomorphic modular forms III},
 arXiv:1710.07912 (2017).
+
+\bibitem{BrownHain2018}
+F.\ Brown and R.\ Hain,
+\emph{Algebraic de Rham theory for weakly holomorphic modular forms of level one},
+Algebra Number Theory \textbf{12} (2018), no.\ 3, 723--750; arXiv:1708.00652.
 
 \bibitem{1806}
 D.\ A.\ McGady,
