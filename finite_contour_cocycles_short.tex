@@ -250,8 +250,6 @@ c_f(0)\,e^{-\pi i s/2}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\left(\frac1s+\frac{i^k}
 Combining these reproduces Eq.~\eqref{eq:weakL}. Finally, the functional equation, $L^*(f,s)=i^k L^*(f,k-s)$, follows by direct inspection.
 \end{proof}
 
-\subsection{Poles at the cusp vs the classical Mellin contour}
-
 \subsection{Classical Mellin recovery and canonical uniqueness.}\label{sec:Connection-w-previous-weak-MF-l-functions}
 For $f \in S_k$ a holomorphic cusp form, taking the cusp-limit
 $\tau_0 \to i\infty$ in Theorem~\ref{thm:weakL} collapses the
@@ -268,13 +266,50 @@ $c_f(0) \ne 0$ the same limit holds after a standard constant-term
 subtraction (see \cite[Lemma~2.1]{1806} for the explicit polynomial
 correction).
 
-For $f \in M^!_k$ with cusp poles the cusp-limit is genuinely
-pathological: $f(\tau) \to \infty$ as $\im\tau \to \infty$, so the
-$S$-segment integral diverges along the imaginary axis, and the
-$T$-segment integral $\int_{\tau_0 - 1}^{\tau_0}\! f(\tau)\,
-\widetilde{k}_T(\tau, s)\,d\tau$ acquires a matching divergence of
-the opposite sign as $\im\tau_0 \to \infty$ --- made precise in
-Lemma~\ref{lem:cusp-decay}, where the $T$-segment is shown to equal an
+Path- and base-point independence of $L^*(f, s) = L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
+is, of course, guaranteed by Theorem~\ref{thm:weakL} for all $f \in M_k^!$. 
+However, these L-integrals are the sums of the S-contour and T-contour. 
+Finiteness is ensured only of the sum of these two parts. Both contours may, 
+and indeed, do grow without bound when $f \notin M_k$. For example:
+
+\begin{lemma}[$T$-segment closed form and cusp asymptotics]\label{lem:cusp-decay}
+Let $f \in S^!_k$ with Fourier expansion $f = \sum_{n \geq -N} c_f(n)\,q^n$ for $-N$; when $-N > 0$, $f \in S_k$.  
+For every $\tau_0 \in \HH$ and every $s \in \CC$, the T-contour's contribution to $L^*(f,s)$ is
+\begin{equation}\label{eq:T-segment-closed}
+L_T^*(f, s; \gamma^T_{\tau_0}) := e^{-\pi i s/2} \int_{\tau_0 - 1}^{\tau_0}\!\! f(\tau)\,\widetilde{k}_T(\tau, s)\,d\tau
+=  \sum_{n \ne 0}\! c_f(n)\left(\frac{\Gamma(s, -2\pi i n\tau_0)}{(2\pi n)^s} + i^k\frac{\Gamma(k - s, -2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right)~.
+\end{equation}
+In the limit where $\tau_0 = it \to i\infty$, for $t \in \RR^+$, the 
+$T$-contribution grows as $L_T^*(f, s; \gamma^T_{\tau_0}) \sim e^{2\pi N t}$, 
+matching the cusp-pole growth/decay of $f(it) \sim e^{-2\pi N t}$ itself.
+\end{lemma}
+\begin{proof}
+Expand $f = \sum_n c_f(n)\,q^n$ on the compact segment
+$[\tau_0 - 1, \tau_0]$ (uniformly convergent --- the finitely many
+polar modes are bounded there, $|q|$ being bounded below) and integrate
+term by term.  For $n \ne 0$, the base-$\tau_0$ unfolding
+\eqref{eq:hurwitz-unfold-general} applied to the two halves of
+$\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$
+at $\nu = 1 - s$ and $\nu = s - (k - 1)$, with the phase collapse
+$-i^{-s}e^{i\pi(s-1)}i^{k-s} = i^k$ of Section~\ref{subsec:bfk-proof}, gives
+the $n \ne 0$ summand of \eqref{eq:T-segment-closed}.  For $n = 0$, the
+Hurwitz antiderivative of Lemma~\ref{lem:const-mode} at base $\tau_0$,
+$\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1-\sigma}/(\sigma - 1)$,
+produces the bracketed constant-mode term (which at $\tau_0 = i$
+reduces to the $-c_f(0)(1/s + i^k/(k-s))$ of
+\eqref{eq:bfk-eq-statement}).
+
+For the asymptotics, the constant-mode term is a polynomial in $\tau_0$,
+hence sub-exponential.  In each $n \ne 0$ summand the incomplete-gamma
+argument satisfies $\mathrm{Re}(-2\pi i n\tau_0) = 2\pi n\,\im(\tau_0)$,
+and the uniform asymptotic $\Gamma(\sigma, z) \sim z^{\sigma - 1}e^{-z}$
+as $|z| \to \infty$ for $|\arg z| < \tfrac{3\pi}{2}$ \cite[\S8.11]{DLMF}
+gives $|c_f(n)|$-weighted decay $e^{-2\pi n\,\im(\tau_0)}$ for $n > 0$
+and growth $e^{2\pi|n|\,\im(\tau_0)}$ for $n < 0$.  Taking the lowest
+present mode yields (a) and (b).
+\end{proof}
+
+, where the $T$-segment is shown to equal an
 explicit incomplete-gamma sum whose polar mode $q^{-M}$ contributes a
 term growing like $|c_f(-M)|\,e^{2\pi M \im(\tau_0)}$.
 The two divergences cancel at every finite $\tau_0$, so $L^*(f, s)$
