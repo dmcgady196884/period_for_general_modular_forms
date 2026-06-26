@@ -183,35 +183,35 @@ exactly maps onto the classical L-function integral~\cite{01-Apostol}:
 
 \section{$L$-functions for weak modular forms}\label{sec:Lfun}% TODO placeholder title --- no person-names yet
 
-\begin{proposition}[Hurwitz-Gamma]\label{prop:HG}
-For $n\ne0$ and $\nu\in\CC$,
+\begin{proposition}[Hurwitz-Gamma]\label{prop:HGG}
+For $n\ne0$, $\nu\in\CC$, and $z\in\HH$,
 \begin{equation}
-\int_i^{i+1}\! e^{2\pi inu}\,\zeta(\nu,u)\,du=e^{i \pi (1-\nu)/2} (2\pi n)^{\nu-1}\,\Gamma(1-\nu,2\pi n).
+\int_{z}^{z+1}\! e^{2\pi inu}\,\zeta(\nu,u)\,du=e^{i \pi (1-\nu)/2} (2\pi n)^{\nu-1}\,\Gamma\big(1-\nu,-2\pi i n z\big).
 \end{equation}
+At $z=i$ the argument $-2\pi i n z$ collapses to $2\pi n$, giving $\Gamma(1-\nu,2\pi n)$.
 \end{proposition}
 
 \begin{proof}
 Write $\zeta(\nu,u)=\sum_{m\ge0}(m+u)^{-\nu}$ and shift $u\mapsto u+m$ in the $m$-th term; as
-$e^{2\pi in(u+m)}=e^{2\pi inu}$ for integer $m$, the unit segments stack into one ray,
+$e^{2\pi in(u+m)}=e^{2\pi inu}$ for integer $m$, the unit segments stack into one horizontal ray,
 \begin{equation}
-\int_i^{i+1}\! e^{2\pi inu}\zeta(\nu,u)\,du
-=\sum_{m\ge0}\int_{i+m}^{i+1+m}\! e^{2\pi inv}v^{-\nu}\,dv
-=\int_i^{i+\infty}\! e^{2\pi inv}v^{-\nu}\,dv.
+\int_z^{z+1}\! e^{2\pi inu}\zeta(\nu,u)\,du
+=\sum_{m\ge0}\int_{z+m}^{z+1+m}\! e^{2\pi inv}v^{-\nu}\,dv
+=\int_z^{z+\infty}\! e^{2\pi inv}v^{-\nu}\,dv.
 \end{equation}
-For $n>0$ the integrand is holomorphic in the first quadrant and decays as $\im v\to\infty$
-(since $|e^{2\pi inv}|=e^{-2\pi n\im v}$), so the horizontal ray rotates to the vertical
-$[i,i\infty)$. With $v=it$ ($t\ge1$; then $dv=i\,dt$, $e^{2\pi inv}=e^{-2\pi nt}$,
-$v^{-\nu}=e^{-\pi i \nu/2}t^{-\nu}$) and $w=2\pi nt$,
+Substitute $w=-2\pi i n v$, so that $v=iw/(2\pi n)$, $dv=i\,dw/(2\pi n)$, and $e^{2\pi inv}=e^{-w}$:
+the lower endpoint becomes $w=-2\pi i n z$, and for $n>0$ the ray rotates to $w\to+\infty$ along the
+positive reals --- legal, since $e^{-w}w^{-\nu}$ decays in the right half-plane, so the closing arc
+vanishes. With $v^{-\nu}=i^{-\nu}(2\pi n)^{\nu}w^{-\nu}$,
 \begin{equation}
-\int_i^{i+\infty}\! e^{2\pi inv}v^{-\nu}\,dv
-=e^{i \pi (1-\nu)/2}\!\int_1^\infty\! e^{-2\pi nt}t^{-\nu}\,dt
-=e^{i \pi (1-\nu)/2}(2\pi n)^{\nu-1}\Gamma(1-\nu,2\pi n).
+\int_z^{z+\infty}\! e^{2\pi inv}v^{-\nu}\,dv
+=i^{1-\nu}(2\pi n)^{\nu-1}\!\int_{-2\pi i n z}^{\infty}\! e^{-w}w^{-\nu}\,dw
+=e^{i \pi (1-\nu)/2}(2\pi n)^{\nu-1}\Gamma\big(1-\nu,-2\pi i n z\big).
 \end{equation}
-For $n<0$ the integrand instead grows as $\im v\to\infty$, so the closing arc survives and the
-rotation is illegal; but both sides are analytic in $n$ and agree for $n>0$, so the identity
-continues to $n<0$, with $\Gamma(1-\nu,2\pi n)$ on its principal branch. At $n=0$ the prefactor
-$(2\pi n)^{\nu-1}$ is singular --- that mode, the constant Fourier coefficient, is handled
-separately.
+For $n<0$ the ray instead grows as $\im v\to\infty$ and the rotation is illegal; but both sides are
+analytic in $n$ and agree for $n>0$, so the identity continues to $n<0$ with $\Gamma$ on its principal
+branch. At $n=0$ the prefactor $(2\pi n)^{\nu-1}$ is singular --- that mode, the constant Fourier
+coefficient, is handled separately.
 \end{proof}
 
 \begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:weakL}
@@ -232,7 +232,7 @@ L^*(f,s)=e^{-\pi i s/2}\int_{i-1}^{i} f\,\tk\,d\tau~.
 \end{equation}
 We then expand $f$ in terms of its q-series, $\sum_n c_f(n)e^{2\pi in\tau}$,
 and substitute $u=\tau+1$, and note that $e^{2\pi i n(u-1)}=e^{2\pi i n u}$. 
-Here, each $n\neq0$ mode is handled by  Proposition~\ref{prop:HG}. 
+Here, each $n\neq0$ mode is handled by  Proposition~\ref{prop:HGG}. 
 The first kernel term with $\nu=1-s \leftrightarrow 1-\nu=s$ gives 
 \begin{equation}
 e^{-\pi i s/2}\,e^{\pi i s/2}(2\pi n)^{-s}\Gamma(s,2\pi n)=\Gamma(s,2\pi n)/(2\pi n)^{s}~,
@@ -285,47 +285,87 @@ matching the cusp-pole growth/decay of $f(it) \sim e^{-2\pi N t}$ itself.
 \end{lemma}
 \begin{proof}
 Expand $f = \sum_n c_f(n)\,q^n$ on the compact segment
-$[\tau_0 - 1, \tau_0]$ (uniformly convergent --- the finitely many
-polar modes are bounded there, $|q|$ being bounded below) and integrate
-term by term.  For $n \ne 0$, the base-$\tau_0$ unfolding
-\eqref{eq:hurwitz-unfold-general} applied to the two halves of
+$[\tau_0 - 1, \tau_0]$, and apply the Proposition~\ref{prop:HGG} to each term in
 $\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1), \tau + 1)$
-at $\nu = 1 - s$ and $\nu = s - (k - 1)$, with the phase collapse
-$-i^{-s}e^{i\pi(s-1)}i^{k-s} = i^k$ of Section~\ref{subsec:bfk-proof}, gives
-the $n \ne 0$ summand of \eqref{eq:T-segment-closed}.  For $n = 0$, the
-Hurwitz antiderivative of Lemma~\ref{lem:const-mode} at base $\tau_0$,
-$\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1-\sigma}/(\sigma - 1)$,
-produces the bracketed constant-mode term (which at $\tau_0 = i$
-reduces to the $-c_f(0)(1/s + i^k/(k-s))$ of
-\eqref{eq:bfk-eq-statement}).
+at $\nu = 1 - s$ and $\nu = s - (k - 1)$. The phases for the second term work-out 
+identically as in the proof of Theorem~\ref{thm:weakL}.  %For $n = 0$, the
+%Hurwitz antiderivative of Lemma~\ref{lem:const-mode} at base $\tau_0$,
+%$\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1-\sigma}/(\sigma - 1)$,
+%produces the bracketed constant-mode term (which at $\tau_0 = i$
+%reduces to the $-c_f(0)(1/s + i^k/(k-s))$ of
+%\eqref{eq:bfk-eq-statement}).
 
-For the asymptotics, the constant-mode term is a polynomial in $\tau_0$,
-hence sub-exponential.  In each $n \ne 0$ summand the incomplete-gamma
-argument satisfies $\mathrm{Re}(-2\pi i n\tau_0) = 2\pi n\,\im(\tau_0)$,
-and the uniform asymptotic $\Gamma(\sigma, z) \sim z^{\sigma - 1}e^{-z}$
+For the asymptotics, $\Gamma(\sigma, z) \sim z^{\sigma - 1}e^{-z}$
 as $|z| \to \infty$ for $|\arg z| < \tfrac{3\pi}{2}$ \cite[\S8.11]{DLMF}
-gives $|c_f(n)|$-weighted decay $e^{-2\pi n\,\im(\tau_0)}$ for $n > 0$
-and growth $e^{2\pi|n|\,\im(\tau_0)}$ for $n < 0$.  Taking the lowest
-present mode yields (a) and (b).
+gives $|c_f(n)|$-weighted go as $e^{-2\pi n\,\im(\tau_0)}$.  Taking the lowest
+present mode yields the desired asymptotics.
 \end{proof}
 
-, where the $T$-segment is shown to equal an
-explicit incomplete-gamma sum whose polar mode $q^{-M}$ contributes a
-term growing like $|c_f(-M)|\,e^{2\pi M \im(\tau_0)}$.
-The two divergences cancel at every finite $\tau_0$, so $L^*(f, s)$
-is finite and well defined throughout $\HH$, but no naive Mellin
-contour limit exists. By throwing-out $\gamma^T_{\tau_0}$ at the outset, 
-one does violence to the result; the $\tau_0 \to i \infty$ limit of the S-contour 
-alone diverges, necessitating regularizations of the type introduced in~\cite{BFK2011}. 
-The construction of \cite{BFK2011} recovers
-$L^*(f, s)$ on $M^!_k$ by a non-holomorphic regulator at the cusps;
-Theorem~\ref{thm:weakL} shows that this regulator and the
-finite-contour functional in Definition~\ref{def:Lint} compute the
-same object, term by term in the Fourier expansion.  In particular,
-$L^*(f, s)$ is independent of any choice of regularization: it is
-the value of the finite-contour functional at any admissible
-$(\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$, and the BFK construction is
-one closed-form evaluation of it (at $\tau_0 = i$).
+Lemma~\ref{lem:cusp-decay} locates the obstruction. As $\tau_0\to i\infty$ the polar mode $q^{-N}$ of
+an $f\notin M_k$ makes the $T$-contribution grow like $e^{2\pi N\,\im\tau_0}$ and the $S$-contribution
+diverge oppositely, yet their sum --- the $\tau_0$-independent value $L^*(f,s)$ --- stays finite at
+every $\tau_0$. Discarding $\gamma^T_{\tau_0}$ therefore does violence to the result: the $S$-contour
+alone diverges, which is exactly why~\cite{BFK2011} must regularize at the cusp. Theorem~\ref{thm:weakL}
+identifies that regularized value, mode by mode, with the finite-contour functional of
+Definition~\ref{def:Lint} at $\tau_0=i$; so $L^*(f,s)$ is independent of any regularization, the BFK
+construction being one closed-form evaluation of it.
+
+\subsection{Explicit S- and T-contours for general $\tau_0$}
+
+\begin{corollary}[$T$-segment closed form on $M^!_k$]\label{cor:Tclosed-Mk}
+For $f\in M^!_k$ the closed form \eqref{eq:T-segment-closed} acquires the constant Fourier mode:
+\begin{equation}\label{eq:T-segment-closed-Mk}
+\begin{split}
+L_T^*(f, s; \gamma^T_{\tau_0})
+&= -c_f(0)\!\left(\frac{e^{-\pi i s/2}\tau_0^{\,s}}{s} + \frac{e^{\pi i s/2}\tau_0^{\,k-s}}{k-s}\right)\\
+&\quad + \sum_{n \ne 0}\! c_f(n)\!\left(\frac{\Gamma(s, -2\pi i n\tau_0)}{(2\pi n)^s} + i^k\frac{\Gamma(k - s, -2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right).
+\end{split}
+\end{equation}
+At $\tau_0 = i$ the constant mode collapses to $-c_f(0)(1/s + i^k/(k-s))$, recovering Theorem~\ref{thm:weakL}.
+\end{corollary}
+\begin{proof}
+The $n \ne 0$ modes are Lemma~\ref{lem:cusp-decay}, whose unfolding never used $c_f(0)=0$.  For
+$n = 0$, the constant $c_f(0)$ multiplies $e^{-\pi i s/2}\!\int_{\tau_0 - 1}^{\tau_0}\!\widetilde k_T(\tau, s)\,d\tau$;
+the Hurwitz antiderivative $\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1 - \sigma}/(\sigma - 1)$
+--- from $\partial_\tau\zeta(\sigma - 1, \tau + 1) = -(\sigma - 1)\zeta(\sigma, \tau + 1)$ and the shift
+$\zeta(\sigma - 1, \tau_0 + 1) - \zeta(\sigma - 1, \tau_0) = -\tau_0^{1 - \sigma}$ --- applied to the two
+halves of $\widetilde k_T$ at $\sigma = 1 - s$ and $\sigma = s - k + 1$ yields
+$-e^{-\pi i s/2}\tau_0^{\,s}/s$ and $-e^{\pi i s/2}\tau_0^{\,k-s}/(k-s)$ respectively.
+\end{proof}
+
+The $S$-contour needs no integration of its own --- basepoint independence fixes it.
+
+\begin{corollary}[$S$-segment closed form]\label{cor:Sclosed}
+For $f\in M^!_k$ and $\tau_0\in\HH$, the $S$-contribution
+$L_S^*(f,s;\gamma^S_{\tau_0}) := e^{-\pi i s/2}\!\int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau$
+is the full $L$-value minus the $T$-contribution at the same base point, hence an explicit difference
+of incomplete gammas between the base points $i$ and $\tau_0$:
+\begin{align}
+L_S^*(f,s;\gamma^S_{\tau_0})
+&= L^*(f,s) - L_T^*(f,s;\gamma^T_{\tau_0}) \label{eq:S-segment-closed}\\
+&= \sum_{n\ne0} c_f(n)\!\left[\frac{\Gamma(s,2\pi n)-\Gamma(s,-2\pi i n\tau_0)}{(2\pi n)^s}
++ i^k\,\frac{\Gamma(k-s,2\pi n)-\Gamma(k-s,-2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right] \nonumber\\
+&\quad + c_f(0)\left[\frac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}
++ \frac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\right]. \label{eq:S-segment-explicit}
+\end{align}
+Here $L^*(f,s)=L_T^*(f,s;\gamma^T_i)$ is the basepoint-independent value of Theorem~\ref{thm:weakL}:
+at $\tau_0=i$ the $S$-segment degenerates ($-1/i=i$), so the whole $L$-value is carried by the
+$T$-segment and every term on the right vanishes.
+\end{corollary}
+\begin{proof}
+Line \eqref{eq:S-segment-closed} is the definition $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
+= L_S^*(\gamma^S_{\tau_0}) + L_T^*(\gamma^T_{\tau_0})$ together with the $\tau_0$-independence of $L^*$
+(Proposition~\ref{prop:indep}); evaluating at $\tau_0=i$, where $L_S^*(\gamma^S_i)=0$, identifies
+$L^*(f,s)=L_T^*(\gamma^T_i)$. Line \eqref{eq:S-segment-explicit} then inserts the closed forms of
+Theorem~\ref{thm:weakL} for $L^*(f,s)$ and Corollary~\ref{cor:Tclosed-Mk} for $L_T^*(\gamma^T_{\tau_0})$:
+the $n\ne0$ modes subtract base point by base point into the incomplete-gamma differences, and the two
+constant modes subtract to
+\begin{equation*}
+-c_f(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++ c_f(0)\Big(\tfrac{e^{-\pi i s/2}\tau_0^{\,s}}{s}+\tfrac{e^{\pi i s/2}\tau_0^{\,k-s}}{k-s}\Big)
+= c_f(0)\Big(\tfrac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}+\tfrac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\Big).
+\end{equation*}
+\end{proof}
 
 
 \subsection{Period polynomials, periods and quasi-periods}
@@ -681,6 +721,12 @@ T. M. Apostol,
 ``Modular functions and Dirichlet series in number theory,''
 Graduate Texts in Mathematics, London, Springer (1997).
 
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+F.~W.~J.\ Olver \emph{et al.}, eds.,
+\url{https://dlmf.nist.gov/}, Release 1.2.x.
+Chapters used: \S8 (incomplete gamma) and \S25.11 (Hurwitz zeta).
+
 
 %\bibitem{companion}
 %  D.\ A.\ McGady,
@@ -705,7 +751,7 @@ Graduate Texts in Mathematics, London, Springer (1997).
 %     rem:mellin      classical Mellin recovery (tau_0 -> i infty, cusp forms)
 %
 %  §4 The L-function   [sec:Lfun]
-%     prop:HG     Hurwitz-Gamma identity
+%     prop:HGG     Hurwitz-Gamma identity
 %     thm:weakL       L* at tau_0 = i is the incomplete-Gamma sum; functional equation
 %     def:cocycle     period cocycle C^f_gamma
 %     lem:gate        parabolic representatives exist iff c_f(0) = 0
