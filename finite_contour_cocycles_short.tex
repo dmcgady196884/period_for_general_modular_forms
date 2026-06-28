@@ -125,7 +125,14 @@ For any $f \in S_k$, one may define the associated L-function:
 \begin{align}
 L(f,s) := \frac{(2 \pi)^s}{\Gamma(s)} L^*(f,s) := \frac{(2 \pi)^s}{\Gamma(s)} \int_0^{\infty} f(it) t^{s-1} dt = \sum_{n \geq 1} \frac{c_f(n)}{n^s}~.
 \end{align}
-A similar definition applies for $f \in M_k$. %When $f \in M_k$, we define $L^*(f,s)|_{\rm classical} := \int_0^{\infty} (f(it)-c_f(0)) t^{s-1} dt$. With the $-c_f(0)$-subtraction, then the L-integral is OK. However, if $f$ has a constant term, then the constant term in the commuted q-series/integral diverges: $\int_0^\infty t^{s-1} dt$ is a pure divergence. It is important e.g. in BFK and in my 1806-paper that the constant term IS thus subtracted/out. Further, in doing so, we then get the dividend of the  $-c_f(0)/s --i^k c_f(0)/(k-s)$-terms in the L-integral, which I needed in order to establish my sum-rules in 1806. Yet, in our manifestly finite construction, this projection is both not needed and never even shows-up. We just naturally get the right answer! VERY pretty
+A similar definition applies for $f \in M_k$. %When $f \in M_k$, we define $L^*(f,s)|_{\rm classical} := 
+%\int_0^{\infty} (f(it)-c_f(0)) t^{s-1} dt$. With the $-c_f(0)$-subtraction, then the L-integral is OK. However,  
+%if $f$ has a constant term, then the constant term in the commuted q-series/integral diverges:  
+%$\int_0^\infty t^{s-1} dt$ is a pure divergence. It is important e.g. in BFK and in my 1806-paper that  
+%the constant term IS thus subtracted/out. Further, in doing so, we then get the dividend of the  
+%$-c_f(0)/s --i^k c_f(0)/(k-s)$-terms in the L-integral, which I needed in order to establish my sum-rules  
+%in 1806. Yet, in our manifestly finite construction, this projection is both not needed and never even  
+%shows-up. We just naturally get the right answer! VERY pretty
 Similarly, one may define a period polynomial for $f \in S_k$ in terms of this L-function,
 \begin{align}
 r_f(X, Y) := (2 \pi i)^{k-1} \sum_{\ell = 0}^{k-2} \binom{n}{\ell}\frac{L^*(f,\ell+1)}{i^{\ell+1}}\,X^{n-\ell}Y^\ell~.
@@ -133,9 +140,10 @@ r_f(X, Y) := (2 \pi i)^{k-1} \sum_{\ell = 0}^{k-2} \binom{n}{\ell}\frac{L^*(f,\e
 This polynomial, $r_f(X, Y) \in V_{k-2} := \CC[X, Y]_{k-2}$, has a natural action under $\SLZ$, 
 $(P|_{\gamma})(X, Y) = P(a X + b Y, c X + d Y)$ for $\gamma = 
 \left( \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right) \in \SLZ$. This period polynomial 
-can be decomposed into a basis of highly constrained polynomials, which are annihilated by $|(1+T)$ and $|(1 + U + U^2)$\cite{KZ1984}, where $U := ST$ generates an order-3 cyclic subgroup of $\SLZ$. We define the 
-\emph{periods} of a cusp form to be the coefficients that localize $r_f$ within this highly constrained 
-sub-space of $V_{k-2}$.
+can be decomposed into a basis of highly constrained polynomials, which are annihilated by $|(1+T)$ 
+and $|(1 + U + U^2)$\cite{KZ1984}, where $U := ST$ generates an order-3 cyclic subgroup of $\SLZ$. 
+We define the \emph{periods} of a cusp form to be the coefficients that localize $r_f$ within this highly 
+constrained sub-space of $V_{k-2}$.
 
 However, as classically computed, these L-functions and associated period polynomials 
 (when defined in terms of the special values of the associated L-function) are not defined when $f$ 
