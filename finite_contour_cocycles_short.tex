@@ -289,7 +289,7 @@ exactly maps onto the classical L-function integral~\cite{01-Apostol}:
 \section{$L$-functions for weak modular forms}\label{sec:Lfun}% TODO placeholder title --- no person-names yet
 
 \begin{proposition}[Hurwitz-Gamma]\label{prop:HGG}
-For $n\ne0$, $\nu\in\CC$, and $z\in\HH$,
+Let $\Gamma(s, x) := \int_x^{\infty} e^{-t} t^{s-1} dt$ denote the {\em incomplete Gamma function}. For $n\ne0$, $\nu\in\CC$, and $z\in\HH$,
 \begin{equation}
 \int_{z}^{z+1}\! e^{2\pi inu}\,\zeta(\nu,u)\,du=e^{i \pi (1-\nu)/2} (2\pi n)^{\nu-1}\,\Gamma\big(1-\nu,-2\pi i n z\big).
 \end{equation}
@@ -340,7 +340,7 @@ and substitute $u=\tau+1$, and note that $e^{2\pi i n(u-1)}=e^{2\pi i n u}$.
 Here, each $n\neq0$ mode is handled by  Proposition~\ref{prop:HGG}. 
 The first kernel term with $\nu=1-s \leftrightarrow 1-\nu=s$ gives 
 \begin{equation}
-e^{-\pi i s/2}\,e^{\pi i s/2}(2\pi n)^{-s}\Gamma(s,2\pi n)=\Gamma(s,2\pi n)/(2\pi n)^{s}~,
+e^{-\pi i s/2}\,e^{\pi i s/2}(2\pi n)^{-s}\Gamma(s,2\pi n)=\frac{\Gamma(s,2\pi n)}{(2\pi n)^{s}}~,
 \end{equation}
 and the second kernel term with $\nu=s-k+1 \leftrightarrow 1-\nu=k-s$ gives
 \begin{equation}
@@ -348,11 +348,29 @@ and the second kernel term with $\nu=s-k+1 \leftrightarrow 1-\nu=k-s$ gives
 =i^{k}\,\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}.
 \end{equation}
 So each $n\ne0$ mode contributes $\Gamma(s,2\pi n)/(2\pi n)^{s}+i^{k}\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}$. 
-Crucially, the $n=0$ mode contributes 
+Crucially, we may evaluate the $n=0$ mode's contribution as follows. The Hurwitz zeta function, 
+$\zeta(\sigma, a) = \sum_{n \geq 0}(\sigma+a)^{-s}$, satisfies
 \begin{equation}
-c_f(0)\,e^{-\pi i s/2}\!\int_{i-1}^{i}\tk\,d\tau=-c_f(0)\left(\frac1s+\frac{i^k}{k-s}\right)~.
+\int \zeta(\sigma, a)\,da = -\zeta(\sigma - 1, a)/(\sigma - 1) + C~
+\end{equation} 
+for $\sigma \ne 1$. Evaluating across the shifted segment and applying the raising identity
+\begin{align}
+\zeta(\sigma - 1, a + 1) - \zeta(\sigma - 1, a) = -a^{1 - \sigma}~, 
+\end{align}
+at $a = i$ gives
+\begin{equation}\label{eq:hurwitz-antideriv}
+\int_{i - 1}^{i}\! \zeta(\sigma, \tau + 1)\,d\tau
+ = \int_i^{i + 1}\!\zeta(\sigma, u)\,du
+ = \frac{i^{1 - \sigma}}{\sigma - 1}.
 \end{equation}
-Combining these reproduces Eq.~\eqref{eq:weakL}. Finally, the functional equation, $L^*(f,s)=i^k L^*(f,k-s)$, follows by direct inspection.
+Applying this to the two halves of $\widetilde{k}_T(\tau, s)$ at $\sigma = 1 - s$ and $\sigma = s - (k - 1)$ yields
+\begin{equation}\label{eq:const-mode-integral}
+e^{-\pi i s/2}\int_{i - 1}^{i}c_f(0)\widetilde{k}_T(\tau, s)\,d\tau
+= -c_f(0)\left(\frac{1}{s}  + \frac{i^k}{k - s}\right).
+\end{equation}
+Combining the $n = 0$ contributions with the $n \neq 0$ contributions reproduces Eq.~\eqref{eq:weakL}. 
+Finally, the functional equation, $L^*(f,s)=i^k L^*(f,k-s)$, follows by direct inspection.
+%DAM: These are horribly transpose-spliced from @finite_contour_contour_cocycles.tex. I think there must be massive numbers of small errors, here.
 \end{proof}
 
 \subsection{Explicit S- and T-contours for general $\tau_0$}
