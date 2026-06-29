@@ -417,11 +417,6 @@ $L^*(f,s)=L_T^*(\gamma^T_i)$. Line \eqref{eq:S-segment-explicit} then inserts th
 Theorem~\ref{thm:weakL} for $L^*(f,s)$ and Lemma~\ref{lem:Tclosed-Mk} for $L_T^*(\gamma^T_{\tau_0})$:
 the $n\ne0$ modes subtract base point by base point into the incomplete-gamma differences, and the two
 constant modes subtract to the $c_f(0)$-terms in Eq.~\eqref{eq:S-segment-explicit}.
-%\begin{equation}
-%-c_f(0)\Big(\frac1s+\frac{i^k}{k-s}\Big)
-%+ c_f(0)\Big(\frac{e^{-\pi i s/2}\tau_0^{\,s}}{s}+\frac{e^{\pi i s/2}\tau_0^{\,k-s}}{k-s}\Big)
-%= c_f(0)\Big(\frac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}+\frac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\Big).
-%\end{equation}
 \end{proof}
 
 
@@ -487,9 +482,9 @@ r_f(X,Y):=(2\pi i)^{n+1}\sum_{\ell=0}^{n}(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}\,L
 With $(X-\tau Y)^n$ in place of the $L$-weight $\tau^{s-1}$, and
 $\mathbf K_T(\tau;X,Y):=\sum_{\ell=0}^{n}\binom{n}{\ell}(-1)^\ell\,\tk(\tau,\ell+1)\,X^{n-\ell}Y^\ell$
 in place of $\tk$, the same two segments assemble $r_f$ directly:
-\begin{equation}
-r_f=(2\pi i)^{n+1}\Big[\int_{\gamma^S} f(\tau)\,(X-\tau Y)^n\,d\tau
-+\int_{\gamma^T} f(\tau)\,\mathbf K_T(\tau;X,Y)\,d\tau\Big].
+\begin{equation}\label{eq:rf}
+r_f(X, Y)=(2\pi i)^{n+1}\Big[\int_{\gamma^S_{\tau_0}} f(\tau)\,(X-\tau Y)^n\,d\tau
++\int_{\gamma^T_{\tau_0}} f(\tau)\,\mathbf K_T(\tau;X,Y)\,d\tau\Big].
 \end{equation}
 \end{proposition}
 \begin{proof}
@@ -501,8 +496,20 @@ r_f|_{X^{n-\ell}Y^\ell} = (-1)^\ell\binom{n}{\ell}\big[\int_{\gamma^S} f\,\tau^\
 This matches definition~\ref{def:rf} term by term, and proves the claim.
 \end{proof}
 
+\begin{remark}[Parabolic representatives]
+The Hurwitz T-kernel in this note was originally uncovered in order to reproduce the manifestly 
+finite computations of the quasi-periods for $\Dhat = 1/q + O(q^2) \in S_{12}^!$ originally given 
+in~\cite{Brown2017}. In this, our original, context, it is interesting to note that the Hurwitz T-kernel, 
+$\mathbf K_T(\tau;X,Y)$ and its associated T-contour, 
+$\int_{\gamma^T_{\tau_0}}  f(\tau)\,\mathbf K_T(\tau;X,Y)\,d\tau$, serves a very specific purpose: 
+It ensures that the representative of the cohomology class given in~\eqref{eq:rf} is a parabolic 
+representative. Without parabolicity, the cocycle on the left-hand side of Eq.~\eqref{eq:rf} could not 
+be the period polynomial. 
+%DAM: Is this correct?
+\end{remark}
+
 \paragraph{Quasi-periods and their determinant:} 
-As an aside, the Hurwitz T-kernel in this note was originally uncovered in order to reproduce 
+As said above, the Hurwitz T-kernel in this note was originally uncovered in order to reproduce 
 the manifestly finite computations of the quasi-periods for $\Dhat = 1/q + O(q^2) \in S_{12}^!$
 originally given in~\cite{Brown2017}. In this vein, it is interesting to show collect quasi-periods 
 computable from our L-integrals/period-polynomials for $f \in S_k^!$ (when $\dim(S_k) = 1$).
