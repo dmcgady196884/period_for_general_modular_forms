@@ -110,7 +110,8 @@ Two important weak cusp forms in our paper are as follows:
 J :=&~ \frac{E_4^3}{\Delta} - 744 = \frac{1}{q} + O(q) \in S_0^!~,~\\
 \Dhat =&~ (J^2 + a_1 J + a_0) \Delta := \frac{1}{q} + O(q^2) \in S_{12}^!~,~
 \end{align}
-where $a_0, a_1$ are integers which exist to ensure the q-series gap that defines $\Dhat$~\cite{DukeJenkins}.
+where $a_0, a_1$ are integers which exist to ensure the q-series gap that defines 
+$\Dhat$~\cite{DukeJenkins}.
 
 In this work, we further relax from even weakly holomorphic modular forms, and 
 consider {\em meromorphic modular forms} of weight $k$ which are quotients: $f=\frac{f_1}{f_2}$ 
@@ -125,15 +126,9 @@ For any $f \in S_k$, one may define the associated L-function:
 \begin{align}
 L(f,s) := \frac{(2 \pi)^s}{\Gamma(s)} L^*(f,s) := \frac{(2 \pi)^s}{\Gamma(s)} \int_0^{\infty} f(it) t^{s-1} dt = \sum_{n \geq 1} \frac{c_f(n)}{n^s}~.
 \end{align}
-A similar definition applies for $f \in M_k$. %When $f \in M_k$, we define $L^*(f,s)|_{\rm classical} := 
-%\int_0^{\infty} (f(it)-c_f(0)) t^{s-1} dt$. With the $-c_f(0)$-subtraction, then the L-integral is OK. However,  
-%if $f$ has a constant term, then the constant term in the commuted q-series/integral diverges:  
-%$\int_0^\infty t^{s-1} dt$ is a pure divergence. It is important e.g. in BFK and in my 1806-paper that  
-%the constant term IS thus subtracted/out. Further, in doing so, we then get the dividend of the  
-%$-c_f(0)/s --i^k c_f(0)/(k-s)$-terms in the L-integral, which I needed in order to establish my sum-rules  
-%in 1806. Yet, in our manifestly finite construction, this projection is both not needed and never even  
-%shows-up. We just naturally get the right answer! VERY pretty
-Similarly, one may define a period polynomial for $f \in S_k$ in terms of this L-function,
+A similar definition applies for $f \in M_k$. (The classical definition of $L^*(f,s)$ for $f \in M_k$ 
+is the focus of Remark~\ref{natural-beauty-via-finiteness}, below.) Similarly, one may define a period 
+polynomial for $f \in S_k$ in terms of this L-function,
 \begin{align}
 r_f(X, Y) := (2 \pi i)^{k-1} \sum_{\ell = 0}^{k-2} \binom{n}{\ell}\frac{L^*(f,\ell+1)}{i^{\ell+1}}\,X^{n-\ell}Y^\ell~.
 \end{align}
@@ -431,10 +426,12 @@ constant modes subtract to the $c_f(0)$-terms in Eq.~\eqref{eq:S-segment-explici
 
 
 \subsection{Classical Mellin recovery and canonical uniqueness.}\label{sec:Connection-w-previous-weak-MF-l-functions}
+
 As discussed in Remark~\ref{rem:mellin}, for $f \in S_k$, taking the cusp-limit
 $\tau_0 \to i\infty$ in Theorem~\ref{thm:weakL} collapses the $S$-segment 
 onto the classical Mellin contour $[0, i\infty]$ while the $T$-segment vanishes 
-exponentially, since $f(it) = O(e^{-2\pi t})$ on the segment as $\tau = it \to i\infty$. I.e., here, one recovers the classical L-integral of $f$ without obstruction:
+exponentially, since $f(it) = O(e^{-2\pi t})$ on the segment as $\tau = it \to i\infty$. 
+I.e., here, one recovers the classical L-integral of $f$ without obstruction:
 \begin{equation}\label{eq:Mellin-recovery}
 \lim_{\tau_0 \to i\infty}\!
 L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
@@ -452,7 +449,27 @@ $f \in M_k^! $ makes the $T$-contribution grow like $e^{2\pi N\,\im\tau_0}$ and 
 diverge oppositely. Yet their sum, the $\tau_0$-independent value $L^*(f,s)$, remains finite and constant
 over all finite $\tau_0 \in \HH$. Discarding $\gamma^T_{\tau_0}$ therefore does violence to the result: 
 When the $S$-contour is isolated from its T-partner, and $\tau_0 \to i \infty$, it diverges. This is the precise
-reason that~\cite{BFK2011} needed to regularize their divergent L-integral representation for properly weak cusp forms.
+reason that~\cite{BFK2011} needed to regularize their divergent L-integral representation for properly weak 
+cusp forms.
+
+\begin{remark}\label{natural-beauty-via-finiteness}
+In textbook treatments~\cite{01-Apostol}, when $f \in M_k$, its L-integral is defined as:
+defined as
+\begin{align}
+L^*(f,s)|_{\rm cl} :=&~ \int_0^\infty \big( f(it) - c_f(0) \big) t^{s-1} dt = \frac{\Gamma(s)}{(2 \pi)^s} \sum_{n = 1}^{\infty} \frac{c_f(n)}{n^s} \\
+=& -c_f(0) \bigg(\frac{1}{s} + \frac{i^k}{k-s} \bigg) + \sum_{n = 1}^{\infty} \left(\frac{\Gamma(s,2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2\pi n)}{(2\pi n)^{k-s}}\right) \nonumber
+\end{align}
+Classically, this constant-term subtraction is needed because $\int_0^\infty t^{s-1} dt$ is a pure 
+divergence, so the q-series cannot commute with the integration contour to. 
+
+However, as is clear from our general Theorem~\ref{thm:weakL} for L-integrals for $f \in M_k^!$, 
+and from the specific results of the S- and T-contours in Lemma~\ref{lem:Tclosed-Mk} and 
+Corollary~\ref{lem:cusp-decay}, our L-integral requires no such explicit subtraction of the constant 
+term $-c_f(0)$. Thus, not only does our prescription naturally handle divergences at poles when 
+$f \in M_k^!$ has polar terms in its q-series, but it also obviates the need to by-hand remove the 
+constant mode from the kernel of the L-integral that is needed when defining L-functions in terms 
+of the classical Mellin contour, $\int_0^\infty$.
+\end{remark}
 
 \subsection{Period polynomials, periods and quasi-periods}
 
