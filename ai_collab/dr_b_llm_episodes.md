@@ -122,6 +122,176 @@ and by `verify_multi_s.py`.
 
 ---
 
+## Episode 3 — Meromorphic §4: $L^*$ finite + basepoint/path-independent within a homotopy class; wall-crossing (CONFIRMED from local logs)
+
+**Session:** `f3bb5d3c` (local Claude Code log, this project), 2026-06-24 → 07-01
+**Paper:** `finite_contour_cocycles_short.tex`, §4 (`sec:mero`)
+
+**What happened, in order:**
+
+1. **You set the frame** that carries the whole meromorphic section:
+   > *"we have $L^*(f,s)$ that is finite for all $\tau_0$ and path independent,
+   > within a fixed cohomology class."*
+   Claude formalized this as **`prop:indepHomotopy`** (the $\partial_{\tau_0}L^*=0$
+   argument uses only $T$-periodicity and modularity at the moving endpoints, so it
+   holds for all $f\in F_k$ within one chamber of $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$),
+   with cross-class change governed by residues.
+
+2. **Your $S$-contour insight** (drove `cor:wall` + `rem:Snonvanish`):
+   > *"take heed of the $S$-contour. Even if its end-points are identified/equal,
+   > because we're working with a meromorphic case, this does not mean that the
+   > $S$-contour vanishes!"*
+   Claude wrote `cor:wall` with winding data $X_S,X_T:\Gamma\!\cdot\!f^{-1}(\infty)\to\ZZ$
+   and `rem:Snonvanish` (a loop enclosing interior poles $=2\pi i\sum$residues, so
+   $\gamma^S$ carries genuine residue data weighted by $\tau^{s-1}$, on the same
+   footing as $\gamma^T$ weighted by $\tk$).
+
+3. **You asked for a "skeleton, point-by-point outline for how this hangs
+   together"** when the elliptic-pole handling felt like hand-waving. Claude's
+   unlock: separate **the object** ($L^*$ = the contour integral, finite by
+   `lem:finite`, chamber-constant by `prop:indepHomotopy`) from **the recipe**
+   (the incomplete-Γ/polylog series, anchored at $\tau_0=i$). The elliptic point
+   is special only because $\tau_0=i$ is where the *recipe* is written; the *object*
+   never breaks.
+
+**Disclosure note:** the meromorphic framing (finiteness + path-independence within
+a homotopy class; the non-vanishing $S$-contour) is yours; Claude formalized it into
+`prop:indepHomotopy` / `cor:wall` / `rem:Snonvanish` / `prop:ellfull` with proofs,
+and verified basepoint-independence numerically (`verify_fullL_elliptic.py`, agreement
+$\le$ 1e-28).
+
+---
+
+## Episode 4 — The elliptic pole $\tau=i$: parity rule, the polylog-projection flip-flop (your skepticism corrects repeated Claude errors), and the CM-period target (CONFIRMED from local logs)
+
+**Session:** `f3bb5d3c`, 2026-06-30 → 07-01. **Primary-source record (direct transcript).**
+
+**What happened, in order:**
+
+1. **Parity of the pole order at $i$.** You conjectured a pole at $i$ "must be even
+   order." Claude proved the correct refinement, now **`prop:ellord`**:
+   ${\rm ord}_{\tau=i}(f)\equiv k/2 \pmod 2$ (even iff $4\mid k$, odd iff $k\equiv2\pmod4$),
+   via the elliptic coordinate $w=(\tau-i)/(\tau+i)$ conjugating $S$ to $w\mapsto-w$.
+   You then offered a **disproof**: *"Consider $E_6/(j-j(i))$. That has a 2nd order
+   pole at $i$, and weight $k=6\equiv2\pmod4$."* Claude showed this **confirms** the
+   rule: $j-1728=E_6^2/\Delta$ has a *double* zero at $i$, so $E_6/(j-1728)=\Delta/E_6$
+   is a **simple** pole (the $E_6$ in the numerator vanishes at $i$). Verified
+   `parity_check.py`, `disproof_check.py`.
+
+2. **The flip-flop — you were right, Claude was wrong (repeatedly).** Claude claimed,
+   several times and from *flawed* numerics, that the polylog projection *fails* at a
+   pole at $i$. You pushed back:
+   > *"I REALLY cannot believe that the polylog projection doesn't capture the polar
+   > structure at $i$. tf is it doing if it does not?"*
+   and
+   > *"we don't much care if we do set $\tau_0=i$... We only care if our polylog
+   > projections, evaluated along the $S$- and $T$-kernel, behave 'nicely' when there
+   > is a pole at $i$."*
+   You were correct. Claude's "divergences" were **wrong objects**: (a) the degenerate
+   $\tau_0=i$ anchor ($S$ collapses, $T$-alone), and (b) a *single* bare tail $\Li_{-1}$,
+   which mismatches the order-1 Laurent coefficient and so carries a spurious leftover
+   pole. The **proper full-principal-part projection** $\widehat P_i f = c_2\Li_{-1}+c_1\Li_0$
+   gives ${\rm ord}_i(f-\widehat P_i f)=0$ and $L^*(\widehat P_i f)$ **converges** on the
+   full $S{+}T$ contour as $\tau_0\to i$ (`proj_clean.py`; the bare-tail divergences
+   cancel in the right combination, as $S$ cancels $T$ for the modular form). The
+   modular $L^*(f)$ is itself dead-constant to 1e-28 in $\tau_0$ (`modconv.py`).
+
+3. **"What did you integrate??"** Claude floated $c_2=1/432$ as evidence of "pretty
+   functions." You caught that this specifies only the RHS:
+   > *"when you say 'the matching result came out rational', you're only specifying
+   > the RHS. What did you integrate??"*
+   Correct — $c_2=a_{-2}(f)/a_{-2}(\Li_{-1})$ is a ratio of **local Laurent coefficients**
+   (a small circle around $i$), not the $S{+}T$ $L$-integral. Rational *residue*
+   ($a_{-2}(E_4\Delta/E_6^2)=-1/(1728\pi^2)$), no bearing on the $L$-value. Retracted.
+
+4. **CM-period target (the "known thing to match").** You flagged you didn't follow
+   the CM/Chowla–Selberg claim: *"I am not at all sure what most of what is going on in
+   'the CM period at $i$'... even IS, let alone why it might be (vibe-)true."* Claude
+   explained: $\tau=i$ is a CM point (the Gaussian lattice $\mathbb Z+\mathbb Z i$
+   admits multiplication by $i$), which rigidifies its periods to a single transcendental
+   — the lemniscate constant $\varpi=\Gamma(1/4)^2/(2\sqrt{2\pi})$ (Chowla–Selberg),
+   the $\tau=i$ analog of $2\pi$. Proposed hunt (mirroring how the Hurwitz kernel was
+   found — *demand the numerics match a known quantity*): PSLQ $L^*(\widehat\Delta_i)$
+   against $\{\Gamma(1/4)^a\pi^b\}$.
+
+5. **PSLQ hunt — open, first pass negative.** $L^*(E_4\Delta/E_6^2)$ computed to ~54
+   digits at integer $s$ (`pslq_hunt.py`, basepoint check 3.3e-55). It does **not**
+   close in the pure period basis $\{\varpi^a\pi^b\}$ (PSLQ returns large junk
+   coefficients), so $\Gamma(1/4)$ alone is insufficient; the incomplete-Γ / $e^{-2\pi}$
+   transcendentals from the Hurwitz kernel are almost certainly in the ring. No closed
+   form yet.
+
+**Disclosure note:** across this episode the *mathematical intuition and error-correction*
+were yours — you caught the parity over-claim's true form, drove the projection
+correction against Claude's repeated wrong numerics, and caught the local-vs-integral
+conflation. Claude supplied the `prop:ellord` proof, the numerics (several initially
+wrong, corrected under your pushback), and the CM exposition. The pretty-function hunt
+is unresolved as of 2026-07-01. This episode is a candid record of the AI being wrong
+and the human being right; it should be represented as such in any disclosure.
+
+---
+
+## Episode 5 — Period polynomials of the elliptic blocks: the $|(1+S)$ / $|(1+U+U^2)$ anomalies, transcendental periods ($\pi$ and $\Gamma(1/4)$), and a canonical-class criterion (CONFIRMED from local logs)
+
+**Session:** `f3bb5d3c`, 2026-07-01. **Primary-source record (direct transcript).**
+
+**What happened, in order:**
+
+1. **DAM proposed the Eichler--Shimura cross-check** --- *"see if any of these results when combined into
+   some genuine period polynomial [is] annihilated by $|(1+S)$ and $|(1+U+U^2)$... might point towards an
+   actual-canonical definition of which homotopy class is 'the' canonical one."* Claude assembled $r_f$ from
+   $L^*(1),L^*(2),L^*(3)$ for $E_4\Delta/E_6^2$ ($k=4$) and found (`period_poly.py`):
+   $r_f|(1+U+U^2)=0$ to 5.6e-48 (exact), and **$r_f|(1+S)=\tfrac{1}{864\pi}(X^2+Y^2)$** to 4e-48. This is the
+   first appearance of the $X^2+Y^2$ violation of $|(1+S)=0$. Geometry: the pole at $i$ (the $S$-fixed point)
+   breaks the $S$-relation by exactly the residue $-2\pi a_{-2}$ ($a_{-2}=-1/(1728\pi^2)$); $f$ is regular at
+   $\rho$ ($E_4(\rho)=0$) so the $U$-relation is clean.
+
+2. **"A period $\propto\pi$?"** DAM: *"Whoa, did I read you right? Is it possible that even just one of the
+   periods... is propto $\pi$?? genuine transcendental, with no need for fields-medal-level musings."*
+   Confirmed: $B(2)=1/(864\pi)$, i.e. $L(E_4\Delta/E_6^2,2)=-\pi/216$. It is elementary precisely because it
+   *is* the residue (rational$/\pi^2$ at the CM point, $\times2\pi$). Claude had prematurely written off the
+   $\Gamma(1/4)$/Chowla--Selberg guess after seeing only $k=4$.
+
+3. **$k=6$ (DAM's example $\Delta/E_6$) and the parity dichotomy.** PSLQ (`k6_id.py`, 44 digits, clean
+   coefficients) gave $B(3)=\varpi^4/(576\pi^4)=\Gamma(1/4)^8/(36864\pi^6)$ --- the CM/lemniscate period. So:
+   $k\equiv0\pmod4$ (even-order pole) $\Rightarrow$ residue rational$/\pi^2$ $\Rightarrow$ elementary period;
+   $k\equiv2\pmod4$ (odd-order pole) $\Rightarrow$ residue carries $\Gamma(1/4)$ $\Rightarrow$ CM period. DAM's
+   Chowla--Selberg instinct was right for $k\equiv2$ (Claude's write-off was premature). The **odd** period
+   $\mathrm{Im}\,B(1)$ closed in nothing tried ($\Gamma(1/4),\pi$, Catalan, $\zeta(3),\dots$) at either weight
+   --- a genuine open transcendental.
+
+4. **Paper.** New subsection \S4.1 ``Transcendental periods of the elliptic blocks'' (both closed forms, the
+   residue/parity mechanism, the ES cross-check). At DAM's request Claude also added the canonical-class
+   sentence (below) and the two relation checks explicitly.
+
+5. **"Can we route the residue away?"** DAM: *"Can we find a contour where there is no residue that pollutes
+   the $|(1+S)$-vanishing?"* Claude verified (`sdefect.py`): $\Res_i(f\tau)=0$ (the parity relation
+   $a_{-1}=i\,a_{-2}$), so the central value is crossing-invariant; the $S$-defect shifts by $2\times$ its
+   canonical value per $i$-pole crossing, so it lives on **odd** multiples of $2\pi a_{-2}$ and is **never
+   zero**. No contour zeroes $|(1+S)$. But $|(1+U+U^2)=0$ holds in exactly one chamber, so the $U$-relation is
+   the clean canonical-class selector; and the $\pi$-period $1/(864\pi)$ is itself crossing-invariant.
+
+6. **The proposition + four examples.** DAM: *"this deserves a Theorem or Proposition: Whenever $f\in F_k$ has
+   a pole at either of the elliptic points, the period polynomial will violate the relevant relation
+   ($|(1+S)=0$ for poles at $i$, $|(1+U+U^2)=0$ for poles at $\rho$)"* --- and requested
+   $E_6/(j-j(\rho))$, $E_8/(j-j(\rho))$, $E_6/(j-j(1.1i))$, $E_8/(j-j(1.1i))$. Claude computed
+   (`relations.py`): $\rho$-poles ($E_6/j$, $\Delta/E_4$) $\Rightarrow$ $S$ holds ($\sim$1e-28), $U$ violated
+   ($\sim$1.1); $1.1i$-poles $\Rightarrow$ $S$ violated ($3$--$6$), $U$ holds ($\sim$1e-28).
+   **Refinement:** $1.1i$ is *not* an elliptic point but lies on the imaginary axis --- the $S$-invariant
+   geodesic through $i$ --- so it too breaks $S$. The proposition is really about the $S$-/$U$-invariant loci
+   (imaginary axis, $|\tau|=1$ for $S$), with the elliptic fixed points as special cases; broader than
+   ``elliptic points only.''
+
+**Disclosure note:** the entire period-polynomial program in this episode --- the ES cross-check, the
+``period $\propto\pi$'' observation, the canonical-class question, the ``can we zero the $|(1+S)$ defect''
+question, the proposition, and the four-example battery --- is DAM's. Claude executed the numerics
+(`period_poly.py`, `k6_id.py`, `sdefect.py`, `relations.py`), supplied the CM/Chowla--Selberg exposition
+(with one premature write-off, corrected by the $k=6$ result), and drafted \S4.1. Findings verified to
+28--48 digits. The odd period and the precise general form of the proposition (invariant loci vs.\ fixed
+points) remain open.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05
