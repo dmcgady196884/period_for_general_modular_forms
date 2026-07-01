@@ -475,14 +475,14 @@ cusp forms.
 In textbook treatments~\cite{01-Apostol}, when $f \in M_k$, its L-integral is defined as
 \begin{align}
 L^*(f,s)|_{\rm cl} :=&~ \int_0^\infty \big( f(it) - c_f(0) \big) t^{s-1} dt = \frac{\Gamma(s)}{(2 \pi)^s} \sum_{n = 1}^{\infty} \frac{c_f(n)}{n^s} \\
-=& -c_f(0) \bigg(\frac{1}{s} + \frac{i^k}{k-s} \bigg) + \sum_{n = 1}^{\infty} \left(\frac{\Gamma(s,2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2\pi n)}{(2\pi n)^{k-s}}\right) \nonumber
+=& -c_f(0) \bigg(\frac{1}{s} + \frac{i^k}{k-s} \bigg) + \sum_{n = 1}^{\infty} c_f(n)\left(\frac{\Gamma(s,2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2\pi n)}{(2\pi n)^{k-s}}\right) \nonumber
 \end{align}
 Classically, this constant-term subtraction is needed because $\int_0^\infty t^{s-1} dt$ is a pure 
 divergence, so the q-series cannot commute with the integration contour.
 
 However, as is clear from our general Theorem~\ref{thm:weakL} for L-integrals for $f \in M_k^!$, 
 and from the specific results of the S- and T-contours in Lemma~\ref{lem:Tclosed-Mk} and 
-Corollary~\ref{lem:cusp-decay}, our L-integral requires no such explicit subtraction of the constant 
+Corollary~\ref{cor:Sclosed}, our L-integral requires no such explicit subtraction of the constant 
 term $-c_f(0)$. Thus, not only does our prescription naturally handle divergences at poles when 
 $f \in M_k^!$ has polar terms in its q-series, but it also obviates the need to by-hand remove the 
 constant mode from the kernel of the L-integral that is needed when defining L-functions in terms 
@@ -703,7 +703,7 @@ the regularized cusp sum (Definition~\ref{def:cRf}, Theorem~\ref{thm:weakL}) plu
 integral (Lemma~\ref{lem:polylogcf}) per interior pole above the edge. A pole on the edge
 ${\rm Im}\,\tau=1$ --- the elliptic point $\tau=i$ included --- instead sits on the contour: there
 $L^*$ is the principal value, and sweeping the contour across the pole changes it by the residue
-of Corollary~\ref{cor:wall}.
+of Corollary~\ref{cor:wall}
 \end{theorem}
 
 \begin{proof}
@@ -717,34 +717,9 @@ $\sum_{{\rm Im}\,\tau_p>1}\sum_{m>0}r^*_{f,\tau_p}(m)I_{m-1}(s,\tau_p)$ by
 Lemma~\ref{lem:polylogcf}. Their sum is the stated formula.
 \end{proof}
 
-%DAM: I think this lemma is not needed. I think we can do a generalization of~\ref{lem:polylogcf} 
-%where we simply analytically continue the closed-form result to the special cases of $\tau_0 = i$ 
-%or $\tau_0) = i + x$ for $x \in \RR$. 
-%\begin{lemma}[$L$-function, a pole on the edge]\label{lem:onedge}
-%Routing the $T$-path just below versus just above a pole $\tau_p$ of $f\in F_k$ at height
-%${\rm Im}\,\tau_p=1$ gives finite values differing by the residue,
-%\begin{equation}
-%L^*_{\rm below}(f,s)-L^*_{\rm above}(f,s)
-%=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}\!\big[f(\tau)\,\tk(\tau,s)\big].
-%\end{equation}
-%We define the edge value as the principal value $L^*=\tfrac12(L^*_{\rm above}+L^*_{\rm below})
-%=L^*_{\rm below}-\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$. At the elliptic point $\tau_p=i$ the
-%pole lies on the $S$-segment instead; its principal value, reached as $\tau_0\to i$, is finite
-%and basepoint-independent.
-%\end{lemma}
-%
-%\begin{proof}
-%The two routings of $\gamma^T$ differ by a contour encircling $\tau_p$ once, so the residue
-%theorem gives $L^*_{\rm below}-L^*_{\rm above}=2\pi i\,e^{-\pi i s/2}\Res_{\tau=\tau_p}[f\,\tk]$, and the
-%principal value is their mean. At $\tau_p=i$ the pole sits on the degenerate $S$-segment;
-%displacing to $\tau_0=i(1+\delta)$ keeps it on $\gamma^S$ for all small $\delta>0$, so no wall is
-%crossed and $L^*$ is finite and $\delta$-independent (verified numerically~\cite{VerifyScripts};
-%a closed proof is the $S$-segment principal value of~\cite{1806}).
-%\end{proof}
-
 % DAM: rewritten per your margin note --- the S-segment carries its own windings
 % (rem:Snonvanish). Please vet the X_S,X_T framing and the reference-class convention.
-\begin{corollary}[Wall-crossing and the winding data $X_S,X_T$]\label{cor:wall}
+\begin{proposition}[Wall-crossing and the winding data $X_S,X_T$]\label{cor:wall}
 Fix $f\in F_k$ and record, for an admissible pair $(\gamma^S_{\tau_0},\gamma^T_{\tau_0})$, its
 \emph{winding data} --- functions $X_S,X_T:\Gamma\!\cdot\!f^{-1}(\infty)\to\ZZ$ giving the net number of
 turns of $\gamma^S$, resp.\ $\gamma^T$, about each pole relative to a fixed reference pair (value
@@ -759,7 +734,7 @@ $L^*$ by $2\pi i\,e^{-\pi i s/2}\Res_{\tau_p}(f\,\tau^{s-1})$ for $\gamma^S$, or
 $2\pi i\,e^{-\pi i s/2}\Res_{\tau_p}(f\,\tk)$ for $\gamma^T$. Thus $L^*$ is fixed by the contour only up
 to the residues its two segments wind around --- weighted by $\tau^{s-1}$ on $\gamma^S$ and by $\tk$ on
 $\gamma^T$.
-\end{corollary}
+\end{proposition}
 \begin{proof}
 Within-class constancy is Proposition~\ref{prop:indepHomotopy}. Two pairs whose winding data differ by
 one unit at a single $\tau_p$ on one segment bound a contour encircling $\tau_p$ once; the residue
@@ -777,6 +752,129 @@ to zero in the meromorphic case; it equals $2\pi i\sum(\text{residues})$. The id
 $S$-endpoints therefore does not make $\gamma^S$ negligible: it carries genuine residue data $X_S$,
 weighted by $\tau^{s-1}$, on exactly the same footing as the $T$-segment's $X_T$ weighted by $\tk$.
 \end{remark}
+
+The elliptic fixed point $\tau=i$ is constrained by its own symmetry.
+
+\begin{proposition}[Order at $\tau=i$]\label{prop:ellord}
+For $f\in F_k$, ${\rm ord}_{\tau=i}(f)\equiv k/2\pmod2$.
+\end{proposition}
+\begin{proof}
+The coordinate $w=(\tau-i)/(\tau+i)$ sends $i\mapsto0$ and conjugates $S:\tau\mapsto-1/\tau$ to
+$w\mapsto-w$, with inverse $\tau(w)=i(1+w)/(1-w)$. Hence $g(w):=f(\tau(w))$ obeys $g(-w)=\tau(w)^k g(w)$,
+and a leading term $g\sim c\,w^m$ forces $(-1)^m=\tau(0)^k=i^k=(-1)^{k/2}$. Since $w\sim(\tau-i)/2i$, this
+$m$ is ${\rm ord}_{\tau=i}(f)$.
+\end{proof}
+
+\begin{remark}\label{rem:ellord}
+So a pole at $i$ has even order iff $4\mid k$ and odd order iff $k\equiv2\pmod4$; the minimal cases are
+the double pole $E_4\Delta/E_6^2\in F_4$ and the simple pole $\Delta/E_6\in F_6$.
+\end{remark}
+
+A pole at $i$ lies on the edge ${\rm Im}\,\tau=1$, hence on a chamber wall; only the full $L^*$ stays
+finite there.
+
+\begin{proposition}[The elliptic pole]\label{prop:ellfull}
+Let $f\in F_k$ have a pole at $i$. As $\tau_0\to i$ the parts $L_S^*$ and $L_T^*$ each diverge, yet their
+sum $L^*$ holds at the finite chamber value; the value at $i$ is the principal value between the two
+chambers, which differ by the residue of Corollary~\ref{cor:wall}.
+\end{proposition}
+\begin{proof}
+Off the wall both segments avoid the poles, so $L^*$ is finite (Lemma~\ref{lem:finite}) and constant in
+$\tau_0$ (Proposition~\ref{prop:indepHomotopy}). As $\tau_0\to i$ each segment endpoint runs into a pole
+of $f$, so $L_S^*$ and $L_T^*$ diverge individually; their sum being the chamber constant, the divergent
+parts cancel. The jump across the wall is Corollary~\ref{cor:wall}.
+\end{proof}
+
+% ============================================================================
+% NOTE (DAM/CC, 2026-07-01) --- the polylog projection DOES work at tau=i.
+%   Verified (scratchpad/proj_clean.py): for f = E4 Delta/E6^2 in F_4 (double pole
+%   at i), the FULL principal-part projection P_i f = c2 Li_{-1}(e(tau-i)) + c1 Li_0,
+%   with c2,c1 matching BOTH Laurent coeffs, gives ord_i(f - P_i f)=0 and L*(P_i f)
+%   CONVERGES on the full S+T contour as tau0->i (-> -0.0004262 - 0.0001478 i).
+%   What fails is only (a) the degenerate tau0=i anchor (S collapses, T-alone), and
+%   (b) a SINGLE bare tail (mismatches order-1 coeff -> spurious pole -> diverges);
+%   the proper combination cancels those, as S cancels T for the modular form.
+%   => thm:mero extends to poles at i via the full projection; the VALUE needs no
+%   carve-out.  (Caveat: c2 = a_{-2}(f)/a_{-2}(Li_{-1}) = 1/432 is LOCAL pole data,
+%   NOT the L-integral -- rational residue, no bearing on the L-value.)
+%   OPEN: closed form for L*(P_i f)?  Two leads.
+%   (i) ANALYTIC: at tau0=i the individual I_{N_m}(s,i) diverge, but the COMBINATION
+%       sum_m c_m I_{N_m}(s,i) should have cancelling divergences (the full projection
+%       converges), so its finite part = a T-only closed form.  Extract that finite
+%       part.
+%   (ii) NUMERIC: build the canonical elliptic block \widehat\Delta_i = f_k/(j-1728)^M
+%       per weight (Duke-Jenkins f_k; pole order 2M for k=0 mod4, 2M-1 for k=2 mod4),
+%       compute L* to 50 digits at critical s, PSLQ for structure -- rational
+%       multiples, Hurwitz/incomplete-gamma values, CM-point/Chowla-Selberg constants
+%       (Gamma(1/4), pi), a Legendre-type relation vs the periods.
+%   Same reverse-engineering that produced the Hurwitz kernel (demand numerics match
+%   periods=Delta / quasi-periods=Dhat).
+% ============================================================================
+
+\subsection{Transcendental periods of the elliptic blocks}\label{sec:ellperiods}
+
+Fix, for each even weight $k$, the canonical block whose only pole is on the orbit of $i$,
+\begin{equation}
+\widehat\Delta_i \;:=\; \frac{f_k}{(j-1728)^M},
+\end{equation}
+with $f_k$ the Duke--Jenkins minimal form~\cite{DukeJenkins}; by Proposition~\ref{prop:ellord}
+the pole at $i$ has order $2M$ for $k\equiv0$ and $2M-1$ for $k\equiv2\pmod4$. The two smallest
+weights give $\widehat\Delta_i=E_4\Delta/E_6^2\in F_4$ (double pole) and $\widehat\Delta_i=\Delta/E_6\in F_6$
+(simple pole), each $=q+O(q^2)$. We evaluate $L^*(\widehat\Delta_i,s)$ from Definition~\ref{def:Lint}
+by direct integration along a \emph{single fixed} admissible pair --- the same path for every $s$, so all
+values lie in one homotopy cell --- with $\tau_0$ off the wall through $i$, where $L^*$ is finite and
+basepoint-independent (Proposition~\ref{prop:ellfull}). Write $B(s):=e^{\pi i s/2}L^*(\widehat\Delta_i,s)$,
+so that $B(k-s)=\overline{B(s)}$ and $B(k/2)$ is real.
+
+Numerically, to $44$ digits, the central value $B(k/2)$ closes in elementary constants:
+\begin{align}
+k=4:\quad & B(2)=\frac{1}{864\,\pi}\qquad\Big(\text{equivalently } L(E_4\Delta/E_6^2,2)=-\tfrac{\pi}{216}\Big),\label{eq:ell-k4}\\
+k=6:\quad & B(3)=\frac{\varpi^4}{576\,\pi^4}=\frac{\Gamma(1/4)^8}{36864\,\pi^6},\label{eq:ell-k6}
+\end{align}
+where $\varpi=\Gamma(1/4)^2/(2\sqrt{2\pi})$ is the lemniscate constant. In each case $B(k/2)$ equals
+$\pi$ times the residue of $\widehat\Delta_i$ at $i$, and its arithmetic nature tracks the parity of
+Proposition~\ref{prop:ellord}: the even-order pole ($k\equiv0$) has residue in $\QQ\cdot\pi^{-2}$, giving an
+elementary period; the odd-order pole ($k\equiv2$) carries the complex-multiplication period $\Gamma(1/4)$
+of the elliptic curve at $i$. Thus $\Delta/E_6\in F_6$ --- a form usually set aside as merely meromorphic ---
+has a genuinely transcendental $L$-value, $\Gamma(1/4)^8/(36864\,\pi^6)$.
+
+\begin{remark}[Period polynomials of the elliptic blocks: an open, class-dependent puzzle]\label{rem:ellrelations-open}
+Assembled into the period polynomial (Definition~\ref{def:rf}), the weight-$4$ values \emph{in one fixed
+homotopy class} satisfy $r_f|(1+U+U^2)=0$ while $r_f|(1+S)=-2\pi\,a_{-2}(\widehat\Delta_i)\,(X^2+Y^2)$. But this
+structure is \emph{homotopy-class-dependent} and not yet understood: by Corollary~\ref{cor:wall} a class
+carries two independent winding data $X_S,X_T$ per pole, entering with the distinct residues
+$\Res(f\,\tau^{s-1})$ and $\Res(f\,\tk)$. The clean, checkable law is that \emph{crossing a pole $p$ shifts}
+\begin{equation}\label{eq:violation-residue}
+r_f\,|(1+S)\ \longmapsto\ r_f\,|(1+S)\;+\;2\pi i\,\big[\Res_{\tau=p}\!\big(f(\tau)(X-\tau Y)^n\big)\big]\big|(1+S),
+\end{equation}
+the period-polynomial form of Corollary~\ref{cor:wall} (verified to $32$ digits, [E5] below). So which relation is
+obstructed is a feature of the class, not of the pole alone; an earlier reading of it as pole-intrinsic was
+mistaken. The canonical class, the class-independent content of the obstruction, and a closed form for the
+class-dependent ``odd'' periods $\mathrm{Im}\,B(1)$ (not in $\{\Gamma(1/4),\pi\}$) are open; the central period
+$B(k/2)$ of \eqref{eq:ell-k4}--\eqref{eq:ell-k6} is the robust piece.
+\end{remark}
+
+\paragraph{Evidence.} The published checks (\eqref{eq:ell-k4}, \eqref{eq:ell-k6}, and \eqref{eq:violation-residue})
+are in \texttt{elliptic\_period\_checks.py}~\cite{VerifyScripts}; the full working ledger, including the
+apparently-contradictory runs [E2]/[E3], is in \texttt{wip\_meromorphic\_periods.py}. ``Class'' denotes the
+winding data $(X_S,X_T)$ of Corollary~\ref{cor:wall}.
+\begin{enumerate}[label={\rm[E\arabic*]},leftmargin=*,itemsep=2pt]
+\item $f=E_4\Delta/E_6^2$ ($k=4$), $\tau_0=0.3+1.4i$, straight segments, pole off the contour (co-cell check
+$3\text{e-}55$): $r_f|(1+U+U^2)=0$ (residual $5.6\text{e-}48$) and $r_f|(1+S)=-2\pi a_{-2}(X^2+Y^2)$ with
+$a_{-2}=-1/(1728\pi^2)$ (residual $4\text{e-}48$).
+\item Same $\tau_0$, but the $S$-contour \emph{routed} to dodge the $1.1i,\,0.909i$ axis poles (a class
+wrapping $0.909i$): poles at $\rho$ break $|(1+U+U^2)$ and hold $|(1+S)$; poles at $1.1i$ do the reverse.
+\item $\tau_0=i$ ($\gamma^S$ degenerate, $X_S\equiv0$; clean for poles off $i$): \emph{all five} test forms
+hold $|(1+S)$ (to $\sim10^{-33}$) and break $|(1+U+U^2)$ --- \emph{contradicting} [E2] for the $1.1i$ forms.
+\item $i$-pole ($k=4$): $\Res_i(f\tau)=0$ (parity $a_{-1}=i\,a_{-2}$), so $B(2)$ is invariant under crossing
+$i$ along $\gamma^S$; the $S$-defect shifts by exactly $2\times$ its canonical value per such crossing, landing
+on the \emph{odd} multiples of $2\pi a_{-2}$ --- never $0$. (Only $\gamma^S$ crossings swept; $\gamma^T$ open.)
+\item Resolution: for $f=E_6/(j-j(1.1i))$, class [E3] gives $|(1+S)|=8\text{e-}35$; adding one $\gamma^S$
+crossing of $0.909i=-1/(1.1i)$ makes $|(1+S)|=0.154$, matching the residue shift \eqref{eq:violation-residue}
+to $2.5\text{e-}32$. Thus [E2] and [E3] differ only by wall-crossings; neither failed, and ``$1.1i$ breaks
+$S$'' was an artifact of the routing's class.
+\end{enumerate}
+
 
 \begin{thebibliography}{99}
 
@@ -822,6 +920,8 @@ Algebra Number Theory \textbf{12} (2018), no.\ 3, 723--750; arXiv:1708.00652.
 
 \bibitem{VerifyScripts}
 \emph{Numerical verification scripts} (companion code), 2026.
+Published checks: \texttt{elliptic\_period\_checks.py}; full working ledger:
+\texttt{wip\_meromorphic\_periods.py}.
 
 \bibitem{DLMF}
 NIST Digital Library of Mathematical Functions,
@@ -937,6 +1037,48 @@ Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
 
 \end{document}
 
+ There are two separate objects, and they have different domains of validity. Here's the skeleton.
+
+0. The one distinction that dissolves it
+
+- The L-function = the contour integral $L^*(f,s;\gamma^S,\gamma^T)$. This is the definition.
+- The closed form = the incomplete-Γ + polylog series. This is a recipe for evaluating the integral, anchored at $\tau_0=i$.
+- Everything confusing comes from conflating the two. The integral never breaks at $i$; only the recipe's anchor does.
+
+1. The L-function is always finite — no caveats, no hand-waving
+
+- 1a. $L^*$ is a finite integral for any $f\in F_k$, any $\tau_0$, any contour avoiding the poles (lem:finite). A pole at $i$ is just a point in $\mathbb H$ — route the contour around it.
+- 1b. It's constant within a chamber — basepoint- and path-independent (prop:indepHomotopy), via the modularity-driven $S/T$ cancellation.
+- 1c. Across a wall it jumps by an explicit residue (cor:wall).
+- ⇒ For a pole at $i$: pick either chamber touching it; $L^*$ is a definite finite number there. This is airtight and it is the definition. Nothing downstream is allowed to make you doubt 1a–1c.
+
+2. The closed form is a recipe, and its anchor is $\tau_0=i$
+
+- 2a. Setting $\tau_0=i$ collapses $\gamma^S$ ($-1/i=i$), leaving $L^*=e^{-\pi is/2}\int_{i-1}^i f,\tk$. All the pretty formulas live here.
+- 2b. Split $f$ = (regular) + (polylog tails of poles with $\mathrm{Im}>1$). Regular → incomplete-Γ sum; tails → convergent $I_N$ (lem:polylogcf). Below-edge poles → twin series.
+- 2c. This needs the segment $[i-1,i]$ to be pole-free — i.e. no pole on the line $\mathrm{Im}=1$, in particular none at $i$.
+
+3. The elliptic pole = the anchor colliding with a pole. That's all it is.
+
+- 3a. If $f$ has a pole at $i$, you can't sit at $\tau_0=i$ — the recipe's anchor is occupied. So §2's series is unavailable.
+- 3b. This is a failure of the recipe, not the object. By §1 the value still exists, finite, in each chamber.
+- 3c. The value at the edge = the principal value = the average of the two chambers straddling the wall (prop:ellfull); they differ by the cor:wall residue.
+
+4. Killing the red herring (this is where I misled you earlier)
+
+- The "double pole diverges" thing was an artifact of my numerics: I forced the contour through the pole with a shrinking indentation. That's not the chamber picture.
+- In the real picture each chamber basepoint sits slightly off the imaginary axis, so the pole is strictly off the contour → each chamber value is a finite, ordinary integral. The PV is then just the average of two finite numbers. No Hadamard, no divergence, nothing to regularize. Even-order vs odd-order is irrelevant at the level of $L^*$.
+
+5. So what's actually true about "explicit"?
+
+- Chamber values are explicit. Move the anchor off $i$ — e.g. to height $1+\epsilon$. Now the $i$-pole is below the contour, $f$'s $q$-series converges there, and you get an incomplete-Γ sum that converges for every $\epsilon>0$.
+- The exact-edge PV is the $\epsilon\to0$ limit of (the average of) those two explicit sums. The series sits on its radius of convergence at $\epsilon=0$, so the limit has no prettier closed form than "the average of the two one-sided explicit values."
+- That's the whole content of "the projection doesn't cleanly work at $i$": no single tidy series at $\epsilon=0$ — not "undefined," just "no closed form prettier than a limit/average of closed forms."
+
+6. Why it genuinely hangs together (the one-paragraph version)
+
+$L^*$ is defined by an integral that doesn't care where the poles are (§1). The closed form is a convenience that happens to be anchored at the one point $i$, so it's unavailable precisely when a pole sits there (§2–3). The value is still pinned by continuity from both sides — an average of two finite chamber integrals (§4). The elliptic point is "special" only because $\tau_0=i$ is the coordinate where the recipe is written, not because anything blows up. You're not waving hands; you're just declining to demand a closed form on a measure-zero locus where the construction already hands you the number.
+
 \begin{thebibliography}{99}
 
 \bibitem{Brown2017}
@@ -996,3 +1138,19 @@ Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
 \end{thebibliography}
 
 \end{document}
+
+
+❯ Also, might be neat to come up with a list of other cool things to look at, before arXiv-publishing. Right now, we have some sillyness with elliptic points. However, what of periods of MFs with poles a CM points, more generally? Classic example would be the s = 1 value for the L-function of the log derivative of the Hilbert Polynomials, or the slightly more proto-level MF \Lambda_d(\tau, z) = j'(\tau)/(j(\tau) - j(z))? Anyway, please document this confusing state of affairs in the .tex file. This really does need to be understood, and I am deeply skeptical, even though you do definitely have some pizaz in your spiffy reply! Note: One of the reasons I HIGHLY doubt your claims is that you previously had evidence that "Striking and clean — and it refines your proposition. The four examples:
+
+  ┌──────────────────────────────┬─────────┬───────────────────────┬───────────────────────┐
+  │             form             │ pole at │       $|(1+S)|$       │     $|(1+U+U^2)|$     │
+  ├──────────────────────────────┼─────────┼───────────────────────┼───────────────────────┤
+  │ $E_6/(j-j(\rho))$            │ $\rho$  │ $4\text{e-}29$ ✓holds │ $1.14$ violated       │
+  ├──────────────────────────────┼─────────┼───────────────────────┼───────────────────────┤
+  │ $E_8/(j-j(\rho))=\Delta/E_4$ │ $\rho$  │ $9\text{e-}29$ ✓holds │ $1.09$ violated       │
+  ├──────────────────────────────┼─────────┼───────────────────────┼───────────────────────┤
+  │ $E_6/(j-j(1.1i))$            │ $1.1i$  │ $3.47$ violated       │ $4\text{e-}29$ ✓holds │
+  ├──────────────────────────────┼─────────┼───────────────────────┼───────────────────────┤
+  │ $E_8/(j-j(1.1i))$            │ $1.1i$  │ $6.33$ violated       │ $1\text{e-}28$ ✓holds │
+  └──────────────────────────────┴─────────┴───────────────────────┴───────────────────────┘
+  ". And so: Did your previous numerical check fail for some reason? (Don't recall you mentioning this, though the speed of code coming at me is quite high.) If there were no problems with this previous "passes-S?" test, then tf we tawkin bout??
