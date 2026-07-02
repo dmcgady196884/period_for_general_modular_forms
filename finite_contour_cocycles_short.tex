@@ -572,6 +572,21 @@ extraction of these rational numbers is in~\cite{VerifyScripts}.
 }\label{tab:periods}
 \end{table}
 
+\begin{remark}[External check: the Petersson norm]
+The periods $r_m(f)=\int_0^{i\infty}\tau^m f(\tau)\,d\tau = i^{m+1} L^*(f,m+1)$ read off the
+finite-contour integral are the classical critical periods, so they must obey Haberland's formula
+\begin{equation}\label{eq:haberland}
+-6\,(-2i)^{k-2}\,\langle f,f\rangle
+= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
+\im\!\big(r_m(f)\,\overline{r_n(f)}\big),
+\end{equation}
+which recovers the Petersson norm $\langle f,f\rangle$ from the period polynomial~\cite[Thm.~5.2]{Cohen2013}.
+Unlike $\alpha_k$, this test is \emph{independent of the period-polynomial basis normalization}. For
+$\Delta$ ($k=12$) our $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
+=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
+$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
+\end{remark}
+
 
 \section{Meromorphic modular forms}\label{sec:mero}
 
@@ -876,6 +891,70 @@ $S$'' was an artifact of the routing's class.
 \end{enumerate}
 
 
+\appendix
+\section{Explicit period-polynomial bases}\label{app:bases}
+
+For each weight $k$ with $\dim S_k=1$, the even and odd rational period polynomials $W_\pm^{(k)}$ are the
+Kohnen--Zagier basis of the cuspidal period-polynomial space~\cite{KZ1984} --- their leading coefficients are
+the Bernoulli numerators $691,\,3617,\,43867,\dots$ --- listed below with primitive integer coefficients.
+Alongside are the period polynomials of the cusp form $\Delta_k=f_{k,-1}=q+O(q^2)$ and the weak cusp form
+$\widehat\Delta_k=f_{k,1}=q^{-1}+O(q^2)$, obtained from the finite-contour $L$-integral
+(Definition~\ref{def:Lint}) and projected onto $W_\pm$ by the Haberland pairing
+$\langle P,Q\rangle=\sum_{a}(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}$, $n=k-2$. The periods $\omega^\pm(\Delta_k)$
+and quasi-periods $\eta^\pm(\widehat\Delta_k)$ are quoted to ten digits (full precision in~\cite{VerifyScripts},
+\texttt{period\_polynomial\_bases.py}); $r_{\widehat\Delta_k}$ is the parabolic representative --- the raw
+weak-form period polynomial differs by a $C_T$-coboundary the construction gauge-fixes.
+
+\paragraph{Weight 12:}
+\begin{align}
+W_+^{(12)}(X,Y)&= 36(X^{10} - Y^{10}) - 691(X^{8}Y^{2} - X^{2}Y^{8}) + 2073(X^{6}Y^{4} - X^{4}Y^{6}),\\
+W_-^{(12)}(X,Y)&= 4(X^{9}Y + XY^{9}) - 25(X^{7}Y^{3} + X^{3}Y^{7}) + 42X^{5}Y^{5},\\
+r_{\Delta_{12}}&= 0.0001655268053\,W_+^{(12)} +0.009269276162\,W_-^{(12)},\\
+r_{\widehat\Delta_{12}}&= -0.3061537142\,W_+^{(12)} -17.05597275\,W_-^{(12)}.
+\end{align}
+
+\paragraph{Weight 16:}
+\begin{align}
+W_+^{(16)}(X,Y)&= 360(X^{14} - Y^{14}) - 7234(X^{12}Y^{2} - X^{2}Y^{12}) \\&+ 25319(X^{10}Y^{4} - X^{4}Y^{10}) - 39787(X^{8}Y^{6} - X^{6}Y^{8}),\nonumber\\
+W_-^{(16)}(X,Y)&= 36(X^{13}Y + XY^{13}) - 245(X^{11}Y^{3} + X^{3}Y^{11}) \\&+ 539(X^{9}Y^{5} + X^{5}Y^{9}) - 660X^{7}Y^{7},\nonumber\\
+r_{\Delta_{16}}&= 0.0002595173464\,W_+^{(16)} +0.01640585888\,W_-^{(16)},\\
+r_{\widehat\Delta_{16}}&= -0.01227268476\,W_+^{(16)} -0.7278917244\,W_-^{(16)}.
+\end{align}
+
+\paragraph{Weight 18:}
+\begin{align}
+W_+^{(18)}(X,Y)&= 18000(X^{16} - Y^{16}) - 350936(X^{14}Y^{2} - X^{2}Y^{14}) \\&+ 1096675(X^{12}Y^{4} - X^{4}Y^{12}) - 1140542(X^{10}Y^{6} - X^{6}Y^{10}),\nonumber\\
+W_-^{(18)}(X,Y)&= 24(X^{15}Y + XY^{15}) - 154(X^{13}Y^{3} + X^{3}Y^{13}) \\&+ 273(X^{11}Y^{5} + X^{5}Y^{11}) - 143(X^{9}Y^{7} + X^{7}Y^{9}),\nonumber\\
+r_{\Delta_{18}}&= -3.122662695\times10^{-5}\,W_+^{(18)} -0.1465501421\,W_-^{(18)},\\
+r_{\widehat\Delta_{18}}&= -0.0001378466906\,W_+^{(18)} -0.907233517\,W_-^{(18)}.
+\end{align}
+
+\paragraph{Weight 20:}
+\begin{align}
+W_+^{(20)}(X,Y)&= 26460(X^{18} - Y^{18}) - 523833(X^{16}Y^{2} - X^{2}Y^{16}) \\&+ 1746110(X^{14}Y^{4} - X^{4}Y^{14}) - 2444554(X^{12}Y^{6} - X^{6}Y^{12})\nonumber\\&+ 2269943(X^{10}Y^{8} - X^{8}Y^{10}),\nonumber\\
+W_-^{(20)}(X,Y)&= 108(X^{17}Y + XY^{17}) - 715(X^{15}Y^{3} + X^{3}Y^{15}) + 1452(X^{13}Y^{5} + X^{5}Y^{13}) \\&- 1560(X^{11}Y^{7} + X^{7}Y^{11}) + 1430X^{9}Y^{9},\nonumber\\
+r_{\Delta_{20}}&= 0.0001654739435\,W_+^{(20)} +0.2549699125\,W_-^{(20)},\\
+r_{\widehat\Delta_{20}}&= -0.0002521273082\,W_+^{(20)} +0.1296973583\,W_-^{(20)}.
+\end{align}
+
+\paragraph{Weight 22:}
+\begin{align}
+W_+^{(22)}(X,Y)&= 126000(X^{20} - Y^{20}) - 2485856(X^{18}Y^{2} - X^{2}Y^{18}) \\ &+ 8156715(X^{16}Y^{4} - X^{4}Y^{16}) - 10564888(X^{14}Y^{6} - X^{6}Y^{14}) \nonumber\\&+ 6603055(X^{12}Y^{8} - X^{8}Y^{12}),\nonumber\\
+W_-^{(22)}(X,Y)&= 360(X^{19}Y + XY^{19}) - 2366(X^{17}Y^{3} + X^{3}Y^{17}) + 4641(X^{15}Y^{5} + X^{5}Y^{15}) \\&- 4182(X^{13}Y^{7} + X^{7}Y^{13}) + 1547(X^{11}Y^{9} + X^{9}Y^{11}),\nonumber\\
+r_{\Delta_{22}}&= -0.0003341270695\,W_+^{(22)} -0.7346639014\,W_-^{(22)},\\
+r_{\widehat\Delta_{22}}&= 0.0003197845612\,W_+^{(22)} -0.7633262888\,W_-^{(22)}.
+\end{align}
+
+\paragraph{Weight 26:}
+\begin{align}
+W_+^{(26)}(X,Y)&= 34398000(X^{24} - Y^{24}) - 678984792(X^{22}Y^{2} - X^{2}Y^{22}) \\&+ 2233675745(X^{20}Y^{4} - X^{4}Y^{20}) - 2938319846(X^{18}Y^{6} - X^{6}Y^{18}) \nonumber\\&+ 2062613685(X^{16}Y^{8} - X^{8}Y^{16}) - 850046852(X^{14}Y^{10} - X^{10}Y^{14}),\nonumber\\
+W_-^{(26)}(X,Y)&= 1080(X^{23}Y + XY^{23}) - 7106(X^{21}Y^{3} + X^{3}Y^{21}) + 14025(X^{19}Y^{5} + X^{5}Y^{19}) \\&- 13167(X^{17}Y^{7} + X^{7}Y^{17}) + 7106(X^{15}Y^{9} + X^{9}Y^{15}) - 1938(X^{13}Y^{11} + X^{11}Y^{13}),\\
+r_{\Delta_{26}}&= -0.0002002972716\,W_+^{(26)} -40.08330039\,W_-^{(26)},\\
+r_{\widehat\Delta_{26}}&= 0.0002002611462\,W_+^{(26)} -40.0894082\,W_-^{(26)}.
+\end{align}
+
+
+
 \begin{thebibliography}{99}
 
 \bibitem{BFK2011}
@@ -917,6 +996,14 @@ in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249
 F.\ Brown and R.\ Hain,
 \emph{Algebraic de Rham theory for weakly holomorphic modular forms of level one},
 Algebra Number Theory \textbf{12} (2018), no.\ 3, 723--750; arXiv:1708.00652.
+
+% Haberland's formula: recovers the Petersson norm from the period polynomial ---
+% the normalization-independent external check on our finite-contour periods (eq:haberland).
+\bibitem{Cohen2013}
+H.\ Cohen,
+\emph{Haberland's formula and numerical computation of Petersson scalar products},
+in \emph{ANTS X: Proceedings of the Tenth Algorithmic Number Theory Symposium},
+Open Book Ser.\ \textbf{1}, Math.\ Sci.\ Publ., 2013, pp.\ 249--270.
 
 \bibitem{VerifyScripts}
 \emph{Numerical verification scripts} (companion code), 2026.

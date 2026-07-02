@@ -292,6 +292,52 @@ points) remain open.
 
 ---
 
+## Episode 6 — Explicit $W_\pm$ bases (appendix), the literature cross-check, and the Petersson-norm smash: the finite-contour periods ARE the canonical periods (CONFIRMED from local logs)
+
+**Session:** `f3bb5d3c`, 2026-07-02. **Primary-source record (direct transcript).**
+
+**What happened, in order:**
+
+1. **DAM chose T5** (of a five-item slate) — *"put the explicit bases into an appendix... one equation per basis
+   element... $r_{\Delta_k}=\sum_\pm\omega^\pm W_\pm$ (cusp) and $r_{\widehat\Delta_k}=\sum_\pm\eta^\pm W_\pm$
+   (weak)."* Claude computed the Kohnen--Zagier rational period polynomials $W_\pm$ for $k=12,16,18,20,22,26$ via
+   Haberland-pairing projection (`period_polynomial_bases.py`); the Bernoulli numerators $691,3617,43867,174611$
+   are the literature fingerprint. DAM supplied the aesthetic fix: write them in **(anti)palindromic** form
+   $W_+=\sum c_\ell(X^{n-\ell}Y^\ell - X^\ell Y^{n-\ell})$, $W_-=\sum c_\ell(X^{n-\ell}Y^\ell + X^\ell Y^{n-\ell})$
+   --- halving the length. (DAM: *"stop with the formatting, I can do that."*)
+
+2. **DAM's consistency question** --- *"the period-poly basis decomp at ALL weights looks almost identical, weak
+   vs cusp. Consistent with Table 1?"* Claude's comparison (`cmp_table1.py`): the **odd** ratios
+   $\eta^-/\omega^-$ match Table 1 to **5--7 digits** at every weight; the near-equality $\omega(\Delta_k)\approx\pm
+   \eta(\widehat\Delta_k)$ at high weight (the $k=26$ ratio $\to1$) is REAL and already in Table 1 --- DAM's read
+   was right. The **even** ratio $\eta^+/\omega^+$ is off $0.2$--$2\%$ = the $C_T$ coboundary. So the normalization
+   ambiguity is localized to the even quasi-period $\eta^+$.
+
+3. **Literature (DAM: "move towards looking up things").** Web + Cohen's ANTS X paper (`cohen_period_paper.pdf`):
+   the odd side is Haberland/Petersson-canonical; the even-$\eta^+$ ambiguity is the known BGKO / Paşol--Popa
+   *"extra relation on even periods of weakly holomorphic cusp forms"*; Brown--Hain fix it via de Rham.
+
+4. **The Petersson smash (DAM: "yes, please check this!").** The finite-contour periods $r_m(f)=i^{m+1}L^*(f,m+1)$
+   must satisfy Haberland's formula [Cohen Thm 5.2(2)], which recovers $\langle f,f\rangle$ from the period
+   polynomial. `haberland_petersson_check.py`: at $k=12$ our $L^*$ reproduces **Zagier's
+   $\langle\Delta,\Delta\rangle$ to 14 digits**; at $k=16$ it matches the **direct fundamental-domain integral to
+   25 digits**. This is a *normalization-independent* validation --- the finite-contour $L^*$ IS the classical
+   completed period. Now in the paper as a remark + `eq:haberland` after Table 1, with bibitem `Cohen2013`.
+
+5. **DAM's sharp follow-up** --- *"does this mean $\alpha_k$ is noise?"* Answer: no, but not an invariant either.
+   $\det(\mathrm{pd})\in\QQ^\times(2\pi i)^{k-1}$ is Brown--Hain's theorem, so $\alpha_k$ is a definite rational;
+   but its value carries basis scaling ($\alpha_k\to\alpha_k/(cd)$) and the $\eta^+$ gauge, neither canonically
+   pinned. The $k\ge16$ rationals are gauge-relative, not new intrinsic numbers --- which is why no clean pattern.
+   The Petersson check (which sees only the cusp-form periods) is the trustworthy invariant.
+
+**Disclosure note:** the directions in this episode are DAM's --- the appendix scope, the Table-1 consistency
+probe, the palindromic form, the "move to literature" push, the Petersson-check idea, and the "$\alpha_k$ = noise?"
+question. Claude executed the numerics (`period_polynomial_bases.py`, `cmp_table1.py`, `haberland_petersson_check.py`),
+read Cohen's paper, and drafted the remark. Verified: $k=12$ to 14 digits vs Zagier, $k=16$ to 25 digits vs the
+direct integral. Open: the canonical $\eta^+$ gauge (whether it makes $\alpha_k$ clean) and $\mathrm{Im}\,B(1)$.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05
