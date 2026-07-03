@@ -338,6 +338,72 @@ direct integral. Open: the canonical $\eta^+$ gauge (whether it makes $\alpha_k$
 
 ---
 
+## Episode 7 — The winding-class lattice: [E5] falsified, two exact kernel identities, the Bernoulli
+realization, and the joint-exactness proposition (PRIMARY-SOURCE: this session)
+
+**Session:** `0fe6428f` (Fable 5), 2026-07-03.  **Deliverable:** `defect_lattice_note.tex/.pdf`.
+
+**What happened, in order:**
+
+1. **Claude's lattice sweep** (T1, DAM's flagship): defects are linear in the winding data
+   (cor:wall at integer $s$), so "which class kills which relation" is integer linear algebra.
+   Three scratchpad passes (`t1_lattice.py`, `t1_structure.py`, `t1_exact.py`; LS -> PSLQ ->
+   Smith NF) found: **[E5] is FALSE** --- the $S$-defect weights of the $i$-orbit windings are
+   the integers $(2,3,3)$, $\gcd=1$, so crossing $i$ once and $i{-}1$ once kills the $S$-defect
+   (verified 7e-33).  [E5]'s "odd multiples, never zero" swept only $S@i$.
+
+2. **DAM's pushback redirects the method** --- *"There has to be some THINKING through this
+   before just churning-out brazillions of lines of code."* And the sharp question: *"why
+   doesn't just the straight line from $i{-}1$ to $i$ for the T-kernel and the trivial loop
+   at $i$ for the S-kernel land in the trivial space where both relations are satisfied?"*
+   Claude's answer, forced by the question, produced the session's two exact identities:
+   (i) the kernel reflection $\tk(\tau,k{-}1{-}m)=-(-1)^m\tk(\tau,m{+}1)$, hence
+   $\mathbf K_T|(1+S)=0$ identically --- $T$-windings never move the $S$-defect, and the
+   $\tau_0=i$ class holds $|(1+S)$ as a THEOREM (upgrading the empirical [E4] row);
+   (ii) at integer $s$ the Hurwitz kernel is a **Bernoulli polynomial**
+   ($\zeta(-m,x)=-B_{m+1}(x)/(m+1)$), so every winding weight is a residue of $f$ against an
+   explicit polynomial --- closed form, no sweeps.  DAM: *"THAT I buy... groks with sums of
+   contours I've seen in e.g. KZ1984."*
+
+3. **DAM catches a Claude overstatement.**  Claude had written "there is no class in which
+   [the U-defect] vanishes"; DAM cited the intact-U evidence ([E2]: $5.6$e-48).  Corrected
+   picture: the defect pair is a point on a lattice coset; [E2] sits on the $U{=}0$ axis,
+   $\tau_0{=}i$ on the $S{=}0$ axis.  In the clean class DAM's ORIGINAL proposition (residue
+   breaks the resonant relation) is restored and now hand-derived:
+   $R_i = ia_{-2}(X^2{+}Y^2)$, so $r_f|(1+S)=2\pi iR_i$ = the measured $-2\pi a_{-2}(X^2{+}Y^2)$.
+
+4. **A DAM misreading, corrected with receipts:** he briefly read Claude as having computed
+   period polynomials of polylog-subtracted forms (*"I want the fucking period polynomial of
+   the actual fucking MF"*).  All session numerics are direct quadrature of the actual
+   meromorphic forms; the subtraction discussion was Claude's answer to DAM's own "why not
+   subtract the pole?" (answer: breaks modularity; the modular subtraction localizes the
+   defect on the blocks, it does not remove it).
+
+5. **DAM demands a proposition** --- *"I see a lot of examples, but no grand prop... with a
+   _claimed_ proof, which one can inspect and interrogate... try and prove this with
+   diophantine equation set-ups/solutions."*  Result: Claude hand-derived the remaining
+   $T$-columns ($Q_i$ via Bernoulli values at $i$: $7/12$; $Q_{i-1}=Q_i$ a parity identity;
+   $Q_{i+1}-Q_i$ contributes exactly $+1$, giving $19/12$) and proved **prop:joint** in the
+   note: for $E_4\Delta/E_6^2$ the jointly-exact classes are exactly the coset
+   $(1,-1,0;-1,0,1)+\ZZ\langle 4\text{ explicit kernel vectors}\rangle$ --- nonempty, rank 4,
+   so ES-exactness alone does not select a contour.  Every weight in the defining equations
+   is derived, not fitted.
+
+6. **Honestly open** (note \S7): the $E_6/j$ weight table $(-11,-3,-8/5,-48/5)$ is
+   PSLQ-measured, not derived; its joint obstruction (mod-8) is depth-one-window-limited;
+   $\Delta/E_4$ and the generic pole are undecided; a free-product $H^2$ heuristic predicting
+   "generic poles unobstructed" is flagged speculative; `t1_depth2.py` written, never run.
+
+**Disclosure note:** the falsification method (linear lattice + PSLQ + Smith NF) and the two
+kernel identities are Claude's; every course correction is DAM's --- the reason-first
+redirect, the $\tau_0=i$ challenge that produced the identities, the intact-U catch that
+fixed Claude's overstatement, the KZ1984 anchoring, and the demand for an inspectable
+Diophantine proposition.  Claude also wrongly framed [E5]'s failure before DAM's questions
+sharpened it into the clean-class/coset picture.  All derived weights were independently
+confirmed numerically at 34 digits.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05

@@ -1,0 +1,477 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\tk}{\widetilde{k}}
+\newcommand{\KT}{\mathbf{K}_T}
+
+\title{Eichler--Shimura defects of meromorphic period polynomials\\
+on the winding-class lattice\\[4pt]
+\large A computational session note}
+\author{Claude (Fable~5), for D.~A.~McGady}
+\date{July 3, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+This note documents one session of work on the canonical-contour problem (item T1 of the
+pre-arXiv agenda): which winding classes of the two-segment contour give period polynomials
+of meromorphic modular forms satisfying the Eichler--Shimura relations $r|(1+S)=0$ and
+$r|(1+U+U^2)=0$.  Everything below concerns the period polynomial of the \emph{actual
+meromorphic form}, computed by direct numerical integration of $f$ along the two-segment
+contour; no pole subtraction or projection enters any computation.  The main outcomes:
+(i)~two exact identities of the Hurwitz $T$-kernel --- a reflection identity forcing
+$\KT|(1+S)=0$, and the fact that at integer $s$ the kernel is a Bernoulli polynomial ---
+which together reduce the whole problem to integer linear algebra with closed-form entries;
+(ii)~the ``the $|(1+S)$-defect of an $i$-pole is nonzero in every class'' conjecture is
+\emph{false}: an explicit class kills it (verified to $10^{-33}$);
+(iii)~for the weight-4 elliptic block, the classes satisfying \emph{both} relations are
+completely characterized (Proposition~\ref{prop:joint}): a nonempty rank-4 lattice coset,
+every weight in the defining equations derived by hand;
+(iv)~in the clean class the original resonance proposition is restored and now
+hand-derived: the pole breaks exactly its resonant relation, by exactly its residue.
+Open items and all caveats are listed in \S\ref{sec:open}.
+\end{abstract}
+
+\section{Conventions}\label{sec:conv}
+
+All conventions match \texttt{finite\_contour\_cocycles\_short.tex} and its companion
+scripts.  Fix even weight $k$ and $n=k-2$.  For $f\in F_k$ (meromorphic modular of weight
+$k$ for $\Gamma=\mathrm{PSL}_2(\ZZ)$, meromorphic at the cusp), the $L$-integral is the
+two-segment contour integral
+\begin{equation}\label{eq:Lint}
+L^*(f,s)=e^{-\pi i s/2}\Big[\int_{\gamma^S_{\tau_0}} f(\tau)\,\tau^{s-1}\,d\tau
++\int_{\gamma^T_{\tau_0}} f(\tau)\,\tk(\tau,s)\,d\tau\Big],
+\qquad
+\tk(\tau,s)=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\,\zeta\!\big(1-(k-s),\tau+1\big),
+\end{equation}
+with $\gamma^S_{\tau_0}$ from $-1/\tau_0$ to $\tau_0$ and $\gamma^T_{\tau_0}$ from
+$\tau_0-1$ to $\tau_0$.  The period polynomial (overall $(2\pi i)^{n+1}$ dropped, as in the
+scripts) is
+\begin{equation}\label{eq:rf}
+r_f(X,Y)=\sum_{\ell=0}^{n}c_\ell\,X^{n-\ell}Y^\ell,
+\qquad
+c_\ell=(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}\,L^*(f,\ell+1),
+\end{equation}
+equivalently $r_f=\int_{\gamma^S}f\,(X-\tau Y)^n\,d\tau+\int_{\gamma^T}f\,\KT\,d\tau$ with
+the assembled kernel
+\begin{equation}\label{eq:KT}
+\KT(\tau;X,Y)=\sum_{\ell=0}^{n}\binom{n}{\ell}(-1)^{\ell}\,\tk(\tau,\ell+1)\,X^{n-\ell}Y^{\ell}.
+\end{equation}
+Slash actions: $(P|S)(X,Y)=P(-Y,X)$, $(P|U)(X,Y)=P(X-Y,X)$, $(P|U^2)(X,Y)=P(-Y,X-Y)$.
+Define the two \emph{defect operators}
+\[
+D_S(P) := P\,|(1+S), \qquad D_U(P) := P\,|(1+U+U^2).
+\]
+For cusp forms and weakly holomorphic forms, $D_S(r_f)=D_U(r_f)=0$ (the paper's \S3;
+verified against Brown's quasi-periods and, via Haberland, against Petersson norms).
+The question is what replaces this for meromorphic $f$.
+
+\section{The winding lattice and the linear defect model}\label{sec:lattice}
+
+For meromorphic $f$ the value of $L^*$ depends on the homotopy class of the pair
+$(\gamma^S,\gamma^T)$ in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, through winding data
+$(X_S,X_T)$: integers, one pair per pole, counting the net turns of each segment about
+each pole relative to a reference class (the paper's wall-crossing proposition).  At the
+integer values $s=\ell+1$ entering \eqref{eq:rf}, one crossing of pole $p$ by $\gamma^S$
+shifts $r_f$ by $2\pi i\,R_p$, and one crossing by $\gamma^T$ shifts it by $2\pi i\,Q_p$,
+where
+\begin{equation}\label{eq:gens}
+R_p:=\Res_{\tau=p}\!\big(f(\tau)\,(X-\tau Y)^n\big),
+\qquad
+Q_p:=\Res_{\tau=p}\!\big(f(\tau)\,\KT(\tau;X,Y)\big).
+\end{equation}
+Hence, writing $x=(x_p)$, $t=(t_p)$ for the winding integers of a class relative to a base
+class with polynomial $r_f^{(0)}$,
+\begin{equation}\label{eq:linear}
+r_f(x,t) = r_f^{(0)} + 2\pi i\sum_p x_p\,R_p + 2\pi i\sum_p t_p\,Q_p ,
+\end{equation}
+and the defects $D_S,D_U$ are \emph{affine-linear in the winding integers}.  Every
+question of the form ``is there a class with $D_S(r_f)=0$ and/or $D_U(r_f)=0$'' is
+therefore an integer linear-algebra question with coefficient vectors
+$D_S(R_p),D_U(R_p),D_S(Q_p),D_U(Q_p)$.  This is the specialization of the paper's
+\texttt{eq:violation-residue} (verified there to 32 digits) used throughout.
+
+\section{Two exact identities of the $T$-kernel}\label{sec:identities}
+
+\begin{lemma}[Reflection]\label{lem:reflect}
+For even $k$ and integers $0\le m\le n$,
+\[
+\tk(\tau,\,k-1-m) \;=\; -(-1)^m\,\tk(\tau,\,m+1).
+\]
+\end{lemma}
+
+\begin{proof}
+At $s=m+1$ the phase is $e^{i\pi m}=(-1)^m$, so
+$\tk(\tau,m+1)=\zeta(-m,\tau+1)-(-1)^m\zeta(m+2-k,\tau+1)$.
+At $s=k-1-m$ the two Hurwitz arguments are $1-s=m+2-k$ and $1-(k-s)=-m$, and the phase is
+$e^{i\pi(k-2-m)}=(-1)^m$ for even $k$; so
+$\tk(\tau,k-1-m)=\zeta(m+2-k,\tau+1)-(-1)^m\zeta(-m,\tau+1)$,
+which is $-(-1)^m$ times the previous display.
+\end{proof}
+
+\begin{corollary}\label{cor:KTS}
+$\KT|S=-\KT$, hence $D_S(\KT)=0$ identically, and therefore:
+\begin{enumerate}
+\item[(i)] $D_S(Q_p)=0$ for every pole $p$ and every $f$: \emph{$T$-windings never move
+the $|(1+S)$-defect}.
+\item[(ii)] At $\tau_0=i$ the $S$-segment degenerates to a point, so
+$r_f=\int_{\gamma^T}f\,\KT$ and $D_S(r_f)=\int_{\gamma^T}f\,D_S(\KT)=0$: the
+$S$-relation holds automatically, for \emph{every} $f\in F_k$ with no pole on the
+contour, in the $\tau_0=i$ class.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+In \eqref{eq:KT} substitute $(X,Y)\to(-Y,X)$ and re-index $\ell\to n-\ell$; the coefficient
+of $X^{n-\ell}Y^{\ell}$ in $\KT|S$ is $\binom{n}{\ell}\tk(\tau,k-1-\ell)$, which by
+Lemma~\ref{lem:reflect} equals $-(-1)^{\ell}\binom{n}{\ell}\tk(\tau,\ell+1)$, i.e.\ minus
+the coefficient in $\KT$.  Items (i), (ii) follow because $D_S$ commutes with
+$\Res_p(f\,\cdot)$ and with $\int_{\gamma^T}f\,\cdot$\,.
+\end{proof}
+
+Corollary~\ref{cor:KTS}(ii) upgrades an empirical observation (all five test forms held
+$|(1+S)$ to $\sim10^{-33}$ at $\tau_0=i$, evidence item [E4] of the working ledger) to a
+theorem, and (i) decouples the problem: the $S$-defect is controlled by $\gamma^S$-windings
+alone, while $\gamma^T$-windings move only the $U$-defect.
+
+\begin{lemma}[Bernoulli form of the kernel]\label{lem:bern}
+At the integer points $s=m+1$, $0\le m\le n$, using $\zeta(-j,x)=-B_{j+1}(x)/(j+1)$,
+\[
+\tk(\tau,m+1) \;=\; -\frac{B_{m+1}(\tau+1)}{m+1} \;+\; (-1)^m\,\frac{B_{k-1-m}(\tau+1)}{k-1-m}\,,
+\]
+a polynomial in $\tau$.  In particular, for $k=4$:
+\[
+\tk(\tau,1)=-B_1(\tau+1)+\tfrac13B_3(\tau+1),\qquad
+\tk(\tau,2)=-B_2(\tau+1),\qquad
+\tk(\tau,3)=-\tk(\tau,1),
+\]
+\begin{equation}\label{eq:KT4}
+\KT \;=\; \tk(\tau,1)\,(X^2-Y^2)\;+\;2\,B_2(\tau+1)\,XY .
+\end{equation}
+\end{lemma}
+
+Consequently \emph{all} shift vectors \eqref{eq:gens} are residues of $f$ against explicit
+polynomials: the canonical-class problem has closed-form integer data.  (The visible
+$(X^2-Y^2)$ and $XY$ in \eqref{eq:KT4} are each killed by $(1+S)$ --- Corollary~\ref{cor:KTS}
+made concrete.)
+
+\section{The weight-4 elliptic block: hand derivations and verdicts}\label{sec:k4}
+
+Let $f=E_4\Delta/E_6^2\in F_4$, the canonical block with a double pole at $i$ (and no
+other poles mod $\Gamma$), Laurent data $a_{-2}=-1/(1728\pi^2)$ and the parity relation
+$a_{-1}=i\,a_{-2}$ (the paper's order-parity proposition at the $S$-fixed point).
+
+\subsection{Residue polynomials at the $i$-orbit}
+For a double pole, $\Res_i(fg)=a_{-1}g(i)+a_{-2}g'(i)$ for holomorphic $g$.  With
+$g=(X-\tau Y)^2$:
+\begin{equation}\label{eq:Ri}
+R_i = a_{-1}(X-iY)^2 - 2a_{-2}Y(X-iY)
+\;\overset{a_{-1}=ia_{-2}}{=}\;
+i\,a_{-2}\,(X^2+Y^2).
+\end{equation}
+By $T$-periodicity of $f$, $R_{i\pm1}$ is \eqref{eq:Ri} with $X\to X\mp Y$:
+\begin{equation}\label{eq:Ripm}
+R_{i+1}=i\,a_{-2}\big((X-Y)^2+Y^2\big),\qquad
+R_{i-1}=i\,a_{-2}\big((X+Y)^2+Y^2\big).
+\end{equation}
+
+\subsection{Defects of the shift vectors, by hand}
+Direct substitution gives
+\[
+\begin{aligned}
+(X^2+Y^2)\,\big|(1+S) &= 2\,(X^2+Y^2), &
+\big((X\mp Y)^2+Y^2\big)\big|(1+S) &= 3\,(X^2+Y^2),\\[2pt]
+(X^2+Y^2)\,\big|(1+U+U^2) &= 4\,(X^2-XY+Y^2), &
+\big((X-Y)^2+Y^2\big)\big|(1+U+U^2) &= 4\,(X^2-XY+Y^2),\\
+&&\big((X+Y)^2+Y^2\big)\big|(1+U+U^2) &= 8\,(X^2-XY+Y^2).
+\end{aligned}
+\]
+Writing $\sigma:=2\pi i\,R_i=-2\pi a_{-2}(X^2+Y^2)$ for the unit on the $S$-side and
+normalizing the $U$-side by $D_U(2\pi iR_i)$, the shift table is:
+
+\begin{center}
+\begin{tabular}{lcccccc}
+\toprule
+generator & $x_i$ & $x_{i-1}$ & $x_{i+1}$ & $t_i$ & $t_{i-1}$ & $t_{i+1}$\\
+\midrule
+$S$-defect weight (units of $\sigma$) & $2$ & $3$ & $3$ & $0$ & $0$ & $0$\\
+$U$-defect weight (units of $D_U(2\pi iR_i)$) & $1$ & $2$ & $1$ & $7/12$ & $7/12$ & $19/12$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The zeros in the $T$-columns of the $S$-row are Corollary~\ref{cor:KTS}(i).  The integer
+entries $2,3,3$ and $1,2,1$ are the one-line computations above.  The $T$-column entries
+are derived in \S\ref{sec:Tcols}; every entry of the table is therefore exact.  (Each was
+independently confirmed by PSLQ at 34 digits, off-ray residuals $\lesssim10^{-35}$.)
+
+\subsection{The $T$-columns, by hand}\label{sec:Tcols}
+From \eqref{eq:KT4}, $\Res_i(f\KT)=a_{-1}\KT(i)+a_{-2}\,\partial_\tau\KT(i)$, with
+$\tk(\tau,1)=\tfrac13\tau^3+\tfrac12\tau^2-\tfrac56\tau-\tfrac12$ and
+$B_2(\tau+1)=\tau^2+\tau+\tfrac16$, so that
+$\tk(i,1)=-1-\tfrac76i$, $\tk'(i,1)=-\tfrac{11}6+i$, $B_2(i+1)=-\tfrac56+i$.
+Using $a_{-1}=ia_{-2}$,
+\[
+Q_i \;=\; a_{-2}\Big[\big(i\,\tk(i,1)+\tk'(i,1)\big)(X^2-Y^2)
++ 2\big(iB_2(i+1)+(2i+1)\big)XY\Big]
+\;=\; a_{-2}\Big[-\tfrac23\,(X^2-Y^2) \,+\, \tfrac73\,i\,XY\Big].
+\]
+Since $(X^2-Y^2)\,|(1+U+U^2)=0$ while $XY\,|(1+U+U^2)=X^2-XY+Y^2$,
+\[
+D_U(2\pi i\,Q_i) \;=\; -\tfrac{14}{3}\,\pi a_{-2}\,(X^2-XY+Y^2)
+\;=\; \tfrac{7}{12}\;D_U(2\pi i\,R_i).
+\]
+For the translates, the Bernoulli difference equations give
+$\KT(\tau+1)=\KT(\tau)+(\tau^2+2\tau)(X^2-Y^2)+4(\tau+1)XY$, whence (using
+$1$-periodicity of $f$)
+\[
+Q_{i+1}-Q_i=\Res_i\!\Big(f\cdot\big[(\tau^2+2\tau)(X^2-Y^2)+4(\tau+1)XY\big]\Big)
+= a_{-2}\big[\,i\,(X^2-Y^2)+4i\,XY\,\big],
+\]
+\[
+Q_{i-1}-Q_i=-\Res_i\!\Big(f\cdot\big[(\tau^2-1)(X^2-Y^2)+4\tau\,XY\big]\Big)=0,
+\]
+the second vanishing by the same parity cancellation
+($a_{-1}(-2)+a_{-2}(2i)=0$ and $a_{-1}(4i)+4a_{-2}=0$).  Hence
+\[
+\mu_U(t_{i-1})=\tfrac7{12},
+\qquad
+\mu_U(t_{i+1})=\tfrac7{12}+\frac{D_U\big(2\pi i(Q_{i+1}-Q_i)\big)}{D_U(2\pi i\,R_i)}
+=\tfrac7{12}+1=\tfrac{19}{12},
+\]
+completing the table.  The equality $Q_{i-1}=Q_i$ --- the repeated $7/12$ --- is thus a
+parity identity, not a numerical coincidence.
+
+\subsection{The clean class: the resonance proposition, restored}
+In the clean class ($\tau_0=0.3+1.4i$, straight segments, no pole enclosed), the measured
+defects of the actual $r_f$ are
+\begin{equation}\label{eq:clean}
+r_f\,\big|(1+U+U^2)=0 \ \ (\text{residual }5.6\times10^{-48}),
+\qquad
+r_f\,\big|(1+S)= -2\pi a_{-2}\,(X^2+Y^2) \;=\; 2\pi i\,R_i ,
+\end{equation}
+the right-hand side now \emph{derived} in \eqref{eq:Ri} and equal to the measurement to
+48 digits.  Together with the mirror behaviour of $\rho$-pole forms (which in their clean
+classes hold $|(1+S)$ and break $|(1+U+U^2)$; see \S\ref{sec:rho}), this restores the
+original proposition in class-anchored form: \emph{in the clean class, a pole on the
+fixed locus of an elliptic element breaks exactly its resonant relation, by exactly its
+residue polynomial.}  What is genuinely class-dependent --- and what the earlier
+``in every class'' version missed --- is quantified next.
+
+\subsection{The obstruction conjecture is false; joint classes exist}
+The earlier conjecture (ledger item [E5]) asserted the $S$-defect of an $i$-pole is
+nonzero in \emph{every} class, based on sweeping only $x_i$ (weight $2$: even shifts of an
+odd base).  The table refutes it: $\gcd(2,3)=1$, and indeed with base defect $\sigma$,
+\[
+x=(1,-1,0):\quad \sigma\,(1 + 2 - 3) = 0,
+\]
+verified by direct high-precision recomputation of $r_f$ in that class:
+$|(1+S)|/\mathrm{scale}=7\times10^{-33}$ (the $U$-relation then breaks, as the table
+predicts).  More is true: \emph{both} relations can be killed simultaneously, and the
+solution set can be characterized completely.
+
+\begin{proposition}[Joint Eichler--Shimura exactness for the weight-4 block]\label{prop:joint}
+Let $f=E_4\Delta/E_6^2$, and take as reference the clean class, whose base defect pair is
+$\big(2\pi i R_i,\,0\big)$ \eqref{eq:clean}.  Among the depth-one winding classes
+$(x_i,x_{i-1},x_{i+1};\,t_i,t_{i-1},t_{i+1})\in\ZZ^6$, those whose period polynomial
+satisfies \emph{both} $r_f|(1+S)=0$ and $r_f|(1+U+U^2)=0$ are exactly the integer
+solutions of
+\begin{equation}\label{eq:jointsys}
+1+2x_i+3x_{i-1}+3x_{i+1}=0,
+\qquad
+12x_i+24x_{i-1}+12x_{i+1}+7t_i+7t_{i-1}+19t_{i+1}=0 .
+\end{equation}
+This set is exactly the coset
+\begin{equation}\label{eq:coset}
+(x;t) \;=\; (1,-1,0;\,-1,0,1)
+\;+\;\ZZ\Big\langle
+(0,0,0;\,1,-1,0),\;
+(0,0,0;\,-19,0,7),\;
+(-3,2,0;\,1,0,-1),\;
+(0,-1,1;\,-1,0,1)
+\Big\rangle,
+\end{equation}
+a coset of a rank-$4$ sublattice of $\ZZ^6$.  In particular Eichler--Shimura exactness
+holds in infinitely many classes, and exactness alone does not select a contour.
+\end{proposition}
+
+\begin{proof}
+By the linear model \eqref{eq:linear} (the wall-crossing law \texttt{eq:violation-residue}
+of the paper, specialized to integer $s$), the two defects of the class
+$(x;t)$ are affine-linear in the winding integers with shift vectors
+$D_S,D_U$ of $2\pi iR_p$, $2\pi iQ_p$ at $p\in\{i,i\pm1\}$.  All twelve weights are
+derived above: the $S$-row is $(2,3,3;0,0,0)$ in units of $\sigma=2\pi iR_i$ (\S4.2 for the
+integer entries via \eqref{eq:Ri}--\eqref{eq:Ripm}; the $T$-entries vanish by
+Corollary~\ref{cor:KTS}(i)), and the $U$-row is
+$(1,2,1;\tfrac7{12},\tfrac7{12},\tfrac{19}{12})$ in units of $D_U(2\pi iR_i)$ (\S4.2 and
+\S\ref{sec:Tcols}).  Both defect components lie on the fixed rays $\CC\,(X^2{+}Y^2)$,
+$\CC\,(X^2{-}XY{+}Y^2)$, so vanishing of the defect pair is equivalent to the two scalar
+equations: base $1$ plus the $S$-row for the first; base $0$ plus the $U$-row, cleared of
+denominators ($\times12$), for the second --- i.e.\ \eqref{eq:jointsys}.
+Diophantine solution.  The integer solutions of the homogeneous equation $2a+3b+3c=0$
+are exactly $\alpha(3,-2,0)+\gamma(0,-1,1)$: reducing mod $3$ forces $3\mid 2a$, hence
+$3\mid a$, and the parametrization follows.  A particular solution of the first equation
+of \eqref{eq:jointsys} is $x^{(0)}=(1,-1,0)$.  Writing $N:=x_i+2x_{i-1}+x_{i+1}$, the
+second equation reads $7t_i+7t_{i-1}+19t_{i+1}=-12N$, with particular solution
+$t=N\,(1,0,-1)$ (because $7-19=-12$) and homogeneous solutions $s(1,-1,0)+u(-19,0,7)$
+(reducing mod $7$ forces $7\mid 19t_{i+1}$, hence $7\mid t_{i+1}$).  Since
+$N(x^{(0)})=-1$, $N(-3,2,0)=1$, and $N(0,-1,1)=-1$, assembling particular-plus-kernel in
+$x$ with the matching $t=N(1,0,-1)$ gives exactly the coset \eqref{eq:coset}; the four
+displayed kernel vectors generate the \emph{full} kernel lattice, since any homogeneous
+solution, after subtracting multiples of the third and fourth, has $x$-part zero and is
+then a combination of the first two.  Each generator checks against
+\eqref{eq:jointsys} directly, e.g.\ $(-3,2,0;1,0,-1)$: $-6+6=0$ and $-36+48+7-19=0$;
+the particular solution: $1+2-3=0$ and $12-24-7+19=0$.
+\end{proof}
+
+\noindent
+(A float box search found $66$ of these solutions with all windings in $[-3,3]$, each
+consistent with \eqref{eq:jointsys} --- the numerical shadow of the proposition.  The
+inputs a reader may wish to interrogate: the wall-crossing law, proven in the paper and
+verified to $32$ digits; the parity $a_{-1}=ia_{-2}$, the paper's order-parity result at
+the $S$-fixed point; and the clean-class base pair, measured to $48$ digits, \eqref{eq:clean}.)
+
+\section{The $\rho$-blocks and a generic pole}\label{sec:rho}
+
+The same machinery was run on $E_6/j$ ($k=6$, triple pole at $\rho=e^{2\pi i/3}$),
+$E_8/j=\Delta/E_4$ ($k=8$, simple pole at $\rho$), and the generic-pole form
+$E_6/(j-j(1.1i))$ ($k=6$).  Base class $\tau_0=i$ throughout (which holds $|(1+S)$
+identically by Corollary~\ref{cor:KTS}(ii)); windings allowed at the poles adjacent to the
+contour (``depth one'': the poles and their $T$-translates and $S$-images next to the
+fundamental domain), boxes $|x|\le3$.
+
+\smallskip
+\noindent\textbf{$E_6/j$.}  All $U$-defects lie on one real ray with PSLQ-exact weights
+\[
+\mu_U:\quad x_\rho:-11,\quad x_{\rho+1}:-3,\quad t_\rho:-\tfrac85,\quad t_{\rho+1}:-\tfrac{48}5,
+\qquad\text{base}=1 .
+\]
+Killing $U$ alone is feasible: $3\cdot(-3)+1\cdot(-\tfrac85)+(-1)\cdot(-\tfrac{48}5)=-1$,
+i.e.\ $(x,t)=\big((0,3),(1,-1)\big)$, verified to $4.1\times10^{-31}$ (the $S$-relation
+then breaks, weight $6.0$).  Killing \emph{both} failed in the depth-one window: the two
+$S$-defect vectors $D_S(R_\rho),D_S(R_{\rho+1})$ are $\ZZ$-independent (no rational ray),
+pinning $x_\rho=x_{\rho+1}=0$; the $T$-windings alone then need
+$\tfrac85t_1+\tfrac{48}5t_2=1$, i.e.\ $8t_1+48t_2=5$ --- impossible mod $8$.
+\emph{Caveat: this is an obstruction of the truncated window, not (yet) of the full
+winding lattice; deeper windings refine the reachable lattice and may dissolve it.}
+No impossibility proposition is claimed here or anywhere in this note: the mod-$8$
+argument is exact only within the depth-one window and rests on the PSLQ-identified
+weights (not yet hand-derived, unlike the $k=4$ table).  The honest general statement is:
+
+\smallskip
+\noindent\textbf{Question.}
+For which blocks does the winding lattice reach joint exactness --- equivalently, for
+which pole orbits does the defect coset contain the origin?  The weight-$4$ $i$-block
+does (Proposition~\ref{prop:joint}); the depth-one window of $E_6/j$ does not; the full
+lattice for $E_6/j$, $\Delta/E_4$, and the generic pole is undecided.
+
+\smallskip
+\noindent\textbf{$\Delta/E_4$ ($k=8$).}  The $U$-defect space is genuinely
+multi-dimensional (no single ray; $\dim\ker(1-U)=3$ on degree-$6$ forms), rank $7$ of
+$10$ generators; no joint solution in the $|x|\le2$ window.  Inconclusive.
+
+\smallskip
+\noindent\textbf{$E_6/(j-j(1.1i))$ (generic pole).}  Base class: $S$-defect $=0$
+(Corollary~\ref{cor:KTS}(ii)), $U$-defect $\ne0$.  Each relation is separately killable
+(this reproduces the earlier routed-contour observations); rank $7$ of $12$ generators,
+real solutions of the joint system exist, but no \emph{integer} joint solution appeared
+with the five free windings in $[-3,3]$.  Inconclusive; see \S\ref{sec:open}.
+
+\section{The corrected picture}\label{sec:picture}
+
+For meromorphic $f$ the period polynomial is canonically a \emph{coset}: the set
+\eqref{eq:linear} as $(x,t)$ ranges over the winding lattice.  The defect pair
+$\big(D_S(r_f),D_U(r_f)\big)$ is an affine-linear image of that lattice; single defect
+values are class data, the coset is the invariant.  The numerical record then organizes
+itself:
+
+\begin{itemize}
+\item classes on the axis $D_S=0$ always exist --- e.g.\ $\tau_0=i$, now a theorem
+(Cor.~\ref{cor:KTS}(ii));
+\item classes on the axis $D_U=0$ existed in every case tested (clean class for the
+$i$-block, \eqref{eq:clean}; routed classes for the $1.1i$-forms; the explicit solution
+for $E_6/j$);
+\item whether the coset contains the \emph{origin} --- both relations at once --- is the
+only genuinely open obstruction.  For the weight-4 block it does
+(Proposition~\ref{prop:joint}, a rank-4 lattice of such classes); for the $\rho$-blocks
+and the generic pole it is undecided at depth one.
+\end{itemize}
+
+Two inequivalent notions of ``canonical class'' emerge, and they disagree whenever the
+residue is nonzero:
+\begin{enumerate}
+\item \textbf{The clean class}: geometrically distinguished, essentially unique, defines
+the $L$-integral for any meromorphic form; the Eichler--Shimura relations hold up to an
+explicit anomaly which \emph{is} the residue polynomial \eqref{eq:clean} --- canonical
+pole data in closed form.
+\item \textbf{Eichler--Shimura--exact classes}: exact relations, but (where they exist) a
+full lattice of them, each with a different $L^*$; exactness alone does not select a
+contour, and per-block existence is an arithmetic question.
+\end{enumerate}
+Which notion the paper should adopt is a judgment call (the natural tie-breakers within
+(2) being central-value crossing-invariance and the Haberland/Petersson pairing); the
+data of this note supports stating (1) as the definition and (2) as structure theory of
+the coset.
+
+\section{Open items and caveats}\label{sec:open}
+
+\begin{enumerate}
+\item \textbf{Hand derivation of the $E_6/j$ weight table} ($-11,-3,-8/5,-48/5$):
+pending.  (The $k=4$ table is now fully derived, \S\ref{sec:Tcols}.)  This would make the
+mod-$8$ window obstruction of \S\ref{sec:rho} unconditional within its window.
+\item \textbf{Depth $\ge2$ windings} for $E_6/(j-j(1.1i))$ and $E_6/j$: untested (a
+script \texttt{t1\_depth2.py} exists, never run).  All ``no joint solution'' statements
+above are \emph{window-limited}, not proofs.
+\item \textbf{Speculative} (flagged as such; not verified): since
+$\mathrm{PSL}_2(\ZZ)\cong\ZZ/2*\ZZ/3$, the obstruction to an Eichler--Shimura--exact class
+should be a pair of torsion classes in $H^2(\ZZ/2;\,\cdot\,)\oplus H^2(\ZZ/3;\,\cdot\,)$
+with coefficients in the winding module; free orbits (generic poles) would then carry no
+obstruction, elliptic-orbit poles possibly a finite one.  Two identified gaps: the precise
+identification of the two $H^2$ components with the two defects, and the module structure
+of the $T$-shift vectors $Q_p$.  This predicts a depth-$\ge2$ joint solution for the
+generic-pole form --- a falsifiable test, not yet run.
+\item The ``$66$ solutions'' count is a float box search cross-checked against the exact
+ray equations; the exact statement is the Smith-normal-form solution lattice of
+\S\ref{sec:k4}.
+\item The $k=8$ ($\Delta/E_4$) defect geometry (multi-dimensional $U$-space) is unmapped.
+\end{enumerate}
+
+\appendix
+\section{Numerical methods and scripts}\label{app:methods}
+
+All computations: \texttt{mpmath} at 34 significant digits, conventions imported from
+\texttt{wip\_meromorphic\_periods.py}.  Period polynomials of the actual forms by direct
+\texttt{mp.quad} of \eqref{eq:Lint} at $s=1,\dots,k-1$ (two-segment contour; $\tau_0=i$
+degenerate class or $\tau_0=0.3+1.4i$ clean class).  Residue vectors \eqref{eq:gens} by
+circle sums (radius $0.02$, $64$ points; Hurwitz zeta evaluated directly for the
+$Q_p$).  Rational identification by PSLQ; integer feasibility by exact Smith normal form
+on the cleared-denominator ray equations; joint searches by kernel-aware enumeration
+cross-checked at full precision.  Session scripts (scratchpad, in order):
+\texttt{t1\_lattice.py} (linear model, first sweeps), \texttt{t1\_structure.py} (exact ray
+analysis, PSLQ weights, falsification of [E5], joint-kill box search),
+\texttt{t1\_exact.py} (Smith-normal-form verdicts, extended $\rho$-reps, kernel-aware
+search), \texttt{t1\_depth2.py} (depth-2 test, written, \emph{not run}).  Headline
+residuals: $\KT|(1+S)$ machine-exact (identity); [E5]-falsifying class $7\times10^{-33}$;
+clean-class $U$-relation $5.6\times10^{-48}$; $E_6/j$ $U$-kill $4.1\times10^{-31}$;
+PSLQ off-ray residuals $\lesssim10^{-35}$.
+
+\end{document}
