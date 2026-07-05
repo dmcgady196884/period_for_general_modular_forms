@@ -740,23 +740,25 @@ $(1+i^k)/(2\pi)$, so for $k\equiv2\pmod4$ the extension is finite at $z=i$ as we
 \end{lemma}
 
 \begin{proof}
-% [DERIVATION RECORD (session 2026-07-05; scripts t2_k6_check.py, t2_generic_s.py).
-%  Start from lem:polylogcf: I_N = delta-term + (-1)^{N+1} sum_n n^N e^{2 pi i n z} G_{s,k}(-n).
-%  Move 1 (exact; J = N+2 integrations by parts):
-%      Gamma(s,x) = e^{-x} sum_{j<J} (s-1)_{(j)} x^{s-1-j} + (s-1)_{(J)} Gamma(s-J,x)
-%  at x = -2 pi n; the e^{2 pi n} recombines with e^{2 pi i n z} into w^n, and
-%  sum_n n^{N-j-1} w^n = Li_{j+1-N}(w) gives Pi_N.
-%  Move 2 (exact): on the leftover, split Gamma(s-J,x) = Gamma(s-J) - [lower gamma] and
-%  use (s-1)_{(J)} Gamma(s-J) = Gamma(s); the complete-Gamma parts resum to Lambda_N
-%  (sum_n n^{N-s} Q^n = Li_{s-N}(Q)); the lower-gamma parts are E_N.
-%  Uniformity: Gamma(sigma,x) ~ x^{sigma-1} e^{-x} gives E_N terms
-%  O(n^{N-J-1} e^{2 pi n}) |Q|^n = O(n^{-3} |w|^n).  Continuity: Li_{j+1-N} continuous
-%  away from w=1; Li_1 = -log(1-w); Li_{>=2} continuous on the closed disk.
-%  VERIFIED: |quad - formula| ~ 1e-32 at s = 2.6+0.7i and 0.8-1.1i (t2_generic_s.py,
-%  incl. branch sanity of both moves against mpmath gammainc); edge approach at the
-%  predicted delta*log(delta) rate; integer-s termination and zeta values
-%  (t2_k6_check.py, 1e-32).]
+Insert into the series of Lemma~\ref{lem:polylogcf} the exact recursion
+$\Gamma(s,x)=e^{-x}\sum_{j<J}(s-1)_{(j)}x^{s-1-j}+(s-1)_{(J)}\Gamma(s-J,x)$ at
+$x=-2\pi n$, $J=N+2$, for both incomplete gammas in $G_{s,k}(-n)$. The factors
+$e^{-x}=e^{2\pi n}$ recombine with $e^{2\pi inz}$ into $w^n$, and
+$\sum_nn^{N-j-1}w^n=\Li_{j+1-N}(w)$ yields $\Pi_N$. In the leftover, write
+$\Gamma(s-J,x)=\Gamma(s-J)-\big[\Gamma(s-J)-\Gamma(s-J,x)\big]$ and use
+$(s-1)_{(J)}\,\Gamma(s-J)=\Gamma(s)$: the complete parts resum to $\Lambda_N$ through
+$\sum_nn^{N-s}Q^n=\Li_{s-N}(Q)$, and the lower-gamma parts are $\mathcal E_N$. From
+$\Gamma(\sigma,x)\sim x^{\sigma-1}e^{-x}$ as $x\to-\infty$, the terms of $\mathcal E_N$
+are $O\big(n^{N-J-1}e^{2\pi n}\big)|Q|^n=O\big(n^{-3}|w|^n\big)$, uniformly on
+${\rm Im}\,z\ge1$; $\Lambda_N$ is continuous there since $|Q|\le e^{-2\pi}$. Claim (i)
+follows since each $\Li_{j+1-N}(w)$ is continuous up to the unit circle away from
+$w=1$; claim (ii) since $\mathcal E_N$ and $\Lambda_N$ are continuous on the whole
+closed line; claim (iii) since the $\Li_1$-coefficient of $\Pi_0$ carries the factor
+$1+i^k=0$ and the remaining $\Li_2(w)$ is continuous on the closed disk.
 \end{proof}
+% [Verification: t2_generic_s.py, t2_k6_check.py (repo): |quad - formula| ~ 1e-32 at
+%  s = 2.6+0.7i, 0.8-1.1i; branch sanity of both moves vs mpmath gammainc; edge
+%  approach at the predicted delta*log(delta) rate; integer-s zeta closures.]
 
 \begin{remark}\label{rem:edgevalues}
 At integer $s\in\{1,\dots,k-1\}$ the Pochhammer symbols terminate all three layers and
@@ -891,10 +893,19 @@ $e^{-2\pi(1-y_b-\varepsilon)}$ for every $\varepsilon>0$.
 \end{lemma}
 
 \begin{proof}
-% [Upper: Parseval on {Im tau = y_b + eps', |Re tau| <= 1/2}, as in [1806, Lem RegC2 --
-%  verify published lemma number]. Lower: project away the maximal-height poles and
-%  compare Fourier coefficients, as in [1806, Lem RegC3]. Both apply because
-%  (I - \widehat P) f lies in F(infty), Definition~\ref{def:Finfty}.]
+$(I-\widehat P)f$ is $T$-periodic and continuous on the line ${\rm Im}\,\tau=y$ for
+every $y\in(y_b,1]$, so Parseval gives
+$\int_{-1/2}^{1/2}\big|(I-\widehat P)f(\sigma+iy)\big|^2d\sigma
+=\sum_n\big|c_{Rf}(n)\,e^{-2\pi yn}\big|^2<\infty$, whence
+$c_{Rf}(n)\,e^{-2\pi yn}\to0$; $y=y_b+\varepsilon$ gives the upper bound for large
+$n$~\cite{1806}. For the lower bound, subtract the polylog projection of the
+height-$y_b$ poles $x_j+iy_b$: the difference has all poles strictly lower, so its
+coefficients are $o(e^{2\pi ny_b})$ by the upper bound, while the subtracted tails
+contribute $\sum_jC_j\,n^{m_j-1}e^{-2\pi inx_j}e^{2\pi ny_b}$ with $C_j\ne0$ at the
+maximal order $m_j=m_b$. The $x_j$ being distinct modulo $1$, the mean value
+$\lim_M\frac1M\sum_{n\le M}\big|\sum_{m_j=m_b}C_je^{-2\pi inx_j}\big|^2
+=\sum_{m_j=m_b}|C_j|^2>0$ bounds $\big|\sum_{m_j=m_b}C_je^{-2\pi inx_j}\big|$ below
+along infinitely many $n$; the triangle inequality finishes.
 \end{proof}
 
 Classes are labelled by winding data: relative to a reference pair, let
@@ -915,9 +926,12 @@ $f\,\tau^{s-1}$, and $L^*_T$ by those of $f\,\tk$.
 \end{lemma}
 
 \begin{proof}
-% [One unit of winding on one segment bounds a loop about p; residue theorem for that
-%  segment's integrand; the prefactor e^{-pi i s/2} multiplies through; sum over
-%  crossings. Parked cor:wall proof adapts directly.]
+Two pairs whose winding data differ by one unit at a single pole $p$ on one segment
+bound a loop encircling $p$ once; the residue theorem adds $2\pi i$ times the residue
+of that segment's integrand --- $f\,\tau^{s-1}$ for $\gamma^S$, $f\,\tk$ for
+$\gamma^T$ --- and the prefactor $e^{-\pi is/2}$ multiplies through. Within-class
+constancy is Proposition~\ref{prop:indepHomotopy}; summing over crossings gives
+\eqref{eq:wall}.
 \end{proof}
 
 \begin{theorem}\label{thm:mero}
@@ -942,10 +956,17 @@ carry out here.
 \end{theorem}
 
 \begin{proof}
-% [Split f = (I - \widehat P)f + \widehat P f (def:proj). Regularized part: Fourier
-%  series integrates term by term along gamma^T_i -- justified by lem:growth against
-%  the kernel decay (parked lem:commute argument) -- giving thm:weakL mode by mode.
-%  Projected part: lem:polylogcf per tail. General class: lem:wall.]
+In the stated class, $L^*(f,s)=e^{-\pi is/2}\int_{\gamma^T_i}f\,\tk\,d\tau$. Split
+$f=(I-\widehat P)f+\widehat Pf$ (Definition~\ref{def:proj}). By
+Lemma~\ref{lem:growth}, $|c_{Rf}(n)\,q^n|\le e^{-2\pi(1-y)n}$ on the segment for any
+$y\in(y_b,1)$ and $n$ large, and the $n<0$ modes are finitely many (meromorphicity at
+the cusp); the Fourier series of $(I-\widehat P)f$ therefore converges uniformly on
+$\gamma^T_i$ and integrates term by term, each mode being the building block of
+Theorem~\ref{thm:weakL}. This gives the first two terms of \eqref{eq:mero}, at the
+stated rate since $G_{s,k}(n)=O\big(n^{{\rm Re}\,s-1}e^{-2\pi n}\big)$. The projected
+part is a finite sum of tails, each integrating to $I_{m-1}(s,\tau_p)$ by
+Lemma~\ref{lem:polylogcf}, at rate $e^{-2\pi({\rm Im}\,\tau_p-1)}$. A general class
+adds the wall term of Lemma~\ref{lem:wall}.
 \end{proof}
 
 \begin{remark}\label{rem:ES-mero}
