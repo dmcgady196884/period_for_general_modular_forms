@@ -620,9 +620,15 @@ moves value between the two, leaving only their sum invariant.
 \end{proposition}
 
 \begin{proof}
-% [Cauchy per segment at fixed tau_0; boundary terms of d/d tau_0 cancel between
-%  L^*_S and L^*_T via f(tau_0 - 1) = f(tau_0) and f(-1/tau_0) = tau_0^k f(tau_0).
-%  Parked proof below \end{document} to be adapted.]
+At fixed $\tau_0$ the integrands $f\,\tau^{s-1}$ and $f\,\tk$ are holomorphic on
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, so Cauchy's theorem makes each summand of
+\eqref{eq:LSLT} constant on the homotopy class of its own segment. Under a motion of
+the basepoint, the derivative $\partial_{\tau_0}L^*$ is evaluated at the moving
+endpoints alone, and the computation of Proposition~\ref{prop:indep} --- which uses
+only $f(\tau_0-1)=f(\tau_0)$ and $f(-1/\tau_0)=\tau_0^{k}f(\tau_0)$ --- cancels the
+boundary terms of $L^*_S$ against those of $L^*_T$; the interior poles lie off the
+contours and never enter. Hence $\partial_{\tau_0}L^*=0$ along any motion through
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, while each summand separately varies.
 \end{proof}
 
 \begin{definition}\label{def:class}
@@ -696,10 +702,15 @@ convergent exponentially with base $e^{-2\pi({\rm Im}\,z-1)}$.
 \end{lemma}
 
 \begin{proof}
-% [Parked proof carries over: inversion valid since |e^{2 pi i(z-tau)}| < 1 on [i-1,i];
-%  term-by-term against tk gives G_{s,k}(-n) via thm:weakL; the N=0 leftover -1 in
-%  Li_0(w) = -1 - Li_0(1/w) produces 1/s + i^k/(k-s); rate from
-%  Gamma(s,-2 pi n) ~ (2 pi n)^{s-1} e^{2 pi n} against |e^{2 pi i n z}| = e^{-2 pi n Im z}.]
+For ${\rm Im}\,z>1$ one has $|e^{2\pi i(\tau-z)}|>1$ on $[i-1,i]$, so the defining
+series of $\Li_{-N}$ diverges there; the inversion rewrites it through
+$\Li_{-N}\big(e^{2\pi i(z-\tau)}\big)=\sum_{n\ge1}n^Ne^{2\pi in(z-\tau)}$, convergent
+since $|e^{2\pi i(z-\tau)}|<1$. Integrating term by term against $\tk$, each
+$e^{-\pi is/2}\int_{i-1}^{i}e^{-2\pi in\tau}\,\tk\,d\tau$ is the mode $-n$ building
+block of Theorem~\ref{thm:weakL}, namely $G_{s,k}(-n)$; for $N=0$ the leftover $-1$ in
+$\Li_0(w)=-1-\Li_0(1/w)$ integrates to $\tfrac1s+\tfrac{i^k}{k-s}$. The rate follows
+from $\Gamma(s,-2\pi n)\sim(2\pi n)^{s-1}e^{2\pi n}$ against
+$|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$.
 \end{proof}
 
 The series of Lemma~\ref{lem:polylogcf} extends to the edge $z=i+x$,
@@ -758,6 +769,110 @@ $\gamma^S$-chambers at $s=3$ carry $\pm\pi\,\Res_{\tau=i}(\Delta/E_6)$ with prin
 value $0$: the central $L$-value of a $k\equiv2$ block is half a wall jump of
 Lemma~\ref{lem:wall}.
 \end{remark}
+
+The excluded point $z=i$ is reached through the wall: anchor the contour at
+$\tau_0=i(1+\delta)$ and let $\delta\to0^+$. Write $H_N:=\sum_{r=1}^N\tfrac1r$ and
+$c^+_j(s):=(s-1)_{(j)}+i^k\,(k-s-1)_{(j)}$.
+
+\begin{lemma}\label{lem:wallvalue}
+Let $f\in F_k$ have a pole at $i$ of order $P$, with principal part
+$\sum_{m=1}^Pa_{-m}(\tau-i)^{-m}$, and let $\widehat P_if$ be its polylog projection.
+In the class of $\tau_0=i(1+\delta)$, the $\gamma^S$-passage through $i$ taken as a
+principal value,
+\begin{equation}\label{eq:wallvalue}
+\lim_{\delta\to0^+}L^*\big(\widehat P_if,\,s\big)
+=\sum_{m=1}^{P}\frac{(-2\pi i)^m\,a_{-m}}{(m-1)!}\;\mathrm{FP}_{m-1}(s,k)~,
+\end{equation}
+\begin{equation}\label{eq:FPN}
+\mathrm{FP}_N(s,k)=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
++\sum_{\substack{j\ge0\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
++\mathcal E^+_N(s)
++\frac{(-1)^NN!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t\,(s-1)_{(t)}}{t!\,(N-t)}~,
+\end{equation}
+the $j$-sum taken to any $J\ge N+2$, with remainder
+\begin{equation}\label{eq:EplusN}
+\mathcal E^+_N(s)=\sum_{n\ge1}n^Ne^{2\pi n}\Big[(s-1)_{(J)}\,\frac{\Gamma(s-J,2\pi n)}{(2\pi n)^{s}}
++i^k\,(k-s-1)_{(J)}\,\frac{\Gamma(k-s-J,2\pi n)}{(2\pi n)^{k-s}}\Big].
+\end{equation}
+The individually divergent $\delta$-powers and logarithms cancel by modularity alone;
+for a double pole the cancellation condition is exactly the $S$-fixed-point constraint
+$a_{-1}=\tfrac{i(k-2)}{2}\,a_{-2}$.
+\end{lemma}
+
+\begin{proof}
+Write $u:=2\pi i(\tau-i)$ and $g_N(\tau):=\Li_{-N}\big(e^{u}\big)$. The expansion
+$\Li_\sigma(e^{-\mu})=\Gamma(1-\sigma)\,\mu^{\sigma-1}+\sum_{r\ge0}\zeta(\sigma-r)\frac{(-\mu)^r}{r!}$
+at $\mu=-u$ gives
+\begin{equation}\label{eq:gNLaurent}
+g_N(u)=\frac{(-1)^{N+1}N!}{u^{N+1}}+\sum_{p\ge0}\frac{\zeta(-N-p)}{p!}\,u^{p},
+\end{equation}
+a single negative power per tail; matching principal parts is therefore diagonal and
+gives $\widehat P_if=\sum_{m=1}^{P}r_m\,g_{m-1}$ with $r_m=(-2\pi i)^m a_{-m}/(m-1)!$.
+Split \eqref{eq:LSLT} at $\tau_0=i(1+\delta)$ and set $v:=e^{-2\pi\delta}$.
+
+\emph{$T$-segment.} The poles of $g_N$ lie on $i+\ZZ$, below $\gamma^T_{\tau_0}$, so
+$g_N=\sum_{n\ge1}n^Ne^{2\pi n}e^{2\pi in\tau}$ converges uniformly on the segment and
+integrates mode by mode. For
+$F_n(\tau_0):=e^{-\pi is/2}\int_{\tau_0-1}^{\tau_0}e^{2\pi in\tau}\,\tk(\tau,s)\,d\tau$,
+periodicity of the mode and the difference equation of the kernel,
+$\tk(\tau_0,s)-\tk(\tau_0-1,s)=-\tau_0^{s-1}+e^{i\pi(s-1)}\tau_0^{k-s-1}$ (from
+$\zeta(\sigma,a)-\zeta(\sigma,a+1)=a^{-\sigma}$), determine $\partial_{\tau_0}F_n$;
+comparison with Theorem~\ref{thm:weakL} at $\tau_0=i$ then fixes
+\begin{equation}\label{eq:Fmode}
+F_n(\tau_0)=\frac{\Gamma(s,-2\pi in\tau_0)}{(2\pi n)^{s}}
++i^k\,\frac{\Gamma(k-s,-2\pi in\tau_0)}{(2\pi n)^{k-s}}~,
+\end{equation}
+principal branches, the argument $-2\pi in\tau_0=2\pi n(1+\delta)$ positive. $J$-fold
+integration by parts,
+$\Gamma(s,x)=e^{-x}\sum_{j<J}(s-1)_{(j)}x^{s-1-j}+(s-1)_{(J)}\Gamma(s-J,x)$, resums the
+$T$-side of one tail into
+\begin{equation}\label{eq:Tside}
+T_N(\delta)=\sum_{j=0}^{J-1}
+\frac{(s-1)_{(j)}(1+\delta)^{s-1-j}+i^k(k-s-1)_{(j)}(1+\delta)^{k-s-1-j}}{(2\pi)^{j+1}}
+\,\Li_{j+1-N}(v)\;+\;\mathcal E^+_N(s;\delta),
+\end{equation}
+whose remainder has terms $O\big(n^{N-J-1}v^{n}\big)$ uniformly in $\delta\ge0$ and
+equals \eqref{eq:EplusN} at $\delta=0$. Expanding \eqref{eq:Tside} with the same
+$\Li_\sigma(e^{-\mu})$ formula, now at $\mu=2\pi\delta$: each $j\ne N$ contributes
+$c^+_j(s)\,\zeta(j+1-N)\,(2\pi)^{-j-1}$ at order $\delta^0$; for $j<N$ the singular
+powers $\Gamma(N-j)\,\mu^{j-N}$ meet the $\delta^{N-j}$-coefficients of the
+$(1+\delta)$-binomials, and the composition
+$(s-1)_{(j)}\,(s-1-j)_{(N-j)}=(s-1)_{(N)}$ collapses their total to
+$c^+_N(s)\,H_N\,(2\pi)^{-N-1}$; the term $j=N$ contributes only the logarithm
+$-c^+_N(s;\delta)\ln(2\pi\delta)\,(2\pi)^{-N-1}$.
+
+\emph{$S$-segment.} On the imaginary axis,
+$e^{-\pi is/2}\int_{\gamma^S}g_N\,\tau^{s-1}\,d\tau
+=\frac1{2\pi}\int_{-2\pi\delta}^{2\pi\delta/(1+\delta)}
+\big(1-\tfrac{u}{2\pi}\big)^{s-1}g_N(u)\,du$. The analytic part of
+\eqref{eq:gNLaurent} integrates to $O(\delta)$. In the pole part, expand
+$(1-\tfrac u{2\pi})^{s-1}=\sum_t\frac{(-1)^t(s-1)_{(t)}}{t!\,(2\pi)^t}u^t$: each power
+$u^{t-N-1}$ with $t<N$ is an exact derivative, so its integral is a difference of
+endpoint antiderivatives --- independent of the indentation at $u=0$ --- with
+$\delta^0$-coefficient $(2\pi)^{t-N}/(t-N)$; the power $t=N$ is the principal value
+$\ln(1+\delta)=O(\delta)$; $t>N$ is $O(\delta)$. Collecting gives the last term of
+\eqref{eq:FPN}. (A side-indentation at $u=0$ differs from the principal value by half
+the wall jump of Lemma~\ref{lem:wall}.)
+
+\emph{Cancellation.} By Proposition~\ref{prop:indepHomotopy}, $L^*(f,s)$ is constant
+for $\delta>0$ small, and $L^*\big((I-\widehat P_i)f,s\big)$ is continuous at
+$\tau_0=i$, its $\gamma^S$-integral vanishing as the segment contracts onto the
+regular point $i$. Hence
+$L^*(\widehat P_if,s)=L^*(f,s)-L^*\big((I-\widehat P_i)f,s\big)$ converges as
+$\delta\to0^+$, so the coefficients of the divergent powers $\delta^{-r}$ and of
+$\ln\delta$ in $\sum_mr_m\big(T_{m-1}+S_{m-1}\big)$ vanish identically --- in $s$ as
+well, one relation per power of $s$ --- and the limit is the sum of the
+$\delta^0$-coefficients: \eqref{eq:wallvalue} with \eqref{eq:FPN}. For $P=2$ the
+vanishing of the logarithm reads
+$r_1c^+_0(s)(2\pi)^{-1}+r_2c^+_1(s)(2\pi)^{-2}=0$, i.e.\
+$a_{-1}=\tfrac{i(k-2)}{2}\,a_{-2}$, which is the order-$\varepsilon^{-1}$ term of
+$f(-1/\tau)=\tau^kf(\tau)$ at $\tau=i+\varepsilon$.
+\end{proof}
+% [Verification (2026-07-05; t2_k4_pv.py, t2_k4_generic.py, t2_general_k.py, in repo):
+%  convergence to eq:wallvalue at O(delta^2) (even P), O(delta) + Richardson (odd P):
+%  k=4 P=2 at s = 2, 1.4, 2.6+0.7i (s=2 value a_{-2}(13 pi/6 - 1)); k=8 P=2 at
+%  s = 2.3+0.4i with parity a_{-1}/a_{-2} = 3i to 25 digits; k=6 P=1, P=3 at
+%  s = 2.3+0.4i (harmonic and zeta(-1) terms exercised).]
 
 After projection, the surviving poles of $(I-\widehat P)f$ all lie strictly below the
 line $\im\tau=1$; since the heights of a $\Gamma$-orbit accumulate only at $0$, when $f$
@@ -819,8 +934,11 @@ L^*(f,s)
 and a general class adds the wall term of Lemma~\ref{lem:wall}. Each sum converges
 exponentially: the $n$-sum with base $e^{-2\pi(1-y_b-\varepsilon)}$
 (Lemma~\ref{lem:growth}), each $I_{m-1}$ with base $e^{-2\pi(\im\tau_p-1)}$
-(Lemma~\ref{lem:polylogcf}). The excluded line $\im\tau_p=1$ --- the contour itself,
-the elliptic point $i$ included --- requires a principal-value analysis.
+(Lemma~\ref{lem:polylogcf}). On the excluded line $\im\tau_p=1$ the tail integrals
+extend continuously away from the orbit of $i$ (Lemma~\ref{lem:polylogedge}), and at
+$i$ itself the wall value is that of Lemma~\ref{lem:wallvalue}; assembling these into
+the statement of the theorem at the wall is a principal-value bookkeeping we do not
+carry out here.
 \end{theorem}
 
 \begin{proof}
