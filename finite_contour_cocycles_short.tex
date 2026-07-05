@@ -40,8 +40,8 @@ We give a single manifestly finite, regulator-free functional realizing in one o
 quasi-periods and period polynomials of meromorphic modular forms on $\SLZ$, with generic 
 poles throughout the upper half-plane $\HH$ and at the cusp of $\SLZ$. Additionally, our construction 
 is preserves holomorphicity. It is a two-segment contour integral, 
-$L^*(f,s) = L^*(f, s; \gamma^T_{\tau_0}) + L^*(f, s; \gamma^S_{\tau_0})$%LT and LS
-, where the 
+$L^*(f,s) = L^*_T(f, s; \gamma^T_{\tau_0}) + L^*_S(f, s; \gamma^S_{\tau_0})$, where $L^*_T$ and $L^*_S$ 
+have distinct integration kernels, and 
 $\gamma^{S}_{\tau_0}$ is a path in $\HH$ from $S(\tau_0)$ to $\tau_0$, and the same for $\gamma^T_{\tau_0}$. 
 For weakly holomorphic forms our L-function is independent of $\tau_0$ and of the path, and reproduces 
 classical L-functions for holomorphic modular forms, reproduces the L-functions of weak modular forms 
@@ -141,7 +141,7 @@ A similar definition applies for $f \in M_k$. (The classical definition of $L^*(
 is the focus of Remark~\ref{natural-beauty-via-finiteness}, below.) Similarly, one may define a period 
 polynomial for $f \in S_k$ in terms of this L-function,
 \begin{align}
-r_f(X, Y) := (2 \pi i)^{n+1} \sum_{\ell = 0}^{n} (-1)^\ell \binom{n}{\ell}\, i^{\ell+1}\, L^*(f,\ell+1)\,X^{n-\ell}Y^\ell~, \qquad n := k-2~.
+r_f(X, Y) := (2 \pi i)^{k-1} \sum_{\ell = 0}^{k-2} (-1)^\ell \binom{k-2}{\ell}\, i^{\ell+1}\, L^*(f,\ell+1)\,X^{k-2-\ell}Y^\ell~.
 \end{align}
 This polynomial, $r_f(X, Y) \in V_{k-2} := \CC[X, Y]_{k-2}$, has a natural action under $\SLZ$, 
 $(P|_{\gamma})(X, Y) = P(a X + b Y, c X + d Y)$ for $\gamma = 
@@ -151,27 +151,29 @@ and $|(1 + U + U^2)$\cite{KZ1984}, where $U := TS$ generates an order-3 cyclic s
 We define the \emph{periods} of a cusp form to be the coefficients that localize $r_f$ within this highly 
 constrained sub-space of $V_{k-2}$.
 
-However, as classically computed, these L-functions and associated period polynomials 
+{\bf Why this paper?} As classically computed, these L-functions and associated period polynomials 
 (when defined in terms of the special values of the associated L-function) are not defined when $f$ 
 has poles either at the cusp of $\SLZ$ or within the interior of $\HH$. As stated above, there 
-are extant, but partial and non-overlapping, extensions of the definition of $L(f,s)$ to $f \in M_k^!$ or 
-$f \in F_k$. In this note, we provide a construction that unifies these disparate extensions.
+are extant, but partial and non-overlapping, extensions of the definition of $L(f,s)$ to $f \in M_k^!$~\cite{BFK2011} or 
+$f \in F_k$ when $f$ is regular at the cusp of $\SLZ$~\cite{1806}. In this note, we provide a construction that unifies these disparate extensions.
+We start with generic L-integrals in section~\ref{sec:Lint}, then specialize to $f \in M_k^!$ in section~\ref{sec:Lfun}, and finally explore the more general context of $f \in F_k$ in section~\ref{sec:mero}.
 
 \section{A finite L-integral}\label{sec:Lint}
 
-\begin{definition}[$S$- and $T$-segments]\label{def:segments}
+
+\begin{definition}\label{def:segments}
 Let $\tau_0\in\HH$ and $f\in F_k$, let
 $S=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)$,
 $T=\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$ denote 
 the generators of $\Gamma=\SLZ$, and let $f^{-1}(\infty)$ be the locus 
 of all poles of $f \in \HH$ (inclusive of the cusp of $\SLZ$).  
 The \emph{$S$- and $T$-segments at $\tau_0$} are smooth paths in
-$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$,
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$ from $\sigma^{-1}\tau_0$ to $\tau_0$,
 \begin{equation}
 \gamma^S_{\tau_0}:\ -1/\tau_0\ \longrightarrow\ \tau_0,\qquad
-\gamma^T_{\tau_0}:\ \tau_0-1\ \longrightarrow\ \tau_0,
+\gamma^T_{\tau_0}:\ \tau_0-1\ \longrightarrow\ \tau_0.%,
 \end{equation}
-running from $S^{-1}\tau_0=-1/\tau_0$ and $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$.
+%running from $S^{-1}\tau_0=-1/\tau_0$ and $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$.
 \end{definition}
 
 Avoiding poles is automatic for $f \in M_k^!$, as long as the base-point $\tau_0$, 
@@ -179,7 +181,7 @@ is not at a cusp of $\SLZ$, i.e. there is only the trivial homotopy class.
 When $f \in F_k$, and $f$ has poles at finite and non-zero imaginary heights, 
 integration contours fall into nontrivial homotopy classes.
 
-\begin{definition}[Hurwitz $T$-kernel]\label{def:kernel}
+\begin{definition}\label{def:kernel}
 Let $\zeta(s,x)=\sum_{m\ge0}(m+x)^{-s}$ as a function 
 $\zeta: \CC_s \times (\CC\setminus\NN)_x \to \CC$ denote the 
 Hurwitz zeta function (meromorphic in $s$, holomorphic in $x\in\HH$). 
@@ -189,23 +191,24 @@ We define \emph{Hurwitz $T$-kernel} as
 \end{equation}
 \end{definition}
 
-\begin{definition}[$L$-integral]\label{def:Lint}
+\begin{definition}[Generic L-integral]
+\label{def:Lint}
 Let $f\in F_k$, $\tau_0\in\HH$, and $s\in\CC$. Further, let $\gamma^S_{\tau_0}$,
 $\gamma^T_{\tau_0}$ be the $S$- and $T$-segments at $\tau_0$, as in
 Definition~\ref{def:segments}, and let $\tk$ be as defined in 
 Definition~\ref{def:kernel}. The \emph{$L$-integral} of $f$ is
 \begin{equation}
 L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
-:=e^{-\pi i s/2}\Big[\int_{\gamma^S_{\tau_0}}\! f(\tau)\,\tau^{s-1}\,d\tau
-+\int_{\gamma^T_{\tau_0}}\! f(\tau)\,\tk(\tau,s)\,d\tau\Big].
+:= L^*_S(f,s; \gamma^S_{\tau_0}) + L^*_T(f,s; \gamma^T_{\tau_0})
+:=e^{-\pi i s/2}\left(\int_{\gamma^S_{\tau_0}}\!\!\!\! f(\tau)\tau^{s-1}\,d\tau
++\int_{\gamma^T_{\tau_0}}\!\!\!\! f(\tau)\tk(\tau,s)d\tau\right)
 \end{equation}
 \end{definition}
-
 We use this \emph{L-integral} to define a generalized 
 \emph{L-function}:
 
-\begin{definition}[$L$-function]\label{def:Lfun}
-Let $L^*(f,s;\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ be as defined in~\ref{def:Lint}. 
+\begin{definition}[Generic L-function]\label{def:Lfun}
+Let $L^*(f,s;\gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ be as defined in Definition~\ref{def:Lint}. 
 We define the generalized \emph{$L$-function} of $f\in F_k$ to be,
 \begin{equation}
 L(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
@@ -215,7 +218,7 @@ L(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
 
 Having defined the L-integral and L-function, we prove they are manifestly finite for $f \in F_k$: 
 
-\begin{lemma}[Finiteness]\label{lem:finite}
+\begin{lemma}[Finiteness of L-integrals]\label{lem:finite}
 For $f\in F_k$, both integrals in Definition~\ref{def:Lint} are finite for every
 $s\in\CC$, every $\tau_0\in\HH$, and every choice of paths
 $\gamma^S_{\tau_0},\gamma^T_{\tau_0}$.
@@ -235,7 +238,7 @@ the L-integral and the L-function of $f \in F_k$.
 %write $L^*(f, s: \gamma^S_{\tau_0}, \gamma^T_{\tau_0}) = L^*(f,s)$; similarly for $L(f,s)$. 
 This holds for all $f \in M_k^!$:
 
-\begin{proposition}[Basepoint and path independence]\label{prop:indep}
+\begin{proposition}[Basepoint \& path independence]\label{prop:indep}
 For $f\in M^!_k$ the value $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ is independent
 of $\tau_0\in\HH$ and of the paths: with no interior poles, $\HH$ is simply connected,
 so all admissible contours are homotopic. We write $L^*(f,s)$ for the common value and
@@ -248,11 +251,12 @@ holomorphic on $\HH$, which is simply connected; by Cauchy's theorem each integr
 under any deformation fixing its endpoints, hence depends on those endpoints alone. This is
 path-independence.
 
-For independence of $\tau_0$ we differentiate the two integrals and watch them cancel. The
-$T$-segment runs from $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$ --- two endpoints a unit apart,
+For independence of $\tau_0$ show that variations in $\tau_0$ for the S-term and T-term in $L^*(f,s)$ 
+cancel, i.e. that $\partial_{\tau_0} L^*_S(f,s:\gamma^S_{\tau_0}) = -\partial_{\tau_0} L^*_T(f,s:\gamma^T_{\tau_0})$. 
+For $L^*_T$, note that the $T$-segment runs from $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$ --- two endpoints a unit apart,
 moving together with $\tau_0$ --- so by Leibniz's rule and the $T$-periodicity $f(\tau_0-1)=f(\tau_0)$,
 \begin{equation}
-\partial_{\tau_0}\!\!\int_{\gamma^T}\!\! f\,\tk
+\partial_{\tau_0} L^*_T(f, s; \gamma^T_{\tau_0})
 =f(\tau_0)\,\tk(\tau_0,s)-f(\tau_0-1)\,\tk(\tau_0-1,s)
 =f(\tau_0)\,\delta_T\tk(\tau_0-1,s),
 \end{equation}
@@ -261,23 +265,23 @@ unit gap between the endpoints turns the $\partial_{\tau_0}$ boundary term into 
 the kernel. That shift is elementary --- the kernel was built for it --- since
 $\zeta(\nu,x+1)-\zeta(\nu,x)=-x^{-\nu}$ gives, on both terms at $x=\tau+1$,
 \begin{align}
-\delta_T\tk(\tau,s)&=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s}
+& \delta_T\tk(\tau,s)=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s}
 \\
-\implies \partial_{\tau_0}\!\!\int_{\gamma^T}\!\! f\,\tk&=f(\tau_0)\big[-\tau_0^{s-1}+e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
+& \implies \partial_{\tau_0} L^*_T(f, s; \gamma^T_{\tau_0}) =f(\tau_0)\big[-\tau_0^{s-1}+e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
 \end{align}
 The $S$-segment runs $-1/\tau_0\to\tau_0$; its lower endpoint moves with
 $\partial_{\tau_0}(-1/\tau_0)=\tau_0^{-2}$, so by Leibniz, the modularity
 $f(-1/\tau_0)=\tau_0^k f(\tau_0)$, and the phase $(-1/\tau_0)^{s-1}=e^{i\pi(s-1)}\tau_0^{1-s}$,
 \begin{equation}
-\partial_{\tau_0}\!\!\int_{\gamma^S}\!\! f\,\tau^{s-1}
+\partial_{\tau_0} L^*_S(f, s; \gamma^S_{\tau_0}) 
 =f(\tau_0)\tau_0^{s-1}-f(-1/\tau_0)\,(-1/\tau_0)^{s-1}\,\tau_0^{-2}
 =f(\tau_0)\big[\tau_0^{s-1}-e^{i\pi(s-1)}\tau_0^{k-1-s}\big].
 \end{equation}
-The two brackets are negatives of each other, so
-$\partial_{\tau_0}L^*=e^{-\pi i s/2}\big(\partial_{\tau_0}\!\int_{\gamma^S}+\partial_{\tau_0}\!\int_{\gamma^T}\big)=0$.
+Thus $\tau_0$-variations are equal and opposite, $\partial_{\tau_0}L^*_S = - \partial_{\tau_0}L^*_T$. Thus 
+$\partial_{\tau_0}L^*=\partial_{\tau_0}L^*_S + \partial_{\tau_0}L^*_T=0$.
 \end{proof}
 
-\begin{remark}[Classical L-function contour]\label{rem:mellin}
+\begin{remark}[Recovering the classical L-integral for $f \in S_k$]\label{rem:mellin}
 Let $f\in S_k$. As $\tau_0\to i\infty$, the $S$-segment maps onto the standard 
 L-function contour, $[0,i\infty]$. Simultaneously, as $f(it) \sim e^{-2\pi t}$ as 
 $t \to \infty$, the $T$-segment vanishes exponentially. Thus, in this limit, $L^*(f,s)$ 
@@ -289,12 +293,11 @@ exactly maps onto the classical L-function integral~\cite{01-Apostol}:
 
 \section{$L$-functions for weak modular forms}\label{sec:Lfun}
 
-\begin{proposition}[Hurwitz-Gamma]\label{prop:HGG}
+\begin{proposition}\label{prop:HGG}
 Let $\Gamma(s, x) := \int_x^{\infty} e^{-t} t^{s-1} dt$ denote the {\em incomplete Gamma function}. For $n\ne0$, $\nu\in\CC$, and $z\in\HH$,
 \begin{equation}
 \int_{z}^{z+1}\! e^{2\pi inu}\,\zeta(\nu,u)\,du=e^{i \pi (1-\nu)/2} (2\pi n)^{\nu-1}\,\Gamma\big(1-\nu,-2\pi i n z\big).
 \end{equation}
-At $z=i$ the argument $-2\pi i n z$ collapses to $2\pi n$, giving $\Gamma(1-\nu,2\pi n)$.
 \end{proposition}
 
 \begin{proof}
@@ -316,50 +319,57 @@ vanishes. With $v^{-\nu}=i^{-\nu}(2\pi n)^{\nu}w^{-\nu}$,
 \end{equation}
 For $n<0$ the ray instead grows as $\im v\to\infty$ and the rotation is illegal; but both sides are
 analytic in $n$ and agree for $n>0$, so the identity continues to $n<0$ with $\Gamma$ on its principal
-branch. At $n=0$ the prefactor $(2\pi n)^{\nu-1}$ is singular --- that mode, the constant Fourier
-coefficient, is handled separately.
+branch. At $n=0$ the prefactor $(2\pi n)^{\nu-1}$ is singular; that case is handled separately.
 \end{proof}
 
-\begin{theorem}[$L$-function for weakly holomorphic forms]\label{thm:weakL}
+\begin{theorem}[The $L$-function for $f \in M_k^!$]\label{thm:weakL}
 For $f\in M^!_k$, we may set $\tau_0=i$, and prove
 \begin{equation}\label{eq:weakL}
 L^*(f,s)=-c_f(0)\left(\frac1s+\frac{i^k}{k-s}\right)
 +\sum_{n\ne0}c_f(n)\left(\frac{\Gamma(s,2\pi n)}{(2\pi n)^s}+i^k\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\right)~.
 \end{equation}
-This L-integral satisfies the functional equation $L^*(f,s) = i^k L^*(f,k-s)$.
+Here, trivially, $L^*(f,s) = i^k L^*(f,k-s)$. The L-function is $L(f,s) := (2\pi)^s L^*(f,s) /\Gamma(s)$.
 \end{theorem}
 
 \begin{proof}
 By path independence and base-point independence from Proposition~\ref{prop:indep}, 
-we may freely set $\tau_0=i$. Here, the $S$-segment degenerates ($-1/i=i$), and 
+we may freely set $\tau_0=i$. Here, $L^*_S(f, s; \gamma^S_{\tau_0}) = 0$ (the $S$-contour 
+vanishes in length and there are no nontrivial homotopy classes as $f \in M_k^!$ has no poles 
+which a finite contour can wrap), and 
 the L-integral simplifies dramatically:
 \begin{equation}
-L^*(f,s)=e^{-\pi i s/2}\int_{i-1}^{i} f(\tau)\tk(\tau, s)d\tau~. 
+L^*(f,s) = L^*_T(f, s; \gamma^T_i) =e^{-\pi i s/2}\int_{i-1}^{i} f(\tau)\tk(\tau, s)d\tau~. 
 \end{equation}
 We then expand $f$ in terms of its q-series, $\sum_n c_f(n)e^{2\pi in\tau}$,
-and substitute $u=\tau+1$, and note that $e^{2\pi i n(u-1)}=e^{2\pi i n u}$. 
-Here, each $n\neq0$ mode is handled by a straightforward substitution of 
-$\nu, z$ into Proposition~\ref{prop:HGG}: Substituting $1-\nu=s$ gives the first 
-term, and substituting $1-\nu = k-s$ gives the second: 
+and substitute the $u$-variable of Proposition~\ref{prop:HGG} as 
+$u=\tau+1$, and note that $e^{2\pi i n(u-1)}=e^{2\pi i n u}$. 
+When $n\neq0$, straightforward substitutions of 
+$\nu, z$ into Proposition~\ref{prop:HGG} suffice: $1-\nu=s$ gives the 
+contribution of the first term in $\tk(\tau, s)$, and $1-\nu = k-s$ gives the second: 
 \begin{align}
 e^{-\pi i s/2}\left(e^{\pi i s/2} \frac{\Gamma(s,2\pi n)}{(2\pi n)^s} - e^{i\pi(s-1)}e^{\pi i (k-s)/2} \frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\right) = \frac{\Gamma(s, 2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2\pi n)}{(2\pi n)^{k-s}}~.
 \end{align}
-So each $n\ne0$ mode contributes $\Gamma(s,2\pi n)/(2\pi n)^{s}+i^{k}\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}$. 
-
-Crucially, we may evaluate the $n=0$ mode's contribution as follows. The Hurwitz zeta function,
-$\zeta(\sigma, a) = \sum_{m \geq 0}(m+a)^{-\sigma}$, satisfies
-\begin{equation}
-\int \zeta(\sigma, a)\,da = -\frac{\zeta(\sigma - 1, a)}{\sigma - 1} + C~
-\end{equation} 
-for $\sigma \ne 1$. Now, note that the finite difference $\zeta(\sigma - 1, a + 1) - 
-\zeta(\sigma - 1, a) = -a^{1 - \sigma}$ follows directly from the sum-representation 
-of $\zeta(\sigma, a)$, when evaluated at $a = i$ gives a closed form solution for the definite integral, 
+%So each $n\ne0$ mode contributes $\Gamma(s,2\pi n)/(2\pi n)^{s}+i^{k}\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}$. 
+%
+%Crucially, 
+We may then evaluate the $n=0$ mode's contribution %as follows. The Hurwitz zeta function,
+%$\zeta(\sigma, a) = \sum_{m \geq 0}(m+a)^{-\sigma}$, satisfies
+%\begin{equation}
+%\int \zeta(\sigma, a)\,da = -\frac{\zeta(\sigma - 1, a)}{\sigma - 1} + C~
+%\end{equation} 
+%for $\sigma \ne 1$. Now, note that the finite difference $\zeta(\sigma - 1, a + 1) - 
+%\zeta(\sigma - 1, a) = -a^{1 - \sigma}$ follows directly from the sum-representation 
+%of $\zeta(\sigma, a)$, when evaluated at $a = i$ gives a 
+follows from noting the 
+closed form solution for the definite integral, 
 \begin{equation}\label{eq:hurwitz-antideriv}
 \int_{i - 1}^{i}\! \zeta(\sigma, \tau + 1)\,d\tau
  = \int_i^{i + 1}\!\zeta(\sigma, u)\,du
  = \frac{i^{1 - \sigma}}{\sigma - 1}.
 \end{equation}
-Finally, applying this to the two distinct terms of $\widetilde{k}_T(\tau, s)$ at $\sigma = 1 - s$ and $\sigma = 1 - (k - s)$ gives
+This result follows from noting $\partial_a(\zeta(\sigma-1, a)/(1-\sigma)) = \zeta(\sigma,a)$ 
+and $\zeta(\sigma-1, a+1) - \zeta(\sigma-1, a) = -a^{1-\sigma}$. 
+Applying this to the two distinct terms of $\widetilde{k}_T(\tau, s)$ at $\sigma = 1 - s$ and $\sigma = 1 - (k - s)$ gives
 \begin{equation}\label{eq:const-mode-integral}
 e^{-\pi i s/2}\int_{i - 1}^{i}c_f(0)\widetilde{k}_T(\tau, s)\,d\tau
 = -c_f(0)\left(\frac{1}{s}  + \frac{i^k}{k - s}\right).
@@ -371,14 +381,14 @@ Finally, the functional equation, $L^*(f,s)=i^k L^*(f,k-s)$, follows by direct i
 
 \subsection{Explicit S- and T-contours for general $\tau_0$}
 
-\begin{lemma}[$T$-segment closed form on $M^!_k$]\label{lem:Tclosed-Mk}
-For $f\in M^!_k$, for generic $\tau_0 \in \HH$ away from cusps, denote the T-contour's
-contribution to $L^*(f, s)$ as $L^*_T(f, s; \gamma^T_{\tau_0})$. For generic $\tau_0$, we have:
+\begin{lemma}[$L^*_T$ for $M^!_k$]\label{lem:Tclosed-Mk}
+For $f\in M^!_k$, and $\tau_0 \in \HH$ away from cusps, 
+$L^*_T(f, s; \gamma^T_{\tau_0})$ evaluates to:
 \begin{equation}\label{eq:T-segment-closed-Mk}
 L_T^*(f, s; \gamma^T_{\tau_0})
-= -c_f(0)\!\left(\frac{(\tau_0/i)^{s}}{s} + \frac{i^k(\tau_0/i)^{k-s}}{k-s}\right) + \sum_{n \ne 0}\! c_f(n)\!\left(\frac{\Gamma(s, -2\pi i n\tau_0)}{(2\pi n)^s} + i^k\frac{\Gamma(k - s, -2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right).
+= -c_f(0)\!\left(\frac{(\tau_0/i)^{s}}{s} + i^k\frac{(\tau_0/i)^{k-s}}{k-s}\right) + \sum_{n \ne 0}\! c_f(n)\!\left(\frac{\Gamma(s, -2\pi i n\tau_0)}{(2\pi n)^s} + i^k\frac{\Gamma(k - s, -2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right).
 \end{equation}
-At $\tau_0 = i$ the constant mode collapses to $-c_f(0)(1/s + i^k/(k-s))$, recovering Theorem~\ref{thm:weakL}.
+%At $\tau_0 = i$ the constant mode collapses to $-c_f(0)(1/s + i^k/(k-s))$, recovering Theorem~\ref{thm:weakL}.
 \end{lemma}
 \begin{proof}
 Expand $f = \sum_n c_f(n)\,q^n$ on the compact segment
@@ -397,7 +407,7 @@ $-e^{-\pi i s/2}\tau_0^{\,s}/s$ and $-e^{\pi i s/2}\tau_0^{\,k-s}/(k-s)$ respect
 \end{proof}
 
 
-\begin{corollary}[$T$-segment cusp asymptotics]\label{lem:cusp-decay}
+\begin{corollary}[$L^*_T$ as $\tau_0 \to i \infty$]\label{lem:cusp-decay}
 Let $f \in S^!_k$, where $f = \sum_{n \geq -N} c_f(n)q^n$ for some $-N \in \ZZ$. 
 The T-contour's contribution to $L^*(f,s)$ is given by 
 Lemma~\ref{lem:Tclosed-Mk}. As $\tau_0 = it$ goes to the cusp $i\infty$,
@@ -416,31 +426,36 @@ Combining these results yields the claimed asymptotics.
 Now, exploiting $\tau_0$-independence of $L^*(f, s)$, its explicit value as given in 
 Theorem~\ref{thm:weakL}, and the explicit T-contribution $L^*_T(f, s; \gamma^T_{\tau_0})$ %LT
 trivially 
-implies clean, closed-form expressions for the S-contour's contribution to $L^*(f,s)$: 
+implies clean, closed-form expressions for $L^*_S(f, s; \gamma^S_{\tau_0})$:%the S-contour's contribution to $L^*(f,s)$: 
 
-\begin{corollary}[$S$-segment closed form]\label{cor:Sclosed}
-For $f\in M^!_k$ and $\tau_0\in\HH$, the $S$-contribution
-$L_S^*(f,s;\gamma^S_{\tau_0}) := e^{-\pi i s/2}\!\int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau$
-is the full $L$-value minus the $T$-contribution at the same base point, hence an explicit difference
-of incomplete gammas between the base points $i$ and $\tau_0$:
+\begin{corollary}[$L^*_S$ for $M_k^!$]\label{cor:Sclosed}
+For $f\in M^!_k$ and $\tau_0\in\HH$, 
+$L^*_S(f, s; \gamma^S_{\tau_0})$ evaluates to
+%the $S$-contribution
+%$L_S^*(f,s;\gamma^S_{\tau_0}) := e^{-\pi i s/2}\!\int_{-1/\tau_0}^{\tau_0}\! f(\tau)\,\tau^{s-1}\,d\tau$
+%is the full $L$-value minus the $T$-contribution at the same base point, hence an explicit difference
+%of incomplete gammas between the base points $i$ and $\tau_0$:
 \begin{align}
 L_S^*(f,s;\gamma^S_{\tau_0})
-&= L^*(f,s) - L_T^*(f,s;\gamma^T_{\tau_0}) \label{eq:S-segment-closed}\\%LT
-&= c_f(0)\left(\frac{e^{-\pi i s/2}\tau_0^{\,s}-1}{s}
-+ \frac{e^{\pi i s/2}\tau_0^{\,k-s}-i^k}{k-s}\right) \label{eq:S-segment-explicit}\\
+&= c_f(0)\left(\frac{(\tau_0/i)^{\,s}-1}{s}
++ i^k\frac{(\tau_0/i)^{\,k-s}-1}{k-s}\right) \label{eq:S-segment-explicit}\\
 &+ \sum_{n\ne0} c_f(n)\!\left(\frac{\Gamma(s,2\pi n)-\Gamma(s,-2\pi i n\tau_0)}{(2\pi n)^s}
 + i^k\,\frac{\Gamma(k-s,2\pi n)-\Gamma(k-s,-2\pi i n\tau_0)}{(2\pi n)^{k-s}}\right)~. \nonumber
 \end{align}
 \end{corollary}
 \begin{proof}
-Line \eqref{eq:S-segment-closed} is the definition $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
-= L_S^*(\gamma^S_{\tau_0}) + L_T^*(\gamma^T_{\tau_0})$ together with the $\tau_0$-independence of $L^*$
-(Proposition~\ref{prop:indep}); evaluating at $\tau_0=i$, where $L_S^*(\gamma^S_i)=0$, identifies
-$L^*(f,s)=L_T^*(\gamma^T_i)$. %LT
-Line \eqref{eq:S-segment-explicit} then inserts the closed forms of
-Theorem~\ref{thm:weakL} for $L^*(f,s)$ and Lemma~\ref{lem:Tclosed-Mk} for $L_T^*(\gamma^T_{\tau_0})$:
-the $n\ne0$ modes subtract base point by base point into the incomplete-gamma differences, and the two
-constant modes subtract to the $c_f(0)$-terms in Eq.~\eqref{eq:S-segment-explicit}.
+Recall $L^*(f, s) - L^*_T(f, s; \gamma^T_{\tau_0}) = L^*_S(f, s; \gamma^S_{\tau_0})$. 
+Now, $L^*(f,s)$ for $f \in M_k^!$ is given by Theorem~\ref{thm:weakL}, and 
+$L^*_T(f, s; \gamma^T_{\tau_0})$ is given by Lemma~\ref{lem:Tclosed-Mk}. 
+Their difference yields Eq.~\eqref{eq:S-segment-explicit}.
+%Line \eqref{eq:S-segment-closed} is the definition $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})
+%= L_S^*(\gamma^S_{\tau_0}) + L_T^*(\gamma^T_{\tau_0})$ together with the $\tau_0$-independence of $L^*$
+%(Proposition~\ref{prop:indep}); evaluating at $\tau_0=i$, where $L_S^*(\gamma^S_i)=0$, identifies
+%$L^*(f,s)=L_T^*(\gamma^T_i)$. %LT
+%Line \eqref{eq:S-segment-explicit} then inserts the closed forms of
+%Theorem~\ref{thm:weakL} for $L^*(f,s)$ and Lemma~\ref{lem:Tclosed-Mk} for $L_T^*(\gamma^T_{\tau_0})$:
+%the $n\ne0$ modes subtract base point by base point into the incomplete-gamma differences, and the two
+%constant modes subtract to the $c_f(0)$-terms in Eq.~\eqref{eq:S-segment-explicit}.
 \end{proof}
 
 
@@ -448,30 +463,48 @@ constant modes subtract to the $c_f(0)$-terms in Eq.~\eqref{eq:S-segment-explici
 
 As discussed in Remark~\ref{rem:mellin}, for $f \in S_k$, taking the cusp-limit
 $\tau_0 \to i\infty$ in Theorem~\ref{thm:weakL} collapses the $S$-segment 
-onto the classical Mellin contour $[0, i\infty]$ while the $T$-segment vanishes 
-exponentially, since $f(it) = O(e^{-2\pi t})$ on the segment as $\tau = it \to i\infty$. 
+onto the classical Mellin contour $[0, i\infty]$ while via Corollary~\ref{lem:cusp-decay} 
+the $T$-segment vanishes exponentially as $L^*_T(f, s; \gamma^T_{\tau_0}) \sim f(\tau_0) 
+\sim e^{-2\pi {\rm Im}(\tau_0) N}$ (as $f \in S_k \Leftrightarrow f = \sum_{n \geq N} c_f(n) q^n$ with $N \geq 1$). 
 I.e., here, one recovers the classical L-integral of $f$ without obstruction:
 \begin{equation}\label{eq:Mellin-recovery}
 \lim_{\tau_0 \to i\infty}\!
 L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})
 \;=\; \int_0^\infty\! t^{s - 1}\,f(it)\,dt~.
 \end{equation}  
+This story changes when $f = 1/q^N (1 + O(q)) \in S_k^!$ for some $N \geq 1$. 
+%Of course, path- and base-point independence of $L^*(f, s) = L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
+%is guaranteed by Theorem~\ref{thm:weakL} for all $f \in M_k^!$. However, these 
+%L-integrals are the sums of the S-contour and T-contour. Finiteness is ensured only 
+%of the sum of these two parts. Both contours may, and indeed do, grow without bound 
+%as $\tau_0 \to i \infty$ when $f \notin M_k$, as is highlighted in Corollary~\ref{lem:cusp-decay}:
 
-Of course, path- and base-point independence of $L^*(f, s) = L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
-is guaranteed by Theorem~\ref{thm:weakL} for all $f \in M_k^!$. However, these 
-L-integrals are the sums of the S-contour and T-contour. Finiteness is ensured only 
-of the sum of these two parts. Both contours may, and indeed do, grow without bound 
-as $\tau_0 \to i \infty$ when $f \notin M_k$, as is highlighted in Corollary~\ref{lem:cusp-decay}:
-
-As $\tau_0\to i\infty$ the polar mode $q^{-N}$ of a properly weakly holomorphic modular form 
-$f \in M_k^! $ makes the $T$-contribution grow like $e^{2\pi N\,\im\tau_0}$ and the $S$-contribution
-diverge oppositely. Yet their sum, the $\tau_0$-independent value $L^*(f,s)$, remains finite and constant
-over all finite $\tau_0 \in \HH$. Discarding $\gamma^T_{\tau_0}$ therefore does violence to the result: 
+In this context, while of course the sum $L^*_T(f, s; \gamma^T_{\tau_0}) + 
+L^*_S(f, s; \gamma^S_{\tau_0}) = L^*(f,s)$ is manifestly invariant under 
+changes of the base-point, each of these two terms can indeed change values. Indeed, 
+Corollary~\ref{lem:cusp-decay} clearly shows that as $\tau_0 \to i \infty$, when $f \in S_k^!$ 
+has negative powers of $q$ in its q-series, then $L^*_T(f, s; \gamma^T_{\tau_0}) \sim 
+e^{2 \pi N {\rm Im}(\tau_0)}$. Discarding $\gamma^T_{\tau_0}$ therefore does violence to the result: 
 When the $S$-contour is isolated from its T-partner, and $\tau_0 \to i \infty$, it diverges. This is the precise
 reason that~\cite{BFK2011} needed to regularize their divergent L-integral representation for properly weak 
 cusp forms.
 
-\begin{remark}\label{natural-beauty-via-finiteness}
+%\pagebreak
+%Of course, path- and base-point independence of $L^*(f, s) = L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ 
+%is guaranteed by Theorem~\ref{thm:weakL} for all $f \in M_k^!$. However, these 
+%L-integrals are the sums of the S-contour and T-contour. Finiteness is ensured only 
+%of the sum of these two parts. Both contours may, and indeed do, grow without bound 
+%as $\tau_0 \to i \infty$ when $f \notin M_k$, as is highlighted in Corollary~\ref{lem:cusp-decay}:
+
+%As $\tau_0\to i\infty$ the polar mode $q^{-N}$ of a properly weakly holomorphic modular form 
+%$f \in M_k^! $ makes the $T$-contribution grow like $e^{2\pi N\,\im\tau_0}$ and the $S$-contribution
+%diverge oppositely. Yet their sum, the $\tau_0$-independent value $L^*(f,s)$, remains finite and constant
+%over all finite $\tau_0 \in \HH$. Discarding $\gamma^T_{\tau_0}$ therefore does violence to the result: 
+%When the $S$-contour is isolated from its T-partner, and $\tau_0 \to i \infty$, it diverges. This is the precise
+%reason that~\cite{BFK2011} needed to regularize their divergent L-integral representation for properly weak 
+%cusp forms.
+
+\begin{remark}[Recovering the classical L-integral for $f \in M_k$]\label{natural-beauty-via-finiteness}
 In textbook treatments~\cite{01-Apostol}, when $f \in M_k$, its L-integral is defined as
 \begin{align}
 L^*(f,s)|_{\rm cl} :=&~ \int_0^\infty \big( f(it) - c_f(0) \big) t^{s-1} dt = \frac{\Gamma(s)}{(2 \pi)^s} \sum_{n = 1}^{\infty} \frac{c_f(n)}{n^s} \\
@@ -491,10 +524,10 @@ of the classical Mellin contour, $\int_0^\infty$.
 
 \subsection{Period polynomials, periods and quasi-periods}
 
-Because $L^*(f,s)$ is canonical for every $f\in M^!_k$, the period polynomial needs no separate
+Because $L^*(f,s)$ is canonical for every $f\in S^!_k$, the period polynomial needs no separate
 construction --- it is the generating polynomial of the critical values.
 
-\begin{definition}[Period polynomial]\label{def:rf}
+\begin{definition}[Period polynomial for $S_k^!$]\label{def:rf}
 For $f\in S^!_k$ and $n=k-2$, the \emph{period polynomial} is
 \begin{equation}
 r_f(X,Y):=(2\pi i)^{n+1}\sum_{\ell=0}^{n}(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}\,L^*(f,\ell+1)\,X^{n-\ell}Y^\ell.
@@ -513,13 +546,18 @@ r_f(X, Y)=(2\pi i)^{n+1}\Big[\int_{\gamma^S_{\tau_0}} f(\tau)\,(X-\tau Y)^n\,d\t
 \begin{proof}
 By Definition~\ref{def:Lint}, the $X^{n-\ell}Y^\ell$ coefficient of the bracket is
 \begin{equation}
-r_f|_{X^{n-\ell}Y^\ell} = (-1)^\ell\binom{n}{\ell}\big[\int_{\gamma^S} f(\tau) \tau^\ell+\int_{\gamma^T} f(\tau)\tk(\tau,\ell+1)\big]
+r_f|_{X^{n-\ell}Y^\ell} = (-1)^\ell\binom{n}{\ell} i^{\ell+1} 
+\big[
+L^*_S(f, \ell+1) 
++
+L^*_T(f, \ell+1)
+\big]
 =(-1)^\ell\binom{n}{\ell}\,i^{\ell+1}L^*(f,\ell+1)~.
 \end{equation}
 This matches definition~\ref{def:rf} term by term, and proves the claim.
 \end{proof}
 
-\begin{remark}[The role of the $T$-kernel]
+\begin{remark}[The role of the $T$-kernel in Eichler--Shumura theory]
 The Hurwitz $T$-kernel in this note was originally uncovered in order to reproduce the manifestly
 finite computations of the quasi-periods for $\Dhat = 1/q + O(q^2) \in S_{12}^!$ originally given
 in~\cite{Brown2017}. Its role in the period polynomial~\eqref{eq:rf} is sharp: the $S$-segment alone
@@ -550,12 +588,12 @@ Further, define
 \end{align}
 Brown--Hain~\cite[Prop.~5.6]{BrownHain2018} show that $\det({\rm pd}_k)$ satisfies a 
 Legendre-type relation, $\det({\rm pd}_k)\in\QQ^\times\cdot(2\pi i)^{k-1}$. Brown~\cite[\S8.3]{Brown2017}
-evaluates the constant at $k=12$; we reproduce this result at $k=12$ and give the analogous
-rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below:
+numerically finds $\alpha_k=1$; we reproduce this result at $k=12$ and give the analogous
+rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below.
 
 \begin{table}[H]\centering\small
 \begin{tabular}{r|rrrr|c}
-$k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)/i$ & $\alpha_k$\\\hline
+$k$ & $\omega^+(\Delta_k)$ & $\omega^-(\Delta_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)/i$ & $\alpha_k$\\\hline
 12 & $-6.89168\mathrm{e}7$  & $-5.58502\mathrm{e}6$  & $1.27202\mathrm{e}{11}$ & $1.02767\mathrm{e}{10}$  & $1$\\
 16 & $-8.81481\mathrm{e}{11}$ & $-1.54063\mathrm{e}{10}$ & $4.14120\mathrm{e}{13}$ & $6.83541\mathrm{e}{11}$ & $13/30$\\
 18 & $-5.07833\mathrm{e}{13}$ & $-5.43305\mathrm{e}{12}$ & $-2.19200\mathrm{e}{14}$ & $-3.36339\mathrm{e}{13}$ & $2/3$\\
@@ -563,30 +601,30 @@ $k$ & $\omega^+(f_k)$ & $\omega^-(f_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)
 22 & $-1.49974\mathrm{e}{18}$ & $-4.24489\mathrm{e}{16}$ & $1.43795\mathrm{e}{18}$ & $-4.41050\mathrm{e}{16}$ & $19/21$\\
 26 & $-1.18673\mathrm{e}{22}$ & $-3.60961\mathrm{e}{21}$ & $1.18653\mathrm{e}{22}$ & $-3.61016\mathrm{e}{21}$ & $23/15$\\
 \end{tabular}\caption{Periods $\omega^\pm(\Delta_k)$ and quasi-periods 
-$\eta^\pm(\Dhat_k)$, and the rational number $\alpha_k$. Note, while 
-$\alpha_{12} = 1$ matching Brown~\cite{Brown2017}, $\alpha_k$ for $k\ge16$ 
+$\eta^\pm(\Dhat_k)$, and the rational number $\alpha_k$. While 
+$\alpha_{12} = 1$ matches Brown~\cite{Brown2017}, $\alpha_k$ for $k\ge16$ 
 appear to be new, interesting, rational numbers, albeit with implicit dependence
-on the period-polynomial basis normalizations. While this may obfuscate novelty,
-we have not found a clear pattern. Details of these extractions, and 50-digit
-extraction of these rational numbers is in~\cite{VerifyScripts}.
+on the period-polynomial basis normalizations. We have not found a clear pattern 
+for the $\alpha_k$. See ~\cite{VerifyScripts} for the scripts that extracted these 
+figures (to 50-digit precision).
 }\label{tab:periods}
 \end{table}
 
-\begin{remark}[External check: the Petersson norm]
-The periods $r_m(f)=\int_0^{i\infty}\tau^m f(\tau)\,d\tau = i^{m+1} L^*(f,m+1)$ read off the
-finite-contour integral are the classical critical periods, so they must obey Haberland's formula
-\begin{equation}\label{eq:haberland}
--6\,(-2i)^{k-2}\,\langle f,f\rangle
-= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
-\im\!\big(r_m(f)\,\overline{r_n(f)}\big),
-\end{equation}
-which recovers the Petersson norm $\langle f,f\rangle$ from the period polynomial~\cite[Thm.~5.2]{Cohen2013}.
-Unlike $\alpha_k$, this test is \emph{independent of the period-polynomial basis normalization}. For
-$\Delta$ ($k=12$) our $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
-=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
-$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
-\end{remark}
-
+%\begin{remark}[External check: the Petersson norm]
+%The periods $r_m(f)=\int_0^{i\infty}\tau^m f(\tau)\,d\tau = i^{m+1} L^*(f,m+1)$ read off the
+%finite-contour integral are the classical critical periods, so they must obey Haberland's formula
+%\begin{equation}\label{eq:haberland}
+%-6\,(-2i)^{k-2}\,\langle f,f\rangle
+%= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
+%\im\!\big(r_m(f)\,\overline{r_n(f)}\big),
+%\end{equation}
+%which recovers the Petersson norm $\langle f,f\rangle$ from the period polynomial~\cite[Thm.~5.2]{Cohen2013}.
+%Unlike $\alpha_k$, this test is \emph{independent of the period-polynomial basis normalization}. For
+%$\Delta$ ($k=12$) our $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
+%=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
+%$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
+%\end{remark}
+%DAM: Removed this remark, as it seems to be utterly besides the point. We compute the L-values, we use the standard Bernoulli-number basis of W_\pm from KZ1984. What else is there to ask about? This norm just seems like it has to do with relating some classical inner products to one-another. At best, this remark should just be in-line text, mentioning that "We checked to see if our bases W_\pm(k) are consistent with the Haberland-formula, [equation]. We find that they are indeed consistent, when we focus on the holomorphic cusp forms $\Delta_k \in S_k$ for the $k$s considered in this subsection" or something. Dunno. As is, this seems strained and out of place.
 
 \section{Meromorphic modular forms}\label{sec:mero}
 
@@ -994,6 +1032,35 @@ and quasi-periods $\eta^\pm(\widehat\Delta_k)$ are quoted to ten digits (full pr
 \texttt{period\_polynomial\_bases.py}); $r_{\widehat\Delta_k}$ is the parabolic representative --- the raw
 weak-form period polynomial differs by a $C_T$-coboundary the construction gauge-fixes.
 
+\paragraph{Comment on the sizes of the $L$-values.}
+Each critical value is a sum of two incomplete Gammas (Theorem~\ref{thm:weakL}),
+\begin{equation}\label{eq:Lsum}
+L^*(f,s)=\sum_{n\ne0}c_f(n)\Big[\frac{\Gamma(s,2\pi n)}{(2\pi n)^{s}}
++i^k\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\Big].
+\end{equation}
+Since $\Gamma(s,2\pi n)\sim(2\pi n)^{s-1}e^{-2\pi n}$, the first term of the leading mode
+is $\sim e^{-2\pi}$ for the cusp form $\Delta_k=q+O(q^2)$ ($n=1$) but $\sim e^{+2\pi}$ for
+the weak cusp form $\widehat\Delta_k=q^{-1}+O(q^2)$ ($n=-1$): naively the weak form's
+$L$-values, hence its coefficients $c_\pm$ in $r_f=c_+W_++c_-W_-$, should exceed the cusp
+form's by $\sim e^{4\pi}\approx3\times10^{5}$. They do not. The second term, of order
+$k-s$,
+\begin{equation}\label{eq:Lscaling}
+i^k\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}\;\approx\;\frac{(k-s-1)!}{(2\pi)^{k-s}}
+\qquad(\text{leading modes, }|n|=1),
+\end{equation}
+grows factorially with the weight and --- once $k-s$ outruns $2\pi$ --- is of essentially
+equal size for $n=\pm1$. It dominates both forms as $k$ grows, so both leading $L$-values
+share this factorial scaling and their ratio tends to one:
+\begin{equation}\label{eq:Lasymp}
+L^*(\Delta_k,s)\ \sim\ L^*(\widehat\Delta_k,s)\ \sim\ i^k\,\frac{(k-s-1)!}{(2\pi)^{k-s}},
+\qquad
+\frac{L^*(\widehat\Delta_k,s)}{L^*(\Delta_k,s)}
+=1+O\!\Big(\frac{e^{2\pi}(2\pi)^{k-s}}{(k-s-1)!}\Big)
+\qquad(k\to\infty).
+\end{equation}
+The weak-to-cusp ratio of the leading $L$-values accordingly falls from $\sim\!1900$ at
+$k=12$ toward $1$ by $k=26$, as the matrices below record.
+
 \paragraph{Weight 12:}
 \begin{align}
 W_+^{(12)}(X,Y)&= 36(X^{10} - Y^{10}) - 691(X^{8}Y^{2} - X^{2}Y^{8}) + 2073(X^{6}Y^{4} - X^{4}Y^{6}),\\
@@ -1001,6 +1068,31 @@ W_-^{(12)}(X,Y)&= 4(X^{9}Y + XY^{9}) - 25(X^{7}Y^{3} + X^{3}Y^{7}) + 42X^{5}Y^{5
 r_{\Delta_{12}}&= 0.0001655268053\,W_+^{(12)} +0.009269276162\,W_-^{(12)},\\
 r_{\widehat\Delta_{12}}&= -0.3061537142\,W_+^{(12)} -17.05597275\,W_-^{(12)}.
 \end{align}
+These coefficients, localizing $r_{\Delta_{12}}$ and $r_{\widehat\Delta_{12}}$ in the
+$(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
+as follows:
+\begin{equation}\label{eq:Lmat12}
+\begin{pmatrix}
+[X^{10}]\,r_{\widehat\Delta_{12}} & [X^{9}Y]\,r_{\widehat\Delta_{12}}\\[2pt]
+[X^{10}]\,r_{\Delta_{12}} & [X^{9}Y]\,r_{\Delta_{12}}
+\end{pmatrix}
+=\begin{pmatrix}
+L^*(\widehat\Delta_{12},1) & 10\,L^*(\widehat\Delta_{12},2)\\[2pt]
+L^*(\Delta_{12},1) & 10\,L^*(\Delta_{12},2)
+\end{pmatrix}
+=\begin{pmatrix}
+-11.5697 & -68.2239\\[2pt]
+5.95897\times10^{-3} & 3.70771\times10^{-2}
+\end{pmatrix}
+=\begin{pmatrix}
+36\,\eta^+ + c_T & 4\,\eta^-\\[2pt]
+36\,\omega^+ & 4\,\omega^-
+\end{pmatrix},
+\end{equation}
+with $c_T=-0.548$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
+weight the ratio of special $L$-values at $s=1$ is
+$L^*(\widehat\Delta_{12},1)/L^*(\Delta_{12},1)\approx-1942$, in accord with
+Eq.~\eqref{eq:Lasymp}.
 
 \paragraph{Weight 16:}
 \begin{align}
@@ -1009,6 +1101,31 @@ W_-^{(16)}(X,Y)&= 36(X^{13}Y + XY^{13}) - 245(X^{11}Y^{3} + X^{3}Y^{11}) \\&+ 53
 r_{\Delta_{16}}&= 0.0002595173464\,W_+^{(16)} +0.01640585888\,W_-^{(16)},\\
 r_{\widehat\Delta_{16}}&= -0.01227268476\,W_+^{(16)} -0.7278917244\,W_-^{(16)}.
 \end{align}
+These coefficients, localizing $r_{\Delta_{16}}$ and $r_{\widehat\Delta_{16}}$ in the
+$(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
+as follows:
+\begin{equation}\label{eq:Lmat16}
+\begin{pmatrix}
+[X^{14}]\,r_{\widehat\Delta_{16}} & [X^{13}Y]\,r_{\widehat\Delta_{16}}\\[2pt]
+[X^{14}]\,r_{\Delta_{16}} & [X^{13}Y]\,r_{\Delta_{16}}
+\end{pmatrix}
+=\begin{pmatrix}
+L^*(\widehat\Delta_{16},1) & 14\,L^*(\widehat\Delta_{16},2)\\[2pt]
+L^*(\Delta_{16},1) & 14\,L^*(\Delta_{16},2)
+\end{pmatrix}
+=\begin{pmatrix}
+-4.80804 & -26.2041\\[2pt]
+9.34262\times10^{-2} & 5.90611\times10^{-1}
+\end{pmatrix}
+=\begin{pmatrix}
+360\,\eta^+ + c_T & 36\,\eta^-\\[2pt]
+360\,\omega^+ & 36\,\omega^-
+\end{pmatrix},
+\end{equation}
+with $c_T=-0.390$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
+weight the ratio of special $L$-values at $s=1$ is
+$L^*(\widehat\Delta_{16},1)/L^*(\Delta_{16},1)\approx-51.5$, in accord with
+Eq.~\eqref{eq:Lasymp}.
 
 \paragraph{Weight 18:}
 \begin{align}
@@ -1017,6 +1134,31 @@ W_-^{(18)}(X,Y)&= 24(X^{15}Y + XY^{15}) - 154(X^{13}Y^{3} + X^{3}Y^{13}) \\&+ 27
 r_{\Delta_{18}}&= -3.122662695\times10^{-5}\,W_+^{(18)} -0.1465501421\,W_-^{(18)},\\
 r_{\widehat\Delta_{18}}&= -0.0001378466906\,W_+^{(18)} -0.907233517\,W_-^{(18)}.
 \end{align}
+These coefficients, localizing $r_{\Delta_{18}}$ and $r_{\widehat\Delta_{18}}$ in the
+$(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
+as follows:
+\begin{equation}\label{eq:Lmat18}
+\begin{pmatrix}
+[X^{16}]\,r_{\widehat\Delta_{18}} & [X^{15}Y]\,r_{\widehat\Delta_{18}}\\[2pt]
+[X^{16}]\,r_{\Delta_{18}} & [X^{15}Y]\,r_{\Delta_{18}}
+\end{pmatrix}
+=\begin{pmatrix}
+L^*(\widehat\Delta_{18},1) & 16\,L^*(\widehat\Delta_{18},2)\\[2pt]
+L^*(\Delta_{18},1) & 16\,L^*(\Delta_{18},2)
+\end{pmatrix}
+=\begin{pmatrix}
+-2.79574 & -21.7736\\[2pt]
+-5.62079\times10^{-1} & -3.51720
+\end{pmatrix}
+=\begin{pmatrix}
+18000\,\eta^+ + c_T & 24\,\eta^-\\[2pt]
+18000\,\omega^+ & 24\,\omega^-
+\end{pmatrix},
+\end{equation}
+with $c_T=-0.315$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
+weight the ratio of special $L$-values at $s=1$ is
+$L^*(\widehat\Delta_{18},1)/L^*(\Delta_{18},1)\approx4.97$, in accord with
+Eq.~\eqref{eq:Lasymp}.
 
 \paragraph{Weight 20:}
 \begin{align}
@@ -1025,6 +1167,31 @@ W_-^{(20)}(X,Y)&= 108(X^{17}Y + XY^{17}) - 715(X^{15}Y^{3} + X^{3}Y^{15}) + 1452
 r_{\Delta_{20}}&= 0.0001654739435\,W_+^{(20)} +0.2549699125\,W_-^{(20)},\\
 r_{\widehat\Delta_{20}}&= -0.0002521273082\,W_+^{(20)} +0.1296973583\,W_-^{(20)}.
 \end{align}
+These coefficients, localizing $r_{\Delta_{20}}$ and $r_{\widehat\Delta_{20}}$ in the
+$(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
+as follows:
+\begin{equation}\label{eq:Lmat20}
+\begin{pmatrix}
+[X^{18}]\,r_{\widehat\Delta_{20}} & [X^{17}Y]\,r_{\widehat\Delta_{20}}\\[2pt]
+[X^{18}]\,r_{\Delta_{20}} & [X^{17}Y]\,r_{\Delta_{20}}
+\end{pmatrix}
+=\begin{pmatrix}
+L^*(\widehat\Delta_{20},1) & 18\,L^*(\widehat\Delta_{20},2)\\[2pt]
+L^*(\Delta_{20},1) & 18\,L^*(\Delta_{20},2)
+\end{pmatrix}
+=\begin{pmatrix}
+-6.94306 & 14.0073\\[2pt]
+4.37844 & 27.5368
+\end{pmatrix}
+=\begin{pmatrix}
+26460\,\eta^+ + c_T & 108\,\eta^-\\[2pt]
+26460\,\omega^+ & 108\,\omega^-
+\end{pmatrix},
+\end{equation}
+with $c_T=-0.272$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
+weight the ratio of special $L$-values at $s=1$ is
+$L^*(\widehat\Delta_{20},1)/L^*(\Delta_{20},1)\approx-1.59$, in accord with
+Eq.~\eqref{eq:Lasymp}.
 
 \paragraph{Weight 22:}
 \begin{align}
@@ -1033,14 +1200,64 @@ W_-^{(22)}(X,Y)&= 360(X^{19}Y + XY^{19}) - 2366(X^{17}Y^{3} + X^{3}Y^{17}) + 464
 r_{\Delta_{22}}&= -0.0003341270695\,W_+^{(22)} -0.7346639014\,W_-^{(22)},\\
 r_{\widehat\Delta_{22}}&= 0.0003197845612\,W_+^{(22)} -0.7633262888\,W_-^{(22)}.
 \end{align}
+These coefficients, localizing $r_{\Delta_{22}}$ and $r_{\widehat\Delta_{22}}$ in the
+$(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
+as follows:
+\begin{equation}\label{eq:Lmat22}
+\begin{pmatrix}
+[X^{20}]\,r_{\widehat\Delta_{22}} & [X^{19}Y]\,r_{\widehat\Delta_{22}}\\[2pt]
+[X^{20}]\,r_{\Delta_{22}} & [X^{19}Y]\,r_{\Delta_{22}}
+\end{pmatrix}
+=\begin{pmatrix}
+L^*(\widehat\Delta_{22},1) & 20\,L^*(\widehat\Delta_{22},2)\\[2pt]
+L^*(\Delta_{22},1) & 20\,L^*(\Delta_{22},2)
+\end{pmatrix}
+=\begin{pmatrix}
+40.0663 & -274.798\\[2pt]
+-42.1000 & -264.479
+\end{pmatrix}
+=\begin{pmatrix}
+126000\,\eta^+ + c_T & 360\,\eta^-\\[2pt]
+126000\,\omega^+ & 360\,\omega^-
+\end{pmatrix},
+\end{equation}
+with $c_T=-0.227$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
+weight the ratio of special $L$-values at $s=1$ is
+$L^*(\widehat\Delta_{22},1)/L^*(\Delta_{22},1)\approx-0.952$, in accord with
+Eq.~\eqref{eq:Lasymp}.
 
 \paragraph{Weight 26:}
 \begin{align}
 W_+^{(26)}(X,Y)&= 34398000(X^{24} - Y^{24}) - 678984792(X^{22}Y^{2} - X^{2}Y^{22}) \\&+ 2233675745(X^{20}Y^{4} - X^{4}Y^{20}) - 2938319846(X^{18}Y^{6} - X^{6}Y^{18}) \nonumber\\&+ 2062613685(X^{16}Y^{8} - X^{8}Y^{16}) - 850046852(X^{14}Y^{10} - X^{10}Y^{14}),\nonumber\\
-W_-^{(26)}(X,Y)&= 1080(X^{23}Y + XY^{23}) - 7106(X^{21}Y^{3} + X^{3}Y^{21}) + 14025(X^{19}Y^{5} + X^{5}Y^{19}) \\&- 13167(X^{17}Y^{7} + X^{7}Y^{17}) + 7106(X^{15}Y^{9} + X^{9}Y^{15}) - 1938(X^{13}Y^{11} + X^{11}Y^{13}),\\
+W_-^{(26)}(X,Y)&= 1080(X^{23}Y + XY^{23}) - 7106(X^{21}Y^{3} + X^{3}Y^{21}) + 14025(X^{19}Y^{5} + X^{5}Y^{19}) \\&- 13167(X^{17}Y^{7} + X^{7}Y^{17}) + 7106(X^{15}Y^{9} + X^{9}Y^{15}) - 1938(X^{13}Y^{11} + X^{11}Y^{13}),\nonumber\\
 r_{\Delta_{26}}&= -0.0002002972716\,W_+^{(26)} -40.08330039\,W_-^{(26)},\\
 r_{\widehat\Delta_{26}}&= 0.0002002611462\,W_+^{(26)} -40.0894082\,W_-^{(26)}.
 \end{align}
+These coefficients, localizing $r_{\Delta_{26}}$ and $r_{\widehat\Delta_{26}}$ in the
+$(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
+as follows:
+\begin{equation}\label{eq:Lmat26}
+\begin{pmatrix}
+[X^{24}]\,r_{\widehat\Delta_{26}} & [X^{23}Y]\,r_{\widehat\Delta_{26}}\\[2pt]
+[X^{24}]\,r_{\Delta_{26}} & [X^{23}Y]\,r_{\Delta_{26}}
+\end{pmatrix}
+=\begin{pmatrix}
+L^*(\widehat\Delta_{26},1) & 24\,L^*(\widehat\Delta_{26},2)\\[2pt]
+L^*(\Delta_{26},1) & 24\,L^*(\Delta_{26},2)
+\end{pmatrix}
+=\begin{pmatrix}
+6888.42 & -43296.6\\[2pt]
+-6889.83 & -43290.0
+\end{pmatrix}
+=\begin{pmatrix}
+34398000\,\eta^+ + c_T & 1080\,\eta^-\\[2pt]
+34398000\,\omega^+ & 1080\,\omega^-
+\end{pmatrix},
+\end{equation}
+with $c_T=-0.164$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
+weight the ratio of special $L$-values at $s=1$ is
+$L^*(\widehat\Delta_{26},1)/L^*(\Delta_{26},1)\approx-1.000$, in accord with
+Eq.~\eqref{eq:Lasymp}.
 
 
 
