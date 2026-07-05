@@ -50,21 +50,65 @@ hand-derived: the pole breaks exactly its resonant relation, by exactly its resi
 Open items and all caveats are listed in \S\ref{sec:open}.
 \end{abstract}
 
-\section{Conventions}\label{sec:conv}
+\section{Setting}\label{sec:conv}
 
-All conventions match \texttt{finite\_contour\_cocycles\_short.tex} and its companion
-scripts.  Fix even weight $k$ and $n=k-2$.  For $f\in F_k$ (meromorphic modular of weight
-$k$ for $\Gamma=\mathrm{PSL}_2(\ZZ)$, meromorphic at the cusp), the $L$-integral is the
-two-segment contour integral
+Conventions follow the companion note~\cite{FCC}; this section makes the present note
+self-contained.  Fix even weight $k$ and $n=k-2$, and let
+$\Gamma=\mathrm{PSL}_2(\ZZ)=\langle S,T\rangle$ act on $\HH$ by $S\tau=-1/\tau$,
+$T\tau=\tau+1$.  A \emph{meromorphic modular form} of weight $k$ is a quotient
+$f=f_1/f_2$ with $f_i\in M_{k_i}$ holomorphic modular, $f_2\not\equiv0$, $k=k_1-k_2$; we
+write $F_k$ for the space of these.  Let $\Gamma\!\cdot\!f^{-1}(\infty)$ denote the
+$\Gamma$-orbit of the poles of $f$ in $\HH$.  For $\tau_0\in\HH$, the \emph{$S$- and
+$T$-segments} are smooth paths in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$,
+\[
+\gamma^S_{\tau_0}:\ -1/\tau_0\longrightarrow\tau_0,
+\qquad
+\gamma^T_{\tau_0}:\ \tau_0-1\longrightarrow\tau_0,
+\]
+and the \emph{$L$-integral} of $f\in F_k$ along the pair is
 \begin{equation}\label{eq:Lint}
 L^*(f,s)=e^{-\pi i s/2}\Big[\int_{\gamma^S_{\tau_0}} f(\tau)\,\tau^{s-1}\,d\tau
 +\int_{\gamma^T_{\tau_0}} f(\tau)\,\tk(\tau,s)\,d\tau\Big],
 \qquad
 \tk(\tau,s)=\zeta(1-s,\tau+1)-e^{i\pi(s-1)}\,\zeta\!\big(1-(k-s),\tau+1\big),
 \end{equation}
-with $\gamma^S_{\tau_0}$ from $-1/\tau_0$ to $\tau_0$ and $\gamma^T_{\tau_0}$ from
-$\tau_0-1$ to $\tau_0$.  The period polynomial (overall $(2\pi i)^{n+1}$ dropped, as in the
-scripts) is
+with $\zeta(s,x)$ the Hurwitz zeta function.  Both integrals are finite for every
+$s\in\CC$ (compact contours avoiding the poles).
+
+\begin{proposition}[Class dependence only~{\cite{FCC}}]\label{prop:indep}
+$L^*(f,s)$ depends on $(\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ only through the homotopy
+class of the pair in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$; within a class it is
+independent of $\tau_0$ and of the paths.  For $f$ with no interior poles there is a
+single class and $L^*$ is canonical.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Path independence within a class is Cauchy's theorem (the integrands are holomorphic off
+the poles).  Independence of $\tau_0$ within a chamber follows because the boundary terms
+of $\partial_{\tau_0}L^*$ cancel between the two segments, using only $T$-periodicity
+$f(\tau_0-1)=f(\tau_0)$ and modularity $f(-1/\tau_0)=\tau_0^kf(\tau_0)$; see~\cite{FCC}.
+\end{proof}
+
+\begin{proposition}[Wall-crossing]\label{prop:wall}
+Record a class by its \emph{winding data} $(X_S,X_T)$: integers, one pair per pole,
+counting the net turns of $\gamma^S$, resp.\ $\gamma^T$, about each pole relative to a
+reference class with value $L^*_0$.  Then
+\begin{equation}\label{eq:wall}
+L^*(f,s;X_S,X_T)=L^*_0(f,s)
++2\pi i\,e^{-\pi i s/2}\sum_{p}\Big[X_S(p)\,\Res_{\tau=p}\!\big(f\,\tau^{s-1}\big)
++X_T(p)\,\Res_{\tau=p}\!\big(f\,\tk(\tau,s)\big)\Big].
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Two pairs whose winding data differ by one unit at a single pole $p$ on one segment bound
+a loop encircling $p$ once; the residue theorem adds $2\pi i$ times the residue of that
+segment's integrand, and the prefactor $e^{-\pi is/2}$ multiplies through.  Sum over
+crossings.
+\end{proof}
+
+The period polynomial (overall $(2\pi i)^{n+1}$ dropped, as in the
+companion scripts) is
 \begin{equation}\label{eq:rf}
 r_f(X,Y)=\sum_{\ell=0}^{n}c_\ell\,X^{n-\ell}Y^\ell,
 \qquad
@@ -80,16 +124,15 @@ Define the two \emph{defect operators}
 \[
 D_S(P) := P\,|(1+S), \qquad D_U(P) := P\,|(1+U+U^2).
 \]
-For cusp forms and weakly holomorphic forms, $D_S(r_f)=D_U(r_f)=0$ (the paper's \S3;
-verified against Brown's quasi-periods and, via Haberland, against Petersson norms).
+For cusp forms and weakly holomorphic forms, $D_S(r_f)=D_U(r_f)=0$ (proven
+in~\cite{FCC}; verified there against Brown's quasi-periods~\cite{Brown2017} and, via
+Haberland's formula~\cite{Cohen2013}, against Petersson norms).
 The question is what replaces this for meromorphic $f$.
 
 \section{The winding lattice and the linear defect model}\label{sec:lattice}
 
-For meromorphic $f$ the value of $L^*$ depends on the homotopy class of the pair
-$(\gamma^S,\gamma^T)$ in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, through winding data
-$(X_S,X_T)$: integers, one pair per pole, counting the net turns of each segment about
-each pole relative to a reference class (the paper's wall-crossing proposition).  At the
+By Propositions~\ref{prop:indep} and~\ref{prop:wall}, the value of $L^*$ depends on the
+class only through the winding data $(X_S,X_T)$.  At the
 integer values $s=\ell+1$ entering \eqref{eq:rf}, one crossing of pole $p$ by $\gamma^S$
 shifts $r_f$ by $2\pi i\,R_p$, and one crossing by $\gamma^T$ shifts it by $2\pi i\,Q_p$,
 where
@@ -106,8 +149,8 @@ r_f(x,t) = r_f^{(0)} + 2\pi i\sum_p x_p\,R_p + 2\pi i\sum_p t_p\,Q_p ,
 and the defects $D_S,D_U$ are \emph{affine-linear in the winding integers}.  Every
 question of the form ``is there a class with $D_S(r_f)=0$ and/or $D_U(r_f)=0$'' is
 therefore an integer linear-algebra question with coefficient vectors
-$D_S(R_p),D_U(R_p),D_S(Q_p),D_U(Q_p)$.  This is the specialization of the paper's
-\texttt{eq:violation-residue} (verified there to 32 digits) used throughout.
+$D_S(R_p),D_U(R_p),D_S(Q_p),D_U(Q_p)$.  This specializes Proposition~\ref{prop:wall} to
+integer $s$; the specialization was verified numerically to $32$ digits.
 
 \section{Two exact identities of the $T$-kernel}\label{sec:identities}
 
@@ -177,7 +220,20 @@ made concrete.)
 
 Let $f=E_4\Delta/E_6^2\in F_4$, the canonical block with a double pole at $i$ (and no
 other poles mod $\Gamma$), Laurent data $a_{-2}=-1/(1728\pi^2)$ and the parity relation
-$a_{-1}=i\,a_{-2}$ (the paper's order-parity proposition at the $S$-fixed point).
+of the following lemma.
+
+\begin{lemma}[Parity at the $S$-fixed point]\label{lem:parity}
+Let $f\in F_4$ have a double pole at $i$,
+$f=a_{-2}(\tau-i)^{-2}+a_{-1}(\tau-i)^{-1}+O(1)$.  Then $a_{-1}=i\,a_{-2}$.
+\end{lemma}
+
+\begin{proof}
+Write $\tau=i+\varepsilon$; then $-1/\tau=i-\varepsilon-i\varepsilon^2+O(\varepsilon^3)$,
+so $f(-1/\tau)=a_{-2}\varepsilon^{-2}(1-2i\varepsilon)-a_{-1}\varepsilon^{-1}+O(1)$,
+while $\tau^4f(\tau)=(1-4i\varepsilon)\big(a_{-2}\varepsilon^{-2}
++a_{-1}\varepsilon^{-1}\big)+O(1)$.  Modularity $f(-1/\tau)=\tau^4f(\tau)$ at order
+$\varepsilon^{-1}$ gives $-2ia_{-2}-a_{-1}=a_{-1}-4ia_{-2}$, i.e.\ $a_{-1}=ia_{-2}$.
+\end{proof}
 
 \subsection{Residue polynomials at the $i$-orbit}
 For a double pole, $\Res_i(fg)=a_{-1}g(i)+a_{-2}g'(i)$ for holomorphic $g$.  With
@@ -315,8 +371,8 @@ holds in infinitely many classes, and exactness alone does not select a contour.
 \end{proposition}
 
 \begin{proof}
-By the linear model \eqref{eq:linear} (the wall-crossing law \texttt{eq:violation-residue}
-of the paper, specialized to integer $s$), the two defects of the class
+By the linear model \eqref{eq:linear} (Proposition~\ref{prop:wall} specialized to
+integer $s$), the two defects of the class
 $(x;t)$ are affine-linear in the winding integers with shift vectors
 $D_S,D_U$ of $2\pi iR_p$, $2\pi iQ_p$ at $p\in\{i,i\pm1\}$.  All twelve weights are
 derived above: the $S$-row is $(2,3,3;0,0,0)$ in units of $\sigma=2\pi iR_i$ (\S4.2 for the
@@ -346,9 +402,24 @@ the particular solution: $1+2-3=0$ and $12-24-7+19=0$.
 \noindent
 (A float box search found $66$ of these solutions with all windings in $[-3,3]$, each
 consistent with \eqref{eq:jointsys} --- the numerical shadow of the proposition.  The
-inputs a reader may wish to interrogate: the wall-crossing law, proven in the paper and
-verified to $32$ digits; the parity $a_{-1}=ia_{-2}$, the paper's order-parity result at
-the $S$-fixed point; and the clean-class base pair, measured to $48$ digits, \eqref{eq:clean}.)
+inputs a reader may wish to interrogate: the wall-crossing law, Proposition~\ref{prop:wall},
+verified to $32$ digits; the parity Lemma~\ref{lem:parity}; and the clean-class base pair,
+measured to $48$ digits, \eqref{eq:clean}.)
+
+\begin{remark}[Why six winding integers, and not two]\label{rem:whysix}
+One might expect just two encircling numbers --- one per segment --- for a form with a
+single pole orbit.  But the puncture set of $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$ is
+the \emph{whole orbit}, and windings about distinct orbit points are inequivalent because
+the integrand weights are not translation-invariant: by \eqref{eq:Ripm},
+$R_{i\pm1}\neq R_i$ --- the same pole of $f$, but a different residue polynomial, which is
+where the distinct weights ($2$ vs.\ $3$; $7/12$ vs.\ $19/12$) come from.  The depth-one
+window keeps the three orbit representatives adjacent to the contour, times two segments:
+$\ZZ^6$.  The two-winding intuition is, in fact, precisely the truncation behind the
+refuted conjecture of \S4.4: with windings at $i$ alone, the $S$-equation of
+\eqref{eq:jointsys} collapses to $1+2x_i=0$, which has no integer solution --- the old
+``parity obstruction'' --- and it is the translate windings, with their weight $3$, that
+dissolve it.
+\end{remark}
 
 \section{The $\rho$-blocks and a generic pole}\label{sec:rho}
 
@@ -384,6 +455,54 @@ which pole orbits does the defect coset contain the origin?  The weight-$4$ $i$-
 does (Proposition~\ref{prop:joint}); the depth-one window of $E_6/j$ does not; the full
 lattice for $E_6/j$, $\Delta/E_4$, and the generic pole is undecided.
 
+\subsection{A second generic pole, at depth two: $z=0.47+0.99i$}\label{sec:z047}
+
+To probe the generic case beyond depth one, take $f=E_6/(j-j(z))$ with $z=0.47+0.99i$
+($|z|\approx1.096>1$, off the imaginary axis, off the edge ${\rm Im}\,\tau=1$: a
+fundamental-domain point that avoids every special locus).  Because the base class
+$\tau_0=i$ holds the $S$-relation identically (Corollary~\ref{cor:KTS}(ii)), one may
+search using only moves that provably keep the $S$-defect at zero:
+$T$-windings anywhere (Corollary~\ref{cor:KTS}(i)), and the pairs
+``wind $q$ once, wind $Sq$ once backwards'', which are exactly $S$-silent since
+$R_{Sq}=R_q|S$ for even $n$ (change of variables $\tau\to-1/\tau$ in \eqref{eq:gens},
+using $f(-1/\tau)=\tau^kf(\tau)$ and $d(-1/\tau)=\tau^{-2}d\tau$).  The joint problem then reduces to a \emph{single} complex
+linear Diophantine equation on the $U$-ray ($\dim_\CC\ker(1-U)=1$ at $n=4$):
+$\sum_g x_g\mu_g=-1$ with $\mu_g:=D_U(\text{move}_g)/D_U(\text{base})$.
+
+The computation (13 moves: 5 pairs, 8 $T$-windings, spanning orbit depth two; all checks
+passed --- base $S$-defect $8\times10^{-45}$, pair $S$-defects $\lesssim10^{-40}$,
+off-ray residuals $\lesssim10^{-41}$) shows what genericity does and does not destroy:
+
+\begin{itemize}
+\item The weights $\mu_g$ are now genuinely complex and (empirically) irrational ---
+e.g.\ $\mu_{\mathrm{pair}(z,Sz)}=-26.9827\ldots+70.1532\ldots i$ --- as expected once
+both the isotropy and the singular-moduli arithmetic of Remark~\ref{rem:iso} are absent.
+\item The exact $\ZZ[\Gamma]$-module relations survive and are confirmed to working
+precision (40 digits): PSLQ, asked for integer relations, first returns \emph{structural}
+identities, e.g.
+$\mu_{\mathrm{pair}(z,Sz)}=\mu_{T@Sz}-\mu_{T@(Sz-1)}$
+and
+$\mu_{T@z}+\mu_{T@Sz}=\mu_{T@(z-1)}+\mu_{T@(Sz-1)}$
+--- Hurwitz difference-equation identities among transcendental numbers, holding on the
+nose.  The module structure is real; only its \emph{arithmetic normalization} was special
+at CM points.
+\item No joint-kill class was found: the search (integer box on the 13 distinct weights;
+then PSLQ with a greedy deflation of structural relations, maxcoeff $10^6$) terminated in
+the relation
+$8+3\mu_{T@Sz}+5\mu_{T@(z-1)}+2\mu_{T@(Sz-1)}+5\mu_{T@S(z+1)}=0$:
+within this window the reachable integer multiples of the base $U$-defect include
+$\mathbf{8}$, but no combination producing $1$ was found.
+\end{itemize}
+
+The recurrence of $8$ is striking: the depth-one obstruction of $E_6/j$ (\S5, mod-$8$)
+and this depth-two generic-pole computation --- two entirely different pole locations at
+the \emph{same weight} $k=6$ --- both stall at index $8$, while the weight-$4$ block was
+jointly killable through its twelfths.  This raises the possibility that joint
+reachability is governed by the \emph{weight} (through the Bernoulli arithmetic of the
+kernel) rather than, or in addition to, the isotropy of the pole.  Caveats: the box was
+narrow, the deflation path greedy, and a single PSLQ relation certifies reachability of
+$8$ but not unreachability of $1$; ``index $8$'' is evidence, not a theorem.
+
 \smallskip
 \noindent\textbf{$\Delta/E_4$ ($k=8$).}  The $U$-defect space is genuinely
 multi-dimensional (no single ray; $\dim\ker(1-U)=3$ on degree-$6$ forms), rank $7$ of
@@ -416,6 +535,29 @@ only genuinely open obstruction.  For the weight-4 block it does
 and the generic pole it is undecided at depth one.
 \end{itemize}
 
+\begin{remark}[Isotropy versus singular moduli: what is actually special about $i$]\label{rem:iso}
+Two independent features of the elliptic point do different work, and they should not be
+bundled.  \emph{Isotropy}: $S$ fixes $i$, which (a) forces the parity relation
+$a_{-1}=ia_{-2}$ between Laurent coefficients, (b) makes $X-iY$ an eigenvector of the
+slash action ($(X-iY)|S=-i(X-iY)$), collapsing all defect vectors onto single rays, and
+(c) is what turned Proposition~\ref{prop:joint} into a two-equation problem with
+small-integer weights.  \emph{Singular moduli}: $i$ is a CM point, so the residue data is
+arithmetically commensurable (algebraic multiples of powers of $\pi$) --- this is where
+the clean rationals like $7/12$ come from.  At a generic pole both features die: no
+parity constraint, generically a simple pole, and defect weights with no rational
+structure (confirmed at $1.1i$ and at $0.47+0.99i$, \S\ref{sec:z047}).  What survives is
+the exact $\ZZ[\Gamma]$-module structure --- for a simple pole the entire winding module
+is generated by the \emph{single} polynomial $(X-zY)^n$ slashed around the group,
+$R_{\gamma z}=R_z|\gamma^{-1}$, and its difference/orbit identities hold among
+transcendental weights on the nose (\S\ref{sec:z047}).  The a-priori expectation was that
+isotropy is the only mechanism that can create a genuine obstruction to joint exactness
+(a torsion class in the stabilizer's cohomology), with generic poles unobstructed at
+sufficient depth.  The weight-6 computations put this in tension: both the $\rho$-pole
+and the generic pole stall at index $8$ in their windows, while the weight-4 $i$-block is
+jointly killable --- suggesting the weight, through the Bernoulli arithmetic of the
+kernel, may govern.  Unresolved.
+\end{remark}
+
 Two inequivalent notions of ``canonical class'' emerge, and they disagree whenever the
 residue is nonzero:
 \begin{enumerate}
@@ -438,9 +580,15 @@ the coset.
 \item \textbf{Hand derivation of the $E_6/j$ weight table} ($-11,-3,-8/5,-48/5$):
 pending.  (The $k=4$ table is now fully derived, \S\ref{sec:Tcols}.)  This would make the
 mod-$8$ window obstruction of \S\ref{sec:rho} unconditional within its window.
-\item \textbf{Depth $\ge2$ windings} for $E_6/(j-j(1.1i))$ and $E_6/j$: untested (a
-script \texttt{t1\_depth2.py} exists, never run).  All ``no joint solution'' statements
-above are \emph{window-limited}, not proofs.
+\item \textbf{Depth $\ge2$ windings}: run for the generic pole $0.47+0.99i$
+(\S\ref{sec:z047}: no joint kill; index-$8$ relation found); still untested for
+$E_6/(j-j(1.1i))$ and $E_6/j$ (\texttt{t1\_depth2.py}, never run).  All ``no joint
+solution'' statements remain \emph{window-limited}, not proofs.
+\item \textbf{The index-$8$ pattern at $k=6$}: is joint reachability governed by weight
+(Bernoulli arithmetic of the kernel) rather than pole isotropy?  Sharp sub-questions: is
+$8$ provably the lattice index for the depth-two window at $0.47+0.99i$ (requires the
+full relation lattice, not one PSLQ relation); does the index drop with depth; and does
+$k=8,10$ show $8\to$ something else.
 \item \textbf{Speculative} (flagged as such; not verified): since
 $\mathrm{PSL}_2(\ZZ)\cong\ZZ/2*\ZZ/3$, the obstruction to an Eichler--Shimura--exact class
 should be a pair of torsion classes in $H^2(\ZZ/2;\,\cdot\,)\oplus H^2(\ZZ/3;\,\cdot\,)$
@@ -469,9 +617,31 @@ cross-checked at full precision.  Session scripts (scratchpad, in order):
 \texttt{t1\_lattice.py} (linear model, first sweeps), \texttt{t1\_structure.py} (exact ray
 analysis, PSLQ weights, falsification of [E5], joint-kill box search),
 \texttt{t1\_exact.py} (Smith-normal-form verdicts, extended $\rho$-reps, kernel-aware
-search), \texttt{t1\_depth2.py} (depth-2 test, written, \emph{not run}).  Headline
+search), \texttt{t1\_depth2.py} (depth-2 test, written, \emph{not run}),
+\texttt{t1\_generic\_047.py} (the \S\ref{sec:z047} run: 40 digits, $N_T=90$ $q$-terms for
+the low-${\rm Im}$ orbit points, exactly-$S$-silent move set, box + PSLQ-with-deflation
+search).  Headline
 residuals: $\KT|(1+S)$ machine-exact (identity); [E5]-falsifying class $7\times10^{-33}$;
 clean-class $U$-relation $5.6\times10^{-48}$; $E_6/j$ $U$-kill $4.1\times10^{-31}$;
 PSLQ off-ray residuals $\lesssim10^{-35}$.
+
+\begin{thebibliography}{9}
+
+\bibitem{FCC}
+D.~A.~McGady,
+\emph{[the finite-contour cocycles note]},
+companion draft \texttt{finite\_contour\_cocycles\_short.tex}, in preparation (2026).
+
+\bibitem{Brown2017}
+F.~Brown, \emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+
+\bibitem{Cohen2013}
+H.~Cohen,
+\emph{Haberland's formula and numerical computation of Petersson scalar products},
+in \emph{ANTS X: Proceedings of the Tenth Algorithmic Number Theory Symposium},
+Open Book Ser.\ \textbf{1}, Math.\ Sci.\ Publ., 2013, pp.\ 249--270.
+
+\end{thebibliography}
 
 \end{document}
