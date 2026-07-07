@@ -574,6 +574,50 @@ Which notion the paper should adopt is a judgment call (the natural tie-breakers
 data of this note supports stating (1) as the definition and (2) as structure theory of
 the coset.
 
+\section{Roadmap: nailing the canonical cohomology class}\label{sec:roadmap}
+
+The following are the concrete steps that would turn the picture of \S\ref{sec:picture}
+into a theorem selecting a canonical class (hence a canonical $L^*(f,s)$ for every
+$f\in F_k$). They are ordered by dependency and by expected payoff.
+
+\begin{enumerate}
+\item[\textbf{R1.}] \textbf{Hand-derive the $E_6/j$ weight table} $(-11,-3,-\tfrac85,-\tfrac{48}5)$
+from the Bernoulli form of the kernel (Lemma~\ref{lem:bern}) at $\rho$, exactly as the
+$k=4$ table was derived in \S\ref{sec:Tcols}. This makes the mod-$8$ obstruction of
+\S\ref{sec:rho} \emph{unconditional within its depth-one window} and removes the last
+PSLQ-only input at $k=6$.
+\item[\textbf{R2.}] \textbf{Run the depth-$\ge2$ test} (\texttt{t1\_depth2.py}, written but
+never run) for the generic pole $E_6/(j-j(1.1i))$ and for $E_6/j$. This is the decisive
+falsification of the free-module prediction (R4): if a joint-kill class appears at
+depth two for the generic pole, the ``index-$8$'' stall is a truncation artifact and
+generic poles are unobstructed; if it does not, the $H^2$ story is wrong.
+\item[\textbf{R3.}] \textbf{Decide the index-$8$ pattern.} Is $8$ the true lattice index
+for the depth-two window at $z=0.47+0.99i$ (\S\ref{sec:z047})? This needs the \emph{full}
+relation lattice of the $\mu_g$, not a single PSLQ relation. Does the index drop with
+depth? Do $k=8,10$ replace $8$ by something else --- i.e.\ is joint reachability governed
+by the weight (Bernoulli arithmetic) rather than the pole?
+\item[\textbf{R4.}] \textbf{Settle the $H^2$ obstruction.} Since
+$\mathrm{PSL}_2(\ZZ)\cong\ZZ/2*\ZZ/3$, the obstruction to a jointly-exact class should
+live in $H^2(\ZZ/2;M_f)\oplus H^2(\ZZ/3;M_f)$, $M_f$ the residue module. Two gaps to
+close: (a) identify the two summands with the $S$- and $U$-defects; (b) pin the module
+structure of the $T$-shift vectors $Q_p$ (Lemma~\ref{lem:bern} should make this explicit).
+Prediction: free orbits (generic poles) $\Rightarrow$ no obstruction; elliptic-orbit
+poles $\Rightarrow$ possible finite torsion. R2 tests this directly.
+\item[\textbf{R5.}] \textbf{Map the $k=8$ ($\Delta/E_4$) geometry}, where the $U$-defect
+space is genuinely multi-dimensional ($\dim\ker(1-U)=3$); the single-ray analysis does
+not apply and the joint system must be treated as full-rank integer linear algebra.
+\item[\textbf{R6.}] \textbf{Is the period polynomial unique on the coset?} For the
+weight-$4$ block, do the (infinitely many) jointly-exact classes of
+Proposition~\ref{prop:joint} give the \emph{same} $r_f$ modulo the space $W$ of rational
+period polynomials, or genuinely different ones? If the former, ``the'' period polynomial
+is well-defined even though the contour is not.
+\item[\textbf{R7.}] \textbf{Make the canonical-class choice} (\S\ref{sec:picture}):
+clean class vs.\ jointly-exact lattice. If the latter is chosen, a tie-breaker is needed
+within the lattice; the candidates are central-value crossing-invariance and the
+Haberland/Petersson pairing. This is the decision that upgrades ``a coset'' to ``a
+canonical class.''
+\end{enumerate}
+
 \section{Open items and caveats}\label{sec:open}
 
 \begin{enumerate}

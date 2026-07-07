@@ -1,0 +1,209 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\Dhat}{\widehat\Delta}
+
+\title{Quasi-period $\to$ period scaling at $\dim S_k=1$,\\
+and a program for $\dim S_k\ge1$}
+\author{Working note, for D.~A.~McGady}
+\date{July 6, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+In the appendix of the finite-contour note~\cite{FCC}, the periods $\omega^\pm$ of the
+cusp form $\Delta_k=q+O(q^2)$ and the quasi-periods $\eta^\pm$ of the weak cusp form
+$\Dhat_k=q^{-1}+O(q^2)$ are strikingly close for large weight. This note records the sharp
+form of that observation --- $\eta^\pm\to\mp\,\omega^\pm$, componentwise and
+superexponentially --- and traces it to an incomplete-Gamma asymptotic, which marks it as
+shallow: the limit is a bare number, carrying no period content. The $L$-function and the
+coefficient-growth bound are those of Bringmann--Fricke--Kent~\cite{BFK2011}, whose
+Theorem~1.1 is a limiting theorem of the same flavour but in an \emph{orthogonal}
+direction --- the argument aspect ($n\to\infty$, fixed weight), where the limit \emph{does}
+retain period content --- and so is not the deep version of the present observation. Past
+$\dim S_k=1$ the weight-aspect comparison ceases to be a scalar and becomes a matrix; we
+outline a $\dim S_k\ge2$ program that separates that (likely still shallow) question from
+the argument-aspect one, where the finite-contour $L^*$ can be tested against BFK's
+third-period formula. All numerics are over the six weights with $\dim S_k=1$; six points is
+not a theorem.
+\end{abstract}
+
+\section{The observation ($\dim S_k=1$)}\label{sec:obs}
+
+For $k\in\{12,16,18,20,22,26\}$ the space $S_k$ of cusp forms is one-dimensional. Write
+$\Delta_k=f_{k,-1}=q+O(q^2)$ for the normalized cusp form and $\Dhat_k=f_{k,1}=q^{-1}+O(q^2)$
+for the weight-$k$ weakly holomorphic form with a simple pole at the cusp. Their period
+polynomials, obtained from the finite-contour $L$-integral~\cite{FCC} and projected onto
+the Kohnen--Zagier rational basis $W_\pm^{(k)}$~\cite{KZ1984} by the Haberland pairing, are
+\begin{equation}\label{eq:decomp}
+r_{\Delta_k}=\omega^+W_+^{(k)}+\omega^-W_-^{(k)},
+\qquad
+r_{\Dhat_k}=\eta^+W_+^{(k)}+\eta^-W_-^{(k)}.
+\end{equation}
+Numerically (full precision in \texttt{quasiperiod\_scaling.py}~\cite{VerifyScripts}):
+\begin{center}
+\begin{tabular}{r|rr|rr}
+\toprule
+$k$ & $\eta^+/\omega^+$ & $\eta^-/\omega^-$ & $|\eta^+/\omega^++1|$ & $|\eta^-/\omega^--1|$\\
+\midrule
+12 & $-1849.57$ & $-1840.05$ & $1.85\times10^{3}$ & $1.84\times10^{3}$\\
+16 & $-47.2904$ & $-44.3678$ & $4.63\times10^{1}$ & $4.54\times10^{1}$\\
+18 & $4.41440$  & $6.19060$  & $5.41$ & $5.19$\\
+20 & $-1.52367$ & $0.508677$ & $0.524$ & $0.491$\\
+22 & $-0.957075$& $1.03901$  & $0.0429$ & $0.0390$\\
+26 & $-0.999820$& $1.000152$ & $1.80\times10^{-4}$ & $1.52\times10^{-4}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The ratios converge to
+\begin{equation}\label{eq:scaling}
+\frac{\eta^+}{\omega^+}\ \longrightarrow\ -1,
+\qquad
+\frac{\eta^-}{\omega^-}\ \longrightarrow\ +1
+\qquad(k\to\infty),
+\end{equation}
+i.e.\ $r_{\Dhat_k}\to r_{\Delta_k}$ with its even part negated. The approach is
+superexponential: the deviations fall by a factor $\gtrsim10$ per step and reach
+$10^{-4}$ by $k=26$. (The convergence is not monotone in the signed ratio --- $k=18$
+overshoots to positive values --- but is monotone and fast in absolute deviation.)
+
+\section{What is shallow, and what is not}\label{sec:mech}
+
+\paragraph{Size-matching is an incomplete-Gamma corollary.} Each critical value is
+dominated at large weight by its leading cusp mode,
+\begin{equation}\label{eq:leadmode}
+L^*(f,s)\ \sim\ c_f(n_0)\,i^k\,\frac{\Gamma(k-s,\,2\pi n_0)}{(2\pi n_0)^{k-s}},
+\qquad n_0=\pm1,
+\end{equation}
+and $\Gamma(a,x)\to\Gamma(a)$ as $a\to\infty$ for fixed $x$ --- the incomplete Gamma
+completes, because the mass of $\int_x^\infty t^{a-1}e^{-t}\,dt$ sits at $t\approx a\gg x$.
+Hence $\Gamma(k-s,+2\pi)$ and $\Gamma(k-s,-2\pi)$ both tend to $(k-s-1)!$, and
+$|L^*(\Dhat_k,s)/L^*(\Delta_k,s)|\to|c_{\Dhat}(-1)/c_\Delta(1)|=1$. This limit is the ratio
+of leading Fourier coefficients: it is normalization-dependent, and by that token carries
+no arithmetic. The size-matching alone is not the interesting object.
+
+\paragraph{The componentwise scaling \eqref{eq:scaling} is the interesting object.} It is
+strictly stronger than size-matching: it fixes the quasi-period \emph{lattice} relative to
+the period lattice, not just the magnitude of a single value, and it forces the observed
+$10^{-4}$ agreement (the leading mode alone gives only $\sim1\%$; the subleading modes of
+$\Dhat_k$ conspire to close the gap). Whether \eqref{eq:scaling} is itself a corollary or a
+shadow of an exact identity is open. It is \emph{constrained} by the Legendre relation of
+\S\ref{sec:legendre}, but that constraint fixes only the product $\omega^+\omega^-$, not the
+individual limits $\eta^\pm/\omega^\pm\to\mp1$. As \S\ref{sec:bfk} shows, however, its limit
+is a bare number, which argues that it too is shallow.
+
+\section{Relation to Bringmann--Fricke--Kent}\label{sec:bfk}
+
+The $L$-series used here is that of Bringmann, Fricke, and Kent~\cite{BFK2011}: their
+regularized $L_f^*(s)$ [BFK, Eq.~(1.5)] is exactly the two-incomplete-Gamma object of
+\eqref{eq:leadmode} summed over modes (our $L^*$ at basepoint $t_0=1$), and its convergence
+rests on the same Circle-Method growth $a_f(m)\ll m^{(k-3)/2}e^{4\pi\sqrt{m}}$ [BFK, Rem.~2]
+invoked in \S\ref{sec:mech}. More to the point, BFK's Theorem~1.1 is a limiting theorem of
+exactly the present flavour --- a ratio of a weakly-holomorphic form's $L$-values to a cusp
+form's, tending to period data:
+\begin{equation}\label{eq:bfk}
+\lim_{\substack{n\to\infty\\ n\equiv\delta\ (2)}}
+\frac{L_{D^{k-1}(\mathcal F)}(n)}{L_{\xi_{2-k}(\mathcal F)}(n)}
+=\big(c_{\mathcal F}^+(1)+(-1)^\delta c_{\mathcal F}^+(-1)\big)\,\omega_g^+\omega_g^-,
+\end{equation}
+for a Hecke eigenform $g\in S_k$ with $\langle g,g\rangle=\omega_g^+\omega_g^-$ and a
+harmonic weak Maass form $\mathcal F\in H_{2-k}^*$ good for $g$. Two points bear stating
+plainly. First, \eqref{eq:bfk} runs in the \emph{argument} aspect ($n\to\infty$, fixed
+weight), whereas the scaling \eqref{eq:scaling} of this note runs in the \emph{weight}
+aspect ($k\to\infty$, fixed argument): the two limits are orthogonal, and BFK's theorem
+says nothing about the weight aspect. It is not the deep version of the present
+observation; it is a different question that happens to share the $L$-function
+\eqref{eq:leadmode} and the growth bound. Second, our scaling is shallow on its own terms,
+without reference to BFK: its limit is the bare number $\mp1$, carrying no period content,
+which is exactly what the Gamma-completion argument of \S\ref{sec:mech} predicts (BFK's
+limit, by contrast, retains the third period $c_{\mathcal F}^+(\pm1)$ and
+$\omega^+\omega^-$). And the weight-aspect question does not even survive intact past
+$\dim S_k=1$: as $k$ grows, $\dim S_k\sim k/12$ grows with it, so there is no longer a
+scalar ``$\eta/\omega$'' to take a limit of --- the quasi-period/period comparison becomes
+a matrix, obtained by solving a $\dim S_k$-dimensional linear system in each parity. The
+one genuine point of contact between the two is $\omega^+\omega^-$: it is the coefficient in
+\eqref{eq:bfk}, it is BFK's Petersson normalization $\langle g,g\rangle=\omega^+\omega^-$,
+and it is the asymptotic value of our Legendre determinant \eqref{eq:invariant}.
+
+\section{The Legendre determinant and the ``rational column''}\label{sec:legendre}
+
+Brown--Hain~\cite{Brown2017} give a Legendre-type relation: in the canonical
+(Haberland-normalized) basis the period/quasi-period determinant is
+$\omega^+\eta^--\omega^-\eta^+\in\QQ^\times\,(2\pi i)^{k-1}$. In the primitive integer
+basis $W_\pm^{(k)}$ used here the raw determinant is \emph{not} a clean rational multiple
+of a power of $2\pi$ (PSLQ finds no relation over these six weights), because the primitive
+normalization differs from the canonical one by a $k$-dependent scaling; the ``$\alpha_k$''
+rational column of the main table is correspondingly gauge-dependent. Under \eqref{eq:scaling}
+the invariant combination behaves cleanly,
+\begin{equation}\label{eq:invariant}
+\frac{\omega^+\eta^--\omega^-\eta^+}{\omega^+\omega^-}
+=\frac{\eta^-}{\omega^-}-\frac{\eta^+}{\omega^+}\ \longrightarrow\ 2,
+\end{equation}
+(values $9.52,\,2.92,\,1.78,\,2.03,\,2.00,\,2.00$), so the determinant is asymptotically
+$2\,\omega^+\omega^-$ --- tying it to the product of periods (hence, up to normalization, to
+the Petersson norm). Whether the exact rationals underlying $\alpha_k$ carry arithmetic
+content, or are artifacts of the primitive gauge, is the open question worth settling.
+
+\section{Program: $\dim S_k\ge1$}\label{sec:program}
+
+Past $\dim S_k=1$ two genuinely different questions open, and \S\ref{sec:bfk} warns
+against conflating them. For $k=24,28,30,32,\dots$ one has $\dim S_k\sim k/12\ge2$, so
+$S_k$ carries several normalized Hecke eigenforms, the cuspidal period-polynomial space is
+$\dim S_k$-dimensional per parity, and localizing a form in the $W_\pm$ basis is a genuine
+linear solve rather than a single ratio. Concretely:
+\begin{enumerate}
+\item[(P1)] \textbf{Build the machinery.} Per eigenform $f\in S_k$, compute the periods
+$\omega^\pm(f)$ and the quasi-periods $\eta^\pm(\Dhat_{f})$ of the matched weakly
+holomorphic form; assemble the full $2d\times2d$ period/quasi-period matrix
+($d=\dim S_k$).
+\item[(P2)] \textbf{Weight aspect (this note's direction).} The scalar scaling
+\eqref{eq:scaling} has no direct analog once $\eta/\omega$ is a matrix; the question becomes
+whether the quasi-period matrix approaches the period matrix in any fixed sense as
+$k\to\infty$. Expect this to stay Gamma-shallow --- the mechanism of \S\ref{sec:mech} is
+weight-driven, not arithmetic --- but the matrix formulation is not obvious and is worth
+pinning down.
+\item[(P3)] \textbf{Argument aspect (BFK's direction; where period content lives).} At a
+\emph{fixed} such $k$, does the finite-contour $L^*$ reproduce BFK's limit \eqref{eq:bfk}
+eigenform-by-eigenform, recovering $(c^+(1)\pm c^+(-1))\omega^+\omega^-$? Does the
+third-period formula acquire new structure --- Hecke cross-terms, say --- when several
+eigenforms occupy one weight?
+\item[(P4)] \textbf{The rationals.} Do the Legendre determinants (now determinants of the
+full matrix) stabilize across the eigenbasis, and are the resulting rationals
+Hecke-eigenvalue data in disguise --- or gauge artifacts, as at $\dim S_k=1$?
+\end{enumerate}
+This is the natural companion to the ``defect lattice'' program of the meromorphic
+period polynomials~\cite{DefectNote}: that note asks which contour makes $r_f$ an
+Eichler--Shimura object; this one asks what the period lattice does as the weight grows.
+
+\paragraph{Caveats.} Six data points. Both the size-matching and the componentwise scaling
+\eqref{eq:scaling} are Gamma-completion corollaries (\S\ref{sec:mech}, \S\ref{sec:bfk}) and
+should not be oversold as period theorems. The genuinely open objects are the meaning of
+the rational column (\S\ref{sec:legendre}) and whether the finite-contour $L^*$ reproduces
+the argument-aspect theorem \eqref{eq:bfk} at $\dim S_k\ge2$ (P3) --- the direction in which
+period content actually survives.
+
+\begin{thebibliography}{9}
+\bibitem{FCC} D.~A.~McGady, \emph{[finite-contour cocycles note]},
+\texttt{finite\_contour\_cocycles\_short.tex}, in preparation (2026).
+\bibitem{DefectNote} \emph{Eichler--Shimura defects of meromorphic period polynomials on
+the winding-class lattice}, companion note \texttt{defect\_lattice\_note.tex} (2026).
+\bibitem{KZ1984} W.~Kohnen and D.~Zagier, \emph{Modular forms with rational periods}, in
+\emph{Modular Forms} (Durham, 1983), Ellis Horwood, 1984, pp.~197--249.
+\bibitem{Brown2017} F.~Brown, \emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+\bibitem{BFK2011} K.~Bringmann, K.-H.~Fricke, and Z.~Kent, \emph{Special $L$-values and
+periods of weakly holomorphic modular forms}, Ramanujan J.\ \textbf{24} (2011), 119--139.
+\bibitem{VerifyScripts} Companion scripts, this repository
+(\texttt{quasiperiod\_scaling.py}, \texttt{period\_polynomial\_bases.py}).
+\end{thebibliography}
+
+\end{document}

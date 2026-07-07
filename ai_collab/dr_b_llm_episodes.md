@@ -404,6 +404,71 @@ confirmed numerically at 34 digits.
 
 ---
 
+## Episode 8 — Rebuilding §4 ($L^*$ for meromorphic $F_k$) statement-by-statement, and the general-$P$ Laurent relations at the elliptic point (PRIMARY-SOURCE: this session)
+
+**Session:** `0fe6428f` (Fable 5 → Opus 4.8), 2026-07-03 → 07-07.
+**Paper:** `finite_contour_cocycles_short.tex`, §4 (`sec:mero`).
+
+**What happened, in order:**
+
+1. **The injection protocol.** DAM cleared all of §4 to below `\end{document}` and rebuilt it
+   fresh, statement-by-statement: Claude proposes each def/lemma + proof, DAM injects after
+   détente ("just propose wording, I'll paste it in --- saves tokens"). Rebuilt in order:
+   `prop:indepHomotopy`, `def:class`, `def:null_homotopy` (the minimal homotopy class; basepoint
+   lifted to $i(1+\delta)$ for an on-line pole so no principal value is needed --- DAM's design
+   call), `lem:wall`, the projection defs (`def:proj`/`cRf`/`Finfty`), `lem:growth`,
+   `eq:gc`+`def:IN`, `lem:polylogcf`, `def:tailpieces`, `lem:polylogedge`, `lem:Laurent`,
+   `def:FP`+`lem:wallvalue`. Still open: `thm:mero` (the assembly) and a commented `rem:edgevalues`.
+
+2. **DAM's corrections along the way.** (a) *Jargon:* Claude named the three tail pieces "polar /
+   Lerch / remainder **layers**"; DAM --- *"what is a Lerch layer? a polar layer?"* --- and the
+   christenings were dropped (and "polar" was outright wrong: $\Pi_0$ carries a **log**
+   $\Li_1(w)$, not a pole). (b) *A hanging sentence:* `lem:polylogedge` first advertised a
+   $w=1$ divergence "vanishing iff $k\equiv2$" and walked away; DAM --- *"why is this left
+   hanging. Don't we deal with this?"* --- trimmed to continuity away from $i+\ZZ$, with $z=i$
+   handed to the next lemma. (c) *1806 regime:* Claude claimed the new $\mathrm{Res}_{s=0}$ term
+   "trivially reduces to 1806's cusp-pole case"; DAM corrected --- *"1806's whole shtick was for
+   MFs with poles inside $\mathcal F$ but away from cusps"* --- so it is the **same** regime and
+   a genuine consistency check (tracker #10).
+
+3. **A Claude self-catch (def:IN basepoint-dependence).** Writing `lem:wallvalue`, Claude
+   realized `def:IN` had over-reached: the tail $\Li_{-N}(e^{2\pi i(\cdot-z)})$ is **not
+   modular**, so `prop:indepHomotopy` does not apply and a single $I_N(s,z)$ is
+   basepoint-dependent; at $z=i$ the individual tail integral **diverges** as the contour
+   tightens onto the pole. Only the whole pole's contribution
+   $L^*(\widehat P_i f)=\sum_m r^*(m)I_{m-1}(s,i)$ is finite, its divergences cancelling
+   *across* the tails --- which is exactly `lem:Laurent`. Fix: `def:IN` narrowed to
+   ${\rm Im}\,z>1$; `lem:wallvalue` restated as the **combined** contribution
+   $\sum_m\frac{(-2\pi i)^m a_{-m}}{(m-1)!}\mathrm{FP}_{m-1}$, not a per-tail value. DAM: *"yeah,
+   that looks fine."*
+
+4. **THE TECHNICAL CONTRIBUTION --- general-$P$ Laurent relations at $i$.** DAM flagged that
+   `lem:Laurent` (first written explicit only for $P=1,2$) *"doesn't deal properly with generic
+   pole orders"* and asked *"is it hard to pursue?"* It is not. With $\varepsilon=\tau-i$, the
+   key simplification is $-1/\tau-i=-\varepsilon/(1-i\varepsilon)$, hence
+   $(-1/\tau-i)^{-1}=i-\varepsilon^{-1}$, and matching the coefficient of $\varepsilon^{-r}$ in
+   $f(-1/\tau)=\tau^k f(\tau)$ gives, for $r=1,\dots,P$,
+   $$(-1)^r\sum_{m=r}^P a_{-m}\binom{m}{r}i^{m-r}=i^k\sum_{m=r}^P a_{-m}\binom{k}{m-r}(-i)^{m-r}.$$
+   Checks: $r=P\Rightarrow\big((-1)^P-i^k\big)a_{-P}=0$ (pole order matches $k\bmod4$);
+   $r=1,P=1\Rightarrow(1+i^k)a_{-1}=0$; $r=1,P=2\Rightarrow a_{-1}=\tfrac{i(k-2)}2 a_{-2}$ ---
+   all matching the hand-derived low-$P$ cases. **Structural reading:** in the coordinate
+   $u=1/(\tau-i)$ the map $S:\tau\mapsto-1/\tau$ acts as $u\mapsto i-u$, so the relation is
+   precisely weight-$k$ $S$-covariance of the principal-part polynomial $g(u)=\sum a_{-m}u^m$:
+   $g(i-u)=\big[i^k u^{-k}(u-i)^k g(u)\big]_+$. `lem:Laurent` was made general and the
+   `rem:higherP` punt deleted --- nothing left to defer.
+
+**Disclosure note:** the §4 rebuild is DAM's protocol, and every structural course-correction is
+his --- the "layer" jargon call, the dangling-sentence catch, the 1806-regime correction, and
+the *"is it hard to pursue?"* that turned a hedge into a theorem. Claude proposed the
+statements and proofs, self-caught the `def:IN` basepoint-dependence mid-derivation (before it
+shipped), and derived the general-$P$ Laurent closed form together with its $S$-covariance
+reading. The general-$P$ relation is a Claude derivation prompted by DAM's question, verified
+against the independently hand-derived $P=1,2$ cases; DAM flagged it as *"the sorta thing that's
+hard to vibe, and a technical contribution."* §4 rebuild ongoing (`thm:mero` + `rem:edgevalues`
+remain).
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05
