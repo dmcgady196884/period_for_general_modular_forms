@@ -563,13 +563,11 @@ of $W^{(k)}_+$.
 \end{definition}
 
 \begin{definition}[Periods and Quasi-Periods]\label{def:periods}
-Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, let $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and let $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Further, define the two numbers, projections
+Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Now, define the two numbers $\omega^\pm(f)$ as follows: 
 \begin{equation}\label{eq:project}
-\omega^\pm(f)=\frac{\langle r_f,W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
-\qquad
-\langle P,Q\rangle=\sum_a(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}.
+\omega^\pm(f):=\frac{\langle r_f,W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
 \end{equation}
-When $f$ is a cusp form, $\omega^\pm(f)$ are its {\em periods}; when $f$ is a weak cusp form, $\omega^\pm(f)$ are its {\em quasi-periods}.
+where $\langle P,Q\rangle:=\sum_a(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}$. When $f$ is a cusp form, $\omega^\pm(f)$ are its {\em periods}; when $f$ is a weak cusp form, $\omega^\pm(f)$ are its {\em quasi-periods}, sometimes denoted $\eta^\pm(f)$.
 \end{definition}
 Now, having defined our periods and quasi-periods, we use them together with our L-functions 
 to extract periods and quasi-periods for $f \in S_k^!$ (when $\dim(S_k) = 1$). To this effect, 
@@ -969,6 +967,134 @@ holomorphic on $\HH$, $\widehat Pf=0$ and $c_{Rf}=c_f$, recovering Theorem~\ref{
 % even-order and $\Pi_N$ keeps genuine $\Li_{\le0}(w)$ poles at $w=1$, so the edge formula
 % must be replaced by \eqref{eq:wallvalue}. The central value $s=k/2$ is regular in each case.
 % \end{remark}
+
+\begin{thebibliography}{99}
+
+\bibitem{BFK2011}
+K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
+\emph{Special $L$-values and periods of weakly holomorphic modular forms},
+Ramanujan J.\ \textbf{24} (2011), 119--139.
+
+\bibitem{Brown2017}
+F.\ Brown, \emph{A class of non-holomorphic modular forms III},
+arXiv:1710.07912 (2017).
+
+\bibitem{1806}
+D.\ A.\ McGady,
+\emph{$L$-functions for meromorphic modular forms and sum rules in
+conformal field theory},
+arXiv:1806.09874 (2018).
+
+\bibitem{01-Apostol}
+T. M. Apostol,
+``Modular functions and Dirichlet series in number theory,''
+Graduate Texts in Mathematics, London, Springer (1997).
+
+
+\bibitem{DukeJenkins}
+W.\ Duke and P.\ Jenkins,
+\emph{On the zeros and coefficients of certain weakly holomorphic modular forms},
+Pure Appl.\ Math.\ Q.\ \textbf{4} (2008), no.\ 4, 1327--1340.
+
+% Rational period polynomials: classical background/normalization for the
+% period-polynomial and quasi-period material.
+\bibitem{KZ1984}
+W.\ Kohnen and D.\ Zagier,
+\emph{Modular forms with rational periods},
+in \emph{Modular Forms} (R.~A.\ Rankin, ed.), Ellis Horwood, 1984, pp.\ 197--249.
+
+
+
+\bibitem{BrownHain2018}
+F.\ Brown and R.\ Hain,
+\emph{Algebraic de Rham theory for weakly holomorphic modular forms of level one},
+Algebra Number Theory \textbf{12} (2018), no.\ 3, 723--750; arXiv:1708.00652.
+
+% Haberland's formula: recovers the Petersson norm from the period polynomial ---
+% the normalization-independent external check on our finite-contour periods (eq:haberland).
+\bibitem{Cohen2013}
+H.\ Cohen,
+\emph{Haberland's formula and numerical computation of Petersson scalar products},
+in \emph{ANTS X: Proceedings of the Tenth Algorithmic Number Theory Symposium},
+Open Book Ser.\ \textbf{1}, Math.\ Sci.\ Publ., 2013, pp.\ 249--270.
+
+\bibitem{VerifyScripts}
+\emph{Numerical verification scripts} (companion code), 2026.
+Published checks: \texttt{elliptic\_period\_checks.py}; full working ledger:
+\texttt{wip\_meromorphic\_periods.py}.
+
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+F.~W.~J.\ Olver \emph{et al.}, eds.,
+\url{https://dlmf.nist.gov/}, Release 1.2.x.
+Chapters used: \S8 (incomplete gamma) and \S25.11 (Hurwitz zeta).
+
+% =====================================================================
+% Adjacent work --- not yet \cite'd in the body; intended for the
+% (forthcoming) introduction / motivation.  Each squib = intended role.
+% =====================================================================
+
+% Eichler--Shimura / automorphic cohomology: the cohomological backdrop for
+% reading the two-segment integral as a finite-contour cocycle.
+\bibitem{BCD2018}
+R.\ Bruggeman, Y.\ Choie, and N.\ Diamantis,
+\emph{Holomorphic automorphic forms and cohomology},
+Mem.\ Amer.\ Math.\ Soc.\ \textbf{253} (2018), no.\ 1212; arXiv:1404.6718.
+
+% Eichler--Shimura for mock/weak forms: motivates L-functions of weakly
+% holomorphic cusp forms (the BGKO ``extra relation'').
+\bibitem{BGKO}
+K. Bringmann, P. Guerzhoy, Z. Kent and K. Ono,
+\emph{Eichler-Shimura Theory for Mock Modular Forms},
+Mathematische Annalen, March 2013 355(3).
+
+% Period polynomials and the Haberland pairing: the normalization behind the
+% quasi-period determinant (Table~\ref{tab:periods}).
+\bibitem{PasolPopa2013}
+V.\ Pa\c{s}ol and A.\ A.\ Popa,
+\emph{Modular forms and period polynomials},
+Proc.\ London Math.\ Soc.\ (3) \textbf{107} (2013), 713--743; arXiv:1202.5802.
+
+% Closest adjacent construction: L-functions of meromorphic (quasi-)modular
+% forms --- the natural comparison point for our meromorphic L-function.
+\bibitem{WangZhang2022}
+W.\ Wang and H.\ Zhang,
+\emph{Meromorphic quasi-modular forms and their $L$-functions},
+arXiv:2202.09542 (2022).
+
+% Periods of meromorphic modular forms (motivic / single-valued): adjacent
+% treatment of the meromorphic case.
+\bibitem{BrownFonseca2025}
+F.\ Brown and T.\ J.\ Fonseca,
+\emph{Single-valued periods of meromorphic modular forms and a motivic
+interpretation of the Gross--Zagier conjecture},
+arXiv:2508.04844 (2025).
+
+% Regularized inner products: the non-holomorphic regularization our finite
+% contour avoids (intro contrast with BFK-type constructions).
+\bibitem{BDE2016}
+K.\ Bringmann, N.\ Diamantis, and S.\ Ehlen,
+\emph{Regularized inner products and errors of modularity},
+Int.\ Math.\ Res.\ Not.\ IMRN (2016); arXiv:1603.03056.
+
+% Period functions of real-analytic forms: the Brown non-holomorphic-forms
+% context for periods and quasi-periods.
+\bibitem{DiamantisDrewitt2020}
+N.\ Diamantis and J.\ Drewitt,
+\emph{Period functions associated to real-analytic modular forms},
+Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
+
+
+%\bibitem{companion}
+%  D.\ A.\ McGady,
+%  \emph{Quasi-periods, periods and $L$-functions of meromorphic modular forms on
+%  $\mathrm{SL}_2(\mathbb{Z})$ via finite-contour cocycles},
+%  \emph{in preparation}.
+  
+\end{thebibliography}
+
+\end{document}
+
 
 \appendix
 \section{Explicit period-polynomial bases}\label{app:bases}
