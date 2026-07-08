@@ -562,44 +562,6 @@ coefficient-denominators and dividing by the gcd, and $c$ eliminates the $p_0$ c
 of $W^{(k)}_+$.
 \end{definition}
 
-%\paragraph{Extraction via the Kohnen--Zagier basis.}
-%For $k$ with $\dim S_k=1$, the degree-$(k-2)$ polynomials annihilated by $1+S$ and $1+U+U^2$
-%($U=TS$) form a three-dimensional space: an even and an odd cuspidal generator, together with
-%the Eisenstein polynomial $p_0=X^{k-2}-Y^{k-2}$~\cite[\S1.3]{KZ1984}.
-%\begin{definition}\label{def:Wpm}
-%$W^{(k)}_\pm$ are the even and odd cuspidal generators of this space, normalized to primitive
-%integer coefficients (explicit forms in Appendix~\ref{app:bases}).
-%\end{definition}
-%Explicitly, $W^{(k)}_\pm$ arise two ways. \emph{(A) From our $L$-integral:} the even and odd
-%parts of $r_{\Delta_k}$ (Definition~\ref{def:rf}) factor, with
-%$\rho_\ell:=(-1)^\ell\binom{n}{\ell}i^{\ell+1}L^*(\Delta_k,\ell+1)$ its $X^{n-\ell}Y^\ell$
-%coefficient, as
-%\begin{equation}\label{eq:Wform}
-%\omega^+\,W^{(k)}_+=\!\!\sum_{\ell\ \mathrm{even}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
-%\qquad
-%\omega^-\,W^{(k)}_-=\!\!\sum_{\ell\ \mathrm{odd}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
-%\end{equation}
-%where $W^{(k)}_\pm$ have coprime integer coefficients---the condition fixing the
-%normalization---and the removed transcendental factors are the periods $\omega^\pm$; within a
-%parity the ratios $\rho_\ell/\rho_{\ell_0}$ are rational (Kohnen--Zagier). \emph{(B) In closed
-%form}, independent of the $L$-integral: with $B^0_m(X)=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$ the
-%$m$th Bernoulli polynomial minus its linear term, $\tilde\jmath=n-j$, $p_0=X^n-1$, and
-%${\rm pp}$ the primitive part (clear denominators, divide by the gcd),
-%\begin{equation}\label{eq:Wclosed}
-%W^{(k)}_-={\rm pp}\,r^-_j,\qquad
-%W^{(k)}_+={\rm pp}\big(r^+_j\bmod p_0\big),\qquad(\text{any interior }j)
-%\end{equation}
-%where~\cite[Thm.~1$'$]{KZ1984}
-%\begin{align}
-%r^-_j&=\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)+X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
-%-\tfrac{1}{j+1}\big(B^0_{j+1}(X)+X^nB^0_{j+1}(\tfrac1X)\big) & (j\ \text{even}),\\
-%r^+_j&=\tfrac{1}{j+1}\big(B^0_{j+1}(X)-X^nB^0_{j+1}(\tfrac1X)\big)
-%+\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)-X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
-%-\tfrac{k}{B_k}\tfrac{B_{j+1}B_{\tilde\jmath+1}}{(j+1)(\tilde\jmath+1)}\,p_0 & (j\ \text{odd}).\nonumber
-%\end{align}
-%Route (B) is pure Bernoulli arithmetic followed by one gcd; that primitive part ${\rm pp}$ is
-%the whole difference between $W^{(k)}_\pm$ and the raw Kohnen--Zagier polynomials.
-
 \begin{definition}[Periods and Quasi-Periods]
 Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, let $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and let $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Further, define the two numbers, projections
 \begin{equation}\label{eq:project}
@@ -609,32 +571,9 @@ Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, let $W^{(k)}_\pm(X, Y) := Y^n W
 \end{equation}
 When $f$ is a cusp form, $\omega^\pm(f)$ are its {\em periods}; when $f$ is a weak cusp form, $\omega^\pm(f)$ are its {\em quasi-periods}.
 \end{definition}
-%The cusp form's period polynomial lies in $W_+\oplus W_-$; the weak form's carries an
-%additional even coboundary, so $\eta^-$ is read off directly while $\eta^+$ is well-defined
-%only through the projection~\eqref{eq:project}, which removes it. Appendix~\ref{app:bases}
-%gives the bases and projections weight by weight.
-
-%\begin{remark}[External check: the Petersson norm]
-%That the extracted periods are the classical critical periods is confirmed by a check
-%independent of the $W_\pm$ normalization: the coboundary-free cusp-form periods
-%$r_m(\Delta_k)=\int_0^{i\infty}\tau^m\Delta_k(\tau)\,d\tau = i^{m+1} L^*(\Delta_k,m+1)$ must obey
-%Haberland's formula
-%\begin{equation}\label{eq:haberland}
-%-6\,(-2i)^{k-2}\,\langle f,f\rangle
-%= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
-%{\rm Im}\!\big(r_m(f)\,\overline{r_n(f)}\big),
-%\end{equation}
-%which recovers the Petersson norm $\langle f,f\rangle$~\cite[Thm.~5.2]{Cohen2013}. Ours do: for
-%$\Delta$ ($k=12$) the $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
-%=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
-%$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
-%\end{remark}
-
-%\paragraph{Quasi-periods and their determinant:}
 Now, having defined our periods and quasi-periods, we use them together with our L-functions 
-to extract periods and quasi-periods for $f \in S_k^!$ (when $\dim(S_k) = 1$).
-
-To this effect, we recall the notation of~\cite{DukeJenkins}. Decomposing the modular weight 
+to extract periods and quasi-periods for $f \in S_k^!$ (when $\dim(S_k) = 1$). To this effect, 
+we recall the notation of~\cite{DukeJenkins}. Decomposing the modular weight 
 $k = 12 \lambda + k'$ where $k' \in \{ 0, 4, 6, 8, 10, 14\}$, we see $\lambda = \dim(S_k)$ when 
 $\lambda \geq 0$. For any $\lambda$, we may denote $f_{k, m} := 1/q^m + O(q^{\lambda+1}) \in M_k^!$. 
 When $\dim(S_k) = 1$, we have $f_{k,m} = 1/q^m + O(q^2)$. Here, define 
