@@ -530,20 +530,35 @@ the Eisenstein polynomial $p_0=X^{k-2}-Y^{k-2}$~\cite[\S1.3]{KZ1984}.
 $W^{(k)}_\pm$ are the even and odd cuspidal generators of this space, normalized to primitive
 integer coefficients (explicit forms in Appendix~\ref{app:bases}).
 \end{definition}
-Explicitly, with $B^0_m(X)=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$ the $m$th Bernoulli polynomial
-minus its linear term, $\tilde\jmath=n-j$ ($n=k-2$), and $p_0=X^n-1$, they are the
-primitive-integer representatives of the Kohnen--Zagier period
-polynomials~\cite[Thm.~1$'$]{KZ1984}
-\begin{align}\label{eq:KZform}
+Explicitly, $W^{(k)}_\pm$ arise two ways. \emph{(A) From our $L$-integral:} the even and odd
+parts of $r_{\Delta_k}$ (Definition~\ref{def:rf}) factor, with
+$\rho_\ell:=(-1)^\ell\binom{n}{\ell}i^{\ell+1}L^*(\Delta_k,\ell+1)$ its $X^{n-\ell}Y^\ell$
+coefficient, as
+\begin{equation}\label{eq:Wform}
+\omega^+\,W^{(k)}_+=\!\!\sum_{\ell\ \mathrm{even}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
+\qquad
+\omega^-\,W^{(k)}_-=\!\!\sum_{\ell\ \mathrm{odd}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
+\end{equation}
+where $W^{(k)}_\pm$ have coprime integer coefficients---the condition fixing the
+normalization---and the removed transcendental factors are the periods $\omega^\pm$; within a
+parity the ratios $\rho_\ell/\rho_{\ell_0}$ are rational (Kohnen--Zagier). \emph{(B) In closed
+form}, independent of the $L$-integral: with $B^0_m(X)=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$ the
+$m$th Bernoulli polynomial minus its linear term, $\tilde\jmath=n-j$, $p_0=X^n-1$, and
+${\rm pp}$ the primitive part (clear denominators, divide by the gcd),
+\begin{equation}\label{eq:Wclosed}
+W^{(k)}_-={\rm pp}\,r^-_j,\qquad
+W^{(k)}_+={\rm pp}\big(r^+_j\bmod p_0\big),\qquad(\text{any interior }j)
+\end{equation}
+where~\cite[Thm.~1$'$]{KZ1984}
+\begin{align}
 r^-_j&=\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)+X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
 -\tfrac{1}{j+1}\big(B^0_{j+1}(X)+X^nB^0_{j+1}(\tfrac1X)\big) & (j\ \text{even}),\\
 r^+_j&=\tfrac{1}{j+1}\big(B^0_{j+1}(X)-X^nB^0_{j+1}(\tfrac1X)\big)
 +\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)-X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
--\tfrac{k}{B_k}\tfrac{B_{j+1}\,B_{\tilde\jmath+1}}{(j+1)(\tilde\jmath+1)}\,p_0 & (j\ \text{odd}),\nonumber
+-\tfrac{k}{B_k}\tfrac{B_{j+1}B_{\tilde\jmath+1}}{(j+1)(\tilde\jmath+1)}\,p_0 & (j\ \text{odd}).\nonumber
 \end{align}
-which for $\dim S_k=1$ span the odd and even cuspidal lines independently of the interior index
-$j$: $W^{(k)}_-\propto r^-_j$, and $W^{(k)}_+$ is the cuspidal representative of $r^+_j$ (modulo
-$p_0$).
+Route (B) is pure Bernoulli arithmetic followed by one gcd; that primitive part ${\rm pp}$ is
+the whole difference between $W^{(k)}_\pm$ and the raw Kohnen--Zagier polynomials.
 The periods are the basis-invariant Haberland projections
 \begin{equation}\label{eq:project}
 \omega^\pm=\frac{\langle r_{\Delta_k},W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
