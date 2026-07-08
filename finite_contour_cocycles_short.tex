@@ -522,6 +522,55 @@ parabolicity condition in Eichler--Shimura theory.
 %DAM: Also, I need to give these a good, hard, look before emailing them to a mathematician. If these results might be of interest, I need to understand where the heck they come from.
 \end{remark}
 
+\paragraph{Extraction via the Kohnen--Zagier basis.}
+For $k$ with $\dim S_k=1$, the degree-$(k-2)$ polynomials annihilated by $1+S$ and $1+U+U^2$
+($U=TS$) form a three-dimensional space: an even and an odd cuspidal generator, together with
+the Eisenstein polynomial $p_0=X^{k-2}-Y^{k-2}$~\cite[\S1.3]{KZ1984}.
+\begin{definition}\label{def:Wpm}
+$W^{(k)}_\pm$ are the even and odd cuspidal generators of this space, normalized to primitive
+integer coefficients (explicit forms in Appendix~\ref{app:bases}).
+\end{definition}
+Explicitly, with $B^0_m(X)=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$ the $m$th Bernoulli polynomial
+minus its linear term, $\tilde\jmath=n-j$ ($n=k-2$), and $p_0=X^n-1$, they are the
+primitive-integer representatives of the Kohnen--Zagier period
+polynomials~\cite[Thm.~1$'$]{KZ1984}
+\begin{align}\label{eq:KZform}
+r^-_j&=\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)+X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
+-\tfrac{1}{j+1}\big(B^0_{j+1}(X)+X^nB^0_{j+1}(\tfrac1X)\big) & (j\ \text{even}),\\
+r^+_j&=\tfrac{1}{j+1}\big(B^0_{j+1}(X)-X^nB^0_{j+1}(\tfrac1X)\big)
++\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)-X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
+-\tfrac{k}{B_k}\tfrac{B_{j+1}\,B_{\tilde\jmath+1}}{(j+1)(\tilde\jmath+1)}\,p_0 & (j\ \text{odd}),\nonumber
+\end{align}
+which for $\dim S_k=1$ span the odd and even cuspidal lines independently of the interior index
+$j$: $W^{(k)}_-\propto r^-_j$, and $W^{(k)}_+$ is the cuspidal representative of $r^+_j$ (modulo
+$p_0$).
+The periods are the basis-invariant Haberland projections
+\begin{equation}\label{eq:project}
+\omega^\pm=\frac{\langle r_{\Delta_k},W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
+\qquad
+\langle P,Q\rangle=\sum_a(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}.
+\end{equation}
+The cusp form's period polynomial lies in $W_+\oplus W_-$; the weak form's carries an
+additional even coboundary, so $\eta^-$ is read off directly while $\eta^+$ is well-defined
+only through the projection~\eqref{eq:project}, which removes it. Appendix~\ref{app:bases}
+gives the bases and projections weight by weight.
+
+\begin{remark}[External check: the Petersson norm]
+That the extracted periods are the classical critical periods is confirmed by a check
+independent of the $W_\pm$ normalization: the coboundary-free cusp-form periods
+$r_m(\Delta_k)=\int_0^{i\infty}\tau^m\Delta_k(\tau)\,d\tau = i^{m+1} L^*(\Delta_k,m+1)$ must obey
+Haberland's formula
+\begin{equation}\label{eq:haberland}
+-6\,(-2i)^{k-2}\,\langle f,f\rangle
+= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
+{\rm Im}\!\big(r_m(f)\,\overline{r_n(f)}\big),
+\end{equation}
+which recovers the Petersson norm $\langle f,f\rangle$~\cite[Thm.~5.2]{Cohen2013}. Ours do: for
+$\Delta$ ($k=12$) the $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
+=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
+$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
+\end{remark}
+
 \paragraph{Quasi-periods and their determinant:}
 It is interesting to collect the quasi-periods computable from our L-integrals/period-polynomials
 for $f \in S_k^!$ (when $\dim(S_k) = 1$).
@@ -543,6 +592,11 @@ Brown--Hain~\cite[Prop.~5.6]{BrownHain2018} show that $\det({\rm pd}_k)$ satisfi
 Legendre-type relation, $\det({\rm pd}_k)\in\QQ^\times\cdot(2\pi i)^{k-1}$. Brown~\cite[\S8.3]{Brown2017}
 numerically finds $\alpha_k=1$; we reproduce this result at $k=12$ and give the analogous
 rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below.
+The value of $\alpha_k$ is tied to the normalization of Definition~\ref{def:Wpm}: our
+primitive-integer choice reproduces Brown's $\alpha_{12}=1$, whereas rescaling the same lines
+to the Kohnen--Zagier polynomials $r^\pm(R_n)$~\cite[Thm.~1$'$]{KZ1984}---whose $R_n$
+normalization is itself $n$-dependent---gives different $\alpha_k$ and spoils $\alpha_{12}=1$.
+The $\alpha_k$ are therefore basis-relative rationals.
 
 \begin{table}[H]\centering\small
 \begin{tabular}{r|rrrr|c}
@@ -557,27 +611,12 @@ $k$ & $\omega^+(\Delta_k)$ & $\omega^-(\Delta_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^
 $\eta^\pm(\Dhat_k)$, and the rational number $\alpha_k$. While 
 $\alpha_{12} = 1$ matches Brown~\cite{Brown2017}, $\alpha_k$ for $k\ge16$ 
 appear to be new, interesting, rational numbers, albeit with implicit dependence
-on the period-polynomial basis normalizations. We have not found a clear pattern 
+on the period-polynomial basis normalizations---in contrast to the normalization-free
+Petersson check above. We have not found a clear pattern
 for the $\alpha_k$. See ~\cite{VerifyScripts} for the scripts that extracted these 
 figures (to 50-digit precision).
 }\label{tab:periods}
 \end{table}
-
-%\begin{remark}[External check: the Petersson norm]
-%The periods $r_m(f)=\int_0^{i\infty}\tau^m f(\tau)\,d\tau = i^{m+1} L^*(f,m+1)$ read off the
-%finite-contour integral are the classical critical periods, so they must obey Haberland's formula
-%\begin{equation}\label{eq:haberland}
-%-6\,(-2i)^{k-2}\,\langle f,f\rangle
-%= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
-%{\rm Im}\!\big(r_m(f)\,\overline{r_n(f)}\big),
-%\end{equation}
-%which recovers the Petersson norm $\langle f,f\rangle$ from the period polynomial~\cite[Thm.~5.2]{Cohen2013}.
-%Unlike $\alpha_k$, this test is \emph{independent of the period-polynomial basis normalization}. For
-%$\Delta$ ($k=12$) our $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
-%=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
-%$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
-%\end{remark}
-%DAM: Removed this remark, as it seems to be utterly besides the point. We compute the L-values, we use the standard Bernoulli-number basis of W_\pm from KZ1984. What else is there to ask about? This norm just seems like it has to do with relating some classical inner products to one-another. At best, this remark should just be in-line text, mentioning that "We checked to see if our bases W_\pm(k) are consistent with the Haberland-formula, [equation]. We find that they are indeed consistent, when we focus on the holomorphic cusp forms $\Delta_k \in S_k$ for the $k$s considered in this subsection" or something. Dunno. As is, this seems strained and out of place.
 
 \section{Meromorphic modular forms}\label{sec:mero}
 
@@ -938,8 +977,12 @@ holomorphic on $\HH$, $\widehat Pf=0$ and $c_{Rf}=c_f$, recovering Theorem~\ref{
 
 In this Appendix, we provide the explicit information needed to extract the quasi-periods 
 presented in the main body of the note. 
-For each weight $k$ with $\dim S_k=1$, the even and odd rational period polynomials $W_\pm^{(k)}$ are the
-Kohnen--Zagier basis of the cuspidal period-polynomial space~\cite{KZ1984}.
+For each weight $k$ with $\dim S_k=1$, $W_\pm^{(k)}$ are integer-coefficient generators of the even and
+odd cuspidal period polynomials, in the sense of Kohnen--Zagier~\cite[\S1.3, Thm.~1$'$]{KZ1984}. The two
+sides are not symmetric. The odd $W_-^{(k)}$ is a rational multiple of the Kohnen--Zagier odd period
+polynomial directly. The even $W_+^{(k)}$ is the \emph{cuspidal part} of the even one: their even period
+polynomial carries an Eisenstein term proportional to $p_0=X^{k-2}-Y^{k-2}$, and $W_+^{(k)}$ is that
+polynomial with the $p_0$ term removed.
 Alongside are the period polynomials of the cusp form $\Delta_k=f_{k,-1}=q+O(q^2)$ and the weak cusp form
 $\widehat\Delta_k=f_{k,1}=q^{-1}+O(q^2)$, obtained from the finite-contour $L$-integral
 (Definition~\ref{def:Lint}) and projected onto $W_\pm$ by the Haberland pairing
@@ -1033,9 +1076,19 @@ L^*(\Delta_{12},1) & 10\,L^*(\Delta_{12},2)
 =\begin{pmatrix}
 36\,\eta^+ + c_T & 4\,\eta^-\\[2pt]
 36\,\omega^+ & 4\,\omega^-
-\end{pmatrix}, \nonumber
+\end{pmatrix}, \nonumber\\
+\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+&=\begin{pmatrix}
+-0.3061537 & -17.05597\\[2pt]
+1.655268\times10^{-4} & 9.269276\times10^{-3}
+\end{pmatrix}. \label{eq:pd12}
 \end{align}
-with $c_T=-0.548$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
+The second matrix collects the periods and quasi-periods themselves --- the coefficients of
+$r_{\Delta_{12}},r_{\widehat\Delta_{12}}$ in the $W_\pm^{(12)}$ basis, obtained by the Haberland
+projection and hence coboundary-free. Comparing the two: the odd entries agree
+($4\eta^-,4\omega^-$ exactly), but the even weak-form entry of the raw matrix exceeds
+$36\,\eta^+$ by $c_T=-0.548$ --- the $C_T$-coboundary, which contaminates every odd-$s$ value
+of $\widehat\Delta_{12}$ and is removed only by the projection. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
 $L^*(\widehat\Delta_{12},1)/L^*(\Delta_{12},1)\approx-1942$, in accord with
 Table~\ref{tab:Lmodes}.
@@ -1066,7 +1119,12 @@ L^*(\Delta_{16},1) & 14\,L^*(\Delta_{16},2)
 =\begin{pmatrix}
 360\,\eta^+ + c_T & 36\,\eta^-\\[2pt]
 360\,\omega^+ & 36\,\omega^-
-\end{pmatrix}, \nonumber
+\end{pmatrix}, \nonumber\\
+\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+&=\begin{pmatrix}
+-1.227268\times10^{-2} & -0.7278917\\[2pt]
+2.595173\times10^{-4} & 1.640586\times10^{-2}
+\end{pmatrix}. \label{eq:pd16}
 \end{align}
 with $c_T=-0.390$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1099,7 +1157,12 @@ L^*(\Delta_{18},1) & 16\,L^*(\Delta_{18},2)
 =\begin{pmatrix}
 18000\,\eta^+ + c_T & 24\,\eta^-\\[2pt]
 18000\,\omega^+ & 24\,\omega^-
-\end{pmatrix}, \nonumber
+\end{pmatrix}, \nonumber\\
+\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+&=\begin{pmatrix}
+-1.378467\times10^{-4} & -0.9072335\\[2pt]
+-3.122663\times10^{-5} & -0.1465501
+\end{pmatrix}. \label{eq:pd18}
 \end{align}
 with $c_T=-0.315$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1132,7 +1195,12 @@ L^*(\Delta_{20},1) & 18\,L^*(\Delta_{20},2)
 =\begin{pmatrix}
 26460\,\eta^+ + c_T & 108\,\eta^-\\[2pt]
 26460\,\omega^+ & 108\,\omega^-
-\end{pmatrix}, \nonumber
+\end{pmatrix}, \nonumber\\
+\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+&=\begin{pmatrix}
+-2.521273\times10^{-4} & 0.1296974\\[2pt]
+1.654739\times10^{-4} & 0.2549699
+\end{pmatrix}. \label{eq:pd20}
 \end{align}
 with $c_T=-0.272$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1165,7 +1233,12 @@ L^*(\Delta_{22},1) & 20\,L^*(\Delta_{22},2)
 =\begin{pmatrix}
 126000\,\eta^+ + c_T & 360\,\eta^-\\[2pt]
 126000\,\omega^+ & 360\,\omega^-
-\end{pmatrix}, \nonumber
+\end{pmatrix}, \nonumber\\
+\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+&=\begin{pmatrix}
+3.197846\times10^{-4} & -0.7633263\\[2pt]
+-3.341271\times10^{-4} & -0.7346639
+\end{pmatrix}. \label{eq:pd22}
 \end{align}
 with $c_T=-0.227$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1198,7 +1271,12 @@ L^*(\Delta_{26},1) & 24\,L^*(\Delta_{26},2)
 =\begin{pmatrix}
 34398000\,\eta^+ + c_T & 1080\,\eta^-\\[2pt]
 34398000\,\omega^+ & 1080\,\omega^-
-\end{pmatrix}, \nonumber
+\end{pmatrix}, \nonumber\\
+\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+&=\begin{pmatrix}
+2.002611\times10^{-4} & -40.08941\\[2pt]
+-2.002973\times10^{-4} & -40.08330
+\end{pmatrix}. \label{eq:pd26}
 \end{align}
 with $c_T=-0.164$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is

@@ -16,7 +16,16 @@ It also emits the Appendix LaTeX (run with argument 'latex').
 Period polynomial (def:rf, overall (2 pi i)^{n+1} dropped, n=k-2):
    r_f = sum_l (-1)^l C(n,l) i^{l+1} L*(f,l+1) X^{n-l} Y^l.
 The even part (l even) is pure imaginary = omega^+/eta^+ side; the odd part (l odd) is real
-= omega^-/eta^- side.  Run: /path/to/mmf_venv/bin/python period_polynomial_bases.py [latex]
+= omega^-/eta^- side.
+'cob' mode reports the weak form's C_T coboundary vector (coboundary(k)): it is PURELY EVEN
+(nonzero only at even a = odd s = 1,3,5,...) and antisymmetric, cob[a] = -cob[n-a].  Hence no
+single odd-s L-value gives a coboundary-free eta^+ -- moving s=1 -> s=3 only relabels c_T, it
+does not remove it; only the Haberland projection (etp) does.  eta^- (odd a, even s) is clean.
+'kz' mode verifies our W_pm against the Kohnen--Zagier period polynomials r^pm(R_n) (KZ1984 Thm 1',
+Bernoulli-polynomial form): W_- = (rational scalar)*r^-(R_n) directly, while on the even side W_+ is
+the cuspidal part of r^+(R_n): W_+ = lam*r^+(R_n) + c*p_0 with c != 0 (p_0 = X^{k-2}-Y^{k-2}) --
+both to machine zero.  This is the even/odd asymmetry (see kz_period).
+Run: /path/to/mmf_venv/bin/python period_polynomial_bases.py [latex|cob|kz]
 """
 import mpmath as mp, sys
 from fractions import Fraction
@@ -92,13 +101,14 @@ def primitive(fracs):
 def pairing(p, q, n):        # SL2-invariant (Haberland) pairing on V_n: sum_a (-1)^a p_a q_{n-a}/C(n,a)
     return sum((-1)**a * p[a] * q[n-a] / mp.binomial(n, a) for a in range(n+1))
 
+def rvec(F, k):              # def:rf coeff vector: entry a = coeff of X^{n-a}Y^a (even a: Im, odd a: Re)
+    n = k-2
+    c = [(-1)**a*mp.binomial(n, a)*I**(a+1)*Lstar(F, k, a+1) for a in range(n+1)]
+    return [c[a].imag if a % 2 == 0 else c[a].real for a in range(n+1)]
+
 def compute(k):
     n = k-2; Dk = Delta_k(k); Dh = Dhat_k(k)
-    # r_f as a real coefficient vector p_a (coeff of X^{n-a}Y^a): even-a is Im (i^{l+1} phase), odd-a is Re
-    def rvec(F):
-        c = [(-1)**a*mp.binomial(n, a)*I**(a+1)*Lstar(F, k, a+1) for a in range(n+1)]
-        return [c[a].imag if a % 2 == 0 else c[a].real for a in range(n+1)]
-    rD, rH = rvec(Dk), rvec(Dh)
+    rD, rH = rvec(Dk, k), rvec(Dh, k)
     # rational period polynomials W_pm (primitive integers) from the cusp form's even/odd coeffs
     Wp = [0]*(n+1); Wm = [0]*(n+1)
     ep = primitive([to_frac(rD[a]/rD[0]) for a in range(0, n+1, 2)])
@@ -112,6 +122,59 @@ def compute(k):
     residH = max(abs(rH[a]-etp*Wp[a]-etm*Wm[a]) for a in range(n+1))     # weak form: the C_T coboundary
     Wp = [Wp[a] for a in range(0, n+1, 2)]; Wm = [Wm[a] for a in range(1, n+1, 2)]
     return dict(n=n, Wp=Wp, Wm=Wm, omp=omp, omm=omm, etp=etp, etm=etm, residD=residD, residH=residH)
+
+def coboundary(k):
+    r"""C_T coboundary of the weak form: cob[a] = r_Dhat[a] - eta^+ Wp[a] - eta^- Wm[a]
+    (a = index of X^{n-a}Y^a).  Verified structure: cob is PURELY EVEN -- nonzero only at even a
+    (odd s = 1,3,5,...) and antisymmetric cob[a] = -cob[n-a]; it vanishes on odd a (even s).
+    Consequence: no single odd-s L-value gives a coboundary-free eta^+ (moving s=1 -> s=3 only
+    relabels c_T, it does not remove it); the Haberland projection 'etp' in compute() is the
+    unique coboundary-free eta^+, while eta^- is clean from any even s."""
+    d = compute(k); n = k-2
+    Wp = [mp.mpf(0)]*(n+1); Wm = [mp.mpf(0)]*(n+1)
+    for i, a in enumerate(range(0, n+1, 2)): Wp[a] = d["Wp"][i]
+    for i, a in enumerate(range(1, n+1, 2)): Wm[a] = d["Wm"][i]
+    rH = rvec(Dhat_k(k), k)
+    return n, [rH[a] - d["etp"]*Wp[a] - d["etm"]*Wm[a] for a in range(n+1)]
+
+def _B0(m, w, inv):
+    r"""Modified Bernoulli polynomial B^0_m (Bernoulli poly with its B_1 term dropped), as a
+    dict {power-of-X: coeff}.  inv=False gives B^0_m(X)=sum_{i!=1} C(m,i)B_i X^{m-i}; inv=True
+    gives X^w B^0_m(1/X)=sum_{i!=1} C(m,i)B_i X^{w-m+i}."""
+    d = {}
+    for i in range(m+1):
+        if i == 1: continue
+        Bi = mp.bernoulli(i)
+        if Bi == 0: continue
+        p = (w-m+i) if inv else (m-i)
+        d[p] = d.get(p, mp.mpf(0)) + mp.binomial(m, i)*Bi
+    return d
+
+def kz_period(k, n, parity):
+    r"""Kohnen--Zagier period polynomial r^{parity}(R_n) (KZ1984, Thm 1', p.208; their weight
+    2k = our k, so w = k-2 and nt = w-n), returned as a degree-w list [coeff of X^p].
+    parity='even' (n odd): the four modified-Bernoulli terms MINUS the Eisenstein term
+    (k/B_k)(B_{n+1}/(n+1))(B_{nt+1}/(nt+1))(X^w-1).
+    parity='odd'  (n even, interior): r^-(R_n) -- no Eisenstein term (only a delta-term at the
+    extremes n=0/nt=0, dropped here).
+    For dim S_k=1, R_n is proportional to Delta.  On the ODD side r^-(R_n) is cuspidal and equals
+    our W_- up to a rational scalar.  On the EVEN side r^+(R_n) still carries an Eisenstein p_0
+    component, so our (purely cuspidal) W_+ is NOT proportional to it but satisfies
+    W_+ = lam*r^+(R_n) + c*p_0 with c != 0 (p_0 = X^w - 1) -- the even/odd asymmetry.  Both are
+    verified to machine zero in 'kz' mode.  Signs transcribed directly from KZ Thm 1'."""
+    w = k-2; nt = w-n; poly = {}
+    def add(src, s):
+        for p, c in src.items(): poly[p] = poly.get(p, mp.mpf(0)) + s*c
+    if parity == "even":                 # r^+(R_n): four B^0 terms MINUS the Eisenstein p_0 term
+        add(_B0(n+1, w, False),  mp.mpf(1)/(n+1));  add(_B0(n+1, w, True),  -mp.mpf(1)/(n+1))
+        add(_B0(nt+1, w, False), mp.mpf(1)/(nt+1)); add(_B0(nt+1, w, True), -mp.mpf(1)/(nt+1))
+        Ceis = (mp.mpf(k)/mp.bernoulli(k))*(mp.bernoulli(n+1)/(n+1))*(mp.bernoulli(nt+1)/(nt+1))
+        poly[w] = poly.get(w, mp.mpf(0)) - Ceis      # -Ceis*(X^w - 1): the Eisenstein term of KZ's r^+
+        poly[0] = poly.get(0, mp.mpf(0)) + Ceis
+    else:                                # r^-(R_n): n-terms both -, nt-terms both +
+        add(_B0(n+1, w, False), -mp.mpf(1)/(n+1));  add(_B0(n+1, w, True),  -mp.mpf(1)/(n+1))
+        add(_B0(nt+1, w, False), mp.mpf(1)/(nt+1)); add(_B0(nt+1, w, True),  mp.mpf(1)/(nt+1))
+    return [poly.get(p, mp.mpf(0)) for p in range(w+1)]
 
 def poly_tex(coeffs, n, parity):                  # compact (anti)palindromic form
     cmap = {2*idx+parity: c for idx, c in enumerate(coeffs)}   # coeff of X^{n-l}Y^l
@@ -135,7 +198,39 @@ def poly_tex(coeffs, n, parity):                  # compact (anti)palindromic fo
     return s.strip()
 
 if __name__ == "__main__":
-    latex = len(sys.argv) > 1 and sys.argv[1] == "latex"
+    mode = sys.argv[1] if len(sys.argv) > 1 else ""
+    if mode == "cob":        # report the C_T coboundary structure (why s=3 is NOT clean for eta^+)
+        for k in [12, 16, 18, 20, 22, 26]:
+            n, cob = coboundary(k)
+            nz = [a for a in range(n+1) if abs(cob[a]) > mp.mpf(10)**(-25)]
+            print("k=%2d  C_T coboundary nonzero at a = %s  (all even => eta^+ dirty at every odd s)" %
+                  (k, nz), flush=True)
+            print("      cob[0]=%s (s=1)  cob[2]=%s (s=3)  cob[n]=%s (s=k-1) ;  eta^- (odd a, even s): clean" %
+                  (mp.nstr(cob[0], 4), mp.nstr(cob[2], 4), mp.nstr(cob[n], 4)), flush=True)
+        sys.exit()
+    if mode == "kz":         # verify W_- = scalar*r^-(R_n) (direct); W_+ = lam*r^+(R_n) + c*p_0
+        for k in [12, 16, 18, 20, 22, 26]:
+            d = compute(k); n = k-2
+            Wp = [mp.mpf(0)]*(n+1); Wm = [mp.mpf(0)]*(n+1)   # our W_pm as X-polys (Y=1): index = X-power
+            for i, a in enumerate(range(0, n+1, 2)): Wp[n-a] = d["Wp"][i]
+            for i, a in enumerate(range(1, n+1, 2)): Wm[n-a] = d["Wm"][i]
+            kzp = kz_period(k, 1, "even"); kzm = kz_period(k, 2, "odd")
+            def dev(u, v):   # deviation from a constant ratio u/v over v's nonzero entries
+                rs = [u[i]/v[i] for i in range(len(v)) if abs(v[i]) > mp.mpf(10)**(-30)]
+                return max(abs(r-rs[0]) for r in rs) if rs else mp.mpf('nan')
+            # odd: direct proportionality.  even: fit W_+ = lam*kzp + c*p_0 (p_0 = +X^n - 1)
+            P = [mp.mpf(0)]*(n+1); P[n] = mp.mpf(1); P[0] = mp.mpf(-1)
+            interior = [p for p in range(1, n) if abs(kzp[p]) > mp.mpf(10)**(-30)]
+            lam = Wp[interior[0]]/kzp[interior[0]]
+            c = Wp[n] - lam*kzp[n]
+            dev_int = dev([Wp[p] for p in interior], [kzp[p] for p in interior])  # interior proportionality
+            resid = max(abs(Wp[p] - lam*kzp[p] - c*P[p]) for p in range(n+1))     # full fit residual
+            print("k=%2d | W_- vs r^-(R_n): dev=%s | W_+ interior-prop dev=%s ; "
+                  "W_+ = %s r^+(R_n) + %s p_0, residual=%s" %
+                  (k, mp.nstr(dev(Wm, kzm), 2), mp.nstr(dev_int, 2),
+                   mp.nstr(lam, 5), mp.nstr(c, 4), mp.nstr(resid, 2)), flush=True)
+        sys.exit()
+    latex = mode == "latex"
     for k in [12, 16, 18, 20, 22, 26]:
         d = compute(k); n = d["n"]
         if latex:
