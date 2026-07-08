@@ -477,8 +477,9 @@ of the classical Mellin contour, $\int_0^\infty$.
 
 \subsection{Period polynomials, periods and quasi-periods}
 
-Because $L^*(f,s)$ is canonical for every $f\in S^!_k$, the period polynomial needs no separate
-construction --- it is the generating polynomial of the critical values.
+Because $L^*(f,s)$ is canonical for every $f\in S^!_k$, and because period polynomials 
+for a given modular form can be written in terms of their L-functions evaluated at integer-$s$ 
+in the critical strip, they need no separate construction.
 
 \begin{definition}[Period polynomial for $S_k^!$]\label{def:rf}
 For $f\in S^!_k$ and $n=k-2$, the \emph{period polynomial} is
@@ -510,7 +511,7 @@ L^*_T(f, \ell+1)
 This matches definition~\ref{def:rf} term by term, and proves the claim.
 \end{proof}
 
-\begin{remark}[The role of the $T$-kernel in Eichler--Shumura theory]
+\begin{remark}[The role of the $T$-kernel in Eichler--Shumura theory]\label{cohomology}
 The Hurwitz $T$-kernel in this note was originally uncovered in order to reproduce the manifestly
 finite computations of the quasi-periods for $\Dhat = 1/q + O(q^2) \in S_{12}^!$ originally given
 in~\cite{Brown2017}. Its role in the period polynomial~\eqref{eq:rf} is sharp: the $S$-segment alone
@@ -522,73 +523,116 @@ parabolicity condition in Eichler--Shimura theory.
 %DAM: Also, I need to give these a good, hard, look before emailing them to a mathematician. If these results might be of interest, I need to understand where the heck they come from.
 \end{remark}
 
-\paragraph{Extraction via the Kohnen--Zagier basis.}
-For $k$ with $\dim S_k=1$, the degree-$(k-2)$ polynomials annihilated by $1+S$ and $1+U+U^2$
-($U=TS$) form a three-dimensional space: an even and an odd cuspidal generator, together with
-the Eisenstein polynomial $p_0=X^{k-2}-Y^{k-2}$~\cite[\S1.3]{KZ1984}.
-\begin{definition}\label{def:Wpm}
-$W^{(k)}_\pm$ are the even and odd cuspidal generators of this space, normalized to primitive
-integer coefficients (explicit forms in Appendix~\ref{app:bases}).
-\end{definition}
-Explicitly, $W^{(k)}_\pm$ arise two ways. \emph{(A) From our $L$-integral:} the even and odd
-parts of $r_{\Delta_k}$ (Definition~\ref{def:rf}) factor, with
-$\rho_\ell:=(-1)^\ell\binom{n}{\ell}i^{\ell+1}L^*(\Delta_k,\ell+1)$ its $X^{n-\ell}Y^\ell$
-coefficient, as
-\begin{equation}\label{eq:Wform}
-\omega^+\,W^{(k)}_+=\!\!\sum_{\ell\ \mathrm{even}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
-\qquad
-\omega^-\,W^{(k)}_-=\!\!\sum_{\ell\ \mathrm{odd}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
-\end{equation}
-where $W^{(k)}_\pm$ have coprime integer coefficients---the condition fixing the
-normalization---and the removed transcendental factors are the periods $\omega^\pm$; within a
-parity the ratios $\rho_\ell/\rho_{\ell_0}$ are rational (Kohnen--Zagier). \emph{(B) In closed
-form}, independent of the $L$-integral: with $B^0_m(X)=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$ the
-$m$th Bernoulli polynomial minus its linear term, $\tilde\jmath=n-j$, $p_0=X^n-1$, and
-${\rm pp}$ the primitive part (clear denominators, divide by the gcd),
-\begin{equation}\label{eq:Wclosed}
-W^{(k)}_-={\rm pp}\,r^-_j,\qquad
-W^{(k)}_+={\rm pp}\big(r^+_j\bmod p_0\big),\qquad(\text{any interior }j)
-\end{equation}
-where~\cite[Thm.~1$'$]{KZ1984}
+Having now defined the period polynomial associated to a cusp form $f \in S_k^!$, 
+we now seek to find its {\em (quasi-)periods}, which we define presently. First, though, 
+we briefly mention some important facts from the theory of period polynomials, but 
+refer the newcomer to the field to standard references such as~\cite{KZ1984} for more 
+systematic discussions. To begin, because period polynomials are integrals of the $\SLZ$ 
+covariant differential,\footnote{Technically, period polynomials are the sum of contour integrals 
+$\int_{\gamma^{-1}(\tau_0)}^{\tau_0}\omega_f$, plus an additional piece which fixes parabolicity. 
+This extra piece is the focus of Remark~\ref{cohomology}.}
+\begin{equation}
+\omega_f := f(\tau) (X - \tau Y)^{n} d\tau~.
+\end{equation} 
+Due to its origin as an integral of this covariant differential, it must satisfy two nontrivial 
+relations 
 \begin{align}
-r^-_j&=\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)+X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
--\tfrac{1}{j+1}\big(B^0_{j+1}(X)+X^nB^0_{j+1}(\tfrac1X)\big) & (j\ \text{even}),\\
-r^+_j&=\tfrac{1}{j+1}\big(B^0_{j+1}(X)-X^nB^0_{j+1}(\tfrac1X)\big)
-+\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)-X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
--\tfrac{k}{B_k}\tfrac{B_{j+1}B_{\tilde\jmath+1}}{(j+1)(\tilde\jmath+1)}\,p_0 & (j\ \text{odd}).\nonumber
+r_f(X, Y)|_{(1+S)} = r_f(X, Y)|_{(1 + U + U^2)} = 0~,
 \end{align}
-Route (B) is pure Bernoulli arithmetic followed by one gcd; that primitive part ${\rm pp}$ is
-the whole difference between $W^{(k)}_\pm$ and the raw Kohnen--Zagier polynomials.
-The periods are the basis-invariant Haberland projections
+where $U := TS$ and $r_f(X, Y)|_{\gamma} := r_f(aX + bY, cX + dY)$ for all 
+$\gamma = \left(\begin{smallmatrix} a & b \\ c & d\end{smallmatrix}\right) \in \SLZ$, and 
+$r_f|_{\gamma + \sigma} := r_f|_\gamma + r_f|_\sigma$. These two constraints together 
+impose extremely stringent constraints on $r_f(X, Y) \in \CC[X, Y]_{k-2}$. Specifically, 
+they require it to lie within a $2\dim(S_k)+1$-dimensional subspace of the $k-2$-dimensional 
+space $\CC[X, Y]_{k-2}$. When $\dim(S_k) = 1$, this 3-dimensional space is spanned by the 
+three polynomials, whose definition we (hopefully correctly lifted) from~\cite[\S1.3]{KZ1984}: 
+
+\begin{definition}\label{def:Wpm}
+For $k$ with $\dim S_k=1$, $n:=k-2$, $p_0:=X^n-1$, $B_i = \oint t^{j-1} e^t/(t-1) dt$, and 
+$B^0_m(X):=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$. The even and odd Kohnen--Zagier 
+bases~\cite[Thm.~1$'$]{KZ1984} are
+\begin{align}
+W^{(k)}_-(X)&:={\rm pp}\left(\tfrac{1}{n-1}\big(B^0_{n-1}(X)+X^nB^0_{n-1}(\tfrac1X)\big)
+-\tfrac13\big(B^0_3(X)+X^nB^0_3(\tfrac1X)\big)\right),\\
+W^{(k)}_+(X)&:={\rm pp}\left(\tfrac12\big(B^0_2(X)-X^nB^0_2(\tfrac1X)\big)
++\tfrac1n\big(B^0_n(X)-X^nB^0_n(\tfrac1X)\big)-c\,p_0\right),
+\end{align}
+where ${\rm pp}$ act on any polynomial with rational coefficients by multiplying it by all 
+coefficient-denominators and dividing by the gcd, and $c$ eliminates the $p_0$ component 
+of $W^{(k)}_+$.
+\end{definition}
+
+%\paragraph{Extraction via the Kohnen--Zagier basis.}
+%For $k$ with $\dim S_k=1$, the degree-$(k-2)$ polynomials annihilated by $1+S$ and $1+U+U^2$
+%($U=TS$) form a three-dimensional space: an even and an odd cuspidal generator, together with
+%the Eisenstein polynomial $p_0=X^{k-2}-Y^{k-2}$~\cite[\S1.3]{KZ1984}.
+%\begin{definition}\label{def:Wpm}
+%$W^{(k)}_\pm$ are the even and odd cuspidal generators of this space, normalized to primitive
+%integer coefficients (explicit forms in Appendix~\ref{app:bases}).
+%\end{definition}
+%Explicitly, $W^{(k)}_\pm$ arise two ways. \emph{(A) From our $L$-integral:} the even and odd
+%parts of $r_{\Delta_k}$ (Definition~\ref{def:rf}) factor, with
+%$\rho_\ell:=(-1)^\ell\binom{n}{\ell}i^{\ell+1}L^*(\Delta_k,\ell+1)$ its $X^{n-\ell}Y^\ell$
+%coefficient, as
+%\begin{equation}\label{eq:Wform}
+%\omega^+\,W^{(k)}_+=\!\!\sum_{\ell\ \mathrm{even}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
+%\qquad
+%\omega^-\,W^{(k)}_-=\!\!\sum_{\ell\ \mathrm{odd}}\!\!\rho_\ell\,X^{n-\ell}Y^\ell,
+%\end{equation}
+%where $W^{(k)}_\pm$ have coprime integer coefficients---the condition fixing the
+%normalization---and the removed transcendental factors are the periods $\omega^\pm$; within a
+%parity the ratios $\rho_\ell/\rho_{\ell_0}$ are rational (Kohnen--Zagier). \emph{(B) In closed
+%form}, independent of the $L$-integral: with $B^0_m(X)=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$ the
+%$m$th Bernoulli polynomial minus its linear term, $\tilde\jmath=n-j$, $p_0=X^n-1$, and
+%${\rm pp}$ the primitive part (clear denominators, divide by the gcd),
+%\begin{equation}\label{eq:Wclosed}
+%W^{(k)}_-={\rm pp}\,r^-_j,\qquad
+%W^{(k)}_+={\rm pp}\big(r^+_j\bmod p_0\big),\qquad(\text{any interior }j)
+%\end{equation}
+%where~\cite[Thm.~1$'$]{KZ1984}
+%\begin{align}
+%r^-_j&=\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)+X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
+%-\tfrac{1}{j+1}\big(B^0_{j+1}(X)+X^nB^0_{j+1}(\tfrac1X)\big) & (j\ \text{even}),\\
+%r^+_j&=\tfrac{1}{j+1}\big(B^0_{j+1}(X)-X^nB^0_{j+1}(\tfrac1X)\big)
+%+\tfrac{1}{\tilde\jmath+1}\big(B^0_{\tilde\jmath+1}(X)-X^nB^0_{\tilde\jmath+1}(\tfrac1X)\big)
+%-\tfrac{k}{B_k}\tfrac{B_{j+1}B_{\tilde\jmath+1}}{(j+1)(\tilde\jmath+1)}\,p_0 & (j\ \text{odd}).\nonumber
+%\end{align}
+%Route (B) is pure Bernoulli arithmetic followed by one gcd; that primitive part ${\rm pp}$ is
+%the whole difference between $W^{(k)}_\pm$ and the raw Kohnen--Zagier polynomials.
+
+\begin{definition}[Periods and Quasi-Periods]
+Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, let $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and let $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Further, define the two numbers, projections
 \begin{equation}\label{eq:project}
-\omega^\pm=\frac{\langle r_{\Delta_k},W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
+\omega^\pm(f)=\frac{\langle r_f,W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
 \qquad
 \langle P,Q\rangle=\sum_a(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}.
 \end{equation}
-The cusp form's period polynomial lies in $W_+\oplus W_-$; the weak form's carries an
-additional even coboundary, so $\eta^-$ is read off directly while $\eta^+$ is well-defined
-only through the projection~\eqref{eq:project}, which removes it. Appendix~\ref{app:bases}
-gives the bases and projections weight by weight.
+When $f$ is a cusp form, $\omega^\pm(f)$ are its {\em periods}; when $f$ is a weak cusp form, $\omega^\pm(f)$ are its {\em quasi-periods}.
+\end{definition}
+%The cusp form's period polynomial lies in $W_+\oplus W_-$; the weak form's carries an
+%additional even coboundary, so $\eta^-$ is read off directly while $\eta^+$ is well-defined
+%only through the projection~\eqref{eq:project}, which removes it. Appendix~\ref{app:bases}
+%gives the bases and projections weight by weight.
 
-\begin{remark}[External check: the Petersson norm]
-That the extracted periods are the classical critical periods is confirmed by a check
-independent of the $W_\pm$ normalization: the coboundary-free cusp-form periods
-$r_m(\Delta_k)=\int_0^{i\infty}\tau^m\Delta_k(\tau)\,d\tau = i^{m+1} L^*(\Delta_k,m+1)$ must obey
-Haberland's formula
-\begin{equation}\label{eq:haberland}
--6\,(-2i)^{k-2}\,\langle f,f\rangle
-= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
-{\rm Im}\!\big(r_m(f)\,\overline{r_n(f)}\big),
-\end{equation}
-which recovers the Petersson norm $\langle f,f\rangle$~\cite[Thm.~5.2]{Cohen2013}. Ours do: for
-$\Delta$ ($k=12$) the $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
-=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
-$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
-\end{remark}
+%\begin{remark}[External check: the Petersson norm]
+%That the extracted periods are the classical critical periods is confirmed by a check
+%independent of the $W_\pm$ normalization: the coboundary-free cusp-form periods
+%$r_m(\Delta_k)=\int_0^{i\infty}\tau^m\Delta_k(\tau)\,d\tau = i^{m+1} L^*(\Delta_k,m+1)$ must obey
+%Haberland's formula
+%\begin{equation}\label{eq:haberland}
+%-6\,(-2i)^{k-2}\,\langle f,f\rangle
+%= \!\!\sum_{m+n\le k-2}\!\! \binom{k-2}{m+n}\binom{m+n}{m}(-1)^m\,
+%{\rm Im}\!\big(r_m(f)\,\overline{r_n(f)}\big),
+%\end{equation}
+%which recovers the Petersson norm $\langle f,f\rangle$~\cite[Thm.~5.2]{Cohen2013}. Ours do: for
+%$\Delta$ ($k=12$) the $L^*$-values reproduce Zagier's $\langle\Delta,\Delta\rangle
+%=1.03536\ldots\times10^{-6}$ to $14$ digits; at $k=16$ they match the fundamental-domain integral
+%$\int_{\mathcal F}|f|^2 y^{k-2}\,dx\,dy = 2.16906\ldots\times10^{-6}$ to $16$ digits.
+%\end{remark}
 
-\paragraph{Quasi-periods and their determinant:}
-It is interesting to collect the quasi-periods computable from our L-integrals/period-polynomials
-for $f \in S_k^!$ (when $\dim(S_k) = 1$).
+%\paragraph{Quasi-periods and their determinant:}
+Now, having defined our periods and quasi-periods, we use them together with our L-functions 
+to extract periods and quasi-periods for $f \in S_k^!$ (when $\dim(S_k) = 1$).
 
 To this effect, we recall the notation of~\cite{DukeJenkins}. Decomposing the modular weight 
 $k = 12 \lambda + k'$ where $k' \in \{ 0, 4, 6, 8, 10, 14\}$, we see $\lambda = \dim(S_k)$ when 
@@ -1064,6 +1108,18 @@ reproduced by its $n=1$ mode alone; the weak form's rapidly growing coefficients
 the value across many modes until $n=-1$ dominates at large $k$. The two $L^*(f,1)$ in
 each weight-pair approach equal magnitude (and opposite sign) as $k$ grows.}\label{tab:Lmodes}
 \end{table}
+
+\paragraph{The $c_T$ term in the even weak-form entry.}
+The weak form's period polynomial $r_{\widehat\Delta_k}$ is, like the cusp form's, annihilated by
+$1+S$ and $1+U+U^2$, so it too lies in the period space $\langle W_+,\,p_0,\,W_-\rangle$; but it
+carries a component along the Eisenstein polynomial $p_0=X^{k-2}-Y^{k-2}$ that the cusp form lacks.
+Since $p_0$ occupies only the two extreme monomials $X^{k-2},Y^{k-2}$---the $s=1$ and $s=k-1$
+coefficients---and $W_+$ is not orthogonal to $p_0$ under the Haberland pairing, the projection
+$\eta^+$ of~\eqref{eq:project} absorbs part of this Eisenstein content but not all. The unabsorbed
+remainder surfaces as an additive constant $c_T$ in the extreme even coefficient of
+$r_{\widehat\Delta_k}$ in the matrices below. It occurs only there: the odd sector has no Eisenstein
+direction (so $\eta^-$ is exact), the cusp form has no $p_0$-component (so no $c_T$), and, lying
+outside the projection, $c_T$ enters neither $\eta^\pm$ nor $\alpha_k$.
 
 \paragraph{Weight 12:}
 \begin{align}
