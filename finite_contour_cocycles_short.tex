@@ -562,7 +562,7 @@ coefficient-denominators and dividing by the gcd, and $c$ eliminates the $p_0$ c
 of $W^{(k)}_+$.
 \end{definition}
 
-\begin{definition}[Periods and Quasi-Periods]
+\begin{definition}[Periods and Quasi-Periods]\label{def:periods}
 Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, let $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and let $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Further, define the two numbers, projections
 \begin{equation}\label{eq:project}
 \omega^\pm(f)=\frac{\langle r_f,W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
@@ -975,32 +975,29 @@ holomorphic on $\HH$, $\widehat Pf=0$ and $c_{Rf}=c_f$, recovering Theorem~\ref{
 
 In this Appendix, we provide the explicit information needed to extract the quasi-periods 
 presented in the main body of the note. 
-For each weight $k$ with $\dim S_k=1$, $W_\pm^{(k)}$ are integer-coefficient generators of the even and
-odd cuspidal period polynomials, in the sense of Kohnen--Zagier~\cite[\S1.3, Thm.~1$'$]{KZ1984}. The two
-sides are not symmetric. The odd $W_-^{(k)}$ is a rational multiple of the Kohnen--Zagier odd period
-polynomial directly. The even $W_+^{(k)}$ is the \emph{cuspidal part} of the even one: their even period
-polynomial carries an Eisenstein term proportional to $p_0=X^{k-2}-Y^{k-2}$, and $W_+^{(k)}$ is that
-polynomial with the $p_0$ term removed.
-Alongside are the period polynomials of the cusp form $\Delta_k=f_{k,-1}=q+O(q^2)$ and the weak cusp form
-$\widehat\Delta_k=f_{k,1}=q^{-1}+O(q^2)$, obtained from the finite-contour $L$-integral
-(Definition~\ref{def:Lint}) and projected onto $W_\pm$ by the Haberland pairing
-$\langle P,Q\rangle=\sum_{a}(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}$, $n=k-2$. The periods $\omega^\pm(\Delta_k)$
-and quasi-periods $\eta^\pm(\widehat\Delta_k)$ are quoted to ten digits (full precision in~\cite{VerifyScripts},
+For each weight $k$ with $\dim S_k=1$, $W_\pm^{(k)}$ are as in Definition~\ref{def:Wpm} 
+(and pulled from~\cite[\S1.3, Thm.~1$'$]{KZ1984}). The periods of $\Delta_k := q + O(q^2) \in S_k$
+and quasi-periods of $\Dhat_k := 1/q + O(q^2) \in S_k^!$ are obtained by the projection in 
+Definition~\ref{def:periods}. We give them, and how they relate to the L-values, for all $k \in \{12, 16, 
+18, 20, 22, 26\}$, i.e. for all weights such that the space of $\SLZ$ cusp forms is one-dimensional. 
+The periods $\omega^\pm(\Delta_k)$ and quasi-periods $\eta^\pm(\widehat\Delta_k)$ are quoted 
+to ten digits (full precision in~\cite{VerifyScripts},
 \texttt{period\_polynomial\_bases.py}).
 
-\paragraph{Comment on the sizes of the $L$-values.}
-One might expect the weak cusp form $\widehat\Delta_k=q^{-1}+O(q^2)$ to have far larger
-special values than the cusp form $\Delta_k=q+O(q^2)$: its $q$-series begins at $n=-1$,
-where the incomplete Gamma $\Gamma(s,2\pi n)\sim(2\pi n)^{s-1}e^{-2\pi n}$ of
-Theorem~\ref{thm:weakL} is a factor $\sim e^{4\pi}$ larger than the cusp form's $n=1$ term.
-Table~\ref{tab:Lmodes} shows this fails on two counts. First, for a weak cusp form the
-leading term does not set the scale of the $L$-value: the rapidly growing coefficients
-$c_{\widehat\Delta_k}(n)\sim e^{4\pi\sqrt{n}}$ spread it across many modes. Second, the
-size of each mode is set not by the $q$-term $\Gamma(s,2\pi n)$ but by its companion
-$\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}\sim(k-s-1)!/(2\pi)^{k-s}$, whose factorial growth in the
-weight is common to both forms and dominates as $k$ grows, driving the two special values
-to the same magnitude. Indeed, the ratio of the L-values of $\Delta_k$ and 
-$\Dhat_k$ become very similar in magnitude as for larger $k$. 
+%\paragraph{Comment on the sizes of the $L$-values.}
+%One might expect the weak cusp form $\widehat\Delta_k=q^{-1}+O(q^2)$ to have far larger
+%special values than the cusp form $\Delta_k=q+O(q^2)$: its $q$-series begins at $n=-1$,
+%where $\Gamma(s,2\pi n)\sim(2\pi n)^{s-1}e^{-2\pi n}$ of
+%Theorem~\ref{thm:weakL} is a factor $\sim e^{4\pi}$ larger than the cusp form's $n=1$ term.
+%Table~\ref{tab:Lmodes} shows this fails on two counts. First, for a weak cusp form the
+%leading term does not set the scale of the $L$-value: the rapidly growing coefficients
+%$c_{\widehat\Delta_k}(n)\sim e^{4\pi\sqrt{n}}$ spread across many modes. Second, the
+%size of each mode is set not by the $q$-term $\Gamma(s,2\pi n)$ but by its companion
+%$\Gamma(k-s,2\pi n)/(2\pi n)^{k-s}\sim(k-s-1)!/(2\pi)^{k-s}$, whose factorial growth in the
+%weight is common to both forms and dominates as $k$ grows, driving the two special values
+%to the same magnitude. Indeed, the ratio of the L-values of $\Delta_k$ and 
+%$\Dhat_k$ become very similar in magnitude as for larger $k$. 
+%DAM: Not sure I believe this second reason...
 
 \begin{table}[H]\centering\footnotesize\setlength{\tabcolsep}{3pt}
 \begin{tabular}{ccccccccccc}
@@ -1048,6 +1045,7 @@ the value across many modes until $n=-1$ dominates at large $k$. The two $L^*(f,
 each weight-pair approach equal magnitude (and opposite sign) as $k$ grows.}\label{tab:Lmodes}
 \end{table}
 
+
 \paragraph{The $c_T$ term in the even weak-form entry.}
 The weak form's period polynomial $r_{\widehat\Delta_k}$ is, like the cusp form's, annihilated by
 $1+S$ and $1+U+U^2$, so it too lies in the period space $\langle W_+,\,p_0,\,W_-\rangle$; but it
@@ -1060,12 +1058,17 @@ $r_{\widehat\Delta_k}$ in the matrices below. It occurs only there: the odd sect
 direction (so $\eta^-$ is exact), the cusp form has no $p_0$-component (so no $c_T$), and, lying
 outside the projection, $c_T$ enters neither $\eta^\pm$ nor $\alpha_k$.
 
+
 \paragraph{Weight 12:}
 \begin{align}
-W_+^{(12)}(X,Y)&= 36(X^{10} - Y^{10}) - 691(X^{8}Y^{2} - X^{2}Y^{8}) + 2073(X^{6}Y^{4} - X^{4}Y^{6}),\\
-W_-^{(12)}(X,Y)&= 4(X^{9}Y + XY^{9}) - 25(X^{7}Y^{3} + X^{3}Y^{7}) + 42X^{5}Y^{5},\\
-r_{\Delta_{12}}&= 0.0001655268053\,W_+^{(12)} +0.009269276162\,W_-^{(12)},\\
-r_{\widehat\Delta_{12}}&= -0.3061537142\,W_+^{(12)} -17.05597275\,W_-^{(12)}.
+%W_+^{(12)}(X,Y)&= 36(X^{10} - Y^{10}) - 691(X^{8}Y^{2} - X^{2}Y^{8}) + 2073(X^{6}Y^{4} - X^{4}Y^{6}),\\
+%W_-^{(12)}(X,Y)&= 4(X^{9}Y + XY^{9}) - 25(X^{7}Y^{3} + X^{3}Y^{7}) + 42X^{5}Y^{5},\\
+r_{\Delta_{12}}& 
+= \omega^+ W_+^{(12)} + \omega^+ W_-^{(12)} 
+= 0.0001655268053\,W_+^{(12)} +0.009269276162\,W_-^{(12)} ,\\
+r_{\widehat\Delta_{12}}&
+= \eta^+ W_+^{(12)} + \eta^+ W_-^{(12)} + C_T
+= -0.3061537142\,W_+^{(12)} -17.05597275\,W_-^{(12)}  + C_T~.
 \end{align}
 These coefficients, localizing $r_{\Delta_{12}}$ and $r_{\widehat\Delta_{12}}$ in the
 $(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
@@ -1086,12 +1089,12 @@ L^*(\Delta_{12},1) & 10\,L^*(\Delta_{12},2)
 =\begin{pmatrix}
 36\,\eta^+ + c_T & 4\,\eta^-\\[2pt]
 36\,\omega^+ & 4\,\omega^-
-\end{pmatrix}, \nonumber\\
-\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
-&=\begin{pmatrix}
--0.3061537 & -17.05597\\[2pt]
-1.655268\times10^{-4} & 9.269276\times10^{-3}
-\end{pmatrix}. \label{eq:pd12}
+\end{pmatrix}, \nonumber%\\
+%\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+%&=\begin{pmatrix}
+%-0.3061537 & -17.05597\\[2pt]
+%1.655268\times10^{-4} & 9.269276\times10^{-3}
+%\end{pmatrix}. \label{eq:pd12}
 \end{align}
 The second matrix collects the periods and quasi-periods themselves --- the coefficients of
 $r_{\Delta_{12}},r_{\widehat\Delta_{12}}$ in the $W_\pm^{(12)}$ basis, obtained by the Haberland
@@ -1105,10 +1108,14 @@ Table~\ref{tab:Lmodes}.
 
 \paragraph{Weight 16:}
 \begin{align}
-W_+^{(16)}(X,Y)&= 360(X^{14} - Y^{14}) - 7234(X^{12}Y^{2} - X^{2}Y^{12}) \\&+ 25319(X^{10}Y^{4} - X^{4}Y^{10}) - 39787(X^{8}Y^{6} - X^{6}Y^{8}),\nonumber\\
-W_-^{(16)}(X,Y)&= 36(X^{13}Y + XY^{13}) - 245(X^{11}Y^{3} + X^{3}Y^{11}) \\&+ 539(X^{9}Y^{5} + X^{5}Y^{9}) - 660X^{7}Y^{7},\nonumber\\
-r_{\Delta_{16}}&= 0.0002595173464\,W_+^{(16)} +0.01640585888\,W_-^{(16)},\\
-r_{\widehat\Delta_{16}}&= -0.01227268476\,W_+^{(16)} -0.7278917244\,W_-^{(16)}.
+%W_+^{(16)}(X,Y)&= 360(X^{14} - Y^{14}) - 7234(X^{12}Y^{2} - X^{2}Y^{12}) \\&+ 25319(X^{10}Y^{4} - X^{4}Y^{10}) - 39787(X^{8}Y^{6} - X^{6}Y^{8}),\nonumber\\
+%W_-^{(16)}(X,Y)&= 36(X^{13}Y + XY^{13}) - 245(X^{11}Y^{3} + X^{3}Y^{11}) \\&+ 539(X^{9}Y^{5} + X^{5}Y^{9}) - 660X^{7}Y^{7},\nonumber\\
+r_{\Delta_{16}}&
+= \omega^+\,W_+^{(16)} +\omega^-\,W_-^{(16)}
+= 0.0002595173464\,W_+^{(16)} +0.01640585888\,W_-^{(16)},\\
+r_{\widehat\Delta_{16}}&
+= \eta^+\,W_+^{(16)} +\eta^-\,W_-^{(16)} + C_T
+= -0.01227268476\,W_+^{(16)} -0.7278917244\,W_-^{(16)} + C_T.
 \end{align}
 These coefficients, localizing $r_{\Delta_{16}}$ and $r_{\widehat\Delta_{16}}$ in the
 $(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
@@ -1129,12 +1136,12 @@ L^*(\Delta_{16},1) & 14\,L^*(\Delta_{16},2)
 =\begin{pmatrix}
 360\,\eta^+ + c_T & 36\,\eta^-\\[2pt]
 360\,\omega^+ & 36\,\omega^-
-\end{pmatrix}, \nonumber\\
-\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
-&=\begin{pmatrix}
--1.227268\times10^{-2} & -0.7278917\\[2pt]
-2.595173\times10^{-4} & 1.640586\times10^{-2}
-\end{pmatrix}. \label{eq:pd16}
+\end{pmatrix}, \nonumber%\\
+%\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+%&=\begin{pmatrix}
+%-1.227268\times10^{-2} & -0.7278917\\[2pt]
+%2.595173\times10^{-4} & 1.640586\times10^{-2}
+%\end{pmatrix}. \label{eq:pd16}
 \end{align}
 with $c_T=-0.390$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1143,10 +1150,14 @@ Table~\ref{tab:Lmodes}.
 
 \paragraph{Weight 18:}
 \begin{align}
-W_+^{(18)}(X,Y)&= 18000(X^{16} - Y^{16}) - 350936(X^{14}Y^{2} - X^{2}Y^{14}) \\&+ 1096675(X^{12}Y^{4} - X^{4}Y^{12}) - 1140542(X^{10}Y^{6} - X^{6}Y^{10}),\nonumber\\
-W_-^{(18)}(X,Y)&= 24(X^{15}Y + XY^{15}) - 154(X^{13}Y^{3} + X^{3}Y^{13}) \\&+ 273(X^{11}Y^{5} + X^{5}Y^{11}) - 143(X^{9}Y^{7} + X^{7}Y^{9}),\nonumber\\
-r_{\Delta_{18}}&= -3.122662695\times10^{-5}\,W_+^{(18)} -0.1465501421\,W_-^{(18)},\\
-r_{\widehat\Delta_{18}}&= -0.0001378466906\,W_+^{(18)} -0.907233517\,W_-^{(18)}.
+%W_+^{(18)}(X,Y)&= 18000(X^{16} - Y^{16}) - 350936(X^{14}Y^{2} - X^{2}Y^{14}) \\&+ 1096675(X^{12}Y^{4} - X^{4}Y^{12}) - 1140542(X^{10}Y^{6} - X^{6}Y^{10}),\nonumber\\
+%W_-^{(18)}(X,Y)&= 24(X^{15}Y + XY^{15}) - 154(X^{13}Y^{3} + X^{3}Y^{13}) \\&+ 273(X^{11}Y^{5} + X^{5}Y^{11}) - 143(X^{9}Y^{7} + X^{7}Y^{9}),\nonumber\\
+r_{\Delta_{18}}&
+= \omega^+\,W_+^{(18)} +\omega^-\,W_-^{(18)}
+= -3.122662695\times10^{-5}\,W_+^{(18)} -0.1465501421\,W_-^{(18)},\\
+r_{\widehat\Delta_{18}}&
+= \eta^+\,W_+^{(18)} +\eta^-\,W_-^{(18)} + C_T
+= -0.0001378466906\,W_+^{(18)} -0.907233517\,W_-^{(18)}.
 \end{align}
 These coefficients, localizing $r_{\Delta_{18}}$ and $r_{\widehat\Delta_{18}}$ in the
 $(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
@@ -1167,12 +1178,12 @@ L^*(\Delta_{18},1) & 16\,L^*(\Delta_{18},2)
 =\begin{pmatrix}
 18000\,\eta^+ + c_T & 24\,\eta^-\\[2pt]
 18000\,\omega^+ & 24\,\omega^-
-\end{pmatrix}, \nonumber\\
-\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
-&=\begin{pmatrix}
--1.378467\times10^{-4} & -0.9072335\\[2pt]
--3.122663\times10^{-5} & -0.1465501
-\end{pmatrix}. \label{eq:pd18}
+\end{pmatrix}, \nonumber%\\
+%\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+%&=\begin{pmatrix}
+%-1.378467\times10^{-4} & -0.9072335\\[2pt]
+%-3.122663\times10^{-5} & -0.1465501
+%\end{pmatrix}. \label{eq:pd18}
 \end{align}
 with $c_T=-0.315$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1181,10 +1192,14 @@ Table~\ref{tab:Lmodes}.
 
 \paragraph{Weight 20:}
 \begin{align}
-W_+^{(20)}(X,Y)&= 26460(X^{18} - Y^{18}) - 523833(X^{16}Y^{2} - X^{2}Y^{16}) \\&+ 1746110(X^{14}Y^{4} - X^{4}Y^{14}) - 2444554(X^{12}Y^{6} - X^{6}Y^{12})\nonumber\\&+ 2269943(X^{10}Y^{8} - X^{8}Y^{10}),\nonumber\\
-W_-^{(20)}(X,Y)&= 108(X^{17}Y + XY^{17}) - 715(X^{15}Y^{3} + X^{3}Y^{15}) + 1452(X^{13}Y^{5} + X^{5}Y^{13}) \\&- 1560(X^{11}Y^{7} + X^{7}Y^{11}) + 1430X^{9}Y^{9},\nonumber\\
-r_{\Delta_{20}}&= 0.0001654739435\,W_+^{(20)} +0.2549699125\,W_-^{(20)},\\
-r_{\widehat\Delta_{20}}&= -0.0002521273082\,W_+^{(20)} +0.1296973583\,W_-^{(20)}.
+%W_+^{(20)}(X,Y)&= 26460(X^{18} - Y^{18}) - 523833(X^{16}Y^{2} - X^{2}Y^{16}) \\&+ 1746110(X^{14}Y^{4} - X^{4}Y^{14}) - 2444554(X^{12}Y^{6} - X^{6}Y^{12})\nonumber\\&+ 2269943(X^{10}Y^{8} - X^{8}Y^{10}),\nonumber\\
+%W_-^{(20)}(X,Y)&= 108(X^{17}Y + XY^{17}) - 715(X^{15}Y^{3} + X^{3}Y^{15}) + 1452(X^{13}Y^{5} + X^{5}Y^{13}) \\&- 1560(X^{11}Y^{7} + X^{7}Y^{11}) + 1430X^{9}Y^{9},\nonumber\\
+r_{\Delta_{20}}&
+= \omega^+\,W_+^{(20)} +\omega^-\,W_-^{(20)}
+= 0.0001654739435\,W_+^{(20)} +0.2549699125\,W_-^{(20)},\\
+r_{\widehat\Delta_{20}}&
+= \eta^+\,W_+^{(20)} +\eta^-\,W_-^{(20)} + C_T
+= -0.0002521273082\,W_+^{(20)} +0.1296973583\,W_-^{(20)} + C_T.
 \end{align}
 These coefficients, localizing $r_{\Delta_{20}}$ and $r_{\widehat\Delta_{20}}$ in the
 $(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
@@ -1205,12 +1220,12 @@ L^*(\Delta_{20},1) & 18\,L^*(\Delta_{20},2)
 =\begin{pmatrix}
 26460\,\eta^+ + c_T & 108\,\eta^-\\[2pt]
 26460\,\omega^+ & 108\,\omega^-
-\end{pmatrix}, \nonumber\\
-\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
-&=\begin{pmatrix}
--2.521273\times10^{-4} & 0.1296974\\[2pt]
-1.654739\times10^{-4} & 0.2549699
-\end{pmatrix}. \label{eq:pd20}
+\end{pmatrix}, \nonumber%\\
+%\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+%&=\begin{pmatrix}
+%-2.521273\times10^{-4} & 0.1296974\\[2pt]
+%1.654739\times10^{-4} & 0.2549699
+%\end{pmatrix}. \label{eq:pd20}
 \end{align}
 with $c_T=-0.272$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1219,10 +1234,14 @@ Table~\ref{tab:Lmodes}.
 
 \paragraph{Weight 22:}
 \begin{align}
-W_+^{(22)}(X,Y)&= 126000(X^{20} - Y^{20}) - 2485856(X^{18}Y^{2} - X^{2}Y^{18}) \\ &+ 8156715(X^{16}Y^{4} - X^{4}Y^{16}) - 10564888(X^{14}Y^{6} - X^{6}Y^{14}) \nonumber\\&+ 6603055(X^{12}Y^{8} - X^{8}Y^{12}),\nonumber\\
-W_-^{(22)}(X,Y)&= 360(X^{19}Y + XY^{19}) - 2366(X^{17}Y^{3} + X^{3}Y^{17}) + 4641(X^{15}Y^{5} + X^{5}Y^{15}) \\&- 4182(X^{13}Y^{7} + X^{7}Y^{13}) + 1547(X^{11}Y^{9} + X^{9}Y^{11}),\nonumber\\
-r_{\Delta_{22}}&= -0.0003341270695\,W_+^{(22)} -0.7346639014\,W_-^{(22)},\\
-r_{\widehat\Delta_{22}}&= 0.0003197845612\,W_+^{(22)} -0.7633262888\,W_-^{(22)}.
+%W_+^{(22)}(X,Y)&= 126000(X^{20} - Y^{20}) - 2485856(X^{18}Y^{2} - X^{2}Y^{18}) \\ &+ 8156715(X^{16}Y^{4} - X^{4}Y^{16}) - 10564888(X^{14}Y^{6} - X^{6}Y^{14}) \nonumber\\&+ 6603055(X^{12}Y^{8} - X^{8}Y^{12}),\nonumber\\
+%W_-^{(22)}(X,Y)&= 360(X^{19}Y + XY^{19}) - 2366(X^{17}Y^{3} + X^{3}Y^{17}) + 4641(X^{15}Y^{5} + X^{5}Y^{15}) \\&- 4182(X^{13}Y^{7} + X^{7}Y^{13}) + 1547(X^{11}Y^{9} + X^{9}Y^{11}),\nonumber\\
+r_{\Delta_{22}}&
+= \omega^+\,W_+^{(22)} +\omega^-\,W_-^{(22)}
+= -0.0003341270695\,W_+^{(22)} -0.7346639014\,W_-^{(22)},\\
+r_{\widehat\Delta_{22}}&
+= \eta^+\,W_+^{(22)} +\eta^-\,W_-^{(22)} + C_T
+= 0.0003197845612\,W_+^{(22)} -0.7633262888\,W_-^{(22)} + C_T.
 \end{align}
 These coefficients, localizing $r_{\Delta_{22}}$ and $r_{\widehat\Delta_{22}}$ in the
 $(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
@@ -1243,12 +1262,12 @@ L^*(\Delta_{22},1) & 20\,L^*(\Delta_{22},2)
 =\begin{pmatrix}
 126000\,\eta^+ + c_T & 360\,\eta^-\\[2pt]
 126000\,\omega^+ & 360\,\omega^-
-\end{pmatrix}, \nonumber\\
-\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
-&=\begin{pmatrix}
-3.197846\times10^{-4} & -0.7633263\\[2pt]
--3.341271\times10^{-4} & -0.7346639
-\end{pmatrix}. \label{eq:pd22}
+\end{pmatrix}, \nonumber%\\
+%\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+%&=\begin{pmatrix}
+%3.197846\times10^{-4} & -0.7633263\\[2pt]
+%-3.341271\times10^{-4} & -0.7346639
+%\end{pmatrix}. \label{eq:pd22}
 \end{align}
 with $c_T=-0.227$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
@@ -1257,10 +1276,14 @@ Table~\ref{tab:Lmodes}.
 
 \paragraph{Weight 26:}
 \begin{align}
-W_+^{(26)}(X,Y)&= 34398000(X^{24} - Y^{24}) - 678984792(X^{22}Y^{2} - X^{2}Y^{22}) \\&+ 2233675745(X^{20}Y^{4} - X^{4}Y^{20}) - 2938319846(X^{18}Y^{6} - X^{6}Y^{18}) \nonumber\\&+ 2062613685(X^{16}Y^{8} - X^{8}Y^{16}) - 850046852(X^{14}Y^{10} - X^{10}Y^{14}),\nonumber\\
-W_-^{(26)}(X,Y)&= 1080(X^{23}Y + XY^{23}) - 7106(X^{21}Y^{3} + X^{3}Y^{21}) + 14025(X^{19}Y^{5} + X^{5}Y^{19}) \\&- 13167(X^{17}Y^{7} + X^{7}Y^{17}) + 7106(X^{15}Y^{9} + X^{9}Y^{15}) - 1938(X^{13}Y^{11} + X^{11}Y^{13}),\nonumber\\
-r_{\Delta_{26}}&= -0.0002002972716\,W_+^{(26)} -40.08330039\,W_-^{(26)},\\
-r_{\widehat\Delta_{26}}&= 0.0002002611462\,W_+^{(26)} -40.0894082\,W_-^{(26)}.
+%W_+^{(26)}(X,Y)&= 34398000(X^{24} - Y^{24}) - 678984792(X^{22}Y^{2} - X^{2}Y^{22}) \\&+ 2233675745(X^{20}Y^{4} - X^{4}Y^{20}) - 2938319846(X^{18}Y^{6} - X^{6}Y^{18}) \nonumber\\&+ 2062613685(X^{16}Y^{8} - X^{8}Y^{16}) - 850046852(X^{14}Y^{10} - X^{10}Y^{14}),\nonumber\\
+%W_-^{(26)}(X,Y)&= 1080(X^{23}Y + XY^{23}) - 7106(X^{21}Y^{3} + X^{3}Y^{21}) + 14025(X^{19}Y^{5} + X^{5}Y^{19}) \\&- 13167(X^{17}Y^{7} + X^{7}Y^{17}) + 7106(X^{15}Y^{9} + X^{9}Y^{15}) - 1938(X^{13}Y^{11} + X^{11}Y^{13}),\nonumber\\
+r_{\Delta_{26}}&
+= \omega^+\,W_+^{(26)} +\omega^-\,W_-^{(26)}
+= -0.0002002972716\,W_+^{(26)} -40.08330039\,W_-^{(26)},\\
+r_{\widehat\Delta_{26}}&
+= \eta^+\,W_+^{(26)} +\eta^-\,W_-^{(26)} + C_T
+= 0.0002002611462\,W_+^{(26)} -40.0894082\,W_-^{(26)} + C_T.
 \end{align}
 These coefficients, localizing $r_{\Delta_{26}}$ and $r_{\widehat\Delta_{26}}$ in the
 $(W_+,W_-)$-plane, translate to the periods and quasi-periods of Table~\ref{tab:periods}
@@ -1281,12 +1304,12 @@ L^*(\Delta_{26},1) & 24\,L^*(\Delta_{26},2)
 =\begin{pmatrix}
 34398000\,\eta^+ + c_T & 1080\,\eta^-\\[2pt]
 34398000\,\omega^+ & 1080\,\omega^-
-\end{pmatrix}, \nonumber\\
-\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
-&=\begin{pmatrix}
-2.002611\times10^{-4} & -40.08941\\[2pt]
--2.002973\times10^{-4} & -40.08330
-\end{pmatrix}. \label{eq:pd26}
+\end{pmatrix}, \nonumber%\\
+%\begin{pmatrix}\eta^+ & \eta^-\\[2pt] \omega^+ & \omega^-\end{pmatrix}
+%&=\begin{pmatrix}
+%2.002611\times10^{-4} & -40.08941\\[2pt]
+%-2.002973\times10^{-4} & -40.08330
+%\end{pmatrix}. \label{eq:pd26}
 \end{align}
 with $c_T=-0.164$ the $C_T$-coboundary in the even weak-form entry. Notably, at this
 weight the ratio of special $L$-values at $s=1$ is
