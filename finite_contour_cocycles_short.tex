@@ -542,32 +542,45 @@ r_f(X, Y)|_{(1+S)} = r_f(X, Y)|_{(1 + U + U^2)} = 0~,
 where $U := TS$ and $r_f(X, Y)|_{\gamma} := r_f(aX + bY, cX + dY)$ for all 
 $\gamma = \left(\begin{smallmatrix} a & b \\ c & d\end{smallmatrix}\right) \in \SLZ$, and 
 $r_f|_{\gamma + \sigma} := r_f|_\gamma + r_f|_\sigma$. These two constraints together 
-impose extremely stringent constraints on $r_f(X, Y) \in \CC[X, Y]_{k-2}$. Specifically, 
-they require it to lie within a $2\dim(S_k)+1$-dimensional subspace of the $k-2$-dimensional 
-space $\CC[X, Y]_{k-2}$. When $\dim(S_k) = 1$, this 3-dimensional space is spanned by the 
-three polynomials, whose definition we (hopefully correctly lifted) from~\cite[\S1.3]{KZ1984}: 
-
+impose extremely stringent constraints on $r_f(X, Y) \in \CC[X, Y]_{k-2}$, and force it to 
+lie within a privileged subspace we denote by $W \subset \CC[X, Y]_{k-2}$. Now, it is a 
+standard fact that $\dim(W) = 2\dim(S_k)+1$ (see, e.g. \cite{KZ1984}). Before giving the bases for 
+$W$ for $k$ where $\dim(S_k) = 1 \leftrightarrow \dim(W) = 3$, we find it helpful to define the 
+following inner-product:
+\begin{align}\label{inner}
+\langle P,Q\rangle:=\sum_a(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}~.
+\end{align}
+Now for the basis elements:
 \begin{definition}\label{def:Wpm}
-For $k$ with $\dim S_k=1$, $n:=k-2$, $p_0:=X^n-1$, $B_i = \oint t^{j-1} e^t/(t-1) dt$, and 
-$B^0_m(X):=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$. The even and odd Kohnen--Zagier 
-bases~\cite[Thm.~1$'$]{KZ1984} are
+For $k$ with $\dim S_k=1$, $n:=k-2$, $p_0(X):=X^n-1$, $B_i := \tfrac{i!}{2\pi i}\oint \tfrac{t^{-i}}{e^{t}-1}\,dt$, and
+$B^0_m(X):=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$. Motivated by~\cite[Thm.~1$'$]{KZ1984}, we define:
 \begin{align}
 W^{(k)}_-(X)&:={\rm pp}\left(\tfrac{1}{n-1}\big(B^0_{n-1}(X)+X^nB^0_{n-1}(\tfrac1X)\big)
 -\tfrac13\big(B^0_3(X)+X^nB^0_3(\tfrac1X)\big)\right),\\
 W^{(k)}_+(X)&:={\rm pp}\left(\tfrac12\big(B^0_2(X)-X^nB^0_2(\tfrac1X)\big)
-+\tfrac1n\big(B^0_n(X)-X^nB^0_n(\tfrac1X)\big)-c\,p_0\right),
++\tfrac1n\big(B^0_n(X)-X^nB^0_n(\tfrac1X)\big)-c\,p_0(X)\right),\\
+v_0^{(k)}(X)&:= p_0(X) - \frac{\langle W^{(k)}_+,\,p_0\rangle}{\langle W^{(k)}_+,\,W^{(k)}_+\rangle}\,W^{(k)}_+(X),
 \end{align}
-where ${\rm pp}$ act on any polynomial with rational coefficients by multiplying it by all 
-coefficient-denominators and dividing by the gcd, and $c$ eliminates the $p_0$ component 
-of $W^{(k)}_+$.
+where ${\rm pp}$ acts on any polynomial with rational coefficients by multiplying by all
+coefficient-denominators and dividing by the gcd, $c$ eliminates the $p_0(X)$ component
+of $W^{(k)}_+$, and $\langle P, Q\rangle$ as in Eq.~\eqref{inner}.
 \end{definition}
+
+\begin{lemma}\label{lem:Wbasis}
+For $k$ with $\dim S_k=1$, let $W:=\{w\in\CC[X,Y]_{k-2}:w|(1+S)=w|(1+U+U^2)=0\}$. Then $\dim W=3$, and $\{W^{(k)}_+,\,W^{(k)}_-,\,v_0^{(k)}\}$ is an orthogonal basis of $W$ under $\langle\cdot,\cdot\rangle$ from Eq.~\eqref{inner}.
+\end{lemma}
+\begin{proof}
+First, let $W_\pm^{(k)}(X, Y) := Y^{k-2} W_\pm^{(k)}(X/Y)$, and let $v_0^{(k)}(X, Y) := Y^{k-2} v_0^{(k)}(X/Y)$.
+
+Now, by Eichler--Shimura, $\dim W=2\dim S_k+1=3$. Theorem~1$'$ of~\cite{KZ1984} gives the odd and even period polynomials of the cusp form $R_n\propto\Delta$ as modified-Bernoulli combinations; its $n=2$ case is $r^-(R_2)$, odd under $X\mapsto-X$, and its $n=1$ case is $r^+(R_1)$, even. Our $W^{(k)}_-$ is the primitive part of $r^-(R_2)$, and $W^{(k)}_+$ the primitive part of $r^+(R_1)$ with its Eisenstein $p_0$-component removed by $c$; both lie in $W$, as does $p_0=X^{k-2}-Y^{k-2}$ (even). The three are independent, hence a basis of $W$. Since $k-2$ is even, $\langle\cdot,\cdot\rangle$ is symmetric and pairs opposite $X\mapsto-X$ parities to zero; the odd $W^{(k)}_-$ is thus orthogonal to the even $W^{(k)}_+$ and $v_0^{(k)}$, while $v_0^{(k)}\perp W^{(k)}_+$ by construction. Hence $\{W^{(k)}_+,W^{(k)}_-,v_0^{(k)}\}$ is orthogonal.
+\end{proof}
 
 \begin{definition}[Periods and Quasi-Periods]\label{def:periods}
 Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Now, define the two numbers $\omega^\pm(f)$ as follows: 
 \begin{equation}\label{eq:project}
 \omega^\pm(f):=\frac{\langle r_f,W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
 \end{equation}
-where $\langle P,Q\rangle:=\sum_a(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}$. When $f$ is a cusp form, $\omega^\pm(f)$ are its {\em periods}; when $f$ is a weak cusp form, $\omega^\pm(f)$ are its {\em quasi-periods}, sometimes denoted $\eta^\pm(f)$.
+where $\langle\cdot,\cdot\rangle$ is as in Eq.~\eqref{inner}. When $f$ is a cusp form, $\omega^\pm(f)$ are its {\em periods}; when $f$ is a weak cusp form, $\omega^\pm(f)$ are its {\em quasi-periods}, sometimes denoted $\eta^\pm(f)$.
 \end{definition}
 Now, having defined our periods and quasi-periods, we use them together with our L-functions 
 to extract periods and quasi-periods for $f \in S_k^!$ (when $\dim(S_k) = 1$). To this effect, 
