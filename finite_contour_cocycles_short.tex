@@ -676,8 +676,7 @@ homotopy class of the pair.
 For $f\in F_k$ and $\tau_0\in\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, the L-integral
 $L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ depends only on the homotopy class of its
 two segments in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, and not on the basepoint
-$\tau_0$. At fixed $\tau_0$ each of $L^*_S,L^*_T$ is separately path-independent; a change
-of basepoint moves value between the two, leaving only their sum invariant.
+$\tau_0$. At fixed $\tau_0$ each of $L^*_S,L^*_T$ is separately path-independent.
 \end{proposition}
 
 \begin{proof}
@@ -688,8 +687,8 @@ basepoint, $\partial_{\tau_0}L^*$ is evaluated at the moving endpoints alone; th
 computation of Proposition~\ref{prop:indep} --- which uses only $f(\tau_0-1)=f(\tau_0)$ and
 $f(-1/\tau_0)=\tau_0^{k}f(\tau_0)$ --- cancels the boundary terms of $L^*_S$ against those
 of $L^*_T$, the interior poles lying off the contours. Hence $\partial_{\tau_0}L^*=0$ along
-any motion in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, while each summand separately
-varies.
+any motion in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, while each summand may 
+separately vary.
 \end{proof}
 
 \begin{definition}\label{def:class}
@@ -713,7 +712,7 @@ homotopy classes).
 We would like to speak of ``the'' L-integral. Homotopy classes of course split this into 
 L-integrals for contours in different homotopy classes. And, so, in what follows, we define 
 the reference homotopy classes: 
-\begin{definition}\label{def:null_homotopy}
+\begin{definition}[Reference homotopy class for $f \in F_k$]\label{def:null_homotopy}
 Let $f \in F_k$, $\tau_0$ be the base-point of $L^*(f,s)$ in the usual way, and let 
 $f^{-1}(\infty)$ be the full set of all poles of $f$. Further, let $\tau_p^*$ denote the 
 pole of lowest height at/above the ${\rm Im}(\tau) = 1$ line, and denote its imaginary 
@@ -721,14 +720,14 @@ height by $y^* := {\rm Im}(\tau_p^*)$. If $y^* = 1$, then let $\tau_p^\dagger = 
 + i y^\dagger$ denote $f$s pole of next lowest height above $\tau_p^*$. I.e., $y^* 
 < y^\dagger$; if no such pole exists, then $y^\dagger := \infty$.
 
-We define the {\em minimal homotopy class of $f$}, 
+We define the {\em reference homotopy class of $f$}, 
 which we denote $[\gamma_f] = [\gamma^T_f] + [\gamma^S_f]$, as follows. 
 \begin{enumerate}
 \item If $y^* > 1$, then $[\gamma^T_f]$ is the homotopy class containing the 
 horizontal line from $i-1$ to $i$, and $[\gamma^S_f]$ is the homotopy 
 class containing the trivial path from $i$ to itself.
 \item If $y^* = 1$, let $\delta$ be any positive constant such that $y^* < 1+\delta < 
-y^\dagger$. Let $\tau_0^* := i + i\delta$. Here, $[\gamma^T_f]$ is the homotopy class containing the 
+y^\dagger$. Let $\tau_0^* := i(1 + \delta)$. Here, $[\gamma^T_f]$ is the homotopy class containing the 
 horizontal line from $\tau_0^*-1$ to $\tau_0^*$, and $[\gamma^S_f]$ is the homotopy 
 class containing the almost-straight-line path that goes from $-1/\tau_0^*$ to $\tau_0^*$ 
 along the imaginary-$\tau$ axis {\em except when it passes a pole on the axis}. When there is 
@@ -741,19 +740,19 @@ With this definition, we may thus unambiguously define
 \begin{align}
 L^*(f,s) := L^*(f, s; [\gamma^S_f], [\gamma^T_f])~.
 \end{align} 
-Now, having fixed the reference value $L^*_0(f,s)$ in the trivial
-homotopy class in Definition~\ref{def:null_homotopy}, now consider 
+Now, having fixed the reference value $L^*(f,s)$ in the reference
+homotopy class of Definition~\ref{def:null_homotopy}, consider
 two paths $\gamma^S_{\tau_0}$ and $\gamma^T_{\tau_0}$ which may 
 be in any homotopy class. Further, let $X_S(p),X_T(p)\in\ZZ$ count 
-the windings $\gamma^S_{\tau_0}$, resp.$\gamma^T_{\tau_0}$
-has about each pole $\tau_p\in f^{-1}(\infty)$ relative to the null-classes.
+the windings $\gamma^S_{\tau_0}$, $\gamma^T_{\tau_0}$
+has about each pole $\tau_p\in f^{-1}(\infty)$ relative to the reference-class.
 
 \begin{lemma}\label{lem:wall}
 Let $f\in F_k$, $r_S(f, \tau_p) := \Res_{\tau=\tau_p} (f(\tau) \tau^{s-1})$ 
 and $r_T(f, \tau_p) := \Res_{\tau=\tau_p} (f(\tau) \tk(\tau, s))$. Then, 
 \begin{equation}\label{eq:wall}
 L^*\big(f,s;[\gamma^S_{\tau_0}],[\gamma^T_{\tau_0}]\big)
-= L^*_0(f,s)
+= L^*(f,s)
 + 2\pi i\,e^{-\pi i s/2}\sum_{\tau_p\in f^{-1}(\infty)}\Big[
 X_S(\tau_p) r_S(f, \tau_p)
 + X_T(\tau_p) r_T(f, \tau_p) \Big].
@@ -763,40 +762,53 @@ X_S(\tau_p) r_S(f, \tau_p)
 \begin{proof}
 Two pairs whose winding data differ by one unit at a single pole $p$, on one segment,
 bound a loop encircling $p$ once; the residue theorem adds $2\pi i$ times the residue of
-that segment's integrand --- $f\,\tau^{s-1}$ for $\gamma^S$, $f\,\tk$ for $\gamma^T$ ---
+that segment's integrand, $f(\tau) \tau^{s-1}$ for $\gamma^S$ or $f(\tau)\tk(\tau, s)$ for $\gamma^T$,
 and the prefactor $e^{-\pi i s/2}$ of Definition~\ref{def:Lint} multiplies through.
-Within-class constancy is Proposition~\ref{prop:indepHomotopy}; summing over crossings
-gives \eqref{eq:wall}.
+Summing over crossings gives \eqref{eq:wall}.
 \end{proof}
 
+This content provides the basics to discuss our finite L-functions for $f \in F_k$. 
+However, we wish to present these L-functions in terms of their q-series coefficients, 
+just as we have done for L-functions for $f \in M_k^!$ in the previous section. To do 
+this, we must introduce polylogarithmic projections of Ref.~\cite{1806}:
 
-The polylog projection renders every pole with ${\rm Im}\,\tau_p\ge1$ as an explicit tail,
-leaving $(I-\widehat P)f$ with all poles strictly below the line ${\rm Im}\,\tau=1$. This is
-forced for poles with ${\rm Im}\,\tau_p>1$: lying above $\gamma^T_f$, they make the
-$q$-series of $f$ diverge on the contour ($|c_f(n)|\gtrsim n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$
-for a pole of order $m$~\cite{1806}). A pole on the line itself sits just below the lifted
-$\gamma^T_f$ of Definition~\ref{def:null_homotopy}; we project it too, so the regularized
-part stays clean and it appears as a tail rather than a $\gamma^S$-integral around the pole.
+This polylog projection isolates the q-series contribution of a given pole of an $f \in F_k$ 
+into a known special function, an integral of a polylogarithm of negative index, and leaves 
+behind an object $(I-\widehat P)f$ with that one pole removed. For our purposes, we find 
+it essential to project-out all poles at, and above, the line ${\rm Im}\,\tau=1$. We must do 
+this because the reference contours which describe our reference homotopy classes are, 
+at a minimum, contour integrals of $f$ across the horizontal segment from $i -1$ to $i$. 
+Were we to allow poles at/above this line, q-series diverges on the contour 
+($|c_f(n)|\gtrsim n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$ for a pole of order $m$~\cite{1806}). 
+
+Within this general context, we lay-out the starting definitions and facts:
 
 \begin{definition}\label{def:proj}
 Let $f\in F_k$ have, at a pole $\tau_p$ of order $m_p$, the Laurent principal part
-$\sum_{m=1}^{m_p} a^{(p)}_{-m}\,(\tau-\tau_p)^{-m}$, where $a^{(p)}_{-m}$ is the coefficient
-of $(\tau-\tau_p)^{-m}$. Since $\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a pole of
-order $m$ at $\tau_p$, there are unique $r^*_{f,\tau_p}(m)$, $1\le m\le m_p$, for which the
-\emph{polylog projection}
+$\sum_{m=1}^{m_p} a^{(p)}_{-m}\,(\tau-\tau_p)^{-m}$. With the polylogarithm
+$\Li_s(x):=\sum_{n\ge1}x^n n^{-s}$, the \emph{polylog projection} of $f$ at $\tau_p$ is
 \begin{equation}
 \widehat P_{\tau_p}f(\tau):=\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,
-\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)
+\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
 \end{equation}
-has the same principal part as $f$ at $\tau_p$ (a triangular, hence invertible, linear
-system relating $r^*_{f,\tau_p}(m)$ to $a^{(p)}_{-1},\dots,a^{(p)}_{-m}$). The
-\emph{projection} $\widehat P:=\sum_{{\rm Im}\tau_p\ge1}\widehat P_{\tau_p}$ removes the
-principal part of every pole with ${\rm Im}\tau_p\ge1$.
+its weights $r^*_{f,\tau_p}(m)$ fixed by matching principal parts with $f$ at $\tau_p$; and
+$\widehat P:=\sum_{{\rm Im}\tau_p\ge1}\widehat P_{\tau_p}$.
 \end{definition}
+
+\begin{lemma}\label{lem:proj}
+The weights $r^*_{f,\tau_p}(m)$, $1\le m\le m_p$, exist and are unique, and
+$(I-\widehat P_{\tau_p})f$ is holomorphic at $\tau_p$.
+\end{lemma}
+\begin{proof}
+$\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a pole of order exactly $m$ at $\tau_p$, so
+matching the principal part of $f$ is a triangular---hence uniquely solvable---linear system
+relating $r^*_{f,\tau_p}(1),\dots,r^*_{f,\tau_p}(m)$ to $a^{(p)}_{-1},\dots,a^{(p)}_{-m}$; equal
+principal parts leave $(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
+\end{proof}
 
 \begin{definition}\label{def:cRf}
 With $\widehat P$ as in Definition~\ref{def:proj}, let $c_{Rf}(n)$ be the Fourier
-coefficients of the regularized form $(I-\widehat P)f$ in its expansion valid for large
+coefficients of the \emph{pole-projected form} $(I-\widehat P)f$ in its expansion valid for large
 ${\rm Im}\tau$:
 \begin{equation}
 (I-\widehat P)f(\tau)=\sum_n c_{Rf}(n)\,q^n,\qquad q=e^{2\pi i\tau}.
@@ -809,48 +821,52 @@ many poles in each compact subset of $\{{\rm Im}\tau>0,\ |{\rm Re}\tau|\le\tfrac
 $g(\tau)=O(e^{C{\rm Im}\tau})$ as ${\rm Im}\tau\to\infty$ for some $C$.
 \end{definition}
 
-Then $F_k\subset F(\infty)$, and $(I-\widehat P)f\in F(\infty)$: the polylog tails are
-$T$-periodic but not modular, so the projection leaves $F_k$. After projection every pole
-of $(I-\widehat P)f$ lies strictly below ${\rm Im}\tau=1$; pole heights accumulate only at $0$,
-so there is a maximal one, $y_b<1$ (take $y_b=0$ if $(I-\widehat P)f$ is holomorphic).
+\begin{lemma}\label{lem:projspace}
+$F_k\subset F(\infty)$ and $(I-\widehat P)f\in F(\infty)$. Every pole of $(I-\widehat P)f$ has
+${\rm Im}\,\tau<1$, with a maximal height $y_b<1$ (set $y_b=0$ if $(I-\widehat P)f$ is
+holomorphic).
+\end{lemma}
+\begin{proof}
+A weakly holomorphic form is $T$-periodic, meromorphic, and $O(e^{C{\rm Im}\tau})$ at the cusp,
+so $F_k\subset F(\infty)$; the projected polylogs $\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$ share
+these properties, so $(I-\widehat P)f\in F(\infty)$ (and leaves $F_k$, being non-modular). By
+Lemma~\ref{lem:proj}, $\widehat P$ cancels the principal part of every pole with
+${\rm Im}\tau\ge1$, so the poles of $(I-\widehat P)f$ lie strictly below ${\rm Im}\tau=1$;
+finite in each compact set and accumulating only at ${\rm Im}\tau=0$, they have a maximal
+height $y_b<1$.
+\end{proof}
 
+The Fourier coefficients of a pole-projected form are controlled by its highest pole, an
+estimate we import from~\cite{1806}:
 \begin{lemma}\label{lem:growth}
-Let $y_b<1$ be the maximal pole height of $(I-\widehat P)f$, and $m_b$ the maximal order
-among poles at height $y_b$. There is a $C>0$ such that, for every $\varepsilon>0$,
+With $y_b$ as in Lemma~\ref{lem:projspace} and $m_b$ the maximal order among poles at height
+$y_b$, there is a $C>0$ such that, for every $\varepsilon>0$,
 \begin{equation}\label{eq:growth}
 C\,n^{m_b-1}e^{2\pi n y_b}\;\le\;|c_{Rf}(n)|\;\le\;e^{2\pi n(y_b+\varepsilon)},
 \end{equation}
 the upper bound for all large $n$, the lower for infinitely many $n$. In particular
 $|c_{Rf}(n)|\,e^{-2\pi n}\to0$ geometrically, at base $e^{-2\pi(1-y_b-\varepsilon)}$.
 \end{lemma}
-
 \begin{proof}
-$(I-\widehat P)f$ is $T$-periodic and continuous on ${\rm Im}\tau=y$ for each $y\in(y_b,1]$, so
-Parseval gives $\int_{-1/2}^{1/2}|(I-\widehat P)f(\sigma+iy)|^2\,d\sigma
-=\sum_n|c_{Rf}(n)e^{-2\pi yn}|^2<\infty$, whence $c_{Rf}(n)e^{-2\pi yn}\to0$; $y=y_b+\varepsilon$
-gives the upper bound~\cite{1806}. For the lower bound, subtract the polylog projection of
-the height-$y_b$ poles: the remainder's coefficients are $o(e^{2\pi ny_b})$, while the
-subtracted tails contribute $\sum_j C_j n^{m_j-1}e^{-2\pi inx_j}e^{2\pi ny_b}$ with
-$C_j\ne0$ at order $m_b$; the $x_j$ distinct mod $1$, the mean value
-$\sum_{m_j=m_b}|C_j|^2>0$ bounds the sum below along infinitely many $n$.
+This is the pole-height/order Fourier-growth estimate of~\cite{1806} for a $T$-periodic
+meromorphic function, applied to $(I-\widehat P)f$ (Lemma~\ref{lem:projspace}).
 \end{proof}
 
-For $n\ne0$, the single-mode contribution of Theorem~\ref{thm:weakL} is
+For $n\ne0$, define
 \begin{align}\label{eq:gc}
 G_{s,k}(n):=\frac{\Gamma(s,2\pi n)}{(2\pi n)^s}
 +i^k\,\frac{\Gamma(k-s,2\pi n)}{(2\pi n)^{k-s}}.
 \end{align}
-Each projected pole contributes a single polylog tail.
+Each pole with ${\rm Im}\,\tau_p\ge1$ contributes one projected polylog to $L^*(f,s)$, whose
+L-integral we now record.
 
 \begin{definition}\label{def:IN}
-With $\Li_s(x)=\sum_{n\ge1}x^n n^{-s}$, the \emph{tail integral} of a projected pole at $z$
-with ${\rm Im}\,z>1$ is the L-integral of that tail in the minimal class of $f$
-(Definition~\ref{def:null_homotopy}):
+For a pole projected at $z$ with ${\rm Im}\,z>1$, let $I_N(s,z)$ be the L-integral of the
+projected polylog $\Li_{-N}(e^{2\pi i(\cdot-z)})$ in the minimal class $[\gamma^S_f],[\gamma^T_f]$
+of Definition~\ref{def:null_homotopy}:
 \begin{equation}\label{eq:IN}
 I_N(s,z):=L^*\big(\Li_{-N}(e^{2\pi i(\cdot-z)}),\,s;\,[\gamma^S_f],[\gamma^T_f]\big).
 \end{equation}
-The tail's poles then lie above $\gamma^S_f$, whose contribution vanishes, so $I_N(s,z)$ is
-the $T$-segment integral alone.
 \end{definition}
 
 \begin{lemma}\label{lem:polylogcf}
@@ -865,7 +881,7 @@ convergent exponentially with base $e^{-2\pi({\rm Im}\,z-1)}$.
 
 \begin{proof}
 By Proposition~\ref{prop:indepHomotopy} we may evaluate $I_N(s,z)$ in the $\delta\to0$
-representative of the minimal class; there the tail --- regular at $i$ since
+representative of the minimal class; there the projected polylog --- regular at $i$ since
 ${\rm Im}\,z>1$ --- has vanishing $\gamma^S$-integral and $\gamma^T_f\to[i-1,i]$. On
 $[i-1,i]$ one has $|e^{2\pi i(\tau-z)}|>1$, so the defining series of $\Li_{-N}$ diverges;
 inversion rewrites it as $(-1)^{N+1}\sum_{n\ge1}n^Ne^{2\pi in(z-\tau)}$, convergent since
@@ -876,10 +892,14 @@ The rate is $e^{-2\pi({\rm Im}\,z-1)}$, from $\Gamma(s,-2\pi n)\sim(2\pi n)^{s-1
 against $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$.
 \end{proof}
 
-For ${\rm Im}\,z>1$, write $w:=e^{2\pi i(z-i)}$, $Q:=e^{2\pi iz}$, and
-$(a)_{(j)}:=a(a-1)\cdots(a-j+1)$, $(a)_{(0)}:=1$ (principal branches).
 \begin{definition}\label{def:tailpieces}
-Define $\Pi_N(s;w),\ \Lambda_N(s;Q),\ \mathcal E_N(s,z)$ by
+Fix a pole projected at $z$ with ${\rm Im}\,z>1$. The \emph{edge variable} $w:=e^{2\pi i(z-i)}$
+equals $1$ at $z=i$ and has $|w|=e^{-2\pi({\rm Im}\,z-1)}\to1$ at the edge; the \emph{$q$-parameter}
+$Q:=e^{2\pi iz}$ has $|Q|\le e^{-2\pi}$; and $w=e^{2\pi}Q$ (so $w$ places the singularity at $w=1$
+while $Q$ governs convergence). Standard notation throughout~\cite{DLMF}: falling factorial
+$(a)_{(j)}:=a(a-1)\cdots(a-j+1)$ ($(a)_{(0)}:=1$), polylogarithm $\Li_s$ (Definition~\ref{def:proj}),
+gamma $\Gamma$, upper incomplete gamma $\Gamma(a,x)$; principal branches. The three pieces into
+which Lemma~\ref{lem:polylogedge} resolves the edge-expansion of $I_N(s,z)$ are
 \begin{align}
 \Pi_N(s;w)&:=\sum_{j=0}^{N+1}\frac{(-1)^{j+1}\big[(s-1)_{(j)}+i^k(k-s-1)_{(j)}\big]}{(2\pi)^{j+1}}\,\Li_{j+1-N}(w),\\
 \Lambda_N(s;Q)&:=\frac{\Gamma(s)}{(-2\pi)^{s}}\,\Li_{s-N}(Q)+i^k\,\frac{\Gamma(k-s)}{(-2\pi)^{k-s}}\,\Li_{k-s-N}(Q),\\
@@ -888,12 +908,13 @@ Define $\Pi_N(s;w),\ \Lambda_N(s;Q),\ \mathcal E_N(s,z)$ by
 \end{align}
 Here $\Pi_N$ is finite and carries the entire $w\to1$ singularity ($\Li_{\le1}(w)$); the
 $\Li_{s-N}(Q),\Li_{k-s-N}(Q)$ in $\Lambda_N$ are polylogarithms of non-integer order; and
-$\mathcal E_N$ is absolutely convergent, its terms $O(n^{-3}|w|^n)$.
+$\mathcal E_N$ is absolutely convergent: its incomplete-gamma factors are $O(n^{-N-3}e^{2\pi n})$,
+so, since $w=Q\,e^{2\pi}$, its terms are $O(n^{-3}|w|^n)$.
 \end{definition}
 
 \begin{lemma}\label{lem:polylogedge}
-With $\Pi_N,\Lambda_N,\mathcal E_N$ as in Definition~\ref{def:tailpieces}, for
-${\rm Im}\,z>1$ and every $s\in\CC$,
+With $\Pi_N,\Lambda_N,\mathcal E_N$ and $w=e^{2\pi i(z-i)},\,Q=e^{2\pi iz}$ as in
+Definition~\ref{def:tailpieces}, for ${\rm Im}\,z>1$ and every $s\in\CC$,
 \begin{equation}\label{eq:threelayer}
 I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 +(-1)^{N+1}\big[\Pi_N(s;w)+\Lambda_N(s;Q)+\mathcal E_N(s,z)\big],
@@ -943,16 +964,19 @@ $(1-i\varepsilon)^k=\sum_l\binom kl(-i)^l\varepsilon^l$ gives \eqref{eq:Laurent}
 \end{proof}
 
 \begin{definition}\label{def:FP}
-For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$,
-\begin{align}
-\mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
-+\sum_{\substack{j\ge0\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
-+\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
-+\mathcal E^+_N(s),
+For $N\ge0$ and any cutoff $J\ge N+2$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and
+$c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
+\begin{align}\label{eq:Eplus}
+\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(J)}\tfrac{\Gamma(s-J,2\pi n)}{(2\pi n)^s}
++i^k(k-s-1)_{(J)}\tfrac{\Gamma(k-s-J,2\pi n)}{(2\pi n)^{k-s}}\Big],
 \end{align}
-the $j$-sum taken to any $J\ge N+2$, with
-$\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\big[(s-1)_{(J)}\tfrac{\Gamma(s-J,2\pi n)}{(2\pi n)^s}
-+i^k(k-s-1)_{(J)}\tfrac{\Gamma(k-s-J,2\pi n)}{(2\pi n)^{k-s}}\big]$.
+and then
+\begin{align}\label{eq:FP}
+\mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
++\sum_{\substack{0\le j\le J\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
++\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
++\mathcal E^+_N(s).
+\end{align}
 \end{definition}
 
 \begin{lemma}\label{lem:wallvalue}
@@ -984,7 +1008,7 @@ remains convergent as in Lemma~\ref{lem:polylogedge}.
 
 \begin{theorem}\label{thm:mero}
 Let $f\in F_k$ have poles $\tau_p$ of order $P_p$ with ${\rm Im}\,\tau_p\ge1$ in the strip
-$|{\rm Re}\,\tau|\le\tfrac12$, regularized Fourier coefficients $c_{Rf}(n)$
+$|{\rm Re}\,\tau|\le\tfrac12$, pole-projected Fourier coefficients $c_{Rf}(n)$
 (Definition~\ref{def:cRf}), and projection weights $r^*_{f,\tau_p}(m)$
 (Definition~\ref{def:proj}). In the minimal class,
 \begin{equation}\label{eq:mero}
@@ -1001,10 +1025,10 @@ $L^*$ of Theorem~\ref{thm:weakL} when $f$ is holomorphic on $\HH$.
 
 \begin{proof}
 Split $f=(I-\widehat P)f+\widehat Pf$. By Lemma~\ref{lem:growth} the Fourier series of the
-regularized part converges on $\gamma^T_f$; Theorem~\ref{thm:weakL} applied term by term
+pole-projected part converges on $\gamma^T_f$; Theorem~\ref{thm:weakL} applied term by term
 gives its $L^*$ as the first two sums. The projection
 $\widehat Pf=\sum_{\tau_p}\sum_m r^*_{f,\tau_p}(m)\,\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$
-contributes, for each $\tau_p\ne i$, the tail integrals $I_{m-1}(s,\tau_p)$ of
+contributes, for each $\tau_p\ne i$, the L-integrals $I_{m-1}(s,\tau_p)$ of
 Definition~\ref{def:IN}, evaluated by Lemmas~\ref{lem:polylogcf}--\ref{lem:polylogedge}; the
 pole at $i$ contributes $L^*(\widehat P_i f,s)$ of Lemma~\ref{lem:wallvalue}. Entirety and the
 pole locations follow from those of $G_{s,k}$ and the $\delta_{N,0}$ terms; when $f$ is
