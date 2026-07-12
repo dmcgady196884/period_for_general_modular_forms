@@ -527,24 +527,67 @@ Having now defined the period polynomial associated to a cusp form $f \in S_k^!$
 we now seek to find its {\em (quasi-)periods}, which we define presently. First, though, 
 we briefly mention some important facts from the theory of period polynomials, but 
 refer the newcomer to the field to standard references such as~\cite{KZ1984} for more 
-systematic discussions. To begin, because period polynomials are integrals of the $\SLZ$ 
+systematic discussions. At their root, period polynomials are integrals of the $\SLZ$ 
 covariant differential,\footnote{Technically, period polynomials are the sum of contour integrals 
 $\int_{\gamma^{-1}(\tau_0)}^{\tau_0}\omega_f$, plus an additional piece which fixes parabolicity. 
 This extra piece is the focus of Remark~\ref{cohomology}.}
 \begin{equation}
 \omega_f := f(\tau) (X - \tau Y)^{n} d\tau~.
 \end{equation} 
-Due to its origin as an integral of this covariant differential, it must satisfy two nontrivial 
-relations 
-\begin{align}
-r_f(X, Y)|_{(1+S)} = r_f(X, Y)|_{(1 + U + U^2)} = 0~,
+Because $r_f$ is assembled from the $\SLZ$-covariant differential $\omega_f$, it is the value of a
+finite-contour cocycle on $\SLZ$, and the group relations $S^2=U^3=-I$ then impose two linear relations
+on it. Writing $r_f(X,Y)|_\gamma := r_f(aX+bY,\,cX+dY)$ for
+$\gamma=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in\SLZ$, extended additively by
+$r_f|_{\gamma+\sigma}:=r_f|_\gamma+r_f|_\sigma$, and setting $U:=TS$:
+
+\begin{lemma}\label{lem:cocycle}
+Let $f\in S_k^!$, $\tau_0\in\HH$, and
+\[
+\eta(\tau;X,Y):=\sum_{\ell=0}^{n}\binom{n}{\ell}(-1)^\ell\,\zeta(-\ell,\tau+1)\,X^{n-\ell}Y^\ell,\quad
+E:=(2\pi i)^{n+1}\!\!\int_{\gamma^T_{\tau_0}}\!\! f\,\eta,\quad
+C_\gamma:=(2\pi i)^{n+1}\!\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\!\omega_f .
+\]
+Then $\hat C_\gamma:=C_\gamma-(E|_\gamma-E)$ is a $1$-cocycle for $\SLZ$ with $\hat C_S=r_f$ and $\hat C_T=0$.
+All contours are finite and $\eta$ is polynomial in $\tau$, $\zeta(-\ell,\tau+1)=-B_{\ell+1}(\tau+1)/(\ell+1)$.
+\end{lemma}
+\begin{proof}
+Path-additivity and covariance of $\omega_f$ give the Eichler--Shimura cocycle relation
+$C_{\gamma\delta}=C_\gamma|_\delta+C_\delta$~\cite{BCD2018,KZ1984}; as $\gamma\mapsto E|_\gamma-E$ is a
+coboundary, $\hat C$ is a cocycle.
+
+\emph{$\hat C_S=r_f$.} At $s=\ell+1$, Definition~\ref{def:kernel} reads
+$\tk(\tau,\ell+1)=\zeta(-\ell,\tau+1)-(-1)^\ell\zeta(-(n-\ell),\tau+1)$; assembling $\mathbf K_T$ and
+re-indexing $\ell\mapsto n-\ell$ in the second term (with $n$ even) gives $\mathbf K_T=\eta-\eta|_S$. So the
+$T$-term of $r_f$ is $E-E|_S$, and by Proposition~\ref{prop:periodint}
+$r_f=C_S+(E-E|_S)=C_S-(E|_S-E)=\hat C_S$.
+
+\emph{$\hat C_T=0$.} The Hurwitz shift $\zeta(-\ell,\tau)=\zeta(-\ell,\tau+1)+\tau^\ell$ gives the pointwise
+identity $\eta(\tau-1;X,Y)-\eta(\tau;X,Y)=(X-\tau Y)^n$; applied twice it shows
+$A(\tau):=\eta(\tau;X+Y,Y)-\eta(\tau-1;X,Y)$ satisfies $A(\tau-1)=A(\tau)$. A periodic polynomial in $\tau$
+is constant, $A\equiv A_0$. Using $(X-\tau Y)^n=\eta(\tau-1)-\eta$,
+\[
+\hat C_T=C_T-(E|_T-E)=(2\pi i)^{n+1}\!\!\int_{\gamma^T_{\tau_0}}\!\! f\,[\eta(\tau-1)-\eta|_T]
+=-(2\pi i)^{n+1}A_0\!\!\int_{\tau_0-1}^{\tau_0}\!\! f\,d\tau=-(2\pi i)^{n+1}A_0\,c_f(0)=0,
+\]
+since $\int_{\tau_0-1}^{\tau_0}f\,d\tau=c_f(0)=0$ for $f\in S_k^!$.
+\end{proof}
+
+\begin{lemma}\label{lem:rfW}
+For $f\in S_k^!$, the period polynomial~\eqref{eq:rf} satisfies
+\begin{align}\label{eq:ES}
+r_f(X,Y)|_{(1+S)} = r_f(X,Y)|_{(1+U+U^2)} = 0~,
 \end{align}
-where $U := TS$ and $r_f(X, Y)|_{\gamma} := r_f(aX + bY, cX + dY)$ for all 
-$\gamma = \left(\begin{smallmatrix} a & b \\ c & d\end{smallmatrix}\right) \in \SLZ$, and 
-$r_f|_{\gamma + \sigma} := r_f|_\gamma + r_f|_\sigma$. These two constraints together 
-impose extremely stringent constraints on $r_f(X, Y) \in \CC[X, Y]_{k-2}$, and force it to 
-lie within a privileged subspace we denote by $W \subset \CC[X, Y]_{k-2}$. Now, it is a 
-standard fact that $\dim(W) = 2\dim(S_k)+1$ (see, e.g. \cite{KZ1984}). Before giving the bases for 
+and so lies in $W:=\{w\in\CC[X,Y]_{k-2}: w|_{(1+S)}=w|_{(1+U+U^2)}=0\}$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:cocycle}, $r_f=\hat C_S$ with $\hat C$ a cocycle and $\hat C_T=0$. Since $-I$ fixes
+$\tau_0$ and acts trivially on $\CC[X,Y]_{k-2}$, $\hat C_{-I}=0$, so $r_f|_{(1+S)}=\hat C_{S^2}=0$
+(equivalently, the functional equation of Theorem~\ref{thm:weakL}). Parabolicity gives
+$\hat C_U=\hat C_{TS}=\hat C_T|_S+\hat C_S=\hat C_S=r_f$, whence
+$r_f|_{(1+U+U^2)}=\hat C_U|_{(1+U+U^2)}=\hat C_{U^3}=0$; both $S^2=U^3=-I$.
+\end{proof}
+
+It is a standard fact that $\dim(W)=2\dim(S_k)+1$ (see, e.g.~\cite{KZ1984}). Before giving the bases for 
 $W$ for $k$ where $\dim(S_k) = 1 \leftrightarrow \dim(W) = 3$, we find it helpful to define the 
 following inner-product:
 \begin{align}\label{inner}
@@ -567,7 +610,7 @@ of $W^{(k)}_+$, and $\langle P, Q\rangle$ as in Eq.~\eqref{inner}.
 \end{definition}
 
 \begin{lemma}\label{lem:Wbasis}
-For $k$ with $\dim S_k=1$, let $W:=\{w\in\CC[X,Y]_{k-2}:w|(1+S)=w|(1+U+U^2)=0\}$. Then $\dim W=3$, and $\{W^{(k)}_+,\,W^{(k)}_-,\,v_0^{(k)}\}$ is an orthogonal basis of $W$ under $\langle\cdot,\cdot\rangle$ from Eq.~\eqref{inner}.
+For $k$ with $\dim S_k=1$, the space $W$ of Lemma~\ref{lem:rfW} has $\dim W=3$, and $\{W^{(k)}_+,\,W^{(k)}_-,\,v_0^{(k)}\}$ is an orthogonal basis of $W$ under $\langle\cdot,\cdot\rangle$ from Eq.~\eqref{inner}.
 \end{lemma}
 \begin{proof}
 First, let $W_\pm^{(k)}(X, Y) := Y^{k-2} W_\pm^{(k)}(X/Y)$, and let $v_0^{(k)}(X, Y) := Y^{k-2} v_0^{(k)}(X/Y)$.

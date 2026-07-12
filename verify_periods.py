@@ -2,7 +2,7 @@
 Numerical verification of Theorem~\\ref{thm:periods} (period extraction at
 dim S_k = 1) for the active paper dr_b_periods_and_Lfunctions.tex.
 
-Seven claims verified at 50-digit mpmath precision (with (vii) bumped to 100 dps):
+Eight claims verified at 50-digit mpmath precision (with (vii) bumped to 100 dps):
 
   (i)  Period extraction for f = Delta (weight 12) via the finite-contour
        two-segment cocycle reproduces Brown's published omega^pm(Delta)
@@ -29,6 +29,12 @@ Seven claims verified at 50-digit mpmath precision (with (vii) bumped to 100 dps
        the range), but I_S + I_T stays tau_0-independent.  This is the
        finite-tau_0 manifestation of the cancellation of cusp-pole divergences
        described after Theorem 1.2 in dr_b_periods_and_Lfunctions.tex.
+  (viii) Eichler-Shimura membership across all dim S_k = 1 weights (Lemma
+       lem:rfW in finite_contour_cocycles_short.tex):  r_f | (1+S) =
+       r_f | (1+U+U^2) = 0 for the cusp form Delta_k and the weak form
+       Dhat_k = q^{-1}+O(q^2), at k = 12, 16, 18, 20, 22, 26.  |(1+S)| is
+       identically 0 (it is the functional equation L*(f,s)=i^k L*(f,k-s));
+       |(1+U+U^2)| is machine zero -- the substantive cocycle relation.
 
 Bernoulli closed-form (operator identity delta_T = e^{Y d_X} - 1):
 
@@ -537,3 +543,128 @@ if __name__ == '__main__':
         print(f" (vii) NOTE: relative deviation {float(rel_dev):.3e} exceeds 10^-10 tolerance.")
 
     mp.mp.dps = saved_dps
+
+    # ------------------------------------------------------------------------
+    # (viii) Eichler-Shimura membership across all dim S_k = 1 weights
+    #        (Lemma lem:rfW, finite_contour_cocycles_short.tex):
+    #            r_f | (1+S) = r_f | (1+U+U^2) = 0   for f in M_k^!.
+    #
+    # r_f is built straight from the finite two-segment L* (thm:weakL) via
+    # period_polynomial_bases.rvec, for the cusp form Delta_k and the weak form
+    # Dhat_k = q^{-1} + O(q^2), at k = 12, 16, 18, 20, 22, 26.
+    #   |(1+S)|      is identically 0 -- it IS the functional equation
+    #                L*(f,s) = i^k L*(f,k-s), structural in Lstar.
+    #   |(1+U+U^2)|  is machine zero -- the substantive cocycle relation.
+    # ------------------------------------------------------------------------
+    from period_polynomial_bases import rvec, Delta_k as _Delta_k, Dhat_k as _Dhat_k
+
+    def _slash(p, g, n):
+        g11, g12, g21, g22 = g
+        out = [mp.mpf(0)] * (n + 1)
+        for a in range(n + 1):
+            if p[a] == 0:
+                continue
+            for i in range(n - a + 1):
+                ci = mp.binomial(n - a, i) * g11 ** i * g12 ** (n - a - i)
+                for jj in range(a + 1):
+                    cj = mp.binomial(a, jj) * g21 ** jj * g22 ** (a - jj)
+                    out[n - (i + jj)] += p[a] * ci * cj
+        return out
+
+    def _es_defects(r, n):
+        def mm(A, B):
+            return (A[0]*B[0] + A[1]*B[2], A[0]*B[1] + A[1]*B[3],
+                    A[2]*B[0] + A[3]*B[2], A[2]*B[1] + A[3]*B[3])
+        S = (0, -1, 1, 0); T = (1, 1, 0, 1); U = mm(T, S); U2 = mm(U, U)
+        scale = max(abs(x) for x in r)
+        oS = [r[i] + _slash(r, S, n)[i] for i in range(n + 1)]
+        oU = [r[i] + _slash(r, U, n)[i] + _slash(r, U2, n)[i] for i in range(n + 1)]
+        return (max(abs(x) for x in oS) / scale, max(abs(x) for x in oU) / scale)
+
+    print()
+    print("=" * 76)
+    print(" (viii) Eichler-Shimura membership r_f in W across dim S_k = 1 weights")
+    print("        (Lemma lem:rfW, finite_contour_cocycles_short.tex).")
+    print("=" * 76)
+    print(f"  {'k':>2}  {'form':>6}  {'|(1+S)|/scale':>16}  {'|(1+U+U^2)|/scale':>18}")
+    print("  " + "-" * 50)
+    worst_U = mp.mpf(0)
+    for k_es in [12, 16, 18, 20, 22, 26]:
+        n_es = k_es - 2
+        for name_es, F_es in [("Delta", _Delta_k(k_es)), ("Dhat", _Dhat_k(k_es))]:
+            s_def, u_def = _es_defects(rvec(F_es, k_es), n_es)
+            worst_U = max(worst_U, u_def)
+            print(f"  {k_es:>2}  {name_es:>6}  {float(s_def):>16.3e}  {float(u_def):>18.3e}")
+    print()
+    if worst_U < mp.mpf(10) ** (-40):
+        print(" (viii) PASS: r_f|(1+S) = 0 identically (functional equation) and")
+        print("         r_f|(1+U+U^2) = 0 to <10^-40 for cusp and weak form at every weight.")
+    else:
+        print(f" (viii) NOTE: worst |(1+U+U^2)| = {float(worst_U):.3e} exceeds 10^-40 tolerance.")
+
+    # ------------------------------------------------------------------------
+    # (ix) r_f is the S-value of a PARABOLIC finite cocycle (lem:cocycle in
+    #      finite_contour_cocycles_short.tex) -- all finite, no regularization.
+    #      With  eta(tau;X,Y) = sum_l C(n,l)(-1)^l zeta(-l, tau+1) X^{n-l} Y^l,
+    #            C_gamma = (2pi i)^{n+1} int_{gamma^{-1}tau0}^{tau0} omega_f,
+    #            E       = (2pi i)^{n+1} int_{gamma_T} f eta,
+    #            hat C_gamma = C_gamma - (E|_gamma - E),
+    #      the proof rests on four finite facts (weight 12, cusp Delta + weak Dhat):
+    #        (a) kernel split (pointwise):   K_T = eta - eta|_S       => r_f = hat C_S
+    #        (b) Hurwitz shift (pointwise):  eta(tau-1) - eta(tau) = (X - tau Y)^n
+    #        (c) A := eta|_T - eta(tau-1) is tau-INDEPENDENT (periodic => constant A_0)
+    #        (d) parabolicity (integral):    hat C_T = -A_0 * c_0 = 0  since c_0 = 0.
+    #      A_0 != 0, so (d) genuinely uses the weak-cusp hypothesis c_f(0)=0 (S_k^!).
+    # ------------------------------------------------------------------------
+    NN = 10  # weight k = 12
+    def _eta(tau):
+        return [mp.binomial(NN, l) * (-1) ** l * mp.zeta(-l, tau + 1) for l in range(NN + 1)]
+    def _KT(tau):   # paper's Hurwitz T-kernel assembled into V_NN
+        out = []
+        for l in range(NN + 1):
+            s = l + 1
+            kt = mp.zeta(1 - s, tau + 1) - mp.e ** (1j * mp.pi * (s - 1)) * mp.zeta(1 - (12 - s), tau + 1)
+            out.append(mp.binomial(NN, l) * (-1) ** l * kt)
+        return out
+    def _slashS(p): return [(-1) ** l * p[NN - l] for l in range(NN + 1)]
+    def _slashT(p): return [sum(p[l] * mp.binomial(NN - l, lp - l) for l in range(lp + 1)) for lp in range(NN + 1)]
+    def _xty(tau):  return [mp.binomial(NN, l) * (-tau) ** l for l in range(NN + 1)]  # (X - tau Y)^n
+    def _nrm(p):    return max(abs(x) for x in p)
+    def _sub(a, b): return [a[i] - b[i] for i in range(NN + 1)]
+
+    tA = mp.mpc('0.3', '1.2'); tB = mp.mpc('-0.7', '0.9')
+    a_split = _nrm(_sub(_KT(tA), _sub(_eta(tA), _slashS(_eta(tA)))))
+    b_shift = _nrm(_sub(_sub(_eta(tA - 1), _eta(tA)), _xty(tA)))
+    A_at = lambda t: _sub(_slashT(_eta(t)), _eta(t - 1))
+    A_const = _nrm(_sub(A_at(tA), A_at(tB)))
+    A0 = _nrm(A_at(tA))
+
+    tau0 = mp.mpc('0.3', '1.2')
+    def _segint(f, g):
+        a = tau0 - 1; d = tau0 - a
+        return mp.quad(lambda t: f(a + t * d) * g(a + t * d) * d, [0, 1])
+    def _CT(f): return [PREF * mp.binomial(NN, l) * (-1) ** l * _segint(f, lambda tau, l=l: tau ** l) for l in range(NN + 1)]
+    def _Ecoef(f): return [PREF * mp.binomial(NN, l) * (-1) ** l * _segint(f, lambda tau, l=l: mp.zeta(-l, tau + 1)) for l in range(NN + 1)]
+
+    print()
+    print("=" * 76)
+    print(" (ix) r_f = S-value of a PARABOLIC finite cocycle (lem:cocycle); all finite.")
+    print("=" * 76)
+    print(f"  (a) K_T = eta - eta|_S          (pointwise)   max|diff| = {float(a_split):.2e}")
+    print(f"  (b) eta(t-1)-eta(t) = (X-tY)^n  (pointwise)   max|diff| = {float(b_shift):.2e}")
+    print(f"  (c) A := eta|_T - eta(t-1)  is tau-independent max|diff| = {float(A_const):.2e}")
+    print(f"      (A_0 != 0: max|coeff| = {float(A0):.4g}  =>  (d) genuinely needs c_0 = 0)")
+    print(f"  (d) parabolicity  hat C_T = C_T - (E|_T - E) = -A_0 c_0 = 0  (integral):")
+    worst_hatCT = mp.mpf(0)
+    for name, f in [("Delta", Delta_eval), ("Dhat", hat_Delta_eval)]:
+        CT = _CT(f); E = _Ecoef(f); ET = _slashT(E)
+        hatCT = [CT[i] - (ET[i] - E[i]) for i in range(NN + 1)]
+        worst_hatCT = max(worst_hatCT, _nrm(hatCT))
+        print(f"        {name:>6}:  |C_T| = {float(_nrm(CT)):.2e}    |hat C_T| = {float(_nrm(hatCT)):.2e}")
+    print()
+    if max(a_split, b_shift, A_const) < mp.mpf(10) ** (-20) and worst_hatCT < mp.mpf(10) ** (-30):
+        print(" (ix) PASS: (a)-(c) hold pointwise to <10^-20; parabolicity hat C_T = 0 to <10^-30.")
+        print("       So r_f is the S-value of a parabolic finite cocycle -- relations (viii) follow.")
+    else:
+        print(f" (ix) NOTE: check residuals -- a={float(a_split):.1e} b={float(b_shift):.1e}"
+              f" A={float(A_const):.1e} hatC_T={float(worst_hatCT):.1e}")
