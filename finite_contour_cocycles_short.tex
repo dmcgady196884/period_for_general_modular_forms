@@ -753,7 +753,7 @@ $[\hat\gamma_f]=[\hat\gamma_f^T]+[\hat\gamma_f^S]$ is:
 \item $[\hat\gamma_f^S]$: contains the near-vertical path from $S^{-1}\tau_0^*$ to $\tau_0^*$,
 which passes any pole at $i$ to the left.
 \end{itemize}
-When $\delta=0$, $[\hat\gamma_f^S]+[\hat\gamma_f^T]$ match those in Theorem~\ref{thm:weakL}.
+For $\delta=0$, the reference paths match the paths $\gamma^S_i\!:\! i \!\to\! i$ and $\gamma^T_i\!:\! (i\!-\!1)\!\to\! i$ for $L^*(f,s)$ when $f \in M_k^!$.
 \end{definition}
 
 With this definition, we may thus unambiguously write
@@ -911,33 +911,25 @@ The rate is $e^{-2\pi({\rm Im}\,z-1)}$, from $\Gamma(s,-2\pi n)\sim(2\pi n)^{s-1
 against $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$.
 \end{proof}
 
-%fuck{}
-\begin{definition}\label{def:tailpieces}
-Fix a pole projected at $z$ with ${\rm Im}\,z>1$. The \emph{edge variable} $w:=e^{2\pi i(z-i)}$
-equals $1$ at $z=i$ and has $|w|=e^{-2\pi({\rm Im}\,z-1)}\to1$ at the edge; the \emph{$q$-parameter}
-$Q:=e^{2\pi iz}$ has $|Q|\le e^{-2\pi}$; and $w=e^{2\pi}Q$ (so $w$ places the singularity at $w=1$
-while $Q$ governs convergence). Standard notation throughout~\cite{DLMF}: falling factorial
-$(a)_{(j)}:=a(a-1)\cdots(a-j+1)$ ($(a)_{(0)}:=1$), polylogarithm $\Li_s$ (Definition~\ref{def:proj}),
-gamma $\Gamma$, upper incomplete gamma $\Gamma(a,x)$; principal branches. The three pieces into
-which Lemma~\ref{lem:polylogedge} resolves the edge-expansion of $I_N(s,z)$ are
+Extracting similar results for $L^*$ evaluated on the polar terms for poles on the line 
+${\rm Im}(\tau) = 1$ requires more care. To do this away from the special point $z = i$, we 
+find it helpful to define the following three functions:
 \begin{align}
-\Pi_N(s;w)&:=\sum_{j=0}^{N+1}\frac{(-1)^{j+1}\big[(s-1)_{(j)}+i^k(k-s-1)_{(j)}\big]}{(2\pi)^{j+1}}\,\Li_{j+1-N}(w),\\
-\Lambda_N(s;Q)&:=\frac{\Gamma(s)}{(-2\pi)^{s}}\,\Li_{s-N}(Q)+i^k\,\frac{\Gamma(k-s)}{(-2\pi)^{k-s}}\,\Li_{k-s-N}(Q),\\
-\mathcal E_N(s,z)&:=-\sum_{n\ge1}n^N Q^n\Big[(s{-}1)_{(N+2)}\tfrac{\Gamma(s{-}N{-}2)-\Gamma(s{-}N{-}2,-2\pi n)}{(-2\pi n)^{s}}
-+i^k(k{-}s{-}1)_{(N+2)}\tfrac{\Gamma(k{-}s{-}N{-}2)-\Gamma(k{-}s{-}N{-}2,-2\pi n)}{(-2\pi n)^{k-s}}\Big].
+%\Pi_N(s,z)&:=\sum_{j=0}^{N+1}\frac{(-1)^{j+1}\big[(s-1)_{(j)}+i^k(k-s-1)_{(j)}\big]}{(2\pi)^{j+1}}\,\Li_{j+1-N}\!\big(e^{2\pi i(z-i)}\big),\label{eq:tailpiece1}\\
+%\Lambda_N(s,z)&:=\frac{\Gamma(s)}{(-2\pi)^{s}}\,\Li_{s-N}\!\big(e^{2\pi iz}\big)+i^k\,\frac{\Gamma(k-s)}{(-2\pi)^{k-s}}\,\Li_{k-s-N}\!\big(e^{2\pi iz}\big),\label{eq:tailpiece2}\\
+%\mathcal E_N(s,z)&:=-\sum_{n\ge1}n^N e^{2\pi inz}\Big[(s{-}1)_{(N+2)}\tfrac{\Gamma(s{-}N{-}2)-\Gamma(s{-}N{-}2,-2\pi n)}{(-2\pi n)^{s}} \label{eq:tailpiece3}\\
+%&\qquad \qquad \qquad \qquad ~~+i^k(k{-}s{-}1)_{(N+2)}\tfrac{\Gamma(k{-}s{-}N{-}2)-\Gamma(k{-}s{-}N{-}2,-2\pi n)}{(-2\pi n)^{k-s}}\Big],\nonumber
 \end{align}
-Here $\Pi_N$ is finite and carries the entire $w\to1$ singularity ($\Li_{\le1}(w)$); the
-$\Li_{s-N}(Q),\Li_{k-s-N}(Q)$ in $\Lambda_N$ are polylogarithms of non-integer order; and
-$\mathcal E_N$ is absolutely convergent: its incomplete-gamma factors are $O(n^{-N-3}e^{2\pi n})$,
-so, since $w=Q\,e^{2\pi}$, its terms are $O(n^{-3}|w|^n)$.
-\end{definition}
+where $(a)_{(j)}:=a(a-1)\cdots(a-j+1)$ is the falling factorial ($(a)_{(0)}:=1$), $\Li_s$ the
+polylogarithm of Definition~\ref{def:proj}, and $\Gamma,\Gamma(a,x)$ the gamma and upper incomplete
+gamma, on principal branches~\cite{DLMF}.
 
 \begin{lemma}\label{lem:polylogedge}
-With $\Pi_N,\Lambda_N,\mathcal E_N$ and $w=e^{2\pi i(z-i)},\,Q=e^{2\pi iz}$ as in
-Definition~\ref{def:tailpieces}, for ${\rm Im}\,z>1$ and every $s\in\CC$,
+With $\Pi_N,\Lambda_N,\mathcal E_N$ as in
+Eqs.~\eqref{eq:tailpiece1}--\eqref{eq:tailpiece3}, for ${\rm Im}\,z>1$ and every $s\in\CC$,
 \begin{equation}\label{eq:threelayer}
 I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+(-1)^{N+1}\big[\Pi_N(s;w)+\Lambda_N(s;Q)+\mathcal E_N(s,z)\big],
++(-1)^{N+1}\big[\Pi_N(s;z)+\Lambda_N(s;z)+\mathcal E_N(s,z)\big],
 \end{equation}
 and the right side extends $I_N(s,\cdot)$ continuously to the edge ${\rm Im}\,z=1$ for
 $z\notin i+\ZZ$.
