@@ -743,32 +743,22 @@ We would like to speak of ``the'' L-integral. Homotopy classes of course split t
 L-integrals for contours in different homotopy classes. And, so, in what follows, we define 
 the reference homotopy classes: 
 \begin{definition}[Reference homotopy class for $f \in F_k$]\label{def:null_homotopy}
-Let $f \in F_k$, $\tau_0$ be the base-point of $L^*(f,s)$ in the usual way, and let 
-$f^{-1}(\infty)$ be the full set of all poles of $f$. Further, let $\tau_p^*$ denote the 
-pole of lowest height at/above the ${\rm Im}(\tau) = 1$ line, and denote its imaginary 
-height by $y^* := {\rm Im}(\tau_p^*)$. If $y^* = 1$, then let $\tau_p^\dagger = x^\dagger 
-+ i y^\dagger$ denote $f$s pole of next lowest height above $\tau_p^*$. I.e., $y^* 
-< y^\dagger$; if no such pole exists, then $y^\dagger := \infty$.
-
-We define the {\em reference homotopy class of $f$}, 
-which we denote $[\gamma_f] = [\gamma^T_f] + [\gamma^S_f]$, as follows. 
-\begin{enumerate}
-\item If $y^* > 1$, then $[\gamma^T_f]$ is the homotopy class containing the 
-horizontal line from $i-1$ to $i$, and $[\gamma^S_f]$ is the homotopy 
-class containing the trivial path from $i$ to itself.
-\item If $y^* = 1$, let $\delta$ be any positive constant such that $y^* < 1+\delta < 
-y^\dagger$. Let $\tau_0^* := i(1 + \delta)$. Here, $[\gamma^T_f]$ is the homotopy class containing the 
-horizontal line from $\tau_0^*-1$ to $\tau_0^*$, and $[\gamma^S_f]$ is the homotopy 
-class containing the almost-straight-line path that goes from $-1/\tau_0^*$ to $\tau_0^*$ 
-along the imaginary-$\tau$ axis {\em except when it passes a pole on the axis}. When there is 
-a pole on the imaginary-$\tau$ axis e.g. at $\tau_p = i$, this special contour $\gamma^S_{\tau_0^*}$ 
-passes to the left of such a pole.
- \end{enumerate}
+Let $f\in F_k$, let $\tau_0$ be the base-point of $L^*(f,s)$, and let $f^{-1}(\infty)$ be the
+poles of $f$. If $f$ has no poles on the line ${\rm Im}(\tau) = 1$, choose $\delta = 0$. 
+Else, choose $\delta>0$ such that no pole lies in the strip $1<{\rm Im}(\tau)\leq 1+\delta$. 
+Set $\tau_0^*:=i(1+\delta)$. The \emph{reference homotopy class}
+$[\hat\gamma_f]=[\hat\gamma_f^T]+[\hat\gamma_f^S]$ is:
+\begin{itemize}
+\item $[\hat\gamma_f^T]$: contains the horizontal segment from $T^{-1}\tau_0^*$ to $\tau_0^*$;
+\item $[\hat\gamma_f^S]$: contains the near-vertical path from $S^{-1}\tau_0^*$ to $\tau_0^*$,
+which passes any pole at $i$ to the left.
+\end{itemize}
+When $\delta=0$, $[\hat\gamma_f^S]+[\hat\gamma_f^T]$ match those in Theorem~\ref{thm:weakL}.
 \end{definition}
 
-With this definition, we may thus unambiguously define
+With this definition, we may thus unambiguously write
 \begin{align}
-L^*(f,s) := L^*(f, s; [\gamma^S_f], [\gamma^T_f])~.
+L^*(f,s) := L^*(f, s; [\hat\gamma_f^S], [\hat\gamma_f^T])~.
 \end{align} 
 Now, having fixed the reference value $L^*(f,s)$ in the reference
 homotopy class of Definition~\ref{def:null_homotopy}, consider
@@ -846,9 +836,8 @@ ${\rm Im}\tau$:
 \end{definition}
 
 \begin{definition}\label{def:Finfty}
-$F(\infty)$ is the space of meromorphic $g$ on $\HH$ with $g(\tau+1)=g(\tau)$, finitely
-many poles in each compact subset of $\{{\rm Im}\tau>0,\ |{\rm Re}\tau|\le\tfrac12\}$, and
-$g(\tau)=O(e^{C{\rm Im}\tau})$ as ${\rm Im}\tau\to\infty$ for some $C$.
+$F(\infty)$ is the space of meromorphic functions $g:\HH\to\CC$ with $g(\tau+1)=g(\tau)$, finitely many
+poles in each compact subset of the strip $|{\rm Re}\,\tau|\le\tfrac12$, and bounded pole order at $q = 0$. 
 \end{definition}
 
 \begin{lemma}\label{lem:projspace}
@@ -892,10 +881,10 @@ L-integral we now record.
 
 \begin{definition}\label{def:IN}
 For a pole projected at $z$ with ${\rm Im}\,z>1$, let $I_N(s,z)$ be the L-integral of the
-projected polylog $\Li_{-N}(e^{2\pi i(\cdot-z)})$ in the minimal class $[\gamma^S_f],[\gamma^T_f]$
+projected polylog $\Li_{-N}(e^{2\pi i(\cdot-z)})$ in the minimal class $[\hat\gamma_f^S],[\hat\gamma_f^T]$
 of Definition~\ref{def:null_homotopy}:
 \begin{equation}\label{eq:IN}
-I_N(s,z):=L^*\big(\Li_{-N}(e^{2\pi i(\cdot-z)}),\,s;\,[\gamma^S_f],[\gamma^T_f]\big).
+I_N(s,z):=L^*\big(\Li_{-N}(e^{2\pi i(\cdot-z)}),\,s;\,[\hat\gamma_f^S],[\hat\gamma_f^T]\big).
 \end{equation}
 \end{definition}
 
@@ -912,7 +901,7 @@ convergent exponentially with base $e^{-2\pi({\rm Im}\,z-1)}$.
 \begin{proof}
 By Proposition~\ref{prop:indepHomotopy} we may evaluate $I_N(s,z)$ in the $\delta\to0$
 representative of the minimal class; there the projected polylog --- regular at $i$ since
-${\rm Im}\,z>1$ --- has vanishing $\gamma^S$-integral and $\gamma^T_f\to[i-1,i]$. On
+${\rm Im}\,z>1$ --- has vanishing $\gamma^S$-integral and $\hat\gamma_f^T\to[i-1,i]$. On
 $[i-1,i]$ one has $|e^{2\pi i(\tau-z)}|>1$, so the defining series of $\Li_{-N}$ diverges;
 inversion rewrites it as $(-1)^{N+1}\sum_{n\ge1}n^Ne^{2\pi in(z-\tau)}$, convergent since
 $|e^{2\pi i(z-\tau)}|<1$, and term-by-term integration against $\tk$ gives
@@ -922,6 +911,7 @@ The rate is $e^{-2\pi({\rm Im}\,z-1)}$, from $\Gamma(s,-2\pi n)\sim(2\pi n)^{s-1
 against $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$.
 \end{proof}
 
+%fuck{}
 \begin{definition}\label{def:tailpieces}
 Fix a pole projected at $z$ with ${\rm Im}\,z>1$. The \emph{edge variable} $w:=e^{2\pi i(z-i)}$
 equals $1$ at $z=i$ and has $|w|=e^{-2\pi({\rm Im}\,z-1)}\to1$ at the edge; the \emph{$q$-parameter}
@@ -1055,7 +1045,7 @@ $L^*$ of Theorem~\ref{thm:weakL} when $f$ is holomorphic on $\HH$.
 
 \begin{proof}
 Split $f=(I-\widehat P)f+\widehat Pf$. By Lemma~\ref{lem:growth} the Fourier series of the
-pole-projected part converges on $\gamma^T_f$; Theorem~\ref{thm:weakL} applied term by term
+pole-projected part converges on $\hat\gamma_f^T$; Theorem~\ref{thm:weakL} applied term by term
 gives its $L^*$ as the first two sums. The projection
 $\widehat Pf=\sum_{\tau_p}\sum_m r^*_{f,\tau_p}(m)\,\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$
 contributes, for each $\tau_p\ne i$, the L-integrals $I_{m-1}(s,\tau_p)$ of
