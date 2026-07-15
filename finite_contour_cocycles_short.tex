@@ -524,75 +524,104 @@ This matches Definition~\ref{def:rf} term by term, and proves the claim.
 \end{proof}
 
 Having now defined the period polynomial associated to a weak cusp form $f \in S_k^!$,
-we now seek to find its {\em (quasi-)periods}, which we define presently. First, though, 
-we define the $\SLZ$ covariant differential associated with $f$:
+we now seek to find its {\em (quasi-)periods}. First, a number of helpful definitions. For 
+starters, let $f \in S_k^!$, $\tau_0 \in \HH$ and $\gamma \in \SLZ$, and define
 \begin{equation}
-\omega_f := f(\tau) (X - \tau Y)^{n} d\tau~.
+C_\gamma(f; \tau_0):= (2\pi i)^{n+1}\int_{\gamma^{-1}\tau_0}^{\tau_0} \omega_f ~~,~~{\rm where}~~\omega_f := f(\tau) (X - \tau Y)^n d\tau~~.\label{cocycleR1}
 \end{equation} 
+Finally, it is helpful to define two slight abstractions related to $\mathbf K_T(\tau;X,Y)$ and to 
+$L_T^*(f, s; \gamma^T_{\tau_0})$:
+\begin{align}
+\chi(\tau;X,Y)&:=\sum_{\ell=0}^{n}\binom{n}{\ell}(-1)^\ell\,\zeta(-\ell,\tau+1)\,X^{n-\ell}Y^\ell , \label{cocycleR2}\\
+E(f; \tau_0)&:=(2\pi i)^{n+1}\!\!\int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\chi(\tau; X, Y) d\tau ~.\label{cocycleR3}
+\end{align}
+For each $\tau$, $\chi(\tau;\cdot,\cdot)\in V_{k-2}=\CC[X,Y]_{k-2}$; the $\SLZ$-slash
+$(P|_\gamma)(X,Y):=P(aX+bY,cX+dY)$ acts on the polynomial variables alone, holding $\tau$ fixed:
+\begin{equation}
+\chi|_\gamma(\tau;X,Y):=\chi\big(\tau;\,aX+bY,\,cX+dY\big),\qquad
+\gamma=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in\SLZ .
+\end{equation}
+Thus $|_T$ sends $(X,Y)\mapsto(X+Y,Y)$ with $\tau$ untouched. Being linear and $\tau$-independent,
+$|_\gamma$ commutes with $\int\!d\tau$, so slashing the polynomial $E$ agrees with slashing $\chi$
+under the integral --- the two occurrences of $|_\gamma$ in Lemma~\ref{lem:cocycle} denote the same
+operation.
 
 \begin{lemma}\label{lem:cocycle}
-Let $f\in S_k^!$, $\tau_0\in\HH$, and
-\begin{align}
-\chi(\tau;X,Y):=\sum_{\ell=0}^{n}\binom{n}{\ell}(-1)^\ell\,\zeta(-\ell,\tau+1)\,X^{n-\ell}Y^\ell,\quad
-E:=(2\pi i)^{n+1}\!\!\int_{\gamma^T_{\tau_0}}\!\! f\,\chi,\quad
-C_\gamma:=(2\pi i)^{n+1}\!\!\int_{\gamma^{-1}\tau_0}^{\tau_0}\!\!\omega_f .
-\end{align}
-Then $\hat C_\gamma:=C_\gamma-(E|_\gamma-E)$ is a $1$-cocycle for $\SLZ$ with $\hat C_S=r_f$ and $\hat C_T=0$.
-All contours are finite and $\chi$ is polynomial in $\tau$, $\zeta(-\ell,\tau+1)=-B_{\ell+1}(\tau+1)/(\ell+1)$.
+Let $f\in S_k^!$, $\tau_0\in\HH$, and let $\omega_f$, $C_\gamma(f; \tau_0)$, $\chi(\tau; X, Y)$, and
+$E(f;\tau_0)$ be as defined in Eqs.~\eqref{cocycleR1}, \eqref{cocycleR2} and \eqref{cocycleR3}. 
+Then $\hat C_\gamma:=C_\gamma-(E|_\gamma-E)$ is a $1$-cocycle for $\SLZ$ with 
+$\hat C_S=r_f$ and $\hat C_T=0$. 
 \end{lemma}
+
 \begin{proof}
-Path-additivity and covariance of $\omega_f$ give the Eichler--Shimura cocycle relation
+First, we prove $\hat C_\gamma$ is a cocycle. Path-additivity and covariance of $\omega_f$ give the Eichler--Shimura cocycle relation
 $C_{\gamma\delta}=C_\gamma|_\delta+C_\delta$~\cite{BCD2018,KZ1984}; as $\gamma\mapsto E|_\gamma-E$ is a
 coboundary, $\hat C$ is a cocycle.
 
-\emph{$\hat C_S=r_f$.} At $s=\ell+1$, Definition~\ref{def:kernel} reads
+Having established it is a cocyle, we now show that $\hat C_S=r_f$. At $s=\ell+1$, Definition~\ref{def:kernel} reads
 $\tk(\tau,\ell+1)=\zeta(-\ell,\tau+1)-(-1)^\ell\zeta(-(n-\ell),\tau+1)$; assembling $\mathbf K_T$ and
 re-indexing $\ell\mapsto n-\ell$ in the second term (with $n$ even) gives $\mathbf K_T=\chi-\chi|_S$. So the
 $T$-term of $r_f$ is $E-E|_S$, and by Proposition~\ref{prop:periodint}
 $r_f=C_S+(E-E|_S)=C_S-(E|_S-E)=\hat C_S$.
 
-\emph{$\hat C_T=0$.} The Hurwitz shift $\zeta(-\ell,\tau)=\zeta(-\ell,\tau+1)+\tau^\ell$ gives the pointwise
-identity $\chi(\tau-1;X,Y)-\chi(\tau;X,Y)=(X-\tau Y)^n$; applied twice it shows
-$A(\tau):=\chi(\tau;X+Y,Y)-\chi(\tau-1;X,Y)$ satisfies $A(\tau-1)=A(\tau)$. A periodic polynomial in $\tau$
-is constant, $A\equiv A_0$. Using $(X-\tau Y)^n=\chi(\tau-1)-\chi$,
+Finally, we show that $\hat C_T=0$. The Hurwitz shift $\zeta(-\ell,\tau)=\zeta(-\ell,\tau+1)+\tau^\ell$ 
+gives the point-wise identity $\chi(\tau-1;X,Y)-\chi(\tau;X,Y)=(X-\tau Y)^n$; applied twice it shows
+$A(\tau):=\chi(\tau;X+Y,Y)-\chi(\tau-1;X,Y)$ satisfies $A(\tau-1)=A(\tau)$. Crucially, because $A(\tau)$ 
+is a polynomial, and because $A(\tau) = A(\tau+1)$ for generic $\tau$, then $A(\tau)$ is constant: 
+$\partial_\tau A(\tau) = 0 \Leftrightarrow A(\tau) = A_0$. Thus, 
 \begin{align}
-\hat C_T&=C_T-(E|_T-E)=(2\pi i)^{n+1}\!\!\int_{\gamma^T_{\tau_0}}\!\! f\,[\chi(\tau-1)-\chi|_T] \nonumber\\
-&=-(2\pi i)^{n+1}A_0\!\!\int_{\tau_0-1}^{\tau_0}\!\! f\,d\tau=-(2\pi i)^{n+1}A_0\,c_f(0)=0,
+\hat C_T
+&=C_T-(E|_T-E)
+\nonumber\\ &
+=(2\pi i)^{n+1}\int_{\gamma^T_{\tau_0}} f(\tau) (X - \tau Y)^n d\tau
+- (2\pi i)^{n+1}\int_{\gamma^T_{\tau_0}} f(\tau)\big[\chi|_T(\tau; X, Y)-\chi(\tau; X, Y)\big] d\tau \nonumber\\
+&=(2\pi i)^{n+1}\int_{\gamma^T_{\tau_0}} f(\tau)\,\bigg(\big[\chi(\tau-1; X, Y)-\chi(\tau; X, Y)\big] - \big[\chi(\tau; X+Y, Y)-\chi(\tau; X, Y)\big] \bigg) d\tau \nonumber\\
+&=(2\pi i)^{n+1}\int_{\gamma^T_{\tau_0}} f(\tau)\,\big[\chi(\tau-1; X, Y)-\chi(\tau; X+Y, Y)\big] d\tau 
+=-(2\pi i)^{n+1} \int_{\tau_0-1}^{\tau_0} f(\tau)A(\tau)\,d\tau \nonumber\\
+&=-(2\pi i)^{n+1}A_0 \int_{\tau_0-1}^{\tau_0} f(\tau)\,d\tau
+=-(2\pi i)^{n+1}A_0\,c_f(0)=0,
 \end{align}
-since $\int_{\tau_0-1}^{\tau_0}f\,d\tau=c_f(0)=0$ for $f\in S_k^!$.
+as all elements $f \in S_k^!$ must have $c_f(0) = 0$.
 \end{proof}
+
+\begin{definition}\label{def:w}
+$W:=\{w\in\CC[X,Y]_{k-2}: w|_{(1+S)}=w|_{(1+U+U^2)}=0\} \subset V_n$
+\end{definition}
 
 \begin{lemma}\label{lem:rfW}
-For $f\in S_k^!$, the period polynomial~\eqref{eq:rf} satisfies
-\begin{align}\label{eq:ES}
-r_f(X,Y)|_{(1+S)} = r_f(X,Y)|_{(1+U+U^2)} = 0~,
-\end{align}
-and so lies in $W:=\{w\in\CC[X,Y]_{k-2}: w|_{(1+S)}=w|_{(1+U+U^2)}=0\}$.
+For $f\in S_k^!$, and $W \subset V_n$ from Definition~\ref{def:w}, the period polynomial $r_f(X, Y) \in W$.
 \end{lemma}
 \begin{proof}
-By Lemma~\ref{lem:cocycle}, $r_f=\hat C_S$ with $\hat C$ a cocycle and $\hat C_T=0$. Since $-I$ fixes
-$\tau_0$ and acts trivially on $\CC[X,Y]_{k-2}$, $\hat C_{-I}=0$, so $r_f|_{(1+S)}=\hat C_{S^2}=0$
-(equivalently, the functional equation of Theorem~\ref{thm:weakL}). Parabolicity gives
-$\hat C_U=\hat C_{TS}=\hat C_T|_S+\hat C_S=\hat C_S=r_f$, whence
-$r_f|_{(1+U+U^2)}=\hat C_U|_{(1+U+U^2)}=\hat C_{U^3}=0$; both $S^2=U^3=-I$.
+Let $\hat C_\gamma$ be the parabolic cocycle of Lemma~\ref{lem:cocycle}. Thus, $r_f=\hat C_S$ 
+and $\hat C_T=0$. Now, note that $\hat C_\gamma(f; \tau_0) = 0$ when $\gamma = \pm I$ for the 
+simple reason that when $\gamma = \pm I$, $\hat C_\gamma$ is a closed-contour integral of a function 
+which has no poles in $\HH$. Finally, direct computation, starting from the identities $-I = U^3 = S^2$ 
+and using the cocycle law $\hat C_{\gamma\delta}=\hat C_\gamma|_\delta+\hat C_\delta$ and clever 
+use of $\hat C_T = 0$, shows $r_f|_{(1+S)}=r_f|_{(1+U+U^2)}=0$:
+\begin{align}
+&\hat C_U = \hat C_{TS} = \hat C_T|_S + \hat C_S = \hat C_S = r_f~,  \\
+&0 = \hat C_{S^2} = \hat C_S|_S + \hat C_S = \hat C_S|_{(1+S)} = r_f|_{(1+S)}~,\\
+&0 = \hat C_{U^3} = \hat C_U|_{UU}+\hat C_{UU}=\hat C_U|_{U^2}+\big(\hat C_U|_U+\hat C_U\big)=\hat C_U|_{(1+U+U^2)}=r_f|_{(1+U+U^2)}~.
+\end{align}
+Thus, $r_f \in W \subset V_n$, and finishes the proof. %
 \end{proof}
 
-It is a standard fact that $\dim(W)=2\dim(S_k)+1$ (see, e.g.~\cite{KZ1984}). Before giving the bases for 
-$W$ for $k$ with $\dim(S_k) = 1$ (so $\dim(W) = 3$), we find it helpful to define the
-following inner-product:
+To define periods and quasi-periods, we recall the standard fact 
+that $\dim(W)=2\dim(S_k)+1$ (see, e.g.~\cite{KZ1984}), and define 
+the inner-product:
 \begin{align}\label{inner}
 \langle P,Q\rangle:=\sum_a(-1)^a\binom{n}{a}^{-1}p_a\,q_{n-a}~.
 \end{align}
-Now for the basis elements:
+Now for the basis elements for $k$ where $\dim(S_k) = 1$:
 \begin{definition}\label{def:Wpm}
-For $k$ with $\dim S_k=1$, $n:=k-2$, $p_0(X):=X^n-1$, $B_i := \tfrac{i!}{2\pi i}\oint \tfrac{t^{-i}}{e^{t}-1}\,dt$, and
+Let $\dim S_k=1$, $n:=k-2$, $p_0(X):=X^n-1$, $B_\ell := \tfrac{\ell!}{2\pi i}\oint \tfrac{t^{-\ell}}{e^{t}-1}\,dt$, and
 $B^0_m(X):=\sum_{i\ne1}\binom{m}{i}B_i X^{m-i}$. Motivated by~\cite[Thm.~1$'$]{KZ1984}, we define:
 \begin{align}
 W^{(k)}_-(X)&:={\rm pp}\left(\tfrac{1}{n-1}\big(B^0_{n-1}(X)+X^nB^0_{n-1}(\tfrac1X)\big)
 -\tfrac13\big(B^0_3(X)+X^nB^0_3(\tfrac1X)\big)\right),\\
 W^{(k)}_+(X)&:={\rm pp}\left(\tfrac12\big(B^0_2(X)-X^nB^0_2(\tfrac1X)\big)
 +\tfrac1n\big(B^0_n(X)-X^nB^0_n(\tfrac1X)\big)-c\,p_0(X)\right),\\
-v_0^{(k)}(X)&:= p_0(X) - \frac{\langle W^{(k)}_+,\,p_0\rangle}{\langle W^{(k)}_+,\,W^{(k)}_+\rangle}\,W^{(k)}_+(X),
+v_0^{(k)}(X)&:= p_0(X) - W^{(k)}_+(X) ~\big(\langle W^{(k)}_+,\,p_0\rangle/\langle W^{(k)}_+,\,W^{(k)}_+\rangle\big)~,
 \end{align}
 where ${\rm pp}$ acts on any polynomial with rational coefficients by multiplying by all
 coefficient-denominators and dividing by the gcd, $c$ eliminates the $p_0(X)$ component
@@ -600,7 +629,8 @@ of $W^{(k)}_+$, and $\langle P, Q\rangle$ as in Eq.~\eqref{inner}.
 \end{definition}
 
 \begin{lemma}\label{lem:Wbasis}
-For $k$ with $\dim S_k=1$, the space $W$ of Lemma~\ref{lem:rfW} has $\dim W=3$, and $\{W^{(k)}_+,\,W^{(k)}_-,\,v_0^{(k)}\}$ is an orthogonal basis of $W$ under $\langle\cdot,\cdot\rangle$ from Eq.~\eqref{inner}.
+For $k$ with $\dim S_k=1$, the space $W$ of Lemma~\ref{lem:rfW} has $\dim W=3$, and $\{
+W^{(k)}_+$, $W^{(k)}_-$, $v_0^{(k)}\}$ is an orthogonal basis of $W$ under $\langle\cdot,\cdot\rangle$ from Eq.~\eqref{inner}.
 \end{lemma}
 \begin{proof}
 First, let $W_\pm^{(k)}(X, Y) := Y^{k-2} W_\pm^{(k)}(X/Y)$, and let $v_0^{(k)}(X, Y) := Y^{k-2} v_0^{(k)}(X/Y)$.
@@ -630,13 +660,6 @@ Further, define
 \end{matrix}\right) ~~~~,~~~~
 \alpha_k := \frac{(-1)^{1+k/2} \det({\rm pd}_k)}{(2\pi i)^{k-1}(k-2)!}
 \end{align}
-Brown--Hain~\cite[Prop.~5.6]{BrownHain2018} show that $\det({\rm pd}_k)$ satisfies a 
-Legendre-type relation, $\det({\rm pd}_k)\in\QQ^\times\cdot(2\pi i)^{k-1}$. Brown~\cite[\S8.3]{Brown2017}
-numerically finds $\alpha_k=1$; we reproduce this result at $k=12$ and give the analogous
-rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below.
-Note: The value of $\alpha_k$ is tied to the normalization of Definition~\ref{def:Wpm}. Other normalizations, 
-e.g. not including the ${\rm pp}$-operator in defining $W_\pm^{(k)}$ would lead to different $\alpha_k$-values. 
-
 \begin{table}[H]\centering\small
 \begin{tabular}{r|rrrr|c}
 $k$ & $\omega^+(\Delta_k)$ & $\omega^-(\Delta_k)/i$ & $\eta^+(\Dhat_k)$ & $\eta^-(\Dhat_k)/i$ & $\alpha_k$\\\hline
@@ -656,6 +679,13 @@ for the $\alpha_k$. See ~\cite{VerifyScripts} for the scripts that extracted the
 figures (to 50-digit precision).
 }\label{tab:periods}
 \end{table}
+
+Brown--Hain~\cite[Prop.~5.6]{BrownHain2018} show that $\det({\rm pd}_k)$ satisfies a 
+Legendre-type relation, $\det({\rm pd}_k)\in\QQ^\times\cdot(2\pi i)^{k-1}$. Brown~\cite[\S8.3]{Brown2017}
+numerically finds $\alpha_k=1$; we reproduce this result at $k=12$ and give the analogous
+rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below.
+Note: The value of $\alpha_k$ is tied to the normalization of Definition~\ref{def:Wpm}. Other normalizations, 
+e.g. not including the ${\rm pp}$-operator in defining $W_\pm^{(k)}$ would lead to different $\alpha_k$-values. 
 
 
 
