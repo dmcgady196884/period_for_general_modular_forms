@@ -924,6 +924,7 @@ where $(a)_{(j)}:=a(a-1)\cdots(a-j+1)$ is the falling factorial ($(a)_{(0)}:=1$)
 polylogarithm of Definition~\ref{def:proj}, and $\Gamma,\Gamma(a,x)$ the gamma and upper incomplete
 gamma, on principal branches~\cite{DLMF}.
 
+\pagebreak
 \begin{lemma}\label{lem:polylogedge}
 With $\Pi_N,\Lambda_N,\mathcal E_N$ as in
 Eqs.~\eqref{eq:tailpiece1}--\eqref{eq:tailpiece3}, for ${\rm Im}\,z>1$ and every $s\in\CC$,
@@ -934,6 +935,114 @@ I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 and the right side extends $I_N(s,\cdot)$ continuously to the edge ${\rm Im}\,z=1$ for
 $z\notin i+\ZZ$.
 \end{lemma}
+
+The crux of this Lemma is to show the existence of the smooth continuation of $I_N(s, z)$ 
+from Lemma~\ref{lem:polylogcf}, derived for ${\rm Im}(z) > 1$, to the ${\rm Im}(z) = 1$-line 
+away from the elliptic point $z = i$. This elliptic point requires special care, which must focus 
+on, below. 
+
+\begin{proof}
+%Throughout write $w:=e^{2\pi i(z-i)}$ and $Q:=e^{2\pi iz}$. Since $e^{2\pi i(z-i)}=e^{2\pi}e^{2\pi iz}$,
+%these satisfy $w=e^{2\pi}Q$, with $|Q|=e^{-2\pi{\rm Im}\,z}$ and $|w|=e^{-2\pi({\rm Im}\,z-1)}$. For
+%${\rm Im}\,z>1$ both moduli are $<1$, so every series below converges absolutely and the
+%rearrangements are unrestricted; Step~4 pushes this to the edge. The one bookkeeping fact used
+%repeatedly: a summand carrying an extra $e^{2\pi n}$ combines with $e^{2\pi inz}$ into
+%$w^n=e^{2\pi in(z-i)}$, while a summand without it keeps $e^{2\pi inz}=Q^n$.
+We begin by considering the closed form for $I_N(s, z)$, derived in Lemma~\ref{lem:polylogcf}, 
+derived for ${\rm Im}(z) > 1$:
+\begin{align}
+&I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)+(-1)^{N+1}\sum_{n=1}^{\infty}n^N e^{2\pi inz}
+\bigg( 
+\frac{\Gamma(s,-2\pi n)}{(-2\pi n)^{s}}+i^k\frac{\Gamma(k-s,-2\pi n)}{(-2\pi n)^{k-s}}
+\bigg)~.\label{e59}
+\end{align}
+Our proof now proceeds in four steps. 
+\begin{enumerate}
+\item First, we use the recurrence relation $\Gamma(a, x) = x^{a-1} e^{-x} + (a-1) \Gamma(a-1, x)$ on each incomplete Gamma-function in~\eqref{e59}, $N+2$ times. For each $n$ in the sum, $\sum_{n \geq 1}$, we have
+\begin{align}
+&%\sum_{n=1}^{\infty}
+n^N e^{2\pi inz} G_{s,k}(-n) = %\sum_{n=1}^{\infty}
+n^N e^{2\pi i n z} e^{2\pi n} \sum_{j=0}^{N+1}\frac{(-1)^{j+1}}{(2\pi n)^{\,j+1}}\bigg[ (s-1)_{(j)} + i^k (k-s-1)_{(j)}\bigg]
+\label{e60}\\
+&+%\sum_{n=1}^{\infty} 
+e^{2\pi i n z} n^N \bigg\{ (s-1)_{(N+2)}\frac{\Gamma(s-N-2,-2\pi n)}{(-2\pi n)^{s}} + i^k(k-s-1)_{(N+2)}\frac{\Gamma(k-s-N-2,-2\pi n)}{(-2\pi n)^{k-s}} \bigg\}
+\label{e61}
+\end{align} 
+\item Second, note that the right-hand side of line~\eqref{e60}, when summed over all $n$ in $\sum_{n \geq 1}$, is simply a finite sum of polylogarithms itself:
+\begin{align}
+&\sum_{n=1}^{\infty}n^N e^{2\pi inz}\,e^{2\pi n}\sum_{j=0}^{N+1}\frac{(-1)^{j+1}}{(2\pi n)^{\,j+1}}\bigg\{ (s-1)_{(j)} + i^k (k-s-1)_{(j)}\bigg\}\nonumber\\
+&=\sum_{j=0}^{N+1}\frac{(-1)^{j+1}}{(2\pi)^{\,j+1}}\,\Li_{j+1-N}(e^{2\pi i (z - i)}) \bigg\{ (s-1)_{(j)} + i^k (k-s-1)_{(j)} \bigg\} = \Pi_N(s, z) \label{e62}
+\end{align}
+\item Third, we split the incomplete Gamma-functions in line~\eqref{e61} into $\Gamma(s,x) = \Gamma(s) - \gamma(s, x)$, i.e. the {\em other} incomplete Gamma. In so doing, we recognize each piece 
+%\item
+\end{enumerate}
+
+%\emph{Step 1: peel $N+2$ orders off the incomplete gamma.} Iterating
+%$\Gamma(a,x)=x^{a-1}e^{-x}+(a-1)\Gamma(a-1,x)$ (\cite[\S8.8]{DLMF}) 
+%$J$ times gives, for any integer $J\ge1$,
+%\begin{align}
+%\Gamma(s,x)=e^{-x}\sum_{j=0}^{J-1}(s-1)_{(j)}\,x^{\,s-1-j}+(s-1)_{(J)}\,\Gamma(s-J,x).
+%\end{align}
+%Take $J=N+2$, $x=-2\pi n$, and divide by $(-2\pi n)^{s}$. As $-1-j$ is an integer,
+%$(-2\pi n)^{s-1-j}/(-2\pi n)^{s}=(-2\pi n)^{-1-j}=(-1)^{j+1}(2\pi n)^{-(j+1)}$, so
+%\begin{align}
+%\frac{\Gamma(s,-2\pi n)}{(-2\pi n)^{s}}
+%=\underbrace{e^{2\pi n}\sum_{j=0}^{N+1}\frac{(-1)^{j+1}(s-1)_{(j)}}{(2\pi n)^{\,j+1}}}_{\text{finite part}}
+%+\underbrace{(s-1)_{(N+2)}\frac{\Gamma(s-N-2,-2\pi n)}{(-2\pi n)^{s}}}_{\text{tail}}.
+%\end{align}
+%\emph{Step 2: the finite part resums to $\Pi_N$.} Multiply the finite part by $n^N e^{2\pi inz}$ and
+%sum over $n$. The factor $e^{2\pi n}e^{2\pi inz}=w^n$, and $\sum_{n\ge1}n^{-a}w^n=\Li_a(w)$ at
+%$a=j+1-N$ gives $\sum_{n\ge1}n^{\,N-j-1}w^n=\Li_{j+1-N}(w)$, whence
+%\begin{align}
+%\sum_{n\ge1}n^N e^{2\pi inz}\,e^{2\pi n}\sum_{j=0}^{N+1}\frac{(-1)^{j+1}(s-1)_{(j)}}{(2\pi n)^{\,j+1}}
+%=\sum_{j=0}^{N+1}\frac{(-1)^{j+1}(s-1)_{(j)}}{(2\pi)^{\,j+1}}\,\Li_{j+1-N}(w).
+%\end{align}
+%The $i^k$-partner repeats this with $(s-1)_{(j)}\mapsto i^k(k-s-1)_{(j)}$; the two together are
+%$\Pi_N(s,z)$ of \eqref{eq:tailpiece1}.
+
+\emph{Step 3: the tail splits into $\Lambda_N$ and $\mathcal E_N$.} Write the reduced gamma as its
+$x\to-\infty$ value minus the remainder,
+\begin{align}
+\Gamma(s-N-2,-2\pi n)=\Gamma(s-N-2)-\big[\Gamma(s-N-2)-\Gamma(s-N-2,-2\pi n)\big],
+\end{align}
+the bracket being the lower incomplete gamma $\gamma(s-N-2,-2\pi n)$. Carry each through the tail,
+summed against $n^N e^{2\pi inz}=n^N Q^n$.
+
+\emph{(a) Value $\to\Lambda_N$.} The falling factorial telescopes the gamma,
+$(s-1)_{(N+2)}\Gamma(s-N-2)=(s-1)(s-2)\cdots(s-N-2)\,\Gamma(s-N-2)=\Gamma(s)$; with
+$n^N/(-2\pi n)^{s}=(-2\pi)^{-s}n^{\,N-s}$ and $\sum_{n\ge1}n^{\,N-s}Q^n=\Li_{s-N}(Q)$,
+\begin{align}
+(s-1)_{(N+2)}\Gamma(s-N-2)\sum_{n\ge1}\frac{n^N Q^n}{(-2\pi n)^{s}}
+=\frac{\Gamma(s)}{(-2\pi)^{s}}\,\Li_{s-N}(Q),
+\end{align}
+the first term of $\Lambda_N$ (\eqref{eq:tailpiece2}).
+
+\emph{(b) Remainder $\to\mathcal E_N$.} The bracket carries through verbatim to
+\begin{align}
+-(s-1)_{(N+2)}\sum_{n\ge1}n^N Q^n\,\frac{\Gamma(s-N-2)-\Gamma(s-N-2,-2\pi n)}{(-2\pi n)^{s}},
+\end{align}
+the first term of $\mathcal E_N$ (\eqref{eq:tailpiece3}). The $i^k$-partners of (a),(b) give the
+second terms of $\Lambda_N,\mathcal E_N$. Collecting Steps~2--3 under the prefactor $(-1)^{N+1}$
+yields \eqref{eq:threelayer}.
+
+\emph{Step 4: convergence and the edge.} Only $\mathcal E_N$ needs an estimate. As $n\to\infty$,
+$x=-2\pi n\to-\infty$ and $\Gamma(\sigma,x)\sim x^{\sigma-1}e^{-x}$; with $\sigma=s-N-2$ this
+dominates the constant $\Gamma(s-N-2)$, so the numerator in (b) has size
+$(2\pi n)^{\,{\rm Re}\,s-N-3}e^{2\pi n}$. Dividing by $|(-2\pi n)^{s}|=(2\pi n)^{{\rm Re}\,s}$ and
+multiplying by $n^N$ cancels the ${\rm Re}\,s$, so the coefficient of $Q^n$ is $O(n^{-3}e^{2\pi n})$.
+Since $e^{2\pi n}|Q|^n=e^{-2\pi n({\rm Im}\,z-1)}=|w|^n$, the terms of $\mathcal E_N$ are
+\begin{align}
+O\!\big(n^{-3}|w|^n\big)\qquad\text{uniformly on }{\rm Im}\,z\ge1 .
+\end{align}
+As $|w|\le1$ there, $\mathcal E_N$ converges absolutely --- on the edge $|w|=1$ as well, by
+$\sum n^{-3}$. For continuity up to ${\rm Im}\,z=1$: $\Lambda_N$ is a fixed combination of
+$\Li_{s-N}(Q),\Li_{k-s-N}(Q)$ with $|Q|\le e^{-2\pi}$, hence continuous; $\mathcal E_N$ is continuous
+by the uniform bound; and in $\Pi_N$ each $\Li_{j+1-N}(w)$ is continuous on $|w|\le1$ away from its
+branch point $w=1$. Finally $w=1\iff z-i\in\ZZ$, i.e. $z\in i+\ZZ$ --- the excluded points. Hence
+the right side of \eqref{eq:threelayer} extends $I_N(s,\cdot)$ continuously to ${\rm Im}\,z=1$ for
+$z\notin i+\ZZ$.
+\end{proof}
+
 
 \begin{proof}
 Throughout write $w:=e^{2\pi i(z-i)}$ and $Q:=e^{2\pi iz}$. Since $e^{2\pi i(z-i)}=e^{2\pi}e^{2\pi iz}$,
