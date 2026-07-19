@@ -746,11 +746,11 @@ the reference homotopy classes:
 Let $f\in F_k$, let $\tau_0$ be the base-point of $L^*(f,s)$, and let $f^{-1}(\infty)$ be the
 poles of $f$. If $f$ has no poles on the line ${\rm Im}(\tau) = 1$, choose $\delta = 0$. 
 Else, choose $\delta>0$ such that no pole lies in the strip $1<{\rm Im}(\tau)\leq 1+\delta$. 
-Set $\tau_0^*:=i(1+\delta)$. The \emph{reference homotopy class}
+Set $\hat\tau_0^f:=i(1+\delta)$. The \emph{reference homotopy class}
 $[\hat\gamma_f]=[\hat\gamma_f^T]+[\hat\gamma_f^S]$ is:
 \begin{itemize}
-\item $[\hat\gamma_f^T]$: contains the horizontal segment from $T^{-1}\tau_0^*$ to $\tau_0^*$;
-\item $[\hat\gamma_f^S]$: contains the near-vertical path from $S^{-1}\tau_0^*$ to $\tau_0^*$,
+\item $[\hat\gamma_f^T]$: contains the horizontal segment from $T^{-1}\hat\tau_0^f$ to $\hat\tau_0^f$;
+\item $[\hat\gamma_f^S]$: contains the near-vertical path from $S^{-1}\hat\tau_0^f$ to $\hat\tau_0^f$,
 which passes any pole at $i$ to the left.
 \end{itemize}
 For $\delta=0$, the reference paths match the paths $\gamma^S_i\!:\! i \!\to\! i$ and $\gamma^T_i\!:\! (i\!-\!1)\!\to\! i$ for $L^*(f,s)$ when $f \in M_k^!$.
@@ -970,31 +970,40 @@ i.e., $\Pi_N(s,z)$ of \eqref{eq:tailpiece1}, while the reduced-gamma terms remai
 $R_N(s, z)$ of Eq.~\eqref{eq:tailpiece2}, which together establish the lemma's
 identity~\eqref{eq:twolayer}.
 
-The second main step of our proof is to show that $\Pi_N(s, z)$ is regular as ${\rm Im}(z) \to 1$ for $z \neq i$, while $R_N(s, z)$ is regular on the whole line ${\rm Im}(z) = 1$. We treat the two pieces in turn, beginning with $R_N$.
+The second main step of our proof is to show that $\Pi_N(s, z)$ is regular as 
+${\rm Im}(z) \to 1$ for $z \neq i$, while $R_N(s, z)$ is regular for all $z$ with 
+${\rm Im}(z) = 1$. We treat each piece in turn, beginning with $R_N$.
 
 
-Each term of $R_N$ carries the Fourier mode $e^{2\pi inz}$ inherited from
-Lemma~\ref{lem:polylogcf}, of modulus $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$. The reduced
-incomplete gamma supplies the competing growth: as $n\to\infty$,
-$\Gamma(s-N-2,-2\pi n)\sim(-2\pi n)^{\,s-N-3}e^{2\pi n}$~\cite[\S8.11]{DLMF}. Dividing by
-$(-2\pi n)^{s}$ and restoring the prefactor $n^N$, the powers of $n$ collapse to
-$n^{N}\cdot n^{-N-3}=n^{-3}$ (the $s$ cancels), so the $n$-th coefficient is of size $n^{-3}e^{2\pi n}$.
-Multiplied by the mode, this $e^{2\pi n}$ growth is exactly spent against the mode's decay,
+Each term of $R_N$ is internal to the $G_{s,k}(-n)$ in the mode $\sum e^{2\pi inz} G_{s,k}(-n)$ 
+from Lemma~\ref{lem:polylogcf}. Clearly, $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$. Thus, the 
+incomplete gamma's exponential growth cancels against the exponentially 
+falling $e^{2 \pi i n z}$ factors. As $n \to \infty$, we have:
 \begin{align}
-e^{2\pi n}\,\big|e^{2\pi inz}\big|=e^{2\pi n}\,e^{-2\pi n\,{\rm Im}\,z}=e^{-2\pi n({\rm Im}\,z-1)},
+\left|n^N e^{2\pi i n z} \frac{\Gamma(s{-}N{-}2,{-}2\pi n)}{({-}2\pi n)^s}\right| &
+{\sim}\left| \frac{n^N e^{2\pi i n z} ({-}2\pi n)^{s{-}N{-}3}e^{2\pi n}}{({-}2\pi n)^s}\right|
+{\sim}\left| \frac{e^{2\pi i n z}e^{2\pi n}}{ ({-}2\pi)^{3{+}N} n^3}\right|
+{\sim} \frac{e^{2\pi n (1{-}{\rm Im}(z))}}{(2\pi)^{N{+}3} n^3}%~,
 \end{align}
-so the $n$-th term of $R_N$ is $O\!\big(n^{-3}e^{-2\pi n({\rm Im}\,z-1)}\big)$, uniformly for
+where the detailed asymptotics of $\Gamma(s, x)$ in the first scaling relation follow 
+from~\cite[\S8.11]{DLMF}. (The $i^k (s \rightarrow k-s)$-partner follows identically.)
+Hence the $n$-th term of $R_N$ is $O\!\big(n^{-3}e^{-2\pi n({\rm Im}\,z-1)}\big)$, uniformly for
 ${\rm Im}\,z\ge1$. There $e^{-2\pi({\rm Im}\,z-1)}\le1$, so
 $\sum_{n}n^{-3}e^{-2\pi n({\rm Im}\,z-1)}\le\zeta(3)$: the series converges absolutely and uniformly,
 up to and including the edge ${\rm Im}\,z=1$, so $R_N$ is continuous there.
 
-For $\Pi_N$, each $\Li_a$ is analytic on $\CC\setminus[1,\infty)$. On the edge ${\rm Im}\,z=1$ the
-argument $e^{2\pi i(z-i)}$ runs over the unit circle, which meets the cut $[1,\infty)$ only at
-$e^{2\pi i(z-i)}=1$, i.e.\ $z\in i+\ZZ$; so $\Pi_N$ is regular along the whole edge except at those
-points. There its polylogs of index $\lambda+1-N\le1$ (that is, $\lambda\le N$) are singular --- a
-logarithm at index $1$, poles below --- while the index-$2$ term ($\lambda=N+1$) stays finite.
-Together with the continuity of $R_N$, \eqref{eq:twolayer} extends $I_N(s,\cdot)$ continuously to
-${\rm Im}\,z=1$ for $z\notin i+\ZZ$.
+For $\Pi_N$, recall that it is a sum over $N+2$ polylogarithms of integer index,
+$\Pi_N(s, z) = c_2(s) \Li_2(w) + c_1(s) \Li_1(w) + ... + c_{1{-}N}(s) \Li_{1{-}N}(w)$, where $w := e^{2\pi i (z-i)}$. 
+Each $\Li_a$ is single-valued and analytic on the cut plane
+$\CC\setminus[1,\infty)$: for $a\le0$ it is rational with a pole of order $1-a$ at $w=1$;
+$\Li_1(w)=-\log(1-w)$ has a logarithmic branch point at $w=1$; and $\Li_2(w)$ is finite 
+at its branch point $w=1$. All three singularities sit at the endpoint
+$w=1$, and the cuts of $\Li_1,\Li_2$ run along the ray $[1,\infty)$. The edge is the unit circle
+$|w|=1$, which meets that radial cut only at $w=1$; approaching it from inside the disc
+(${\rm Im}\,z>1$) gives the analytic boundary value of each $\Li_a$ at every $w\ne1$. Hence
+$\Pi_N$ is analytic along the whole edge except at $z\in i+\ZZ$, where each index-$\le1$ term 
+diverges. With the continuity of $R_N$, \eqref{eq:twolayer} extends
+$I_N(s,\cdot)$ continuously to ${\rm Im}\,z=1$ for $z\notin i+\ZZ$.
 \end{proof}
 
 
