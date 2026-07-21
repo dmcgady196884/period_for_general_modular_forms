@@ -896,6 +896,88 @@ family of weight-$k$ meromorphic modular forms on $\HH \setminus
   or some closely related object.
 \end{enumerate}
 
+\section{A worked example: the $2i$-block and a real-period criterion}\label{sec:2i-example}
+
+The split between $\sigma^S$- and $\sigma^T$-crossings is not cosmetic.
+The two segments carry \emph{different} kernels --- $\tau^{s-1}$ on
+$\gamma^S$, $\widetilde{k}_T(\tau,s)$ on $\gamma^T$ --- so crossing one
+and the same pole along $\gamma^S$ versus $\gamma^T$ produces
+\emph{different} period shifts. We make this concrete on a minimal
+form whose single simple pole sits at a generic CM point rather than at
+an elliptic fixed point.
+
+\subsection{The form}
+Using $E_4^3 - E_6^2 = 1728\Delta$ and the CM value $j(2i) = 66^3 =
+287496$, set
+\begin{equation}\label{eq:2i-form}
+  f \;=\; \frac{E_4^3 - E_6^2}{\,j - j(2i)\,}
+       \;=\; \frac{1728\,\Delta}{\,j - 287496\,}
+       \;=\; \frac{1728\,\Delta^2}{\,E_4^3 - 287496\,\Delta\,}
+       \;=\; 1728\,q^2 + 495465984\,q^3 + \cdots \;\in F_{12}.
+\end{equation}
+The denominator has constant term $1$ and integer $q$-coefficients, so
+$f$ has integer $q$-coefficients, vanishes to order $2$ at the cusp,
+and carries a single simple pole on $\SLZ\cdot 2i$ with residue
+$\rho = \Res_{2i} f = 1728\,\Delta(2i)/j'(2i) = 3.3444\times10^{-9}\,i$.
+
+\subsection{Two kernels, two crossings}
+For a simple pole the single-crossing residues are
+$r_S(f,2i) = \rho\,(2i)^{\ell}$ and $r_T(f,2i) = \rho\,
+\widetilde{k}_T(2i,\ell+1)$ at $s=\ell+1$. These disagree at every
+order:
+\begin{center}
+\begin{tabular}{r|rr}
+$\ell$ & $(2i)^\ell$ & $\widetilde{k}_T(2i,\ell+1)$\\\hline
+$0$    & $1$      & $-512.5 + 402.6\,i$\\
+$1$    & $2i$     & $-141.1 - 257\,i$\\
+$2$    & $-4$     & $130 - 42.9\,i$\\
+$\vdots$ &        & \\
+$10$   & $-1024$  & $512.5 - 402.6\,i$
+\end{tabular}
+\end{center}
+so the period polynomial jumps by $(2\pi i)^{n+2}\rho\,(X-2iY)^{n}$
+across $\gamma^S$ but by $(2\pi i)^{n+2}\rho\,\mathbf K_T(2i;X,Y)$ across
+$\gamma^T$ (with $\mathbf K_T$ the Hurwitz kernel of the period
+polynomial) --- different polynomials, not merely a sign.
+
+\subsection{Periods, and which class is canonical}
+Projecting $r_f$ onto the Kohnen--Zagier basis, $\omega^\pm(f) =
+\langle r_f, W_\pm\rangle/\langle W_\pm,W_\pm\rangle$, in three homotopy
+classes --- the reference class of the main note (no interior pole
+enclosed), and the two classes obtained by winding $\gamma^S$ resp.\
+$\gamma^T$ once about $2i$ --- gives
+\begin{center}
+\begin{tabular}{l|rr}
+class & $\omega^+(f)$ & $\omega^-(f)$\\\hline
+reference               & $-600.76$            & $+33642.03\,i$\\
+$\gamma^S$ winds $2i$   & $-600.76 + 74.79\,i$ & $\phantom{-}4176.06 + 33642.03\,i$\\
+$\gamma^T$ winds $2i$   & $-614.32 - 74.79\,i$ & $-4176.06 + 34371.83\,i$
+\end{tabular}
+\end{center}
+by direct two-segment integration (normalisation fixed so that
+$\omega^-(\Delta_{12})$ reproduces Table~1 of the main note; the even
+side carries the Eisenstein normalisation of $W_+$). The ratio of the
+$\gamma^S$ to $\gamma^T$ jump in $\omega^+$ is $-0.968 - 0.175\,i \neq
+1$: the two crossings differ in phase, not just modulus.
+
+Two features single out the reference class.
+\begin{enumerate}\itemsep0.2em
+\item There $\omega^+(f)\in\mathbb{R}$ and $\omega^-(f)\in i\mathbb{R}$
+  --- the reality a genuine cusp form enjoys. Each interior-pole
+  crossing pollutes it: $\rho$ is imaginary and the kernel values carry
+  mixed phase, so any enclosed pole smears $\omega^+$ off the real
+  axis.
+\item Hence the individual period coefficients are \emph{not}
+  homotopy-invariant, and --- correcting a natural first guess --- the
+  $\gamma^S$ and $\gamma^T$ deformations do \emph{not} agree.
+\end{enumerate}
+This suggests a normalisation-free selector for the canonical class:
+\emph{for $f\in F_k$ with real $q$-coefficients, the canonical homotopy
+class is the one in which $\omega^+(f)\in\mathbb{R}$ and $\omega^-(f)\in
+i\mathbb{R}$} --- and the reference class of the main note is exactly
+it. The figures here are reproduced by \texttt{check\_2i\_periods()}
+(entry [E7]) in \texttt{wip\_meromorphic\_periods.py}.
+
 \section{Open questions / next steps}
 
 \begin{enumerate}\itemsep0.3em

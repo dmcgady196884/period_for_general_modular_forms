@@ -65,8 +65,8 @@ forms~\cite{Brown2017}.
 
 {\em Note:} Throughout this document, we refer to L-integrals and L-functions. The classical 
 L-function-as-Dirichlet-series which has been suitably extended to the complex $s$ plane is 
-simply not defined when the L-function in question has poles either at the cusp or at finite 
-locations within the upper half-plane. So, if there is ever a doubt, we state clearly: 
+simply not defined when the modular form that defines the L-function has poles either at the 
+cusp or at finite locations within the upper half-plane. So, if there is ever a doubt, we state clearly: 
 {\em any L-function in this note is defined by an L-integral}. The focus of this note is to define 
 L-integrals for any integer weight $\SLZ$ modular form which may have poles at cusps or away 
 from cusps.
@@ -122,7 +122,7 @@ where $-N$ is the largest negative number such that $c_f(n)$ is non-zero. Such a
 $f$ is called a {\em weak modular form}, and we write $f \in M_k^!$. If a weak modular form $f$ 
 has a vanishing coefficient of $q^0$, i.e. if $c_f(0) = 0$, it is called a {\em weak cusp form} and 
 we write $f \in S_k^!$. Clearly, $S_k^! \subset M_k^!$, $S_k \subset S_k^!$ and $M_k \subset M_k^!$. 
-Two important weak cusp forms in our paper are as follows: 
+Two important weak cusp forms in this note are as follows: 
 \begin{align}
 J :=&~ \frac{E_4^3}{\Delta} - 744 = \frac{1}{q} + O(q) \in S_0^!~,~\\
 \Dhat =&~ (J^2 + 24 J -393444) \Delta := \frac{1}{q} + O(q^2) \in S_{12}^!~.~
@@ -155,7 +155,7 @@ and $|(1 + U + U^2)$\cite{KZ1984}, where $U := TS$ generates an order-3 cyclic s
 We define the \emph{periods} of a cusp form to be coefficients of $r_f$ within this highly 
 constrained sub-space $W$ of $V_{k-2}$, i.e. $W \subset V_{k-2}$.
 
-{\bf Why this paper?} As classically computed, these L-functions and associated period polynomials 
+{\bf Why this work?} As classically computed, these L-functions and associated period polynomials 
 (when defined in terms of the special values of the associated L-function) are not defined when $f$ 
 has poles either at the cusp of $\SLZ$ or within the interior of $\HH$. As stated above, there 
 are extant, but partial and non-overlapping, extensions of the definition of $L(f,s)$ to $f \in M_k^!$~\cite{BFK2011} or 
@@ -750,11 +750,17 @@ Set $\hat\tau_0^f:=i(1+\delta)$. The \emph{reference homotopy class}
 $[\hat\gamma_f]=[\hat\gamma_f^T]+[\hat\gamma_f^S]$ is:
 \begin{itemize}
 \item $[\hat\gamma_f^T]$: contains the horizontal segment from $T^{-1}\hat\tau_0^f$ to $\hat\tau_0^f$;
-\item $[\hat\gamma_f^S]$: contains the near-vertical path from $S^{-1}\hat\tau_0^f$ to $\hat\tau_0^f$,
-which passes any pole at $i$ to the left.
+\item $[\hat\gamma_f^S]$: contains the near-vertical path from $S^{-1}\hat\tau_0^f$ to $\hat\tau_0^f$
+along the imaginary axis, taking a pole at $i$ by principal value.
 \end{itemize}
 For $\delta=0$, the reference paths match the paths $\gamma^S_i\!:\! i \!\to\! i$ and $\gamma^T_i\!:\! (i\!-\!1)\!\to\! i$ for $L^*(f,s)$ when $f \in M_k^!$.
 \end{definition}
+
+%\smallskip\noindent For $f\in F_k$ with real $q$-coefficients, the reference class yields
+%$\omega^+(f)\in\mathbb{R}$ and $\omega^-(f)\in i\mathbb{R}$: the axis-symmetric contour respects the
+%reflection $\tau\mapsto-\bar\tau$, and the one on-axis pole (at $i$) reaches $\omega^\pm$ only through
+%$(X-iY)^{k-2}$ --- which the period pairing annihilates when $k\equiv2\bmod4$ (there $W_\pm(i,1)=0$),
+%or through $\widehat P_i$ with the real weights $(-2\pi i)^m a_{-m}$ when $4\mid k$.
 
 With this definition, we may thus unambiguously write
 \begin{align}
@@ -804,26 +810,50 @@ Were we to allow poles at/above this line, q-series diverges on the contour
 Within this general context, we lay-out the starting definitions and facts:
 
 \begin{definition}\label{def:proj}
+%Let $f\in F_k$ have, at a pole $\tau_p$ of order $m_p$, the Laurent principal part
+%$\sum_{m=1}^{m_p} a^{(p)}_{-m}\,(\tau-\tau_p)^{-m}$. With the polylogarithm
+%$\Li_s(x):=\sum_{n\ge1}x^n n^{-s}$, the \emph{polylog projection} of $f$ at $\tau_p$ is
+%\begin{equation}
+%\widehat P_{\tau_p}f(\tau):=\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,
+%\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
+%\end{equation}
+%its weights $r^*_{f,\tau_p}(m)$ fixed by matching principal parts with $f$ at $\tau_p$; and
+%$\widehat P:=\sum_{{\rm Im}\tau_p\ge1}\widehat P_{\tau_p}$.
 Let $f\in F_k$ have, at a pole $\tau_p$ of order $m_p$, the Laurent principal part
-$\sum_{m=1}^{m_p} a^{(p)}_{-m}\,(\tau-\tau_p)^{-m}$. With the polylogarithm
+$\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,(\tau-\tau_p)^{-m}$; the \emph{pole weights}
+$r^*_{f,\tau_p}(m)$ are thus its Laurent coefficients. With the polylogarithm
 $\Li_s(x):=\sum_{n\ge1}x^n n^{-s}$, the \emph{polylog projection} of $f$ at $\tau_p$ is
 \begin{equation}
 \widehat P_{\tau_p}f(\tau):=\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,
-\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
+\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
 \end{equation}
-its weights $r^*_{f,\tau_p}(m)$ fixed by matching principal parts with $f$ at $\tau_p$; and
-$\widehat P:=\sum_{{\rm Im}\tau_p\ge1}\widehat P_{\tau_p}$.
+and $\widehat P:=\sum_{{\rm Im}\tau_p\ge1}\widehat P_{\tau_p}$.
 \end{definition}
 
 \begin{lemma}\label{lem:proj}
-The weights $r^*_{f,\tau_p}(m)$, $1\le m\le m_p$, exist and are unique, and
-$(I-\widehat P_{\tau_p})f$ is holomorphic at $\tau_p$.
+%The weights $r^*_{f,\tau_p}(m)$, $1\le m\le m_p$, exist and are unique, and
+%$(I-\widehat P_{\tau_p})f$ is holomorphic at $\tau_p$.
+%The weights are $r^*_{f,\tau_p}(m)=(-2\pi i)^m a^{(p)}_{-m}/(m-1)!$, $1\le m\le m_p$, and
+%$(I-\widehat P_{\tau_p})f$ is holomorphic at $\tau_p$.
+The normalized block $\frac{(-2\pi i)^m}{(m-1)!}\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has
+principal part exactly $(\tau-\tau_p)^{-m}$, so $\widehat P_{\tau_p}f$ matches the principal part of
+$f$ and $(I-\widehat P_{\tau_p})f$ is holomorphic at $\tau_p$.
 \end{lemma}
 \begin{proof}
-$\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a pole of order exactly $m$ at $\tau_p$, so
-matching the principal part of $f$ is a triangular---hence uniquely solvable---linear system
-relating $r^*_{f,\tau_p}(1),\dots,r^*_{f,\tau_p}(m)$ to $a^{(p)}_{-1},\dots,a^{(p)}_{-m}$; equal
-principal parts leave $(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
+%$\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a pole of order exactly $m$ at $\tau_p$, so
+%matching the principal part of $f$ is a triangular---hence uniquely solvable---linear system
+%relating $r^*_{f,\tau_p}(1),\dots,r^*_{f,\tau_p}(m)$ to $a^{(p)}_{-1},\dots,a^{(p)}_{-m}$; equal
+%principal parts leave $(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
+%By the small-$t$ expansion $\Li_{1-m}(e^{-t})=(m-1)!\,t^{-m}+O(1)$ with $t=-2\pi i(\tau-\tau_p)$, each
+%$\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a \emph{pure} pole of order $m$ at $\tau_p$, namely
+%$\tfrac{(m-1)!}{(-2\pi i)^m}(\tau-\tau_p)^{-m}$ with no lower-order poles. Matching the principal part
+%of $f$ is therefore diagonal, giving $r^*_{f,\tau_p}(m)=(-2\pi i)^m a^{(p)}_{-m}/(m-1)!$ and leaving
+%$(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
+By the small-$t$ expansion $\Li_{1-m}(e^{-t})=(m-1)!\,t^{-m}+O(1)$ with $t=-2\pi i(\tau-\tau_p)$, the
+block $\frac{(-2\pi i)^m}{(m-1)!}\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a \emph{pure} pole
+$(\tau-\tau_p)^{-m}+O(1)$ at $\tau_p$, with no lower-order poles. Summing against the Laurent
+coefficients $r^*_{f,\tau_p}(m)$ therefore reproduces the principal part of $f$ term by term,
+leaving $(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
 \end{proof}
 
 \begin{definition}\label{def:cRf}
@@ -889,13 +919,15 @@ I_N(s,z):=L^*\big(\Li_{-N}(e^{2\pi i(\cdot-z)}),\,s;\,[\hat\gamma_f^S],[\hat\gam
 \end{definition}
 
 \begin{lemma}\label{lem:polylogcf}
-For ${\rm Im}\,z>1$, polylog inversion $\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)$ resums
-\eqref{eq:IN} into
-\begin{equation}
-I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+(-1)^{N+1}\sum_{n=1}^{\infty} n^N e^{2\pi inz}\,G_{s,k}(-n),
-\end{equation}
-convergent exponentially with base $e^{2\pi(1-{\rm Im}(z))}$.
+Let $f\in F_k$ have a pole of order $p$ at $z$, ${\rm Im}\,z>1$, with projection weights
+$r^*_{f,z}(m)$ (Definition~\ref{def:proj}). Polylog inversion
+$\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)-\delta_{N,0}$ ($N\in\NN_0$) resums \eqref{eq:IN} into
+(each exponentially convergent, base $e^{2\pi(1-{\rm Im}(z))}$)
+\begin{align}
+L^*(\widehat P_z f,\,s;\,[\hat\gamma_f^S],[\hat\gamma_f^T])&=\sum_{m=1}^{p} r^*_{f,z}(m)\,\frac{(-2\pi i)^m}{(m-1)!}\,I_{m-1}(s,z),\label{eq:lem4.12.whole.z}\\
+I_N(s,z)&=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++(-1)^{N+1}\sum_{n=1}^{\infty} n^N e^{2\pi inz}\,G_{s,k}(-n).
+\end{align}
 \end{lemma}
 
 \begin{proof}
@@ -923,15 +955,25 @@ where $(a)_{(\lambda)}:=a(a-1)\cdots(a-\lambda+1)$ is the falling factorial ($(a
 polylogarithm of Definition~\ref{def:proj}, and $\Gamma,\Gamma(a,x)$ the gamma and upper incomplete
 gamma, on principal branches~\cite{DLMF}.
 
-%\pagebreak
 \begin{lemma}\label{lem:polylogedge}
-With $\Pi_N$ and $R_N$ as in
-Eqs.~\eqref{eq:tailpiece1} and~\eqref{eq:tailpiece2}, for ${\rm Im}\,z>1$ and every $s\in\CC$,
-\begin{equation}\label{eq:twolayer}
-I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+(-1)^{N+1}\big[\Pi_N(s, z)+R_N(s, z)\big],
-\end{equation}
-and the right side extends $I_N(s,\cdot)$ continuously to the edge ${\rm Im}\,z=1$ for
+%With $\Pi_N$ and $R_N$ as in
+%Eqs.~\eqref{eq:tailpiece1} and~\eqref{eq:tailpiece2}, for ${\rm Im}\,z>1$ and every $s\in\CC$,
+%\begin{equation}\label{eq:twolayer}
+%%I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
+%L^*\big(\Li_{-N}(e^{2\pi i(\cdot-z)}),\,s\big)=I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
+%+(-1)^{N+1}\big[\Pi_N(s, z)+R_N(s, z)\big],
+%\end{equation}
+%and the right side extends $I_N(s,\cdot)$ continuously to the edge ${\rm Im}\,z=1$ for
+%$z\notin i+\ZZ$.
+Let $f\in F_k$ have a pole of order $p$ at $z$ with projection weights $r^*_{f,z}(m)$
+(Definition~\ref{def:proj}). With $\Pi_N,R_N$ as in \eqref{eq:tailpiece1}--\eqref{eq:tailpiece2},
+for ${\rm Im}\,z>1$ and every $s\in\CC$,
+\begin{align}
+L^*(\widehat P_z f,\,s;\,[\hat\gamma_f^S],[\hat\gamma_f^T])&=\sum_{m=1}^{p} r^*_{f,z}(m)\,\frac{(-2\pi i)^m}{(m-1)!}\,I_{m-1}(s,z),\label{eq:lem4.13.whole.z}\\
+I_N(s,z)&=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
++(-1)^{N+1}\big[\Pi_N(s, z)+R_N(s, z)\big],\label{eq:twolayer}
+\end{align}
+and the second line's right side extends $I_N(s,\cdot)$ continuously to ${\rm Im}\,z=1$ for
 $z\notin i+\ZZ$.
 \end{lemma}
 
@@ -1012,28 +1054,31 @@ compute $I_N(s,i)$ directly. Its finiteness rests on a relation among the Lauren
 coefficients of $f$ at the $S$-fixed point.
 
 \begin{lemma}\label{lem:Laurent}
-Let $f\in F_k$ have a pole of order $P$ at $i$, with principal part
-$\sum_{m=1}^{P}a_{-m}(\tau-i)^{-m}$. Modularity $f(-1/\tau)=\tau^k f(\tau)$ is equivalent to
+Let $f\in F_k$ have a pole of order $P$ at $i$, with pole weights $r^*_{f,i}(m)$
+(Definition~\ref{def:proj}), i.e.\ principal part $\sum_{m=1}^{P}r^*_{f,i}(m)(\tau-i)^{-m}$.
+Modularity $f(-1/\tau)=\tau^k f(\tau)$ is equivalent to
 \begin{equation}\label{eq:Laurent}
 %(-1)^r\sum_{m=r}^P a_{-m}\binom{m}{r}i^{m-r}
 %=i^k\sum_{m=r}^P a_{-m}\binom{k}{m-r}(-i)^{m-r},\qquad r=1,\dots,P.
-\sum_{m=r}^{P} a_{-m}\binom{m}{r}\,i^{m}
-=i^{k}\sum_{m=r}^{P} a_{-m}\binom{k}{m-r}\,i^{-m},\qquad r=1,\dots,P.
+%\sum_{m=r}^{P} a_{-m}\binom{m}{r}\,i^{m}
+%=i^{k}\sum_{m=r}^{P} a_{-m}\binom{k}{m-r}\,i^{-m},\qquad r=1,\dots,P.
+\sum_{m=r}^{P} r^*_{f,i}(m)\binom{m}{r}\,i^{m}
+=i^{k}\sum_{m=r}^{P} r^*_{f,i}(m)\binom{k}{m-r}\,i^{-m},\qquad r=1,\dots,P.
 \end{equation}
-The leading relation ($r=P$) is $\big((-1)^P-i^k\big)a_{-P}=0$, so the pole order matches
+The leading relation ($r=P$) is $\big((-1)^P-i^k\big)r^*_{f,i}(P)=0$, so the pole order matches
 $k\bmod4$ ($P$ odd $\Leftrightarrow k\equiv2$, $P$ even $\Leftrightarrow 4\mid k$); at
-$P=1$ this is $(1+i^k)a_{-1}=0$, and for a double pole the $r=1$ relation is
-$a_{-1}=\tfrac{i(k-2)}{2}a_{-2}$.
+$P=1$ this is $(1+i^k)r^*_{f,i}(1)=0$, and for a double pole the $r=1$ relation is
+$r^*_{f,i}(1)=\tfrac{i(k-2)}{2}r^*_{f,i}(2)$.
 \end{lemma}
 
 \begin{proof}
 Write $\tau=i+\varepsilon$. Then $-1/\tau-i=-\varepsilon/(1-i\varepsilon)$, so the principal
-part of $f(-1/\tau)$ is $\sum_m a_{-m}(i-\varepsilon^{-1})^m$ and that of $\tau^k f(\tau)$ is
-$i^k(1-i\varepsilon)^k\sum_m a_{-m}\varepsilon^{-m}$. Matching the coefficient of
+part of $f(-1/\tau)$ is $\sum_m r^*_{f,i}(m)(i-\varepsilon^{-1})^m$ and that of $\tau^k f(\tau)$ is
+$i^k(1-i\varepsilon)^k\sum_m r^*_{f,i}(m)\varepsilon^{-m}$. Matching the coefficient of
 $\varepsilon^{-r}$ through
 $(i-\varepsilon^{-1})^m=\sum_j\binom mj i^{m-j}(-1)^j\varepsilon^{-j}$ and
 $(1-i\varepsilon)^k=\sum_l\binom kl(-i)^l\varepsilon^l$ gives
-$(-1)^r\sum_{m=r}^P a_{-m}\binom{m}{r}i^{m-r}=i^k\sum_{m=r}^P a_{-m}\binom{k}{m-r}(-i)^{m-r}$;
+$(-1)^r\sum_{m=r}^P r^*_{f,i}(m)\binom{m}{r}i^{m-r}=i^k\sum_{m=r}^P r^*_{f,i}(m)\binom{k}{m-r}(-i)^{m-r}$;
 dividing through by $i^r$ (with $-1=i^2$ and $-i=i^{-1}$) yields~\eqref{eq:Laurent}.
 %$(1-i\varepsilon)^k=\sum_l\binom kl(-i)^l\varepsilon^l$ gives \eqref{eq:Laurent}.
 \end{proof}
@@ -1055,30 +1100,77 @@ and then
 \end{definition}
 
 \begin{lemma}\label{lem:wallvalue}
-Let $f\in F_k$ have a pole of order $P$ at $i$ with principal part
-$\sum_{m=1}^P a_{-m}(\tau-i)^{-m}$, and $\widehat P_i f$ its projection. The pole's
-contribution to $L^*(f,s)$ in the minimal class is
+%Let $f\in F_k$ have a pole of order $P$ at $i$ with principal part
+%$\sum_{m=1}^P a_{-m}(\tau-i)^{-m}$, and $\widehat P_i f$ its projection. The pole's
+%contribution to $L^*(f,s)$ in the minimal class is
+%\begin{equation}\label{eq:wallvalue}
+%L^*(\widehat P_i f,\,s)=r^*_{f,i}(1)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
+%+\sum_{m=1}^P r^*_{f,i}(m)\,\mathrm{FP}_{m-1}(s,k),
+%\end{equation}
+%Let $f\in F_k$ have a pole of order $P$ at $i$ with pole weights $r^*_{f,i}(m)$
+%(Definition~\ref{def:proj}), and $\widehat P_i f$ its projection. The pole's
+%contribution to $L^*(f,s)$ in the minimal class is
+%\begin{equation}\label{eq:wallvalue}
+%L^*(\widehat P_i f,\,s)=-2\pi i\,r^*_{f,i}(1)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
+%+\sum_{m=1}^P \frac{(-2\pi i)^m r^*_{f,i}(m)}{(m-1)!}\,\mathrm{FP}_{m-1}(s,k),
+%\end{equation}
+%entire in $s$ but for the simple poles at $s=0,k$ carried by $r^*_{f,i}(1)$; the individually
+%divergent contour pieces cancel by the relations of Lemma~\ref{lem:Laurent}.
+Let $f\in F_k$ have a pole of order $P$ at $i$ with pole weights $r^*_{f,i}(m)$
+(Definition~\ref{def:proj}), and $\widehat P_i f$ its projection. Evaluated in the minimal class at
+basepoint $i(1+\delta)$, the pole's contribution to $L^*(f,s)$ has the finite $\delta\to0$ limit
 \begin{equation}\label{eq:wallvalue}
-L^*(\widehat P_i f,\,s)=-2\pi i\,a_{-1}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-+\sum_{m=1}^P \frac{(-2\pi i)^m a_{-m}}{(m-1)!}\,\mathrm{FP}_{m-1}(s,k),
+L^*(\widehat P_i f,\,s):=\lim_{\delta\to0}L^*\big(\widehat P_i f,\,s;\,i(1+\delta)\big)
+=\sum_{m=1}^P \frac{(-2\pi i)^m r^*_{f,i}(m)}{(m-1)!}\,\mathrm{FP}_{m-1}(s,k),
 \end{equation}
-entire in $s$ but for the simple poles at $s=0,k$ carried by $a_{-1}$; the individually
-divergent contour pieces cancel by the relations of Lemma~\ref{lem:Laurent}.
+entire in $s$. The limit exists precisely because the pole weights obey the relations of
+Lemma~\ref{lem:Laurent} at the $S$-fixed point $i$: they cancel the individually divergent
+contour pieces.
 \end{lemma}
 
 \begin{proof}
-Evaluate on the minimal-class contour with basepoint $i(1+\delta)$ and let $\delta\to0$.
-On the $T$-segment the pole at $i$ lies below the contour; inverting each
-$\Li_{1-m}(e^{2\pi i(\tau-i)})$ and integrating against $\tk$ yields the
-harmonic-, $\zeta$-, and $\mathcal E^+$-terms of $\mathrm{FP}_{m-1}$ together with a part
-$\sim\delta^{-(m-1)},\dots,\log\delta$; the $S$-segment, passing to the left of $i$, gives the
-mirror divergences. Summed over $m$ with weights $r^*(m)=(-2\pi i)^m a_{-m}/(m-1)!$, the
-divergent parts form a linear combination of the $a_{-m}$ that vanishes precisely by the
-modularity relations of Lemma~\ref{lem:Laurent}, leaving the $\mathrm{FP}$-sum of
-\eqref{eq:wallvalue}; the simple part ($m=1$) additionally carries the $-1$-leftover pole
-$-2\pi i\,a_{-1}(\tfrac1s+\tfrac{i^k}{k-s})$, as in Lemma~\ref{lem:polylogcf}. The cutoff $J$
-is immaterial: raising it moves terms between the $\zeta$-sum and $\mathcal E^+_N$, which
-remains convergent as in Lemma~\ref{lem:polylogedge}.
+%Evaluate on the minimal-class contour with basepoint $i(1+\delta)$ and let $\delta\to0$.
+%On the $T$-segment the pole at $i$ lies below the contour; inverting each
+%$\Li_{1-m}(e^{2\pi i(\tau-i)})$ and integrating against $\tk$ yields the
+%harmonic-, $\zeta$-, and $\mathcal E^+$-terms of $\mathrm{FP}_{m-1}$ together with a part
+%$\sim\delta^{-(m-1)},\dots,\log\delta$; the $S$-segment, passing to the left of $i$, gives the
+%mirror divergences. Summed over $m$ with weights $r^*(m)=(-2\pi i)^m a_{-m}/(m-1)!$, the
+%divergent parts form a linear combination of the $a_{-m}$ that vanishes precisely by the
+%modularity relations of Lemma~\ref{lem:Laurent}, leaving the $\mathrm{FP}$-sum of
+%\eqref{eq:wallvalue}; the simple part ($m=1$) additionally carries the $-1$-leftover pole
+%$-2\pi i\,a_{-1}(\tfrac1s+\tfrac{i^k}{k-s})$, as in Lemma~\ref{lem:polylogcf}. The cutoff $J$
+%is immaterial: raising it moves terms between the $\zeta$-sum and $\mathcal E^+_N$, which
+%remains convergent as in Lemma~\ref{lem:polylogedge}.
+Fix $s$ and evaluate in the minimal class at basepoint $i(1+\delta)$, $\delta>0$; we show the
+$\delta\to0$ limit exists and equals the right side.
+
+On this contour the pole at $i$ lies strictly \emph{below} the $T$-segment (height $1+\delta$) and
+\emph{on} the $S$-segment, which is taken by principal value. Because the pole is below the
+$T$-segment, $|e^{2\pi i(\tau-i)}|<1$ there and each block
+$\Li_{1-m}(e^{2\pi i(\tau-i)})=\sum_{n\ge1}n^{m-1}e^{2\pi in(\tau-i)}$ is used \emph{without}
+inversion. In particular no constant ($n=0$) mode is generated, so no term
+$\tfrac1s+\tfrac{i^k}{k-s}$ arises: $L^*(\widehat P_i f,s)$ is entire in $s$. (Contrast a pole
+\emph{above} the contour, where Lemma~\ref{lem:polylogcf} inverts $\Li_0(w)=-1-\Li_0(1/w)$ and the
+leftover $-1$ produces exactly that pole; here it is absent.)
+
+\emph{Finite parts assemble to $\mathrm{FP}$.} Expanding block $m$ about $i$ and integrating
+term-by-term --- against $\tk$ on the $T$-segment and against $\tau^{s-1}$ on the $S$-segment ---
+its finite part is $\tfrac{(-2\pi i)^m}{(m-1)!}r^*_{f,i}(m)\,\mathrm{FP}_{m-1}(s,k)$, with the
+harmonic term $c^+_{m-1}(s)H_{m-1}$, the $\zeta$-sum, the polynomial term, and the convergent
+remainder $\mathcal E^+_{m-1}(s)$ of Definition~\ref{def:FP} arising as the $\tau\to i$ expansion
+coefficients of the block (the remainder as in Lemma~\ref{lem:polylogedge}).
+
+\emph{Divergences cancel by Lemma~\ref{lem:Laurent}.} Beyond its finite part, block $m$ throws off a
+divergence $\sim\delta^{-(m-1)},\dots,\log\delta$ from the $S$-segment principal value at the
+endpoints straddling $i$. Collected at each order $\delta^{-r}$, the coefficient is a fixed linear
+combination of the weights $\sum_m(\cdot)\,r^*_{f,i}(m)$ --- precisely the combination that the
+modularity relations~\eqref{eq:Laurent} set to zero at the $S$-fixed point. Every $\delta^{-r}$ and
+$\log\delta$ term therefore vanishes and the limit is finite; were the weights to violate
+\eqref{eq:Laurent}, it would diverge logarithmically.
+
+Taking $\delta\to0$ leaves the $\mathrm{FP}$-sum~\eqref{eq:wallvalue}. The cutoff $J$ is immaterial:
+raising it moves terms between the $\zeta$-sum and $\mathcal E^+_N$, which stays convergent as in
+Lemma~\ref{lem:polylogedge}.
 \end{proof}
 
 \begin{theorem}\label{thm:mero}
@@ -1089,7 +1181,7 @@ $|{\rm Re}\,\tau|\le\tfrac12$, pole-projected Fourier coefficients $c_{Rf}(n)$
 \begin{equation}\label{eq:mero}
 L^*(f,s)=-c_{Rf}(0)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 +\sum_{n\ne0}c_{Rf}(n)\,G_{s,k}(n)
-+\sum_{\tau_p\ne i}\ \sum_{m=1}^{P_p}r^*_{f,\tau_p}(m)\,I_{m-1}(s,\tau_p)
++\sum_{\tau_p\ne i}\ \sum_{m=1}^{P_p}r^*_{f,\tau_p}(m)\,\frac{(-2\pi i)^m}{(m-1)!}\,I_{m-1}(s,\tau_p)
 +L^*(\widehat P_i f,\,s),
 \end{equation}
 with $I_{m-1}$ from Lemmas~\ref{lem:polylogcf}--\ref{lem:polylogedge} and the last term
@@ -1102,7 +1194,7 @@ $L^*$ of Theorem~\ref{thm:weakL} when $f$ is holomorphic on $\HH$.
 Split $f=(I-\widehat P)f+\widehat Pf$. By Lemma~\ref{lem:growth} the Fourier series of the
 pole-projected part converges on $\hat\gamma_f^T$; Theorem~\ref{thm:weakL} applied term by term
 gives its $L^*$ as the first two sums. The projection
-$\widehat Pf=\sum_{\tau_p}\sum_m r^*_{f,\tau_p}(m)\,\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$
+$\widehat Pf=\sum_{\tau_p}\sum_m r^*_{f,\tau_p}(m)\,\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$
 contributes, for each $\tau_p\ne i$, the L-integrals $I_{m-1}(s,\tau_p)$ of
 Definition~\ref{def:IN}, evaluated by Lemmas~\ref{lem:polylogcf}--\ref{lem:polylogedge}; the
 pole at $i$ contributes $L^*(\widehat P_i f,s)$ of Lemma~\ref{lem:wallvalue}. Entirety and the

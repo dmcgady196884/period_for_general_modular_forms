@@ -35,6 +35,16 @@ Slash: (P|S)(X,Y)=P(-Y,X), (P|U)(X,Y)=P(X-Y,X), U^2:(X,Y)->(-Y,X-Y).
      and that jump EQUALS 2 pi i * (residue polynomial)|(1+S) to 32 digits.  So the
      obstruction is class-dependent (a function of (X_S,X_T)), NOT of the pole location;
      neither [E3] nor [E4] "failed".
+[E7] check_2i_periods : f = 1728 Delta/(j-j(2i)), a SINGLE simple pole at 2i (j(2i)=287496
+     =66^3), integer q-series 1728 q^2 + 495465984 q^3 + ....  Reference omega^pm(f) via the
+     two-segment integral = (-600.76, +33642.03 i): REAL/IMAGINARY, like a genuine cusp form.
+     The 2i pole is crossed with DISTINCT kernels -- tau^{s-1} on gamma^S vs ktil on gamma^T --
+     so r_S = rho (2i)^l and r_T = rho ktil(2i,l+1) disagree at every l; hence S-crossing !=
+     T-crossing (omega^+ jump ratio -0.968-0.175i, not 1).  Both crossings pollute the reality;
+     the REFERENCE class is the *unique* one with real omega^+ and imaginary omega^-.
+     => candidate canonical-class selector: "the class whose periods are real/imaginary."
+     (Corrects an earlier hunch that S- and T-crossing agree: they agree only in modulus of
+     the residue, not in the residue itself -- the kernels differ.)
 OPEN: (i) canonical class; (ii) class-independent invariant (sweep full (X_S,X_T) lattice,
 BOTH residue sources); (iii) closed form for Im B(1).
 =========================================================
@@ -150,6 +160,34 @@ def check_violation_is_residue():
     diff = max(abs((_P(cA,X,Y)+_P(cA,-Y,X)) - (_P(pred,X,Y)+_P(pred,-Y,X))) for X,Y in _PTS)
     print("   violation - residue = %s   (=> violation IS the crossed residue)" % mp.nstr(diff, 3))
 
+# ---------------------------------------------------------------- [E7]
+def check_2i_periods():
+    r"""[E7] f = 1728 Delta/(j-j(2i)), one simple pole at 2i (j(2i)=287496=66^3).
+    Reference omega^pm(f), and the 2i-pole crossed via gamma^S vs gamma^T (distinct kernels)."""
+    from period_polynomial_bases import compute, pairing
+    print("[E7] 2i-pole block f=1728 Delta/(j-287496): reference periods, S- vs T-crossing:")
+    k = 12; n = k - 2
+    f = lambda t: 1728 * Delta(t) / (jf(t) - 287496)          # j(2i)=66^3=287496
+    d = compute(k)                                            # W_pm from the cusp form Delta_12
+    Wp = [mp.mpf(0)]*(n+1); Wm = [mp.mpf(0)]*(n+1)
+    for i, a in enumerate(range(0, n+1, 2)): Wp[a] = mp.mpf(d['Wp'][i])
+    for i, a in enumerate(range(1, n+1, 2)): Wm[a] = mp.mpf(d['Wm'][i])
+    def omega(Lv):                                           # full def:rf (keep (2pi i)^{n+1}), project
+        c = [(2*pi*I)**(n+1) * x for x in periodpoly_coeffs(Lv, k)]
+        return pairing(c, Wp, n)/pairing(Wp, Wp, n), pairing(c, Wm, n)/pairing(Wm, Wm, n)
+    t0 = I*mp.mpf('1.1')                                     # reference class (encloses no interior pole)
+    Lref = [Lstar(f, k, s, t0) for s in range(1, k)]
+    op, om = omega(Lref)
+    print("   reference : omega^+ = %-16s omega^- = %s" % (mp.nstr(op, 8), mp.nstr(om, 8)))
+    rho = Res_at(f, 2*I)                                     # Res_{2i} f
+    LS = [Lref[l] + 2*pi*I*mp.e**(-I*pi*(l+1)/2) * rho*(2*I)**l          for l in range(n+1)]  # gamma^S
+    LT = [Lref[l] + 2*pi*I*mp.e**(-I*pi*(l+1)/2) * rho*ktil(2*I, l+1, k) for l in range(n+1)]  # gamma^T
+    opS, omS = omega(LS); opT, omT = omega(LT)
+    print("   S-encloses: omega^+ = %-16s omega^- = %s" % (mp.nstr(opS, 8), mp.nstr(omS, 8)))
+    print("   T-encloses: omega^+ = %-16s omega^- = %s" % (mp.nstr(opT, 8), mp.nstr(omT, 8)))
+    print("   S-jump/T-jump (omega^+) = %s   (!= 1  =>  S-crossing != T-crossing)"
+          % mp.nstr((opS-op)/(opT-op), 6))
+
 if __name__ == "__main__":
     check_central_periods()
     check_es_clean()
@@ -157,3 +195,4 @@ if __name__ == "__main__":
     check_relations_at_i()
     check_sdefect()
     check_violation_is_residue()
+    check_2i_periods()
