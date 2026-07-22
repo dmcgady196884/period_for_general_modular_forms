@@ -946,10 +946,15 @@ against $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$.
 Extracting similar results for $L^*$ evaluated on the polar terms for poles on the line 
 ${\rm Im}(\tau) = 1$ requires more care. To do this away from the special point $z = i$, we
 find it helpful to define the following two functions:
+%\begin{align}
+%\Pi_N(s,z)&:=\sum_{\lambda=0}^{N+1}\frac{\Li_{\lambda+1-N}\big(e^{2\pi i(z-i)}\big)}{(-2\pi)^{\lambda+1}} \big\{ (s-1)_{(\lambda)}+i^k(k-s-1)_{(\lambda)} \big\},\label{eq:tailpiece1}\\
+%R_N(s,z)&:=\sum_{n=1}^{\infty}n^N e^{2\pi inz}\Big[(s{-}1)_{(N{+}2)}\tfrac{\Gamma(s{-}N{-}2,{-}2\pi n)}{(-2\pi n)^{s}}
+%+i^k(k{-}s{-}1)_{(N{+}2)}\tfrac{\Gamma(k{-}s{-}N{-}2,{-}2\pi n)}{(-2\pi n)^{k-s}}\Big], \label{eq:tailpiece2}
+%\end{align}
 \begin{align}
-\Pi_N(s,z)&:=\sum_{\lambda=0}^{N+1}\frac{\Li_{\lambda+1-N}\big(e^{2\pi i(z-i)}\big)}{(-2\pi)^{\lambda+1}} \big\{ (s-1)_{(\lambda)}+i^k(k-s-1)_{(\lambda)} \big\},\label{eq:tailpiece1}\\
-R_N(s,z)&:=\sum_{n=1}^{\infty}n^N e^{2\pi inz}\Big[(s{-}1)_{(N{+}2)}\tfrac{\Gamma(s{-}N{-}2,{-}2\pi n)}{(-2\pi n)^{s}}
-+i^k(k{-}s{-}1)_{(N{+}2)}\tfrac{\Gamma(k{-}s{-}N{-}2,{-}2\pi n)}{(-2\pi n)^{k-s}}\Big], \label{eq:tailpiece2}
+\Pi_N(s,z)&:=\sum_{\lambda=0}^{N}\frac{\Li_{\lambda+1-N}\big(e^{2\pi i(z-i)}\big)}{(-2\pi)^{\lambda+1}} \big\{ (s-1)_{(\lambda)}+i^k(k-s-1)_{(\lambda)} \big\},\label{eq:tailpiece1}\\
+R_N(s,z)&:=\sum_{n=1}^{\infty}n^N e^{2\pi inz}\Big[(s{-}1)_{(N{+}1)}\tfrac{\Gamma(s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^{s}}
++i^k(k{-}s{-}1)_{(N{+}1)}\tfrac{\Gamma(k{-}s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^{k-s}}\Big], \label{eq:tailpiece2}
 \end{align}
 where $(a)_{(\lambda)}:=a(a-1)\cdots(a-\lambda+1)$ is the falling factorial ($(a)_{(0)}:=1$), $\Li_s$ the
 polylogarithm of Definition~\ref{def:proj}, and $\Gamma,\Gamma(a,x)$ the gamma and upper incomplete
@@ -990,23 +995,23 @@ We manipulate the main result of Lemma~\ref{lem:polylogcf},
 I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)+(-1)^{N+1}\sum_{n=1}^{\infty}n^N e^{2\pi inz} \left(
 \frac{\Gamma(s,-2\pi n)}{(-2\pi n)^{s}}+i^k\frac{\Gamma(k-s,-2\pi n)}{(-2\pi n)^{k-s}} \right)~,
 \end{align}
-Our proof proceeds in two steps. First, we isolate the possible sources of divergence on the line ${\rm Im}(z) = 1$ into a finite sum of polylogarithms $\Li_{\lambda+1-N}(e^{2 \pi i (z-i)})$ for $\lambda = 0, \ldots, N+1$. To do this, we use the recurrence relation~\cite{DLMF} for each fixed-$n$ term, 
+Our proof proceeds in two steps. First, we isolate the possible sources of divergence on the line ${\rm Im}(z) = 1$ into a finite sum of polylogarithms $\Li_{\lambda+1-N}(e^{2 \pi i (z-i)})$ for $\lambda = 0, \ldots, N$. To do this, we use the recurrence relation~\cite{DLMF} for each fixed-$n$ term,
 \begin{align}
-\Gamma(a,x)=e^{-x}\sum_{\lambda=0}^{N+1}(a-1)_{(\lambda)}x^{a-1-\lambda}+(a-1)_{(N+2)}\Gamma(a-N-2,x)
+\Gamma(a,x)=e^{-x}\sum_{\lambda=0}^{N}(a-1)_{(\lambda)}x^{a-1-\lambda}+(a-1)_{(N+1)}\Gamma(a-N-1,x)
 \end{align}
 to each gamma in $G_{s,k}(-n)$ at $x=-2\pi n$. Dividing each incomplete-Gamma term by $(-2\pi n)^{s}$
 and $(-2\pi n)^{k-s}$ yields, then, a common factor of $1/(-2\pi n)^{\lambda+1}$ for each term in the finite sum. 
 Further, this finite-sum is proportional to $e^{2\pi n}$; we leave the trailing incomplete gammas as-is:
 \begin{align}
-G_{s,k}(-n) = 
+G_{s,k}(-n) =
 \left\{
-e^{2\pi n}\sum_{\lambda = 0}^{N+1} \frac{(s-1)_{(\lambda)}}{(-2\pi n)^{\lambda+1}}
-{+} \frac{(s{-}1)_{(N{+}2)} \Gamma(s{-}N{-}2,{-}2\pi n)}{(-2\pi n)^s} 
+e^{2\pi n}\sum_{\lambda = 0}^{N} \frac{(s-1)_{(\lambda)}}{(-2\pi n)^{\lambda+1}}
+{+} \frac{(s{-}1)_{(N{+}1)} \Gamma(s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^s}
 \right\} {+}i^k(s{\to}k{-}s)~.
 \end{align}
 Now, we consider the $n$-sum $G_{s,k}(-n)$, starting with the falling factorial terms:
 \begin{align}
-\sum_{n=1}^{\infty} n^N e^{2\pi i n z} e^{2 \pi n} \left(  \sum_{\lambda = 0}^{N+1} \frac{(s-1)_{(\lambda)}}{(-2\pi n)^{\lambda+1}}{+}i^k(s{\to}k{-}s) \right) = \sum_{\lambda = 0}^{N+1} \frac{\Li_{\lambda+1-N}(e^{2 \pi i (z -i)})}{(-2\pi)^{\lambda+1}} \big\{ (s-1)_{(\lambda)} + i^k (k- s-1)_{(\lambda)}\big\}~,
+\sum_{n=1}^{\infty} n^N e^{2\pi i n z} e^{2 \pi n} \left(  \sum_{\lambda = 0}^{N} \frac{(s-1)_{(\lambda)}}{(-2\pi n)^{\lambda+1}}{+}i^k(s{\to}k{-}s) \right) = \sum_{\lambda = 0}^{N} \frac{\Li_{\lambda+1-N}(e^{2 \pi i (z -i)})}{(-2\pi)^{\lambda+1}} \big\{ (s-1)_{(\lambda)} + i^k (k- s-1)_{(\lambda)}\big\}~,
 \end{align}
 i.e., $\Pi_N(s,z)$ of \eqref{eq:tailpiece1}, while the reduced-gamma terms remaining are 
 $R_N(s, z)$ of Eq.~\eqref{eq:tailpiece2}, which together establish the lemma's
@@ -1022,32 +1027,53 @@ from Lemma~\ref{lem:polylogcf}. Clearly, $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z
 incomplete gamma's exponential growth cancels against the exponentially 
 falling $e^{2 \pi i n z}$ factors. As $n \to \infty$, we have:
 \begin{align}
-\left|n^N e^{2\pi i n z} \frac{\Gamma(s{-}N{-}2,{-}2\pi n)}{({-}2\pi n)^s}\right| &
-{\sim}\left| \frac{n^N e^{2\pi i n z} ({-}2\pi n)^{s{-}N{-}3}e^{2\pi n}}{({-}2\pi n)^s}\right|
-{\sim}\left| \frac{e^{2\pi i n z}e^{2\pi n}}{ ({-}2\pi)^{3{+}N} n^3}\right|
-{\sim} \frac{e^{2\pi n (1{-}{\rm Im}(z))}}{(2\pi)^{N{+}3} n^3}%~,
+\left|n^N e^{2\pi i n z} \frac{\Gamma(s{-}N{-}1,{-}2\pi n)}{({-}2\pi n)^s}\right| &
+{\sim}\left| \frac{n^N e^{2\pi i n z} ({-}2\pi n)^{s{-}N{-}2}e^{2\pi n}}{({-}2\pi n)^s}\right|
+{\sim}\left| \frac{e^{2\pi i n z}e^{2\pi n}}{ ({-}2\pi)^{2{+}N} n^2}\right|
+{\sim} \frac{e^{2\pi n (1{-}{\rm Im}(z))}}{(2\pi)^{N{+}2} n^2}%~,
 \end{align}
 where the detailed asymptotics of $\Gamma(s, x)$ in the first scaling relation follow 
 from~\cite[\S8.11]{DLMF}. (The $i^k (s \rightarrow k-s)$-partner follows identically.)
-Hence the $n$-th term of $R_N$ is $O\!\big(n^{-3}e^{-2\pi n({\rm Im}\,z-1)}\big)$, uniformly for
+Hence the $n$-th term of $R_N$ is $O\!\big(n^{-2}e^{-2\pi n({\rm Im}\,z-1)}\big)$, uniformly for
 ${\rm Im}\,z\ge1$. There $e^{-2\pi({\rm Im}\,z-1)}\le1$, so
-$\sum_{n}n^{-3}e^{-2\pi n({\rm Im}\,z-1)}\le\zeta(3)$: the series converges absolutely and uniformly,
+$\sum_{n}n^{-2}e^{-2\pi n({\rm Im}\,z-1)}\le\zeta(2)$: the series converges absolutely and uniformly,
 up to and including the edge ${\rm Im}\,z=1$, so $R_N$ is continuous there.
 
-For $\Pi_N$, recall that it is a sum over $N+2$ polylogarithms of integer index,
-$\Pi_N(s, z) = c_2(s) \Li_2(w) + c_1(s) \Li_1(w) + ... + c_{1{-}N}(s) \Li_{1{-}N}(w)$, where $w := e^{2\pi i (z-i)}$. 
-Each $\Li_a$ is single-valued and analytic on the cut plane
-$\CC\setminus[1,\infty)$: for $a\le0$ it is rational with a pole of order $1-a$ at $w=1$;
-$\Li_1(w)=-\log(1-w)$ has a logarithmic branch point at $w=1$; and $\Li_2(w)$ is finite 
-at its branch point $w=1$. All three singularities sit at the endpoint
-$w=1$, and the cuts of $\Li_1,\Li_2$ run along the ray $[1,\infty)$. The edge is the unit circle
+For $\Pi_N$, recall that it is a sum over $N+1$ polylogarithms of integer index $\le1$,
+$\Pi_N(s, z) = c_1(s) \Li_1(w) + c_0(s) \Li_0(w) + ... + c_{1{-}N}(s) \Li_{1{-}N}(w)$, where $w := e^{2\pi i (z-i)}$.
+Each $\Li_a$ ($a\le1$) is single-valued and analytic on the cut plane
+$\CC\setminus[1,\infty)$: for $a\le0$ it is rational with a pole of order $1-a$ at $w=1$, while
+$\Li_1(w)=-\log(1-w)$ has a logarithmic branch point there. Every singularity sits at the endpoint
+$w=1$, and the cut of $\Li_1$ runs along the ray $[1,\infty)$. The edge is the unit circle
 $|w|=1$, which meets that radial cut only at $w=1$; approaching it from inside the disc
 (${\rm Im}\,z>1$) gives the analytic boundary value of each $\Li_a$ at every $w\ne1$. Hence
-$\Pi_N$ is analytic along the whole edge except at $z\in i+\ZZ$, where each index-$\le1$ term 
+$\Pi_N$ is analytic along the whole edge except at $z\in i+\ZZ$, where every term
 diverges. With the continuity of $R_N$, \eqref{eq:twolayer} extends
 $I_N(s,\cdot)$ continuously to ${\rm Im}\,z=1$ for $z\notin i+\ZZ$.
 \end{proof}
 
+
+\begin{remark}\label{rem:cutoff}
+The choice $J=N+1$ is the \emph{minimal} unfolding of the incomplete gamma: the fewest asymptotic
+terms one must peel from $\Gamma(s,X)$ so that (a) every divergent piece at ${\rm Im}\,z=1$ lands in
+the explicit finite sum --- the singular polylogs of $\Pi_N$ in Lemma~\ref{lem:polylogedge}, and the
+$\zeta$-sum and harmonic term of Definition~\ref{def:FP} for the pole-projection at $z=i$ --- and
+(b) the remainder ($R_N$, resp.\ $\mathcal E^+_N$) is manifestly convergent. Below $J=N+1$ the
+$\zeta(1)$-divergent $j=N$ term is stuck in the remainder and it diverges; a deeper cutoff $J>N+1$
+peels only already-convergent terms, moving the $j=N+1,\dots,J-1$ contributions out of the remainder
+into the finite sum, leaving $I_N$ (resp.\ $\mathrm{FP}_N$) unchanged while accelerating the
+remainder's decay:
+\begin{center}
+\begin{tabular}{c|ccc}
+$J$ & remainder decay & converges & value correct\\\hline
+$N$       & $n^{-1}$ & no  & no\\
+$N+1$     & $n^{-2}$ & yes & yes\\
+$N+2$     & $n^{-3}$ & yes & yes\\
+$\ge N+3$ & faster   & yes & yes
+\end{tabular}
+\end{center}
+We use the minimal $J=N+1$ throughout.
+\end{remark}
 
 The one edge point the formula misses is $z=i$, where $\Pi_N$ is singular ($w=1$); we
 compute $I_N(s,i)$ directly. Its finiteness rests on a relation among the Laurent
@@ -1083,17 +1109,45 @@ dividing through by $i^r$ (with $-1=i^2$ and $-i=i^{-1}$) yields~\eqref{eq:Laure
 %$(1-i\varepsilon)^k=\sum_l\binom kl(-i)^l\varepsilon^l$ gives \eqref{eq:Laurent}.
 \end{proof}
 
+%\begin{definition}\label{def:FP}
+%For $N\ge0$ and any cutoff $J\ge N+2$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and
+%$c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
+%\begin{align}\label{eq:Eplus}
+%\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(J)}\tfrac{\Gamma(s-J,2\pi n)}{(2\pi n)^s}
+%+i^k(k-s-1)_{(J)}\tfrac{\Gamma(k-s-J,2\pi n)}{(2\pi n)^{k-s}}\Big],
+%\end{align}
+%and then
+%\begin{align}\label{eq:FP}
+%\mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
+%+\sum_{\substack{0\le j\le J\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
+%+\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
+%+\mathcal E^+_N(s).
+%\end{align}
+%\end{definition}
+%\begin{definition}\label{def:FP}   % J=N+2 version (superseded by minimal J=N+1)
+%For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
+%\begin{align}\label{eq:Eplus}
+%\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(N+2)}\tfrac{\Gamma(s-N-2,2\pi n)}{(2\pi n)^s}
+%+i^k(k-s-1)_{(N+2)}\tfrac{\Gamma(k-s-N-2,2\pi n)}{(2\pi n)^{k-s}}\Big],
+%\end{align}
+%and then
+%\begin{align}\label{eq:FP}
+%\mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
+%+\sum_{\substack{0\le j\le N+1\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
+%+\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
+%+\mathcal E^+_N(s).
+%\end{align}
+%\end{definition}
 \begin{definition}\label{def:FP}
-For $N\ge0$ and any cutoff $J\ge N+2$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and
-$c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
+For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
 \begin{align}\label{eq:Eplus}
-\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(J)}\tfrac{\Gamma(s-J,2\pi n)}{(2\pi n)^s}
-+i^k(k-s-1)_{(J)}\tfrac{\Gamma(k-s-J,2\pi n)}{(2\pi n)^{k-s}}\Big],
+\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(N+1)}\tfrac{\Gamma(s-N-1,2\pi n)}{(2\pi n)^s}
++i^k(k-s-1)_{(N+1)}\tfrac{\Gamma(k-s-N-1,2\pi n)}{(2\pi n)^{k-s}}\Big],
 \end{align}
 and then
 \begin{align}\label{eq:FP}
 \mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
-+\sum_{\substack{0\le j\le J\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
++\sum_{j=0}^{N-1}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
 +\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
 +\mathcal E^+_N(s).
 \end{align}
@@ -1174,14 +1228,17 @@ $\Li_{1-m}(e^{u})=\sum_{n\ge1}n^{N}e^{2\pi n}e^{2\pi in\tau}$; integrating again
 basepoint $\tau_0=i(1+\delta)$ gives, by Theorem~\ref{thm:weakL},
 $\sum_{n\ge1}n^N e^{2\pi n}\big[\tfrac{\Gamma(s,X_n)}{(2\pi n)^{s}}+i^k\tfrac{\Gamma(k-s,X_n)}{(2\pi n)^{k-s}}\big]$
 with $X_n:=-2\pi in\tau_0=2\pi n(1+\delta)$. Expanding by the incomplete-$\Gamma$ recursion of
-Lemma~\ref{lem:polylogedge}, $\Gamma(s,X)=e^{-X}\sum_{j=0}^{J-1}(s-1)_{(j)}X^{s-1-j}+(s-1)_{(J)}\Gamma(s-J,X)$,
-and using $e^{2\pi n}e^{-X_n}=e^{-2\pi n\delta}$ and $X_n^{s-1-j}=(2\pi n)^{s-1-j}(1+\delta)^{s-1-j}$, the
+Lemma~\ref{lem:polylogedge} to order $N+1$,
+$\Gamma(s,X)=e^{-X}\sum_{j=0}^{N}(s-1)_{(j)}X^{s-1-j}+(s-1)_{(N+1)}\Gamma(s-N-1,X)$, and using
+$e^{2\pi n}e^{-X_n}=e^{-2\pi n\delta}$ and $X_n^{s-1-j}=(2\pi n)^{s-1-j}(1+\delta)^{s-1-j}$, the
 $j$-sum becomes (with $c^+_j(s)$ collecting the $s$- and $i^k(k{-}s)$-parts)
 \begin{equation}\label{eq:Tsum}
-\sum_{j=0}^{J-1}\frac{c^+_j(s)\,(1+\delta)^{s-1-j}}{(2\pi)^{j+1}}\,\Li_{j+1-N}\!\big(e^{-2\pi\delta}\big)
+\sum_{j=0}^{N}\frac{c^+_j(s)\,(1+\delta)^{s-1-j}}{(2\pi)^{j+1}}\,\Li_{j+1-N}\!\big(e^{-2\pi\delta}\big)
 \;+\;\mathcal E^+_N(s),
 \end{equation}
-$\mathcal E^+_N$ being the reduced-$\Gamma$ remainder of~\eqref{eq:Eplus}. With
+$\mathcal E^+_N$ being the reduced-$\Gamma$ remainder of~\eqref{eq:Eplus} (any deeper cutoff $J>N+1$
+moves the $j$-terms $N+1,\dots,J-1$ out of $\mathcal E^+_N$ into the $\zeta$-sum and leaves
+$\mathrm{FP}_N$ unchanged). With
 $\Li_{j+1-N}(e^{-2\pi\delta})=\Gamma(N-j)(2\pi\delta)^{j-N}+\sum_{p\ge0}\tfrac{\zeta(j+1-N-p)}{p!}(-2\pi\delta)^p$,
 two finite ($\delta^0$) parts survive:
 \begin{itemize}\itemsep2pt
@@ -1215,9 +1272,7 @@ precisely the difference of the two sides of the modularity relation~\eqref{eq:L
 $f\in F_k$. Every $\delta^{-r}$ and $\log\delta$ term therefore cancels and the $\delta\to0$ limit
 exists; break~\eqref{eq:Laurent} at order $r$ and that divergence survives (at $r=1$, a $\log\delta$).
 
-The finite part and the (vanishing) divergences give~\eqref{eq:wallvalue}. The cutoff $J$ is
-immaterial, shifting terms between the $\zeta$-sum and $\mathcal E^+_N$ as in
-Lemma~\ref{lem:polylogedge}.
+The finite part and the (vanishing) divergences give~\eqref{eq:wallvalue}.
 \end{proof}
 
 \begin{theorem}\label{thm:mero}
