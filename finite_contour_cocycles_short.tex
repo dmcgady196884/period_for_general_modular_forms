@@ -1052,27 +1052,29 @@ diverges. With the continuity of $R_N$, \eqref{eq:twolayer} extends
 $I_N(s,\cdot)$ continuously to ${\rm Im}\,z=1$ for $z\notin i+\ZZ$.
 \end{proof}
 
+\begin{definition}\label{def:FP}
+For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, define:
+\begin{align}\label{eq:Eplus}
+\mathcal E^+_N(s)&:=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(N+1)}\tfrac{\Gamma(s-N-1,2\pi n)}{(2\pi n)^s}
++i^k(k-s-1)_{(N+1)}\tfrac{\Gamma(k-s-N-1,2\pi n)}{(2\pi n)^{k-s}}\Big], \\
+\label{eq:FP}
+\mathrm{FP}_N(s,k)&:=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
++\sum_{j=0}^{N-1}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
++\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
++\mathcal E^+_N(s).
+\end{align}
+\end{definition}
 
 \begin{remark}\label{rem:cutoff}
-The choice $J=N+1$ is the \emph{minimal} unfolding of the incomplete gamma: the fewest asymptotic
-terms one must peel from $\Gamma(s,X)$ so that (a) every divergent piece at ${\rm Im}\,z=1$ lands in
-the explicit finite sum --- the singular polylogs of $\Pi_N$ in Lemma~\ref{lem:polylogedge}, and the
-$\zeta$-sum and harmonic term of Definition~\ref{def:FP} for the pole-projection at $z=i$ --- and
-(b) the remainder ($R_N$, resp.\ $\mathcal E^+_N$) is manifestly convergent. Below $J=N+1$ the
-$\zeta(1)$-divergent $j=N$ term is stuck in the remainder and it diverges; a deeper cutoff $J>N+1$
-peels only already-convergent terms, moving the $j=N+1,\dots,J-1$ contributions out of the remainder
-into the finite sum, leaving $I_N$ (resp.\ $\mathrm{FP}_N$) unchanged while accelerating the
-remainder's decay:
-\begin{center}
-\begin{tabular}{c|ccc}
-$J$ & remainder decay & converges & value correct\\\hline
-$N$       & $n^{-1}$ & no  & no\\
-$N+1$     & $n^{-2}$ & yes & yes\\
-$N+2$     & $n^{-3}$ & yes & yes\\
-$\ge N+3$ & faster   & yes & yes
-\end{tabular}
-\end{center}
-We use the minimal $J=N+1$ throughout.
+The remainders $R_N$ of Lemma~\ref{lem:polylogedge}~\eqref{eq:tailpiece2} and $\mathcal E^+_N$ of
+Definition~\ref{def:FP}~\eqref{eq:Eplus} are what is left after unfolding $J$ terms of the
+incomplete-gamma recursion (proof of Lemma~\ref{lem:polylogedge}); both use $J=N+1$. The unfolding
+isolates the terms that could diverge as ${\rm Im}(z)\to1^+$ into an explicit finite set of special
+functions, and $J=N+1$ is the least $J$ that isolates all of them --- leaving a remainder that
+converges for every $z$ on ${\rm Im}(z)=1$. Any larger $J$ isolates the same terms, leaving $I_N$ and
+$\mathrm{FP}_N$ unchanged and merely quickening the remainder's decay ($\sim n^{-(J-N+1)}$) at the
+cost of carrying further positive-index polylogs $\Li_2,\dots,\Li_{J-N}$ into the finite sum
+(contributing values up to $\zeta(J-N)$ at $z=i$).
 \end{remark}
 
 The one edge point the formula misses is $z=i$, where $\Pi_N$ is singular ($w=1$); we
@@ -1138,20 +1140,6 @@ dividing through by $i^r$ (with $-1=i^2$ and $-i=i^{-1}$) yields~\eqref{eq:Laure
 %+\mathcal E^+_N(s).
 %\end{align}
 %\end{definition}
-\begin{definition}\label{def:FP}
-For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
-\begin{align}\label{eq:Eplus}
-\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(N+1)}\tfrac{\Gamma(s-N-1,2\pi n)}{(2\pi n)^s}
-+i^k(k-s-1)_{(N+1)}\tfrac{\Gamma(k-s-N-1,2\pi n)}{(2\pi n)^{k-s}}\Big],
-\end{align}
-and then
-\begin{align}\label{eq:FP}
-\mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
-+\sum_{j=0}^{N-1}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
-+\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
-+\mathcal E^+_N(s).
-\end{align}
-\end{definition}
 
 \begin{lemma}\label{lem:wallvalue}
 %Let $f\in F_k$ have a pole of order $P$ at $i$ with principal part
