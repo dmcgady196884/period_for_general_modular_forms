@@ -1047,10 +1047,17 @@ $\Li_1(w)=-\log(1-w)$ has a logarithmic branch point there. Every singularity si
 $w=1$, and the cut of $\Li_1$ runs along the ray $[1,\infty)$. The edge is the unit circle
 $|w|=1$, which meets that radial cut only at $w=1$; approaching it from inside the disc
 (${\rm Im}\,z>1$) gives the analytic boundary value of each $\Li_a$ at every $w\ne1$. Hence
-$\Pi_N$ is analytic along the whole edge except at $z\in i+\ZZ$, where every term
-diverges. With the continuity of $R_N$, \eqref{eq:twolayer} extends
+$\Pi_N$ is analytic along the whole edge except at $z\in i+\ZZ$, where each term
+diverges. With the continuity of $R_N$, \eqref{eq:twolayer} seamlessly extends
 $I_N(s,\cdot)$ continuously to ${\rm Im}\,z=1$ for $z\notin i+\ZZ$.
 \end{proof}
+
+The above result does not apply to singularities at $z=i$; here $\Pi_N$ is singular ($w=1$). However, 
+as we will presently show, even though each individual polylogarithm of non-positive index diverges 
+at the point $z = i$, the special elliptic nature of that point imposes constraints on the sum of naively 
+divergent terms such that the divergences exactly cancel. However, first, we present an important 
+definition and an associated remark: 
+
 
 \begin{definition}\label{def:FP}
 For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, define:
@@ -1077,10 +1084,6 @@ cost of carrying further positive-index polylogs $\Li_2,\dots,\Li_{J-N}$ into th
 (contributing values up to $\zeta(J-N)$ at $z=i$).
 \end{remark}
 
-The one edge point the formula misses is $z=i$, where $\Pi_N$ is singular ($w=1$); we
-compute $I_N(s,i)$ directly. Its finiteness rests on a relation among the Laurent
-coefficients of $f$ at the $S$-fixed point.
-
 \begin{lemma}\label{lem:Laurent}
 Let $f\in F_k$ have a pole of order $P$ at $i$, with pole weights $r^*_{f,i}(m)$
 (Definition~\ref{def:proj}), i.e.\ principal part $\sum_{m=1}^{P}r^*_{f,i}(m)(\tau-i)^{-m}$.
@@ -1091,7 +1094,7 @@ Modularity $f(-1/\tau)=\tau^k f(\tau)$ is equivalent to
 %\sum_{m=r}^{P} a_{-m}\binom{m}{r}\,i^{m}
 %=i^{k}\sum_{m=r}^{P} a_{-m}\binom{k}{m-r}\,i^{-m},\qquad r=1,\dots,P.
 \sum_{m=r}^{P} r^*_{f,i}(m)\binom{m}{r}\,i^{m}
-=i^{k}\sum_{m=r}^{P} r^*_{f,i}(m)\binom{k}{m-r}\,i^{-m},\qquad r=1,\dots,P.
+=i^{k}\sum_{m=r}^{P} r^*_{f,i}(m)\binom{k}{m-r}\,i^{-m},\qquad \forall r=1,\dots,P.
 \end{equation}
 The leading relation ($r=P$) is $\big((-1)^P-i^k\big)r^*_{f,i}(P)=0$, so the pole order matches
 $k\bmod4$ ($P$ odd $\Leftrightarrow k\equiv2$, $P$ even $\Leftrightarrow 4\mid k$); at
@@ -1111,53 +1114,9 @@ dividing through by $i^r$ (with $-1=i^2$ and $-i=i^{-1}$) yields~\eqref{eq:Laure
 %$(1-i\varepsilon)^k=\sum_l\binom kl(-i)^l\varepsilon^l$ gives \eqref{eq:Laurent}.
 \end{proof}
 
-%\begin{definition}\label{def:FP}
-%For $N\ge0$ and any cutoff $J\ge N+2$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and
-%$c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
-%\begin{align}\label{eq:Eplus}
-%\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(J)}\tfrac{\Gamma(s-J,2\pi n)}{(2\pi n)^s}
-%+i^k(k-s-1)_{(J)}\tfrac{\Gamma(k-s-J,2\pi n)}{(2\pi n)^{k-s}}\Big],
-%\end{align}
-%and then
-%\begin{align}\label{eq:FP}
-%\mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
-%+\sum_{\substack{0\le j\le J\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
-%+\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
-%+\mathcal E^+_N(s).
-%\end{align}
-%\end{definition}
-%\begin{definition}\label{def:FP}   % J=N+2 version (superseded by minimal J=N+1)
-%For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, set
-%\begin{align}\label{eq:Eplus}
-%\mathcal E^+_N(s):=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(N+2)}\tfrac{\Gamma(s-N-2,2\pi n)}{(2\pi n)^s}
-%+i^k(k-s-1)_{(N+2)}\tfrac{\Gamma(k-s-N-2,2\pi n)}{(2\pi n)^{k-s}}\Big],
-%\end{align}
-%and then
-%\begin{align}\label{eq:FP}
-%\mathrm{FP}_N(s,k):=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
-%+\sum_{\substack{0\le j\le N+1\\ j\ne N}}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
-%+\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
-%+\mathcal E^+_N(s).
-%\end{align}
-%\end{definition}
+%\pagebreak
 
 \begin{lemma}\label{lem:wallvalue}
-%Let $f\in F_k$ have a pole of order $P$ at $i$ with principal part
-%$\sum_{m=1}^P a_{-m}(\tau-i)^{-m}$, and $\widehat P_i f$ its projection. The pole's
-%contribution to $L^*(f,s)$ in the minimal class is
-%\begin{equation}\label{eq:wallvalue}
-%L^*(\widehat P_i f,\,s)=r^*_{f,i}(1)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-%+\sum_{m=1}^P r^*_{f,i}(m)\,\mathrm{FP}_{m-1}(s,k),
-%\end{equation}
-%Let $f\in F_k$ have a pole of order $P$ at $i$ with pole weights $r^*_{f,i}(m)$
-%(Definition~\ref{def:proj}), and $\widehat P_i f$ its projection. The pole's
-%contribution to $L^*(f,s)$ in the minimal class is
-%\begin{equation}\label{eq:wallvalue}
-%L^*(\widehat P_i f,\,s)=-2\pi i\,r^*_{f,i}(1)\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
-%+\sum_{m=1}^P \frac{(-2\pi i)^m r^*_{f,i}(m)}{(m-1)!}\,\mathrm{FP}_{m-1}(s,k),
-%\end{equation}
-%entire in $s$ but for the simple poles at $s=0,k$ carried by $r^*_{f,i}(1)$; the individually
-%divergent contour pieces cancel by the relations of Lemma~\ref{lem:Laurent}.
 Let $f\in F_k$ have a pole of order $P$ at $i$ with pole weights $r^*_{f,i}(m)$
 (Definition~\ref{def:proj}), and $\widehat P_i f$ its projection. Evaluated in the minimal class at
 basepoint $i(1+\delta)$, the pole's contribution to $L^*(f,s)$ has the finite $\delta\to0$ limit
@@ -1171,81 +1130,73 @@ contour pieces.
 \end{lemma}
 
 \begin{proof}
-%Evaluate on the minimal-class contour with basepoint $i(1+\delta)$ and let $\delta\to0$.
-%On the $T$-segment the pole at $i$ lies below the contour; inverting each
-%$\Li_{1-m}(e^{2\pi i(\tau-i)})$ and integrating against $\tk$ yields the
-%harmonic-, $\zeta$-, and $\mathcal E^+$-terms of $\mathrm{FP}_{m-1}$ together with a part
-%$\sim\delta^{-(m-1)},\dots,\log\delta$; the $S$-segment, passing to the left of $i$, gives the
-%mirror divergences. Summed over $m$ with weights $r^*(m)=(-2\pi i)^m a_{-m}/(m-1)!$, the
-%divergent parts form a linear combination of the $a_{-m}$ that vanishes precisely by the
-%modularity relations of Lemma~\ref{lem:Laurent}, leaving the $\mathrm{FP}$-sum of
-%\eqref{eq:wallvalue}; the simple part ($m=1$) additionally carries the $-1$-leftover pole
-%$-2\pi i\,a_{-1}(\tfrac1s+\tfrac{i^k}{k-s})$, as in Lemma~\ref{lem:polylogcf}. The cutoff $J$
-%is immaterial: raising it moves terms between the $\zeta$-sum and $\mathcal E^+_N$, which
-%remains convergent as in Lemma~\ref{lem:polylogedge}.
-Fix $s$; evaluate in the minimal class at basepoint $i(1+\delta)$, $\delta>0$, and set
-$u:=2\pi i(\tau-i)$.
-
-\emph{Block expansion.} At its branch point $w=1$ the polylogarithm expands as
-$\Li_{1-m}(e^{u})=(m-1)!\,(-u)^{-m}+\sum_{p\ge0}\tfrac{\zeta(1-m-p)}{p!}u^{p}$
-(\cite[\S25.12]{DLMF}); multiplying by $\tfrac{(-2\pi i)^m}{(m-1)!}$ and using $-u=-2\pi i(\tau-i)$,
+We begin by noting that, at %Fix $s$; evaluate in the minimal class at basepoint $i(1+\delta)$, $\delta>0$, and set
+%$u:=2\pi i(\tau-i)$.
+%
+%\emph{Block expansion.} At 
+its branch point $w = e^{2 \pi i (\tau-i)} \sim 1$ the polylogarithm expands as
+$\Li_{1-m}(e^{2 \pi i (\tau-i)})=(m-1)!\,(-2 \pi i (\tau-i))^{-m}+\sum_{p\ge0}\tfrac{\zeta(1-m-p)}{p!}(2 \pi i (\tau-i))^{p}$
+(\cite[\S25.12]{DLMF}). Thus, %; multiplying by $\tfrac{(-2\pi i)^m}{(m-1)!}$ and using $-u=-2\pi i(\tau-i)$,
 \begin{equation}\label{eq:blockexp}
-\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}\!\big(e^{u}\big)
-=(\tau-i)^{-m}+\frac{(-2\pi i)^m}{(m-1)!}\sum_{p\ge0}\frac{\zeta(1-m-p)}{p!}\,u^{p},
+\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}\!\big(e^{2\pi i(\tau-i)}\big)
+=(\tau-i)^{-m}+\frac{(-2\pi i)^m}{(m-1)!}\sum_{p=0}^{\infty}\frac{\zeta(1-m-p)}{p!}\,(2\pi i(\tau-i))^{p},
 \end{equation}
-a pure order-$m$ pole (matching Lemma~\ref{lem:proj}) plus an entire, $T$-periodic tail. Hence
-$\widehat P_i f=\sum_{m=1}^P r^*_{f,i}(m)(\tau-i)^{-m}+(\text{regular at }i)$. Because the pole lies
-below the $T$-segment (height $1+\delta$), $|e^{u}|<1$ there and the block is used \emph{without}
-inversion: no constant ($n{=}0$) mode appears, so no $\tfrac1s+\tfrac{i^k}{k-s}$ term arises and
-$L^*(\widehat P_i f,s)$ is entire in $s$. (A pole \emph{above} the contour would invert
-$\Li_0=-1-\Li_0(1/w)$, and the leftover $-1$ is the source of that pole in
-Lemma~\ref{lem:polylogcf}; here it is absent.)
+is a pure order-$m$ pole, as in Lemma~\ref{lem:proj}, plus an entire, $T$-periodic tail. Hence
+$\widehat P_i f=\sum_{m=1}^P r^*_{f,i}(m)(\tau-i)^{-m}+(\text{regular at }i)$. 
+As the contour ${\rm Im}(\hat\gamma_f^T)$ has height $1+\delta > 1$, the analogous step of 
+$w$-inversion, $\Li_m(w)=-\delta_{m,0}-(-1)^m \Li_m(1/w)$ from the proof of Lemma~\ref{lem:polylogcf} 
+does not need to be invoked. Thus there is no $\tfrac1s+\tfrac{i^k}{k-s}$ in the final result. 
+%Because the pole lies
+%below the $T$-segment (height $1+\delta$), $|e^{u}|<1$ there and the block is used \emph{without}
+%inversion: no constant ($n{=}0$) mode appears, so no $\tfrac1s+\tfrac{i^k}{k-s}$ term arises and
+%$L^*(\widehat P_i f,s)$ is entire in $s$. %(A pole \emph{above} the contour would invert
+%$\Li_0(w)=-1-\Li_0(1/w)$, and the leftover $-1$ is the source of that pole in
+%Lemma~\ref{lem:polylogcf}; here it is absent.)
 
-%\emph{Finite part is $\mathrm{FP}$.} On the $T$-segment
-%$\Li_{1-m}(e^{u})=\sum_{n\ge1}n^{m-1}e^{2\pi n}e^{2\pi in\tau}$; integrating against $\tk$ and
-%expanding each $\Gamma(s,2\pi n)$ by the recursion of Lemma~\ref{lem:polylogedge} at $x=2\pi n$, the
-%convergent part of the $n$-sum produces the $\zeta$-values of~\eqref{eq:FP} and the reduced-$\Gamma$
-%remainder $\mathcal E^+_{m-1}(s)$ of~\eqref{eq:Eplus}. With the $S$-segment principal value and the
-%tail of~\eqref{eq:blockexp}, the finite part of block $m$ is
-%$\tfrac{(-2\pi i)^m}{(m-1)!}r^*_{f,i}(m)\,\mathrm{FP}_{m-1}(s,k)$.
-\emph{Finite part is $\mathrm{FP}$.} Write $N:=m-1$; the finite part collects a $T$-segment piece
-(the $\zeta$-sum, harmonic term, and $\mathcal E^+$) and an $S$-segment piece (the polynomial term).
+We now extract their finite parts of this polylogarithm on the $\hat\gamma_f^T$ and $\hat\gamma_f^S$ contour-integrals.
 
-On $\gamma^T$ the block is the convergent series
-$\Li_{1-m}(e^{u})=\sum_{n\ge1}n^{N}e^{2\pi n}e^{2\pi in\tau}$; integrating against $\tk$ from the
+%\emph{Finite part is $\mathrm{FP}$.} Write $N:=m-1$; the finite part collects a $T$-segment piece
+%(the $\zeta$-sum, harmonic term, and $\mathcal E^+$) and an $S$-segment piece (the polynomial term).
+
+On $\hat\gamma_f^T$ the block is the convergent series
+$\Li_{1-m}(e^{u})=\sum_{n\ge1}n^{m-1}e^{2\pi n}e^{2\pi in\tau}$; integrating against $\tk$ from the
 basepoint $\tau_0=i(1+\delta)$ gives, by Theorem~\ref{thm:weakL},
-$\sum_{n\ge1}n^N e^{2\pi n}\big[\tfrac{\Gamma(s,X_n)}{(2\pi n)^{s}}+i^k\tfrac{\Gamma(k-s,X_n)}{(2\pi n)^{k-s}}\big]$
+$\sum_{n\ge1}n^{m{-}1} e^{2\pi n}\big[\tfrac{\Gamma(s,X_n)}{(2\pi n)^{s}}+i^k\tfrac{\Gamma(k-s,X_n)}{(2\pi n)^{k-s}}\big]$
 with $X_n:=-2\pi in\tau_0=2\pi n(1+\delta)$. Expanding by the incomplete-$\Gamma$ recursion of
-Lemma~\ref{lem:polylogedge} to order $N+1$,
-$\Gamma(s,X)=e^{-X}\sum_{j=0}^{N}(s-1)_{(j)}X^{s-1-j}+(s-1)_{(N+1)}\Gamma(s-N-1,X)$, and using
+Lemma~\ref{lem:polylogedge} to order $m$,
+$\Gamma(s,X)=e^{-X}\sum_{j=0}^{m-1}(s-1)_{(j)}X^{s-1-j}+(s-1)_{(m)}\Gamma(s-m,X)$, and using
 $e^{2\pi n}e^{-X_n}=e^{-2\pi n\delta}$ and $X_n^{s-1-j}=(2\pi n)^{s-1-j}(1+\delta)^{s-1-j}$, the
 $j$-sum becomes (with $c^+_j(s)$ collecting the $s$- and $i^k(k{-}s)$-parts)
 \begin{equation}\label{eq:Tsum}
-\sum_{j=0}^{N}\frac{c^+_j(s)\,(1+\delta)^{s-1-j}}{(2\pi)^{j+1}}\,\Li_{j+1-N}\!\big(e^{-2\pi\delta}\big)
-\;+\;\mathcal E^+_N(s),
+\sum_{j=0}^{m-1}\frac{c^+_j(s)\,(1+\delta)^{s-1-j}}{(2\pi)^{j+1}}\,\Li_{j+2-m}\!\big(e^{-2\pi\delta}\big)
+\;+\;\mathcal E^+_{m-1}(s),
 \end{equation}
-$\mathcal E^+_N$ being the reduced-$\Gamma$ remainder of~\eqref{eq:Eplus} (any deeper cutoff $J>N+1$
-moves the $j$-terms $N+1,\dots,J-1$ out of $\mathcal E^+_N$ into the $\zeta$-sum and leaves
-$\mathrm{FP}_N$ unchanged). With
-$\Li_{j+1-N}(e^{-2\pi\delta})=\Gamma(N-j)(2\pi\delta)^{j-N}+\sum_{p\ge0}\tfrac{\zeta(j+1-N-p)}{p!}(-2\pi\delta)^p$,
+$\mathcal E^+_{m-1}$ being the reduced-$\Gamma$ remainder of~\eqref{eq:Eplus}. % (any deeper cutoff $J>m$
+%moves the $j$-terms $m,\dots,J-1$ out of $\mathcal E^+_{m-1}$ into the $\zeta$-sum and leaves
+%$\mathrm{FP}_{m-1}$ unchanged). 
+%
+With
+$\Li_{j+2-m}(e^{-2\pi\delta})=\Gamma(m-j-1)(2\pi\delta)^{j-m+1}+\sum_{p\ge0}\tfrac{\zeta(j+2-m-p)}{p!}(-2\pi\delta)^p$,
 two finite ($\delta^0$) parts survive:
-\begin{itemize}\itemsep2pt
-\item[(i)] the regular part at $\delta^0$ gives, for $j\ne N$, the $\zeta$-value
-$\tfrac{c^+_j(s)}{(2\pi)^{j+1}}\zeta(j+1-N)$ --- the $\zeta$-sum of~\eqref{eq:FP};
-\item[(ii)] for $j<N$ the singular $\Gamma(N-j)(2\pi\delta)^{j-N}$ crosses the $\delta^{N-j}$ coefficient
-$\binom{s-1-j}{N-j}$ of $(1+\delta)^{s-1-j}$; by the falling-factorial identity
-$(s-1)_{(j)}(N-j-1)!\binom{s-1-j}{N-j}=(s-1)_{(N)}/(N-j)$ (and its $k{-}s$ partner) these sum to
+\begin{enumerate}
+\item the regular part at $\delta^0$ gives, for $j\ne m-1$, the $\zeta$-value
+$\tfrac{c^+_j(s)}{(2\pi)^{j+1}}\zeta(j+2-m)$ --- the $\zeta$-sum of~\eqref{eq:FP};
+\item for $j<m-1$ the singular $\Gamma(m-j-1)(2\pi\delta)^{j-m+1}$ crosses the $\delta^{m-j-1}$ coefficient
+$\binom{s-1-j}{m-j-1}$ of $(1+\delta)^{s-1-j}$; by the falling-factorial identity
+$(s-1)_{(j)}(m-j-2)!\binom{s-1-j}{m-j-1}=(s-1)_{(m-1)}/(m-j-1)$ (and its $k{-}s$ partner) these sum to
 \begin{equation}\label{eq:harm}
-\frac{c^+_N(s)}{(2\pi)^{N+1}}\sum_{j=0}^{N-1}\frac{1}{N-j}=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}},
+\frac{c^+_{m-1}(s)}{(2\pi)^{m}}\sum_{j=0}^{m-2}\frac{1}{m-j-1}=\frac{c^+_{m-1}(s)\,H_{m-1}}{(2\pi)^{m}},
 \end{equation}
 the harmonic term of~\eqref{eq:FP}.
-\end{itemize}
-(The $j=N$ term is $-\tfrac{c^+_N(s)}{(2\pi)^{N+1}}\log(2\pi\delta)+o(1)$, a divergence with no finite
-part.) On $\gamma^S$ the pure pole $\sum_m r^*_{f,i}(m)(\tau-i)^{-m}$, integrated by principal value
+\end{enumerate}
+The remaining $j=m-1$ term yields no finite part --- only a $\log(2\pi\delta)$, which cancels in the
+$\delta\to0$ limit of the S-contour, which we now turn to. 
+
+On $\hat\gamma_f^S$ the pure pole $\sum_m r^*_{f,i}(m)(\tau-i)^{-m}$, integrated by principal value
 against $\tau^{s-1}$ along the axis ($\tau=i(1+v)$), has the $\delta^0$ finite part
 \begin{equation}\label{eq:Spoly}
 i^{-m}\,\mathrm{PV}\!\int\frac{(1+v)^{s-1}}{v^{m}}\,dv\;\Big|_{\delta^0}
-=i^{-m}(-1)^{N}\sum_{t=0}^{N-1}\frac{(-1)^{t}(s-1)_{(t)}}{t!\,(N-t)},
+=i^{-m}(-1)^{m-1}\sum_{t=0}^{m-2}\frac{(-1)^{t}(s-1)_{(t)}}{t!\,(m-t-1)},
 \end{equation}
 the polynomial term of~\eqref{eq:FP}. Collecting, the finite part of block $m$ is
 $\tfrac{(-2\pi i)^m}{(m-1)!}r^*_{f,i}(m)\,\mathrm{FP}_{m-1}(s,k)$.
@@ -1258,10 +1209,11 @@ $S$-segment endpoints straddling $i$. At order $r$ their coefficient is
 \end{equation}
 precisely the difference of the two sides of the modularity relation~\eqref{eq:Laurent}, hence $0$ for
 $f\in F_k$. Every $\delta^{-r}$ and $\log\delta$ term therefore cancels and the $\delta\to0$ limit
-exists; break~\eqref{eq:Laurent} at order $r$ and that divergence survives (at $r=1$, a $\log\delta$).
+exists. Conversely, weights violating eq:Laurent at order $r$ leave that piece uncancelled (at $r=1$, a $\log\delta$), so the limit exists only for $f\in F_k$.% break~\eqref{eq:Laurent} at order $r$ and that divergence survives (at $r=1$, a $\log\delta$).
 
 The finite part and the (vanishing) divergences give~\eqref{eq:wallvalue}.
 \end{proof}
+
 
 \begin{theorem}\label{thm:mero}
 Let $f\in F_k$ have poles $\tau_p$ of order $P_p$ with ${\rm Im}\,\tau_p\ge1$ in the strip
