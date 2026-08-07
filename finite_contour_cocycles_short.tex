@@ -254,8 +254,8 @@ path-independence.
 
 For independence of $\tau_0$ show that variations in $\tau_0$ for the S-term and T-term in $L^*(f,s)$ 
 cancel, i.e. that $\partial_{\tau_0} L^*_S(f,s:\gamma^S_{\tau_0}) = -\partial_{\tau_0} L^*_T(f,s:\gamma^T_{\tau_0})$. 
-For $L^*_T$, note that the $T$-segment runs from $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$ --- two endpoints a unit apart,
-moving together with $\tau_0$ --- so by Leibniz's rule and the $T$-periodicity $f(\tau_0-1)=f(\tau_0)$,
+For $L^*_T$, note that the $T$-segment runs from $T^{-1}\tau_0=\tau_0-1$ to $\tau_0$, 
+so by Leibniz's rule and the $T$-periodicity $f(\tau_0-1)=f(\tau_0)$,
 \begin{equation}
 \partial_{\tau_0} L^*_T(f, s; \gamma^T_{\tau_0})
 =f(\tau_0)\,\tk(\tau_0,s)-f(\tau_0-1)\,\tk(\tau_0-1,s)
@@ -263,8 +263,8 @@ moving together with $\tau_0$ --- so by Leibniz's rule and the $T$-periodicity $
 \end{equation}
 where $\delta_T\tk(\tau,s):=\tk(\tau+1,s)-\tk(\tau,s)$. This is the whole role of $\delta_T$: the
 unit gap between the endpoints turns the $\partial_{\tau_0}$ boundary term into a unit shift of
-the kernel. That shift is elementary --- the kernel was built for it --- since
-$\zeta(\nu,x+1)-\zeta(\nu,x)=-x^{-\nu}$ gives, on both terms at $x=\tau+1$,
+the kernel. That shift is elementary, since $\zeta(\nu,x+1)-\zeta(\nu,x)=-x^{-\nu}$ gives, on 
+both terms at $x=\tau+1$,
 \begin{align}
 & \delta_T\tk(\tau,s)=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s}
 \\
@@ -311,9 +311,9 @@ $e^{2\pi in(u+m)}=e^{2\pi inu}$ for integer $m$, the unit segments stack into on
 =\sum_{m\ge0}\int_{z+m}^{z+1+m}\! e^{2\pi inv}v^{-\nu}\,dv
 =\int_z^{z+\infty}\! e^{2\pi inv}v^{-\nu}\,dv.
 \end{equation}
-Substitute $w=-2\pi i n v$, so that $v=iw/(2\pi n)$, $dv=i\,dw/(2\pi n)$, and $e^{2\pi inv}=e^{-w}$:
+Now, substitute $w=-2\pi i n v$, so that $v=iw/(2\pi n)$, $dv=i\,dw/(2\pi n)$, and $e^{2\pi inv}=e^{-w}$:
 the lower endpoint becomes $w=-2\pi i n z$, and for $n>0$ the ray rotates to $w\to+\infty$ along the
-positive reals --- legal, since $e^{-w}w^{-\nu}$ decays in the right half-plane, so the closing arc
+positive reals. Since $e^{-w}w^{-\nu}$ decays in the right half-plane, the closing arc
 vanishes. With $v^{-\nu}=i^{-\nu}(2\pi n)^{\nu}w^{-\nu}$,
 \begin{equation}
 \int_z^{z+\infty}\! e^{2\pi inv}v^{-\nu}\,dv
@@ -543,7 +543,7 @@ $(P|_\gamma)(X,Y):=P(aX+bY,cX+dY)$ acts on the polynomial variables alone, holdi
 \end{equation}
 Thus $|_T$ sends $(X,Y)\mapsto(X+Y,Y)$ with $\tau$ untouched. Being linear and $\tau$-independent,
 $|_\gamma$ commutes with $\int\!d\tau$, so slashing the polynomial $E$ agrees with slashing $\chi$
-under the integral --- the two occurrences of $|_\gamma$ in Lemma~\ref{lem:cocycle} denote the same
+under the integral; the two occurrences of $|_\gamma$ in Lemma~\ref{lem:cocycle} denote the same
 operation.
 
 \begin{lemma}\label{lem:cocycle}
@@ -714,8 +714,8 @@ At fixed $\tau_0$ the integrands $f(\tau)\tau^{s-1}$ and $f(\tau)\tk(\tau,s)$ ar
 holomorphic on $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, so Cauchy's theorem makes each
 of $L^*_S,L^*_T$ constant on the homotopy class of its own segment. Under a motion of the
 basepoint, $\partial_{\tau_0}L^*$ is evaluated at the moving endpoints alone; the
-computation of Proposition~\ref{prop:indep} --- which uses only $f(\tau_0-1)=f(\tau_0)$ and
-$f(-1/\tau_0)=\tau_0^{k}f(\tau_0)$ --- cancels the boundary terms of $L^*_S$ against those
+computation of Proposition~\ref{prop:indep}, which uses only $f(\tau_0-1)=f(\tau_0)$ and
+$f(-1/\tau_0)=\tau_0^{k}f(\tau_0)$, cancels the boundary terms of $L^*_S$ against those
 of $L^*_T$, the interior poles lying off the contours. Hence $\partial_{\tau_0}L^*=0$ along
 any motion in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, while each summand may 
 separately vary.
@@ -910,12 +910,14 @@ Each pole with ${\rm Im}\,\tau_p\ge1$ contributes one projected polylog to $L^*(
 L-integral we now record.
 
 \begin{definition}\label{def:IN}
-For a pole projected at $z$ with ${\rm Im}\,z>1$, let $I_N(s,z)$ be the L-integral of the
-projected polylog $\Li_{-N}(e^{2\pi i(\cdot-z)})$ in the minimal class $[\hat\gamma_f^S],[\hat\gamma_f^T]$
+For a pole of order $N+1$ projected at $z$ with ${\rm Im}\,z>1$, let $I_N(s,z)$ be the L-integral of the
+projected polylog $\lambda_{N,z}$ in the minimal class $[\hat\gamma_f^S],[\hat\gamma_f^T]$
 of Definition~\ref{def:null_homotopy}:
 \begin{equation}\label{eq:IN}
-I_N(s,z):=L^*\big(\Li_{-N}(e^{2\pi i(\cdot-z)}),\,s;\,[\hat\gamma_f^S],[\hat\gamma_f^T]\big).
+I_N(s,z):=L^*\big(\lambda_{N,z},\,s;\,[\hat\gamma_f^S],[\hat\gamma_f^T]\big),
 \end{equation}
+where $\lambda_{N,z}$ denotes the function $\Li_{-N}(e^{2\pi i(\tau-z)})$, fed into the linear
+$L^*$-functional.
 \end{definition}
 
 \begin{lemma}\label{lem:polylogcf}
@@ -932,8 +934,8 @@ I_N(s,z)&=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)
 
 \begin{proof}
 By Proposition~\ref{prop:indepHomotopy} we may evaluate $I_N(s,z)$ in the $\delta\to0$
-representative of the minimal class; there the projected polylog --- regular at $i$ since
-${\rm Im}\,z>1$ --- has vanishing $\gamma^S$-integral and $\hat\gamma_f^T\to[i-1,i]$. On
+representative of the minimal class; there the projected polylog, which is regular at $i$ since
+${\rm Im}\,z>1$, has vanishing $\gamma^S$-integral and $\hat\gamma_f^T\to[i-1,i]$. On
 $[i-1,i]$ one has $|e^{2\pi i(\tau-z)}|>1$, so the defining series of $\Li_{-N}$ diverges;
 inversion rewrites it as $(-1)^{N+1}\sum_{n\ge1}n^Ne^{2\pi in(z-\tau)}$, convergent since
 $|e^{2\pi i(z-\tau)}|<1$, and term-by-term integration against $\tk$ gives
@@ -943,7 +945,19 @@ The rate is $e^{-2\pi({\rm Im}\,z-1)}$, from $\Gamma(s,-2\pi n)\sim(2\pi n)^{s-1
 against $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$.
 \end{proof}
 
-Extracting similar results for $L^*$ evaluated on the polar terms for poles on the line 
+For any integer $J\ge1$, the incomplete gamma satisfies
+\begin{equation}\label{eq:gammarec}
+\Gamma(s,X)=e^{-X}\sum_{\ell=0}^{J-1}(s-1)_{(\ell)}\,X^{s-1-\ell}+(s-1)_{(J)}\,\Gamma(s-J,X).
+\end{equation}
+It peels the leading $J$ terms of the large-$X$ expansion of $\Gamma(s,X)$ into elementary powers
+$X^{s-1-\ell}$ and collects the rest into an incomplete gamma of lower order $s-J$ and hence
+faster-decaying. Importantly, the peeled powers integrate and resum against our kernel in closed
+form. Choosing $J$ large enough therefore quarantines the entire singular structure at
+${\rm Im}(z)=1$ into that finite, explicit sum, while the remainder's mode-sum is left manifestly
+convergent. We use~\eqref{eq:gammarec} first for the poles on the line ${\rm Im}(z)=1$ with $z\neq i$,
+and then precisely at $z=i$.
+
+Extracting similar results for $L^*$ evaluated on the polar terms for poles on the line
 ${\rm Im}(\tau) = 1$ requires more care. To do this away from the special point $z = i$, we
 find it helpful to define the following two functions:
 %\begin{align}
@@ -952,11 +966,11 @@ find it helpful to define the following two functions:
 %+i^k(k{-}s{-}1)_{(N{+}2)}\tfrac{\Gamma(k{-}s{-}N{-}2,{-}2\pi n)}{(-2\pi n)^{k-s}}\Big], \label{eq:tailpiece2}
 %\end{align}
 \begin{align}
-\Pi_N(s,z)&:=\sum_{\lambda=0}^{N}\frac{\Li_{\lambda+1-N}\big(e^{2\pi i(z-i)}\big)}{(-2\pi)^{\lambda+1}} \big\{ (s-1)_{(\lambda)}+i^k(k-s-1)_{(\lambda)} \big\},\label{eq:tailpiece1}\\
+\Pi_N(s,z)&:=\sum_{\ell=0}^{N}\frac{\Li_{\ell+1-N}\big(e^{2\pi i(z-i)}\big)}{(-2\pi)^{\ell+1}} \big\{ (s-1)_{(\ell)}+i^k(k-s-1)_{(\ell)} \big\},\label{eq:tailpiece1}\\
 R_N(s,z)&:=\sum_{n=1}^{\infty}n^N e^{2\pi inz}\Big[(s{-}1)_{(N{+}1)}\tfrac{\Gamma(s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^{s}}
 +i^k(k{-}s{-}1)_{(N{+}1)}\tfrac{\Gamma(k{-}s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^{k-s}}\Big], \label{eq:tailpiece2}
 \end{align}
-where $(a)_{(\lambda)}:=a(a-1)\cdots(a-\lambda+1)$ is the falling factorial ($(a)_{(0)}:=1$), $\Li_s$ the
+where $(a)_{(\ell)}:=a(a-1)\cdots(a-\ell+1)$ is the falling factorial ($(a)_{(0)}:=1$), $\Li_s$ the
 polylogarithm of Definition~\ref{def:proj}, and $\Gamma,\Gamma(a,x)$ the gamma and upper incomplete
 gamma, on principal branches~\cite{DLMF}.
 
@@ -995,23 +1009,19 @@ We manipulate the main result of Lemma~\ref{lem:polylogcf},
 I_N(s,z)=\delta_{N,0}\Big(\tfrac1s+\tfrac{i^k}{k-s}\Big)+(-1)^{N+1}\sum_{n=1}^{\infty}n^N e^{2\pi inz} \left(
 \frac{\Gamma(s,-2\pi n)}{(-2\pi n)^{s}}+i^k\frac{\Gamma(k-s,-2\pi n)}{(-2\pi n)^{k-s}} \right)~,
 \end{align}
-Our proof proceeds in two steps. First, we isolate the possible sources of divergence on the line ${\rm Im}(z) = 1$ into a finite sum of polylogarithms $\Li_{\lambda+1-N}(e^{2 \pi i (z-i)})$ for $\lambda = 0, \ldots, N$. To do this, we use the recurrence relation~\cite{DLMF} for each fixed-$n$ term,
-\begin{align}
-\Gamma(a,x)=e^{-x}\sum_{\lambda=0}^{N}(a-1)_{(\lambda)}x^{a-1-\lambda}+(a-1)_{(N+1)}\Gamma(a-N-1,x)
-\end{align}
-to each gamma in $G_{s,k}(-n)$ at $x=-2\pi n$. Dividing each incomplete-Gamma term by $(-2\pi n)^{s}$
-and $(-2\pi n)^{k-s}$ yields, then, a common factor of $1/(-2\pi n)^{\lambda+1}$ for each term in the finite sum. 
+Our proof proceeds in two steps. First, we isolate the possible sources of divergence on the line ${\rm Im}(z) = 1$ into a finite sum of polylogarithms $\Li_{\ell+1-N}(e^{2 \pi i (z-i)})$ for $\ell = 0, \ldots, N$. To do this, we apply the recursion~\eqref{eq:gammarec} to each gamma in $G_{s,k}(-n)$ at $X=-2\pi n$, $J=N+1$. Dividing each incomplete-Gamma term by $(-2\pi n)^{s}$
+and $(-2\pi n)^{k-s}$ yields, then, a common factor of $1/(-2\pi n)^{\ell+1}$ for each term in the finite sum.
 Further, this finite-sum is proportional to $e^{2\pi n}$; we leave the trailing incomplete gammas as-is:
 \begin{align}
 G_{s,k}(-n) =
 \left\{
-e^{2\pi n}\sum_{\lambda = 0}^{N} \frac{(s-1)_{(\lambda)}}{(-2\pi n)^{\lambda+1}}
+e^{2\pi n}\sum_{\ell = 0}^{N} \frac{(s-1)_{(\ell)}}{(-2\pi n)^{\ell+1}}
 {+} \frac{(s{-}1)_{(N{+}1)} \Gamma(s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^s}
 \right\} {+}i^k(s{\to}k{-}s)~.
 \end{align}
 Now, we consider the $n$-sum $G_{s,k}(-n)$, starting with the falling factorial terms:
 \begin{align}
-\sum_{n=1}^{\infty} n^N e^{2\pi i n z} e^{2 \pi n} \left(  \sum_{\lambda = 0}^{N} \frac{(s-1)_{(\lambda)}}{(-2\pi n)^{\lambda+1}}{+}i^k(s{\to}k{-}s) \right) = \sum_{\lambda = 0}^{N} \frac{\Li_{\lambda+1-N}(e^{2 \pi i (z -i)})}{(-2\pi)^{\lambda+1}} \big\{ (s-1)_{(\lambda)} + i^k (k- s-1)_{(\lambda)}\big\}~,
+\sum_{n=1}^{\infty} n^N e^{2\pi i n z} e^{2 \pi n} \left(  \sum_{\ell = 0}^{N} \frac{(s-1)_{(\ell)}}{(-2\pi n)^{\ell+1}}{+}i^k(s{\to}k{-}s) \right) = \sum_{\ell = 0}^{N} \frac{\Li_{\ell+1-N}(e^{2 \pi i (z -i)})}{(-2\pi)^{\ell+1}} \big\{ (s-1)_{(\ell)} + i^k (k- s-1)_{(\ell)}\big\}~,
 \end{align}
 i.e., $\Pi_N(s,z)$ of \eqref{eq:tailpiece1}, while the reduced-gamma terms remaining are 
 $R_N(s, z)$ of Eq.~\eqref{eq:tailpiece2}, which together establish the lemma's
@@ -1060,13 +1070,13 @@ definition and an associated remark:
 
 
 \begin{definition}\label{def:FP}
-For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s-1)_{(j)}$, define:
+For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_\ell(s):=(s-1)_{(\ell)}+i^k(k-s-1)_{(\ell)}$, define:
 \begin{align}\label{eq:Eplus}
 \mathcal E^+_N(s)&:=\sum_{n\ge1}n^N e^{2\pi n}\Big[(s-1)_{(N+1)}\tfrac{\Gamma(s-N-1,2\pi n)}{(2\pi n)^s}
 +i^k(k-s-1)_{(N+1)}\tfrac{\Gamma(k-s-N-1,2\pi n)}{(2\pi n)^{k-s}}\Big], \\
 \label{eq:FP}
 \mathrm{FP}_N(s,k)&:=\frac{c^+_N(s)\,H_N}{(2\pi)^{N+1}}
-+\sum_{j=0}^{N-1}\frac{c^+_j(s)\,\zeta(j+1-N)}{(2\pi)^{j+1}}
++\sum_{\ell=0}^{N-1}\frac{c^+_\ell(s)\,\zeta(\ell+1-N)}{(2\pi)^{\ell+1}}
 +\frac{(-1)^N N!}{(2\pi)^{N+1}}\sum_{t=0}^{N-1}\frac{(-1)^t(s-1)_{(t)}}{t!\,(N-t)}
 +\mathcal E^+_N(s).
 \end{align}
@@ -1075,9 +1085,9 @@ For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_j(s):=(s-1)_{(j)}+i^k(k-s
 \begin{remark}\label{rem:cutoff}
 The remainders $R_N$ of Lemma~\ref{lem:polylogedge}~\eqref{eq:tailpiece2} and $\mathcal E^+_N$ of
 Definition~\ref{def:FP}~\eqref{eq:Eplus} are what is left after unfolding $J$ terms of the
-incomplete-gamma recursion (proof of Lemma~\ref{lem:polylogedge}); both use $J=N+1$. The unfolding
+incomplete-gamma recursion~\eqref{eq:gammarec}; both use $J=N+1$. The unfolding
 isolates the terms that could diverge as ${\rm Im}(z)\to1^+$ into an explicit finite set of special
-functions, and $J=N+1$ is the least $J$ that isolates all of them --- leaving a remainder that
+functions, and $J=N+1$ is the least $J$ that isolates all of them, and leaves a remainder that
 converges for every $z$ on ${\rm Im}(z)=1$. Any larger $J$ isolates the same terms, leaving $I_N$ and
 $\mathrm{FP}_N$ unchanged and merely quickening the remainder's decay ($\sim n^{-(J-N+1)}$) at the
 cost of carrying further positive-index polylogs $\Li_2,\dots,\Li_{J-N}$ into the finite sum
@@ -1162,13 +1172,11 @@ On $\hat\gamma_f^T$ the block is the convergent series
 $\Li_{1-m}(e^{u})=\sum_{n\ge1}n^{m-1}e^{2\pi n}e^{2\pi in\tau}$; integrating against $\tk$ from the
 basepoint $\tau_0=i(1+\delta)$ gives, by Theorem~\ref{thm:weakL},
 $\sum_{n\ge1}n^{m{-}1} e^{2\pi n}\big[\tfrac{\Gamma(s,X_n)}{(2\pi n)^{s}}+i^k\tfrac{\Gamma(k-s,X_n)}{(2\pi n)^{k-s}}\big]$
-with $X_n:=-2\pi in\tau_0=2\pi n(1+\delta)$. Expanding by the incomplete-$\Gamma$ recursion of
-Lemma~\ref{lem:polylogedge} to order $m$,
-$\Gamma(s,X)=e^{-X}\sum_{j=0}^{m-1}(s-1)_{(j)}X^{s-1-j}+(s-1)_{(m)}\Gamma(s-m,X)$, and using
-$e^{2\pi n}e^{-X_n}=e^{-2\pi n\delta}$ and $X_n^{s-1-j}=(2\pi n)^{s-1-j}(1+\delta)^{s-1-j}$, the
-$j$-sum becomes (with $c^+_j(s)$ collecting the $s$- and $i^k(k{-}s)$-parts)
+with $X_n:=-2\pi in\tau_0=2\pi n(1+\delta)$. Expanding by the recursion~\eqref{eq:gammarec} at $J=m$, and using
+$e^{2\pi n}e^{-X_n}=e^{-2\pi n\delta}$ and $X_n^{s-1-\ell}=(2\pi n)^{s-1-\ell}(1+\delta)^{s-1-\ell}$, the
+$\ell$-sum becomes (with $c^+_\ell(s)$ collecting the $s$- and $i^k(k{-}s)$-parts)
 \begin{equation}\label{eq:Tsum}
-\sum_{j=0}^{m-1}\frac{c^+_j(s)\,(1+\delta)^{s-1-j}}{(2\pi)^{j+1}}\,\Li_{j+2-m}\!\big(e^{-2\pi\delta}\big)
+\sum_{\ell=0}^{m-1}\frac{c^+_\ell(s)\,(1+\delta)^{s-1-\ell}}{(2\pi)^{\ell+1}}\,\Li_{\ell+2-m}\!\big(e^{-2\pi\delta}\big)
 \;+\;\mathcal E^+_{m-1}(s),
 \end{equation}
 $\mathcal E^+_{m-1}$ being the reduced-$\Gamma$ remainder of~\eqref{eq:Eplus}. % (any deeper cutoff $J>m$
@@ -1176,20 +1184,20 @@ $\mathcal E^+_{m-1}$ being the reduced-$\Gamma$ remainder of~\eqref{eq:Eplus}. %
 %$\mathrm{FP}_{m-1}$ unchanged). 
 %
 With
-$\Li_{j+2-m}(e^{-2\pi\delta})=\Gamma(m-j-1)(2\pi\delta)^{j-m+1}+\sum_{p\ge0}\tfrac{\zeta(j+2-m-p)}{p!}(-2\pi\delta)^p$,
+$\Li_{\ell+2-m}(e^{-2\pi\delta})=\Gamma(m-\ell-1)(2\pi\delta)^{\ell-m+1}+\sum_{p\ge0}\tfrac{\zeta(\ell+2-m-p)}{p!}(-2\pi\delta)^p$,
 two finite ($\delta^0$) parts survive:
 \begin{enumerate}
-\item the regular part at $\delta^0$ gives, for $j\ne m-1$, the $\zeta$-value
-$\tfrac{c^+_j(s)}{(2\pi)^{j+1}}\zeta(j+2-m)$ --- the $\zeta$-sum of~\eqref{eq:FP};
-\item for $j<m-1$ the singular $\Gamma(m-j-1)(2\pi\delta)^{j-m+1}$ crosses the $\delta^{m-j-1}$ coefficient
-$\binom{s-1-j}{m-j-1}$ of $(1+\delta)^{s-1-j}$; by the falling-factorial identity
-$(s-1)_{(j)}(m-j-2)!\binom{s-1-j}{m-j-1}=(s-1)_{(m-1)}/(m-j-1)$ (and its $k{-}s$ partner) these sum to
+\item the regular part at $\delta^0$ gives, for $\ell\ne m-1$, the $\zeta$-value
+$\tfrac{c^+_\ell(s)}{(2\pi)^{\ell+1}}\zeta(\ell+2-m)$ --- the $\zeta$-sum of~\eqref{eq:FP};
+\item for $\ell<m-1$ the singular $\Gamma(m-\ell-1)(2\pi\delta)^{\ell-m+1}$ crosses the $\delta^{m-\ell-1}$ coefficient
+$\binom{s-1-\ell}{m-\ell-1}$ of $(1+\delta)^{s-1-\ell}$; by the falling-factorial identity
+$(s-1)_{(\ell)}(m-\ell-2)!\binom{s-1-\ell}{m-\ell-1}=(s-1)_{(m-1)}/(m-\ell-1)$ (and its $k{-}s$ partner) these sum to
 \begin{equation}\label{eq:harm}
-\frac{c^+_{m-1}(s)}{(2\pi)^{m}}\sum_{j=0}^{m-2}\frac{1}{m-j-1}=\frac{c^+_{m-1}(s)\,H_{m-1}}{(2\pi)^{m}},
+\frac{c^+_{m-1}(s)}{(2\pi)^{m}}\sum_{\ell=0}^{m-2}\frac{1}{m-\ell-1}=\frac{c^+_{m-1}(s)\,H_{m-1}}{(2\pi)^{m}},
 \end{equation}
 the harmonic term of~\eqref{eq:FP}.
 \end{enumerate}
-The remaining $j=m-1$ term yields no finite part --- only a $\log(2\pi\delta)$, which cancels in the
+The remaining $\ell=m-1$ term yields no finite part --- only a $\log(2\pi\delta)$, which cancels in the
 $\delta\to0$ limit of the S-contour, which we now turn to. 
 
 On $\hat\gamma_f^S$ the pure pole $\sum_m r^*_{f,i}(m)(\tau-i)^{-m}$, integrated by principal value
