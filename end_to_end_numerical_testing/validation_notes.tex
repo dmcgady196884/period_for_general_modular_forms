@@ -1,0 +1,222 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,fullpage,hyperref}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\SLZ}{{\rm SL}_2(\ZZ)}
+\newcommand{\tk}{\widetilde{k}_T}
+\newcommand{\Li}{{\rm Li}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\title{Numerical validation of \code{finite\_contour\_cocycles\_short.tex}}
+\author{Companion to \code{validate.py}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{What this suite is for}
+
+Every closed form in the note is a claim that some explicitly-summable expression equals a
+contour integral. Algebra alone does not catch a claim that is right in one geometric regime
+and wrong in another: the error is invisible until the wrong regime is evaluated. This suite
+therefore takes \emph{raw quadrature of the defining contour integral} as ground truth and
+checks each closed form against it, never against another closed form.
+
+Two design rules follow.
+
+\paragraph{Index by regime, not by equation.} Each check runs across the geometric
+configurations the note distinguishes: a pole above the $T$-segment, on the edge
+${\rm Im}\,z=1$ with $z\neq i$, at $i$, below the contour, and absent. A per-equation test that
+samples one configuration certifies nothing about the others.
+
+\paragraph{Ground truth must be exact.} Where a check needs Fourier coefficients, they come from
+integer $q$-series arithmetic, not from numerical extraction. Recovering $c_f(n)$ from
+$\int_0^1 f(x+iy)e^{-2\pi in(x+iy)}dx$ is catastrophically ill-conditioned for a form with a pole
+at the cusp: for $1/\Delta$ the integrand runs as $e^{2\pi ny}$ while the answer is only
+$e^{4\pi\sqrt n}$, so $c(18)$ at $y=1.3$ asks for a $10^{23}$ number out of $10^{67}$-sized
+values. The suite computes $\prod(1-q^n)^{\pm24}$ in exact integer arithmetic instead;
+\code{cf\_Delta} and \code{cf\_invDelta} reproduce $\tau(n)$ and the known
+$1/\Delta=q^{-1}+24+324q+3200q^2+\dots$ exactly.
+
+Each check carries the \verb|\label| it validates, so a failure names a line in the note rather
+than a formula in Python. Two tiers: \code{validate.py} (coarse precision, one case per regime)
+and \code{validate.py --slow} (high precision, full cross-product). A third tier,
+\code{report}, prints a measured discrepancy without passing or failing; it is used for
+questions the note has not yet settled, so the suite documents them instead of presuming an
+answer.
+
+\subsection*{Shared machinery in \code{validate.py}}
+
+\noindent\begin{tabular}{@{}ll@{}}
+\code{ktil(tau,s,k)} & the Hurwitz $T$-kernel $\tk$ of \code{def:kernel}\\
+\code{LT\_raw(f,k,s,tau0)} & \textbf{ground truth}: quadrature of
+   $e^{-i\pi s/2}\!\int_{\tau_0-1}^{\tau_0}\! f\,\tk\,d\tau$\\
+\code{LT\_closed(cf,k,s,tau0)} & the closed form \code{eq:T-segment-closed-Mk}\\
+\code{E4}, \code{E6}, \code{Delta}, \code{invDelta} & the forms as functions on $\HH$, for quadrature\\
+\code{cf\_E4}, \code{cf\_E6}, \code{cf\_Delta} & their \emph{exact} integer $q$-coefficients\\
+\code{cf\_invDelta}, \code{cf\_j}, \code{jay} & likewise for $1/\Delta$ and $j=E_4^3/\Delta$\\
+\code{residue\_at(g,s0,r)} & $\mathop{\rm Res}$ by trapezoid rule on a circle $|s-s_0|=r$\\
+\code{WEAK\_FORMS} & the Layer C form table (form, function, coefficients, $k$)\\
+\code{\_eta\_prod}, \code{\_smul}, \code{\_sinv} & integer power-series arithmetic behind those\\
+\code{check(label,layer,tier)} & decorator registering a test against a \verb|\label|\\
+\code{rel(got,want)} & relative error, denominator floored at $1$\\
+\code{main} & driver; \code{TOL}, \code{NT}, \code{NMAX} are set by tier\\
+\end{tabular}
+
+\section{Layer A: kernel and unfolding}
+
+Layer A sits upstream of everything else. If the kernel identities or the mode-by-mode
+unfolding are wrong, every downstream check is measuring the wrong thing.
+
+\paragraph{A1 --- the $\delta_T$ shift (\code{def:kernel}; \code{a1\_kernel\_shift}).}
+Verifies
+$\delta_T\tk(\tau,s)=\tk(\tau+1,s)-\tk(\tau,s)=-(\tau+1)^{s-1}+e^{i\pi(s-1)}(\tau+1)^{k-1-s}$
+directly, at three weights, three base-points and three values of $s$ including one on the
+critical line. This is the identity that turns the $\partial_{\tau_0}$ boundary term into a unit
+shift of the kernel, so it underwrites $\tau_0$-independence.
+
+\paragraph{A2 --- the Hurwitz antiderivative (\code{eq:hurwitz-antideriv}; \code{a2\_hurwitz}).}
+Three separate claims: $\partial_a\big[\zeta(\sigma-1,a)/(1-\sigma)\big]=\zeta(\sigma,a)$; the
+shift $\zeta(\sigma-1,a+1)-\zeta(\sigma-1,a)=-a^{1-\sigma}$; and the definite integral
+$\int_{i-1}^{i}\zeta(\sigma,\tau+1)d\tau=i^{1-\sigma}/(\sigma-1)$ that they combine to give.
+These produce the $n=0$ contribution, hence the entire
+$-c_f(0)\big(\tfrac1s+\tfrac{i^k}{k-s}\big)$ polar structure.
+
+\paragraph{A3 --- the unfolding (\code{eq:T-segment-closed-Mk}).}
+The general-$\tau_0$ $T$-segment closed form, checked against quadrature in three stages of
+increasing exposure:
+\begin{itemize}
+\item \code{a3a\_unfold\_pos} --- positive modes only ($\Delta$, $k=12$): no branch question arises;
+\item \code{a3b\_unfold\_const} --- $c_f(0)\neq0$ ($E_4$, $k=4$): exercises the
+      $-c_f(0)\big((\tau_0/i)^s/s+\dots\big)$ term;
+\item \code{a3c\_unfold\_neg} --- negative modes ($1/\Delta$, $k=-12$): $n<0$ makes $(2\pi n)^s$ a power of a negative
+number and drives $-2\pi in\tau_0$ onto the cut of $\Gamma(s,\cdot)$.
+\end{itemize}
+
+The third stage is the ``incomplete-gamma unfolding ambiguity''. The suite pins the convention
+by quadrature: for $n<0$,
+\[
+(2\pi n)^s := (2\pi|n|)^s\,e^{+i\pi s}.
+\]
+This must be applied as an explicit phase and never folded into the base as
+$(2\pi|n|e^{i\pi})^s$: numerically $e^{i\pi}=-1+\varepsilon i$ with the sign of $\varepsilon$ a
+rounding artifact, so the base-folded form silently changes branch with the working precision.
+With the phase explicit, the closed form matches quadrature to $10^{-31}$ at
+$\tau_0=i,\,1.35i,\,2i$ and at $\tau_0$ off-axis to the right.
+
+\paragraph{A3, ${\rm Re}\,\tau_0<0$: the continued $\Gamma$ (\code{a3d\_unfold\_neg\_left}).}
+For $n<0$ write $z=-2\pi in\tau_0$. With $\tau_0=x+iy$ this is
+$z=-2\pi|n|y+2\pi i|n|x$, so ${\rm Re}\,z<0$ always while ${\rm Im}\,z$ carries the sign of
+$x={\rm Re}\,\tau_0$: the point $z$ sits just above the negative-real cut of $\Gamma(a,\cdot)$
+when ${\rm Re}\,\tau_0>0$ and just below it when ${\rm Re}\,\tau_0<0$. The L-integral varies
+continuously as $\tau_0$ moves; the \emph{principal} $\Gamma$ jumps.
+
+The jump is the standard monodromy. Since $\Gamma(a,z)=\Gamma(a)-\gamma(a,z)$ with
+$\gamma(a,z)=z^a\sum_{m\ge0}(-z)^m/\big(m!(a+m)\big)$, all the multivaluedness sits in $z^a$,
+and one anticlockwise turn gives
+\[
+\Gamma_{\rm cont}(a,z)=\Gamma(a)\big(1-e^{2\pi ia}\big)+e^{2\pi ia}\,\Gamma_{\rm prin}(a,z),
+\]
+implemented as \code{\_gamma\_cont} and applied per term at $a=s$ and $a=k-s$. With it,
+\code{eq:T-segment-closed-Mk} reproduces quadrature to $10^{-31}$ for ${\rm Re}\,\tau_0<0$,
+just as the principal branch does for ${\rm Re}\,\tau_0\ge0$.
+
+So the lemma is correct as stated for all $\tau_0\in\HH$, and \code{prop:HGG}'s phrase ``the
+identity continues to $n<0$'' is doing real work: $\Gamma$ must be the continuation, which
+coincides with the principal value only while ${\rm Re}\,\tau_0\ge0$. An earlier draft of this
+document reported the lemma as failing for ${\rm Re}\,\tau_0<0$; that was an artifact of
+evaluating $\Gamma$ on the principal branch on the far side of its cut, not a defect of the
+result.
+
+\section{Layer B: $\tau_0$-independence and wall-crossing}
+
+Layer B tests the full L-integral $L^*=L^*_S+L^*_T$ of \code{def:Lint}, with both segments by
+quadrature (\code{LS\_raw}, \code{LT\_raw\_path}, assembled by \code{L\_raw}). Paths are
+polylines integrated by \code{path\_int}; $\HH$ is convex, so the straight line from $-1/\tau_0$
+to $\tau_0$ stays inside it.
+
+\paragraph{B1, B2 --- $\tau_0$-independence (\code{b1\_indep\_onaxis}, \code{b2\_indep\_offaxis}).}
+\code{prop:indep}: neither segment is separately invariant, only the sum. Checked on the
+imaginary axis and off it, for $\Delta$, $E_4$, $E_6$ and $1/\Delta$. B2 includes
+${\rm Re}\,\tau_0<0$ deliberately, which is what first showed that the A3 discrepancy could not
+be a property of the L-integral: the raw $L^*$ is invariant there to $10^{-16}$, so whatever was
+wrong had to lie in the evaluation of the closed form --- as it did.
+
+\paragraph{B3 --- a meromorphic form (\code{b3\_indep\_meromorphic}).}
+\code{prop:indepHomotopy} for $f=\Delta/(j-j(2i))\in F_{12}$, whose poles are the $\Gamma$-orbit
+of $2i$ at heights $2,\tfrac12,\tfrac25,\dots$. Base-points near $i$ keep both segments clear of
+every image, so these all lie in one class and $L^*$ must not move.
+
+\paragraph{B4, B5 --- wall-crossing (\code{b4\_wall\_T}, \code{b5\_wall\_S}).}
+\code{lem:wall} with \emph{fixed end-points and two homotopy classes}, so the crossing is
+isolated from the genuine $\tau_0$-dependence of each separate segment. For $T$: a straight
+segment at height $2.2$ against one dipping to $1.8$, enclosing $2i$ alone. For $S$: two paths
+agreeing around every image except $2i$, which one passes to the left and the other to the
+right. In both the enclosed loop runs clockwise, so $X=-1$ and the predicted jump is
+$-2\pi ie^{-i\pi s/2}r$, with $r_T={\rm Res}(f\tk)$ and $r_S={\rm Res}(f\tau^{s-1})$ from
+\code{res\_circle}.
+
+Two things had to be got right for these to test anything. The form is normalised so
+${\rm Res}_{2i}f=1$; unnormalised the residue is $\Delta(2i)/j'(2i)\approx2\times10^{-12}$ and
+every jump is $\sim10^{-9}$, at which scale a sign error hides under the noise floor. And
+\code{res\_circle} needs enough points: the trapezoid rule on $|\tau-2i|=r$ converges like
+$(r/R)^M$ with $R=1$ the distance to $2i+1$, so the original $r=0.3$, $M=16$ gave only
+$0.3^{16}\sim4\times10^{-9}$ --- agreement to eight digits, which reads as a failure against a
+$10^{-9}$ tolerance and invites a hunt for a nonexistent bug elsewhere.
+
+\section{Layer C: \code{thm:weakL} and the functional equation}
+
+For $f\in M^!_k$ the base-point may be taken at $\tau_0=i$, where the $S$-segment degenerates to
+a point and $L^*=L^*_T$ alone. Ground truth for this layer is therefore
+\code{LT\_raw(f,k,s,I)}, the bare quadrature of $e^{-i\pi s/2}\!\int_{i-1}^{i}f\,\tk\,d\tau$.
+
+The five test forms (\code{WEAK\_FORMS}) are chosen to span the cases the statement
+distinguishes rather than to be interesting individually:
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+form & code & $k$ & feature exercised\\
+\hline
+$\Delta$    & \code{cf\_Delta}    & $12$  & cusp form, $c_f(0)=0$\\
+$E_4$       & \code{cf\_E4}       & $4$   & $c_f(0)\ne0$, so the polar term is live\\
+$E_6$       & \code{cf\_E6}       & $6$   & $i^k=-1$\\
+$1/\Delta$  & \code{cf\_invDelta} & $-12$ & pole at the cusp, so $n<0$ modes\\
+$j$         & \code{cf\_j}        & $0$   & the $s=0$ and $s=k$ poles coincide\\
+\end{tabular}
+\end{center}
+\noindent$j=E_4^3/\Delta$ is built by integer series arithmetic and reproduces
+$q^{-1}+744+196884q+21493760q^2$ exactly; $E_6$ reproduces $1-504q-16632q^2-122976q^3$.
+
+\paragraph{C1 --- \code{eq:weakL} (\code{c1\_weakL}).}
+The closed form against quadrature, for all five forms. Since \code{eq:weakL} is
+\code{eq:T-segment-closed-Mk} specialised to $\tau_0=i$, this also re-exercises the branch
+convention pinned in A3, now with $c_f(0)\neq0$ and with $k\le0$.
+
+\paragraph{C2 --- the residue (\code{c2\_residue}).}
+$\mathop{\rm Res}_{s=0}L^*=-c_f(0)$. The residue is extracted from the \emph{raw} integral by a
+contour in $s$ (\code{residue\_at}, trapezoid rule on $|s|=r$), so the note's polar claim is
+tested against quadrature and not against its own closed form. The circle is used rather than
+extrapolating $s\,L^*(s)$, which converges only linearly in $s$ and would not reach tolerance.
+
+The weight-zero case is the sharp one. For $k=0$ the two poles collide, and the polar term is
+$-c_f(0)\big(\tfrac1s+\tfrac{i^0}{0-s}\big)=0$ identically, so the residue must \emph{vanish}
+even though $c_j(0)=744$. It does. This is the mechanism behind the factor $(1-\delta_{k,0})$
+appearing in the special-value corollaries of arXiv:1806.09874, recovered here from bare
+quadrature.
+
+\paragraph{C3 --- the functional equation (\code{c3\_functional\_eq}).}
+$L^*(f,s)=i^kL^*(f,k-s)$, with \emph{both} sides computed by raw quadrature. This is the
+cheapest global probe in the suite: it touches every phase in the construction at once, and a
+single lost sign anywhere breaks it. $E_6$ is the case that matters, being the only form here
+with $i^k=-1$; the weights $12,4,-12,0$ all give $i^k=+1$ and would not detect a dropped
+$i^k$.
+
+\section{Layers B, D--G}
+
+Pending, in dependency order: \textbf{B} $\tau_0$-independence and wall-crossing;
+\textbf{D} periods, quasi-periods and the Haberland--Petersson pairing; \textbf{E} the
+meromorphic machinery of \S4; \textbf{F} external anchors (the corrected 1806 lemma, the
+Hurwitz class-number sum rule); \textbf{G} suite hygiene --- truncation, precision and
+quadrature self-tests.
+
+\end{document}

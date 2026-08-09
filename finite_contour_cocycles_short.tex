@@ -388,12 +388,20 @@ $\widetilde{k}_T(\tau, s) = \zeta(1 - s, \tau + 1) - e^{i\pi(s-1)}\zeta(s - (k-1
 at $\nu = 1 - s$ and $\nu = s - (k - 1)$. The phases for the second term work-out 
 identically as in the proof of Theorem~\ref{thm:weakL}.  
 
-For $n = 0$, the constant $c_f(0)$ multiplies $e^{-\pi i s/2}\!\int_{\tau_0 - 1}^{\tau_0}\!\widetilde k_T(\tau, s)\,d\tau$;
-the Hurwitz antiderivative $\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1 - \sigma}/(\sigma - 1)$
---- from $\partial_\tau\zeta(\sigma - 1, \tau + 1) = -(\sigma - 1)\zeta(\sigma, \tau + 1)$ and the shift
-$\zeta(\sigma - 1, \tau_0 + 1) - \zeta(\sigma - 1, \tau_0) = -\tau_0^{1 - \sigma}$ --- applied to the two
-halves of $\widetilde k_T$ at $\sigma = 1 - s$ and $\sigma = s - k + 1$ yields
-$-e^{-\pi i s/2}\tau_0^{\,s}/s = -(\tau_0/i)^s/s$ and $-e^{\pi i s/2}\tau_0^{\,k-s}/(k-s) = -i^k(\tau_0/i)^{k-s}/(k-s)$ respectively.
+For $n = 0$, the constant $c_f(0)$ multiplies $e^{-\pi i s/2}\!\int_{\tau_0 - 1}^{\tau_0}\!\widetilde k_T(\tau, s)\,d\tau$, 
+which we compute as follows. First, the closed-form of the Hurwitz antiderivative 
+$\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1 - \sigma}/(\sigma - 1)$x 
+comes from $\partial_\tau\zeta(\sigma - 1, \tau + 1) = -(\sigma - 1)\zeta(\sigma, \tau + 1)$ 
+and the shift identity $\zeta(\sigma - 1, \tau_0 + 1) - \zeta(\sigma - 1, \tau_0) = -\tau_0^{1 - \sigma}$. 
+Finally, note that the two terms in $\tk$ are simply specializations of $\sigma = 1 - s$ and $\sigma = s - k + 1$, 
+which yield $-e^{-\pi i s/2}\tau_0^{\,s}/s = -(\tau_0/i)^s/s$ and 
+$-e^{\pi i s/2}\tau_0^{\,k-s}/(k-s) = -i^k(\tau_0/i)^{k-s}/(k-s)$ respectively.
+%For $n = 0$, the constant $c_f(0)$ multiplies $e^{-\pi i s/2}\!\int_{\tau_0 - 1}^{\tau_0}\!\widetilde k_T(\tau, s)\,d\tau$;
+%the Hurwitz antiderivative $\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1 - \sigma}/(\sigma - 1)$
+%--- from $\partial_\tau\zeta(\sigma - 1, \tau + 1) = -(\sigma - 1)\zeta(\sigma, \tau + 1)$ and the shift
+%$\zeta(\sigma - 1, \tau_0 + 1) - \zeta(\sigma - 1, \tau_0) = -\tau_0^{1 - \sigma}$ --- applied to the two
+%halves of $\widetilde k_T$ at $\sigma = 1 - s$ and $\sigma = s - k + 1$ yields
+%$-e^{-\pi i s/2}\tau_0^{\,s}/s = -(\tau_0/i)^s/s$ and $-e^{\pi i s/2}\tau_0^{\,k-s}/(k-s) = -i^k(\tau_0/i)^{k-s}/(k-s)$ respectively.
 \end{proof}
 
 
@@ -1187,9 +1195,9 @@ With
 $\Li_{\ell+2-m}(e^{-2\pi\delta})=\Gamma(m-\ell-1)(2\pi\delta)^{\ell-m+1}+\sum_{p\ge0}\tfrac{\zeta(\ell+2-m-p)}{p!}(-2\pi\delta)^p$,
 two finite ($\delta^0$) parts survive:
 \begin{enumerate}
-\item the regular part at $\delta^0$ gives, for $\ell\ne m-1$, the $\zeta$-value
-$\tfrac{c^+_\ell(s)}{(2\pi)^{\ell+1}}\zeta(\ell+2-m)$ --- the $\zeta$-sum of~\eqref{eq:FP};
-\item for $\ell<m-1$ the singular $\Gamma(m-\ell-1)(2\pi\delta)^{\ell-m+1}$ crosses the $\delta^{m-\ell-1}$ coefficient
+\item The regular part at $\delta^0$ gives, for $\ell\ne m-1$, the $\zeta$-value
+$\tfrac{c^+_\ell(s)}{(2\pi)^{\ell+1}}\zeta(\ell+2-m)$: the $\zeta$-sum of~\eqref{eq:FP}.
+\item For $\ell<m-1$ the singular $\Gamma(m-\ell-1)(2\pi\delta)^{\ell-m+1}$ crosses the $\delta^{m-\ell-1}$ coefficient
 $\binom{s-1-\ell}{m-\ell-1}$ of $(1+\delta)^{s-1-\ell}$; by the falling-factorial identity
 $(s-1)_{(\ell)}(m-\ell-2)!\binom{s-1-\ell}{m-\ell-1}=(s-1)_{(m-1)}/(m-\ell-1)$ (and its $k{-}s$ partner) these sum to
 \begin{equation}\label{eq:harm}
@@ -1197,8 +1205,10 @@ $(s-1)_{(\ell)}(m-\ell-2)!\binom{s-1-\ell}{m-\ell-1}=(s-1)_{(m-1)}/(m-\ell-1)$ (
 \end{equation}
 the harmonic term of~\eqref{eq:FP}.
 \end{enumerate}
-The remaining $\ell=m-1$ term yields no finite part --- only a $\log(2\pi\delta)$, which cancels in the
-$\delta\to0$ limit of the S-contour, which we now turn to. 
+The remaining $\ell=m-1$ term is just $\log(2\pi\delta)$, which cancels in the
+$\delta\to0$ limit of the S-contour. We now turn to this S-contour's contribution. 
+%The remaining $\ell=m-1$ term yields no finite part --- only a $\log(2\pi\delta)$, which cancels in the
+%$\delta\to0$ limit of the S-contour, which we now turn to. 
 
 On $\hat\gamma_f^S$ the pure pole $\sum_m r^*_{f,i}(m)(\tau-i)^{-m}$, integrated by principal value
 against $\tau^{s-1}$ along the axis ($\tau=i(1+v)$), has the $\delta^0$ finite part
@@ -1251,6 +1261,26 @@ pole at $i$ contributes $L^*(\widehat P_i f,s)$ of Lemma~\ref{lem:wallvalue}. En
 pole locations follow from those of $G_{s,k}$ and the $\delta_{N,0}$ terms; when $f$ is
 holomorphic on $\HH$, $\widehat Pf=0$ and $c_{Rf}=c_f$, recovering Theorem~\ref{thm:weakL}.
 \end{proof}
+
+\begin{remark}\label{rem:residues}
+Casual inspection of the structure of the $I_N(s, \tau_p)$-functions entering into Theorem~\ref{thm:mero} 
+would lead one to conclude that they substantively differ from those in~\cite{1806}, where the author first 
+defined an L-function for $f \in F_k$: Ref.~\cite{1806} has the $1/s$-residue proportional only to $c_f(0)$. 
+However, our L-function has $1/s$-residue contributions from all \emph{simple} poles located above the 
+${\rm Im}(\tau_p) > 1$-line. This naive difference is immaterial, and does not impact the results of the 
+residue theorems for the $1/s$-poles in~\cite{1806}, for the simple reason that in Ref.~\cite{1806}, the 
+reference contour was implicitly at $\tau_0 \to i \infty$. This was valid in the restricted context of~\cite{1806}, 
+as that paper only focused on $f \in F_k$ where $f = \sum_{n \geq 0} c_f(n) q^n$; poles at the $\SLZ$ cusp 
+were explicitly excluded, which allowed the limit $\tau_0 \to i \infty$ to be smooth and safe. However, in this 
+work, we make a different reference contour --- that in Definition~\ref{def:null_homotopy}. 
+%The poles at $s=0$ and $s=k$ belong to the class, not to $f$ alone. Here the $T$-segment sits at
+%height $1+\delta$, so each pole above it is reached through the inversion of
+%Lemma~\ref{lem:polylogcf}, contributing
+%$-2\pi i\,r^*_{f,\tau_p}(1)\big(\tfrac1s+\tfrac{i^k}{k-s}\big)$; the L-function of~\cite{1806}
+%anchors its contour at the cusp, lies above every pole, and carries
+%$-c_f(0)\big(\tfrac1s+\tfrac{i^k}{k-s}\big)$ alone. The two differ by the residues crossed in
+%moving the basepoint from $i(1+\delta)$ to $i\infty$, as in Lemma~\ref{lem:wall}.
+\end{remark}
 
 \begin{thebibliography}{99}
 
