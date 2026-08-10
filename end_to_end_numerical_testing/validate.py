@@ -15,10 +15,10 @@ Layers (see validation_notes.tex):
     A  kernel and unfolding          <- upstream of everything; done
     B  tau_0-independence            <- done
     C  thm:weakL                     <- done
-    D  periods and quasi-periods     <- pending
-    E  meromorphic / section 4       <- pending
-    F  external anchors (1806, Hurwitz class numbers)   <- pending
-    G  suite hygiene                 <- pending
+    D  periods and quasi-periods     <- done
+    E  meromorphic / section 4       <- done
+    F  external anchors (1806)       <- done
+    G  suite hygiene                 <- done
 """
 import sys
 import mpmath as mp
@@ -718,7 +718,8 @@ def e4_wallvalue():
         yield ("%s (k=%d P=%d) extrapolated" % (name, k, P), (8 * f4 - 6 * f2 + f1) / 3, pred)
 
 
-@check("rem:cutoff", "E", desc=r"$\mathrm{FP}_N$ independent of $J$ for $J\ge N+1$")
+@check("rem:cutoff", "E", tol=mp.mpf('1e-12'),
+       desc=r"$\mathrm{FP}_N$ independent of $J$ for $J\ge N+1$")
 def e5_cutoff():
     r"""rem:cutoff: any larger J moves terms between the zeta-sum and E^+ and must leave FP_N
     unchanged.  Compared among the cutoffs that converge geometrically (J >= N+2); J=N+1 is
@@ -757,12 +758,13 @@ def e6_laurent():
 
 
 @check("lem:polylogedge", "E", tier="report",
-       desc=r"OPEN: edge pole ${\rm Im}\,z=1$, from-above vs from-below")
+       desc=r"edge pole ${\rm Im}\,z=1$: size of the from-above convention")
 def e7_edge_route():
-    r"""REPORTER.  def:null_homotopy puts the T-contour at 1+delta, ABOVE a pole sitting at
-    height exactly 1, so the minimal-class value is the from-BELOW one; lem:polylogedge instead
-    continues the from-ABOVE formula of lem:polylogcf down to the edge.  The two differ by the
-    crossing residue.  Printed, not scored, until the route is settled."""
+    r"""REPORTER, not a defect.  The note adopts and retains the from-ABOVE reading:
+    lem:polylogedge continues the formula of lem:polylogcf down to the edge.  The from-BELOW
+    value -- the block's own q-series against G_{s,k}, no inversion and hence no delta_{N,0}
+    term -- differs from it by the crossing residue.  This line measures the size of that
+    convention choice (a factor ~4.4 at z=0.3+i); it is printed, never scored."""
     k, N = 12, 0
     s = mp.mpc('2.3', '0.4')
     for x0 in (mp.mpf('0.3'), mp.mpf('0.42')):
@@ -775,6 +777,402 @@ def e7_edge_route():
                       * (mp.gammainc(s, X, mp.inf) / (2 * pi * n)**s
                          + I**k * mp.gammainc(k - s, X, mp.inf) / (2 * pi * n)**(k - s)))
         yield ("z=%s+i : below vs above" % mp.nstr(x0, 3), below, above)
+
+
+# ============================================ LAYER D: periods and quasi-periods
+_DELTA_S = [0] + _ETA24[:_NSER]
+_E6S = [1] + [-504 * _sigma(5, m) for m in range(1, _NSER + 1)]
+
+
+def _mulS(*series):
+    out = series[0]
+    for b in series[1:]:
+        out = _smul(out, b, _NSER)
+    return out
+
+
+# dim S_k = 1: the unique normalised cusp form Delta_k = q + O(q^2)
+CUSP1 = {
+    12: (_DELTA_S,                            lambda t: Delta(t)),
+    16: (_mulS(_DELTA_S, _E4S),               lambda t: Delta(t) * E4(t)),
+    18: (_mulS(_DELTA_S, _E6S),               lambda t: Delta(t) * E6(t)),
+    20: (_mulS(_DELTA_S, _E4S, _E4S),         lambda t: Delta(t) * E4(t)**2),
+    22: (_mulS(_DELTA_S, _E4S, _E6S),         lambda t: Delta(t) * E4(t) * E6(t)),
+    26: (_mulS(_DELTA_S, _E4S, _E4S, _E6S),   lambda t: Delta(t) * E4(t)**2 * E6(t)),
+}
+
+
+def f_on_axis(f, k, y):
+    r"""f(iy) evaluated safely for ALL y>0.
+
+    The q-series of E4/E6 is truncated at NT terms, so it is only usable while |q| is small,
+    i.e. y not far below 1: at y=0.03, |q|=0.83 and 40 terms give garbage (off by 1e84).
+    For y<1 pull back with f(i/y) = i^k y^k f(iy), i.e. f(iy) = f(i/y)/(i^k y^k), which lands
+    the evaluation at height 1/y > 1 where the series converges."""
+    return f(I * y) if y >= 1 else f(I / y) / (I**k * y**k)
+
+
+def cusp_cf(k):
+    ser = CUSP1[k][0]
+    return lambda n: mp.mpf(ser[n]) if 1 <= n < len(ser) else mp.mpf(0)
+
+
+def rf_coeffs(k, nmax=None):
+    r"""def:rf: coefficient of X^{n-l}Y^l is (2 pi i)^{n+1}(-1)^l C(n,l) i^{l+1} L^*(f,l+1)."""
+    n = k - 2
+    cf = cusp_cf(k)
+    return [(2 * pi * I)**(n + 1) * (-1)**l * mp.binomial(n, l) * I**(l + 1)
+            * LT_closed(cf, k, mp.mpf(l + 1), I, nmax=nmax) for l in range(n + 1)]
+
+
+def slash(p, n, mat):
+    r"""(w|gamma)(X,Y) = w(aX+bY, cX+dY) on V_n, p[l] = coeff of X^{n-l}Y^l."""
+    a, b, c, d = mat
+    out = [mp.mpc(0)] * (n + 1)
+    for l, cl in enumerate(p):
+        if cl == 0:
+            continue
+        # (aX+bY)^{n-l} (cX+dY)^l
+        for u in range(n - l + 1):
+            cu = mp.binomial(n - l, u) * a**(n - l - u) * b**u
+            for v in range(l + 1):
+                out[u + v] += cl * cu * mp.binomial(l, v) * c**(l - v) * d**v
+    return out
+
+
+def pairing(p, q, n):
+    r"""eq:inner: <P,Q> = sum_a (-1)^a C(n,a)^{-1} p_a q_{n-a}."""
+    return sum((-1)**a / mp.binomial(n, a) * p[a] * q[n - a] for a in range(n + 1))
+
+
+@check("lem:rfW", "D", tol=mp.mpf('1e-10'),
+       desc=r"$r_f\in W$: $(1+S)$ and $(1+U+U^2)$ relations")
+def d1_rfW():
+    r"""def:w requires r_f|(1+S) = r_f|(1+U+U^2) = 0.  S = (0,-1;1,0), U = TS = (1,-1;1,0).
+
+    Tolerance is pinned, not tracking TOL: assembling (1+U+U^2) at high weight cancels against
+    binomials C(k-2,.) that reach ~1e7 by k=26, costing about ten digits.  The residuals are
+    1e-11 at dps=15 and 1e-22 at dps=30 -- vanishing emphatically, but not to full mantissa."""
+    ks = [12, 16, 18] + ([20, 22, 26] if SLOW else [])
+    S = (0, -1, 1, 0)
+    U = (1, -1, 1, 0)
+    for k in ks:
+        n = k - 2
+        p = rf_coeffs(k)
+        scale = max(abs(c) for c in p)
+        pS = [x + y for x, y in zip(p, slash(p, n, S))]
+        pU = slash(p, n, U)
+        pUU = slash(pU, n, U)
+        pU3 = [x + y + z for x, y, z in zip(p, pU, pUU)]
+        yield ("k=%d  |r_f|(1+S)|/scale" % k, max(abs(c) for c in pS) / scale, mp.mpf(0))
+        yield ("k=%d  |r_f|(1+U+U^2)|/scale" % k, max(abs(c) for c in pU3) / scale, mp.mpf(0))
+
+
+@check("def:rf", "D", tol=mp.mpf('1e-8'),
+       desc=r"$r_m=i^{m+1}L^*(m{+}1)$ vs the classical $\int_0^{i\infty}\tau^mf\,d\tau$")
+def d2_classical_periods():
+    r"""EXTERNAL ANCHOR.  The finite two-segment L-integral must reproduce the classical
+    critical period r_m = int_0^{i oo} tau^m f(tau) dtau = i^{m+1} int_0^oo y^m f(iy) dy.
+    For a cusp form the integrand decays at both ends (e^{-2 pi y} as y->oo, and
+    y^{-k}e^{-2 pi/y} as y->0), so it is computed by direct quadrature on the axis, with
+    f evaluated through f_on_axis so the y<1 stretch is not read off a truncated q-series."""
+    ks = [12, 16] + ([18, 20] if SLOW else [])
+    for k in ks:
+        cf, f = cusp_cf(k), CUSP1[k][1]
+        # s = k/2 is skipped when i^k = -1: there the two halves of G_{s,k} cancel term by
+        # term, L^*(k/2) = 0 identically by the functional equation, and both sides of this
+        # comparison vanish.  That zero is asserted separately, by d2b_central_zero.
+        ms = range(0, k - 1) if SLOW else (0, 1, (k - 2) // 2, k - 2)
+        ms = [m for m in ms if not (I**k == -1 and m + 1 == mp.mpf(k) / 2)]
+        for m in ms:
+            cls = mp.quad(lambda y: y**m * f_on_axis(f, k, y),
+                          [mp.mpf('0.02'), mp.mpf('0.2'), mp.mpf('0.6'), 1,
+                           mp.mpf('1.5'), 2, 3, 4, 6, 9, 14])
+            yield ("k=%d m=%d" % (k, m), LT_closed(cf, k, mp.mpf(m + 1), I), cls)
+
+
+@check("def:rf", "D", desc=r"central value $L^*(k/2)=0$ when $i^k=-1$")
+def d2b_central_zero():
+    r"""For k = 2 mod 4 the functional equation L^*(s) = i^k L^*(k-s) reads L^*(k/2) =
+    -L^*(k/2) at the centre of the critical strip, so the central value vanishes.  It does so
+    term by term in G_{s,k}, hence exactly rather than to within tolerance."""
+    for k in (18, 22, 26):
+        if I**k != -1:
+            continue
+        yield ("k=%d  L^*(k/2)" % k,
+               LT_closed(cusp_cf(k), k, mp.mpf(k) / 2, I), mp.mpf(0))
+
+
+@check("def:periods", "D", tol=mp.mpf('1e-12'),
+       desc=r"Haberland: $\langle f,f\rangle$ from periods vs $\int_{\mathcal F}|f|^2y^{k-2}$")
+def d3_haberland():
+    r"""THE strongest anchor in the suite: normalisation-INVARIANT, and both sides are
+    computed independently here (no published constant is trusted).
+
+    Cohen, ANTS X (2013), Thm 5.2(2), full modular group:
+      -6(-2i)^{k-2} <f,f> = sum_{m+n<=k-2} C(k-2,m+n) C(m+n,m) (-1)^m Im( r_m conj(r_n) ),
+    with r_m = i^{m+1} L^*(f,m+1).  The right side uses only our finite-contour L^*; the left
+    is the Petersson norm by direct integration over the fundamental domain."""
+    ks = [12] + ([16] if SLOW else [])
+    for k in ks:
+        cf, f = cusp_cf(k), CUSP1[k][1]
+        n = k - 2
+        r = [I**(m + 1) * LT_closed(cf, k, mp.mpf(m + 1), I) for m in range(n + 1)]
+        rhs = mp.mpc(0)
+        for m in range(n + 1):
+            for nn in range(n + 1 - m):
+                rhs += (mp.binomial(n, m + nn) * mp.binomial(m + nn, m) * (-1)**m
+                        * mp.im(r[m] * mp.conj(r[nn])))
+        pet_from_periods = rhs / (-6 * (-2 * I)**n)
+        inner = lambda x: mp.quad(lambda y: abs(f(x + I * y))**2 * y**(k - 2),
+                                  [mp.sqrt(1 - x**2), mp.mpf('1.4'), 3, 7])
+        pet_direct = mp.quad(inner, [mp.mpf('-0.5'), 0, mp.mpf('0.5')])
+        yield ("k=%d  <f,f>" % k, pet_from_periods, pet_direct)
+
+
+# ================================================ LAYER F: external anchors (1806)
+def I1806_raw(N, s, k, tau_p, B=mp.mpf(1)):
+    r"""1806 LemRegX1: I_N(s,-i tau_p|B) = int_B^oo (dt/t) t^s Li_{-N}(e(i t - tau_p))."""
+    y = mp.im(tau_p)
+    g = lambda t: t**(s - 1) * mp.polylog(-N, mp.e**(2 * pi * I * (I * t - tau_p)))
+    pts = ([B, y, y + 1, y + 4, mp.inf] if y > B else [B, B + 1, B + 4, mp.inf])
+    return mp.quad(g, pts)
+
+
+def I1806_below(N, s, k, tau_p, B=mp.mpf(1), nmax=None):
+    r"""eqLemRegX3, the y<B branch: absolutely convergent, and correct as published."""
+    nmax = nmax or (80 if SLOW else 40)
+    tot = mp.mpc(0)
+    for n in range(1, nmax + 1):
+        tot += (mp.e**(-I * pi * (1 + 2 * n * tau_p)) * mp.gammainc(s, 2 * pi * n * B, mp.inf)
+                / (2 * pi * n)**(s - N))
+    return -tot / (2 * pi)**N
+
+
+def I1806_above_corrected(N, s, k, tau_p, B=mp.mpf(1), nmax=None, tail=None):
+    r"""The CORRECTED y>B branch (fix_previous_1806_file/20190115lfn.tex, eqLemRegX3b):
+
+        -delta_{N,0}(y^s - B^s)/s  +  (-1)/(2 pi)^N sum_n (ell^>_n + ellhat_n)/(2 pi n)^{s-N},
+        ell^>_n = e^{+i pi(s-N+2n tau_p)}[Gamma(s,-2 pi n B) - Gamma(s,-2 pi n y)],
+        ellhat_n = e^{-i pi(1+2n tau_p)} Gamma(s, +2 pi n y).
+
+    The published version keeps only the t=B endpoint of ell^>, dropping the t=y endpoint, the
+    delta_{N,0} constant and the whole int_y^oo tail.  The two boundary series converge only
+    conditionally (terms ~ n^{N-1} times a phase), so partial sums are Cesaro-averaged."""
+    nmax = nmax or (1500 if SLOW else 600)
+    tail = tail or (300 if SLOW else 120)
+    y = mp.im(tau_p)
+    ps, run = [], mp.mpc(0)
+    for n in range(1, nmax + 1):
+        zb = mp.mpc(-2 * pi * n * B, 0)
+        zy = mp.mpc(-2 * pi * n * y, 0)
+        # (-2 pi n)^s is read principally as (2 pi n)^s e^{+i pi s}, so dividing by it
+        # contributes e^{-i pi s}.  That is exactly the pairing the corrigendum fixes by
+        # requiring [G(s,-2 pi nB) - G(s,-2 pi ny)]/(-2 pi n)^s = int_B^y (dt/t)t^s e^{2 pi nt};
+        # verified against that integral to 1e-25.  Pairing e^{+i pi s} with mpmath's default
+        # branch instead is wrong by O(1) and converges to a value 26% off.
+        Kn = (mp.e**(-I * pi * s)
+              * (mp.gammainc(s, zb, mp.inf) - mp.gammainc(s, zy, mp.inf)) / (2 * pi * n)**s)
+        tail_n = mp.gammainc(s, 2 * pi * n * y, mp.inf) / (2 * pi * n)**s
+        run += mp.mpf(n)**N * ((-1)**(N + 1) * mp.e**(2 * pi * I * n * tau_p) * Kn
+                               + mp.e**(-2 * pi * I * n * tau_p) * tail_n)
+        ps.append(run)
+    ces = sum(ps[-tail:]) / len(ps[-tail:])
+    const = -(y**s - B**s) / s if N == 0 else mp.mpc(0)
+    return const + ces
+
+
+@check("eqLemRegX3", "F", desc=r"1806 $y<B$ branch (as published) vs quadrature")
+def f1_1806_below():
+    r"""The branch of LemRegX3 that is correct as published; also pins the convention that the
+    integrand is line 684's (dt/t)t^s, not line 645's (tau/i)^{s-1}."""
+    s = mp.mpc('2.3', '0.4')
+    for tau_p in (mp.mpf('0.3') + mp.mpf('0.6') * I, mp.mpf('0.15') + mp.mpf('0.8') * I):
+        for N in (0, 1, 2):
+            yield ("tau_p=%s N=%d" % (mp.nstr(tau_p, 4), N),
+                   I1806_below(N, s, 0, tau_p), I1806_raw(N, s, 0, tau_p))
+
+
+@check("eqLemRegX3b", "F", tol=mp.mpf('1e-4'),
+       desc=r"1806 $y>B$ branch, CORRECTED, vs quadrature")
+def f2_1806_above():
+    r"""Regression for the corrigendum.  Tolerance 1e-4: the boundary series are only
+    conditionally convergent, so the Cesaro average converges slowly.  The published form
+    misses the truth by O(1) (a factor ~12), which this comfortably distinguishes."""
+    s = mp.mpc('2.3', '0.4')
+    for tau_p in (mp.mpf('0.3') + mp.mpf('1.4') * I,):
+        for N in (0, 1):
+            yield ("tau_p=%s N=%d" % (mp.nstr(tau_p, 4), N),
+                   I1806_above_corrected(N, s, 0, tau_p), I1806_raw(N, s, 0, tau_p))
+
+
+@check("Thm1", "F", desc=r"1806 block integrals are entire: no pole at $s=0$")
+def f3_1806_entire():
+    r"""1806 Thm 1 says the ONLY non-regular terms are -c_f(0)(B^s/s + i^k B^{k-s}/(k-s)).
+    That needs the block integrals to be regular, which is automatic: a finite lower endpoint
+    plus exponential decay at the cusp makes int_B^oo converge for every s.  Checked as a
+    residue in s taken around the raw integral."""
+    for tau_p in (mp.mpf('0.3') + mp.mpf('1.4') * I, mp.mpf('0.2') + mp.mpf('0.7') * I):
+        for N in (0, 1):
+            g = lambda ss: I1806_raw(N, ss, 0, tau_p)
+            yield ("tau_p=%s N=%d  Res_{s=0}" % (mp.nstr(tau_p, 4), N),
+                   residue_at(g, mp.mpf(0), r=mp.mpf('0.35')), mp.mpf(0))
+
+
+@check("thm:mero", "F", desc=r"residue--strip rule: $\mathop{\rm Res}_{s=0}L^*=-c_f(0)|_{\rm strip}$")
+def f4_residue_strip():
+    r"""TASK #10, made concrete.  The 1/s residue is not a property of f alone but of the strip
+    the contour sits in: the kernel's Hurwitz pole multiplies the CONSTANT Fourier mode there,
+    so Res_{s=0} L^* = -int_{tau_0-1}^{tau_0} f dtau, that integral over one horizontal period
+    being exactly that constant mode.  This is why the cusp-anchored L-function of 1806 sees
+    only c_f(0) while this one also sees 2 pi i sum a_{-1} from the poles above the contour.
+
+    Excludes k=0, where the s=0 and s=k poles collide and cancel (cf. C2)."""
+    tau0 = I
+    # A cusp form is excluded: c_f(0)=0 and it has no poles, so both sides vanish identically
+    # and a relative comparison against zero carries no information (Res ~ 1e-17 either way).
+    forms = [("E4", E4, 4), ("E6", E6, 6),
+             ("1/Delta", invDelta, -12), ("Delta/(j-j(2i))", f2i, 12)]
+    for name, f, k in forms:
+        res = residue_at(lambda s: LT_raw(f, k, s, tau0), mp.mpf(0), r=mp.mpf('0.3'))
+        const_mode = mp.quad(lambda x: f(tau0 - 1 + x), [0, mp.mpf('0.5'), 1])
+        yield ("%s (k=%d)" % (name, k), res, -const_mode)
+
+
+def Lambda3(t):
+    r"""Lambda_3 = -q d/dq log j = E6/(3 E4), normalised so c(0) = H(3) = 1/3.
+
+    Poles are the Gamma-orbit of rho, of maximal height sqrt(3)/2 < 1, hence entirely BELOW
+    the reference contour."""
+    return E6(t) / (3 * E4(t))
+
+
+def Lambda7(t):
+    r"""Lambda_7 = -q d/dq log(j + 3375), normalised so c(0) = H(7) = 1.
+
+    Using q dj/dq = -E4^2 E6/Delta and j + 3375 = (E4^3 + 3375 Delta)/Delta.  The CM point
+    alpha_7 = (1+i sqrt 7)/2 has height sqrt(7)/2 > 1, so one pole per period lies ABOVE the
+    reference contour; every other orbit image is below."""
+    return E4(t)**2 * E6(t) / (E4(t)**3 + 3375 * Delta(t))
+
+
+HURWITZ = [("Lambda_3", Lambda3, mp.mpf(1) / 3, -248), ("Lambda_7", Lambda7, mp.mpf(1), -4119)]
+
+
+@check("Lambda_d", "F", desc=r"$\Lambda_d=H(d)+\sum t_n(d)q^n$: Hurwitz numbers and traces")
+def f5_hurwitz_qexp():
+    r"""EXTERNAL ARITHMETIC ANCHOR.  For class number one H_d(X) is linear, so
+    Lambda_d = -q d/dq log H_d(j) is elementary, and its q-expansion must reproduce the
+    Hurwitz class number as constant term and the trace of singular moduli as c(1):
+      d=3: H=1/3, t_1 = J_1(rho)/w_rho = (j(rho)-744)/3 = -248;
+      d=7: H=1,   t_1 = j(alpha_7)-744 = -3375-744 = -4119.
+    Read off at height 2.2, above every pole, so this is the expansion at the cusp."""
+    y = mp.mpf('2.2')
+    for name, f, H, t1 in HURWITZ:
+        c0 = mp.quad(lambda x: f(x + I * y), [0, mp.mpf('0.5'), 1])
+        c1 = mp.quad(lambda x: f(x + I * y) * mp.e**(-2 * pi * I * (x + I * y)),
+                     [0, mp.mpf('0.5'), 1])
+        yield ("%s  c(0) = H(d)" % name, c0, H)
+        yield ("%s  c(1) = t_1(d)" % name, c1, mp.mpf(t1))
+
+
+@check("thm:mero", "F", desc=r"Hurwitz sum rule $\lim_{s\to0}L^{\rm reg}_{\Lambda_d}=-H(d)$")
+def f6_hurwitz_sumrule():
+    r"""The sum rule of arXiv:1806.09874 (s3e2), and what the strip-dependence does to it.
+
+    L^reg = (2 pi)^s L^*/Gamma(s), and 1/Gamma(s) has a ZERO at s=0, so the limit picks out
+    the residue alone: lim_{s->0} L^reg = -c_f(0)|_strip.  Hence
+
+      d=3: every pole is below the contour, the strip constant IS the cusp constant, and the
+           residue is -H(3) = -1/3 -- the sum rule exactly as published;
+      d=7: alpha_7 lies ABOVE the contour and contributes 2 pi i a_{-1} = -1 to the strip
+           constant (a simple zero of j - j(alpha) always has a_{-1} = -1/(2 pi i)), which
+           cancels H(7) = 1 and the residue VANISHES.
+
+    Same form, same machinery; the residue is -H(d) or 0 purely according to which side of the
+    contour the CM point falls on.  That is the whole difference between this L^* and the
+    cusp-anchored one, in a single number."""
+    for name, f, H, _ in HURWITZ:
+        res = residue_at(lambda s: LT_raw(f, 2, s, I), mp.mpf(0), r=mp.mpf('0.3'))
+        want = -H if name == "Lambda_3" else mp.mpf(0)
+        yield ("%s  Res_{s=0}L^*" % name, res, want)
+
+
+@check("rem:raised", "F", tol=mp.mpf('1e-8'),
+       desc=r"$T$-segment lifted above every pole returns the cusp constant")
+def f7_raised_contour():
+    r"""rem:raised.  L^*_S is a finite integral of f tau^{s-1} and is entire in s, so the pole
+    at s=0 is carried entirely by the T-segment, where ktil ~ -1/s multiplies
+    int_{gamma^T} f dtau -- the constant Fourier mode of the strip that segment lies in.
+    Deforming gamma^T to pass ABOVE every pole therefore returns the constant term at the CUSP,
+    recovering the residue bookkeeping of arXiv:1806.09874; the two classes differ by the
+    crossings of lem:wall.
+
+    Each base-point is chosen so the vertical legs of the lifted path miss the poles: the
+    orbits of alpha_7 and of rho both sit at Re = 1/2 mod 1, so the legs at Re = -1, 0 are
+    clear of them."""
+    # Lambda_7 has a pole ABOVE the flat contour, so lifting changes the answer (0 -> -H(7));
+    # Lambda_3 has none, so lifting must change nothing (-H(3) either way).  A form whose cusp
+    # constant vanishes identically, e.g. Delta/(j-j(2i)) which starts at q^2, is useless here:
+    # both sides are zero and the relative comparison carries no information.
+    cases = [
+        ("Lambda_7", Lambda7, 2, I, mp.mpf('1.7'), mp.mpf('2.2')),
+        ("Lambda_3", Lambda3, 2, I, mp.mpf('1.7'), mp.mpf('2.2')),
+    ]
+    for name, f, k, tau0, y_up, y_cusp in cases:
+        a, b = tau0 - 1, tau0
+        lift = mp.mpc(0, y_up - mp.im(tau0))
+        raised = [a, a + lift, b + lift, b]
+        res = residue_at(lambda s: LT_raw_path(f, k, s, tau0, pts=raised), mp.mpf(0),
+                         r=mp.mpf('0.3'))
+        cusp = mp.quad(lambda x: f(x + I * y_cusp), [0, mp.mpf('0.5'), 1])
+        yield ("%s  raised: Res = -c_f(0)|_cusp" % name, res, -cusp)
+
+
+# ================================================ LAYER G: suite hygiene
+@check("hygiene", "G", tol=mp.mpf('1e-9'),
+       desc=r"truncation: mode sums stable under $n_{\max}\to2n_{\max}$")
+def g1_truncation():
+    s = mp.mpc('2.3', '0.4')
+    for name, cf, k in (("Delta", cf_Delta, 12), ("1/Delta", cf_invDelta, -12)):
+        yield ("%s L^* nmax vs 2*nmax" % name,
+               LT_closed(cf, k, s, I, nmax=NMAX), LT_closed(cf, k, s, I, nmax=2 * NMAX))
+    for N in (0, 2):
+        yield ("FP_%d nmax vs 2*nmax" % N,
+               FP(N, s, 6, nmax=30), FP(N, s, 6, nmax=60))
+
+
+@check("hygiene", "G", desc=r"precision: values stable under $\mathrm{dps}\to\mathrm{dps}+12$")
+def g2_precision():
+    r"""Recompute at higher working precision and compare.  Catches a result that is an
+    artifact of the mantissa rather than of the mathematics -- the failure mode that made the
+    branch-in-base bug of A3 flip its answer between dps=15 and dps=25."""
+    s = mp.mpc('2.3', '0.4')
+    dps0 = mp.mp.dps
+    try:
+        lo = LT_raw(Delta, 12, s, I)
+        w_lo = IN_raw(0, s, 12, 2 * I)
+        mp.mp.dps = dps0 + 12
+        hi = LT_raw(Delta, 12, s, I)
+        w_hi = IN_raw(0, s, 12, 2 * I)
+    finally:
+        mp.mp.dps = dps0
+    yield ("L^*_T(Delta) dps vs dps+12", lo, hi)
+    yield ("I_0(s,2i) dps vs dps+12", w_lo, w_hi)
+
+
+@check("hygiene", "G", tol=mp.mpf('1e-10'),
+       desc=r"quadrature: path integrals stable under refinement")
+def g3_quadrature():
+    s = mp.mpc('2.3', '0.4')
+    tau0 = mp.mpf('0.3') + mp.mpf('1.3') * I
+    yield ("L^*_S(Delta) nsub 4 vs 16",
+           mp.e**(-I * pi * s / 2) * path_int(lambda t: Delta(t) * t**(s - 1),
+                                              [-1 / tau0, tau0], nsub=4),
+           mp.e**(-I * pi * s / 2) * path_int(lambda t: Delta(t) * t**(s - 1),
+                                              [-1 / tau0, tau0], nsub=16))
+    yield ("res_circle radius 0.15 vs 0.25",
+           res_circle(f2i, 2 * I, r=mp.mpf('0.15')), res_circle(f2i, 2 * I, r=mp.mpf('0.25')))
 
 
 # ------------------------------------------------------------------------- driver

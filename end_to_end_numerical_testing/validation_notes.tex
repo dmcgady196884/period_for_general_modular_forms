@@ -211,12 +211,289 @@ single lost sign anywhere breaks it. $E_6$ is the case that matters, being the o
 with $i^k=-1$; the weights $12,4,-12,0$ all give $i^k=+1$ and would not detect a dropped
 $i^k$.
 
-\section{Layers B, D--G}
+\section{Layer D: periods and quasi-periods}
 
-Pending, in dependency order: \textbf{B} $\tau_0$-independence and wall-crossing;
-\textbf{D} periods, quasi-periods and the Haberland--Petersson pairing; \textbf{E} the
-meromorphic machinery of \S4; \textbf{F} external anchors (the corrected 1806 lemma, the
-Hurwitz class-number sum rule); \textbf{G} suite hygiene --- truncation, precision and
-quadrature self-tests.
+Two of the three checks here are \emph{external}: they compare the note's construction against
+classical objects computed by an independent route, rather than against another of the note's
+own formulas. The test forms are the unique normalised cusp forms $\Delta_k=q+O(q^2)$ at the
+weights with $\dim S_k=1$ (\code{CUSP1}: $k=12,16,18,20,22,26$), built by exact integer series
+multiplication from $\Delta$, $E_4$, $E_6$; $\Delta_{16}=\Delta E_4$ reproduces
+$q+216q^2-3348q^3+\dots$ exactly.
+
+\paragraph{D1 --- $r_f\in W$ (\code{d1\_rfW}).}
+\code{def:rf} assembles the period polynomial from the $L^*$-values,
+$r_f=(2\pi i)^{n+1}\sum_\ell(-1)^\ell\binom{n}{\ell}i^{\ell+1}L^*(f,\ell+1)X^{n-\ell}Y^\ell$, and
+\code{lem:rfW} claims it lies in $W$. The test applies the slash action
+$(w|\gamma)(X,Y)=w(aX+bY,cX+dY)$ (\code{slash}) at $S$ and $U=TS$, and checks
+$r_f|_{(1+S)}$ and $r_f|_{(1+U+U^2)}$ vanish relative to the size of $r_f$. They do: the
+$S$-relation to machine zero, the $U$-relation to $10^{-11}$--$10^{-13}$. So the period
+polynomial built from the finite two-segment contour satisfies the Eichler--Shimura relations.
+
+\paragraph{D2 --- the classical periods (\code{d2\_classical\_periods}).}
+\textbf{External anchor.} $r_m=i^{m+1}L^*(m{+}1)$ must be the classical critical period
+$\int_0^{i\infty}\tau^mf(\tau)\,d\tau=i^{m+1}\int_0^\infty y^mf(iy)\,dy$, i.e.\ $L^*$ must
+\emph{be} the completed period $\Lambda(f,s)$. The right side is obtained by direct quadrature
+on the axis, not by re-deriving the incomplete-gamma sum, so this fixes the normalisation of
+\code{def:rf} independently. Agreement is $10^{-11}$--$10^{-16}$ at both ends of the critical
+strip.
+
+The integrand must be evaluated through \code{f\_on\_axis}. A cusp form decays at both ends of
+the axis, but the $q$-series does not converge at the lower one: at $y=0.03$ one has
+$|q|=0.83$, where forty terms of $E_4$ are meaningless. Below $y=1$ the evaluation is pulled
+back by $f(iy)=f(i/y)/(i^ky^k)$, which lands it above the unit circle. Without that the
+computed period comes out as $6\times10^{11}$ in place of $10^{-73}$.
+
+\paragraph{D3 --- Haberland--Petersson (\code{d3\_haberland}).}
+\textbf{The strongest check in the suite}, because it is normalisation-\emph{invariant} and
+both sides are computed here from scratch. Cohen, ANTS X (2013), Thm 5.2(2), for the full
+modular group:
+\[
+-6(-2i)^{k-2}\langle f,f\rangle=\sum_{m+n\le k-2}\binom{k-2}{m+n}\binom{m+n}{m}(-1)^m
+{\rm Im}\big(r_m\overline{r_n}\big),
+\]
+with $r_m=i^{m+1}L^*(f,m{+}1)$. The left side is the Petersson norm by direct integration of
+$|f|^2y^{k-2}$ over the fundamental domain; the right uses only the finite-contour $L^*$. They
+agree to $6\times10^{-16}$.
+
+Unlike the determinant ratios of Table~1, which depend on how the period-polynomial basis is
+normalised, nothing here can be rescued or spoiled by a choice of basis: the pairing is
+contracted away on both sides. That makes it the closest thing in this suite to an outside
+verdict on the construction.
+
+
+\section{Layer E: the meromorphic machinery of \S4}
+
+This is the layer with the most apparatus and the least external corroboration, so it carries
+two ground truths of its own. \code{IN\_raw} evaluates $I_N(s,z)$ directly: by
+\code{prop:indepHomotopy} the $\delta\to0$ representative of the minimal class may be used, and
+there the block is regular at $i$ (as ${\rm Im}\,z>1$), so the $S$-integral vanishes and the
+$T$-segment is $[i-1,i]$. \code{wallvalue\_raw} evaluates $L^*(\widehat P_if,s;i(1+\delta))$ at
+finite $\delta$, the $S$-segment split into a regular part and the principal value of the pure
+pole, as \code{def:null\_homotopy} prescribes. Three meromorphic forms with a pole at $i$ span
+the pole orders (\code{MERO\_AT\_I}): $\Delta/E_6$ ($k=6$, $P=1$), $E_4^2\Delta/E_6^2$ ($k=8$,
+$P=2$), $\Delta^2/E_6^3$ ($k=6$, $P=3$) --- orders and weights consistent with
+\code{prop:ellord}.
+
+\paragraph{E1 --- the $\Gamma$ recursion (\code{e1\_gammarec}).}
+\code{eq:gammarec} at three cutoffs $J$, three arguments $X$ (real, complex, large) and two
+$s$. Cheap, and upstream of both \code{lem:polylogedge} and \code{lem:wallvalue}.
+
+\paragraph{E2 --- the block expansion (\code{e2\_blockexp}).}
+\code{eq:blockexp} claims the block is a pure order-$m$ pole plus an entire $T$-periodic tail.
+The test forms the remainder $\tfrac{(-2\pi i)^m}{(m-1)!}\Li_{1-m}(e^{2\pi i(\tau-i)})-(\tau-i)^{-m}$
+and checks its residue at $i$ vanishes, for $m=1,2,3$. That vanishing is precisely what makes
+$r^*_{f,z}(m)$ the Laurent coefficients rather than merely proportional to them, so it validates
+the Option-A reading of \code{def:proj}.
+
+\paragraph{E3 --- $I_N$ above the line (\code{e3\_polylogcf}).}
+\code{lem:polylogcf} against \code{IN\_raw}, at $N=0,1,2$ and $z$ both on and off the imaginary
+axis. Everything in \S4 is built on this lemma, and $N=0$ is the case carrying the
+$\delta_{N,0}\big(\tfrac1s+\tfrac{i^k}{k-s}\big)$ inversion constant --- the term responsible
+for the $1/s$ poles that distinguish this $L^*$ from the cusp-anchored one of
+arXiv:1806.09874. It reproduces quadrature to $10^{-16}$.
+
+\paragraph{E4 --- the wall value (\code{e4\_wallvalue}).}
+\code{lem:wallvalue} asserts a \emph{limit}, so the raw integral must be extrapolated rather
+than sampled: $L=\big(8f(\delta/4)-6f(\delta/2)+f(\delta)\big)/3$ annihilates both an
+$O(\delta)$ and an $O(\delta^2)$ error term. Both orders occur, and which one appears is not
+incidental --- it splits along the parity dichotomy of \code{prop:ellord}:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+form & regime & convergence\\
+\hline
+$E_4^2\Delta/E_6^2$ & $4\mid k$, $P$ even & $O(\delta^2)$, ratio $\to4$ per halving\\
+$\Delta/E_6$, $\Delta^2/E_6^3$ & $k\equiv2\bmod4$, $P$ odd & $O(\delta)$, ratio $\to2$\\
+\end{tabular}
+\end{center}
+\noindent All three converge to $\sum_m\tfrac{(-2\pi i)^m}{(m-1)!}r^*_{f,i}(m)\mathrm{FP}_{m-1}(s,k)$.
+The tolerance here is $10^{-5}$, not the global one: what survives extrapolation is the
+$O(\delta^3)$ term the three-point formula cannot remove. The substantive evidence is the
+convergence \emph{rate}, not the residual.
+
+\paragraph{E5 --- the cutoff (\code{e5\_cutoff}, \code{e5b\_cutoff\_minimal}).}
+\code{rem:cutoff} holds that $\mathrm{FP}_N$ is independent of $J$ for $J\ge N+1$. It is, but
+each $J$ carries its own truncation: the remainder decays as $n^{-(J-N+1)}$, so at a fixed
+$n_{\max}$ only the larger cutoffs are numerically converged. The equality is asserted among
+those; the slower ones, including the minimal $J=N+1$, are shown converging in a
+\code{report}-tier table --- at $J=N+1$ the error falls as $1/n_{\max}$, tripling $n_{\max}$
+thirding the error, exactly the $n^{-2}$ tail the note predicts. \code{FP} therefore
+\emph{evaluates} at $J=N+5$, which is legitimate precisely because the lemma being tested is
+true.
+
+\paragraph{E6 --- the modularity relations (\code{e6\_laurent}).}
+\code{eq:Laurent} at every order $r=1,\dots,P$ for all three forms; holds to machine zero.
+
+\paragraph{E7 --- the edge route (\code{e7\_edge\_route}, \code{report} tier).}
+A pole at ${\rm Im}\,z=1$ with $z\neq i$ admits two readings. \code{lem:polylogedge} continues
+the from-\emph{above} formula of \code{lem:polylogcf} down to the edge, which is the convention
+the note adopts and retains. The from-\emph{below} value --- the block's own $q$-series against
+$G_{s,k}$, with no inversion and hence no $\delta_{N,0}$ term --- differs from it by the
+crossing residue, measured here as a factor of about $4.4$ at $z=0.3+i$. The line is printed
+rather than scored: it records the size of a convention choice, not a defect.
+
+\paragraph{A note on tolerances.} Two Layer E checks carry their own tolerance instead of the
+global \code{TOL}. This is deliberate. \code{TOL} scales with the working precision, but a
+check limited by truncation or by extrapolation does not improve when mpmath is handed more
+digits: at $\mathrm{dps}=30$ the global tolerance is $10^{-24}$, while $\mathcal E^+$ truncated
+at $n_{\max}=60$ caps agreement near $10^{-15}$ however many digits are carried. A tolerance
+must reflect the numerics of the test that uses it, not the width of the mantissa.
+
+\section{Layer F: external anchors}
+
+Layers A--E check the note against itself and against raw quadrature. Layer F checks it against
+things outside it: the earlier paper, and a statement about how the two must differ.
+
+\paragraph{F1 --- the published $y<B$ branch (\code{f1\_1806\_below}).}
+\code{eqLemRegX3} of arXiv:1806.09874 in the case where the ray never crosses the circle
+$|e(it-\tau_p)|=1$. It is correct as published, reproducing \code{I1806\_raw} to $10^{-16}$ for
+$N=0,1,2$. It also pins that paper's conventions: the integrand is the proof's
+$\tfrac{dt}{t}t^{s}$, not the definition's $\tfrac{d\tau}{\tau}(\tau/i)^{s-1}$.
+
+\paragraph{F2 --- the corrected $y>B$ branch (\code{f2\_1806\_above}).}
+Regression test for the corrigendum in \code{fix\_previous\_1806\_file/}. For $y>B$ the ray
+crosses the circle at $t=y$, and neither the $q$-series nor its inversion is valid across that
+point, so the integral must be split there. The published version evaluates a single
+antiderivative at $t=B$ and $t=\infty$, which drops three things: the $t=y$ end-point, the
+$\delta_{N,0}$ constant from the $N=0$ inversion, and the whole $\int_y^\infty$ tail. The
+corrected form reproduces quadrature to $10^{-6}$; the published one misses by a factor of
+about $12$.
+
+Two implementation notes, both of which cost a wrong answer before being fixed. The branch is
+the one the corrigendum specifies by
+$\big[\Gamma(s,-2\pi nB)-\Gamma(s,-2\pi ny)\big]/(-2\pi n)^s=\int_B^y\tfrac{dt}{t}t^se^{2\pi nt}$;
+with $(-2\pi n)^s$ read principally as $(2\pi n)^se^{+i\pi s}$, dividing contributes
+$e^{-i\pi s}$, which matches that integral to $10^{-25}$. Pairing $e^{+i\pi s}$ with mpmath's
+default branch instead converges to a value $26\%$ off. And the two boundary series converge
+only conditionally --- their terms go as $n^{N-1}$ times a phase --- so partial sums are
+Ces\`aro-averaged, which is why the tolerance here is $10^{-4}$ rather than the global one.
+
+\paragraph{F3 --- entirety of the 1806 block integrals (\code{f3\_1806\_entire}).}
+Thm~1 of that paper asserts the only non-regular terms are
+$-c_f(0)\big(\tfrac{B^s}{s}+\tfrac{i^kB^{k-s}}{k-s}\big)$. That needs the block integrals to be
+regular in $s$, which is automatic --- a finite lower end-point plus exponential decay at the
+cusp makes $\int_B^\infty$ converge for every $s$ --- and is checked here as a residue in $s$
+taken around the raw integral. It vanishes to $10^{-17}$. This is why the defect in F2, which
+is a finite-part error, cannot disturb Thm~1, the Hurwitz class-number sum rule, or any of that
+paper's special values: all of those are residue statements, and $1/\Gamma(s)$ annihilates
+every regular term at $s=0$.
+
+\paragraph{F4 --- the residue--strip rule (\code{f4\_residue\_strip}).}
+The sharp form of how this $L^*$ and the cusp-anchored one differ. $L^*_S$ is regular in $s$,
+so the pole at $s=0$ comes entirely from the $T$-segment, where the kernel's Hurwitz pole
+$\tk\sim-1/s$ multiplies the constant Fourier mode. Hence
+\[
+\mathop{\rm Res}_{s=0}L^*(f,s)=-\int_{\tau_0-1}^{\tau_0}f(\tau)\,d\tau ,
+\]
+the integral over one horizontal period being exactly that constant mode --- read in
+\emph{the strip the contour sits in}, not at the cusp. For $\Delta/(j-j(2i))$, whose pole at
+$2i$ lies above the contour, this holds to $2\times10^{-11}$; for $E_4$, $E_6$ and $1/\Delta$
+to $10^{-14}$.
+
+This is what dissolves the apparent conflict with arXiv:1806.09874. That paper anchors its
+contour at the cusp, above every pole, so it sees only $c_f(0)$; this one sits at height one
+and additionally sees $2\pi i\sum a_{-1}$ from the poles above it. Both are right about their
+own object, and the difference is exactly the residues crossed in moving the base-point. A cusp
+form is excluded from the check: there both sides vanish identically and a relative comparison
+carries no information.
+
+\paragraph{F5 --- the Hurwitz class numbers and traces (\code{f5\_hurwitz\_qexp}).}
+\textbf{External arithmetic anchor.} For class number one the Hilbert class polynomial is
+linear, so $\Lambda_d=-q\,\partial_q\log\mathcal H_d(j(\tau))$ is elementary:
+\[
+\Lambda_3=\frac{E_6}{3E_4},\qquad
+\Lambda_7=\frac{E_4^2E_6}{E_4^3+3375\,\Delta},
+\]
+using $q\,\partial_qj=-E_4^2E_6/\Delta$ and $j+3375=(E_4^3+3375\Delta)/\Delta$, each normalised
+so that $c(0)=H(d)$. Read off at height $2.2$, above every pole, the $q$-expansion must be
+$\Lambda_d=H(d)+\sum_nt_n(d)q^n$ with $H(d)$ the Hurwitz class number and $t_n(d)$ the trace of
+$J_n$ over CM points of discriminant $-d$:
+\begin{center}
+\begin{tabular}{@{}lllll@{}}
+& $c(0)$ & $H(d)$ & $c(1)$ & $t_1(d)$\\
+\hline
+$\Lambda_3$ & $0.333333333333$ & $1/3$ & $-248.0$ & $\big(j(\rho)-744\big)/3=-248$\\
+$\Lambda_7$ & $1.0$ & $1$ & $-4119.0$ & $j(\alpha_7)-744=-4119$\\
+\end{tabular}
+\end{center}
+\noindent Three of the four agree to exactly zero. This is Zagier's arithmetic recovered by
+contour integration, and it is the one place where the construction is measured against
+mathematics that predates it.
+
+\paragraph{F6 --- the Hurwitz sum rule (\code{f6\_hurwitz\_sumrule}).}
+Eq.~(s3e2) of arXiv:1806.09874 states $\lim_{s\to0}L^{\rm reg}_{\Lambda_d}(s)=-H(d)$. Since
+$L^{\rm reg}=(2\pi)^sL^*/\Gamma(s)$ and $1/\Gamma(s)$ has a \emph{zero} at $s=0$, the limit
+picks out the residue alone, so by F4 it equals $-c_f(0)$ read in the strip the contour sits
+in. The two discriminants then behave completely differently:
+\begin{itemize}
+\item $d=3$: the orbit of $\rho$ has maximal height $\sqrt3/2<1$, so every pole lies below the
+contour, the strip constant \emph{is} the cusp constant, and the residue is $-H(3)=-1/3$ ---
+the sum rule exactly as published.
+\item $d=7$: the CM point $\alpha_7=(1+i\sqrt7)/2$ has height $\sqrt7/2>1$ and lies
+\emph{above} the contour. A simple zero of $j-j(\alpha)$ always carries
+$a_{-1}=-1/(2\pi i)$, so it contributes $2\pi ia_{-1}=-1$ to the strip constant, which cancels
+$H(7)=1$ exactly. The residue \textbf{vanishes}, to $1.4\times10^{-16}$.
+\end{itemize}
+Same form, same machinery, and the $1/s$ residue is $-H(d)$ or $0$ purely according to which
+side of the contour the CM point falls on. This is the entire difference between this $L^*$ and
+the cusp-anchored one of arXiv:1806.09874, reduced to a single number --- and it is why the
+apparent conflict between the two was never a contradiction.
+
+\paragraph{F7 --- lifting the contour above every pole (\code{f7\_raised\_contour}).}
+The test behind \code{rem:raised}. Since $L^*_S$ is a finite integral of $f\,\tau^{s-1}$ and is
+entire in $s$, the pole at $s=0$ is carried entirely by the $T$-segment, where $\tk\sim-1/s$
+multiplies $\int_{\hat\gamma_f^T}f\,d\tau$. Deforming $\hat\gamma_f^T$ to pass above every pole
+of $f$ should therefore return the constant term at the \emph{cusp}, recovering the residue
+bookkeeping of arXiv:1806.09874. Two cases, chosen so that lifting matters in one and not the
+other:
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+& poles vs.\ contour & flat $\mathop{\rm Res}$ & lifted $\mathop{\rm Res}$\\
+\hline
+$\Lambda_7$ & $\alpha_7$ at height $\sqrt7/2>1$, above & $0$ & $-1=-H(7)$\\
+$\Lambda_3$ & orbit of $\rho$ at $\sqrt3/2<1$, all below & $-1/3$ & $-1/3=-H(3)$\\
+\end{tabular}
+\end{center}
+\noindent In both the lifted value is $-c_f(0)$ at the cusp. For $\Lambda_7$ that is a genuine
+change of class, and the shift is the crossing of Lemma~\ref{lem:wall}; for $\Lambda_3$ nothing
+is crossed and the lift is a homotopy, so the value must not move, which it does not. The
+base-points are chosen so the vertical legs of the lifted path miss the poles: the orbits of
+$\alpha_7$ and of $\rho$ both sit at ${\rm Re}=\tfrac12\bmod1$, so legs at ${\rm Re}=-1,0$ are
+clear.
+
+A form whose constant term vanishes at the cusp is useless for this check. $\Delta/(j-j(2i))$
+begins at $q^2$, so both sides are zero and the comparison carries no information; the same
+consideration excludes cusp forms from F4.
+
+\section{Layer G: suite hygiene}
+
+The suite is the arbiter, so it is itself checked. Each of these recomputes a quantity with one
+numerical knob changed and demands the answer not move.
+
+\paragraph{G1 --- truncation (\code{g1\_truncation}).}
+Mode sums under $n_{\max}\to2n_{\max}$, for $L^*$ and for $\mathrm{FP}_N$. This is the failure
+that made $\mathrm{FP}$ at the minimal cutoff $J=N+1$ look like a violation of
+\code{rem:cutoff}.
+
+\paragraph{G2 --- precision (\code{g2\_precision}).}
+Values recomputed at $\mathrm{dps}+12$. This catches results that are artifacts of the mantissa
+rather than of the mathematics --- the failure mode behind the branch-in-base bug of A3, whose
+answer flipped between $\mathrm{dps}=15$ and $25$ because $e^{i\pi}=-1+\varepsilon i$ with the
+sign of $\varepsilon$ a rounding artifact.
+
+\paragraph{G3 --- quadrature (\code{g3\_quadrature}).}
+Path integrals under refinement of the panel count, and \code{res\_circle} under a change of
+radius. This is the knob that made the \code{lem:wall} checks miss tolerance while agreeing to
+eight digits.
+
+\section*{Provenance}
+
+Over the sessions that produced this suite it found one defect in published work ---
+\code{LemRegX3} of arXiv:1806.09874, corrected in \code{fix\_previous\_1806\_file/} --- and none
+in \code{finite\_contour\_cocycles\_short.tex}. Everything else it turned up was a defect in the
+tests themselves: ill-conditioned coefficient extraction, a branch folded into a base, a
+relative-error floor, a winding orientation, an under-resolved residue, a sampled limit, a
+$q$-series evaluated outside its disc of convergence, and a patch that silently failed to
+apply. That ratio is the argument for keeping it: the machinery under test survived, and the
+apparatus built to doubt it did not.
 
 \end{document}
