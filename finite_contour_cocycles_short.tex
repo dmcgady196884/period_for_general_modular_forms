@@ -614,7 +614,7 @@ use of $\hat C_T = 0$, shows $r_f|_{(1+S)}=r_f|_{(1+U+U^2)}=0$:
 Thus, $r_f \in W \subset V_n$, and finishes the proof. %
 \end{proof}
 
-To define periods and quasi-periods, we recall the standard fact 
+To define periods and quasi-periods, we recall the standard fact
 that $\dim(W)=2\dim(S_k)+1$ (see, e.g.~\cite{KZ1984}), and define 
 the inner-product:
 \begin{align}\label{inner}
@@ -1262,6 +1262,8 @@ pole locations follow from those of $G_{s,k}$ and the $\delta_{N,0}$ terms; when
 holomorphic on $\HH$, $\widehat Pf=0$ and $c_{Rf}=c_f$, recovering Theorem~\ref{thm:weakL}.
 \end{proof}
 
+\subsection{Relations of this work to L-functions for $f \in F_k$ in~\cite{1806}}
+
 \begin{remark}\label{rem:residues}
 Casual inspection of the structure of the $I_N(s, \tau_p)$-functions entering into Theorem~\ref{thm:mero} 
 would lead one to conclude that they substantively differ from those in~\cite{1806}, where the author first 
@@ -1291,6 +1293,46 @@ $\mathop{\rm Res}_{s=0}L^*(f,s)=-c_f(0)$, the constant term at the cusp, and rec
 residue bookkeeping of~\cite{1806}. That class differs from the one of
 Definition~\ref{def:null_homotopy} by the crossings of Lemma~\ref{lem:wall}.
 \end{remark}
+
+\subsection{Period polynomials for generic $f \in F_k$}
+
+The proof of Lemma~\ref{lem:rfW} used $f\in S^!_k$ in exactly two places, and both survive 
+weakening to $f\in F_k$ under explicit conditions.
+
+\begin{definition}\label{def:Fcirc}
+Let $\mathcal{T}\subset\HH$ be the curvilinear triangle bounded by the height-one horocycles at
+the cusps $\infty$, $0$ and $1$,
+\begin{equation}\label{eq:Tri}
+\mathcal{T}:=\Big\{\tau\in\HH:\ 0\le{\rm Re}\,\tau\le1,\ {\rm Im}\,\tau\le1,\
+\big|\tau-\tfrac{i}{2}\big|\ge\tfrac12,\ \big|\tau-1-\tfrac{i}{2}\big|\ge\tfrac12\Big\},
+\end{equation}
+whose sides are the $T$-, $UT$- and $S^{-1}$-translates of $\hat\gamma^T_f$ and whose vertices
+$i$, $1+i$, $\tfrac{1+i}{2}$ are their points of mutual tangency. Define
+\begin{equation}\label{eq:Fcirc}
+F_k^{\circ}:=\Big\{f\in F_k\ :\ f^{-1}(\infty)\cap\mathcal{T}=\emptyset\ \ \text{and}\ \
+\int_{\hat\gamma^T_f}f(\tau)\,d\tau=0\Big\},
+\end{equation}
+and for $f\in F_k^{\circ}$ let $r_f$ be given by Definition~\ref{def:rf} with $L^*(f,s)$
+evaluated in the reference class of Definition~\ref{def:null_homotopy}. The second condition is
+the vanishing of the constant Fourier mode of $f$ in the strip containing $\hat\gamma^T_f$, and
+reduces to $c_f(0)=0$ when $f$ has no poles above that segment.
+\end{definition}
+
+\begin{theorem}\label{thm:rfWmero}
+For $f\in F_k^{\circ}$, the period polynomial $r_f\in W\subset V_n$.
+\end{theorem}
+\begin{proof}
+Lemma~\ref{lem:rfW} invokes $f\in S^!_k$ only through $\hat C_T=0$ and $\hat C_{\pm I}=0$.
+For the first, the computation in the proof of Lemma~\ref{lem:cocycle} gives
+$\hat C_T=-(2\pi i)^{n+1}A_0\int_{\hat\gamma^T_f}f(\tau)\,d\tau$, which vanishes by the second
+condition of~\eqref{eq:Fcirc}. For the second, $n$ is even, so $-I$ acts trivially on $V_n$,
+the coboundary drops out, and $\hat C_{-I}=C_{-I}$ is the integral of $f(\tau)(X-\tau Y)^n$
+around $\partial\mathcal{T}$; the first condition of~\eqref{eq:Fcirc} makes that integrand
+holomorphic on and within $\mathcal{T}$, so the integral vanishes. The remaining steps are
+formal consequences of the cocycle law and apply verbatim.
+\end{proof}
+
+
 
 \begin{thebibliography}{99}
 
