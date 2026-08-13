@@ -1076,7 +1076,8 @@ def f5_hurwitz_qexp():
         yield ("%s  c(1) = t_1(d)" % name, c1, mp.mpf(t1))
 
 
-@check("thm:mero", "F", desc=r"Hurwitz sum rule $\lim_{s\to0}L^{\rm reg}_{\Lambda_d}=-H(d)$")
+@check("thm:mero", "F", tol=mp.mpf('1e-8'),
+       desc=r"Hurwitz sum rule $\lim_{s\to0}L^{\rm reg}_{\Lambda_d}=-H(d)$")
 def f6_hurwitz_sumrule():
     r"""The sum rule of arXiv:1806.09874 (s3e2), and what the strip-dependence does to it.
 
@@ -1091,7 +1092,12 @@ def f6_hurwitz_sumrule():
 
     Same form, same machinery; the residue is -H(d) or 0 purely according to which side of the
     contour the CM point falls on.  That is the whole difference between this L^* and the
-    cusp-anchored one, in a single number."""
+    cusp-anchored one, in a single number.
+
+    Tolerance is pinned rather than tracking TOL: the residue is taken as a contour in s around
+    LT_raw, so it is quadrature-limited, and Lambda_3 = E6/(3 E4) carries its pole at rho only
+    0.134 below the contour, giving the T-integrand a narrow peak.  It reaches 1e-10 at dps=15
+    and 1e-20 at dps=30, which is emphatic for a statement that a residue equals -H(d)."""
     for name, f, H, _ in HURWITZ:
         res = residue_at(lambda s: LT_raw(f, 2, s, I), mp.mpf(0), r=mp.mpf('0.3'))
         want = -H if name == "Lambda_3" else mp.mpf(0)
