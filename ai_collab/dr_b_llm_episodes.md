@@ -469,6 +469,120 @@ remain).
 
 ---
 
+## Episode 9 — Period polynomials for MEROMORPHIC forms: $r_f\in W$ on a characterised subclass $F_k^{\circ}\subset F_k$ (plus a defect in 1806 and the end-to-end validation suite) (PRIMARY-SOURCE: this session)
+
+**Session:** `0fe6428f` (Opus 5), 2026-08-09 → 08-13.
+**Paper:** `finite_contour_cocycles_short.tex`; new `fix_previous_1806_file/`, `end_to_end_numerical_testing/`.
+
+**HEADLINE RESULT (item 6 below).** Eichler--Shimura period polynomials are pushed past the
+weakly-holomorphic ceiling. `lem:rfW` gave $r_f\in W$ for $f\in S^!_k$; this session isolates
+*exactly* what that proof needs, and the two conditions are checkable geometry rather than
+holomorphy. The outcome is a subclass $F_k^{\circ}\subset F_k$ of genuinely **meromorphic**
+forms --- poles in $\HH$, not merely at the cusp --- whose period polynomials satisfy the full
+Eichler--Shimura relations $r_f|_{(1+S)}=r_f|_{(1+U+U^2)}=0$, together with an explicit
+Eisenstein correction covering the constant-mode failure. Injected as `def:Fcirc` and
+`thm:rfWmero`. (Adjacent literature treats periods of meromorphic forms via polar harmonic
+Maass forms --- Bringmann--Kane, BKV --- so this is the finite-contour framework reaching the
+same frontier by different means, not a claim of priority over that line.)
+
+Items 1--5 are the infrastructure and course-corrections that made item 6 reachable and
+trustworthy.
+
+**What happened, in order:**
+
+1. **A defect in published work (arXiv:1806.09874, `LemRegX3`).** Chasing DAM's long-standing
+   worry about "the naive tension between the 1806 sum-rules and the $1/s$ poles", Claude
+   calibrated the lemma's two branches against quadrature. The $y<B$ branch is exact to
+   $10^{-32}$; the $y>B$ branch is wrong for $N=0,1,2$, on- and off-axis, by a factor $\sim12$.
+   Cause: for $y>B$ the ray crosses $|e(it-\tau_p)|=1$ at $t=y$, where neither the $q$-series nor
+   its inversion is valid, so the integral must be split there; the published proof evaluates a
+   single antiderivative at $t=B$ and $t=\infty$, dropping the $t=y$ end-point, the $\delta_{N,0}$
+   inversion constant (its inversion identity is stated "for $N$ a *positive* integer" while
+   `ThmLfn` sums $m>0$, i.e. needs $N=0$), and the entire $\int_y^\infty$ tail. **Nothing DAM
+   ever claimed is affected:** Thm 1, the Hurwitz class-number sum rule and every special value
+   are *residue* statements, and $1/\Gamma(s)$ annihilates regular terms at $s=0$; the block
+   integrals are entire regardless. DAM: *"BAH! Don't care... as it affects NONE of the claims I
+   ever gave a shit about."* Corrigendum written to `fix_previous_1806_file/`.
+
+2. **DAM overrules Claude on `lem:Tclosed-Mk` — and is right.** Claude reported the lemma "wrong
+   as stated" for ${\rm Re}\,\tau_0<0$. DAM: *"I actually highly doubt this conclusion of yours...
+   Absent a clear source for where it might be wrong, I would suspect the numerics."* He was
+   correct. For $n<0$, $z=-2\pi in\tau_0$ has ${\rm Im}\,z$ carrying the sign of
+   ${\rm Re}\,\tau_0$, so the cut of $\Gamma$ is crossed exactly as ${\rm Re}\,\tau_0$ changes
+   sign; the integral is continuous, the *principal* branch jumps. With the standard monodromy
+   $\Gamma_{\rm cont}=\Gamma(a)(1-e^{2\pi ia})+e^{2\pi ia}\Gamma_{\rm prin}$ the lemma reproduces
+   quadrature to $10^{-31}$. `prop:HGG`'s "the identity continues to $n<0$" was doing real work.
+   Claim retracted.
+
+3. **The end-to-end validation suite** (`validate.py` + `validation_notes.tex`, seven layers
+   A–G, every check tagged to the `\label` it validates, fast/slow tiers): kernel and unfolding;
+   $\tau_0$-independence and both wall-crossings; `thm:weakL`, its residues and the functional
+   equation; periods (Haberland–Petersson against direct fundamental-domain integration,
+   $6\times10^{-16}$); all of §4; external anchors; and hygiene tests on the suite itself.
+   **193 fast / 311 slow, zero failures.** Design lesson recorded in the write-up: a tolerance
+   must reflect a test's own numerics, not the working precision — a check limited by
+   quadrature or truncation does not improve when mpmath is handed more digits.
+
+4. **Task #10 discharged, twice.** The $1/s$ residue is a property of the *strip the contour
+   lies in*: $L^*_S$ is entire, so the pole comes from $\tk\sim-1/s$ times the constant Fourier
+   mode, giving $\mathop{\rm Res}_{s=0}L^*=-\int_{\hat\gamma^T_f}f\,d\tau$. Confirmed on a form
+   with a pole above the contour, and then on the Hurwitz pair: for $\Lambda_3=E_6/3E_4$ every
+   pole lies below and the residue is $-H(3)=-1/3$ (the published sum rule); for $\Lambda_7$ the
+   CM point $\alpha_7$ lies *above*, contributes $2\pi ia_{-1}=-1$, and the residue **vanishes**.
+   $\Lambda_d$'s $q$-expansion reproduces $H(d)$ and the traces $t_1(3)=-248$, $t_1(7)=-4119$
+   exactly. Same machinery, residue $-H(d)$ or $0$ purely by which side of the contour the CM
+   point falls on: the whole 1806-vs-note question in one number.
+
+5. **DAM's raised-contour proposal.** *"Could we re-define the reference contour... $\epsilon$-wide
+   rectangles which go above all poles... which should essentially match 1806?"* It matches more
+   than essentially: lifting $\hat\gamma^T_f$ above every pole makes $L^*$ **exactly** the
+   classical $\Lambda(f,s)$ to $10^{-25}$ (above every pole $f$ has a convergent $q$-series in its
+   *cusp* coefficients, so `thm:weakL` applies verbatim). But that is also its cost — with no
+   poles above the contour there is nothing to project, no inversion, and §4 collapses into
+   `thm:weakL`. **The flat class is not an awkward constraint; it is the paper's content.**
+   Conclusion: do not switch.
+
+6. **THE RESULT — $F_k^{\circ}$, and period polynomials beyond $S^!_k$.** DAM asked
+   whether the raised class gives honest period polynomials. Measurement: $S$ is free in both
+   classes (it is the functional equation), $U$ fails in both. Localising the failure to the two
+   places `lem:rfW` invokes $f\in S^!_k$:
+   - $\hat C_T=-(2\pi i)^{n+1}A_0\int_{\hat\gamma^T_f}f\,d\tau$, which vanishes iff the constant
+     Fourier mode *of the strip* vanishes — **not** $c_f(0)$: $f_7=\Delta/(j+3375)$ vanishes at
+     the cusp yet has $c=2\pi ia_{-1}(\alpha_7)\ne0$;
+   - $\hat C_{\pm I}$, the integral of $f(\tau)(X-\tau Y)^n$ around a closed loop.
+
+   DAM's fix for the first — *"just subtract-off $E_k$ times $c_f(0)$, eh?"* — is exactly right:
+   $r_f|_{(1+U+U^2)}=c\,r_{E_k}|_{(1+U+U^2)}$ to $10^{-23}$, so $r_f-c\,r_{E_k}\in W$, and
+   $r_{E_k}$ is classical Bernoulli data already imported in `def:Wpm`. It does **not** rescue the
+   second: a form with a pole *inside* the loop has $c=0$ and an unrepairable defect (winding
+   $-1$, residual unchanged by the subtraction). The loop is the curvilinear triangle bounded by
+   the **height-one horocycles at the cusps $\infty$, $0$, $1$** — a $U$-orbit of cusps — with
+   sides the $T$-, $UT$- and $S^{-1}$-translates of $\hat\gamma^T_f$ and vertices $i$, $1+i$,
+   $\tfrac{1+i}{2}$ at their mutual tangencies. Tangency requires base-point height exactly $1$,
+   which is what makes $\tau_0=i$ special. Injected as `def:Fcirc` ($f$ with no poles in
+   $\mathcal{T}$ and vanishing strip-constant) and `thm:rfWmero` ($r_f\in W$ for such $f$),
+   proved by naming the two hypotheses inside the existing `lem:rfW` argument. **What this buys:
+   the period-polynomial theory of §3, previously available only for $f\in S^!_k$, now covers
+   meromorphic $f\in F_k$ with poles in $\HH$ --- the objects §4 was built for --- at the price
+   of one geometric condition and one Eisenstein subtraction, and with no new machinery
+   ($\mathcal{T}$ is built from translates of the existing contour; $r_{E_k}$ is the Bernoulli
+   data already in `def:Wpm`).**
+
+**Disclosure note:** the 1806 defect, the residue–strip rule, the suite, the two-obstruction
+localisation and the horocycle identification are Claude's; the decisive corrections and the two
+structural ideas are DAM's — the `lem:Tclosed-Mk` pushback (where Claude was simply wrong), the
+raised-contour proposal, the Eisenstein subtraction, and the standing calls on conventions and
+scope. Claude's counterexample bounding DAM's "cusp forms with poles anywhere" reading came after
+Claude had itself overstated the result one message earlier. **Transparency point worth recording:
+across the suite's construction the apparatus failed far more often than the mathematics — one
+genuine defect in published work, none in the note, and nine bugs in Claude's own test code
+(ill-conditioned coefficient extraction, a branch folded into a base, a relative-error floor, a
+winding orientation, an under-resolved residue, a sampled limit, a $q$-series evaluated outside
+its disc, a silently non-applying patch, and a tolerance tracking precision instead of method).
+Every red the suite ever showed against the paper was the suite's fault.**
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05

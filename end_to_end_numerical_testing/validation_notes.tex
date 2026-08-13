@@ -331,6 +331,37 @@ $G_{s,k}$, with no inversion and hence no $\delta_{N,0}$ term --- differs from i
 crossing residue, measured here as a factor of about $4.4$ at $z=0.3+i$. The line is printed
 rather than scored: it records the size of a convention choice, not a defect.
 
+\paragraph{E8 --- the polar defect (\code{e8\_polar\_defect}).}
+\code{lem:rfWFk} and \code{def:Qf}: for meromorphic $f$ with simple poles inside the horocyclic
+triangle $\mathcal T$ and vanishing strip-constant, $r_f|_{(1+S)}=0$ while
+$r_f|_{(1+U+U^2)}=-Q_f$, the residue sum over the enclosed poles. The test form is
+$f=\Delta^2/(E_4^3-j(z_0)\Delta)$ with $z_0=0.5+0.8i$, whose enclosed set is the single
+$U$-orbit $\{z_0,\,Uz_0,\,U^2z_0\}$ --- the loop is $U$-symmetric, so partial orbits cannot be
+enclosed, and the third member $U^2z_0=0.562+0.899i$ is the pole a translate-window orbit
+search once missed (a $15\times$ discrepancy until it was found). The identity was pinned at
+$\mathrm{dps}=25$ to $10^{-24}$ three independent ways, including direct quadrature of the
+loop via the exact leg parameterisations $\tau=t{+}1$, $t/(t{+}1)$, $-1/t$ with $t$ on the
+$T$-segment (\code{resolve13.py}); the suite carries the fast-tier version, plus a
+non-vacuousness guard that the defect is $O(1)$ before cancellation.
+
+\paragraph{E9 --- the explicit corrector (\code{e9\_explicit\_corrector}).}
+\code{thm:rtildeW}: the corrected period polynomial
+\[
+\tilde r_f=r_f-c_f\,r_{E_k}
++\sum_{\mathcal O}2\pi i\,r^*_{f,q_{\mathcal O}}(1)
+\big[(2\pi i)^{n+1}\mathbf{K}_T(q_{\mathcal O};X,Y)-r_{E_k}(X,Y)\big]
+\]
+lies in $W$: winding $\hat\gamma^T_f$ once about $q_{\mathcal O}=Sp_{\mathcal O}$ (one pole per
+enclosed $U$-orbit) trivialises the $(TS)^3$-loop --- the added loop transports under $S^{-1}$
+to $+1$ windings on the whole orbit, cancelling the clockwise boundary passage --- at the
+explicit price of \code{lem:wall}, and $r_{E_k}$ absorbs the shifted strip-constant. Checked
+in both regimes: $f_{z_0}$ (enclosed orbit, $c_f=0$; also with a second choice of
+representative, which shifts $\tilde r_f$ within $W$) and $f_7$ ($c_f\ne0$, nothing enclosed,
+correction $=-c_fr_{E_k}$). At $\mathrm{dps}=25$ both Eichler--Shimura relations hold to
+$10^{-22}$ (\code{explicitW.py}); the suite carries the fast-tier version. This is the
+statement toward which the whole layer builds: period polynomials in $W$ for arbitrary
+simple-pole $f\in F_k$, from residue data alone.
+
 \paragraph{A note on tolerances.} Two Layer E checks carry their own tolerance instead of the
 global \code{TOL}. This is deliberate. \code{TOL} scales with the working precision, but a
 check limited by truncation or by extrapolation does not improve when mpmath is handed more

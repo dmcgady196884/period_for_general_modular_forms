@@ -1181,6 +1181,103 @@ def g3_quadrature():
            res_circle(f2i, 2 * I, r=mp.mpf('0.15')), res_circle(f2i, 2 * I, r=mp.mpf('0.25')))
 
 
+@check("lem:rfWFk", "E", tol=mp.mpf('1e-8'),
+       desc=r"$U$-defect $=-Q_f$: enclosed-pole residue sum (and $S$-relation exact)")
+def e8_polar_defect():
+    r"""lem:rfWFk / def:Qf.  For meromorphic f with simple poles inside the horocyclic
+    triangle T and vanishing strip-constant:
+        r_f|(1+S) = 0   and   r_f|(1+U+U^2) = -Q_f,
+    Q_f = (2 pi i)^{n+2} sum_{p in T-interior} r*_{f,p}(1) (X-pY)^n.  The enclosed set is a
+    union of U-orbits {p, Up, U^2p} (the loop is U-symmetric); here it is the single orbit of
+    z0 = 0.5+0.8i, whose third member U^2 z0 = 0.562+0.899i is the one a translate-window
+    search missed (the 15x discrepancy of 2026-08-14).  Confirmed to 1e-24 at dps 25 by
+    resolve13.py three ways, including direct quadrature of the loop via the exact leg
+    parameterisations tau = t+1, t/(t+1), -1/t; this check keeps the fast-tier version."""
+    kk, nn = 12, 10
+    z0 = mp.mpf('0.5') + mp.mpf('0.8') * I
+    j0 = jay(z0)
+    fzm = lambda t: Delta(t)**2 / (E4(t)**3 - j0 * Delta(t))
+    Umob = lambda t: 1 - 1 / t
+    orbit = [z0, Umob(z0), Umob(Umob(z0))]
+    nsub = 12 if SLOW else 8
+    r = [(2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1)
+         * mp.e**(-I * pi * (l + 1) / 2)
+         * path_int(lambda t: fzm(t) * ktil(t, mp.mpf(l + 1), kk), [I - 1, I], nsub=nsub)
+         for l in range(nn + 1)]
+    sc = max(abs(x) for x in r)
+    rU = slash(r, nn, (1, -1, 1, 0)); rUU = slash(rU, nn, (1, -1, 1, 0))
+    defect = [x + y + z for x, y, z in zip(r, rU, rUU)]
+    rS = [x + y for x, y in zip(r, slash(r, nn, (0, -1, 1, 0)))]
+    Q = [mp.mpc(0)] * (nn + 1)
+    for pp in orbit:
+        a1 = res_circle(fzm, pp, r=mp.mpf('0.03'), M=128 if SLOW else 64)
+        for l in range(nn + 1):
+            Q[l] += (2 * pi * I)**(nn + 2) * a1 * mp.binomial(nn, l) * (-pp)**l
+    yield ("S-relation |r_f|(1+S)|/sc", max(abs(x) for x in rS) / sc, mp.mpf(0))
+    yield ("U-defect + Q_f (should cancel)", max(abs(d + q) for d, q in zip(defect, Q)) / sc,
+           mp.mpf(0))
+    # non-vacuousness guard: the defect must be O(1), not a 0 == 0 tautology
+    yield ("sanity: |defect|/sc > 1 (measured ~7.4707)",
+           mp.mpf(1) if max(abs(x) for x in defect) / sc > 1 else mp.mpf(0), mp.mpf(1))
+
+
+@check("thm:rtildeW", "E", tol=mp.mpf('1e-8'),
+       desc=r"explicit corrector: $\tilde r_f = r_f - c_f r_{E_k} + \sum 2\pi i\,a_q[(2\pi i)^{n+1}\mathbf{K}_T(q) - r_{E_k}] \in W$")
+def e9_explicit_corrector():
+    r"""thm:rtildeW.  The unique-mod-W corrector made explicit by wall-crossing: winding
+    gamma^T once about q = Sp (one pole per enclosed U-orbit) trivialises the (TS)^3-loop at
+    the price of lem:wall -- the shift (2 pi i)^{n+2} a_q K_T(q;X,Y) -- and the Eisenstein
+    period polynomial r_{E_k} absorbs the shifted strip-constant.  Verified at dps 25 to
+    1e-22 (explicitW.py) on both regimes: f_{z0} (enclosed orbit, c_f = 0, two different
+    representatives) and f_7 (c_f != 0, nothing enclosed, correction = -c_f r_{E_k})."""
+    kk, nn = 12, 10
+    Um, Sm = (1, -1, 1, 0), (0, -1, 1, 0)
+    seg = [I - 1, I]
+    nsub = 12 if SLOW else 8
+
+    def rvec(f):
+        return [(2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1)
+                * mp.e**(-I * pi * (l + 1) / 2)
+                * path_int(lambda t: f(t) * ktil(t, mp.mpf(l + 1), kk), seg, nsub=nsub)
+                for l in range(nn + 1)]
+
+    def relations(pp):
+        pU = slash(pp, nn, Um); pUU = slash(pU, nn, Um)
+        L = max(abs(x + y + z) for x, y, z in zip(pp, pU, pUU))
+        S2 = max(abs(x + y) for x, y in zip(pp, slash(pp, nn, Sm)))
+        return S2, L
+
+    c691 = mp.mpf(65520) / 691
+    E12f = lambda t: 1 + c691 * sum(_sigma(11, m) * mp.e**(2 * pi * I * m * t)
+                                    for m in range(1, 36))
+    rE = rvec(E12f)
+
+    # regime 1: enclosed orbit, vanishing strip-constant
+    z0 = mp.mpf('0.5') + mp.mpf('0.8') * I
+    j0 = jay(z0)
+    fzm = lambda t: Delta(t)**2 / (E4(t)**3 - j0 * Delta(t))
+    r = rvec(fzm)
+    sc = max(abs(x) for x in r)
+    q = -1 / z0                                    # S z0
+    aq = res_circle(fzm, q, r=mp.mpf('0.03'), M=128 if SLOW else 64)
+    KT = [(-1)**l * mp.binomial(nn, l) * ktil(q, mp.mpf(l + 1), kk) for l in range(nn + 1)]
+    rt = [x + 2 * pi * I * aq * ((2 * pi * I)**(nn + 1) * kt - re)
+          for x, kt, re in zip(r, KT, rE)]
+    S2, L = relations(rt)
+    yield ("f_z0: |rt|(1+S)|/sc", S2 / sc, mp.mpf(0))
+    yield ("f_z0: |rt|(1+U+U^2)|/sc", L / sc, mp.mpf(0))
+
+    # regime 2: nonzero strip-constant, nothing enclosed
+    f7m = lambda t: Delta(t)**2 / (E4(t)**3 + 3375 * Delta(t))
+    r7 = rvec(f7m)
+    sc7 = max(abs(x) for x in r7)
+    c7 = path_int(f7m, seg, nsub=nsub)
+    rt7 = [x - c7 * y for x, y in zip(r7, rE)]
+    S27, L7 = relations(rt7)
+    yield ("f_7: |rt|(1+S)|/sc", S27 / sc7, mp.mpf(0))
+    yield ("f_7: |rt|(1+U+U^2)|/sc", L7 / sc7, mp.mpf(0))
+
+
 # ------------------------------------------------------------------------- driver
 def main():
     print("validate.py  tier=%s  dps=%d  tol=%s" % ("SLOW" if SLOW else "fast",

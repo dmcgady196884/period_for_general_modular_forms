@@ -1318,9 +1318,9 @@ the vanishing of the constant Fourier mode of $f$ in the strip containing $\hat\
 reduces to $c_f(0)=0$ when $f$ has no poles above that segment.
 \end{definition}
 
-\begin{theorem}\label{thm:rfWmero}
+\begin{lemma}\label{lem:rfWmero}
 For $f\in F_k^{\circ}$, the period polynomial $r_f\in W\subset V_n$.
-\end{theorem}
+\end{lemma}
 \begin{proof}
 Lemma~\ref{lem:rfW} invokes $f\in S^!_k$ only through $\hat C_T=0$ and $\hat C_{\pm I}=0$.
 For the first, the computation in the proof of Lemma~\ref{lem:cocycle} gives
@@ -1332,7 +1332,85 @@ holomorphic on and within $\mathcal{T}$, so the integral vanishes. The remaining
 formal consequences of the cocycle law and apply verbatim.
 \end{proof}
 
+Poles inside $\mathcal{T}$ do not destroy this structure; they shift $r_f$ by an explicit
+polynomial. As the sides of $\mathcal{T}$ are $U$-transports of one path, the enclosed pole set
+is a union of $U$-orbits $\{p,\,Up,\,U^2p\}$, and each enclosed pole contributes its residue.
 
+\begin{definition}\label{def:Qf}
+Let $f\in F_k$ have simple poles, none on $\partial\mathcal{T}$, with residues $r^*_{f,p}(1)$
+(Definition~\ref{def:proj}). The \emph{polar defect polynomial} of $f$ is
+\begin{equation}\label{eq:Qf}
+Q_f(X,Y):=(2\pi i)^{n+2}\!\!\sum_{p\,\in\,f^{-1}(\infty)\cap\mathcal{T}^{\circ}}\!\!
+r^*_{f,p}(1)\,(X-pY)^n .
+\end{equation}
+\end{definition}
+
+\begin{lemma}\label{lem:rfWFk}
+Let $f\in F_k$ have simple poles, none on $\partial\mathcal{T}$, and
+$\int_{\hat\gamma^T_f}f(\tau)\,d\tau=0$. Then
+\begin{equation}\label{eq:rfWFk}
+r_f\big|_{(1+S)}=0
+\qquad\text{and}\qquad
+r_f\big|_{(1+U+U^2)}=-\,Q_f .
+\end{equation}
+In particular $r_f\in W$ if and only if $Q_f=0$, and Lemma~\ref{lem:rfWmero} is the case
+$f^{-1}(\infty)\cap\mathcal{T}^{\circ}=\emptyset$.
+\end{lemma}
+
+\begin{proof}
+Both relations are values of the cocycle of Lemma~\ref{lem:cocycle} on the two relators of
+$\SLZ$, evaluated on the loops their words induce; the loops, not the group elements, carry
+the content. For the first, $\hat C_{S^2}=\hat C_S|_{(1+S)}=r_f|_{(1+S)}$ is the integral of
+$(2\pi i)^{n+1}f(\tau)(X-\tau Y)^n$ over the $S^2$-loop, which at $\hat\tau_0^f=i$ is
+degenerate, so it vanishes. For the second, the hypothesis
+$\int_{\hat\gamma^T_f}f\,d\tau=0$ gives $\hat C_T=0$ as in the proof of
+Lemma~\ref{lem:rfWmero}, hence $\hat C_U=r_f$ and
+$r_f|_{(1+U+U^2)}=\hat C_{U^3}=C_{-I}$, the integral of the same $1$-form over the
+$(TS)^3$-loop: the three $U$-transports of the $U$-path traverse $\partial\mathcal{T}$ once
+clockwise, with a common integrand by modular covariance. The residue theorem then gives
+$C_{-I}=-(2\pi i)^{n+1}\cdot 2\pi i\sum_{p\in\mathcal{T}^{\circ}}r^*_{f,p}(1)(X-pY)^n=-Q_f$.
+\end{proof}
+
+The defect is removed by an explicit wall-crossing: winding $\hat\gamma^T_f$ once about a
+single well-chosen pole per enclosed $U$-orbit trivializes the $(TS)^3$-loop, at the explicit
+price of Lemma~\ref{lem:wall}, and the Eisenstein period polynomial absorbs the shifted
+constant mode.
+
+\begin{theorem}\label{thm:rtildeW}
+Let $f\in F_k$ have simple poles, none on $\partial\mathcal{T}$, let
+$c_f:=\int_{\hat\gamma^T_f}f(\tau)\,d\tau$, and for each $U$-orbit
+$\mathcal{O}\subset f^{-1}(\infty)\cap\mathcal{T}^{\circ}$ fix a representative
+$p_{\mathcal O}$ and set $q_{\mathcal O}:=S\,p_{\mathcal O}$. Then
+\begin{equation}\label{eq:rtildeW}
+\tilde r_f:=r_f-c_f\,r_{E_k}
++\sum_{\mathcal O}2\pi i\,r^*_{f,q_{\mathcal O}}(1)
+\Big[(2\pi i)^{n+1}\,\mathbf{K}_T\big(q_{\mathcal O};X,Y\big)-r_{E_k}(X,Y)\Big]
+\ \in\ W,
+\end{equation}
+with $r_{E_k}$ given by Definition~\ref{def:rf} applied to $E_k$ (its $L^*$-values are finite
+at $s=1,\dots,k-1$). Different choices of representatives shift $\tilde r_f$ within $W$. For
+$f\in F_k^{\circ}$ every correction vanishes, recovering Lemma~\ref{lem:rfWmero}.
+\end{theorem}
+\begin{proof}
+Wind $\hat\gamma^T_f$ once counterclockwise about each $q_{\mathcal O}$ and let $r'_f$ be the
+polynomial of Definition~\ref{def:rf} evaluated in the resulting class. By
+Lemma~\ref{lem:wall} at $s=1,\dots,k-1$,
+$r'_f=r_f+\sum_{\mathcal O}(2\pi i)^{n+2}r^*_{f,q_{\mathcal O}}(1)\,\mathbf{K}_T(q_{\mathcal O})$,
+and $\int f\,d\tau$ over the new class equals
+$c':=c_f+2\pi i\sum_{\mathcal O}r^*_{f,q_{\mathcal O}}(1)$.
+The $S^2$-loop is still degenerate, so $r'_f|_{(1+S)}=0$. The $(TS)^3$-loop now encloses
+nothing: the added loop about $q_{\mathcal O}$ transports under $S^{-1}$ to a loop about
+$p_{\mathcal O}$, whose three $U$-images add $+1$ to the winding about each point of
+$\mathcal{O}$, cancelling the clockwise passage of $\partial\mathcal{T}$; hence
+$\hat C_{U^3}=0$. Retaining $\hat C_T=-(2\pi i)^{n+1}A_0\,c'$ in the cocycle algebra of
+Lemma~\ref{lem:rfWFk} gives
+$r'_f|_{(1+U+U^2)}=\hat C_{U^3}-\hat C_T|_{S(1+U+U^2)}
+=c'\,(2\pi i)^{n+1}\big(A_0|_S\big)\big|_{(1+U+U^2)}$. The same computation applied to $E_k$
+--- no poles, strip-integral $1$ --- identifies the right side as
+$c'\,r_{E_k}|_{(1+U+U^2)}$, while $r_{E_k}|_{(1+S)}=0$ by the functional equation of
+Theorem~\ref{thm:weakL}. Subtracting $c'\,r_{E_k}$ therefore kills both defects, and
+$\tilde r_f=r'_f-c'\,r_{E_k}$.
+\end{proof}
 
 \begin{thebibliography}{99}
 
