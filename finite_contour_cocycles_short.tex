@@ -1377,40 +1377,67 @@ price of Lemma~\ref{lem:wall}, and the Eisenstein period polynomial absorbs the 
 constant mode.
 
 \begin{theorem}\label{thm:rtildeW}
-Let $f\in F_k$ have simple poles, none on $\partial\mathcal{T}$, let
-$c_f:=\int_{\hat\gamma^T_f}f(\tau)\,d\tau$, and for each $U$-orbit
-$\mathcal{O}\subset f^{-1}(\infty)\cap\mathcal{T}^{\circ}$ fix a representative
-$p_{\mathcal O}$ and set $q_{\mathcal O}:=S\,p_{\mathcal O}$. Then
-\begin{equation}\label{eq:rtildeW}
-\tilde r_f:=r_f-c_f\,r_{E_k}
-+\sum_{\mathcal O}2\pi i\,r^*_{f,q_{\mathcal O}}(1)
-\Big[(2\pi i)^{n+1}\,\mathbf{K}_T\big(q_{\mathcal O};X,Y\big)-r_{E_k}(X,Y)\Big]
-\ \in\ W,
+Let $f\in F_k$ have simple poles, none on the boundary of $\mathcal{T}$, and set
+$c_f:=\int_{\hat\gamma^T_f}f(\tau)\,d\tau$. Since $U$ is the order-three rotation about
+$e^{i\pi/3}\in\mathcal{T}$, the region $\mathcal{T}$ is $U$-invariant and the poles of $f$
+inside it come in triples $\{p,\,Up,\,U^2p\}$. Choose one pole $p_1,\dots,p_m$ from each
+triple, and set $q_j:=-1/p_j$. Define
+\begin{equation}\label{eq:w0}
+w_f:=-c_f\,r_{E_k}+\sum_{j=1}^{m}2\pi i\,r^*_{f,q_j}(1)
+\Big[(2\pi i)^{n+1}\,\mathbf{K}_T(q_j;X,Y)-r_{E_k}(X,Y)\Big],
 \end{equation}
-with $r_{E_k}$ given by Definition~\ref{def:rf} applied to $E_k$ (its $L^*$-values are finite
-at $s=1,\dots,k-1$). Different choices of representatives shift $\tilde r_f$ within $W$. For
-$f\in F_k^{\circ}$ every correction vanishes, recovering Lemma~\ref{lem:rfWmero}.
+where $r_{E_k}$ is Definition~\ref{def:rf} applied to $E_k$ (its $L^*$-values are finite at
+$s=1,\dots,k-1$), and $\mathbf{K}_T$ is the kernel polynomial of
+Proposition~\ref{prop:periodint} evaluated at $\tau=q_j$. Then $w_f|_{(1+S)}=0$ and
+$r_f+w_f\in W$, but $w_f$ depends on which pole was chosen from each triple. The
+pairing~\eqref{inner} is nondegenerate on $W$; writing $\Pi_W$ for the associated orthogonal
+projection,
+\begin{equation}\label{eq:rtildeW}
+\tilde r_f:=r_f+w_f-\Pi_W(w_f)\ \in\ W
+\end{equation}
+is the unique polynomial $r_f+w$ with $w|_{(1+S)}=0$, $\langle w,W\rangle=0$ and
+$r_f+w\in W$. It is therefore independent of every choice. When $f\in F_k^{\circ}$ both
+$c_f$ and the sum vanish, so $\tilde r_f=r_f$ and Lemma~\ref{lem:rfWmero} is recovered.
 \end{theorem}
 \begin{proof}
-Wind $\hat\gamma^T_f$ once counterclockwise about each $q_{\mathcal O}$ and let $r'_f$ be the
-polynomial of Definition~\ref{def:rf} evaluated in the resulting class. By
-Lemma~\ref{lem:wall} at $s=1,\dots,k-1$,
-$r'_f=r_f+\sum_{\mathcal O}(2\pi i)^{n+2}r^*_{f,q_{\mathcal O}}(1)\,\mathbf{K}_T(q_{\mathcal O})$,
-and $\int f\,d\tau$ over the new class equals
-$c':=c_f+2\pi i\sum_{\mathcal O}r^*_{f,q_{\mathcal O}}(1)$.
+Wind $\hat\gamma^T_f$ once counterclockwise about each $q_j$ and let $r'_f$ be the polynomial
+of Definition~\ref{def:rf} evaluated in the resulting class. By Lemma~\ref{lem:wall} at
+$s=1,\dots,k-1$,
+$r'_f=r_f+\sum_j(2\pi i)^{n+2}r^*_{f,q_j}(1)\,\mathbf{K}_T(q_j)$, and $\int f\,d\tau$ over
+the new class equals $c':=c_f+2\pi i\sum_j r^*_{f,q_j}(1)$.
 The $S^2$-loop is still degenerate, so $r'_f|_{(1+S)}=0$. The $(TS)^3$-loop now encloses
-nothing: the added loop about $q_{\mathcal O}$ transports under $S^{-1}$ to a loop about
-$p_{\mathcal O}$, whose three $U$-images add $+1$ to the winding about each point of
-$\mathcal{O}$, cancelling the clockwise passage of $\partial\mathcal{T}$; hence
-$\hat C_{U^3}=0$. Retaining $\hat C_T=-(2\pi i)^{n+1}A_0\,c'$ in the cocycle algebra of
-Lemma~\ref{lem:rfWFk} gives
+nothing: the added loop about $q_j=-1/p_j$ transports under $S^{-1}$ to a loop about $p_j$,
+whose three $U$-images add $+1$ to the winding about each pole of the triple, cancelling the
+clockwise passage of $\partial\mathcal{T}$; hence $\hat C_{U^3}=0$. Retaining
+$\hat C_T=-(2\pi i)^{n+1}A_0\,c'$ in the cocycle algebra of Lemma~\ref{lem:rfWFk} gives
 $r'_f|_{(1+U+U^2)}=\hat C_{U^3}-\hat C_T|_{S(1+U+U^2)}
 =c'\,(2\pi i)^{n+1}\big(A_0|_S\big)\big|_{(1+U+U^2)}$. The same computation applied to $E_k$
 --- no poles, strip-integral $1$ --- identifies the right side as
 $c'\,r_{E_k}|_{(1+U+U^2)}$, while $r_{E_k}|_{(1+S)}=0$ by the functional equation of
-Theorem~\ref{thm:weakL}. Subtracting $c'\,r_{E_k}$ therefore kills both defects, and
-$\tilde r_f=r'_f-c'\,r_{E_k}$.
+Theorem~\ref{thm:weakL}. Subtracting $c'\,r_{E_k}$ kills both defects, and
+$r_f+w_f=r'_f-c'\,r_{E_k}\in W$.
+
+For the last statement, let $w,w'$ both satisfy $w|_{(1+S)}=0$, $\langle w,W\rangle=0$ and
+$r_f+w\in W$. Their difference lies in $W$, since $(r_f+w)-(r_f+w')\in W$, and is orthogonal
+to $W$; as $\langle\cdot,\cdot\rangle$ is nondegenerate on $W$, it vanishes. Existence is
+$w_f-\Pi_W(w_f)$, which still satisfies the first and third conditions because
+$\Pi_W(w_f)\in W\subset\ker(1+S)$.
 \end{proof}
+
+\begin{remark}\label{rem:rtildeexample}
+Take $k=12$, so $n=10$, and $f=\Delta/\big(j-j(z_0)\big)\in F_{12}$ with $z_0=\tfrac12+\tfrac45i$;
+this $f$ vanishes at the cusp and has $c_f=0$, as all of its poles lie below
+$\hat\gamma^T_f$. Of the $\SLZ$-orbit of $z_0$, exactly three points lie inside $\mathcal{T}$,
+\[
+z_0=0.5+0.8\,i,\qquad Uz_0=0.4382+0.8989\,i,\qquad U^2z_0=0.5618+0.8989\,i,
+\]
+one triple, so the sum in~\eqref{eq:w0} has a single term. Choosing $p_1=z_0$ gives
+$q_1=-1/z_0=-0.5618+0.8989\,i$ and $r^*_{f,q_1}(1)=3.958\times10^{-6}-4.726\times10^{-6}\,i$,
+whence $w_f=2\pi i\,r^*_{f,q_1}(1)\big[(2\pi i)^{11}\mathbf{K}_T(q_1;X,Y)-r_{E_{12}}(X,Y)\big]$:
+one residue times one evaluation of the kernel polynomial, less an Eisenstein term. The other
+two choices of $p_1$ give values of $w_f$ differing by elements of $W$ comparable in size to
+$r_f$ itself, and all three yield the same $\tilde r_f$ after projection~\cite{VerifyScripts}.
+\end{remark}
 
 \begin{thebibliography}{99}
 
