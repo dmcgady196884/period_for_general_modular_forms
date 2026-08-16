@@ -583,6 +583,64 @@ Every red the suite ever showed against the paper was the suite's fault.**
 
 ---
 
+## Episode 9 addendum — period polynomials for ALL simple-pole $f\in F_k$ (`thm:rtildeW`), same session, Fable 5 + Opus 5
+
+**The result.** Every $f\in F_k$ with simple poles (none on $\partial\mathcal T$) now has a
+canonical period polynomial $\tilde r_f\in W$, built from residue data alone. This is the
+paper's closing theorem and the substantive mathematical gain of the session: `lem:rfW` covered
+$S^!_k$ only; `lem:rfWmero` covered the $f$ with nothing inside the triangle; `thm:rtildeW`
+covers everything, with the correction written out.
+
+After Opus 5's residue formula missed by 15x, Fable 5 located the missing pole via the
+$U$-symmetry of the loop (enclosed sets are unions of $U$-orbits; the third member sat outside
+Opus's translate window), confirmed the defect identity to $10^{-24}$ three independent ways,
+and injected `def:Qf` + the defect identity. DAM then pushed twice, decisively: *"So we cannot
+add a polynomial to $r_f$ to 'fix' it?"* and *"WHAT is that unique $w_f$? Should be fairly
+straightforward in terms of the residues."* The first push produced the abstract existence
+proof (three lines: $\mathrm{im}(1{+}S)=V^S$, self-adjointness under the Haberland pairing,
+$V^S\cap V^U=V^\Gamma=0$); the second produced the closed form — Fable's wall-crossing
+construction: winding $\hat\gamma^T_f$ about $q=Sp$ (one pole per enclosed orbit) trivialises
+the $(TS)^3$-loop at the explicit price of `lem:wall`, and $r_{E_k}$ absorbs the shifted
+strip-constant. Result, now `thm:rtildeW` in the note and verified to $10^{-22}$ in both
+regimes (suite 203/0): $\tilde r_f = r_f - c_f r_{E_k} + \sum_{\mathcal O} 2\pi i\,
+r^*_{f,q}(1)[(2\pi i)^{n+1}\mathbf K_T(q;X,Y) - r_{E_k}] \in W$ for arbitrary simple-pole
+$f\in F_k$. Two failed pretty candidates ($\tfrac13 Q|_\Lambda$, $\tfrac12 Q|_{(1-S)}$) are
+recorded with their numbers. Attribution: DAM's two questions set both targets; the loop-
+trivialisation mechanism and the proof are Claude's; every ingredient in the formula
+(`lem:wall`, $\mathbf K_T$, $r_{E_k}$) was already DAM's machinery.
+
+---
+
+### Endgame: DAM catches a vacuous uniqueness claim
+
+The first `thm:rtildeW` said $\tilde r_f\in W$, ``unique modulo $W$''. DAM, reading it cold:
+*``tf?? The period polynomial should be unique.''* He was right, and the failure was total, not
+cosmetic: the ambiguity lived in exactly the space the theorem claimed to land in, so the
+statement carried no information about **which** element of $W$ one gets. Claude had verified
+that each choice of representative lands in $W$ and had never compared two choices against each
+other. Measured after the challenge: the three poles of a single triple give $\tilde r_f$
+differing by $83$--$93\times$ the scale of $r_f$ itself.
+
+The repair is the pairing DAM already uses in `def:periods`: demanding the corrector be
+orthogonal to $W$ picks a unique representative, and all three choices then agree to $3\times
+10^{-23}$. He also rejected the first phrasing outright --- *``i cannot follow tf ... even
+MEANS''* --- forcing the $U$-orbit/representative jargon down to ``the poles inside $\mathcal T$
+come in triples; pick one from each triple and set $q=-1/p$'', plus a worked example
+(`rem:rtildeexample`) with the actual three poles, the actual residue, and the observation that
+the sum has exactly one term. Suite check `e9_explicit_corrector` was rebuilt around
+choice-independence rows --- the previous version tested one representative and by construction
+could not have caught the bug. Full fast suite 208/0.
+
+**Attribution.** The construction (wall-crossing about $q=-1/p$ trivialising the $(TS)^3$-loop,
+$r_{E_k}$ absorbing the shifted strip-constant), the existence proof, and the
+Haberland-orthogonal normalisation are Claude's; every ingredient was DAM's pre-existing
+machinery (`lem:wall`, $\mathbf K_T$, the pairing, $r_{E_k}$). DAM set both targets with two
+questions, then caught the one defect that would have shipped a vacuous theorem. Worth
+recording plainly: on this result the model supplied speed and the explicit formula, and the
+author supplied the two corrections that made it true and legible.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05

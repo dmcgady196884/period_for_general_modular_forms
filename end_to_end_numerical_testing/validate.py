@@ -520,6 +520,30 @@ def c3_functional_eq():
                    LT_raw(f, k, s, I), I**k * LT_raw(f, k, k - s, I))
 
 
+def laurent_at(f, p, m, rr=mp.mpf('0.03'), M=None):
+    r"""a_{-m} = (1/2 pi i) \oint f(tau) (tau-p)^{m-1} d\tau, trapezoid on |tau-p| = rr.
+
+    m=1 is res_circle; larger m reaches the deeper Laurent weights r*_{f,p}(m) of def:proj,
+    which is what def:Qf needs once poles are not simple."""
+    M = M or (192 if SLOW else 96)
+    tot = mp.mpc(0)
+    for jj in range(M):
+        z = mp.e**(2 * pi * I * jj / M)
+        tot += f(p + rr * z) * (rr * z)**m
+    return tot / M
+
+
+def _mero_forms():
+    r"""(name, f, max pole order) for forms with poles inside the triangle T, c_f = 0.
+    The double-pole form vanishes like q^3 at the cusp, so its strip-constant also vanishes."""
+    z0 = mp.mpf('0.5') + mp.mpf('0.8') * I
+    j0 = jay(z0)
+    return z0, [
+        ("simple", lambda t: Delta(t)**2 / (E4(t)**3 - j0 * Delta(t)), 1),
+        ("double", lambda t: Delta(t)**3 / (E4(t)**3 - j0 * Delta(t))**2, 2),
+    ]
+
+
 # ==================================================== LAYER E: the meromorphic machinery
 def G_sk(s, k, m):
     r"""G_{s,k}(m) = Gamma(s,2 pi m)/(2 pi m)^s + i^k Gamma(k-s,2 pi m)/(2 pi m)^{k-s}.
@@ -843,6 +867,68 @@ def slash(p, n, mat):
 def pairing(p, q, n):
     r"""eq:inner: <P,Q> = sum_a (-1)^a C(n,a)^{-1} p_a q_{n-a}."""
     return sum((-1)**a / mp.binomial(n, a) * p[a] * q[n - a] for a in range(n + 1))
+
+
+def _W_basis_and_gram(n):
+    r"""Basis of def:w's W = ker(1+S) \\cap ker(1+U+U^2) in V_n, its Haberland Gram matrix,
+    and the pairing, for the projection Pi_W of thm:rtildeW.
+
+    The relation matrix has INTEGER entries, so the kernel is taken exactly over Fraction
+    rather than by thresholding singular values: an earlier SVD version needed a relative
+    cutoff and reported dim W = 0 at fast-tier precision with an absolute one.  dim W is
+    2 dim S_k + 1 (= 3 at n = 10), which the callers assert."""
+    from fractions import Fraction
+    from math import comb
+
+    def sl(p, mat):
+        a, b, c, d = mat
+        out = [Fraction(0)] * (n + 1)
+        for l, cl in enumerate(p):
+            if cl == 0:
+                continue
+            for u in range(n - l + 1):
+                cu = comb(n - l, u) * a**(n - l - u) * b**u
+                for v in range(l + 1):
+                    out[u + v] += cl * cu * comb(l, v) * c**(l - v) * d**v
+        return out
+
+    Sm, Um = (0, -1, 1, 0), (1, -1, 1, 0)
+    cols = []
+    for l in range(n + 1):
+        e = [Fraction(int(j == l)) for j in range(n + 1)]
+        eU = sl(e, Um); eUU = sl(eU, Um)
+        cols.append([x + y for x, y in zip(e, sl(e, Sm))]
+                    + [x + y + z for x, y, z in zip(e, eU, eUU)])
+    A = [[cols[j][i] for j in range(n + 1)] for i in range(2 * (n + 1))]
+
+    piv, row = [], 0
+    for col in range(n + 1):
+        sel = next((rr for rr in range(row, len(A)) if A[rr][col]), None)
+        if sel is None:
+            continue
+        A[row], A[sel] = A[sel], A[row]
+        inv = A[row][col]
+        A[row] = [x / inv for x in A[row]]
+        for rr in range(len(A)):
+            if rr != row and A[rr][col]:
+                f = A[rr][col]
+                A[rr] = [x - f * y for x, y in zip(A[rr], A[row])]
+        piv.append(col); row += 1
+
+    basis = []
+    for free in (c for c in range(n + 1) if c not in piv):
+        v = [Fraction(0)] * (n + 1)
+        v[free] = Fraction(1)
+        for r_, c_ in enumerate(piv):
+            v[c_] = -A[r_][free]
+        basis.append([mp.mpf(x.numerator) / x.denominator for x in v])
+
+    pair = lambda p, q: pairing(p, q, n)
+    G = mp.matrix(len(basis), len(basis))
+    for i in range(len(basis)):
+        for j in range(len(basis)):
+            G[i, j] = pair(basis[i], basis[j])
+    return basis, G, pair
 
 
 @check("lem:rfW", "D", tol=mp.mpf('1e-10'),
@@ -1182,58 +1268,66 @@ def g3_quadrature():
 
 
 @check("lem:rfWFk", "E", tol=mp.mpf('1e-8'),
-       desc=r"$U$-defect $=-Q_f$: enclosed-pole residue sum (and $S$-relation exact)")
+       desc=r"$U$-defect $=-Q_f$ for poles of any order (and $S$-relation exact)")
 def e8_polar_defect():
-    r"""lem:rfWFk / def:Qf.  For meromorphic f with simple poles inside the horocyclic
-    triangle T and vanishing strip-constant:
-        r_f|(1+S) = 0   and   r_f|(1+U+U^2) = -Q_f,
-    Q_f = (2 pi i)^{n+2} sum_{p in T-interior} r*_{f,p}(1) (X-pY)^n.  The enclosed set is a
-    union of U-orbits {p, Up, U^2p} (the loop is U-symmetric); here it is the single orbit of
-    z0 = 0.5+0.8i, whose third member U^2 z0 = 0.562+0.899i is the one a translate-window
-    search missed (the 15x discrepancy of 2026-08-14).  Confirmed to 1e-24 at dps 25 by
-    resolve13.py three ways, including direct quadrature of the loop via the exact leg
-    parameterisations tau = t+1, t/(t+1), -1/t; this check keeps the fast-tier version."""
-    kk, nn = 12, 10
-    z0 = mp.mpf('0.5') + mp.mpf('0.8') * I
-    j0 = jay(z0)
-    fzm = lambda t: Delta(t)**2 / (E4(t)**3 - j0 * Delta(t))
-    Umob = lambda t: 1 - 1 / t
-    orbit = [z0, Umob(z0), Umob(Umob(z0))]
-    nsub = 12 if SLOW else 8
-    r = [(2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1)
-         * mp.e**(-I * pi * (l + 1) / 2)
-         * path_int(lambda t: fzm(t) * ktil(t, mp.mpf(l + 1), kk), [I - 1, I], nsub=nsub)
-         for l in range(nn + 1)]
-    sc = max(abs(x) for x in r)
-    rU = slash(r, nn, (1, -1, 1, 0)); rUU = slash(rU, nn, (1, -1, 1, 0))
-    defect = [x + y + z for x, y, z in zip(r, rU, rUU)]
-    rS = [x + y for x, y in zip(r, slash(r, nn, (0, -1, 1, 0)))]
-    Q = [mp.mpc(0)] * (nn + 1)
-    for pp in orbit:
-        a1 = res_circle(fzm, pp, r=mp.mpf('0.03'), M=128 if SLOW else 64)
-        for l in range(nn + 1):
-            Q[l] += (2 * pi * I)**(nn + 2) * a1 * mp.binomial(nn, l) * (-pp)**l
-    yield ("S-relation |r_f|(1+S)|/sc", max(abs(x) for x in rS) / sc, mp.mpf(0))
-    yield ("U-defect + Q_f (should cancel)", max(abs(d + q) for d, q in zip(defect, Q)) / sc,
-           mp.mpf(0))
-    # non-vacuousness guard: the defect must be O(1), not a 0 == 0 tautology
-    yield ("sanity: |defect|/sc > 1 (measured ~7.4707)",
-           mp.mpf(1) if max(abs(x) for x in defect) / sc > 1 else mp.mpf(0), mp.mpf(1))
-
-
-@check("thm:rtildeW", "E", tol=mp.mpf('1e-8'),
-       desc=r"explicit corrector: $\tilde r_f = r_f - c_f r_{E_k} + \sum 2\pi i\,a_q[(2\pi i)^{n+1}\mathbf{K}_T(q) - r_{E_k}] \in W$")
-def e9_explicit_corrector():
-    r"""thm:rtildeW.  The unique-mod-W corrector made explicit by wall-crossing: winding
-    gamma^T once about q = Sp (one pole per enclosed U-orbit) trivialises the (TS)^3-loop at
-    the price of lem:wall -- the shift (2 pi i)^{n+2} a_q K_T(q;X,Y) -- and the Eisenstein
-    period polynomial r_{E_k} absorbs the shifted strip-constant.  Verified at dps 25 to
-    1e-22 (explicitW.py) on both regimes: f_{z0} (enclosed orbit, c_f = 0, two different
-    representatives) and f_7 (c_f != 0, nothing enclosed, correction = -c_f r_{E_k})."""
+    r"""lem:rfWFk / def:Qf.  r_f|(1+S) = 0 and r_f|(1+U+U^2) = -Q_f, with
+        Q_f = (2 pi i)^{n+2} sum_p sum_{i<=m_p} r*_{f,p}(i) C(n,i-1) (-Y)^{i-1} (X-pY)^{n-i+1}.
+    The enclosed set is a union of U-triples {p, Up, U^2p} (T is U-invariant, since U is the
+    order-3 rotation about e^{i pi/3} which lies inside T).  Run for a simple-pole and a
+    double-pole form; the i=2 terms are what a simple-pole-only formula would miss."""
     kk, nn = 12, 10
     Um, Sm = (1, -1, 1, 0), (0, -1, 1, 0)
     seg = [I - 1, I]
     nsub = 12 if SLOW else 8
+    Umob = lambda t: 1 - 1 / t
+    z0, forms = _mero_forms()
+    orbit = [z0, Umob(z0), Umob(Umob(z0))]
+    for name, fm, order in forms:
+        r = [(2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1)
+             * mp.e**(-I * pi * (l + 1) / 2)
+             * path_int(lambda t: fm(t) * ktil(t, mp.mpf(l + 1), kk), seg, nsub=nsub)
+             for l in range(nn + 1)]
+        sc = max(abs(x) for x in r)
+        rU = slash(r, nn, Um); rUU = slash(rU, nn, Um)
+        defect = [x + y + z for x, y, z in zip(r, rU, rUU)]
+        rS = [x + y for x, y in zip(r, slash(r, nn, Sm))]
+        Q = [mp.mpc(0)] * (nn + 1)
+        for pp in orbit:
+            for i in range(1, order + 1):
+                a = laurent_at(fm, pp, i)
+                for l in range(i - 1, nn + 1):
+                    Q[l] += ((2 * pi * I)**(nn + 2) * a * mp.binomial(nn, i - 1) * (-1)**(i - 1)
+                             * mp.binomial(nn - i + 1, l - i + 1) * (-pp)**(l - i + 1))
+        yield ("%s: |r_f|(1+S)|/sc" % name, max(abs(x) for x in rS) / sc, mp.mpf(0))
+        yield ("%s: U-defect + Q_f" % name,
+               max(abs(d + q) for d, q in zip(defect, Q)) / sc, mp.mpf(0))
+        yield ("%s: |defect|/sc > 1 (non-vacuous)" % name,
+               mp.mpf(1) if max(abs(x) for x in defect) / sc > 1 else mp.mpf(0), mp.mpf(1))
+
+
+@check("thm:rtildeW", "E", tol=mp.mpf('1e-8'),
+       desc=r"canonical corrector $\tilde r_f=r_f+w_f-\Pi_W(w_f)\in W$ for poles of any order")
+def e9_explicit_corrector():
+    r"""thm:rtildeW.  Winding gamma^T once about q_j = S p_j (one pole per U-triple inside T)
+    trivialises the (TS)^3-loop at the price of lem:wall, and r_{E_k} absorbs the shifted
+    strip-constant c'_f = c_f + 2 pi i sum_j r*_{f,q_j}(1):
+
+        w_f = -c'_f r_{E_k} + sum_j (2 pi i)^{n+2} Res_{tau=q_j}[ f(tau) K_T(tau;X,Y) ].
+
+    Taking the residue of the PRODUCT is what makes this work beyond simple poles: at a double
+    pole the tau-derivative of K_T contributes, and a formula using only a_{-1}(q) K_T(q) misses
+    it.  Both forms are run below; the double-pole rows fail outright against the simple-pole
+    expression, so they are a genuine test of the generalisation.
+
+    w_f DEPENDS on which pole of the triple is chosen -- the three choices differ by elements of
+    W comparable to r_f itself (83-93x for the simple-pole form), so 'in W' alone does not define
+    a period polynomial.  Subtracting the Haberland-orthogonal projection Pi_W(w_f) pins it."""
+    kk, nn = 12, 10
+    Um, Sm = (1, -1, 1, 0), (0, -1, 1, 0)
+    seg = [I - 1, I]
+    nsub = 12 if SLOW else 8
+    Umob = lambda t: 1 - 1 / t
+    Mres = 128 if SLOW else 64
 
     def rvec(f):
         return [(2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1)
@@ -1243,36 +1337,68 @@ def e9_explicit_corrector():
 
     def relations(pp):
         pU = slash(pp, nn, Um); pUU = slash(pU, nn, Um)
-        L = max(abs(x + y + z) for x, y, z in zip(pp, pU, pUU))
-        S2 = max(abs(x + y) for x, y in zip(pp, slash(pp, nn, Sm)))
-        return S2, L
+        return (max(abs(x + y) for x, y in zip(pp, slash(pp, nn, Sm))),
+                max(abs(x + y + z) for x, y, z in zip(pp, pU, pUU)))
 
     c691 = mp.mpf(65520) / 691
     E12f = lambda t: 1 + c691 * sum(_sigma(11, m) * mp.e**(2 * pi * I * m * t)
                                     for m in range(1, 36))
     rE = rvec(E12f)
+    basis, G, pair = _W_basis_and_gram(nn)
+    yield ("dim W = 3", mp.mpf(len(basis)), mp.mpf(3))
 
-    # regime 1: enclosed orbit, vanishing strip-constant
-    z0 = mp.mpf('0.5') + mp.mpf('0.8') * I
-    j0 = jay(z0)
-    fzm = lambda t: Delta(t)**2 / (E4(t)**3 - j0 * Delta(t))
-    r = rvec(fzm)
-    sc = max(abs(x) for x in r)
-    q = -1 / z0                                    # S z0
-    aq = res_circle(fzm, q, r=mp.mpf('0.03'), M=128 if SLOW else 64)
-    KT = [(-1)**l * mp.binomial(nn, l) * ktil(q, mp.mpf(l + 1), kk) for l in range(nn + 1)]
-    rt = [x + 2 * pi * I * aq * ((2 * pi * I)**(nn + 1) * kt - re)
-          for x, kt, re in zip(r, KT, rE)]
-    S2, L = relations(rt)
-    yield ("f_z0: |rt|(1+S)|/sc", S2 / sc, mp.mpf(0))
-    yield ("f_z0: |rt|(1+U+U^2)|/sc", L / sc, mp.mpf(0))
+    def projW(w):
+        co = mp.lu_solve(G, mp.matrix([pair(b, w) for b in basis]))
+        return [sum(co[i] * basis[i][l] for i in range(len(basis))) for l in range(nn + 1)]
 
-    # regime 2: nonzero strip-constant, nothing enclosed
+    # regime 1: one U-triple inside T, at simple and at double order
+    z0, forms = _mero_forms()
+    orbit = [z0, Umob(z0), Umob(Umob(z0))]
+    for name, fm, order in forms:
+        r = rvec(fm)
+        sc = max(abs(x) for x in r)
+        cf = path_int(fm, seg, nsub=nsub)
+        cans, naive = [], None
+        for pp in orbit:
+            q = -1 / pp
+            aq = laurent_at(fm, q, 1, M=Mres)
+            cpr = cf + 2 * pi * I * aq
+            resK = [(-1)**l * mp.binomial(nn, l)
+                    * laurent_at(lambda t, l=l: fm(t) * ktil(t, mp.mpf(l + 1), kk), q, 1, M=Mres)
+                    for l in range(nn + 1)]
+            w = [-cpr * re + (2 * pi * I)**(nn + 2) * rk for rk, re in zip(resK, rE)]
+            if naive is None:  # the simple-pole expression, for contrast on the double-pole form
+                KT = [(-1)**l * mp.binomial(nn, l) * ktil(q, mp.mpf(l + 1), kk)
+                      for l in range(nn + 1)]
+                naive = [-cpr * re + (2 * pi * I)**(nn + 2) * aq * kt
+                         for kt, re in zip(KT, rE)]
+            pw = projW(w)
+            cans.append([x + a - b for x, a, b in zip(r, w, pw)])
+        S2, L = relations(cans[0])
+        yield ("%s: |rt|(1+S)|/sc" % name, S2 / sc, mp.mpf(0))
+        yield ("%s: |rt|(1+U+U^2)|/sc" % name, L / sc, mp.mpf(0))
+        for i, j in ((0, 1), (0, 2), (1, 2)):
+            yield ("%s: choice-independence |rt_%d - rt_%d|/sc" % (name, i, j),
+                   max(abs(a - b) for a, b in zip(cans[i], cans[j])) / sc, mp.mpf(0))
+        yield ("%s: rt nonzero: |rt|/sc > 0.1" % name,
+               mp.mpf(1) if max(abs(x) for x in cans[0]) / sc > mp.mpf('0.1') else mp.mpf(0),
+               mp.mpf(1))
+        # hypothesis of lem:rfWFk / thm:rtildeW with c_f = 0, and the naive-vs-general contrast
+        yield ("%s: strip constant c_f = 0" % name, abs(cf), mp.mpf(0))
+        nv = [x + a - b for x, a, b in zip(r, naive, projW(naive))]
+        _, Lnv = relations(nv)
+        gap = Lnv / sc
+        yield ("%s: naive (no derivative terms) %s" % (name, "agrees" if order == 1 else "FAILS"),
+               mp.mpf(1) if (gap < mp.mpf('1e-6')) == (order == 1) else mp.mpf(0), mp.mpf(1))
+
+    # regime 2: nonzero strip-constant, nothing inside T
     f7m = lambda t: Delta(t)**2 / (E4(t)**3 + 3375 * Delta(t))
     r7 = rvec(f7m)
     sc7 = max(abs(x) for x in r7)
     c7 = path_int(f7m, seg, nsub=nsub)
-    rt7 = [x - c7 * y for x, y in zip(r7, rE)]
+    w7 = [-c7 * y for y in rE]
+    pw7 = projW(w7)
+    rt7 = [x + a - b for x, a, b in zip(r7, w7, pw7)]
     S27, L7 = relations(rt7)
     yield ("f_7: |rt|(1+S)|/sc", S27 / sc7, mp.mpf(0))
     yield ("f_7: |rt|(1+U+U^2)|/sc", L7 / sc7, mp.mpf(0))

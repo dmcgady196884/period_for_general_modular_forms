@@ -332,9 +332,16 @@ crossing residue, measured here as a factor of about $4.4$ at $z=0.3+i$. The lin
 rather than scored: it records the size of a convention choice, not a defect.
 
 \paragraph{E8 --- the polar defect (\code{e8\_polar\_defect}).}
-\code{lem:rfWFk} and \code{def:Qf}: for meromorphic $f$ with simple poles inside the horocyclic
-triangle $\mathcal T$ and vanishing strip-constant, $r_f|_{(1+S)}=0$ while
-$r_f|_{(1+U+U^2)}=-Q_f$, the residue sum over the enclosed poles. The test form is
+\code{lem:rfWFk} and \code{def:Qf}: for meromorphic $f$ with vanishing strip-constant,
+$r_f|_{(1+S)}=0$ while $r_f|_{(1+U+U^2)}=-Q_f$, the sum over poles enclosed by the horocyclic
+triangle $\mathcal T$ of their full Laurent weights $r^*_{f,p}(i)$, $i\le m_p$, against
+$\binom{n}{i-1}(-Y)^{i-1}(X-pY)^{n-i+1}$. Both a simple-pole and a double-pole form are run
+($10^{-13}$ and $10^{-11}$), so the $i\ge2$ terms are exercised rather than assumed away; the
+hypothesis $\int_{\hat\gamma^T_f}f\,d\tau=0$ is itself checked rather than asserted, and the
+Laurent weights come from \code{laurent\_at}, the circle average of $f(\tau)(\tau-p)^{i-1}$.
+Poles on $\partial\mathcal T$ need no separate treatment (\code{rem:bdrypoles}): the reference
+class already has $\delta>0$ whenever a pole sits at height one, which lifts the boundary off
+them. The simple-pole test form is
 $f=\Delta^2/(E_4^3-j(z_0)\Delta)$ with $z_0=0.5+0.8i$, whose enclosed set is the single
 $U$-orbit $\{z_0,\,Uz_0,\,U^2z_0\}$ --- the loop is $U$-symmetric, so partial orbits cannot be
 enclosed, and the third member $U^2z_0=0.562+0.899i$ is the pole a translate-window orbit
@@ -344,23 +351,52 @@ loop via the exact leg parameterisations $\tau=t{+}1$, $t/(t{+}1)$, $-1/t$ with 
 $T$-segment (\code{resolve13.py}); the suite carries the fast-tier version, plus a
 non-vacuousness guard that the defect is $O(1)$ before cancellation.
 
-\paragraph{E9 --- the explicit corrector (\code{e9\_explicit\_corrector}).}
-\code{thm:rtildeW}: the corrected period polynomial
+\paragraph{E9 --- the canonical corrector (\code{e9\_explicit\_corrector}).}
+\code{thm:rtildeW}. Winding $\hat\gamma^T_f$ once about $q=-1/p$, one pole per triple inside
+$\mathcal T$, trivialises the $(TS)^3$-loop --- the added loop transports under $S^{-1}$ to
+$+1$ windings on the whole triple, cancelling the clockwise boundary passage --- at the
+explicit price of \code{lem:wall}, and $r_{E_k}$ absorbs the shifted strip-constant
+$c'_f=c_f+2\pi i\sum_jr^*_{f,q_j}(1)$. That puts $r_f+w_f$ in $W$.
+
+The corrector is a residue of the \emph{product} $f(\tau)\mathbf K_T(\tau;X,Y)$, not a residue
+of $f$ times a value of $\mathbf K_T$, and beyond simple poles the two differ: the
+$\tau$-derivatives of the Hurwitz kernel contribute. The check runs both forms and carries a
+contrast row asserting that the value-form agrees at order one and \emph{fails} at order two,
+so the generalisation is tested by something it could fail.
+
+It does \emph{not} determine it. The three poles of a triple give three different $w_f$,
+differing by elements of $W$ of size comparable to $r_f$ itself ($83$--$93\times$ the scale
+here), so ``lies in $W$'' alone does not define a period polynomial: the ambiguity lives in
+exactly the space one is trying to land in. Subtracting $\Pi_W(w_f)$, the projection
+orthogonal with respect to the pairing~\eqref{inner} that \code{def:periods} already uses,
+pins it uniquely. The check therefore carries three \emph{choice-independence} rows alongside
+the two relations --- an earlier version tested a single representative and by construction
+could not have detected the ambiguity. Also verified: $\dim W=3$ at $k=12$, the corrected
+polynomial is nonzero (so the test is not passing vacuously), and the second regime $f_7$
+($c_f\neq0$, nothing inside $\mathcal T$) where the correction reduces to $-c_fr_{E_k}$.
+
+One consequence is worth recording, since it is pure algebra once the theorem holds. Because
+$r_f+w_f\in W$ and $\Pi_W$ fixes $W$ pointwise,
 \[
-\tilde r_f=r_f-c_f\,r_{E_k}
-+\sum_{\mathcal O}2\pi i\,r^*_{f,q_{\mathcal O}}(1)
-\big[(2\pi i)^{n+1}\mathbf{K}_T(q_{\mathcal O};X,Y)-r_{E_k}(X,Y)\big]
+  \tilde r_f=(r_f+w_f)-\Pi_W(w_f)=\Pi_W(r_f+w_f)-\Pi_W(w_f)=\Pi_W(r_f),
 \]
-lies in $W$: winding $\hat\gamma^T_f$ once about $q_{\mathcal O}=Sp_{\mathcal O}$ (one pole per
-enclosed $U$-orbit) trivialises the $(TS)^3$-loop --- the added loop transports under $S^{-1}$
-to $+1$ windings on the whole orbit, cancelling the clockwise boundary passage --- at the
-explicit price of \code{lem:wall}, and $r_{E_k}$ absorbs the shifted strip-constant. Checked
-in both regimes: $f_{z_0}$ (enclosed orbit, $c_f=0$; also with a second choice of
-representative, which shifts $\tilde r_f$ within $W$) and $f_7$ ($c_f\ne0$, nothing enclosed,
-correction $=-c_fr_{E_k}$). At $\mathrm{dps}=25$ both Eichler--Shimura relations hold to
-$10^{-22}$ (\code{explicitW.py}); the suite carries the fast-tier version. This is the
-statement toward which the whole layer builds: period polynomials in $W$ for arbitrary
-simple-pole $f\in F_k$, from residue data alone.
+so the canonical period polynomial is just the Haberland projection of the naive one, with the
+residue data nowhere in the final formula (confirmed to $10^{-30}$ and $10^{-28}$ for the two
+forms, \code{projonly.py}). The residue corrector is what makes that projection meaningful
+rather than tautological --- it certifies that the entire failure of $r_f$ to lie in $W$ is
+accounted for by polar data --- but it is not needed to evaluate the answer. \emph{What the
+projection does not do is remove the dependence on the homotopy class.} Deforming
+$\hat\gamma^T_f$ across a pole shifts $r_f$ by a wall-crossing vector $c$, hence shifts
+$\tilde r_f$ by $\Pi_W(c)$, and that is measured at $50$--$100\times$ the scale of $\tilde r_f$
+itself (\code{classindep.py}): $|\Pi_W(c)|/|c|$ runs $0.46$--$1.00$ over the poles of the
+triple and their $S$-image. $\tilde r_f$ is canonical because the reference class of
+\code{def:null\_homotopy} is canonical, not because the contour drops out.
+
+Implementation note: the basis of $W$ comes from the null space of the stacked
+$(1{+}S)$, $(1{+}U{+}U^2)$ operators via SVD, with a \emph{relative} zero-threshold. An
+absolute cutoff of $10^{-15}$ finds nothing at fast-tier $\mathrm{dps}=15$, where the true
+zero singular values sit near $10^{-14}$; the spectrum splits cleanly (three near-zero against
+the rest $O(1)$), so any cutoff between them serves.
 
 \paragraph{A note on tolerances.} Two Layer E checks carry their own tolerance instead of the
 global \code{TOL}. This is deliberate. \code{TOL} scales with the working precision, but a
