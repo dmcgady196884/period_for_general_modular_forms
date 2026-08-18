@@ -1568,13 +1568,58 @@ here form a fraction at most $1-3/\pi\approx0.045$ in hyperbolic measure. If mor
 that is if $f\in F_k^{\circ}$, then $r_f$ already lies in $W$ and $\tilde r_f=r_f$.
 \end{corollary}
 
+For poles inside $\mathcal{T}$ the residual choice can be removed by subtracting a reference form
+with the same polar part, rather than by projecting.
+
+\begin{proposition}\label{prop:psi}
+Let $f\in F_k$ vanish at the cusp and have simple poles along a single non-elliptic orbit
+$\SLZ p$, and suppose $E_k(p)\neq0$. Put
+\begin{equation}\label{eq:psiform}
+\Psi_p:=\frac{E_k}{j-j(p)},\qquad
+c:=\frac{r^*_{f,p}(1)}{r^*_{\Psi_p,p}(1)}=\frac{r^*_{f,p}(1)\,j'(p)}{E_k(p)} .
+\end{equation}
+Then $f-c\,\Psi_p$ is holomorphic on $\HH$, and if its constant Fourier coefficient vanishes,
+\begin{equation}\label{eq:psisub}
+r_f-c\,r_{\Psi_p}\ \in\ W .
+\end{equation}
+\end{proposition}
+\begin{proof}
+Both $f$ and $\Psi_p$ have simple poles exactly along $\SLZ p$, and $c$ matches their residues at
+$p$; residue covariance $r^*_{g,\gamma p}(1)=(cp+d)^{n}r^*_{g,p}(1)$ propagates the match to the
+whole orbit, so $f-c\Psi_p$ has no pole in $\HH$ and lies in $M^!_k$. Lemma~\ref{lem:rfW} applies
+to it, and $r$ is linear.
+\end{proof}
+
+\begin{remark}\label{rem:psicanon}
+The subtraction in~\eqref{eq:psisub} is independent of how $\Psi_p$ is scaled, since $c$ is fixed
+by matching residues, but it does depend on $\Psi_p$ itself: replacing $E_k$ by $E_k+\alpha g$ with
+$g\in S_k$ changes the result by an element of $W$. What pins the choice is that $\Psi_p$
+is~\cite[Def.\ 3.1]{BrownFonseca2025}'s Poincar\'e series $\Psi^{0,n}_{\SLZ}(\,\cdot\,,p)$, identified
+in their Example 3.13 with $E_k/(j-j(p))$ up to normalisation, and it is these forms that split the
+residue sequence in their Corollary 5.16. This is therefore a third normalisation, distinct from
+those of Remark~\ref{rem:splitting}, and unlike them it is not chosen for convenience.
+
+At $k=12$ everything is explicit. From $E_4^3=j\Delta$ and $E_6^2=(j-1728)\Delta$ one gets
+$E_{12}=\Delta\,(691j-432000)/691$, so for $f=\Delta/(j-j_0)$,
+\begin{equation}\label{eq:crational}
+c=\frac{\Delta(p)}{E_{12}(p)}=\frac{691}{691j_0-432000},
+\qquad r_f-c\,r_{\Psi_p}=-c\,r_\Delta ,
+\end{equation}
+the second identity because $f-c\Psi_p=-c\Delta$ identically. Thus $c$ is rational whenever $j_0$
+is, with no assumption of complex multiplication, and the corrected period polynomial is a rational
+multiple of $r_\Delta$. Taking $j_0$ rational in $(0,1728)$ places the poles on the unit arc, hence
+inside $\mathcal{T}$, so these are exact instances with poles in the ambiguous
+locus~\cite{VerifyScripts}.
+\end{remark}
+
 \begin{remark}\label{rem:splitting}
 The residual choice for poles inside $\mathcal{T}$ can be removed by projecting: the
 pairing~\eqref{inner} is nondegenerate on $W$, and $\Pi_W(r_f)$ is independent of every choice in
 Theorem~\ref{thm:rtildeW}, since $r_f+w_f\in W$ is fixed by $\Pi_W$. We do not take this as the
 definition, because $\Pi_W(r_{E_k})\neq0$, so projecting would also move $\tilde r_f$ in the
 unambiguous case of Corollary~\ref{cor:unamb}. Averaging $r_f+w_f$ over the three choices within a
-triple is a further alternative, likewise independent of them, and differs from both.
+triple is a further alternative, likewise independent of them, and differs from both; so is the
+reference-form subtraction of Proposition~\ref{prop:psi}, which has the better provenance.
 
 The reference class of Definition~\ref{def:null_homotopy} is not merely stipulated. Winding
 $\hat\gamma^T_f$ once about a pole $q$ shifts $\tilde r_f$ by
