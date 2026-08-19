@@ -641,6 +641,80 @@ author supplied the two corrections that made it true and legible.
 
 ---
 
+## Episode 10 — The $\Psi$-form subtraction: a canonical period polynomial with no projection, and a literature collision found by asking (PRIMARY-SOURCE: this session, Opus 5 + Fable 5)
+
+**The result.** For $f\in F_k$ with simple poles on one orbit $\mathrm{SL}_2(\ZZ)\,p$, let
+$\Psi_p:=E_k/(j-j(p))$ and let $c$ match residues at $p$. Then $f-c\Psi_p$ is holomorphic, so
+$r_f-c\,r_{\Psi_p}\in W$ — no projection, no choice of orbit representative, no ambiguity. At
+$k=12$, using $E_4^3=j\Delta$ and $E_6^2=(j-1728)\Delta$, one gets
+$E_{12}=\Delta(691j-432000)/691$, hence $c=691/(691j_0-432000)$: **rational whenever $j_0$ is, with
+no complex multiplication assumed**, and $r_f-c\,r_{\Psi_p}=-c\,r_\Delta$ identically. Rational
+$j_0\in(0,1728)$ puts the poles on the unit arc, inside $\mathcal T$ — exact test cases in the
+ambiguous locus. Verified at $j_0=200,1000$: naive $U$-defect $7.5$–$7.9$, corrected residual
+$1.6\times10^{-23}$.
+
+This supersedes `thm:rtildeW`'s winding corrector and its Haberland-orthogonal normalisation from
+Episode 9's endgame. The earlier construction worked but required choosing a representative and
+then projecting; this one requires neither.
+
+**Both halves came from DAM's questions, and neither was Claude's idea.** He asked (i) to dig into
+Brown–Fonseca for anything usable, and (ii) for an $f$ with poles inside $\mathcal T$ and rational
+residues so the subtraction could be reverse-engineered exactly. Those turned out to be one
+question: the reference form is Brown–Fonseca's Poincaré series $\Psi^{0,n}$ (their Def. 3.1,
+identified with $E_k/(j-j(p))$ in their Ex. 3.13), and the rationality falls out of the $E_{12}$
+identity for free.
+
+**The literature check DAM ordered, and what it cost.** Asked to verify novelty before anything
+went in a letter, Claude found that arXiv:2508.04844 (Brown–Fonseca, Aug 2025) — already in the
+bibliography, cited nowhere in the text — contains `def:Qf` verbatim as their Lemma 5.10, the
+residue exact sequence as their (5.7), and a strict generalisation of the session's elliptic
+computation as their Remark 3.12 (character orthogonality on $\mathbb{C}(X-wY)^p(X-\bar wY)^q$, both
+elliptic points, any $\Gamma$). Their Example 3.13 is the test-form family. What survives is the
+$L$-function side: the finite contour, $r_f$ from special values, and the chamber structure —
+their residue runs over every pole orbit, $Q_f$ only over poles enclosed by $\mathcal T$. Also
+found: their Remark 5.17 concedes the splitting is Hodge-only and **not** of the $\QQ$-MHS, so the
+rational normalisation is open in the state of the art, not a hole in this note. Matthes (2101.11491)
+and Löbrich–Schwagenscheidt (1907.04024) were checked and do not collide.
+
+**DAM's corrections, five of them, all load-bearing.**
+1. *"Numerics have no role, here, in formal proofs and remarks"* — Claude had put a grid-scan
+   minimum ($0.49$, unnamed test function) inside a remark. Chasing the objection produced the
+   actual proof: at $p=e^{i\pi/3}$, $A^{n-j}B^j$ is a $U$-eigenvector, $1+U+U^2$ is the norm of
+   $\ZZ/3$, and $T_i$ dies iff $i\le d=(k/2-1)\bmod 3$, which is exactly the orders the valence
+   formula forbids stopping at. The complaint upgraded a measurement to `prop:noQzero`.
+2. *"Don't we have an unambiguous $r_f$ for any $f$ which doesn't have poles in the horotope?"* —
+   yes, and Claude had not noticed: the corrector sum is then **empty**. This became `cor:unamb`
+   ($\ge95.5\%$ of pole positions, area$(\mathcal T)=\pi-3$ exactly). It also killed Claude's
+   definition $\tilde r_f:=\Pi_W(r_f)$, since $|\Pi_W(r_{E_k})|=1.28|r_{E_k}|\neq0$ would have
+   *moved* the answer in the case DAM had just shown was unambiguous.
+3. *"wouldn't the framing be … independent of the reference homotopy class?"* — half right, and
+   the measurement (class shift $=1.26\times|\tilde r_f|$) showed the second half false. The
+   correct statement is stronger: single windings **leave** $W$, so the class is selected rather
+   than stipulated.
+4. *"Did you check that there is NO extra residue whose contribution might be in $W$?"* — Claude
+   had not; the scan then found one, at $q=\rho=S\,e^{i\pi/3}$, contradicting a claim made one
+   message earlier.
+5. *"doesn't make it vanish — only in the context of the period polynomial, not the general
+   $L$-function at generic $s$"* — Claude had just written that the $\Psi$-subtraction dissolves
+   the homotopy-class question. It does so only for the composite object built from $k-1$ special
+   values; $L^*(f,s)$ at generic $s$ stays class-dependent, and that dependence is §3's content.
+
+**Claude errors worth recording.** A projection was asserted canonical on the grounds that it
+preserves Petersson observables; three independent computations then showed `eq:inner` is *not*
+the Petersson pairing (correlation $+0.123$ vs $-0.335$ at $k=24$, confirmed against direct 2D
+fundamental-domain integrals to $10^{-10}$) and that Haberland's formula does **not** extend to
+meromorphic $f$ (24% gap, converged in every control). A counting argument then closed the route
+entirely: $\dim S_k$ constraints cannot pin $2\dim S_k+1$ unknowns. Separately, a guessed character
+rule ($T_i$ survives iff $i\equiv k/2$) was falsified by its own table before being used, and a
+string-slice bug silently duplicated 536 lines of `validate.py`.
+
+**Attribution.** The $\Psi$-subtraction, its proof, the $E_{12}$ rationality identity, the norm
+computation, and the literature findings are Claude's; the two questions that produced the result,
+and all five corrections above, are DAM's. The reference form and the cohomological frame are
+Brown–Fonseca's, and are now cited as such in `rem:literature`.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05
