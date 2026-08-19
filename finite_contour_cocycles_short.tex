@@ -1390,20 +1390,33 @@ $\delta>0$ the $S$-segment no longer degenerates and $\partial\mathcal{T}$ acqui
 sides translating $\hat\gamma^S_f$, so~\eqref{eq:Tri} is the $\delta=0$ form, and $i$ is taken
 there by principal value.
 
-The defect is removed by subtracting from $f$ a reference form carrying the same poles. For
-$p\in\HH$ and $i\ge1$ let
+The defect is removed by subtracting from $f$ reference forms carrying the same poles. Write
+$\SLZ\!\cdot\!p:=\{\gamma\cdot p:\gamma\in\SLZ\}$ for the orbit of $p\in\HH$.
+
+\begin{definition}\label{def:reffam}
+A \emph{reference family} at $p$ of depth $m$ is a set $\Psi^{(1)}_p,\dots,\Psi^{(m)}_p$ of weight-$k$
+meromorphic modular forms, each holomorphic on $\HH\smallsetminus\SLZ\!\cdot\!p$ with constant
+Fourier coefficient zero, such that
 \begin{equation}\label{eq:psiform}
-\Psi^{(i)}_p:=\Psi^{\,i-1,\,n-i+1}_{\SLZ}(\,\cdot\,,p)
+\mathop{\rm Res}_{\tau=p}\big[\Psi^{(i)}_p(\tau)(X-\tau Y)^n\,d\tau\big]
+=\lambda_i\,(X-\bar pY)^{i-1}(X-pY)^{\,n-i+1},\qquad \lambda_i\neq0 .
 \end{equation}
-be the weight-$k$ Poincar\'e series of~\cite[Def.\ 3.1]{BrownFonseca2025}: it is holomorphic on
-$\HH$ away from the orbit $\SLZ\!\cdot\!p:=\{\gamma\cdot p:\gamma\in\SLZ\}$, has poles of order at
-most $i$ there, and vanishes at the cusp. For
-$i=1$ and $E_k(p)\neq0$ it is a multiple of $E_k/\big(j-j(p)\big)$.
+\end{definition}
+
+Such families exist at every non-elliptic $p$: the Poincar\'e series
+$\Psi^{\,i-1,\,n-i+1}_{\SLZ}(\,\cdot\,,p)$ of~\cite[Def.\ 3.1]{BrownFonseca2025} have weight $k$,
+are holomorphic off $\SLZ\!\cdot\!p$ with poles there of order at most $i$, and vanish at the
+cusp~\cite[Prop.\ 3.3]{BrownFonseca2025}; their residues take the form~\eqref{eq:psiform}
+by~\cite[Cor.\ 3.11]{BrownFonseca2025}, whose frame agrees with ours, their $(X,Y)$ being dual to
+$(1,-\tau)$ so that their $X-\tau Y$ is the class of $du$ on $\CC/(\ZZ+\ZZ\tau)$, with $\lambda_i$
+proportional to a local character sum
+$\kappa^{i-1,n-i+1}$ which by~\cite[Rem.\ 3.12]{BrownFonseca2025} equals the order of the
+stabiliser of $p$, hence $2$, when $p$ is non-elliptic and $n$ is even.
 
 \begin{theorem}\label{thm:period}
 Let $f\in F_k$ have $c_f(0)=0$ and poles in $\HH$ on the non-elliptic orbits
 $\SLZ\!\cdot\!p_1,\dots,\SLZ\!\cdot\!p_N$, of orders $m_1,\dots,m_N$; a pole at the cusp is
-allowed. There are
+allowed. Fix a reference family $\Psi^{(i)}_{p_a}$ at each $p_a$ of depth $m_a$. There are
 unique $c_{a,i}\in\CC$, for $1\le a\le N$ and $1\le i\le m_a$, such that
 $f-\sum_{a,i}c_{a,i}\Psi^{(i)}_{p_a}$ is holomorphic on $\HH$, and then
 \begin{equation}\label{eq:period}
@@ -1414,26 +1427,23 @@ assembled from the values $L^*(\,\cdot\,,\ell+1)$, $0\le\ell\le n$, of the finit
 $L$-function alone, and the $c_{a,i}$ are determined by the principal parts of $f$.
 \end{theorem}
 \begin{proof}
-Fix $a$. By~\cite[Cor.\ 3.11]{BrownFonseca2025} the residue of $\Psi^{(i)}_{p_a}(z)(X-zY)^n\,dz$ at
-$z=p_a$ is a nonzero multiple of $(X-\bar p_aY)^{i-1}(X-p_aY)^{n-i+1}$, the constant being
-$\kappa^{i-1,n-i+1}_{\SLZ,p_a}\in\{0,|{\rm Stab}(p_a)|\}$, with ${\rm Stab}(p_a)\le\SLZ$ the
-stabiliser of $p_a$; this equals $2$ here since $p_a$ is
-non-elliptic and $n$ is even. The residue of $f(\tau)(X-\tau Y)^n\,d\tau$ at $p_a$ is
-$\sum_{i\le m_a}r^*_{f,p_a}(i)\binom{n}{i-1}(-Y)^{i-1}(X-p_aY)^{n-i+1}$ as in~\eqref{eq:Qf}. Both
-families are triangular in the order of vanishing of $(X-p_aY)$, and
-$-Y=\big((X-p_aY)-(X-\bar p_aY)\big)/(p_a-\bar p_a)$ relates them by an invertible triangular
-change of basis, so the $c_{a,i}$ matching the two exist and are unique. Since $\Psi^{(i)}_{p_a}$
-has no pole off $\SLZ\!\cdot\!p_a$, the orbits do not interfere and the choices are independent in
-$a$.
-Matching the residue at $p_a$ matches the entire principal part there, and covariance
-$r^*_{g,\gamma p}(i)=(cp+d)^{n}r^*_{g,p}(i)$ propagates this along the orbit, so the difference has
-no pole in $\HH$ and lies in $M^!_k$. Each $\Psi^{(i)}_{p_a}$ vanishes at the
-cusp~\cite[Prop.\ 3.3]{BrownFonseca2025}, so the difference has constant term $c_f(0)=0$ and lies
-in $S^!_k$, where Lemma~\ref{lem:rfW} gives a period polynomial in $W$; $r$ is linear.
+Fix $a$. The residue of $f(\tau)(X-\tau Y)^n\,d\tau$ at $p_a$ is
+$\sum_{i\le m_a}r^*_{f,p_a}(i)\binom{n}{i-1}(-Y)^{i-1}(X-p_aY)^{n-i+1}$ as in~\eqref{eq:Qf}, while
+the residues~\eqref{eq:psiform} of the reference family are the
+$\lambda_i(X-\bar p_aY)^{i-1}(X-p_aY)^{n-i+1}$. Both families are triangular in the order of
+vanishing of $(X-p_aY)$, and $-Y=\big((X-p_aY)-(X-\bar p_aY)\big)/(p_a-\bar p_a)$ relates them by an
+invertible triangular change of basis, so the $c_{a,i}$ matching the two exist and are unique.
+Since $\Psi^{(i)}_{p_a}$ has no pole off $\SLZ\!\cdot\!p_a$, the orbits do not interfere and the
+choices are independent in $a$. Matching the residue at $p_a$ matches the entire principal part
+there, and covariance $r^*_{g,\gamma p}(i)=(cp+d)^{n}r^*_{g,p}(i)$ propagates this along the orbit,
+so the difference has no pole in $\HH$ and lies in $M^!_k$. Its constant Fourier coefficient is
+$c_f(0)=0$, so it lies in $S^!_k$, where Lemma~\ref{lem:rfW} gives a period polynomial in $W$; $r$
+is linear.
 \end{proof}
 
 \begin{corollary}\label{cor:explicit}
-Let $k=12$ and $f=\Delta/(j-j_0)$ with $j_0\notin\{0,1728\}$. Then $N=1$, $m_1=1$,
+Let $k=12$ and $f=\Delta/(j-j_0)$ with $j_0\notin\{0,1728\}$, and take the reference family
+$\Psi^{(1)}_p:=E_{12}/(j-j_0)$ at a pole $p$. Then $N=1$, $m_1=1$,
 \begin{equation}\label{eq:crational}
 c_{1,1}=\frac{\Delta(p)}{E_{12}(p)}=\frac{691}{691\,j_0-432000},
 \qquad
@@ -1443,8 +1453,10 @@ In particular $c_{1,1}$ is rational whenever $j_0$ is, with no assumption of com
 multiplication, and $\tilde r_f$ is then a rational multiple of the period polynomial of $\Delta$.
 \end{corollary}
 \begin{proof}
-Here $\Psi^{(1)}_p=E_{12}/(j-j_0)$ up to scale. From $E_4^3=j\Delta$ and $E_6^2=(j-1728)\Delta$ one
-gets $E_{12}=\Delta\,(691j-432000)/691$, so $\Delta/E_{12}$ takes the stated value at $p$, and
+$E_{12}/(j-j_0)$ is holomorphic off $\SLZ\!\cdot\!p$, has a simple pole there with nonzero residue,
+and vanishes at the cusp, so it is a reference family of depth $1$. From $E_4^3=j\Delta$ and
+$E_6^2=(j-1728)\Delta$ one gets $E_{12}=\Delta\,(691j-432000)/691$, so $\Delta/E_{12}$ takes the
+stated value at $p$, and
 substituting gives $f-c_{1,1}\Psi^{(1)}_p=-c_{1,1}\Delta$ identically. Apply
 Theorem~\ref{thm:period} and linearity.
 \end{proof}
