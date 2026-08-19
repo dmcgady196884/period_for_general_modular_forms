@@ -1294,71 +1294,10 @@ residue bookkeeping of~\cite{1806}. That class differs from the one of
 Definition~\ref{def:null_homotopy} by the crossings of Lemma~\ref{lem:wall}.
 \end{remark}
 
-%% ====================================================================================
-%% TODO for this subsection (state as of 2026-08-17). Nothing here is broken; it is a
-%% session of tightening. The content worth defending is cor:unamb, the norm computation
-%% in rem:higherorderQ, and prop:noQzero.
-%%
-%% [1] NUMERICS STILL STANDING IN FORMAL ENVIRONMENTS.
-%%     - rem:rtildeexample is full of decimals (z_0 = 0.5+0.8i, residues to four figures).
-%%       It reads as a worked example rather than a claim, so it is a different genre, but
-%%       it is the same objection as the bare grid-scan numbers. Decide whether it stays.
-%%     - rem:splitting still leans on \cite{VerifyScripts} for "these shifts do not in
-%%       general annihilate 1+U+U^2". Softened from bare numbers, but still a computational
-%%       assertion doing load-bearing work inside a remark.
-%%
-%% [2] CLAIMS RESTING ON STANDARD BUT UNSTATED FACTS.
-%%     - cor:unamb uses area(T) = pi - 3 (ideal triangle minus three mutually tangent
-%%       horoballs, each of area 1) and the U-quotient bound area(image) <= (pi-3)/3.
-%%       Both standard, neither stated.
-%%     - The elliptic exception in rem:splitting (q = S e^{i pi/3}) is asserted without
-%%       its derivation.
-%%
-%% [3] SCOPE GAPS.
-%%     - prop:noQzero covers simple poles only. The elliptic case at all orders is now
-%%       proven but sits in rem:higherorderQ, which is the wrong environment for it.
-%%       Promote that material to a proposition and merge the two.
-%%
-%% [4] OUT OF SYNC WITH THE DRAFT (companion files, not this .tex).
-%%     - e9 in validate.py still builds regime 2 as r_f + w_f - Pi_W(w_f), which is no
-%%       longer def:rtilde. Passes either way, so nothing is wrong.
-%%     - validation_notes.tex E8/E9 still describe the projection-based tilde r_f and the
-%%       simple-pole-only formulas: the prose describes a paper that no longer exists.
-%%
-%% [5] PARKED, DELIBERATELY.
-%%     - The meromorphic-Haberland formula and its unexplained 2e-4 residual live in the
-%%       task list, not here. They are a side result, NOT a dependency of anything in this
-%%       subsection; recommendation is to cut them from this note and let them stand alone
-%%       if the residual is ever understood.
-%%
-%% [6] THE LOAD-BEARING PROOF.
-%%     - thm:rtildeW's proof is the one everything downstream rests on, and it is backed by
-%%       numerics across several forms and both regimes rather than by an independent read.
-%%       It wants DAM's eyes specifically before this goes anywhere.
-%% ====================================================================================
-
 \subsection{Period polynomials for generic $f \in F_k$}
 
 The proof of Lemma~\ref{lem:rfW} used $f\in S^!_k$ in exactly two places, and both survive
 weakening to $f\in F_k$ under explicit conditions.
-
-\begin{remark}\label{rem:deliverable}
-Definition~\ref{def:rtilde} and Corollary~\ref{cor:unamb} attach to every $f\in F_k$ whose poles
-avoid $\mathcal{T}$, which is all but a fraction $1-3/\pi$ of pole positions in hyperbolic measure,
-a period polynomial in $W$ assembled from finitely many special values of $L^*(f,\cdot\,)$, the
-obstruction on the remaining locus being explicit in the residues. This carries the classical
-correspondence past $M^!_k$ to forms with poles in the interior of $\HH$.
-
-Three features are worth isolating. The locus on which the assignment is unambiguous is cut out by
-a wall and not by the vanishing of an algebraic condition, so what governs it is a chamber
-structure rather than a degeneration; by Remark~\ref{rem:literature} this is exactly the feature
-absent from a treatment carried out without a contour. The ambiguity on the complementary locus is
-a splitting of the residue sequence, hence an extension problem rather than a question of
-normalisation: the splittings form a torsor under homomorphisms from the residue data into $W$,
-and a splitting of the underlying rational structure is not available even in the established
-cohomological framework. And the obstruction at the elliptic point reduces to a norm computation
-for the stabiliser $\ZZ/3$, which supplies an explicit local model at the orbifold point.
-\end{remark}
 
 \begin{definition}\label{def:Fcirc}
 Let $\mathcal{T}\subset\HH$ be the curvilinear triangle bounded by the height-one horocycles at
@@ -1392,6 +1331,12 @@ around $\partial\mathcal{T}$; the first condition of~\eqref{eq:Fcirc} makes that
 holomorphic on and within $\mathcal{T}$, so the integral vanishes. The remaining steps are
 formal consequences of the cocycle law and apply verbatim.
 \end{proof}
+
+The first condition in~\eqref{eq:Fcirc} excludes few configurations: $\mathcal{T}$ is an ideal
+triangle with the three horoballs of area $1$ at its vertices removed, so its hyperbolic area is
+$\pi-3$, and it is $U$-invariant, so its image in a fundamental domain has area at most
+$(\pi-3)/3$; the excluded pole positions form a fraction at most $1-3/\pi\approx0.045$ in
+hyperbolic measure.
 
 Poles inside $\mathcal{T}$ do not destroy this structure; they shift $r_f$ by an explicit
 polynomial. As the sides of $\mathcal{T}$ are $U$-transports of one path, the enclosed pole set
@@ -1437,324 +1382,94 @@ that residue is $\sum_{i\le m_p}r^*_{f,p}(i)\binom{n}{i-1}(-Y)^{i-1}(X-pY)^{n-i+
 $C_{-I}=-Q_f$.
 \end{proof}
 
-\begin{remark}\label{rem:bdrypoles}
-No hypothesis on $\partial\mathcal{T}$ is needed. The sides of $\mathcal{T}$ are
-$\Gamma$-translates of $\hat\gamma^T_f$ and the poles of $f$ are $\Gamma$-invariant, so a pole
-lies on $\partial\mathcal{T}$ precisely when one lies on $\hat\gamma^T_f$ --- which
-Definition~\ref{def:null_homotopy} excludes by lifting the base-point to $i(1+\delta)$. When
-$\delta>0$ the $S$-segment no longer degenerates, $\partial\mathcal{T}$ acquires three further
-sides translating $\hat\gamma^S_f$, and the description~\eqref{eq:Tri} by three mutually
-tangent horocycles is the $\delta=0$ form; the only pole such a side can meet is the elliptic
-point $i$, taken there by principal value.
-\end{remark}
+A pole of $f$ can meet $\partial\mathcal{T}$ only at the elliptic point $i$. The sides of
+$\mathcal{T}$ are $\Gamma$-translates of $\hat\gamma^T_f$ and the poles of $f$ are
+$\Gamma$-invariant, so a pole on $\partial\mathcal{T}$ would lie on $\hat\gamma^T_f$ itself, which
+Definition~\ref{def:null_homotopy} excludes by lifting the base-point to $i(1+\delta)$; when
+$\delta>0$ the $S$-segment no longer degenerates and $\partial\mathcal{T}$ acquires three further
+sides translating $\hat\gamma^S_f$, so~\eqref{eq:Tri} is the $\delta=0$ form, and $i$ is taken
+there by principal value.
 
-One might hope to avoid the correction by arranging $Q_f=0$ with poles still present in
-$\mathcal{T}$. For simple poles this is impossible.
-
-\begin{proposition}\label{prop:noQzero}
-Let $f\in F_k$ satisfy $\int_{\hat\gamma^T_f}f(\tau)\,d\tau=0$ and have only simple poles inside
-$\mathcal{T}$. If $f$ has any pole inside $\mathcal{T}$, then $r_f\notin W$.
-\end{proposition}
-\begin{proof}
-By Lemma~\ref{lem:rfWFk} it is enough to show $Q_f\neq0$. Residue covariance turns the sum over a
-$U$-triple into the $(1+U+U^2)$-image of a single term, so
-$Q_f=(2\pi i)^{n+2}\sum_{\mathcal O}r^*_{f,p_{\mathcal O}}(1)\,(X-p_{\mathcal O}Y)^n|_{(1+U+U^2)}$,
-one $p_{\mathcal O}$ per triple. Directly,
-$(X-pY)^n|_U=(1-p)^n\big(X-\tfrac{1}{1-p}Y\big)^n$ and
-$(X-pY)^n|_{U^2}=(-p)^n\big(X-\tfrac{p-1}{p}Y\big)^n$. Powers $(X-\alpha Y)^n$ with distinct
-$\alpha$ are linearly independent, and the points of distinct triples are distinct, so no
-cancellation occurs unless $p=\tfrac{1}{1-p}$, that is $p=e^{i\pi/3}$, the fixed point of $U$.
-There $(X-pY)^n|_U=\lambda\,(X-pY)^n$ with $\lambda=(1-p)^n=e^{-i\pi n/3}$, a cube root of unity
-because $n$ is even, and the triple sums to $(1+\lambda+\lambda^2)(X-pY)^n$, which vanishes exactly
-when $\lambda\neq1$, that is when $n\not\equiv0\bmod 6$. Finally $e^{i\pi/3}$ is
-$\SLZ$-equivalent to $\rho$, and the valence formula forces
-${\rm ord}_\rho(f)\equiv k \bmod 3$; a simple pole needs $k\equiv2\bmod3$, hence
-$n=k-2\equiv0\bmod3$, and $n$ even gives $n\equiv0\bmod6$, where the sum does not vanish.
-\end{proof}
-
-\begin{remark}\label{rem:higherorderQ}
-For a pole of order $m$ the condition $Q_f=0$ reads
-$\sum_{i=1}^{m}r^*_{f,p}(i)\,T_i|_{(1+U+U^2)}=0$ with
-$T_i:=\binom{n}{i-1}(-Y)^{i-1}(X-pY)^{n-i+1}$, so it asks whether the Laurent weights of an actual
-$f$ can lie in a prescribed subspace. At the elliptic point this can be settled exactly.
-
-Put $p=e^{i\pi/3}$, $A:=X-pY$ and $B:=X-\bar pY$. Then $A|_U=(1-p)A=e^{-i\pi/3}A$ and
-$B|_U=(1-\bar p)B=e^{i\pi/3}B$, so $A^{n-j}B^{j}$ is a $U$-eigenvector with eigenvalue
-$e^{i\pi(2j-n)/3}$, which is trivial exactly when $j\equiv n/2\bmod 3$. As $1+U+U^2$ is the norm
-of $\langle U\rangle\cong\ZZ/3$ it triples the invariants and annihilates every other eigenvector.
-Substituting $Y=(A-B)/(\bar p-p)$ gives
-$T_i\propto\sum_{j=0}^{i-1}\binom{i-1}{j}(-1)^{j}A^{n-j}B^{j}$, whence
-$T_i|_{(1+U+U^2)}=0$ if and only if no $j\le i-1$ satisfies $j\equiv n/2\bmod 3$, that is if and
-only if
-\begin{equation}\label{eq:normkernel}
-i\ \le\ d:=\Big(\tfrac{k}{2}-1\Big)\bmod 3 .
+The defect is removed by subtracting from $f$ a reference form carrying the same poles. For
+$p\in\HH$ and $i\ge1$ let
+\begin{equation}\label{eq:psiform}
+\Psi^{(i)}_p:=\Psi^{\,i-1,\,n-i+1}_{\SLZ}(\,\cdot\,,p)
 \end{equation}
-The valence formula makes the admissible pole orders at $p$ the positive integers
-$\equiv-k\bmod3$, whose least value is $d+1$ in each of the three residue classes. The norm
-therefore annihilates precisely the terms at which the geometry forbids the Laurent expansion to
-stop, so $Q_f\neq0$ whenever the order at $p$ is minimal.
+be the weight-$k$ Poincar\'e series of~\cite[Def.\ 3.1]{BrownFonseca2025}: it is holomorphic on
+$\HH$ away from the orbit $\SLZ\!\cdot\!p:=\{\gamma\cdot p:\gamma\in\SLZ\}$, has poles of order at
+most $i$ there, and vanishes at the cusp. For
+$i=1$ and $E_k(p)\neq0$ it is a multiple of $E_k/\big(j-j(p)\big)$.
 
-Beyond minimal order the surviving images are not independent: $T_i|_{(1+U+U^2)}$ is supported on
-the $A^{n-j}B^{j}$ with $j\equiv n/2\bmod3$ and $j\le i-1$, so $T_{d+1},T_{d+2},T_{d+3}$ are all
-proportional to $A^{n-d}B^{d}$ and a second direction appears only at $i=d+4$. A cancellation among
-them is thus not excluded once $m\ge d+4$; whether the Laurent weights of an actual form realise
-one we have not determined.
-\end{remark}
-
-The defect is removed by an explicit wall-crossing: winding $\hat\gamma^T_f$ once about a
-single well-chosen pole per triple trivializes the $(TS)^3$-loop, at the explicit price of
-Lemma~\ref{lem:wall}, and the Eisenstein period polynomial absorbs the shifted constant mode.
-
-\begin{theorem}\label{thm:rtildeW}
-Let $f\in F_k$ and set $c_f:=\int_{\hat\gamma^T_f}f(\tau)\,d\tau$. Since $U$ is the order-three rotation about
-$e^{i\pi/3}\in\mathcal{T}$, the region $\mathcal{T}$ is $U$-invariant and the poles of $f$
-inside it come in triples $\{p,\,Up,\,U^2p\}$. Choose one pole $p_1,\dots,p_m$ from each
-triple, and set $q_j:=-1/p_j$. Define
-\begin{equation}\label{eq:w0}
-w_f:=-c'_f\,r_{E_k}+\sum_{j=1}^{m}(2\pi i)^{n+2}
-\mathop{\rm Res}_{\tau=q_j}\big[f(\tau)\,\mathbf{K}_T(\tau;X,Y)\big],
-\qquad
-c'_f:=c_f+2\pi i\sum_{j=1}^{m}r^*_{f,q_j}(1),
+\begin{theorem}\label{thm:period}
+Let $f\in F_k$ have $c_f(0)=0$ and poles in $\HH$ on the non-elliptic orbits
+$\SLZ\!\cdot\!p_1,\dots,\SLZ\!\cdot\!p_N$, of orders $m_1,\dots,m_N$; a pole at the cusp is
+allowed. There are
+unique $c_{a,i}\in\CC$, for $1\le a\le N$ and $1\le i\le m_a$, such that
+$f-\sum_{a,i}c_{a,i}\Psi^{(i)}_{p_a}$ is holomorphic on $\HH$, and then
+\begin{equation}\label{eq:period}
+\tilde r_f\ :=\ r_f-\sum_{a=1}^{N}\sum_{i=1}^{m_a}c_{a,i}\,r_{\Psi^{(i)}_{p_a}}\ \in\ W .
 \end{equation}
-where $r_{E_k}$ is Definition~\ref{def:rf} applied to $E_k$ (its $L^*$-values are finite at
-$s=1,\dots,k-1$), and $\mathbf{K}_T$ is the kernel polynomial of
-Proposition~\ref{prop:periodint}. Only $r^*_{f,q_j}(1)$ enters $c'_f$, since
-$\oint f\,d\tau$ sees the residue alone; for a simple pole the residue above is
-$r^*_{f,q_j}(1)\,\mathbf{K}_T(q_j;X,Y)$. Then $w_f|_{(1+S)}=0$ and $r_f+w_f\in W$.
+Both $r_f$ and each $r_{\Psi^{(i)}_{p_a}}$ are given by Definition~\ref{def:rf}, so $\tilde r_f$ is
+assembled from the values $L^*(\,\cdot\,,\ell+1)$, $0\le\ell\le n$, of the finite-contour
+$L$-function alone, and the $c_{a,i}$ are determined by the principal parts of $f$.
 \end{theorem}
 \begin{proof}
-Wind $\hat\gamma^T_f$ once counterclockwise about each $q_j$ and let $r'_f$ be the polynomial
-of Definition~\ref{def:rf} evaluated in the resulting class. By Lemma~\ref{lem:wall} at
-$s=1,\dots,k-1$,
-$r'_f=r_f+\sum_j(2\pi i)^{n+2}\mathop{\rm Res}_{\tau=q_j}[f\,\mathbf{K}_T]$, and
-$\int f\,d\tau$ over the new class equals $c'_f$.
-The $S^2$-loop is still degenerate, so $r'_f|_{(1+S)}=0$. The $(TS)^3$-loop now encloses
-nothing: the added loop about $q_j=-1/p_j$ transports under $S^{-1}$ to a loop about $p_j$,
-whose three $U$-images add $+1$ to the winding about each pole of the triple, cancelling the
-clockwise passage of $\partial\mathcal{T}$; hence $\hat C_{U^3}=0$. Retaining
-$\hat C_T=-(2\pi i)^{n+1}A_0\,c'$ in the cocycle algebra of Lemma~\ref{lem:rfWFk} gives
-$r'_f|_{(1+U+U^2)}=\hat C_{U^3}-\hat C_T|_{S(1+U+U^2)}
-=c'_f\,(2\pi i)^{n+1}\big(A_0|_S\big)\big|_{(1+U+U^2)}$. The same computation applied to $E_k$
---- no poles, strip-integral $1$ --- identifies the right side as
-$c'_f\,r_{E_k}|_{(1+U+U^2)}$, while $r_{E_k}|_{(1+S)}=0$ by the functional equation of
-Theorem~\ref{thm:weakL}. Subtracting $c'_f\,r_{E_k}$ kills both defects, and
-$r_f+w_f=r'_f-c'_f\,r_{E_k}\in W$.
+Fix $a$. By~\cite[Cor.\ 3.11]{BrownFonseca2025} the residue of $\Psi^{(i)}_{p_a}(z)(X-zY)^n\,dz$ at
+$z=p_a$ is a nonzero multiple of $(X-\bar p_aY)^{i-1}(X-p_aY)^{n-i+1}$, the constant being
+$\kappa^{i-1,n-i+1}_{\SLZ,p_a}\in\{0,|{\rm Stab}(p_a)|\}$, with ${\rm Stab}(p_a)\le\SLZ$ the
+stabiliser of $p_a$; this equals $2$ here since $p_a$ is
+non-elliptic and $n$ is even. The residue of $f(\tau)(X-\tau Y)^n\,d\tau$ at $p_a$ is
+$\sum_{i\le m_a}r^*_{f,p_a}(i)\binom{n}{i-1}(-Y)^{i-1}(X-p_aY)^{n-i+1}$ as in~\eqref{eq:Qf}. Both
+families are triangular in the order of vanishing of $(X-p_aY)$, and
+$-Y=\big((X-p_aY)-(X-\bar p_aY)\big)/(p_a-\bar p_a)$ relates them by an invertible triangular
+change of basis, so the $c_{a,i}$ matching the two exist and are unique. Since $\Psi^{(i)}_{p_a}$
+has no pole off $\SLZ\!\cdot\!p_a$, the orbits do not interfere and the choices are independent in
+$a$.
+Matching the residue at $p_a$ matches the entire principal part there, and covariance
+$r^*_{g,\gamma p}(i)=(cp+d)^{n}r^*_{g,p}(i)$ propagates this along the orbit, so the difference has
+no pole in $\HH$ and lies in $M^!_k$. Each $\Psi^{(i)}_{p_a}$ vanishes at the
+cusp~\cite[Prop.\ 3.3]{BrownFonseca2025}, so the difference has constant term $c_f(0)=0$ and lies
+in $S^!_k$, where Lemma~\ref{lem:rfW} gives a period polynomial in $W$; $r$ is linear.
 \end{proof}
 
-\begin{remark}\label{rem:choice}
-For $f$ with poles inside $\mathcal{T}$ the polynomial $w_f$ depends on which pole is taken from
-each triple, and the choices differ by elements of $W$ comparable in size to $r_f$
-itself~\cite{VerifyScripts}. There Theorem~\ref{thm:rtildeW} determines $r_f$ only modulo $W$.
-What it determines in every case, given the
-reference class of Definition~\ref{def:null_homotopy}, is the coset $r_f+W$: by
-Lemma~\ref{lem:rfWFk} the polynomial $r_f$ lies in $\ker(1+S)$ and its image under
-$(1+U+U^2)$ is $-Q_f$, computed from residues alone. The component of $r_f$ along $W$ is not
-fixed by any of this.
-\end{remark}
-
-\begin{definition}\label{def:rtilde}
-For $f\in F_k$ set $\tilde r_f:=r_f+w_f\in W$, with $w_f$ as in~\eqref{eq:w0}.
-\end{definition}
-
-\begin{corollary}\label{cor:unamb}
-If $f$ has no pole inside $\mathcal{T}$, the sum in~\eqref{eq:w0} is empty and
-\begin{equation}\label{eq:rtildeW}
-\tilde r_f=r_f-c_f\,r_{E_k}\ \in\ W
-\end{equation}
-involves no choice; for the role of the reference class see Remark~\ref{rem:splitting}.
-Since $\mathcal{T}$ has hyperbolic area $\pi-3$ and is $U$-invariant, its
-image in a fundamental domain has area at most $(\pi-3)/3$, so the pole configurations excluded
-here form a fraction at most $1-3/\pi\approx0.045$ in hyperbolic measure. If moreover $c_f=0$,
-that is if $f\in F_k^{\circ}$, then $r_f$ already lies in $W$ and $\tilde r_f=r_f$.
-\end{corollary}
-
-For poles inside $\mathcal{T}$ the residual choice can be removed by subtracting a reference form
-with the same polar part, rather than by projecting.
-
-\begin{proposition}\label{prop:psi}
-Let $f\in F_k$ vanish at the cusp and have simple poles along a single non-elliptic orbit
-$\SLZ p$, and suppose $E_k(p)\neq0$. Put
-\begin{equation}\label{eq:psiform}
-\Psi_p:=\frac{E_k}{j-j(p)},\qquad
-c:=\frac{r^*_{f,p}(1)}{r^*_{\Psi_p,p}(1)}=\frac{r^*_{f,p}(1)\,j'(p)}{E_k(p)} .
-\end{equation}
-Then $f-c\,\Psi_p$ is holomorphic on $\HH$, and if its constant Fourier coefficient vanishes,
-\begin{equation}\label{eq:psisub}
-r_f-c\,r_{\Psi_p}\ \in\ W .
-\end{equation}
-\end{proposition}
-\begin{proof}
-Both $f$ and $\Psi_p$ have simple poles exactly along $\SLZ p$, and $c$ matches their residues at
-$p$; residue covariance $r^*_{g,\gamma p}(1)=(cp+d)^{n}r^*_{g,p}(1)$ propagates the match to the
-whole orbit, so $f-c\Psi_p$ has no pole in $\HH$ and lies in $M^!_k$. Lemma~\ref{lem:rfW} applies
-to it, and $r$ is linear.
-\end{proof}
-
-\begin{remark}\label{rem:psicanon}
-The subtraction in~\eqref{eq:psisub} is independent of how $\Psi_p$ is scaled, since $c$ is fixed
-by matching residues, but it does depend on $\Psi_p$ itself: replacing $E_k$ by $E_k+\alpha g$ with
-$g\in S_k$ changes the result by an element of $W$. What pins the choice is that $\Psi_p$
-is~\cite[Def.\ 3.1]{BrownFonseca2025}'s Poincar\'e series $\Psi^{0,n}_{\SLZ}(\,\cdot\,,p)$, identified
-in their Example 3.13 with $E_k/(j-j(p))$ up to normalisation, and it is these forms that split the
-residue sequence in their Corollary 5.16. This is therefore a third normalisation, distinct from
-those of Remark~\ref{rem:splitting}, and unlike them it is not chosen for convenience.
-
-At $k=12$ everything is explicit. From $E_4^3=j\Delta$ and $E_6^2=(j-1728)\Delta$ one gets
-$E_{12}=\Delta\,(691j-432000)/691$, so for $f=\Delta/(j-j_0)$,
+\begin{corollary}\label{cor:explicit}
+Let $k=12$ and $f=\Delta/(j-j_0)$ with $j_0\notin\{0,1728\}$. Then $N=1$, $m_1=1$,
 \begin{equation}\label{eq:crational}
-c=\frac{\Delta(p)}{E_{12}(p)}=\frac{691}{691j_0-432000},
-\qquad r_f-c\,r_{\Psi_p}=-c\,r_\Delta ,
+c_{1,1}=\frac{\Delta(p)}{E_{12}(p)}=\frac{691}{691\,j_0-432000},
+\qquad
+\tilde r_f=-\,c_{1,1}\,r_\Delta .
 \end{equation}
-the second identity because $f-c\Psi_p=-c\Delta$ identically. Thus $c$ is rational whenever $j_0$
-is, with no assumption of complex multiplication, and the corrected period polynomial is a rational
-multiple of $r_\Delta$. Taking $j_0$ rational in $(0,1728)$ places the poles on the unit arc, hence
-inside $\mathcal{T}$, so these are exact instances with poles in the ambiguous
-locus~\cite{VerifyScripts}.
-\end{remark}
-
-\begin{remark}\label{rem:splitting}
-The residual choice for poles inside $\mathcal{T}$ can be removed by projecting: the
-pairing~\eqref{inner} is nondegenerate on $W$, and $\Pi_W(r_f)$ is independent of every choice in
-Theorem~\ref{thm:rtildeW}, since $r_f+w_f\in W$ is fixed by $\Pi_W$. We do not take this as the
-definition, because $\Pi_W(r_{E_k})\neq0$, so projecting would also move $\tilde r_f$ in the
-unambiguous case of Corollary~\ref{cor:unamb}. Averaging $r_f+w_f$ over the three choices within a
-triple is a further alternative, likewise independent of them, and differs from both; so is the
-reference-form subtraction of Proposition~\ref{prop:psi}, which has the better provenance.
-
-The reference class of Definition~\ref{def:null_homotopy} is not merely stipulated. Winding
-$\hat\gamma^T_f$ once about a pole $q$ shifts $\tilde r_f$ by
-$2\pi i\,r^*_{f,q}(1)\big[(2\pi i)^{n+1}\mathbf{K}_T(q;X,Y)-r_{E_k}\big]$, in which the bracket
-depends only on $q$ and $k$, and the residues along a $\SLZ$-orbit are determined by any one of
-them through $r^*_{f,\gamma q}(1)=(cq+d)^{n}r^*_{f,q}(1)$; the winding numbers being integers, the
-shifts available to a given $f$ form a lattice. These shifts annihilate $1+S$, but not in general
-$1+U+U^2$~\cite{VerifyScripts}, the exception being $q=S\,e^{i\pi/3}$, at the elliptic point. So
-apart from that point a winding leaves $W$, the wound classes furnish no competing period
-polynomial, and the class is constrained by the requirement $\tilde r_f\in W$ rather than merely
-assumed. Whether some integer combination of windings returns to $W$ is the lattice question of
-the companion analysis. Whether some integer combination of windings returns to
-$W$ is the lattice question of the companion analysis, where the available statements are
-window-limited. In
-cohomological terms $f(\tau)(X-\tau Y)^n\,d\tau$ represents a class in $H^1$ of the modular
-curve punctured at the poles of $f$, with coefficients in the local system attached to $V_n$;
-Lemma~\ref{lem:rfWFk} computes its residues, while $W$ corresponds under Eichler--Shimura to
-$H^1$ of the unpunctured curve. Producing an element of $W$ from $r_f$ means splitting the
-residue sequence, and two splittings differ by a homomorphism from the space of residue data to
-$W$, of dimension $(\dim\ker(1+S)-\dim W)\dim W$, which is $9$ at $k=12$ and $35$ at $k=24$.
-Nothing here distinguishes one. A canonical choice would need further structure, Hodge-theoretic,
-Hecke-theoretic or motivic, and in the motivic setting the failure to split is itself the object
-of interest. See~\cite{BrownHain2018} for the de Rham theory of the case in which the poles lie
-at the cusp.
-\end{remark}
-
-\begin{remark}\label{rem:rtildeexample}
-Take $k=12$, so $n=10$, and $f=\Delta/\big(j-j(z_0)\big)\in F_{12}$ with $z_0=\tfrac12+\tfrac45i$;
-this $f$ vanishes at the cusp and has $c_f=0$, as all of its poles lie below
-$\hat\gamma^T_f$. Of the $\SLZ$-orbit of $z_0$, exactly three points lie inside $\mathcal{T}$,
-\[
-z_0=0.5+0.8\,i,\qquad Uz_0=0.4382+0.8989\,i,\qquad U^2z_0=0.5618+0.8989\,i,
-\]
-one triple, so the sum in~\eqref{eq:w0} has a single term. Choosing $p_1=z_0$ gives
-$q_1=-1/z_0=-0.5618+0.8989\,i$ and $r^*_{f,q_1}(1)=3.958\times10^{-6}-4.726\times10^{-6}\,i$,
-whence $w_f=2\pi i\,r^*_{f,q_1}(1)\big[(2\pi i)^{11}\mathbf{K}_T(q_1;X,Y)-r_{E_{12}}(X,Y)\big]$:
-one residue times one evaluation of the kernel polynomial, less an Eisenstein term. The other
-two choices of $p_1$ give values of $w_f$ differing by elements of $W$ comparable in size to
-$r_f$ itself~\cite{VerifyScripts}. This $f$ is therefore one of the exceptional forms of
-Remark~\ref{rem:choice}, for which $\tilde r_f$ is fixed only modulo $W$.
-\end{remark}
+In particular $c_{1,1}$ is rational whenever $j_0$ is, with no assumption of complex
+multiplication, and $\tilde r_f$ is then a rational multiple of the period polynomial of $\Delta$.
+\end{corollary}
+\begin{proof}
+Here $\Psi^{(1)}_p=E_{12}/(j-j_0)$ up to scale. From $E_4^3=j\Delta$ and $E_6^2=(j-1728)\Delta$ one
+gets $E_{12}=\Delta\,(691j-432000)/691$, so $\Delta/E_{12}$ takes the stated value at $p$, and
+substituting gives $f-c_{1,1}\Psi^{(1)}_p=-c_{1,1}\Delta$ identically. Apply
+Theorem~\ref{thm:period} and linearity.
+\end{proof}
 
 \begin{remark}\label{rem:literature}
-The polar data above coincides with objects already present in the cohomological literature, and
-the overlap should be recorded precisely. Brown and Fonseca~\cite{BrownFonseca2025} study the
-algebraic de Rham cohomology of the modular curve punctured along the poles of $f$, with
-coefficients in the local system attached to $V_n$. Their residue exact sequence identifies the
-obstruction to a class extending across the punctures, and their Lemma 5.10 evaluates that residue
-as
-\begin{equation}\label{eq:BFres}
-\mathop{\rm Res}\big[f(\tau)(X-\tau Y)^{n}\,d\tau\big]
-=\sum_{j=0}^{n}\binom{n}{j}c_{-j-1}(w)\,(X-wY)^{n-j}(-Y)^{j},
-\end{equation}
-where $c_{-j-1}(w)$ are the Laurent coefficients of $f$ at $w$. This is Definition~\ref{def:Qf}
-term by term, under $j=i-1$ and $c_{-j-1}(w)=r^*_{f,p}(i)$. Their Remark 3.12 evaluates the local
-stabiliser sums $\kappa^{p,q}_{\Gamma,w}=\sum_{\gamma\in\Gamma_w}j_\gamma(w)^{-p}j_\gamma(\bar
-w)^{-q}$ by character orthogonality on the representation $\CC(X-wY)^p(X-\bar wY)^q$, obtaining
-$\kappa^{p,q}_{\Gamma,w}\in\{0,|\Gamma_w|\}$ at both elliptic points and for any $\Gamma$; the
-computation of Remark~\ref{rem:higherorderQ} is the case $\Gamma_w\cong\ZZ/3$ of theirs. Their
-Example 3.13 exhibits $E_{k}(z)/\big(j(z)-j(w)\big)$ as a weight-$k$ form with simple poles along
-$\Gamma w$.
+The polar data used above is not new. Brown and Fonseca~\cite{BrownFonseca2025} compute the residue
+of $f(\tau)(X-\tau Y)^{n}\,d\tau$ at a pole $w$, in their Lemma 5.10, as
+$\sum_{j}\binom{n}{j}c_{-j-1}(w)(X-wY)^{n-j}(-Y)^{j}$ with $c_{-j-1}(w)$ the Laurent coefficients
+of $f$ there; under $j=i-1$ this is Definition~\ref{def:Qf} term by term. The reference forms
+$\Psi^{(i)}_p$ of~\eqref{eq:psiform} are theirs, as are the residue evaluation used in the proof
+of Theorem~\ref{thm:period} and the identification of $E_k/(j-j(p))$ in the simple-pole case. What
+is added here is the $L$-function: $r_f$ and the $r_{\Psi^{(i)}_p}$ are values of the
+finite-contour $L^*$, and the region $\mathcal{T}$, which decides by
+Lemma~\ref{lem:rfWmero} whether any correction is needed at all, presupposes a contour and has no
+counterpart in their setting.
 
-Three things distinguish the construction given here. First, $r_f$ is assembled from special
-values of a finite-contour $L$-function, which has no counterpart in that framework. Second, and
-in consequence, $r_f$ is not the class of $f$ in the cohomology of the punctured curve: the
-residue~\eqref{eq:BFres} runs over every pole orbit, whereas $Q_f$ registers only the poles
-enclosed by $\mathcal{T}$. That discrepancy is what makes Corollary~\ref{cor:unamb} possible, and
-it cannot arise where no contour is present. Third, the resulting structure is one of chambers:
-the locus of pole positions on which the assignment is unambiguous is cut out by a wall, not by a
-vanishing algebraic condition.
-
-The normalisation left open in Remark~\ref{rem:splitting} is open there as well. Brown and Fonseca
-split their residue sequence explicitly (their Corollary 5.16) using meromorphic forms
-$\Psi^{m,n}_\Gamma(z,w)$, but note (their Remark 5.17) that, in contrast to Manin--Drinfeld, this
-splits only the Hodge filtration and not the underlying $\QQ$-mixed Hodge structure. A rational
-splitting, which is what would make $\tilde r_f$ canonical, is not available at present.
-
-For adjacent work see~\cite{BrownHain2018} for poles at the cusp, \cite{Matthes2022} for iterated
-primitives and dimension formulae for meromorphic forms with restricted poles, and
-\cite{BKvP2019} for regularised inner products of meromorphic modular forms. A natural supply of
-test cases is the family $f_{k,P}$ of~\cite{LobrichSchwagenscheidt2022}, going back to Zagier:
-meromorphic modular forms of weight $2k$ whose poles are of order $k$ at the CM points of a
-negative discriminant. Their geodesic cycle integrals are a different invariant from $r_f$, but at
-$k=6$ these are weight-twelve forms with order-six poles, which is the first order at which
-Remark~\ref{rem:higherorderQ} permits $Q_f$ to vanish.
+The coefficients $c_{a,i}$ in~\eqref{eq:period} depend on the choice of the $\Psi^{(i)}_p$, and a
+different choice alters $\tilde r_f$ by an element of $W$. No canonical rational normalisation of
+these forms is presently known; \cite[Rem.\ 5.17]{BrownFonseca2025} is explicit that the
+normalisation available there is not rational either. For adjacent work see~\cite{BrownHain2018}
+for poles at the cusp, \cite{Matthes2022} for meromorphic forms with restricted poles, and
+\cite{BKvP2019} for regularised inner products. The forms $f_{k,P}$
+of~\cite{LobrichSchwagenscheidt2022}, going back to~\cite{Zagier1977}, have weight $2k$ and poles
+of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitrary order.
 \end{remark}
-
-\subsection{Status of the literature check}\label{sec:litstatus}
-
-This subsection is a working record of what has and has not been checked against the construction
-of \S\ref{sec:mero}, and is meant to be removed before submission.
-
-\begin{center}\small
-\begin{tabular}{lll}
-\hline
-work & read & verdict \\
-\hline
-Brown--Fonseca~\cite{BrownFonseca2025} & \S1, \S3, \S5, \S6, \S7.1, refs & overlaps; Remark~\ref{rem:literature} \\
-Matthes~\cite{Matthes2022} & \S1--\S2 & no overlap: iterated primitives \\
-L\"obrich--Schwagenscheidt~\cite{LobrichSchwagenscheidt2022} & \S1--\S2 & no overlap: geodesic cycle integrals \\
-Brown--Hain~\cite{BrownHain2018} & cited throughout & poles at the cusp only \\
-Bringmann--Kane--von Pippich~\cite{BKvP2019} & not read & regularised inner products \\
-Choi--Lim~\cite{ChoiLim2025} & abstract only & negative even weight; coefficients not $V_n$ \\
-\hline
-\end{tabular}
-\end{center}
-
-\noindent Where this might go. The cohomological side of the picture is Brown's, jointly with
-Fonseca~\cite{BrownFonseca2025} and with Hain~\cite{BrownHain2018}, and the question worth putting
-to him is a sharp one: what relates $r_f$, assembled from a finite contour and finitely many
-special values of $L^*$, to the class of $f$ in the cohomology of the punctured modular curve? The
-two are not the same object, since the residue~\eqref{eq:BFres} runs over every pole orbit while
-$Q_f$ registers only those enclosed by $\mathcal{T}$, and the chamber structure of
-Corollary~\ref{cor:unamb} has no counterpart where no contour is present. The rational splitting
-left open by their Remark 5.17 is moreover the same obstruction met here in
-Remark~\ref{rem:splitting}, so the open problem is shared rather than ours alone.
-
-\noindent Outstanding:
-\begin{itemize}
-\item Sections 4 and 8--10 of~\cite{BrownFonseca2025}, on higher Green's functions and on motives,
-are unread. They were judged off-topic for an argument conducted with a contour and an
-$L$-function, which is a judgement and not a verification.
-\item The full text of~\cite{ChoiLim2025} was not obtained. From the abstract, its isomorphisms
-are stated for negative even weight, and in the remaining weights only modulo $M^!_k$, so its
-coefficient modules are not the polynomial module $V_n$ used here. Whether the Bol operator, which
-exchanges weights $k$ and $2-k$, brings that statement into contact with the present one has not
-been checked.
-\item Reference~\cite{BKvP2019} is unread. It is the place to start if the meromorphic analogue of
-Haberland's formula is taken up, since regularised inner products of meromorphic forms are exactly
-the objects such a formula would compute.
-\item The forms $f_{k,P}$ of~\cite{LobrichSchwagenscheidt2022}, going back
-to~\cite{Zagier1977}, have not been run through Definition~\ref{def:Qf}. At $k=6$ they have weight
-twelve and poles of order six, the first order at which Remark~\ref{rem:higherorderQ} permits
-$Q_f$ to vanish, and their poles sit at CM points.
-\end{itemize}
 
 \begin{thebibliography}{99}
 
@@ -1907,6 +1622,40 @@ Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
 \end{thebibliography}
 
 \end{document}
+
+%% ============================ literature check, working record ======================
+%% Not part of the note. What has and has not been checked against \S\ref{sec:mero}.
+%%
+%%   work                          read                          verdict
+%%   Brown-Fonseca  2508.04844     S1,S3,S5,S6,S7.1, refs        OVERLAPS; see rem:literature
+%%   Matthes        2101.11491     S1-S2                         no overlap: iterated primitives
+%%   Lobrich-Schw.  1907.04024     S1-S2                         no overlap: geodesic cycle integrals
+%%   Brown-Hain     1708.00652     cited throughout              poles at the cusp only
+%%   Bringmann-Kane-von Pippich    NOT READ                      regularised inner products
+%%   Choi-Lim       JMAA 2025      abstract only                 negative even weight; coeffs not V_n
+%%
+%% WHERE THIS MIGHT GO. The cohomological side is Brown's, with Fonseca and with Hain. The
+%% question worth putting to him: what relates r_f, assembled from a finite contour and
+%% finitely many special values of L*, to the class of f in H^1 of the punctured modular
+%% curve? They are not the same object -- their residue runs over every pole orbit while
+%% Q_f registers only those enclosed by T, and the chamber structure of lem:rfWmero has no
+%% counterpart where no contour is present. Their Rem 5.17 leaves the rational splitting
+%% open, which is the same obstruction met here, so the open problem is shared.
+%%
+%% OUTSTANDING.
+%%  - Sections 4 and 8-10 of Brown-Fonseca (higher Green's functions, motives) are unread.
+%%    Judged off-topic for a contour/L-function argument: a judgement, not a verification.
+%%  - Choi-Lim full text not obtained. From the abstract the isomorphisms are for negative
+%%    even weight, and otherwise only modulo M_k^!, so the coefficient modules are not V_n.
+%%    Whether the Bol operator (weights k <-> 2-k) connects it to the present statement is
+%%    unchecked.
+%%  - Bringmann-Kane-von Pippich unread. The place to start if the meromorphic analogue of
+%%    Haberland's formula is taken up: regularised inner products of meromorphic forms are
+%%    exactly what such a formula would compute.
+%%  - The forms f_{k,P} of Lobrich-Schwagenscheidt, going back to Zagier 1977, have not been
+%%    run through def:Qf. At k=6 they are weight twelve with order-six poles at CM points,
+%%    the first order at which rem:noQzero permits Q_f to vanish.
+%% ====================================================================================
 
 \appendix
 \section{Explicit period-polynomial bases}\label{app:bases}
