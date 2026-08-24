@@ -1305,29 +1305,27 @@ def e8_polar_defect():
                mp.mpf(1) if max(abs(x) for x in defect) / sc > 1 else mp.mpf(0), mp.mpf(1))
 
 
-@check("thm:rtildeW", "E", tol=mp.mpf('1e-8'),
-       desc=r"canonical corrector $\tilde r_f=r_f+w_f-\Pi_W(w_f)\in W$ for poles of any order")
-def e9_explicit_corrector():
-    r"""thm:rtildeW.  Winding gamma^T once about q_j = S p_j (one pole per U-triple inside T)
-    trivialises the (TS)^3-loop at the price of lem:wall, and r_{E_k} absorbs the shifted
-    strip-constant c'_f = c_f + 2 pi i sum_j r*_{f,q_j}(1):
+@check("thm:period", "E", tol=mp.mpf('1e-8'),
+       desc=r"$\tilde r_f=r_f-\sum c_{a,i}r_{\Psi^{(i)}}\in W$, poles of any order")
+def e9_reference_subtraction():
+    r"""thm:period + def:reffam + cor:explicit.  Subtracting a reference family with the same
+    principal part leaves a form holomorphic on H, whose period polynomial lies in W by lem:rfW.
 
-        w_f = -c'_f r_{E_k} + sum_j (2 pi i)^{n+2} Res_{tau=q_j}[ f(tau) K_T(tau;X,Y) ].
+    The family used here is g_i/(j-j0)^i (def:reffam's first construction), NOT the Brown-Fonseca
+    Poincare series: at k=12 their Example 3.13 identifies Psi^{0,n} with E_k/(j-j0) only when
+    dim S_k = 0, which fails at k=12.  Any triangular family works, which is the point of
+    def:reffam, and this one is checkable in closed form.
 
-    Taking the residue of the PRODUCT is what makes this work beyond simple poles: at a double
-    pole the tau-derivative of K_T contributes, and a formula using only a_{-1}(q) K_T(q) misses
-    it.  Both forms are run below; the double-pole rows fail outright against the simple-pole
-    expression, so they are a genuine test of the generalisation.
-
-    w_f DEPENDS on which pole of the triple is chosen -- the three choices differ by elements of
-    W comparable to r_f itself (83-93x for the simple-pole form), so 'in W' alone does not define
-    a period polynomial.  Subtracting the Haberland-orthogonal projection Pi_W(w_f) pins it."""
+    cor:explicit is the m=1, k=12 case: c = 691/(691 j0 - 432000) is RATIONAL for rational j0
+    with no CM assumption, and r_f - c r_Psi = -c r_Delta identically.  Rational j0 in (0,1728)
+    puts the poles on the unit arc, hence inside T, so these are exact instances in the locus
+    where lem:rfWmero does not apply."""
     kk, nn = 12, 10
     Um, Sm = (1, -1, 1, 0), (0, -1, 1, 0)
     seg = [I - 1, I]
     nsub = 12 if SLOW else 8
-    Umob = lambda t: 1 - 1 / t
     Mres = 128 if SLOW else 64
+    E12 = lambda t: (441 * E4(t)**3 + 250 * E6(t)**2) / 691
 
     def rvec(f):
         return [(2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1)
@@ -1335,76 +1333,191 @@ def e9_explicit_corrector():
                 * path_int(lambda t: f(t) * ktil(t, mp.mpf(l + 1), kk), seg, nsub=nsub)
                 for l in range(nn + 1)]
 
-    def relations(pp):
-        pU = slash(pp, nn, Um); pUU = slash(pU, nn, Um)
-        return (max(abs(x + y) for x, y in zip(pp, slash(pp, nn, Sm))),
-                max(abs(x + y + z) for x, y, z in zip(pp, pU, pUU)))
+    def rels(v):
+        sc = max(abs(x) for x in v)
+        vU = slash(v, nn, Um); vUU = slash(vU, nn, Um)
+        return (max(abs(a + b) for a, b in zip(v, slash(v, nn, Sm))) / sc,
+                max(abs(a + b + c) for a, b, c in zip(v, vU, vUU)) / sc)
 
-    c691 = mp.mpf(65520) / 691
-    E12f = lambda t: 1 + c691 * sum(_sigma(11, m) * mp.e**(2 * pi * I * m * t)
-                                    for m in range(1, 36))
-    rE = rvec(E12f)
-    basis, G, pair = _W_basis_and_gram(nn)
-    yield ("dim W = 3", mp.mpf(len(basis)), mp.mpf(3))
+    rD = rvec(Delta)
 
-    def projW(w):
-        co = mp.lu_solve(G, mp.matrix([pair(b, w) for b in basis]))
-        return [sum(co[i] * basis[i][l] for i in range(len(basis))) for l in range(nn + 1)]
+    # ---- cor:explicit, rational j0, poles on the unit arc (inside T)
+    for j0i in (1000, 200):
+        j0 = mp.mpf(j0i)
+        c = mp.mpf(691) / (691 * j0i - 432000)          # exact rational
+        f = lambda t: Delta(t) / (jay(t) - j0)
+        Ps = lambda t: E12(t) / (jay(t) - j0)
+        rf, rP = rvec(f), rvec(Ps)
+        sc = max(abs(x) for x in rf)
+        yield ("j0=%d: naive |r_f|(1+U+U^2)|/sc > 1" % j0i,
+               mp.mpf(1) if rels(rf)[1] > 1 else mp.mpf(0), mp.mpf(1))
+        rt = [a - c * b for a, b in zip(rf, rP)]
+        yield ("j0=%d: |rt|(1+S)|/sc" % j0i, rels(rt)[0], mp.mpf(0))
+        yield ("j0=%d: |rt|(1+U+U^2)|/sc" % j0i, rels(rt)[1], mp.mpf(0))
+        yield ("j0=%d: rt = -c r_Delta" % j0i,
+               max(abs(a + c * b) for a, b in zip(rt, rD)) / sc, mp.mpf(0))
 
-    # regime 1: one U-triple inside T, at simple and at double order
-    z0, forms = _mero_forms()
-    orbit = [z0, Umob(z0), Umob(Umob(z0))]
-    for name, fm, order in forms:
-        r = rvec(fm)
+    # ---- thm:period at a double pole, family g_i/(j-j0)^i
+    z0 = mp.mpf('0.5') + mp.mpf('0.8') * I
+    j0 = jay(z0)
+    fm = lambda t: Delta(t)**3 / (E4(t)**3 - j0 * Delta(t))**2      # order-2 poles
+    P1 = lambda t: E12(t) / (jay(t) - j0)
+    P2 = lambda t: E12(t) / (jay(t) - j0)**2
+    B = lambda i, p: [mp.binomial(nn, i - 1) * (-1)**(i - 1) * mp.binomial(nn - i + 1, l - i + 1)
+                      * (-p)**(l - i + 1) if l >= i - 1 else mp.mpc(0) for l in range(nn + 1)]
+    def resvec(g, p, m):
+        out = [mp.mpc(0)] * (nn + 1)
+        for i in range(1, m + 1):
+            a = laurent_at(g, p, i, M=Mres)
+            Bi = B(i, p)
+            for l in range(nn + 1):
+                out[l] += a * Bi[l]
+        return out
+    # solve the 2x2 triangular system matching principal parts at z0
+    a1f, a2f = laurent_at(fm, z0, 1, M=Mres), laurent_at(fm, z0, 2, M=Mres)
+    a1P2, a2P2 = laurent_at(P2, z0, 1, M=Mres), laurent_at(P2, z0, 2, M=Mres)
+    a1P1 = laurent_at(P1, z0, 1, M=Mres)
+    c2 = a2f / a2P2
+    c1 = (a1f - c2 * a1P2) / a1P1
+    rf = rvec(fm); rP1 = rvec(P1); rP2 = rvec(P2)
+    sc = max(abs(x) for x in rf)
+    yield ("dbl: naive |r_f|(1+U+U^2)|/sc > 1",
+           mp.mpf(1) if rels(rf)[1] > 1 else mp.mpf(0), mp.mpf(1))
+    rt = [a - c1 * b - c2 * c for a, b, c in zip(rf, rP1, rP2)]
+    yield ("dbl: |rt|(1+S)|/sc", rels(rt)[0], mp.mpf(0))
+    yield ("dbl: |rt|(1+U+U^2)|/sc", rels(rt)[1], mp.mpf(0))
+    yield ("dbl: rt nonzero, |rt|/sc > 0.01",
+           mp.mpf(1) if max(abs(x) for x in rt) / sc > mp.mpf('0.01') else mp.mpf(0), mp.mpf(1))
+    # def:reffam: the family is triangular with nonvanishing diagonal
+    yield ("def:reffam: |lambda_22| > 0", mp.mpf(1) if abs(a2P2) > 0 else mp.mpf(0), mp.mpf(1))
+    yield ("def:reffam: P1 has no order-2 part",
+           abs(laurent_at(P1, z0, 2, M=Mres)) / abs(a1P1), mp.mpf(0))
+
+
+@check("lem:rfWmero", "E", tol=mp.mpf('1e-10'),
+       desc=r"$f\in F_k^{\circ}$ $\Rightarrow$ $r_f\in W$ with no correction at all")
+def e10_no_pole_in_T():
+    r"""lem:rfWmero, and a check that F_k^circ is not vacuous.
+
+    An orbit avoids T exactly when its representative in the standard fundamental domain has
+    Im > 1: for p in F with Im p <= 1, |p| >= 1 gives |p - i/2|^2 = |p|^2 - Im p + 1/4 >= 1/4,
+    so p lies outside both horoballs and (mod 1) inside T.  Hence "no pole in T" forces every
+    pole ABOVE the contour, and the strip containing gamma^T is cut off from the cusp by them:
+    the strip constant is c_f(0) - 2 pi i (residues in one period strip), NOT c_f(0).
+
+    So a form vanishing at the cusp with one orbit of simple poles off T has strip constant
+    exactly 2 pi i a_{-1}, never zero -- verified below for f_7 and for Delta/(j - j(2i)).  Such
+    forms are NOT in F_k^circ.  Membership needs c_f(0) tuned against the residues, one linear
+    condition; f = E_12 (j - j1)/(j - j(2i)) with j1 solved for is an instance, and for it
+    r_f lies in W with nothing subtracted."""
+    kk, nn = 12, 10
+    Um, Sm = (1, -1, 1, 0), (0, -1, 1, 0)
+    seg = [I - 1, I]
+    nsub = 12 if SLOW else 8
+    Mres = 128 if SLOW else 64
+    E12 = lambda t: (441 * E4(t)**3 + 250 * E6(t)**2) / 691
+
+    def rvec(f):
+        return [(2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1)
+                * mp.e**(-I * pi * (l + 1) / 2)
+                * path_int(lambda t: f(t) * ktil(t, mp.mpf(l + 1), kk), seg, nsub=nsub)
+                for l in range(nn + 1)]
+
+    # the strip constant of an off-T, cusp-vanishing form IS the residue
+    j2 = jay(2 * I)
+    for nm, f, q in (("f_7", lambda t: Delta(t)**2 / (E4(t)**3 + 3375 * Delta(t)),
+                      (1 + mp.sqrt(7) * I) / 2),
+                     ("D/(j-j(2i))", lambda t: Delta(t) / (jay(t) - j2), 2 * I)):
+        cst = abs(path_int(f, seg, nsub=nsub))
+        a = laurent_at(f, q, 1, rr=mp.mpf('0.02'), M=Mres)
+        yield ("%s: strip constant = 2 pi |a_-1|" % nm, abs(cst - 2 * pi * abs(a)) / cst, mp.mpf(0))
+        yield ("%s: strip constant nonzero" % nm,
+               mp.mpf(1) if cst > mp.mpf('1e-14') else mp.mpf(0), mp.mpf(1))
+
+    # tune c_f(0) against the residue to land in F_k^circ, then r_f itself is in W
+    strip = lambda j1: path_int(lambda t: E12(t) * (jay(t) - j1) / (jay(t) - j2), seg, nsub=nsub)
+    A, B = strip(mp.mpf(0)), strip(mp.mpf(1))
+    j1 = -A / (B - A)
+    f = lambda t: E12(t) * (jay(t) - j1) / (jay(t) - j2)
+    yield ("tuned f: strip constant", abs(strip(j1)) / abs(A), mp.mpf(0))
+    r = rvec(f)
+    sc = max(abs(x) for x in r)
+    rU = slash(r, nn, Um); rUU = slash(rU, nn, Um)
+    yield ("tuned f: |r_f|(1+S)|/sc",
+           max(abs(a + b) for a, b in zip(r, slash(r, nn, Sm))) / sc, mp.mpf(0))
+    yield ("tuned f: |r_f|(1+U+U^2)|/sc",
+           max(abs(a + b + c) for a, b, c in zip(r, rU, rUU)) / sc, mp.mpf(0))
+
+
+@check("lem:rfWFk", "E", tol=mp.mpf('1e-10'),
+       desc=r"$S$-relation at $\delta>0$: raised base-point, and a pole on the $S$-segment")
+def e11_S_relation_delta():
+    r"""lem:rfWFk, first relation, in the case its proof used to skip.
+
+    Every other check in this suite sits at tau_0 = i, where the S-segment degenerates and the
+    S^2-loop is trivially null.  def:null_homotopy raises the base-point to i(1+delta) exactly
+    when f has poles on Im tau = 1, so the degeneracy argument does not apply there.  What does:
+    the S-segment runs up the imaginary axis from i/(1+delta) to i(1+delta), and S : iy -> i/y
+    maps it onto itself reversing orientation, so the loop retraces itself.  No pole in
+    1 < Im tau <= 1+delta by def:null_homotopy, hence (applying S) none in
+    1/(1+delta) <= Im tau < 1 either, so tau = i is the only pole that can meet the segment.
+
+    Both segments must be integrated here, unlike everywhere else in the suite."""
+    kk, nn = 12, 10
+    Sm = (0, -1, 1, 0)
+    nsub = 12 if SLOW else 8
+
+    def rvec_full(f, delta, pv_eps=None):
+        t0 = I * (1 + delta)
+        out = []
+        for l in range(nn + 1):
+            s = mp.mpf(l + 1)
+            LT = path_int(lambda t: f(t) * ktil(t, s, kk), [t0 - 1, t0], nsub=nsub)
+            g = lambda y: f(I * y) * (I * y)**l * I
+            if pv_eps is None:
+                LS = mp.quad(g, [1 / (1 + delta), 1, 1 + delta])
+            else:                       # S-symmetric (multiplicative) excision about y = 1
+                e = mp.e**pv_eps
+                LS = mp.quad(g, [1 / (1 + delta), 1 / e]) + mp.quad(g, [e, 1 + delta])
+            L = mp.e**(-I * pi * s / 2) * (LS + LT)
+            out.append((2 * pi * I)**(nn + 1) * (-1)**l * mp.binomial(nn, l) * I**(l + 1) * L)
+        return out
+
+    def Srel(r):
         sc = max(abs(x) for x in r)
-        cf = path_int(fm, seg, nsub=nsub)
-        cans, naive = [], None
-        for pp in orbit:
-            q = -1 / pp
-            aq = laurent_at(fm, q, 1, M=Mres)
-            cpr = cf + 2 * pi * I * aq
-            resK = [(-1)**l * mp.binomial(nn, l)
-                    * laurent_at(lambda t, l=l: fm(t) * ktil(t, mp.mpf(l + 1), kk), q, 1, M=Mres)
-                    for l in range(nn + 1)]
-            w = [-cpr * re + (2 * pi * I)**(nn + 2) * rk for rk, re in zip(resK, rE)]
-            if naive is None:  # the simple-pole expression, for contrast on the double-pole form
-                KT = [(-1)**l * mp.binomial(nn, l) * ktil(q, mp.mpf(l + 1), kk)
-                      for l in range(nn + 1)]
-                naive = [-cpr * re + (2 * pi * I)**(nn + 2) * aq * kt
-                         for kt, re in zip(KT, rE)]
-            pw = projW(w)
-            cans.append([x + a - b for x, a, b in zip(r, w, pw)])
-        S2, L = relations(cans[0])
-        yield ("%s: |rt|(1+S)|/sc" % name, S2 / sc, mp.mpf(0))
-        yield ("%s: |rt|(1+U+U^2)|/sc" % name, L / sc, mp.mpf(0))
-        for i, j in ((0, 1), (0, 2), (1, 2)):
-            yield ("%s: choice-independence |rt_%d - rt_%d|/sc" % (name, i, j),
-                   max(abs(a - b) for a, b in zip(cans[i], cans[j])) / sc, mp.mpf(0))
-        yield ("%s: rt nonzero: |rt|/sc > 0.1" % name,
-               mp.mpf(1) if max(abs(x) for x in cans[0]) / sc > mp.mpf('0.1') else mp.mpf(0),
-               mp.mpf(1))
-        # hypothesis of lem:rfWFk / thm:rtildeW with c_f = 0, and the naive-vs-general contrast
-        yield ("%s: strip constant c_f = 0" % name, abs(cf), mp.mpf(0))
-        nv = [x + a - b for x, a, b in zip(r, naive, projW(naive))]
-        _, Lnv = relations(nv)
-        gap = Lnv / sc
-        yield ("%s: naive (no derivative terms) %s" % (name, "agrees" if order == 1 else "FAILS"),
-               mp.mpf(1) if (gap < mp.mpf('1e-6')) == (order == 1) else mp.mpf(0), mp.mpf(1))
+        return max(abs(a + b) for a, b in zip(r, slash(r, nn, Sm))) / sc
 
-    # regime 2: nonzero strip-constant, nothing inside T
-    f7m = lambda t: Delta(t)**2 / (E4(t)**3 + 3375 * Delta(t))
-    r7 = rvec(f7m)
-    sc7 = max(abs(x) for x in r7)
-    c7 = path_int(f7m, seg, nsub=nsub)
-    w7 = [-c7 * y for y in rE]
-    pw7 = projW(w7)
-    rt7 = [x + a - b for x, a, b in zip(r7, w7, pw7)]
-    S27, L7 = relations(rt7)
-    yield ("f_7: |rt|(1+S)|/sc", S27 / sc7, mp.mpf(0))
-    yield ("f_7: |rt|(1+U+U^2)|/sc", L7 / sc7, mp.mpf(0))
+    # poles on the line Im = 1 (so delta > 0 is forced), none at i
+    from math import gcd
+    p = mp.mpf('0.3') + I
+    j0 = jay(p)
+    delta = mp.mpf('0.05')
+    nbad = 0
+    for c in range(0, 6):
+        for d in range(-6, 7):
+            if c == 0 and d == 0 or gcd(c, d) != 1:
+                continue
+            for a in range(-6, 7):
+                for b in range(-6, 7):
+                    if a * d - b * c != 1:
+                        continue
+                    q = (a * p + b) / (c * p + d)
+                    if 1 < q.imag <= 1 + delta:
+                        nbad += 1
+                    break
+    yield ("no pole in (1, 1+delta]", mp.mpf(nbad), mp.mpf(0))
+    yield ("poles on Im=1, delta>0: |r_f|(1+S)|/sc",
+           Srel(rvec_full(lambda t: Delta(t) / (jay(t) - j0), delta)), mp.mpf(0))
+
+    # double pole AT i, sitting on the S-segment, taken by principal value
+    fb = lambda t: Delta(t)**2 / E6(t)**2
+    for eps in ((mp.mpf('0.05'), mp.mpf('0.02')) if SLOW else (mp.mpf('0.02'),)):
+        yield ("pole at i, PV eps=%s: |r_f|(1+S)|/sc" % mp.nstr(eps, 3),
+               Srel(rvec_full(fb, mp.mpf('0.10'), pv_eps=eps)), mp.mpf(0))
 
 
 # ------------------------------------------------------------------------- driver
+
 def main():
     print("validate.py  tier=%s  dps=%d  tol=%s" % ("SLOW" if SLOW else "fast",
                                                     mp.mp.dps, mp.nstr(TOL, 3)), **FL)

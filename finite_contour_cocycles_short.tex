@@ -38,8 +38,8 @@ via manifestly finite contours}
 \begin{abstract}
 We give a single manifestly finite, regulator-free functional realizing in one object L-functions
 quasi-periods and period polynomials of meromorphic modular forms on $\SLZ$, with generic 
-poles throughout the upper half-plane $\HH$ and at the cusp of $\SLZ$. Additionally, our construction 
-is preserves holomorphicity. It is a two-segment contour integral, 
+poles throughout the upper half-plane $\HH$ and at the cusp of $\SLZ$. Additionally, our construction
+preserves holomorphicity. It is a two-segment contour integral,
 $L^*(f,s) = L^*_T(f, s; \gamma^T_{\tau_0}) + L^*_S(f, s; \gamma^S_{\tau_0})$, where $L^*_T$ and $L^*_S$ 
 have distinct integration kernels, and 
 $\gamma^{S}_{\tau_0}$ is a path in $\HH$ from $S(\tau_0)$ to $\tau_0$, and the same for $\gamma^T_{\tau_0}$. 
@@ -52,7 +52,7 @@ There is a natural choice of trivial homotopy class, which renders our L-functio
 modular form has a pole in the interior of the fundamental domain, generalizing~\cite{1806}.
 \end{abstract}
 
-\section{Introduction and preliminary concepts}
+\section{Introduction and preliminary concepts}\label{sec:intro}
 
 Our primary goal in this note is to put forth a unifying generalization of the L-function 
 associated to a given modular form. Our L-function naturally encompasses the classical 
@@ -150,8 +150,8 @@ r_f(X, Y) := (2 \pi i)^{k-1} \sum_{\ell = 0}^{k-2} (-1)^\ell \binom{k-2}{\ell}\,
 This polynomial, $r_f(X, Y) \in V_{k-2} := \CC[X, Y]_{k-2}$, has a natural action under $\SLZ$, 
 $(P|_{\gamma})(X, Y) = P(a X + b Y, c X + d Y)$ for $\gamma = 
 \left( \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right) \in \SLZ$. This period polynomial 
-can be decomposed into a basis of highly constrained polynomials, which are annihilated by $|(1+T)$ 
-and $|(1 + U + U^2)$\cite{KZ1984}, where $U := TS$ generates an order-3 cyclic subgroup of $\SLZ$. 
+can be decomposed into a basis of highly constrained polynomials, which are annihilated by $|(1+S)$
+and $|(1 + U + U^2)$\cite{KZ1984}, where $U := TS$ generates an order-3 cyclic subgroup of $\SLZ$.
 We define the \emph{periods} of a cusp form to be coefficients of $r_f$ within this highly 
 constrained sub-space $W$ of $V_{k-2}$, i.e. $W \subset V_{k-2}$.
 
@@ -172,7 +172,8 @@ $T=\left(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right)$ denote
 the generators of $\Gamma=\SLZ$, and let $f^{-1}(\infty)$ be the locus 
 of all poles of $f \in \HH$ (inclusive of the cusp of $\SLZ$).  
 The \emph{$S$- and $T$-segments at $\tau_0$} are smooth paths in
-$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$ from $\sigma^{-1}\tau_0$ to $\tau_0$,
+$\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$ from $\sigma^{-1}\tau_0$ to $\tau_0$, for
+$\sigma=S$ and $\sigma=T$ respectively,
 \begin{equation}
 \gamma^S_{\tau_0}:\ -1/\tau_0\ \longrightarrow\ \tau_0,\qquad
 \gamma^T_{\tau_0}:\ \tau_0-1\ \longrightarrow\ \tau_0.
@@ -390,7 +391,7 @@ identically as in the proof of Theorem~\ref{thm:weakL}.
 
 For $n = 0$, the constant $c_f(0)$ multiplies $e^{-\pi i s/2}\!\int_{\tau_0 - 1}^{\tau_0}\!\widetilde k_T(\tau, s)\,d\tau$, 
 which we compute as follows. First, the closed-form of the Hurwitz antiderivative 
-$\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1 - \sigma}/(\sigma - 1)$x 
+$\int_{\tau_0 - 1}^{\tau_0}\zeta(\sigma, \tau + 1)\,d\tau = \tau_0^{1 - \sigma}/(\sigma - 1)$
 comes from $\partial_\tau\zeta(\sigma - 1, \tau + 1) = -(\sigma - 1)\zeta(\sigma, \tau + 1)$ 
 and the shift identity $\zeta(\sigma - 1, \tau_0 + 1) - \zeta(\sigma - 1, \tau_0) = -\tau_0^{1 - \sigma}$. 
 Finally, note that the two terms in $\tk$ are simply specializations of $\sigma = 1 - s$ and $\sigma = s - k + 1$, 
@@ -532,8 +533,21 @@ This matches Definition~\ref{def:rf} term by term, and proves the claim.
 \end{proof}
 
 Having now defined the period polynomial associated to a weak cusp form $f \in S_k^!$,
-we now seek to find its {\em (quasi-)periods}. First, a number of helpful definitions. For 
-starters, let $f \in S_k^!$, $\tau_0 \in \HH$ and $\gamma \in \SLZ$, and define
+we now seek to find its {\em (quasi-)periods}. First, a number of helpful definitions.
+
+All objects below take values in $V_n:=\CC[X,Y]_n$, $n=k-2$, with the slash action
+$(P|_\gamma)(X,Y):=P(aX+bY,cX+dY)$ of \S\ref{sec:intro}. A map $\gamma\mapsto A_\gamma\in V_n$ is a
+\emph{$1$-cocycle} for $\SLZ$ if
+\begin{equation}\label{eq:cocycle-condition}
+A_{\gamma\delta}=A_\gamma|_\delta+A_\delta\qquad\text{for all }\gamma,\delta\in\SLZ ,
+\end{equation}
+and is \emph{parabolic} if in addition $A_T=0$. For fixed $P\in V_n$ the map
+$\gamma\mapsto P|_\gamma-P$ is a \emph{coboundary}, and satisfies~\eqref{eq:cocycle-condition}
+identically, since $(P|_\gamma-P)|_\delta+(P|_\delta-P)=P|_{\gamma\delta}-P$. Adding or subtracting
+a coboundary from a cocycle therefore returns a cocycle, which is what lets $C_\gamma$ below be
+replaced by a representative $\hat C_\gamma$ normalised so that $\hat C_T=0$.
+
+For starters, let $f \in S_k^!$, $\tau_0 \in \HH$ and $\gamma \in \SLZ$, and define
 \begin{equation}
 C_\gamma(f; \tau_0):= (2\pi i)^{n+1}\int_{\gamma^{-1}\tau_0}^{\tau_0} \omega_f ~~,~~{\rm where}~~\omega_f := f(\tau) (X - \tau Y)^n d\tau~~.\label{cocycleR1}
 \end{equation} 
@@ -543,6 +557,16 @@ $L_T^*(f, s; \gamma^T_{\tau_0})$:
 \chi(\tau;X,Y)&:=\sum_{\ell=0}^{n}\binom{n}{\ell}(-1)^\ell\,\zeta(-\ell,\tau+1)\,X^{n-\ell}Y^\ell , \label{cocycleR2}\\
 E(f; \tau_0)&:=(2\pi i)^{n+1}\!\!\int_{\gamma^T_{\tau_0}}\!\! f(\tau)\,\chi(\tau; X, Y) d\tau ~.\label{cocycleR3}
 \end{align}
+At non-positive integer first argument the Hurwitz zeta is elementary,
+$\zeta(-\ell,x)=-B_{\ell+1}(x)/(\ell+1)$ with $B_m(x)$ the $m$-th Bernoulli
+polynomial~\cite[\S25.11]{DLMF}, so $\chi(\tau;X,Y)$ is a polynomial in $\tau$ of degree $n+1$.
+Its role is that of a discrete antiderivative of the Eichler kernel: the Hurwitz shift
+$\zeta(-\ell,\tau)=\zeta(-\ell,\tau+1)+\tau^{\ell}$ gives, term by term,
+\begin{equation}\label{eq:chi-shift}
+\chi(\tau-1;X,Y)-\chi(\tau;X,Y)=(X-\tau Y)^{n} .
+\end{equation}
+Both facts are used in the proof of Lemma~\ref{lem:cocycle}.
+
 For each $\tau$, $\chi(\tau;\cdot,\cdot)\in V_{k-2}=\CC[X,Y]_{k-2}$; the $\SLZ$-slash
 $(P|_\gamma)(X,Y):=P(aX+bY,cX+dY)$ acts on the polynomial variables alone, holding $\tau$ fixed:
 \begin{equation}
@@ -566,17 +590,26 @@ First, we prove $\hat C_\gamma$ is a cocycle. Path-additivity and covariance of 
 $C_{\gamma\delta}=C_\gamma|_\delta+C_\delta$~\cite{BCD2018,KZ1984}; as $\gamma\mapsto E|_\gamma-E$ is a
 coboundary, $\hat C$ is a cocycle.
 
-Having established it is a cocyle, we now show that $\hat C_S=r_f$. At $s=\ell+1$, Definition~\ref{def:kernel} reads
+Having established it is a cocyle, we now show that $\hat C_S=r_f$. By
+Proposition~\ref{prop:periodint} the period polynomial splits along the two segments of
+Definition~\ref{def:segments}, and we identify each contribution in turn. The $S$-segment carries
+the kernel $\tau^{s-1}$, so assembling it over $\ell$ returns
+$(2\pi i)^{n+1}\int_{\gamma^S_{\tau_0}}\omega_f=C_S$ exactly. For the $T$-segment, at $s=\ell+1$
+Definition~\ref{def:kernel} reads
 $\tk(\tau,\ell+1)=\zeta(-\ell,\tau+1)-(-1)^\ell\zeta(-(n-\ell),\tau+1)$; assembling $\mathbf K_T$ and
-re-indexing $\ell\mapsto n-\ell$ in the second term (with $n$ even) gives $\mathbf K_T=\chi-\chi|_S$. So the
-$T$-term of $r_f$ is $E-E|_S$, and by Proposition~\ref{prop:periodint}
-$r_f=C_S+(E-E|_S)=C_S-(E|_S-E)=\hat C_S$.
+re-indexing $\ell\mapsto n-\ell$ in the second term (with $n$ even) gives $\mathbf K_T=\chi-\chi|_S$,
+so the $T$-term of $r_f$ is $E-E|_S$. Hence
+\begin{equation}\label{eq:rfsplit}
+r_f=C_S+(E-E|_S)=C_S-(E|_S-E)=\hat C_S .
+\end{equation}
+Neither summand in~\eqref{eq:rfsplit} vanishes in general: the $S$-segment runs from $-1/\tau_0$ to
+$\tau_0$ and degenerates only at the fixed point $\tau_0=i$, where $C_S=0$ and $E|_S-E=-r_f$.
 
-Finally, we show that $\hat C_T=0$. The Hurwitz shift $\zeta(-\ell,\tau)=\zeta(-\ell,\tau+1)+\tau^\ell$ 
-gives the point-wise identity $\chi(\tau-1;X,Y)-\chi(\tau;X,Y)=(X-\tau Y)^n$; applied twice it shows
-$A(\tau):=\chi(\tau;X+Y,Y)-\chi(\tau-1;X,Y)$ satisfies $A(\tau-1)=A(\tau)$. Crucially, because $A(\tau)$ 
-is a polynomial, and because $A(\tau) = A(\tau+1)$ for generic $\tau$, then $A(\tau)$ is constant: 
-$\partial_\tau A(\tau) = 0 \Leftrightarrow A(\tau) = A_0$. Thus, 
+Finally, we show that $\hat C_T=0$. Applying the shift identity~\eqref{eq:chi-shift} twice shows
+that $A(\tau):=\chi(\tau;X+Y,Y)-\chi(\tau-1;X,Y)$ satisfies $A(\tau-1)=A(\tau)$. Crucially,
+$\chi$ is a polynomial in $\tau$, as recorded below Eq.~\eqref{cocycleR3}, so $A$ is a
+$1$-periodic polynomial and hence constant:
+$\partial_\tau A(\tau) = 0 \Leftrightarrow A(\tau) = A_0$. Thus,
 \begin{align}
 \hat C_T
 &=C_T-(E|_T-E)
@@ -601,9 +634,10 @@ For $f\in S_k^!$, and $W \subset V_n$ from Definition~\ref{def:w}, the period po
 \end{lemma}
 \begin{proof}
 Let $\hat C_\gamma$ be the parabolic cocycle of Lemma~\ref{lem:cocycle}. Thus, $r_f=\hat C_S$ 
-and $\hat C_T=0$. Now, note that $\hat C_\gamma(f; \tau_0) = 0$ when $\gamma = \pm I$ for the 
-simple reason that when $\gamma = \pm I$, $\hat C_\gamma$ is a closed-contour integral of a function 
-which has no poles in $\HH$. Finally, direct computation, starting from the identities $-I = U^3 = S^2$ 
+and $\hat C_T=0$. Now, note that $\hat C_\gamma(f; \tau_0) = 0$ when $\gamma = \pm I$. Since
+$n=k-2$ is even, $\pm I$ act trivially on $V_n$, so the coboundary term $E|_{\pm I}-E$ vanishes and
+$\hat C_{\pm I}=C_{\pm I}$; and $C_{\pm I}$ is a closed-contour integral of a function which has no
+poles in $\HH$. Finally, direct computation, starting from the identities $-I = U^3 = S^2$
 and using the cocycle law $\hat C_{\gamma\delta}=\hat C_\gamma|_\delta+\hat C_\delta$ and clever 
 use of $\hat C_T = 0$, shows $r_f|_{(1+S)}=r_f|_{(1+U+U^2)}=0$:
 \begin{align}
@@ -646,8 +680,8 @@ First, let $W_\pm^{(k)}(X, Y) := Y^{k-2} W_\pm^{(k)}(X/Y)$, and let $v_0^{(k)}(X
 Now, by Eichler--Shimura, $\dim W=2\dim S_k+1=3$. Theorem~1$'$ of~\cite{KZ1984} gives the odd and even period polynomials of the cusp form $R_n\propto\Delta$ as modified-Bernoulli combinations; its $n=2$ case is $r^-(R_2)$, odd under $X\mapsto-X$, and its $n=1$ case is $r^+(R_1)$, even. Our $W^{(k)}_-$ is the primitive part of $r^-(R_2)$, and $W^{(k)}_+$ the primitive part of $r^+(R_1)$ with its Eisenstein $p_0$-component removed by $c$; both lie in $W$, as does $p_0=X^{k-2}-Y^{k-2}$ (even). The three are independent, hence a basis of $W$. Since $k-2$ is even, $\langle\cdot,\cdot\rangle$ is symmetric and pairs opposite $X\mapsto-X$ parities to zero; the odd $W^{(k)}_-$ is thus orthogonal to the even $W^{(k)}_+$ and $v_0^{(k)}$, while $v_0^{(k)}\perp W^{(k)}_+$ by construction. Hence $\{W^{(k)}_+,W^{(k)}_-,v_0^{(k)}\}$ is orthogonal.
 \end{proof}
 
-\begin{definition}[Periods and Quasi-Periods]\label{def:periods}
-Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Now, define the two numbers $\omega^\pm(f)$ as follows: 
+\begin{definition}[Periods, Quasi-Periods]\label{def:periods}
+Let $k$ be such that $\dim(S_k) = 1$, $n:= k-2$, $W^{(k)}_\pm(X, Y) := Y^n W^{(k)}_\pm(X/Y)$ be as in Definition~\ref{def:Wpm}, and $r_f(X, Y)$ be as in Definition~\ref{def:rf}. Now, define 
 \begin{equation}\label{eq:project}
 \omega^\pm(f):=\frac{\langle r_f,W^{(k)}_\pm\rangle}{\langle W^{(k)}_\pm,W^{(k)}_\pm\rangle},
 \end{equation}
@@ -1332,11 +1366,20 @@ holomorphic on and within $\mathcal{T}$, so the integral vanishes. The remaining
 formal consequences of the cocycle law and apply verbatim.
 \end{proof}
 
-The first condition in~\eqref{eq:Fcirc} excludes few configurations: $\mathcal{T}$ is an ideal
-triangle with the three horoballs of area $1$ at its vertices removed, so its hyperbolic area is
-$\pi-3$, and it is $U$-invariant, so its image in a fundamental domain has area at most
-$(\pi-3)/3$; the excluded pole positions form a fraction at most $1-3/\pi\approx0.045$ in
-hyperbolic measure.
+The two conditions in~\eqref{eq:Fcirc} are not independent. An orbit meets $\mathcal{T}$ exactly
+when its representative $p$ in the standard fundamental domain has ${\rm Im}\,p\le1$: for such a
+$p$, $|p|\ge1$ gives $|p-\tfrac{i}{2}|^2=|p|^2-{\rm Im}\,p+\tfrac14\ge\tfrac14$ and likewise at the
+cusp $1$, so $p$ lies outside both horoballs and, after translation, in $\mathcal{T}$. The first
+condition therefore says that every pole of $f$ lies above $\hat\gamma^T_f$. This holds for a
+fraction $3/\pi\approx0.955$ of pole positions in hyperbolic measure, the region
+${\rm Im}\,\tau>1$ having area $1$ against $\pi/3$ for the fundamental domain. But it also
+separates $\hat\gamma^T_f$ from the cusp, so the strip constant is $c_f(0)$ less $2\pi i$ times the
+residues in one period strip, and the second condition is then a further linear condition rather
+than a consequence of $c_f(0)=0$. A form vanishing at the cusp whose poles form a single orbit of
+simple poles has strip constant exactly $2\pi i\,r^*_{f,p}(1)$, and so lies in $F_k^{\circ}$ only
+if that residue vanishes; membership requires $c_f(0)$ tuned against the residues, as for
+$E_{12}\big(j-j_1\big)/\big(j-j(2i)\big)$ with $j_1$ chosen
+suitably~\cite{VerifyScripts}.
 
 Poles inside $\mathcal{T}$ do not destroy this structure; they shift $r_f$ by an explicit
 polynomial. As the sides of $\mathcal{T}$ are $U$-transports of one path, the enclosed pole set
@@ -1367,9 +1410,17 @@ $f^{-1}(\infty)\cap\mathcal{T}^{\circ}=\emptyset$.
 \begin{proof}
 Both relations are values of the cocycle of Lemma~\ref{lem:cocycle} on the two relators of
 $\SLZ$, evaluated on the loops their words induce; the loops, not the group elements, carry
-the content. For the first, $\hat C_{S^2}=\hat C_S|_{(1+S)}=r_f|_{(1+S)}$ is the integral of
-$(2\pi i)^{n+1}f(\tau)(X-\tau Y)^n$ over the $S^2$-loop, which at $\hat\tau_0^f=i$ is
-degenerate, so it vanishes. For the second, the hypothesis
+the content. For the first, $\hat C_{S^2}=\hat C_S|_{(1+S)}=r_f|_{(1+S)}$; as $n$ is even the
+coboundary drops out, so this is the integral of $(2\pi i)^{n+1}f(\tau)(X-\tau Y)^n$ over the
+$S^2$-loop, the concatenation of $\hat\gamma^S_f$ with its $S$-image. At $\delta=0$ that loop is
+degenerate. For $\delta>0$ it retraces itself: the reference $S$-segment runs up the imaginary axis
+from $i/(1+\delta)$ to $i(1+\delta)$, and $S$ carries $iy$ to $i/y$, mapping the segment onto itself
+with reversed orientation, so the two legs cancel. Definition~\ref{def:null_homotopy} admits no pole
+in $1<{\rm Im}\,\tau\le1+\delta$, and applying $S$ excludes them from
+$1/(1+\delta)\le{\rm Im}\,\tau<1$ as well, so the only pole that can meet the segment is $\tau=i$.
+There $S$ acts with derivative $-1$, preserving the symmetric excision, and the two principal values
+cancel with the rest. Either way $r_f|_{(1+S)}=0$~\cite{VerifyScripts}. For the second, the
+hypothesis
 $\int_{\hat\gamma^T_f}f\,d\tau=0$ gives $\hat C_T=0$ as in the proof of
 Lemma~\ref{lem:rfWmero}, hence $\hat C_U=r_f$ and
 $r_f|_{(1+U+U^2)}=\hat C_{U^3}=C_{-I}$, the integral of the same $1$-form over the
@@ -1394,24 +1445,30 @@ The defect is removed by subtracting from $f$ reference forms carrying the same 
 $\SLZ\!\cdot\!p:=\{\gamma\cdot p:\gamma\in\SLZ\}$ for the orbit of $p\in\HH$.
 
 \begin{definition}\label{def:reffam}
-A \emph{reference family} at $p$ of depth $m$ is a set $\Psi^{(1)}_p,\dots,\Psi^{(m)}_p$ of weight-$k$
-meromorphic modular forms, each holomorphic on $\HH\smallsetminus\SLZ\!\cdot\!p$ with constant
-Fourier coefficient zero, such that
+Write $B_j:=\binom{n}{j-1}(-Y)^{j-1}(X-pY)^{\,n-j+1}$, the polynomials appearing
+in~\eqref{eq:Qf}. A \emph{reference family} at $p$ of depth $m$ is a set
+$\Psi^{(1)}_p,\dots,\Psi^{(m)}_p$ of weight-$k$ meromorphic modular forms, each holomorphic on
+$\HH\smallsetminus\SLZ\!\cdot\!p$ with constant Fourier coefficient zero, such that
 \begin{equation}\label{eq:psiform}
 \mathop{\rm Res}_{\tau=p}\big[\Psi^{(i)}_p(\tau)(X-\tau Y)^n\,d\tau\big]
-=\lambda_i\,(X-\bar pY)^{i-1}(X-pY)^{\,n-i+1},\qquad \lambda_i\neq0 .
+=\sum_{j\le i}\lambda_{ij}B_j,\qquad \lambda_{ii}\neq0 ,
 \end{equation}
+that is, triangular in the $B_j$ with nonvanishing diagonal.
 \end{definition}
 
-Such families exist at every non-elliptic $p$: the Poincar\'e series
-$\Psi^{\,i-1,\,n-i+1}_{\SLZ}(\,\cdot\,,p)$ of~\cite[Def.\ 3.1]{BrownFonseca2025} have weight $k$,
-are holomorphic off $\SLZ\!\cdot\!p$ with poles there of order at most $i$, and vanish at the
-cusp~\cite[Prop.\ 3.3]{BrownFonseca2025}; their residues take the form~\eqref{eq:psiform}
-by~\cite[Cor.\ 3.11]{BrownFonseca2025}, whose frame agrees with ours, their $(X,Y)$ being dual to
-$(1,-\tau)$ so that their $X-\tau Y$ is the class of $du$ on $\CC/(\ZZ+\ZZ\tau)$, with $\lambda_i$
-proportional to a local character sum
-$\kappa^{i-1,n-i+1}$ which by~\cite[Rem.\ 3.12]{BrownFonseca2025} equals the order of the
-stabiliser of $p$, hence $2$, when $p$ is non-elliptic and $n$ is even.
+Two constructions. Taking $\Psi^{(i)}_p:=g_i/(j-j(p))^{i}$ with $g_i\in M_k$ not vanishing at $p$
+gives a reference family whenever such $g_i$ exist, since a pole of exact order $i$ contributes
+$\lambda_{ii}=r^*_{\Psi^{(i)},p}(i)\neq0$ and nothing beyond. Alternatively the Poincar\'e series
+$\Psi^{\,i-1,\,n-i+1}_{\SLZ}(\,\cdot\,,p)$ of~\cite[Def.\ 3.1]{BrownFonseca2025} form one at every
+non-elliptic $p$: they have weight $k$, are holomorphic off $\SLZ\!\cdot\!p$ with poles there of
+order at most $i$, and vanish at the cusp~\cite[Prop.\ 3.3]{BrownFonseca2025}, while
+by~\cite[Cor.\ 3.11]{BrownFonseca2025} their residue is a multiple of
+$(X-\bar pY)^{i-1}(X-pY)^{n-i+1}$, which on expanding $X-\bar pY=(X-pY)-(p-\bar p)(-Y)$ is
+triangular in the $B_j$ with diagonal entry proportional to $(p-\bar p)^{i-1}$. That frame agrees
+with ours, their $(X,Y)$ being dual to $(1,-\tau)$ so that their $X-\tau Y$ is the class of $du$ on
+$\CC/(\ZZ+\ZZ\tau)$; the multiple is a local character sum $\kappa^{i-1,n-i+1}$, equal
+by~\cite[Rem.\ 3.12]{BrownFonseca2025} to the order of the stabiliser of $p$, hence $2$, when $p$
+is non-elliptic and $n$ is even.
 
 \begin{theorem}\label{thm:period}
 Let $f\in F_k$ have $c_f(0)=0$ and poles in $\HH$ on the non-elliptic orbits
@@ -1428,11 +1485,9 @@ $L$-function alone, and the $c_{a,i}$ are determined by the principal parts of $
 \end{theorem}
 \begin{proof}
 Fix $a$. The residue of $f(\tau)(X-\tau Y)^n\,d\tau$ at $p_a$ is
-$\sum_{i\le m_a}r^*_{f,p_a}(i)\binom{n}{i-1}(-Y)^{i-1}(X-p_aY)^{n-i+1}$ as in~\eqref{eq:Qf}, while
-the residues~\eqref{eq:psiform} of the reference family are the
-$\lambda_i(X-\bar p_aY)^{i-1}(X-p_aY)^{n-i+1}$. Both families are triangular in the order of
-vanishing of $(X-p_aY)$, and $-Y=\big((X-p_aY)-(X-\bar p_aY)\big)/(p_a-\bar p_a)$ relates them by an
-invertible triangular change of basis, so the $c_{a,i}$ matching the two exist and are unique.
+$\sum_{i\le m_a}r^*_{f,p_a}(i)B_i$ as in~\eqref{eq:Qf}, and the residues~\eqref{eq:psiform} of the
+reference family are triangular in the same $B_j$ with nonvanishing diagonal, hence a basis of
+their span; so the $c_{a,i}$ matching the two exist and are unique.
 Since $\Psi^{(i)}_{p_a}$ has no pole off $\SLZ\!\cdot\!p_a$, the orbits do not interfere and the
 choices are independent in $a$. Matching the residue at $p_a$ matches the entire principal part
 there, and covariance $r^*_{g,\gamma p}(i)=(cp+d)^{n}r^*_{g,p}(i)$ propagates this along the orbit,
