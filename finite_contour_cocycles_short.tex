@@ -857,19 +857,28 @@ and the prefactor $e^{-\pi i s/2}$ of Definition~\ref{def:Lint} multiplies throu
 Summing over crossings gives \eqref{eq:wall}.
 \end{proof}
 
-This content provides the basics to discuss our finite L-functions for $f \in F_k$. 
-However, we wish to present these L-functions in terms of their q-series coefficients, 
-just as we have done for L-functions for $f \in M_k^!$ in the previous section. To do 
-this, we must introduce polylogarithmic projections of Ref.~\cite{1806}:
+This content provides the basics to discuss our finite L-functions for $f \in F_k$.
+However, we wish to present these L-functions in terms of their q-series coefficients,
+just as we have done for L-functions for $f \in M_k^!$ in the previous section.
 
-This polylog projection isolates the q-series contribution of a given pole of an $f \in F_k$ 
+The obstruction to doing so directly is not a technical one. For $f\in M_k^!$ the series
+$\sum_n c_f(n)q^n$ converges on all of $\HH$, as $f$ is holomorphic there, and the term-by-term
+evaluation of \S\ref{sec:Lfun} is legitimate throughout. A pole at finite height ends this. The
+expansion about the cusp then represents $f$ only above the highest pole, on
+${\rm Im}\,\tau>y_f:=\sup\{{\rm Im}\,\tau_p\}$, with coefficients growing as
+$|c_f(n)|\gtrsim n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$ for a pole of order $m$~\cite{1806}. The
+reference contour of Definition~\ref{def:null_homotopy} runs along ${\rm Im}\,\tau=1$, so as soon as
+$f$ has a pole at or above that height the $q$-series diverges at every point of the segment. There
+is then no series to integrate term by term, rather than a slowly convergent one to be handled with
+care. To do this, we must introduce polylogarithmic projections of Ref.~\cite{1806}.
+
+\subsection{Explicit formulae for $L^*(f,s)$ for general $f \in F_k$}
+
+The polylog projection isolates the q-series contribution of a given pole of an $f \in F_k$
 into a known special function, an integral of a polylogarithm of negative index, and leaves 
-behind an object $(I-\widehat P)f$ with that one pole removed. For our purposes, we find 
-it essential to project-out all poles at, and above, the line ${\rm Im}\,\tau=1$. We must do 
-this because the reference contours which describe our reference homotopy classes are, 
-at a minimum, contour integrals of $f$ across the horizontal segment from $i -1$ to $i$. 
-Were we to allow poles at/above this line, q-series diverges on the contour 
-($|c_f(n)|\gtrsim n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$ for a pole of order $m$~\cite{1806}). 
+behind an object $(I-\widehat P)f$ with that one pole removed. Since the $q$-series of $f$ diverges
+on the reference contour as soon as a pole sits at or above ${\rm Im}\,\tau=1$, it is essential for
+our purposes to project out every such pole: only then does what remains admit a $q$-series there.
 
 Within this general context, we lay-out the starting definitions and facts:
 
