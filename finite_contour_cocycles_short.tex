@@ -663,11 +663,13 @@ W^{(k)}_-(X)&:={\rm pp}\left(\tfrac{1}{n-1}\big(B^0_{n-1}(X)+X^nB^0_{n-1}(\tfrac
 -\tfrac13\big(B^0_3(X)+X^nB^0_3(\tfrac1X)\big)\right),\\
 W^{(k)}_+(X)&:={\rm pp}\left(\tfrac12\big(B^0_2(X)-X^nB^0_2(\tfrac1X)\big)
 +\tfrac1n\big(B^0_n(X)-X^nB^0_n(\tfrac1X)\big)-c\,p_0(X)\right),\\
-v_0^{(k)}(X)&:= p_0(X) - W^{(k)}_+(X) ~\big(\langle W^{(k)}_+,\,p_0\rangle/\langle W^{(k)}_+,\,W^{(k)}_+\rangle\big)~,
+v_0^{(k)}(X)&:= p_0(X)~,
 \end{align}
 where ${\rm pp}$ acts on any polynomial with rational coefficients by multiplying by all
-coefficient-denominators and dividing by the gcd, $c$ eliminates the $p_0(X)$ component
-of $W^{(k)}_+$, and $\langle P, Q\rangle$ as in Eq.~\eqref{inner}.
+coefficient-denominators and dividing by the gcd, and $\langle P, Q\rangle$ is as in
+Eq.~\eqref{inner}. The bracketed polynomial defining $W^{(k)}_+$ has coefficients $a_i=-a_{n-i}$,
+so the single constant $c:=a_n$ eliminates its $X^n$ and constant terms at once; this is the
+$p_0$-component, and removing it is what makes $\langle W^{(k)}_+,p_0\rangle=0$ below.
 \end{definition}
 
 \begin{lemma}\label{lem:Wbasis}
@@ -677,7 +679,27 @@ W^{(k)}_+$, $W^{(k)}_-$, $v_0^{(k)}\}$ is an orthogonal basis of $W$ under $\lan
 \begin{proof}
 First, let $W_\pm^{(k)}(X, Y) := Y^{k-2} W_\pm^{(k)}(X/Y)$, and let $v_0^{(k)}(X, Y) := Y^{k-2} v_0^{(k)}(X/Y)$.
 
-Now, by Eichler--Shimura, $\dim W=2\dim S_k+1=3$. Theorem~1$'$ of~\cite{KZ1984} gives the odd and even period polynomials of the cusp form $R_n\propto\Delta$ as modified-Bernoulli combinations; its $n=2$ case is $r^-(R_2)$, odd under $X\mapsto-X$, and its $n=1$ case is $r^+(R_1)$, even. Our $W^{(k)}_-$ is the primitive part of $r^-(R_2)$, and $W^{(k)}_+$ the primitive part of $r^+(R_1)$ with its Eisenstein $p_0$-component removed by $c$; both lie in $W$, as does $p_0=X^{k-2}-Y^{k-2}$ (even). The three are independent, hence a basis of $W$. Since $k-2$ is even, $\langle\cdot,\cdot\rangle$ is symmetric and pairs opposite $X\mapsto-X$ parities to zero; the odd $W^{(k)}_-$ is thus orthogonal to the even $W^{(k)}_+$ and $v_0^{(k)}$, while $v_0^{(k)}\perp W^{(k)}_+$ by construction. Hence $\{W^{(k)}_+,W^{(k)}_-,v_0^{(k)}\}$ is orthogonal.
+Membership in $W$ is the substantive point. Theorem~1$'$ of~\cite{KZ1984} gives the odd and even
+period polynomials of the cusp form $E_{k-12}\Delta$ (where $E_0:=1$) as modified-Bernoulli
+combinations and places them in $W$; the $W^{(k)}_\pm$ of Definition~\ref{def:Wpm} are
+specializations of those formulae, $W^{(k)}_-$ odd and $W^{(k)}_+$ even under $X\mapsto-X$, so both
+lie in $W$. So does $v_0^{(k)}=p_0=X^{n}-Y^{n}$, directly: $p_0|_S=-p_0$ since $n$ is even, and
+$p_0|_{(1+U+U^2)}=0$.
+
+By Eichler--Shimura $\dim W=2\dim S_k+1=3$, so it is enough that the three be independent. Each
+satisfies $\langle P,P\rangle\neq0$~\cite{VerifyScripts}, and mutually orthogonal vectors with
+$\langle P,P\rangle\neq0$ are independent: pairing $\sum_ic_iv_i=0$ against $v_j$ leaves
+$c_j\langle v_j,v_j\rangle=0$.
+
+For orthogonality, note first that since $n$ is even, $X\mapsto-X$ multiplies the coefficient of
+$X^{n-a}Y^a$ by $(-1)^a$, so an odd polynomial has $p_a=0$ for even $a$ and an even one has $q_b=0$
+for odd $b$. As Eq.~\eqref{inner} pairs $p_a$ against $q_{n-a}$, and $a$ odd forces $n-a$ odd,
+opposite parities pair to zero: the odd $W^{(k)}_-$ is orthogonal to the even $W^{(k)}_+$ and
+$v_0^{(k)}$. For the remaining pair, $p_0$ is supported on its two extreme coefficients, so
+$\langle P,p_0\rangle$ is the coefficient of $Y^n$ in $P$ less that of $X^n$; $c$ annihilates both
+of these in $W^{(k)}_+$, whence $\langle W^{(k)}_+,v_0^{(k)}\rangle=0$. Hence
+$\{W^{(k)}_+,W^{(k)}_-,v_0^{(k)}\}$ is an orthogonal basis, with
+$\langle v_0^{(k)},v_0^{(k)}\rangle=-2$ at every such $k$.
 \end{proof}
 
 \begin{definition}[Periods, Quasi-Periods]\label{def:periods}
