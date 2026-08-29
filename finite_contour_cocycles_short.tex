@@ -85,7 +85,7 @@ a & b \\ c & d \end{smallmatrix}\right) \in \SLZ$. Similarly, $\gamma\cdot \tau 
 In this vein, a {\em holomorphic modular form} of weight $k$ for $\SLZ$ is a 
 holomorphic function $f:\HH\to \CC$ such that $(f|_k\gamma)(\tau) = f(\tau)$ 
 for all $\gamma \in \SLZ$ (aka $f(\tau+1)=f(-\frac1\tau)\tau^{-k}=f(\tau)$) for 
-all $\tau\in \HH$, and $f(\tau)={\cal~O}(1)$ as ${\rm Im}(\tau)\to \infty$, and 
+all $\tau\in \HH$, and $f(\tau)={\cal~O}(\tau^k)$ as ${\rm Im}(\tau)\to \infty$, and 
 which has no poles at finite locations within $\HH$. By virtue of the periodicity 
 $f(\tau) = f(\tau+1)$ and holomorphicity, each holomorphic modular form has 
 a q-series decomposition,
@@ -747,9 +747,10 @@ figures (to 50-digit precision).
 Brown--Hain~\cite[Prop.~5.6]{BrownHain2018} show that $\det({\rm pd}_k)$ satisfies a 
 Legendre-type relation, $\det({\rm pd}_k)\in\QQ^\times\cdot(2\pi i)^{k-1}$. Brown~\cite[\S8.3]{Brown2017}
 numerically finds $\alpha_k=1$; we reproduce this result at $k=12$ and give the analogous
-rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below.
-Note: The value of $\alpha_k$ is tied to the normalization of Definition~\ref{def:Wpm}. Other normalizations, 
-e.g. not including the ${\rm pp}$-operator in defining $W_\pm^{(k)}$ would lead to different $\alpha_k$-values. 
+rational multiples for $k \in \{16, 18, 20, 22, 26\}$ in Table~\ref{tab:periods}, below,
+via the normalization of Definition~\ref{def:Wpm}. 
+%Note: The value of $\alpha_k$ is tied to the normalization of Definition~\ref{def:Wpm}. Other normalizations, 
+%e.g. not including the ${\rm pp}$-operator in defining $W_\pm^{(k)}$ would lead to different $\alpha_k$-values. 
 
 
 
@@ -867,7 +868,7 @@ evaluation of \S\ref{sec:Lfun} is legitimate throughout. A pole at finite height
 expansion about the cusp then represents $f$ only above the highest pole, on
 ${\rm Im}\,\tau>y_f:=\sup\{{\rm Im}\,\tau_p\}$, with coefficients growing as
 $|c_f(n)|\gtrsim n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$ for a pole of order $m$~\cite{1806}. The
-reference contour of Definition~\ref{def:null_homotopy} runs along ${\rm Im}\,\tau=1$, so as soon as
+reference contour of Definition~\ref{def:null_homotopy} runs along ${\rm Im}\,\tau=1+\delta$ (with $\delta = 0$ if $f$ has no poles with ${\rm Im}(\tau_p)=1$), so as soon as
 $f$ has a pole at or above that height the $q$-series diverges at every point of the segment. There
 is then no series to integrate term by term, rather than a slowly convergent one to be handled with
 care. To do this, we must introduce polylogarithmic projections of Ref.~\cite{1806}.
@@ -882,25 +883,39 @@ our purposes to project out every such pole: only then does what remains admit a
 
 Within this general context, we lay-out the starting definitions and facts:
 
+\begin{definition}\label{def:Finfty}
+$F(\infty)$ is the space of meromorphic functions $g:\HH\to\CC$ with $g(\tau+1)=g(\tau)$, finitely many
+poles in each compact subset of the strip $|{\rm Re}\,\tau|\le\tfrac12$, and bounded pole order at $q = 0$. 
+\end{definition}
+
 \begin{definition}\label{def:proj}
-%Let $f\in F_k$ have, at a pole $\tau_p$ of order $m_p$, the Laurent principal part
-%$\sum_{m=1}^{m_p} a^{(p)}_{-m}\,(\tau-\tau_p)^{-m}$. With the polylogarithm
-%$\Li_s(x):=\sum_{n\ge1}x^n n^{-s}$, the \emph{polylog projection} of $f$ at $\tau_p$ is
-%\begin{equation}
-%\widehat P_{\tau_p}f(\tau):=\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,
-%\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
-%\end{equation}
-%its weights $r^*_{f,\tau_p}(m)$ fixed by matching principal parts with $f$ at $\tau_p$; and
-%$\widehat P:=\sum_{{\rm Im}\tau_p\ge1}\widehat P_{\tau_p}$.
-Let $f\in F_k$ have, at a pole $\tau_p$ of order $m_p$, the Laurent principal part
-$\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,(\tau-\tau_p)^{-m}$; the \emph{pole weights}
-$r^*_{f,\tau_p}(m)$ are thus its Laurent coefficients. With the polylogarithm
-$\Li_s(x):=\sum_{n\ge1}x^n n^{-s}$, the \emph{polylog projection} of $f$ at $\tau_p$ is
-\begin{equation}
-\widehat P_{\tau_p}f(\tau):=\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,
-\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
+Let $f\in F_k$ have a pole of order $m_p$ at $\tau_p\in\HH$. On a punctured $\varepsilon$-ball about
+$\tau_p$ small enough to exclude the other poles of $f$, we have
+\begin{equation}\label{eq:laurent}
+f(\tau)=\sum_{m=1}^{m_p}\frac{r^*_{f,\tau_p}(m)}{(\tau-\tau_p)^{m}}+g(\tau),
+\qquad
+r^*_{f,\tau_p}(m)=\frac{1}{2\pi i}\oint_{|\tau-\tau_p|=\varepsilon}
+f(\tau)\,(\tau-\tau_p)^{m-1}\,d\tau ,
 \end{equation}
-and $\widehat P:=\sum_{{\rm Im}\tau_p\ge1}\widehat P_{\tau_p}$.
+with $g$ holomorphic at $\tau_p$. We call $r^*_{f,\tau_p}(1),\dots,r^*_{f,\tau_p}(m_p)$ the
+\emph{pole weights} of $f$ at $\tau_p$; the first is the residue, and the last is nonzero, which is
+what fixes the order. We may then define the \emph{polylog projection} of $f$ at $\tau_p$ to be
+\begin{equation}\label{eq:polyproj}
+\widehat P_{\tau_p}f(\tau):=\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,
+\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)~,~{\rm where} ~\Li_s(x):=\sum_{n\ge1}\frac{x^{n}}{n^{s}}~.
+\end{equation}
+\end{definition}
+
+\begin{definition}\label{def:pole_split}
+For every $f \in F_k$, there are a finite set of $T$-inequivalent finite order poles
+$\{ \tau_p \}$ of order $\{ m_p \}$. We may use the polylogarithm projector of
+Definition~\ref{def:proj} to define two functions $\widehat{P}(f)$ and
+$(1-\widehat{P})(f) \in F(\infty)$, via the composite projection operator:
+\begin{equation}\label{eq:polesplit}
+\widehat P:=\sum_{{\rm Im}\,\tau_p\ge1}\widehat P_{\tau_p}~.
+\end{equation}
+Their respective singularity structures are integral to our explicit L-function expressions,
+below.
 \end{definition}
 
 \begin{lemma}\label{lem:proj}
@@ -922,25 +937,19 @@ $f$ and $(I-\widehat P_{\tau_p})f$ is holomorphic at $\tau_p$.
 %$\tfrac{(m-1)!}{(-2\pi i)^m}(\tau-\tau_p)^{-m}$ with no lower-order poles. Matching the principal part
 %of $f$ is therefore diagonal, giving $r^*_{f,\tau_p}(m)=(-2\pi i)^m a^{(p)}_{-m}/(m-1)!$ and leaving
 %$(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
-By the small-$t$ expansion $\Li_{1-m}(e^{-t})=(m-1)!\,t^{-m}+O(1)$ with $t=-2\pi i(\tau-\tau_p)$, the
+By the small-$t$ expansion $\Li_{1-m}(e^{-t})=(m-1)!\,t^{-m}+O(t^0)$ with $t=-2\pi i(\tau-\tau_p)$, the
 block $\frac{(-2\pi i)^m}{(m-1)!}\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has a \emph{pure} pole
-$(\tau-\tau_p)^{-m}+O(1)$ at $\tau_p$, with no lower-order poles. Summing against the Laurent
+$(\tau-\tau_p)^{-m}+O((\tau-\tau_p)^0)$ at $\tau_p$, with no lower-order poles. Summing against the Laurent
 coefficients $r^*_{f,\tau_p}(m)$ therefore reproduces the principal part of $f$ term by term,
 leaving $(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
 \end{proof}
 
 \begin{definition}\label{def:cRf}
-With $\widehat P$ as in Definition~\ref{def:proj}, let $c_{Rf}(n)$ be the Fourier
-coefficients of the \emph{pole-projected form} $(I-\widehat P)f$ in its expansion valid for large
-${\rm Im}\tau$:
+Let $f \in F_k$ and $\widehat P$ as in Definition~\ref{def:pole_split}. We denote the Fourier
+coefficients of $(I-\widehat P)f$ as follows:
 \begin{equation}
 (I-\widehat P)f(\tau)=\sum_n c_{Rf}(n)\,q^n,\qquad q=e^{2\pi i\tau}.
 \end{equation}
-\end{definition}
-
-\begin{definition}\label{def:Finfty}
-$F(\infty)$ is the space of meromorphic functions $g:\HH\to\CC$ with $g(\tau+1)=g(\tau)$, finitely many
-poles in each compact subset of the strip $|{\rm Re}\,\tau|\le\tfrac12$, and bounded pole order at $q = 0$. 
 \end{definition}
 
 \begin{lemma}\label{lem:projspace}
@@ -1365,14 +1374,18 @@ The proof of Lemma~\ref{lem:rfW} used $f\in S^!_k$ in exactly two places, and bo
 weakening to $f\in F_k$ under explicit conditions.
 
 \begin{definition}\label{def:Fcirc}
-Let $\mathcal{T}\subset\HH$ be the curvilinear triangle bounded by the height-one horocycles at
-the cusps $\infty$, $0$ and $1$,
+Let $\mathcal{T}\subset\HH$ be the closed curvilinear triangle with vertices $i$, $1+i$ and
+$\tfrac{1+i}{2}$, bounded above by the line ${\rm Im}\,\tau=1$ and below by its $\SLZ$-translates
+through the cusps $0$ and $1$, the circles $|\tau-\tfrac{i}{2}|=\tfrac12$ and
+$|\tau-1-\tfrac{i}{2}|=\tfrac12$, which meet each other tangentially at $\tfrac{1+i}{2}$:
 \begin{equation}\label{eq:Tri}
-\mathcal{T}:=\Big\{\tau\in\HH:\ 0\le{\rm Re}\,\tau\le1,\ {\rm Im}\,\tau\le1,\
-\big|\tau-\tfrac{i}{2}\big|\ge\tfrac12,\ \big|\tau-1-\tfrac{i}{2}\big|\ge\tfrac12\Big\},
+\mathcal{T}:=\Big\{\tau\in\HH:\ 0\le{\rm Re}\,\tau\le1,\ \tfrac12\le{\rm Im}\,\tau\le1,\
+\big|\tau-\tfrac{i}{2}\big|\ge\tfrac12,\ \big|\tau-1-\tfrac{i}{2}\big|\ge\tfrac12\Big\}.
 \end{equation}
-whose sides are the $T$-, $UT$- and $S^{-1}$-translates of $\hat\gamma^T_f$ and whose vertices
-$i$, $1+i$, $\tfrac{1+i}{2}$ are their points of mutual tangency. Define
+The bound ${\rm Im}\,\tau\ge\tfrac12$ is not redundant: dropping it leaves a second region below
+the point of tangency, widening to the full interval $0\le{\rm Re}\,\tau\le1$ as
+${\rm Im}\,\tau\to0$ and so of infinite hyperbolic area. The three sides of $\mathcal{T}$ are the
+$T$-, $UT$- and $S^{-1}$-translates of $\hat\gamma^T_f$, meeting at the vertices. Define
 \begin{equation}\label{eq:Fcirc}
 F_k^{\circ}:=\Big\{f\in F_k\ :\ f^{-1}(\infty)\cap\mathcal{T}=\emptyset\ \ \text{and}\ \
 \int_{\hat\gamma^T_f}f(\tau)\,d\tau=0\Big\},
@@ -1400,7 +1413,9 @@ formal consequences of the cocycle law and apply verbatim.
 The two conditions in~\eqref{eq:Fcirc} are not independent. An orbit meets $\mathcal{T}$ exactly
 when its representative $p$ in the standard fundamental domain has ${\rm Im}\,p\le1$: for such a
 $p$, $|p|\ge1$ gives $|p-\tfrac{i}{2}|^2=|p|^2-{\rm Im}\,p+\tfrac14\ge\tfrac14$ and likewise at the
-cusp $1$, so $p$ lies outside both horoballs and, after translation, in $\mathcal{T}$. The first
+cusp $1$, so $p$ lies outside both circles, while ${\rm Im}\,p\ge\tfrac{\sqrt3}{2}>\tfrac12$ holds
+throughout the standard fundamental domain; hence $p$ lies in $\mathcal{T}$ after a translation.
+The first
 condition therefore says that every pole of $f$ lies above $\hat\gamma^T_f$. This holds for a
 fraction $3/\pi\approx0.955$ of pole positions in hyperbolic measure, the region
 ${\rm Im}\,\tau>1$ having area $1$ against $\pi/3$ for the fundamental domain. But it also
@@ -1418,13 +1433,15 @@ is a union of $U$-orbits $\{p,\,Up,\,U^2p\}$, and each enclosed pole contributes
 
 \begin{definition}\label{def:Qf}
 Let $f\in F_k$ have a pole of order $m_p$ at each $p\in f^{-1}(\infty)\cap\mathcal{T}^{\circ}$,
-with projection weights $r^*_{f,p}(i)$ (Definition~\ref{def:proj}). The \emph{polar defect
+with projection weights $r^*_{f,p}(\alpha)$ (Definition~\ref{def:proj}). The \emph{polar defect
 polynomial} of $f$ is
 \begin{equation}\label{eq:Qf}
-Q_f(X,Y):=(2\pi i)^{n+2}\!\!\sum_{p\,\in\,f^{-1}(\infty)\cap\mathcal{T}^{\circ}}\ \sum_{i=1}^{m_p}
-r^*_{f,p}(i)\,\binom{n}{i-1}(-Y)^{i-1}\,(X-pY)^{\,n-i+1}.
+Q_f(X,Y):=(2\pi i)^{n+2}\!\!\sum_{p\,\in\,f^{-1}(\infty)\cap\mathcal{T}^{\circ}}\ \sum_{\alpha=1}^{m_p}
+r^*_{f,p}(\alpha)\,B_\alpha(p;X,Y),
+\qquad
+B_\alpha(p;X,Y):=\binom{n}{\alpha-1}(-Y)^{\alpha-1}(X-pY)^{\,n-\alpha+1}.
 \end{equation}
-Simple poles contribute the $i=1$ term alone, $r^*_{f,p}(1)(X-pY)^n$.
+Simple poles contribute the $\alpha=1$ term alone, $r^*_{f,p}(1)(X-pY)^n$.
 \end{definition}
 
 \begin{lemma}\label{lem:rfWFk}
@@ -1459,8 +1476,8 @@ $(TS)^3$-loop: the three $U$-transports of the $U$-path traverse $\partial\mathc
 clockwise, with a common integrand by modular covariance. The residue theorem then gives
 $C_{-I}=-(2\pi i)^{n+1}\cdot2\pi i\sum_{p\in\mathcal{T}^{\circ}}
 \mathop{\rm Res}_{\tau=p}\big[f(\tau)(X-\tau Y)^n\big]$, and since
-$\tfrac{1}{(i-1)!}\partial_\tau^{\,i-1}(X-\tau Y)^n=\binom{n}{i-1}(-Y)^{i-1}(X-\tau Y)^{n-i+1}$,
-that residue is $\sum_{i\le m_p}r^*_{f,p}(i)\binom{n}{i-1}(-Y)^{i-1}(X-pY)^{n-i+1}$; hence
+$\tfrac{1}{(\alpha-1)!}\partial_\tau^{\,\alpha-1}(X-\tau Y)^n=B_\alpha(\tau;X,Y)$,
+that residue is $\sum_{\alpha\le m_p}r^*_{f,p}(\alpha)B_\alpha(p;X,Y)$; hence
 $C_{-I}=-Q_f$.
 \end{proof}
 
@@ -1475,57 +1492,88 @@ there by principal value.
 The defect is removed by subtracting from $f$ reference forms carrying the same poles. Write
 $\SLZ\!\cdot\!p:=\{\gamma\cdot p:\gamma\in\SLZ\}$ for the orbit of $p\in\HH$.
 
+Write $\Gamma_p\le\SLZ$ for the stabiliser of $p$, and let
+$A_p:=\{\alpha:1\le\alpha\le m,\ B_\alpha(p;\cdot,\cdot)\ \text{has nonzero
+}\Gamma_p\text{-average}\}$. At a non-elliptic $p$ one has $\Gamma_p=\{\pm I\}$ and $A_p$ is all of
+$\{1,\dots,m\}$; at $\tau=i$ and $\tau=e^{i\pi/3}$ it is a proper subset, namely the
+$\alpha\equiv k/2\bmod2$ and the $\alpha\equiv-k\bmod3$ respectively~\cite{VerifyScripts}, which are
+exactly the pole orders the valence formula permits there.
+
 \begin{definition}\label{def:reffam}
-Write $B_j:=\binom{n}{j-1}(-Y)^{j-1}(X-pY)^{\,n-j+1}$, the polynomials appearing
-in~\eqref{eq:Qf}. A \emph{reference family} at $p$ of depth $m$ is a set
-$\Psi^{(1)}_p,\dots,\Psi^{(m)}_p$ of weight-$k$ meromorphic modular forms, each holomorphic on
-$\HH\smallsetminus\SLZ\!\cdot\!p$ with constant Fourier coefficient zero, such that
+A \emph{reference family} at $p$ of depth $m$ is a set $\{\Psi^{(\alpha)}_p\}_{\alpha\in A_p}$ of
+weight-$k$ meromorphic modular forms, each holomorphic on $\HH\smallsetminus\SLZ\!\cdot\!p$ with
+constant Fourier coefficient zero, such that
 \begin{equation}\label{eq:psiform}
-\mathop{\rm Res}_{\tau=p}\big[\Psi^{(i)}_p(\tau)(X-\tau Y)^n\,d\tau\big]
-=\sum_{j\le i}\lambda_{ij}B_j,\qquad \lambda_{ii}\neq0 ,
+\mathop{\rm Res}_{\tau=p}\big[\Psi^{(\alpha)}_p(\tau)(X-\tau Y)^n\,d\tau\big]
+=\sum_{\beta\in A_p,\ \beta\le\alpha}\lambda_{\alpha\beta}\,B_\beta(p;X,Y),
+\qquad \lambda_{\alpha\alpha}\neq0 ,
 \end{equation}
-that is, triangular in the $B_j$ with nonvanishing diagonal.
+that is, triangular in the $B_\beta$ with nonvanishing diagonal.
 \end{definition}
 
-Two constructions. Taking $\Psi^{(i)}_p:=g_i/(j-j(p))^{i}$ with $g_i\in M_k$ not vanishing at $p$
-gives a reference family whenever such $g_i$ exist, since a pole of exact order $i$ contributes
-$\lambda_{ii}=r^*_{\Psi^{(i)},p}(i)\neq0$ and nothing beyond. Alternatively the Poincar\'e series
-$\Psi^{\,i-1,\,n-i+1}_{\SLZ}(\,\cdot\,,p)$ of~\cite[Def.\ 3.1]{BrownFonseca2025} form one at every
-non-elliptic $p$: they have weight $k$, are holomorphic off $\SLZ\!\cdot\!p$ with poles there of
-order at most $i$, and vanish at the cusp~\cite[Prop.\ 3.3]{BrownFonseca2025}, while
+Two constructions. Taking $\Psi^{(\alpha)}_p:=g_\alpha/(j-j(p))^{\alpha}$ with $g_\alpha\in M_k$ not
+vanishing at $p$ gives a reference family whenever such $g_\alpha$ exist, since a pole of exact
+order $\alpha$ contributes $\lambda_{\alpha\alpha}=r^*_{\Psi^{(\alpha)},p}(\alpha)\neq0$ and nothing
+beyond. Alternatively the Poincar\'e series
+$\Psi^{\,\alpha-1,\,n-\alpha+1}_{\SLZ}(\,\cdot\,,p)$ of~\cite[Def.\ 3.1]{BrownFonseca2025} form one
+at every $p$: they have weight $k$, are holomorphic off $\SLZ\!\cdot\!p$ with poles there of order
+at most $\alpha$, and vanish at the cusp~\cite[Prop.\ 3.3]{BrownFonseca2025}, while
 by~\cite[Cor.\ 3.11]{BrownFonseca2025} their residue is a multiple of
-$(X-\bar pY)^{i-1}(X-pY)^{n-i+1}$, which on expanding $X-\bar pY=(X-pY)-(p-\bar p)(-Y)$ is
-triangular in the $B_j$ with diagonal entry proportional to $(p-\bar p)^{i-1}$. That frame agrees
-with ours, their $(X,Y)$ being dual to $(1,-\tau)$ so that their $X-\tau Y$ is the class of $du$ on
-$\CC/(\ZZ+\ZZ\tau)$; the multiple is a local character sum $\kappa^{i-1,n-i+1}$, equal
-by~\cite[Rem.\ 3.12]{BrownFonseca2025} to the order of the stabiliser of $p$, hence $2$, when $p$
-is non-elliptic and $n$ is even.
+$(X-\bar pY)^{\alpha-1}(X-pY)^{n-\alpha+1}$, which on expanding
+$X-\bar pY=(X-pY)-(p-\bar p)(-Y)$ is triangular in the $B_\beta$ with diagonal entry proportional to
+$(p-\bar p)^{\alpha-1}$. That frame agrees with ours, their $(X,Y)$ being dual to $(1,-\tau)$ so
+that their $X-\tau Y$ is the class of $du$ on $\CC/(\ZZ+\ZZ\tau)$; the multiple is a local character
+sum $\kappa^{\alpha-1,n-\alpha+1}$, equal by~\cite[Rem.\ 3.12]{BrownFonseca2025} to $|\Gamma_p|$ for
+$\alpha\in A_p$ and to zero otherwise.
 
 \begin{theorem}\label{thm:period}
-Let $f\in F_k$ have $c_f(0)=0$ and poles in $\HH$ on the non-elliptic orbits
-$\SLZ\!\cdot\!p_1,\dots,\SLZ\!\cdot\!p_N$, of orders $m_1,\dots,m_N$; a pole at the cusp is
-allowed. Fix a reference family $\Psi^{(i)}_{p_a}$ at each $p_a$ of depth $m_a$. There are
-unique $c_{a,i}\in\CC$, for $1\le a\le N$ and $1\le i\le m_a$, such that
-$f-\sum_{a,i}c_{a,i}\Psi^{(i)}_{p_a}$ is holomorphic on $\HH$, and then
+Let $f\in F_k$ have $c_f(0)=0$, with poles in $\HH$ on the orbits
+$\SLZ\!\cdot\!p_1,\dots,\SLZ\!\cdot\!p_N$ of orders $m_1,\dots,m_N$, elliptic or not; a pole at the
+cusp is allowed. Fix a reference family $\Psi^{(\alpha)}_{p_a}$ at each $p_a$ of depth $m_a$, and
+evaluate every period polynomial below in the reference class of $f$. This is available to the
+$\Psi^{(\alpha)}_{p_a}$ as well: their poles lie among those of $f$, so
+Definition~\ref{def:null_homotopy} admits none of them in $1<{\rm Im}\,\tau\le1+\delta$, and the
+same contour serves every integrand. There are unique $c_{a,\alpha}\in\CC$, for $1\le a\le N$ and
+$\alpha\in A_{p_a}$, such that $f-\sum_{a,\alpha}c_{a,\alpha}\Psi^{(\alpha)}_{p_a}$ is holomorphic
+on $\HH$, and then
 \begin{equation}\label{eq:period}
-\tilde r_f\ :=\ r_f-\sum_{a=1}^{N}\sum_{i=1}^{m_a}c_{a,i}\,r_{\Psi^{(i)}_{p_a}}\ \in\ W .
+\tilde r_f\ :=\ r_f-\sum_{a=1}^{N}\sum_{\alpha\in A_{p_a}}c_{a,\alpha}\,r_{\Psi^{(\alpha)}_{p_a}}
+\ \in\ W .
 \end{equation}
-Both $r_f$ and each $r_{\Psi^{(i)}_{p_a}}$ are given by Definition~\ref{def:rf}, so $\tilde r_f$ is
-assembled from the values $L^*(\,\cdot\,,\ell+1)$, $0\le\ell\le n$, of the finite-contour
-$L$-function alone, and the $c_{a,i}$ are determined by the principal parts of $f$.
+Both $r_f$ and each $r_{\Psi^{(\alpha)}_{p_a}}$ are given by Definition~\ref{def:rf}, so
+$\tilde r_f$ is assembled from the values $L^*(\,\cdot\,,\ell+1)$, $0\le\ell\le n$, of the
+finite-contour $L$-function alone, and the $c_{a,\alpha}$ are determined by the principal parts
+of $f$.
 \end{theorem}
 \begin{proof}
-Fix $a$. The residue of $f(\tau)(X-\tau Y)^n\,d\tau$ at $p_a$ is
-$\sum_{i\le m_a}r^*_{f,p_a}(i)B_i$ as in~\eqref{eq:Qf}, and the residues~\eqref{eq:psiform} of the
-reference family are triangular in the same $B_j$ with nonvanishing diagonal, hence a basis of
-their span; so the $c_{a,i}$ matching the two exist and are unique.
-Since $\Psi^{(i)}_{p_a}$ has no pole off $\SLZ\!\cdot\!p_a$, the orbits do not interfere and the
-choices are independent in $a$. Matching the residue at $p_a$ matches the entire principal part
-there, and covariance $r^*_{g,\gamma p}(i)=(cp+d)^{n}r^*_{g,p}(i)$ propagates this along the orbit,
-so the difference has no pole in $\HH$ and lies in $M^!_k$. Its constant Fourier coefficient is
-$c_f(0)=0$, so it lies in $S^!_k$, where Lemma~\ref{lem:rfW} gives a period polynomial in $W$; $r$
-is linear.
+Fix $a$ and write $p=p_a$. The residue of $f(\tau)(X-\tau Y)^n\,d\tau$ at $p$ is
+$\sum_{\alpha\le m_a}r^*_{f,p}(\alpha)B_\alpha(p)$ as in~\eqref{eq:Qf}. That residue is
+$\Gamma_p$-invariant: the $1$-form is $\SLZ$-invariant and $\Gamma_p$ fixes $p$, so averaging over
+$\Gamma_p$ leaves it unchanged. Hence it lies in the span of $\{B_\beta(p):\beta\in A_p\}$, which is
+the image of that average. The residues~\eqref{eq:psiform} of the reference family are triangular in
+the same $B_\beta$, $\beta\in A_p$, with nonvanishing diagonal, hence a basis of that span; so the
+$c_{a,\alpha}$ matching the two exist and are unique. At a non-elliptic $p$ this is the whole span
+and the statement is the evident one; at $\tau=i$ or $e^{i\pi/3}$ the individual Laurent
+coefficients $r^*_{f,p}(\alpha)$ with $\alpha\notin A_p$ need not vanish, but their contributions
+cancel in the invariant combination.
+
+Since $\Psi^{(\alpha)}_{p_a}$ has no pole off $\SLZ\!\cdot\!p_a$, the orbits do not interfere and
+the choices are independent in $a$. Matching the residue at $p_a$ matches the entire principal part
+there, and covariance $r^*_{g,\gamma p}(\alpha)=(cp+d)^{n}r^*_{g,p}(\alpha)$ propagates this along
+the orbit, so the difference has no pole in $\HH$ and lies in $M^!_k$. Its constant Fourier
+coefficient is $c_f(0)=0$, so it lies in $S^!_k$, where Lemma~\ref{lem:rfW} gives a period
+polynomial in $W$; $r$ is linear.
 \end{proof}
+
+The hypothesis $c_f(0)=0$ costs nothing. For arbitrary $f\in F_k$ the form $f-c_f(0)E_k$ has the
+same poles in $\HH$ and vanishing constant term, so Theorem~\ref{thm:period} applies to it, and
+\begin{equation}\label{eq:rhat}
+\hat r_f\ :=\ \tilde r_{f-c_f(0)E_k}\ +\ c_f(0)\,r_{E_k}
+\end{equation}
+is defined for every $f\in F_k$. It satisfies $\hat r_f|_{(1+S)}=0$, since both terms do, and
+$\hat r_f|_{(1+U+U^2)}=c_f(0)\,r_{E_k}|_{(1+U+U^2)}$. So $\hat r_f$ lies in $W$ exactly when
+$c_f(0)=0$, and otherwise in $W\oplus\CC\,r_{E_k}$; this is the usual Eisenstein correction, already
+present for holomorphic $f\in M_k\smallsetminus S_k$, and not a feature of the poles.
 
 \begin{corollary}\label{cor:explicit}
 Let $k=12$ and $f=\Delta/(j-j_0)$ with $j_0\notin\{0,1728\}$, and take the reference family
@@ -1547,22 +1595,64 @@ substituting gives $f-c_{1,1}\Psi^{(1)}_p=-c_{1,1}\Delta$ identically. Apply
 Theorem~\ref{thm:period} and linearity.
 \end{proof}
 
+Definition~\ref{def:reffam} constrains the $\Psi^{(\alpha)}_p$ only through their poles, so it does
+not determine them, and $\tilde r_f$ inherits that freedom. The freedom is exactly measured. If
+$\{\Psi^{(\alpha)}_p\}$ and $\{\Psi'^{(\alpha)}_p\}$ are two reference families and
+$c_{a,\alpha},c'_{a,\alpha}$ the coefficients they produce for the same $f$, then
+$\sum c_{a,\alpha}\Psi^{(\alpha)}_{p_a}$ and $\sum c'_{a,\alpha}\Psi'^{(\alpha)}_{p_a}$ have the
+same principal part as $f$ at every pole, so their difference $g$ is holomorphic on $\HH$ with
+$c_g(0)=0$, that is $g\in S^!_k$, and
+\begin{equation}\label{eq:ambig}
+\tilde r_f-\tilde r\,'_f=r_g\ \in\ W
+\end{equation}
+by Lemma~\ref{lem:rfW}. The ambiguity is therefore not merely $W$-valued by accident: it is the set
+$r(S^!_k)\subseteq W$ of period polynomials of the pole-free forms, which is precisely what
+Definition~\ref{def:reffam} cannot see.
+
+That set is everything. Adding any $h\in S^!_k$ to each $\Psi^{(\alpha)}_{p_a}$ yields another
+reference family, since $h$ is holomorphic with $c_h(0)=0$ and so alters neither the pole locus nor
+any residue in~\eqref{eq:psiform}; the matched coefficients are unchanged, and $\tilde r_f$ moves by
+$r_g$ with $g=\sum c_{a,\alpha}h_\alpha$ arbitrary in $S^!_k$. And $r$ is already onto $W$ there,
+for two independent reasons. So long as the determinant pairing the $\dim S_k$ periods against the
+$\dim S_k$ quasi-periods is nonzero, which is the Legendre relation~\cite{BrownHain2018}, the
+$2\dim S_k$ period polynomials of the cusp forms and of their weakly holomorphic partners are
+independent modulo $p_0$, and so span a complement to $\CC\,p_0$ in $W$. The remaining Eisenstein
+direction $p_0$ is supplied separately, by the Bol image $\partial^{k-1}M^!_{2-k}$: it lies in
+$S^!_k$, since $\partial^{k-1}$ annihilates the constant Fourier mode, and its period polynomials
+are coboundaries, hence multiples of $p_0$ — the only coboundary compatible with $\hat C_T=0$,
+as $Y^n$ spans the $T$-invariants of $V_n$~\cite{VerifyScripts}. So Theorem~\ref{thm:period}
+determines nothing about $\tilde r_f$ beyond its membership in $W$, and pinning it down requires
+restricting Definition~\ref{def:reffam}.
+
+Two restrictions suggest themselves, and they disagree. One may fix the reference forms once and for
+all, taking $\Psi^{(\alpha)}_p$ to be the Poincar\'e series of~\cite[Def.\ 3.1]{BrownFonseca2025},
+which are canonically defined; no freedom then remains, at the price of resting on a normalisation
+that~\cite[Rem.\ 5.17]{BrownFonseca2025} notes is not rational. Alternatively one may define
+$\tilde r_f$ by continuation in the pole location. For $f$ with no pole in $\mathcal{T}$,
+Lemma~\ref{lem:rfWmero} gives $r_f\in W$ with no reference form at all; moving a pole into
+$\mathcal{T}$ crosses a side of $\partial\mathcal{T}$, which is a $\Gamma$-translate of
+$\hat\gamma^T_f$, so $r_f$ jumps by the crossing of Lemma~\ref{lem:wall}, and continuing through
+that jump determines $\tilde r_f$ up to which side was crossed. The residual freedom is then
+generated by the windings about the points $Sp$, one per enclosed orbit, and is a proper subspace of
+$W$: winding about any other point leaves $W$ altogether and so is not an admissible
+correction~\cite{VerifyScripts}. Which of the two, if either, is the right normalisation we leave
+open.
+
 \begin{remark}\label{rem:literature}
 The polar data used above is not new. Brown and Fonseca~\cite{BrownFonseca2025} compute the residue
 of $f(\tau)(X-\tau Y)^{n}\,d\tau$ at a pole $w$, in their Lemma 5.10, as
 $\sum_{j}\binom{n}{j}c_{-j-1}(w)(X-wY)^{n-j}(-Y)^{j}$ with $c_{-j-1}(w)$ the Laurent coefficients
-of $f$ there; under $j=i-1$ this is Definition~\ref{def:Qf} term by term. The reference forms
-$\Psi^{(i)}_p$ of~\eqref{eq:psiform} are theirs, as are the residue evaluation used in the proof
-of Theorem~\ref{thm:period} and the identification of $E_k/(j-j(p))$ in the simple-pole case. What
-is added here is the $L$-function: $r_f$ and the $r_{\Psi^{(i)}_p}$ are values of the
+of $f$ there; under $j=\alpha-1$ this is Definition~\ref{def:Qf} term by term. The reference forms
+$\Psi^{(\alpha)}_p$ of~\eqref{eq:psiform} are theirs, as are the residue evaluation used in the
+proof of Theorem~\ref{thm:period}, the local character sums fixing $A_p$, and the identification of
+$E_k/(j-j(p))$ in the simple-pole case. What
+is added here is the $L$-function: $r_f$ and the $r_{\Psi^{(\alpha)}_p}$ are values of the
 finite-contour $L^*$, and the region $\mathcal{T}$, which decides by
 Lemma~\ref{lem:rfWmero} whether any correction is needed at all, presupposes a contour and has no
 counterpart in their setting.
 
-The coefficients $c_{a,i}$ in~\eqref{eq:period} depend on the choice of the $\Psi^{(i)}_p$, and a
-different choice alters $\tilde r_f$ by an element of $W$. No canonical rational normalisation of
-these forms is presently known; \cite[Rem.\ 5.17]{BrownFonseca2025} is explicit that the
-normalisation available there is not rational either. For adjacent work see~\cite{BrownHain2018}
+The dependence of $\tilde r_f$, and hence of $\hat r_f$ in~\eqref{eq:rhat}, on the choice of
+reference family is~\eqref{eq:ambig}. For adjacent work see~\cite{BrownHain2018}
 for poles at the cusp, \cite{Matthes2022} for meromorphic forms with restricted poles, and
 \cite{BKvP2019} for regularised inner products. The forms $f_{k,P}$
 of~\cite{LobrichSchwagenscheidt2022}, going back to~\cite{Zagier1977}, have weight $2k$ and poles
