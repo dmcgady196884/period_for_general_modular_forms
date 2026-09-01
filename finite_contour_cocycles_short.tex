@@ -1613,27 +1613,39 @@ Theorem~\ref{thm:period} and linearity.
 
 \begin{corollary}\label{cor:CM}
 Let $d>4$ have class number one, let $\alpha_d$ be the associated CM point, and set
+$j_d:=j(\alpha_d)\in\ZZ$. Write $D:=\tfrac{1}{2\pi i}\tfrac{d}{d\tau}$, and let $H_d$ be the Hilbert
+class polynomial, whose roots are the singular moduli of discriminant $d$~\cite{ZagierTSM}. Then
 \begin{equation}\label{eq:Lambdad}
-\Lambda_d:=\frac{-E_4^2E_6}{\Delta\,\big(j-j(\alpha_d)\big)}=\frac{1}{2\pi i}\frac{d}{d\tau}\log
-\big(j-j(\alpha_d)\big),
+\Lambda_d:=D\log H_d(j)=\frac{-E_4^2E_6}{\Delta}\,\frac{H_d'(j)}{H_d(j)}
+=\frac{-E_4^2E_6}{\Delta\,(j-j_d)}
 \end{equation}
-a weight-two form with simple poles on $\SLZ\!\cdot\!\alpha_d$ and residue $1/2\pi i$ there. For
-general class number $\Lambda_d$ is the logarithmic derivative of the Hilbert class polynomial
-evaluated at $j$, whose roots are the singular moduli of discriminant
-$d$~\cite{ZagierTSM}. Then
+is a weight-two form with a simple pole of residue $1/2\pi i$ at every CM point of discriminant $d$,
+the last equality holding because $h(d)=1$ makes $H_d(j)=j-j_d$. Moreover
 \begin{equation}\label{eq:fd}
-f_d:=\Delta E_6\,\Lambda_d=\frac{-E_4^2E_6^2}{j-j(\alpha_d)}\ \in\ F_{20}
+f_d:=\Delta E_6\,\Lambda_d=\frac{-E_4^2E_6^2}{j-j_d}\ \in\ F_{20}
 \end{equation}
 has integral $q$-expansion, vanishes at the cusp, and no pole of $f_d$ lies in $\mathcal{T}$; hence
 $\tilde r_{f_d}=r_{f_d}-c_{f_d}r_{E_{20}}\in W$ is determined, with no reference family and no
-choice.
+choice. Explicitly, with $\Delta E_8$ the normalised cusp form spanning $S_{20}$,
+\begin{equation}\label{eq:rfd}
+\tilde r_{f_d}=\frac{-92207808}{174611\,j_d-209520000}\;r_{\Delta E_8}.
+\end{equation}
 \end{corollary}
 \begin{proof}
-$Dj=-E_4^2E_6/\Delta$ gives both expressions in~\eqref{eq:Lambdad}, and $\Delta E_6\Lambda_d$
-reduces to~\eqref{eq:fd}; the coefficients are integral because $j(\alpha_d)\in\ZZ$ for class number
+$Dj=-E_4^2E_6/\Delta$ gives the second expression in~\eqref{eq:Lambdad}, and $\Delta E_6\Lambda_d$
+reduces to~\eqref{eq:fd}; the coefficients are integral because $j_d\in\ZZ$ for class number
 one. Since $h(d)=1$ the only reduced form of discriminant $d$ has leading coefficient $1$, so
 ${\rm Im}\,\alpha_d=\tfrac{\sqrt d}{2}>1$ for $d>4$; by the criterion above, its orbit misses
-$\mathcal{T}$, and $Q_{f_d}=0$.
+$\mathcal{T}$, and $Q_{f_d}=0$. For~\eqref{eq:rfd}, $E_8=E_4^2$ and $E_6^2=(j-1728)\Delta$ give
+\begin{equation}\label{eq:fdsplit}
+f_d=\frac{-\Delta E_8\,(j-1728)}{j-j_d}=-\Delta E_8\;-\;(j_d-1728)\,\frac{\Delta E_8}{j-j_d}.
+\end{equation}
+Running the computation of Corollary~\ref{cor:explicit} with $(\Delta,E_{12})$ replaced by
+$(\Delta E_8,E_{20})$, where $E_{20}=\Delta E_8\,(174611j-209520000)/174611$, the reference family
+$E_{20}/(j-j_d)$ gives $c=174611/(174611j_d-209520000)$ and
+$\tilde r_{\Delta E_8/(j-j_d)}=-c\,r_{\Delta E_8}$. Since $\Delta E_8\in S_{20}$, linearity of $L^*$
+turns~\eqref{eq:fdsplit} into $\tilde r_{f_d}=\big[(j_d-1728)c-1\big]r_{\Delta E_8}$, and
+$209520000-1728\cdot174611=-92207808$ gives~\eqref{eq:rfd}.
 \end{proof}
 
 These are the discriminants $d=7,8,11,19,43,67,163$. For $d=3$ and $d=4$ the CM point is elliptic
