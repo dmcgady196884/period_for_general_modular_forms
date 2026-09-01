@@ -967,21 +967,12 @@ finite in each compact set and accumulating only at ${\rm Im}\tau=0$, they have 
 height $y_b<1$.
 \end{proof}
 
-The Fourier coefficients of a pole-projected form are controlled by its highest pole, an
-estimate we import from~\cite{1806}:
-\begin{lemma}\label{lem:growth}
-With $y_b$ as in Lemma~\ref{lem:projspace} and $m_b$ the maximal order among poles at height
-$y_b$, there is a $C>0$ such that, for every $\varepsilon>0$,
-\begin{equation}\label{eq:growth}
-C\,n^{m_b-1}e^{2\pi n y_b}\;\le\;|c_{Rf}(n)|\;\le\;e^{2\pi n(y_b+\varepsilon)},
-\end{equation}
-the upper bound for all large $n$, the lower for infinitely many $n$. In particular
-$|c_{Rf}(n)|\,e^{-2\pi n}\to0$ geometrically, at base $e^{-2\pi(1-y_b-\varepsilon)}$.
-\end{lemma}
-\begin{proof}
-This is the pole-height/order Fourier-growth estimate of~\cite{1806} for a $T$-periodic
-meromorphic function, applied to $(I-\widehat P)f$ (Lemma~\ref{lem:projspace}).
-\end{proof}
+The Fourier coefficients of a $T$-periodic meromorphic function are controlled by its highest pole:
+$|c_{Rf}(n)|\le e^{2\pi n(y_b+\varepsilon)}$ for every $\varepsilon>0$ and all large
+$n$~\cite{1806}. Since $y_b<1$, the series $\sum_n c_{Rf}(n)q^n$ converges geometrically down to
+${\rm Im}\,\tau=1$, at base $e^{-2\pi(1-y_b-\varepsilon)}$, and so on $\hat\gamma^T_f$ itself. This
+is the point of the projection: convergence merely for large ${\rm Im}\,\tau$ would be automatic and
+of no use, as the contour sits at height one.
 
 For $n\ne0$, define
 \begin{align}\label{eq:gc}
@@ -1027,7 +1018,8 @@ The rate is $e^{-2\pi({\rm Im}\,z-1)}$, from $\Gamma(s,-2\pi n)\sim(2\pi n)^{s-1
 against $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$.
 \end{proof}
 
-For any integer $J\ge1$, the incomplete gamma satisfies
+Write $(a)_{(\ell)}:=a(a-1)\cdots(a-\ell+1)$ for the falling factorial, with $(a)_{(0)}:=1$. For any
+integer $J\ge1$, the incomplete gamma satisfies
 \begin{equation}\label{eq:gammarec}
 \Gamma(s,X)=e^{-X}\sum_{\ell=0}^{J-1}(s-1)_{(\ell)}\,X^{s-1-\ell}+(s-1)_{(J)}\,\Gamma(s-J,X).
 \end{equation}
@@ -1052,9 +1044,8 @@ find it helpful to define the following two functions:
 R_N(s,z)&:=\sum_{n=1}^{\infty}n^N e^{2\pi inz}\Big[(s{-}1)_{(N{+}1)}\tfrac{\Gamma(s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^{s}}
 +i^k(k{-}s{-}1)_{(N{+}1)}\tfrac{\Gamma(k{-}s{-}N{-}1,{-}2\pi n)}{(-2\pi n)^{k-s}}\Big], \label{eq:tailpiece2}
 \end{align}
-where $(a)_{(\ell)}:=a(a-1)\cdots(a-\ell+1)$ is the falling factorial ($(a)_{(0)}:=1$), $\Li_s$ the
-polylogarithm of Definition~\ref{def:proj}, and $\Gamma,\Gamma(a,x)$ the gamma and upper incomplete
-gamma, on principal branches~\cite{DLMF}.
+with $\Li_s$ as in Definition~\ref{def:proj}, and $\Gamma(a,x)$ the upper incomplete gamma taken on
+its principal branch~\cite{DLMF}.
 
 \begin{lemma}\label{lem:polylogedge}
 %With $\Pi_N$ and $R_N$ as in
@@ -1080,8 +1071,9 @@ $z\notin i+\ZZ$.
 
 The crux of this Lemma is to show the existence of the smooth continuation of $I_N(s, z)$ 
 from Lemma~\ref{lem:polylogcf}, derived for ${\rm Im}(z) > 1$, to the ${\rm Im}(z) = 1$-line 
-away from the elliptic point $z = i$. This elliptic point requires special care, which must focus 
-on, below. 
+away from the elliptic point $z = i$. This elliptic point requires special treatment and care,
+involving specific relations between Laurent coefficients at the special elliptic point $\tau = i$.
+We shall deal with this special case separately.
 
 \begin{proof}
 %Write $w:=e^{2\pi i(z-i)}$ and $Q:=e^{2\pi iz}=e^{-2\pi}w$, so $|Q|\le e^{-2\pi}$ and $|w|\le1$, with
@@ -1144,11 +1136,12 @@ diverges. With the continuity of $R_N$, \eqref{eq:twolayer} seamlessly extends
 $I_N(s,\cdot)$ continuously to ${\rm Im}\,z=1$ for $z\notin i+\ZZ$.
 \end{proof}
 
-The above result does not apply to singularities at $z=i$; here $\Pi_N$ is singular ($w=1$). However, 
-as we will presently show, even though each individual polylogarithm of non-positive index diverges 
+The above result is insufficient to treat with the Laurent series singularity patterns of a modular form 
+$f \in F_k$ which has poles at $\tau = i$, where $\Pi_N$ is singular ($w=1$). However, 
+as we will presently show, even though each individual polylogarithm of index at most one diverges
 at the point $z = i$, the special elliptic nature of that point imposes constraints on the sum of naively 
-divergent terms such that the divergences exactly cancel. However, first, we present an important 
-definition and an associated remark: 
+divergent terms such that the divergences exactly cancel. Before doing this, we find it helpful to present 
+an important definition, and an associated remark: 
 
 
 \begin{definition}\label{def:FP}
@@ -1163,6 +1156,13 @@ For $N\ge0$, with $H_N:=\sum_{r=1}^N\tfrac1r$ and $c^+_\ell(s):=(s-1)_{(\ell)}+i
 +\mathcal E^+_N(s).
 \end{align}
 \end{definition}
+Note: $\mathcal E^+_N(s)$ and $R_N(s,i)$ of~\eqref{eq:tailpiece2} resemble one another because both
+come from expanding $\Li_{-N}(e^{2\pi i(\tau-z)})$ and integrating term by term; they are not equal,
+differing by the inversion $e^{2\pi i(\tau-z)}\mapsto e^{-2\pi i(\tau-z)}$. On the contour that
+argument has modulus $e^{2\pi({\rm Im}\,z-1)}$: for ${\rm Im}\,z>1$ the un-inverted series diverges,
+so Lemma~\ref{lem:polylogcf} inverts and $R_N$ inherits the arguments $-2\pi n$, whereas at $z=i$ the
+modulus is $1$, inversion buys nothing, and $\mathcal E^+_N$ resums the un-inverted series
+with $+2\pi n$.
 
 \begin{remark}\label{rem:cutoff}
 The remainders $R_N$ of Lemma~\ref{lem:polylogedge}~\eqref{eq:tailpiece2} and $\mathcal E^+_N$ of
@@ -1179,30 +1179,32 @@ cost of carrying further positive-index polylogs $\Li_2,\dots,\Li_{J-N}$ into th
 \begin{lemma}\label{lem:Laurent}
 Let $f\in F_k$ have a pole of order $P$ at $i$, with pole weights $r^*_{f,i}(m)$
 (Definition~\ref{def:proj}), i.e.\ principal part $\sum_{m=1}^{P}r^*_{f,i}(m)(\tau-i)^{-m}$.
-Modularity $f(-1/\tau)=\tau^k f(\tau)$ is equivalent to
+Modularity $f(-1/\tau)=\tau^k f(\tau)$ is equivalent to one relation for each principal-part
+order $\mu$,
 \begin{equation}\label{eq:Laurent}
 %(-1)^r\sum_{m=r}^P a_{-m}\binom{m}{r}i^{m-r}
 %=i^k\sum_{m=r}^P a_{-m}\binom{k}{m-r}(-i)^{m-r},\qquad r=1,\dots,P.
 %\sum_{m=r}^{P} a_{-m}\binom{m}{r}\,i^{m}
 %=i^{k}\sum_{m=r}^{P} a_{-m}\binom{k}{m-r}\,i^{-m},\qquad r=1,\dots,P.
-\sum_{m=r}^{P} r^*_{f,i}(m)\binom{m}{r}\,i^{m}
-=i^{k}\sum_{m=r}^{P} r^*_{f,i}(m)\binom{k}{m-r}\,i^{-m},\qquad \forall r=1,\dots,P.
+\sum_{m=\mu}^{P} r^*_{f,i}(m)\binom{m}{\mu}\,i^{m}
+=i^{k}\sum_{m=\mu}^{P} r^*_{f,i}(m)\binom{k}{m-\mu}\,i^{-m},\qquad \forall \mu=1,\dots,P.
 \end{equation}
-The leading relation ($r=P$) is $\big((-1)^P-i^k\big)r^*_{f,i}(P)=0$, so the pole order matches
-$k\bmod4$ ($P$ odd $\Leftrightarrow k\equiv2$, $P$ even $\Leftrightarrow 4\mid k$); at
-$P=1$ this is $(1+i^k)r^*_{f,i}(1)=0$, and for a double pole the $r=1$ relation is
-$r^*_{f,i}(1)=\tfrac{i(k-2)}{2}r^*_{f,i}(2)$.
+The leading relation ($\mu=P$) is $\big((-1)^P-i^k\big)r^*_{f,i}(P)=0$, so the pole order matches
+$k\bmod4$ ($P$ odd $\Leftrightarrow k\equiv2$, $P$ even $\Leftrightarrow 4\mid k$).
 \end{lemma}
+
+Note: at $P=1$, the Laurent-series relations claimed in this Lemma work out to be this is 
+$(1+i^k)r^*_{f,i}(1)=0$; for a double pole the $\mu=1$ relations are $r^*_{f,i}(1)=\tfrac{i(k-2)}{2}r^*_{f,i}(2)$.
 
 \begin{proof}
 Write $\tau=i+\varepsilon$. Then $-1/\tau-i=-\varepsilon/(1-i\varepsilon)$, so the principal
 part of $f(-1/\tau)$ is $\sum_m r^*_{f,i}(m)(i-\varepsilon^{-1})^m$ and that of $\tau^k f(\tau)$ is
 $i^k(1-i\varepsilon)^k\sum_m r^*_{f,i}(m)\varepsilon^{-m}$. Matching the coefficient of
-$\varepsilon^{-r}$ through
+$\varepsilon^{-\mu}$ through
 $(i-\varepsilon^{-1})^m=\sum_j\binom mj i^{m-j}(-1)^j\varepsilon^{-j}$ and
 $(1-i\varepsilon)^k=\sum_l\binom kl(-i)^l\varepsilon^l$ gives
-$(-1)^r\sum_{m=r}^P r^*_{f,i}(m)\binom{m}{r}i^{m-r}=i^k\sum_{m=r}^P r^*_{f,i}(m)\binom{k}{m-r}(-i)^{m-r}$;
-dividing through by $i^r$ (with $-1=i^2$ and $-i=i^{-1}$) yields~\eqref{eq:Laurent}.
+$(-1)^\mu\sum_{m=\mu}^P r^*_{f,i}(m)\binom{m}{\mu}i^{m-\mu}=i^k\sum_{m=\mu}^P r^*_{f,i}(m)\binom{k}{m-\mu}(-i)^{m-\mu}$;
+dividing through by $i^\mu$ (with $-1=i^2$ and $-i=i^{-1}$) yields~\eqref{eq:Laurent}.
 %$(1-i\varepsilon)^k=\sum_l\binom kl(-i)^l\varepsilon^l$ gives \eqref{eq:Laurent}.
 \end{proof}
 
@@ -1233,7 +1235,7 @@ $\Li_{1-m}(e^{2 \pi i (\tau-i)})=(m-1)!\,(-2 \pi i (\tau-i))^{-m}+\sum_{p\ge0}\t
 \frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}\!\big(e^{2\pi i(\tau-i)}\big)
 =(\tau-i)^{-m}+\frac{(-2\pi i)^m}{(m-1)!}\sum_{p=0}^{\infty}\frac{\zeta(1-m-p)}{p!}\,(2\pi i(\tau-i))^{p},
 \end{equation}
-is a pure order-$m$ pole, as in Lemma~\ref{lem:proj}, plus an entire, $T$-periodic tail. Hence
+is a pure order-$m$ pole, as in Lemma~\ref{lem:proj}, plus a tail holomorphic on $|\tau-i|<1$. Hence
 $\widehat P_i f=\sum_{m=1}^P r^*_{f,i}(m)(\tau-i)^{-m}+(\text{regular at }i)$. 
 As the contour ${\rm Im}(\hat\gamma_f^T)$ has height $1+\delta > 1$, the analogous step of 
 $w$-inversion, $\Li_m(w)=-\delta_{m,0}-(-1)^m \Li_m(1/w)$ from the proof of Lemma~\ref{lem:polylogcf} 
@@ -1256,7 +1258,7 @@ basepoint $\tau_0=i(1+\delta)$ gives, by Theorem~\ref{thm:weakL},
 $\sum_{n\ge1}n^{m{-}1} e^{2\pi n}\big[\tfrac{\Gamma(s,X_n)}{(2\pi n)^{s}}+i^k\tfrac{\Gamma(k-s,X_n)}{(2\pi n)^{k-s}}\big]$
 with $X_n:=-2\pi in\tau_0=2\pi n(1+\delta)$. Expanding by the recursion~\eqref{eq:gammarec} at $J=m$, and using
 $e^{2\pi n}e^{-X_n}=e^{-2\pi n\delta}$ and $X_n^{s-1-\ell}=(2\pi n)^{s-1-\ell}(1+\delta)^{s-1-\ell}$, the
-$\ell$-sum becomes (with $c^+_\ell(s)$ collecting the $s$- and $i^k(k{-}s)$-parts)
+peeled sum over $0\le\ell\le m-1$ becomes (with $c^+_\ell(s)$ collecting the $s$- and $i^k(k{-}s)$-parts)
 \begin{equation}\label{eq:Tsum}
 \sum_{\ell=0}^{m-1}\frac{c^+_\ell(s)\,(1+\delta)^{s-1-\ell}}{(2\pi)^{\ell+1}}\,\Li_{\ell+2-m}\!\big(e^{-2\pi\delta}\big)
 \;+\;\mathcal E^+_{m-1}(s),
@@ -1285,23 +1287,37 @@ $\delta\to0$ limit of the S-contour. We now turn to this S-contour's contributio
 %$\delta\to0$ limit of the S-contour, which we now turn to. 
 
 On $\hat\gamma_f^S$ the pure pole $\sum_m r^*_{f,i}(m)(\tau-i)^{-m}$, integrated by principal value
-against $\tau^{s-1}$ along the axis ($\tau=i(1+v)$), has the $\delta^0$ finite part
+against $\tau^{s-1}$ along the axis ($\tau=i(1+v)$, running from $\tau_0$ to $S\tau_0=i/(1+\delta)$,
+so that $-\delta/(1+\delta)\le v\le\delta$), is elementary. Expanding
+$(1+v)^{s-1}=\sum_{t}\tfrac{(s-1)_{(t)}}{t!}v^{t}$, the terms $t\ge m$ are regular and $O(\delta)$, the
+term $t=m-1$ integrates to $\log(1+\delta)=O(\delta)$, and each $t\le m-2$ contributes
+\begin{equation}\label{eq:Sexp}
+\mathrm{PV}\!\int_{-\delta/(1+\delta)}^{\delta}\!\frac{v^{t}}{v^{m}}\,dv
+=\frac{\delta^{t-m+1}}{t-m+1}\Big[1-(-1)^{t-m+1}(1+\delta)^{m-t-1}\Big].
+\end{equation}
+Expanding $(1+\delta)^{m-t-1}$, its terms $\delta^{j}$ with $j<m-t-1$ carry the endpoint poles
+$\delta^{-(m-1)},\dots,\delta^{-1}$, while the top term $j=m-t-1$ leaves the $\delta^0$ finite part
 \begin{equation}\label{eq:Spoly}
-i^{-m}\,\mathrm{PV}\!\int\frac{(1+v)^{s-1}}{v^{m}}\,dv\;\Big|_{\delta^0}
+i^{-m}\,\mathrm{PV}\!\int_{-\delta/(1+\delta)}^{\delta}\frac{(1+v)^{s-1}}{v^{m}}\,dv\;\Big|_{\delta^0}
 =i^{-m}(-1)^{m-1}\sum_{t=0}^{m-2}\frac{(-1)^{t}(s-1)_{(t)}}{t!\,(m-t-1)},
 \end{equation}
 the polynomial term of~\eqref{eq:FP}. Collecting, the finite part of block $m$ is
 $\tfrac{(-2\pi i)^m}{(m-1)!}r^*_{f,i}(m)\,\mathrm{FP}_{m-1}(s,k)$.
 
 \emph{Divergences cancel by~\eqref{eq:Laurent}.} The residual pieces are the $\delta\to0$ divergences
-$\delta^{-(m-1)},\dots,\log\delta$ from the pole part $\sum_m r^*_{f,i}(m)(\tau-i)^{-m}$ at the
-$S$-segment endpoints straddling $i$. At order $r$ their coefficient is
+of the pole part $\sum_m r^*_{f,i}(m)(\tau-i)^{-m}$: the powers $\delta^{-(m-1)},\dots,\delta^{-1}$,
+carried by the endpoints of $\hat\gamma_f^S$ straddling $i$ as in~\eqref{eq:Sexp} and by the
+$\ell<m-1$ terms of~\eqref{eq:Tsum}, together with a $\log\delta$ carried by
+$\Li_1(e^{-2\pi\delta})$ at $\ell=m-1$ alone. At order $\mu$ the coefficient of the powers is
 \begin{equation}\label{eq:walldiv}
-\sum_{m=r}^{P} r^*_{f,i}(m)\binom{m}{r}i^{m}\;-\;i^{k}\sum_{m=r}^{P} r^*_{f,i}(m)\binom{k}{m-r}i^{-m},
+\sum_{m=\mu}^{P} r^*_{f,i}(m)\binom{m}{\mu}i^{m}\;-\;i^{k}\sum_{m=\mu}^{P} r^*_{f,i}(m)\binom{k}{m-\mu}i^{-m},
 \end{equation}
 precisely the difference of the two sides of the modularity relation~\eqref{eq:Laurent}, hence $0$ for
-$f\in F_k$. Every $\delta^{-r}$ and $\log\delta$ term therefore cancels and the $\delta\to0$ limit
-exists. Conversely, weights violating~\eqref{eq:Laurent} at order $r$ leave that piece uncancelled (at $r=1$, a $\log\delta$), so the limit exists only for $f\in F_k$.% break~\eqref{eq:Laurent} at order $r$ and that divergence survives (at $r=1$, a $\log\delta$).
+$f\in F_k$. The $\log\delta$ coefficient, summed over blocks with the normalisation
+$\tfrac{(-2\pi i)^m}{(m-1)!}$, is
+$-\sum_{m=1}^{P}(-i)^m r^*_{f,i}(m)\big[\binom{s-1}{m-1}+i^k\binom{k-s-1}{m-1}\big]$, which the same
+relations annihilate. Every $\delta^{-\mu}$ and $\log\delta$ term therefore cancels and the $\delta\to0$ limit
+exists. Conversely, weights violating~\eqref{eq:Laurent} at order $\mu$ leave that piece uncancelled (at $\mu=1$, a $\log\delta$), so the limit exists only for $f\in F_k$.% break~\eqref{eq:Laurent} at order $r$ and that divergence survives (at $r=1$, a $\log\delta$).
 
 The finite part and the (vanishing) divergences give~\eqref{eq:wallvalue}.
 \end{proof}
@@ -1325,7 +1341,7 @@ $L^*$ of Theorem~\ref{thm:weakL} when $f$ is holomorphic on $\HH$.
 \end{theorem}
 
 \begin{proof}
-Split $f=(I-\widehat P)f+\widehat Pf$. By Lemma~\ref{lem:growth} the Fourier series of the
+Split $f=(I-\widehat P)f+\widehat Pf$. By Lemma~\ref{lem:projspace} the Fourier series of the
 pole-projected part converges on $\hat\gamma_f^T$; Theorem~\ref{thm:weakL} applied term by term
 gives its $L^*$ as the first two sums. The projection
 $\widehat Pf=\sum_{\tau_p}\sum_m r^*_{f,\tau_p}(m)\,\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$
@@ -1822,8 +1838,8 @@ S\'eminaire Delange--Pisot--Poitou, 17e ann\'ee 1975/76, Exp.\ No.\ 23, Secr\'et
 \bibitem{ZagierTSM}
 D.\ Zagier,
 \emph{Traces of singular moduli},
-in: Motives, Polylogarithms and Hodge Theory, Part I (Irvine, CA, 1998),
-Int.\ Press Lect.\ Ser.\ \textbf{3}, International Press, Somerville MA, 2002, pp.\ 211--244.
+in Motives, Polylogarithms and Hodge Theory, Part I (Irvine, CA, 1998),
+Int.\ Press Lect.\ Ser.\ \textbf{3}, International Press, Somerville MA, 2002, pp.\ 209--244.
 
 \bibitem{ChoiLim2025}
 D.\ Choi and S.\ Lim,
