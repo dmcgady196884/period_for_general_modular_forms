@@ -2,7 +2,8 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage{float}      
+\usepackage{graphicx}
+\usepackage{float}
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,citecolor=blue!55!black]{hyperref}
@@ -1413,10 +1414,30 @@ $\mathcal{T}$ is the closed curvilinear triangle with vertices $i$, $1+i$ and $\
 bounded above by the line ${\rm Im}\,\tau=1$ and below by its $\SLZ$-translates through the cusps
 $0$ and $1$, the circles $|\tau-\tfrac{i}{2}|=\tfrac12$ and $|\tau-1-\tfrac{i}{2}|=\tfrac12$, which
 meet each other tangentially at $\tfrac{1+i}{2}$. Its three sides are the $T$-, $UT$- and
-$S^{-1}$-translates of $\hat\gamma^T_f$, meeting at those vertices. The bound
+$U^2T$-translates of $\hat\gamma^T_f$, meeting at those vertices; since $(TS)^3=1$ the last of these
+is $S^{-1}$, so $\partial\mathcal{T}$ is the $U$-orbit of $T\hat\gamma^T_f$. Accordingly $U$ cycles
+$i\to1+i\to\tfrac{1+i}{2}\to i$ and $\mathcal{T}$ is $U$-invariant. Note that $\hat\gamma^T_f$ runs
+from $i-1$ to $i$, so it is $T\hat\gamma^T_f$, not the segment itself, that caps $\mathcal{T}$; the
+region directly beneath the contour is $T^{-1}\mathcal{T}$. The bound
 ${\rm Im}\,\tau\ge\tfrac12$ is not redundant: dropping it leaves a second region below the point of
 tangency, widening to the full interval $0\le{\rm Re}\,\tau\le1$ as ${\rm Im}\,\tau\to0$ and so of
-infinite hyperbolic area.
+infinite hyperbolic area. Figure~\ref{fig:Tregion} draws $\mathcal{T}$, and locates it against the
+fundamental domain and its translates.
+
+\begin{figure}[ht]
+\centering
+\includegraphics{figures/T_region.pdf}
+\caption{The region $\mathcal{T}$ of Definition~\ref{def:Tri}, shaded, with $\partial\mathcal{T}$ in
+bold. The reference segment $\hat\gamma^T_f$ runs from $i-1$ to $i$ (arrowed): $\mathcal{T}$ is
+capped not by $\hat\gamma^T_f$ itself but by its translate $T\hat\gamma^T_f$, and the two lower arcs
+are $UT\hat\gamma^T_f$ and $U^2T\hat\gamma^T_f=S^{-1}\hat\gamma^T_f$, tangent to one another at
+$\tfrac{1+i}{2}$. So $\partial\mathcal{T}$ is the $U$-orbit of $T\hat\gamma^T_f$, and $\mathcal{T}$
+is $U$-invariant. Superimposed are the fundamental domain $\mathcal{F}$, its image $S\mathcal{F}$
+under $S:\tau\mapsto-1/\tau$, and the $T$-translates of both. Note that $\mathcal{T}$ is contained in
+none of them: it is cut by ${\rm Re}\,\tau=\tfrac12$ and by the arcs $|\tau|=1$ and $|\tau-1|=1$, so
+it meets $\mathcal{F}$, $T\mathcal{F}$, $S\mathcal{F}$ and $TS\mathcal{F}$ alike.}
+\label{fig:Tregion}
+\end{figure}
 
 \begin{definition}\label{def:Fcirc}
 Define
