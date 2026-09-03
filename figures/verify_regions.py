@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Checks behind Figure 1 of finite_contour_cocycles_short.tex: the passage from
-the region T of Definition 4.21 (panel a) to the forbidden locus in the standard
-fundamental domain F (panel b).
+the region T of Definition 4.21 (panel a) to the locus T_F inside the standard
+fundamental domain F (panel b).  Poles in T_F are not excluded; they are the ones
+carrying the correction Q_f.
 
     T = { 0 <= Re t <= 1,  1/2 <= Im t <= 1,  |t - i/2| >= 1/2,  |t - 1 - i/2| >= 1/2 }
     F = { |Re t| <= 1/2,  |t| >= 1 }
@@ -114,7 +115,7 @@ if __name__ == "__main__":
           % (2 * math.asin(0.5) - 1, math.pi / 3 - 1))
     print("   ... and (pi-3)/3        = %.10f, so the fold is 3:1"
           % ((math.pi - 3) / 3))
-    print("   fraction of F forbidden = %.6f   (1 - 3/pi)" % (1 - 3 / math.pi))
+    print("   T_F as a fraction of F  = %.6f   (1 - 3/pi)" % (1 - 3 / math.pi))
     print()
     print("|Moebius orbit of an interior point of T, intersected with T|:")
     print("   histogram over 300 points:", check_fold_multiplicity())
