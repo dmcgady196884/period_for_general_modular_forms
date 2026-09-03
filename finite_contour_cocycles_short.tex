@@ -3,6 +3,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{float}
 \usepackage{enumitem}
 \usepackage{xcolor}
@@ -1410,6 +1411,31 @@ Let $\mathcal{T}\subset\HH$ be the region
 \end{equation}
 \end{definition}
 
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.646\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/T_region.pdf}
+\caption{}\label{fig:Tregion}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.324\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/forbidden_region.pdf}
+\caption{}\label{fig:forbidden}
+\end{subfigure}
+\caption{(a) The region $\mathcal{T}$ of Definition~\ref{def:Tri}, shaded, boundary in bold. The
+reference segment $\hat\gamma^T_f$ runs from $i-1$ to $i$ (arrowed): $\mathcal{T}$ is capped not by
+$\hat\gamma^T_f$ itself but by $T\hat\gamma^T_f$, the other two sides being $UT\hat\gamma^T_f$ and
+$U^2T\hat\gamma^T_f=S^{-1}\hat\gamma^T_f$, tangent at $\tfrac{1+i}{2}$; so $\partial\mathcal{T}$ is
+the $U$-orbit of $T\hat\gamma^T_f$ and $\mathcal{T}$ is $U$-invariant. It lies in no single copy of
+the fundamental domain, being cut by ${\rm Re}\,\tau=\tfrac12$ and by $|\tau|=1$, $|\tau-1|=1$, and
+so meets $\mathcal{F}$, $T\mathcal{F}$, $S\mathcal{F}$ and $TS\mathcal{F}$ alike. (b) The poles this
+forbids, folded into $\mathcal{F}$ by~\eqref{eq:foldT}: the sliver
+$\{\tau\in\mathcal{F}:{\rm Im}\,\tau\le1\}$, of area $\tfrac{\pi}{3}-1=\tfrac13{\rm
+area}(\mathcal{T})$, a fraction $1-3/\pi\approx0.045$ of $\mathcal{F}$. It is twice the part of
+$\mathcal{T}$ visible inside $\mathcal{F}$ in (a), the $T$-, $S$- and $TS$-parts folding onto
+${\rm Re}\,\tau<0$.}
+\label{fig:regions}
+\end{figure}
+
 $\mathcal{T}$ is the closed curvilinear triangle with vertices $i$, $1+i$ and $\tfrac{1+i}{2}$,
 bounded above by the line ${\rm Im}\,\tau=1$ and below by its $\SLZ$-translates through the cusps
 $0$ and $1$, the circles $|\tau-\tfrac{i}{2}|=\tfrac12$ and $|\tau-1-\tfrac{i}{2}|=\tfrac12$, which
@@ -1423,21 +1449,6 @@ ${\rm Im}\,\tau\ge\tfrac12$ is not redundant: dropping it leaves a second region
 tangency, widening to the full interval $0\le{\rm Re}\,\tau\le1$ as ${\rm Im}\,\tau\to0$ and so of
 infinite hyperbolic area. Figure~\ref{fig:Tregion} draws $\mathcal{T}$, and locates it against the
 fundamental domain and its translates.
-
-\begin{figure}[ht]
-\centering
-\includegraphics{figures/T_region.pdf}
-\caption{The region $\mathcal{T}$ of Definition~\ref{def:Tri}, shaded, with $\partial\mathcal{T}$ in
-bold. The reference segment $\hat\gamma^T_f$ runs from $i-1$ to $i$ (arrowed): $\mathcal{T}$ is
-capped not by $\hat\gamma^T_f$ itself but by its translate $T\hat\gamma^T_f$, and the two lower arcs
-are $UT\hat\gamma^T_f$ and $U^2T\hat\gamma^T_f=S^{-1}\hat\gamma^T_f$, tangent to one another at
-$\tfrac{1+i}{2}$. So $\partial\mathcal{T}$ is the $U$-orbit of $T\hat\gamma^T_f$, and $\mathcal{T}$
-is $U$-invariant. Superimposed are the fundamental domain $\mathcal{F}$, its image $S\mathcal{F}$
-under $S:\tau\mapsto-1/\tau$, and the $T$-translates of both. Note that $\mathcal{T}$ is contained in
-none of them: it is cut by ${\rm Re}\,\tau=\tfrac12$ and by the arcs $|\tau|=1$ and $|\tau-1|=1$, so
-it meets $\mathcal{F}$, $T\mathcal{F}$, $S\mathcal{F}$ and $TS\mathcal{F}$ alike.}
-\label{fig:Tregion}
-\end{figure}
 
 \begin{definition}\label{def:Fcirc}
 Define
@@ -1462,14 +1473,24 @@ Lemma~\ref{lem:rfW}, which used $f\in S^!_k$ in exactly two places, extends to $
 For $f\in F_k^{\circ}$, the period polynomial $r_f\in W\subset V_n$.
 \end{lemma}
 \begin{proof}
-Lemma~\ref{lem:rfW} invokes $f\in S^!_k$ only through $\hat C_T=0$ and $\hat C_{\pm I}=0$.
-For the first, the computation in the proof of Lemma~\ref{lem:cocycle} gives
+Lemma~\ref{lem:rfW} invokes $f\in S^!_k$ only through $\hat C_T=0$ and $\hat C_{\pm I}=0$, and the
+two conditions of~\eqref{eq:Fcirc} supply exactly these.
+
+For $\hat C_T$, the computation in the proof of Lemma~\ref{lem:cocycle} gives
 $\hat C_T=-(2\pi i)^{n+1}A_0\int_{\hat\gamma^T_f}f(\tau)\,d\tau$, which vanishes by the second
-condition of~\eqref{eq:Fcirc}. For the second, $n$ is even, so $-I$ acts trivially on $V_n$,
-the coboundary drops out, and $\hat C_{-I}=C_{-I}$ is the integral of $f(\tau)(X-\tau Y)^n$
-around $\partial\mathcal{T}$; the first condition of~\eqref{eq:Fcirc} makes that integrand
-holomorphic on and within $\mathcal{T}$, so the integral vanishes. The remaining steps are
-formal consequences of the cocycle law and apply verbatim.
+condition of~\eqref{eq:Fcirc}.
+
+For $\hat C_{\pm I}$, $n$ is even, so $-I$ acts trivially on $V_n$ and the coboundary drops out,
+leaving $\hat C_{-I}=C_{-I}$. Since $U^3=-I$, the relation at $-I$ is the $(1+U+U^2)$ loop, and by
+Definition~\ref{def:Tri} its geometric realisation is $\partial\mathcal{T}$: thus $C_{-I}$ is the
+integral of $f(\tau)(X-\tau Y)^{n}$ around the closed contour $\partial\mathcal{T}$. This is the
+step the region $\mathcal{T}$ exists to serve. The integrand is holomorphic wherever $f$ is, and the
+first condition of~\eqref{eq:Fcirc} says precisely that $f$ has no pole on or within $\mathcal{T}$,
+so Cauchy's theorem gives $C_{-I}=0$. Were even one pole of $f$ to lie in $\mathcal{T}$, the loop
+would enclose it and $C_{-I}$ would collect its residue instead; that residue is the defect computed
+in Lemma~\ref{lem:rfWFk} below, and it is what obstructs $r_f\in W$ for general $f\in F_k$.
+
+The remaining steps are formal consequences of the cocycle law and apply verbatim.
 \end{proof}
 
 The two conditions in~\eqref{eq:Fcirc} are not independent. An orbit meets $\mathcal{T}$ exactly
@@ -1477,6 +1498,18 @@ when its representative $p$ in the standard fundamental domain has ${\rm Im}\,p\
 $p$, $|p|\ge1$ gives $|p-\tfrac{i}{2}|^2=|p|^2-{\rm Im}\,p+\tfrac14\ge\tfrac14$ and likewise at the
 cusp $1$, so $p$ lies outside both circles, while ${\rm Im}\,p\ge\tfrac{\sqrt3}{2}>\tfrac12$ holds
 throughout the standard fundamental domain; hence $p$ lies in $\mathcal{T}$ after a translation.
+Conversely no point of $\mathcal{T}$ can be raised above the contour, since
+${\rm Im}(\gamma\tau)={\rm Im}\,\tau/|c\tau+d|^{2}>1$ would need $|c\tau+d|^{2}<{\rm Im}\,\tau\le1$:
+for $c=0$ this asks $|d|<1$; for $|c|\ge2$ it fails because
+$|c\tau+d|^{2}\ge c^{2}({\rm Im}\,\tau)^{2}\ge1$ once ${\rm Im}\,\tau\ge\tfrac12$; and for $|c|=1$ it
+asks exactly that $\tau$ lie inside $|\tau-m-\tfrac{i}{2}|<\tfrac12$ for some $m\in\ZZ$, which is
+empty on $0\le{\rm Re}\,\tau\le1$ unless $m\in\{0,1\}$. The last two bounds of~\eqref{eq:Tri} are
+therefore not ad hoc: ${\rm Im}\,\tau\ge\tfrac12$ disposes of $|c|\ge2$, and the two excluded disks
+are the $|c|=1$ isometric circles. So $\mathcal{T}$ is precisely the part of the strip
+$0\le{\rm Re}\,\tau\le1$ at or below the contour that no $\gamma\in\SLZ$ can lift above it, and
+\begin{equation}\label{eq:foldT}
+\SLZ\!\cdot\!\mathcal{T}\ \cap\ \mathcal{F}\;=\;\{\tau\in\mathcal{F}:{\rm Im}\,\tau\le1\}.
+\end{equation}
 The first
 condition therefore says that every pole of $f$ lies above $\hat\gamma^T_f$. This holds for a
 fraction $3/\pi\approx0.955$ of pole positions in hyperbolic measure, the region
@@ -1487,7 +1520,8 @@ than a consequence of $c_f(0)=0$. A form vanishing at the cusp whose poles form 
 simple poles has strip constant exactly $2\pi i\,r^*_{f,p}(1)$, and so lies in $F_k^{\circ}$ only
 if that residue vanishes; membership requires $c_f(0)$ tuned against the residues, as for
 $E_{12}\big(j-j_1\big)/\big(j-j(2i)\big)$ with $j_1$ chosen
-suitably~\cite{VerifyScripts}.
+suitably~\cite{VerifyScripts}. Figure~\ref{fig:forbidden} draws the resulting locus, whose area is
+$\int_{-1/2}^{1/2}\big((1-x^2)^{-1/2}-1\big)\,dx=\tfrac{\pi}{3}-1$.
 
 Poles inside $\mathcal{T}$ do not destroy this structure; they shift $r_f$ by an explicit
 polynomial. As the sides of $\mathcal{T}$ are $U$-transports of one path, the enclosed pole set
@@ -1497,12 +1531,12 @@ is a union of $U$-orbits $\{p,\,Up,\,U^2p\}$, and each enclosed pole contributes
 Let $f\in F_k$ have a pole of order $m_p$ at each $p\in f^{-1}(\infty)\cap\mathcal{T}^{\circ}$,
 with projection weights $r^*_{f,p}(\alpha)$ (Definition~\ref{def:proj}). The \emph{polar defect
 polynomial} of $f$ is
-\begin{equation}\label{eq:Qf}
-Q_f(X,Y):=(2\pi i)^{n+2}\!\!\sum_{p\,\in\,f^{-1}(\infty)\cap\mathcal{T}^{\circ}}\ \sum_{\alpha=1}^{m_p}
+\begin{align}\label{eq:Qf}
+&Q_f(X,Y):=(2\pi i)^{n+2}\!\!\sum_{p\,\in\,f^{-1}(\infty)\cap\mathcal{T}^{\circ}}\ \sum_{\alpha=1}^{m_p}
 r^*_{f,p}(\alpha)\,B_\alpha(p;X,Y),
-\qquad
-B_\alpha(p;X,Y):=\binom{n}{\alpha-1}(-Y)^{\alpha-1}(X-pY)^{\,n-\alpha+1}.
-\end{equation}
+\\
+&B_\alpha(p;X,Y):=\binom{n}{\alpha-1}(-Y)^{\alpha-1}(X-pY)^{\,n-\alpha+1}.
+\end{align}
 Simple poles contribute the $\alpha=1$ term alone, $r^*_{f,p}(1)(X-pY)^n$.
 \end{definition}
 
