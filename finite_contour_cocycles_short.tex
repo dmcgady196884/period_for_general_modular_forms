@@ -1815,6 +1815,120 @@ of~\cite{LobrichSchwagenscheidt2022}, going back to~\cite{Zagier1977}, have weig
 of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitrary order.}
 \end{remark}
 
+%%%GEOBLOCK-START%%%
+\subsection{The geodesic reference contour at $\tau_0=\rho+1$}\label{sec:geo}
+
+The two obstructions to $r_f\in W$ move in opposite directions as the reference contour is
+lowered. The cohomological one shrinks: the region whose boundary is the $(1+U+U^2)$ loop, and
+whose enclosed poles obstruct Lemma~\ref{lem:rfWmero}, gets smaller. The analytic one grows: more
+of each pole orbit sits above the contour, so the $q$-series of Section~\ref{sec:mero} converges on
+less of it and the strip constant of~\eqref{eq:Fcirc} picks up more residues. The horocycle
+${\rm Im}\,\tau=1$ is the compromise, and a natural one, being the unique horocycle tangent to
+$\partial\mathcal{F}$. This subsection develops the opposite extreme, where the cohomological
+obstruction vanishes outright.
+
+\begin{definition}\label{def:georef}
+Let $\gamma^{\rm arc}$ be the geodesic segment $\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$,
+oriented from $\rho$ to $\rho+1$, and let $\tau_0=\rho+1$. The \emph{geodesic reference class} is
+the class of $\hat\gamma^S_f=\hat\gamma^T_f=\gamma^{\rm arc}$.
+\end{definition}
+
+This is admissible by Definition~\ref{def:segments}: $-1/(\rho+1)=\rho$ and $(\rho+1)-1=\rho$, so
+both segments have the same endpoints and may be taken to be the same path. $\gamma^{\rm arc}$ is
+the bottom boundary of $\mathcal{F}$, and passes through the three elliptic points $\rho$, $i$,
+$\rho+1$.
+
+%TODO(1) --- DO THIS FIRST.  Definition~\ref{def:georef} needs the analogue of
+%def:null_homotopy's delta>0-then-limit convention, because tau_0 is itself an elliptic
+%point and Gamma.rho is where E_4-denominator poles live.  At i the paper displaces the
+%base point to i(1+delta) along the S-stable imaginary axis; here no displacement fixes
+%U, so the (1+U+U^2) loop becomes a genuine triangle of size O(delta) shrinking onto
+%rho+1.  The question is whether that contribution has a delta->0 limit, i.e. whether the
+%Laurent weights at an order-3 point cancel the divergences the way lem:Laurent's do at
+%the order-2 point.  Until this is settled Theorem~\ref{thm:geoperiod} is stated only for
+%f with no pole on the contour's orbit.
+
+\begin{lemma}\label{lem:geoloops}
+In the geodesic reference class both relator loops are degenerate: the $S^2$-loop retraces for any
+base point on $\gamma^{\rm arc}$, and the $(1+U+U^2)$ loop retraces at $\tau_0=\rho+1$. Hence
+$\hat C_{\pm I}=0$ for every $f\in F_k$ with no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$.
+\end{lemma}
+\begin{proof}
+$S$ acts on the unit circle by $e^{i\theta}\mapsto e^{i(\pi-\theta)}$, which preserves
+$\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}$ and reverses orientation, fixing $i$. So $S\gamma^S$ is
+$\gamma^S$ reversed and the $S^2$-loop retraces, for any base point on the arc. For the second,
+$U=TS$ has fixed points the roots of $\tau^2-\tau+1$, i.e.\ $\tau=\rho+1$, so $U^{-1}\tau_0=\tau_0$
+and the $U$-path is closed. With $\gamma^S=\gamma^T$ it is $S^{-1}\gamma^T$ followed by $\gamma^S$,
+namely the arc traversed and retraced; its $U$- and $U^2$-transports are retracings of
+$U\gamma^{\rm arc}$ and $U^2\gamma^{\rm arc}$ through the same fixed point. Each bounds nothing, so
+the winding number about every pole is zero and Cauchy gives $\hat C_{-I}=C_{-I}=0$.
+\end{proof}
+
+The contrast with Definition~\ref{def:Tri} is the point: there $\partial\mathcal{T}$ bounds a region
+of hyperbolic area $\pi-3$, and poles inside it obstruct. Here the corresponding region is empty for
+every $f$, so no analogue of $\mathcal{T}$, of $Q_f$, or of the reference families of
+Definition~\ref{def:reffam} is required.
+
+\begin{definition}\label{def:Phi}
+For $f\in F_k$ with no pole on $\gamma^{\rm arc}$, set
+$\Phi(f):=\int_{\gamma^{\rm arc}}f(\tau)\,d\tau$.
+\end{definition}
+
+$\Phi$ is the strip constant of~\eqref{eq:Fcirc} for this contour: it equals $c_f(0)$ when $f$ has no
+pole above $\gamma^{\rm arc}$, and $c_f(0)$ less $2\pi i$ times the residues in the strip otherwise.
+In particular $\Phi(E_k)=1$, and $\Phi(f)=0$ for $f\in S_k$.
+
+\begin{theorem}\label{thm:geoperiod}
+Let $f\in F_k$ have no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, and let $r_f$ be given by
+Definition~\ref{def:rf} with $L^*(f,s)$ evaluated in the geodesic reference class. Then
+\begin{equation}\label{eq:geoperiod}
+\tilde r_f\;:=\;r_f-\Phi(f)\,r_{E_k}\;\in\;W ,
+\end{equation}
+with no condition on the location or order of the poles of $f$.
+\end{theorem}
+\begin{proof}
+Lemma~\ref{lem:rfW} invokes $f\in S^!_k$ only through $\hat C_{\pm I}=0$ and $\hat C_T=0$. The first
+holds for every such $f$ by Lemma~\ref{lem:geoloops}. For the second, the computation in the proof
+of Lemma~\ref{lem:cocycle} gives $\hat C_T=-(2\pi i)^{n+1}A_0\Phi(f)$, so the only surviving
+obstruction is linear in $\Phi(f)$ and the induced defect $r_f|_{(1+U+U^2)}$ is $\Phi(f)$ times a
+polynomial independent of $f$. Taking $f=E_k$, for which $\Phi=1$, identifies that polynomial as
+$r_{E_k}|_{(1+U+U^2)}$, and $r_{E_k}|_{(1+S)}=0$, giving~\eqref{eq:geoperiod}.
+\end{proof}
+
+%TODO(2) The step "the induced defect is Phi(f) times an f-independent polynomial" is the
+%one that needs writing out properly: C_T enters r_f through the coboundary, and the
+%constant A_0 of lem:cocycle has to be carried through.  Verified numerically at k=12 to
+%1e-18 across three pole locations, a double pole, two holomorphic forms and Delta
+%(Phi=0), with the universal polynomial coming out proportional to
+%i(1,-5,17,-38,61,-71,61,-38,17,-5,1).
+
+Equation~\eqref{eq:geoperiod} is Theorem~\ref{thm:period}'s correction with the orbit sum empty:
+the reference families there contribute one term per enclosed $U$-orbit, and here there are none, so
+only the Eisenstein term survives, with $c_f(0)$ replaced by $\Phi(f)$. The residual ambiguity is
+correspondingly smaller. Any $g$ with $\Phi(g)=1$ may replace $E_k$, and two choices shift
+$\tilde r_f$ by $\Phi(f)$ times an element of $W$; this is one global choice, not a family chosen
+per pole.
+
+%TODO(3) --- the Section 4.1 analogue proper.  Each item mirrors a numbered result there.
+%  (i)    def:proj.  The projector is indexed by contour HEIGHT, \widehat P = sum over
+%         Im tau_p >= 1.  On the arc "above the contour" is not a height condition and
+%         varies along the path; this needs re-indexing, not transcribing.
+%  (ii)   lem:proj, def:cRf, lem:projspace: the split f = P f + R f and the growth bound.
+%  (iii)  def:IN: I_N(s,z) for the arc, replacing the horizontal-path integral.
+%  (iv)   lem:polylogcf.  The inversion Li_{-N}(w) <-> Li_{-N}(1/w) is chosen by
+%         |w| = e^{2 pi (Im z - 1)}, a constant-height statement.  On the arc the branch
+%         boundary is |tau| = 1, so which branch is generic flips.
+%  (v)    lem:polylogedge, def:FP: the on-contour case.  The arc IS the wall here.
+%  (vi)   lem:Laurent + lem:wallvalue at i, now an interior point of the contour rather
+%         than of the S-segment.
+%  (vii)  NEW: the order-3 sibling of lem:Laurent/lem:wallvalue at rho+1.  See TODO(1).
+%  (viii) thm:mero analogue: the explicit formula for L^*(f,s) in this class.
+%  Open (handoff, section 7.2): whether the arc integrals of Li_{1-m} close in closed form
+%  at all.  If they do not, (iii)-(v) change character rather than merely lengthening.
+%%%GEOBLOCK-END%%%
+
+
+
 \begin{thebibliography}{99}
 
 \bibitem{BFK2011}
