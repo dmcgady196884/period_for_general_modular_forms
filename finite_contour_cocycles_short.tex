@@ -1389,43 +1389,53 @@ Definition~\ref{def:null_homotopy} by the crossings of Lemma~\ref{lem:wall}.}
 
 \subsection{Period polynomials for generic $f \in F_k$}
 
-In this section, we use our L-functions to assign period polynomials to general elements $f \in F_k$, 
-$r_f \in W \subset V_{k-2}$. The route is straightforward when $f$ has poles exclusively outside a 
-certain region of the fundamental domain, which we denote $\mathcal{T} \subset \mathcal{F} := \HH/\Gamma$. 
-We denote the set of such functions as $F_k^\circ \subset F_k$. For every $f \in F_k^\circ$ the period 
-polynomial constructed from the special L-values of $L^*(f,s)$ of Theorem~\ref{thm:mero} are 
-immediately elements of $W$. However, when $f$ has poles within $\mathcal{T}$, more care is needed. 
-We note that Ref.~\cite{BrownFonseca2025} has a parallel way to define $r_f$ for $f \in F_k$, 
-and re-present their construction. We also give a construction of our own. It is not obvious to us 
+In this section, we use our L-functions to assign period polynomials $r_f \in W \subset V_{k-2}$ to
+general elements $f \in F_k$. The route is straightforward when $f$ has poles exclusively outside a
+certain region $\mathcal{T}\subset\HH$, lying in the strip $0\le{\rm Re}\,\tau\le1$ directly beneath
+the $T$-segment. We denote the set of such functions as $F_k^\circ \subset F_k$. For every
+$f \in F_k^\circ$ the period polynomial constructed from the special L-values of $L^*(f,s)$ of
+Theorem~\ref{thm:mero} is immediately an element of $W$. However, when $f$ has poles within
+$\mathcal{T}$, more care is needed. Ref.~\cite{BrownFonseca2025} gives a parallel construction of
+$r_f$ for $f \in F_k$, which we re-present alongside one of our own. It is not obvious to us
 which construction should be preferred.
 
-To begin, we define $\mathcal{T}$ and $F_k^\circ$:
+To begin, we define $\mathcal{T}$, then $F_k^\circ$, and then $r_f$ for $f \in F_k^\circ$:
 
-\begin{definition}\label{def:Fcirc}
-Let $\mathcal{T}\subset\HH$ be the closed curvilinear triangle with vertices $i$, $1+i$ and
-$\tfrac{1+i}{2}$, bounded above by the line ${\rm Im}\,\tau=1$ and below by its $\SLZ$-translates
-through the cusps $0$ and $1$, the circles $|\tau-\tfrac{i}{2}|=\tfrac12$ and
-$|\tau-1-\tfrac{i}{2}|=\tfrac12$, which meet each other tangentially at $\tfrac{1+i}{2}$:
+\begin{definition}\label{def:Tri}
+Let $\mathcal{T}\subset\HH$ be the region
 \begin{equation}\label{eq:Tri}
 \mathcal{T}:=\Big\{\tau\in\HH:\ 0\le{\rm Re}\,\tau\le1,\ \tfrac12\le{\rm Im}\,\tau\le1,\
 \big|\tau-\tfrac{i}{2}\big|\ge\tfrac12,\ \big|\tau-1-\tfrac{i}{2}\big|\ge\tfrac12\Big\}.
 \end{equation}
-The bound ${\rm Im}\,\tau\ge\tfrac12$ is not redundant: dropping it leaves a second region below
-the point of tangency, widening to the full interval $0\le{\rm Re}\,\tau\le1$ as
-${\rm Im}\,\tau\to0$ and so of infinite hyperbolic area. The three sides of $\mathcal{T}$ are the
-$T$-, $UT$- and $S^{-1}$-translates of $\hat\gamma^T_f$, meeting at the vertices. Define
-\begin{equation}\label{eq:Fcirc}
-F_k^{\circ}:=\Big\{f\in F_k\ :\ f^{-1}(\infty)\cap\mathcal{T}=\emptyset\ \ \text{and}\ \
-\int_{\hat\gamma^T_f}f(\tau)\,d\tau=0\Big\},
-\end{equation}
-and for $f\in F_k^{\circ}$ let $r_f$ be given by Definition~\ref{def:rf} with $L^*(f,s)$
-evaluated in the reference class of Definition~\ref{def:null_homotopy}. The second condition is
-the vanishing of the constant Fourier mode of $f$ in the strip containing $\hat\gamma^T_f$, and
-reduces to $c_f(0)=0$ when $f$ has no poles above that segment.
 \end{definition}
 
-Our definitions of $\mathcal{T}$ and $F_k^\circ$ are explicitly designed such that the proof of 
-Lemma~\ref{lem:rfW} used $f\in S^!_k$ naturally extends to $f\in F_k$:
+$\mathcal{T}$ is the closed curvilinear triangle with vertices $i$, $1+i$ and $\tfrac{1+i}{2}$,
+bounded above by the line ${\rm Im}\,\tau=1$ and below by its $\SLZ$-translates through the cusps
+$0$ and $1$, the circles $|\tau-\tfrac{i}{2}|=\tfrac12$ and $|\tau-1-\tfrac{i}{2}|=\tfrac12$, which
+meet each other tangentially at $\tfrac{1+i}{2}$. Its three sides are the $T$-, $UT$- and
+$S^{-1}$-translates of $\hat\gamma^T_f$, meeting at those vertices. The bound
+${\rm Im}\,\tau\ge\tfrac12$ is not redundant: dropping it leaves a second region below the point of
+tangency, widening to the full interval $0\le{\rm Re}\,\tau\le1$ as ${\rm Im}\,\tau\to0$ and so of
+infinite hyperbolic area.
+
+\begin{definition}\label{def:Fcirc}
+Define
+\begin{equation}\label{eq:Fcirc}
+F_k^{\circ}:=\Big\{f\in F_k\ :\ f^{-1}(\infty)\cap\mathcal{T}=\emptyset\ \ \text{and}\ \
+\int_{\hat\gamma^T_f}f(\tau)\,d\tau=0\Big\}.
+\end{equation}
+\end{definition}
+
+The second condition is the vanishing of the constant Fourier mode of $f$ in the strip containing
+$\hat\gamma^T_f$, and reduces to $c_f(0)=0$ when $f$ has no poles above that segment.
+
+\begin{definition}\label{def:rfmero}
+For $f\in F_k^{\circ}$, let $r_f$ be given by Definition~\ref{def:rf}, with $L^*(f,s)$ evaluated in
+the reference class of Definition~\ref{def:null_homotopy}.
+\end{definition}
+
+Our definitions of $\mathcal{T}$ and $F_k^\circ$ are designed so that the proof of
+Lemma~\ref{lem:rfW}, which used $f\in S^!_k$ in exactly two places, extends to $f\in F_k^\circ$:
 
 \begin{lemma}\label{lem:rfWmero}
 For $f\in F_k^{\circ}$, the period polynomial $r_f\in W\subset V_n$.
