@@ -284,12 +284,12 @@ $\partial_{\tau_0}L^*=\partial_{\tau_0}L^*_S + \partial_{\tau_0}L^*_T=0$.
 \end{proof}
 
 \begin{remark}[Recovering the classical L-integral for $f \in S_k$]\label{rem:mellin}
-Let $f\in S_k$. As $f^{-1}(\infty)$ does not include the cusp $i \infty$, 
+\emph{Let $f\in S_k$. As $f^{-1}(\infty)$ does not include the cusp $i \infty$, 
 $\lim_{\tau_0 \to i \infty} L^*(f, s; \gamma^S_{\tau_0}, \gamma^T_{\tau_0})$ exists. 
 In this limit, the $S$-segment maps onto the standard 
 L-function contour, $[0,i\infty]$. Simultaneously, as $f(it) \sim e^{-2\pi t}$ as 
 $t \to \infty$, the $T$-segment vanishes exponentially. Thus, in this limit, $L^*(f,s)$ 
-exactly maps onto the classical L-function integral~\cite{01-Apostol}:
+exactly maps onto the classical L-function integral~\cite{01-Apostol}:}
 \begin{equation}
 \lim_{\tau_0\to i\infty}L^*(f,s)=\int_0^{\infty}\! t^{s-1}f(it)\,dt.
 \end{equation}
@@ -479,21 +479,21 @@ That said, there is one further aspect of our L-function even in the classical
 case of $f \in M_k$ that is worthy of remark:
 
 \begin{remark}[Recovering the classical L-integral for $f \in M_k$]\label{natural-beauty-via-finiteness}
-In textbook treatments~\cite{01-Apostol}, when $f \in M_k$, its L-integral is defined as
+\emph{In textbook treatments~\cite{01-Apostol}, when $f \in M_k$, its L-integral is defined as}
 \begin{align}
 L^*(f,s)|_{\rm cl} :=&~ \int_0^\infty \big( f(it) - c_f(0) \big) t^{s-1} dt = \frac{\Gamma(s)}{(2 \pi)^s} \sum_{n = 1}^{\infty} \frac{c_f(n)}{n^s} \\
 =& -c_f(0) \bigg(\frac{1}{s} + \frac{i^k}{k-s} \bigg) + \sum_{n = 1}^{\infty} c_f(n)\left(\frac{\Gamma(s,2\pi n)}{(2\pi n)^s} + i^k \frac{\Gamma(k-s, 2\pi n)}{(2\pi n)^{k-s}}\right) \nonumber
 \end{align}
-Classically, this constant-term subtraction is needed because $\int_0^\infty t^{s-1} dt$ is a pure 
-divergence, so the q-series cannot commute with the integration contour.
+\emph{Classically, this constant-term subtraction is needed because $\int_0^\infty t^{s-1} dt$ is a pure 
+divergence, so the q-series cannot commute with the integration contour.}
 
-However, as is clear from our general Theorem~\ref{thm:weakL} for L-integrals for $f \in M_k^!$, 
+\emph{However, as is clear from our general Theorem~\ref{thm:weakL} for L-integrals for $f \in M_k^!$, 
 and from the specific results of the S- and T-contours in Lemma~\ref{lem:Tclosed-Mk} and 
 Corollary~\ref{cor:Sclosed}, our L-integral requires no such explicit subtraction of the constant 
 term $-c_f(0)$. Thus, not only does our prescription naturally handle divergences at poles when 
 $f \in M_k^!$ has polar terms in its q-series, but it also obviates the need to by-hand remove the 
 constant mode from the kernel of the L-integral that is needed when defining L-functions in terms 
-of the classical Mellin contour, $\int_0^\infty$.
+of the classical Mellin contour, $\int_0^\infty$.}
 \end{remark}
 
 \subsection{Period polynomials, periods and quasi-periods}
@@ -1165,7 +1165,7 @@ modulus is $1$, inversion buys nothing, and $\mathcal E^+_N$ resums the un-inver
 with $+2\pi n$.
 
 \begin{remark}\label{rem:cutoff}
-The remainders $R_N$ of Lemma~\ref{lem:polylogedge}~\eqref{eq:tailpiece2} and $\mathcal E^+_N$ of
+\emph{The remainders $R_N$ of Lemma~\ref{lem:polylogedge}~\eqref{eq:tailpiece2} and $\mathcal E^+_N$ of
 Definition~\ref{def:FP}~\eqref{eq:Eplus} are what is left after unfolding $J$ terms of the
 incomplete-gamma recursion~\eqref{eq:gammarec}; both use $J=N+1$. The unfolding
 isolates the terms that could diverge as ${\rm Im}(z)\to1^+$ into an explicit finite set of special
@@ -1173,7 +1173,7 @@ functions, and $J=N+1$ is the least $J$ that isolates all of them, and leaves a 
 converges for every $z$ on ${\rm Im}(z)=1$. Any larger $J$ isolates the same terms, leaving $I_N$ and
 $\mathrm{FP}_N$ unchanged and merely quickening the remainder's decay ($\sim n^{-(J-N+1)}$) at the
 cost of carrying further positive-index polylogs $\Li_2,\dots,\Li_{J-N}$ into the finite sum
-(contributing values up to $\zeta(J-N)$ at $z=i$).
+(contributing values up to $\zeta(J-N)$ at $z=i$).}
 \end{remark}
 
 \begin{lemma}\label{lem:Laurent}
@@ -1354,8 +1354,11 @@ holomorphic on $\HH$, $\widehat Pf=0$ and $c_{Rf}=c_f$, recovering Theorem~\ref{
 
 \subsection{Relations of this work to L-functions for $f \in F_k$ in~\cite{1806}}
 
+We briefly pause to make two remarks that connect the L-functions for $f \in F_k$ defined in this note 
+to the slightly different definition in Ref.~\cite{1806}.
+
 \begin{remark}\label{rem:residues}
-Casual inspection of the structure of the $I_N(s, \tau_p)$-functions entering into Theorem~\ref{thm:mero} 
+\emph{Casual inspection of the structure of the $I_N(s, \tau_p)$-functions entering into Theorem~\ref{thm:mero} 
 would lead one to conclude that they substantively differ from those in~\cite{1806}, where the author first 
 defined an L-function for $f \in F_k$: Ref.~\cite{1806} has the $1/s$-residue proportional only to $c_f(0)$. 
 However, our L-function has $1/s$-residue contributions from all \emph{simple} poles located above the 
@@ -1364,7 +1367,7 @@ residue theorems for the $1/s$-poles in~\cite{1806}, for the simple reason that 
 reference contour was implicitly at $\tau_0 \to i \infty$. This was valid in the restricted context of~\cite{1806}, 
 as that paper only focused on $f \in F_k$ where $f = \sum_{n \geq 0} c_f(n) q^n$; poles at the $\SLZ$ cusp 
 were explicitly excluded, which allowed the limit $\tau_0 \to i \infty$ to be smooth and safe. However, in this 
-work, we make a different reference contour --- that in Definition~\ref{def:null_homotopy}. 
+work, we make a different reference contour --- that in Definition~\ref{def:null_homotopy}. }
 %The poles at $s=0$ and $s=k$ belong to the class, not to $f$ alone. Here the $T$-segment sits at
 %height $1+\delta$, so each pole above it is reached through the inversion of
 %Lemma~\ref{lem:polylogcf}, contributing
@@ -1375,19 +1378,28 @@ work, we make a different reference contour --- that in Definition~\ref{def:null
 \end{remark}
 
 \begin{remark}\label{rem:raised}
-The $1/s$ residue is carried entirely by the $T$-segment: $L^*_S$ is a finite integral of
+\emph{The $1/s$ residue is carried entirely by the $T$-segment: $L^*_S$ is a finite integral of
 $f\,\tau^{s-1}$ and is entire in $s$, while $\tk$ has a simple pole at $s=0$ whose coefficient
 is $\int_{\hat\gamma_f^T}f\,d\tau$, the constant Fourier mode of $f$ in the strip containing
 that segment. Deforming $\hat\gamma_f^T$ to pass above every pole of $f$ therefore returns
 $\mathop{\rm Res}_{s=0}L^*(f,s)=-c_f(0)$, the constant term at the cusp, and recovers the
 residue bookkeeping of~\cite{1806}. That class differs from the one of
-Definition~\ref{def:null_homotopy} by the crossings of Lemma~\ref{lem:wall}.
+Definition~\ref{def:null_homotopy} by the crossings of Lemma~\ref{lem:wall}.}
 \end{remark}
 
 \subsection{Period polynomials for generic $f \in F_k$}
 
-The proof of Lemma~\ref{lem:rfW} used $f\in S^!_k$ in exactly two places, and both survive
-weakening to $f\in F_k$ under explicit conditions.
+In this section, we use our L-functions to assign period polynomials to general elements $f \in F_k$, 
+$r_f \in W \subset V_{k-2}$. The route is straightforward when $f$ has poles exclusively outside a 
+certain region of the fundamental domain, which we denote $\mathcal{T} \subset \mathcal{F} := \HH/\Gamma$. 
+We denote the set of such functions as $F_k^\circ \subset F_k$. For every $f \in F_k^\circ$ the period 
+polynomial constructed from the special L-values of $L^*(f,s)$ of Theorem~\ref{thm:mero} are 
+immediately elements of $W$. However, when $f$ has poles within $\mathcal{T}$, more care is needed. 
+We note that Ref.~\cite{BrownFonseca2025} has a parallel way to define $r_f$ for $f \in F_k$, 
+and re-present their construction. We also give a construction of our own. It is not obvious to us 
+which construction should be preferred.
+
+To begin, we define $\mathcal{T}$ and $F_k^\circ$:
 
 \begin{definition}\label{def:Fcirc}
 Let $\mathcal{T}\subset\HH$ be the closed curvilinear triangle with vertices $i$, $1+i$ and
@@ -1411,6 +1423,9 @@ evaluated in the reference class of Definition~\ref{def:null_homotopy}. The seco
 the vanishing of the constant Fourier mode of $f$ in the strip containing $\hat\gamma^T_f$, and
 reduces to $c_f(0)=0$ when $f$ has no poles above that segment.
 \end{definition}
+
+Our definitions of $\mathcal{T}$ and $F_k^\circ$ are explicitly designed such that the proof of 
+Lemma~\ref{lem:rfW} used $f\in S^!_k$ naturally extends to $f\in F_k$:
 
 \begin{lemma}\label{lem:rfWmero}
 For $f\in F_k^{\circ}$, the period polynomial $r_f\in W\subset V_n$.
@@ -1711,7 +1726,7 @@ right one we leave open, noting only that the continuation prescription agrees b
 the unambiguous value on the complement of $\mathcal{T}$, where no reference form is called for.
 
 \begin{remark}\label{rem:literature}
-The polar data used above is not new. Brown and Fonseca~\cite{BrownFonseca2025} compute the residue
+\emph{The polar data used above is not new. Brown and Fonseca~\cite{BrownFonseca2025} compute the residue
 of $f(\tau)(X-\tau Y)^{n}\,d\tau$ at a pole $w$, in their Lemma 5.10, as
 $\sum_{j}\binom{n}{j}c_{-j-1}(w)(X-wY)^{n-j}(-Y)^{j}$ with $c_{-j-1}(w)$ the Laurent coefficients
 of $f$ there; under $j=\alpha-1$ this is Definition~\ref{def:Qf} term by term. The reference forms
@@ -1721,14 +1736,14 @@ $E_k/(j-j(p))$ in the simple-pole case. What
 is added here is the $L$-function: $r_f$ and the $r_{\Psi^{(\alpha)}_p}$ are values of the
 finite-contour $L^*$, and the region $\mathcal{T}$, which decides by
 Lemma~\ref{lem:rfWmero} whether any correction is needed at all, presupposes a contour and has no
-counterpart in their setting.
+counterpart in their setting.}
 
-The dependence of $\tilde r_f$, and hence of $\hat r_f$ in~\eqref{eq:rhat}, on the choice of
+\emph{The dependence of $\tilde r_f$, and hence of $\hat r_f$ in~\eqref{eq:rhat}, on the choice of
 reference family is~\eqref{eq:ambig}. For adjacent work see~\cite{BrownHain2018}
 for poles at the cusp, \cite{Matthes2022} for meromorphic forms with restricted poles, and
 \cite{BKvP2019} for regularised inner products. The forms $f_{k,P}$
 of~\cite{LobrichSchwagenscheidt2022}, going back to~\cite{Zagier1977}, have weight $2k$ and poles
-of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitrary order.
+of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitrary order.}
 \end{remark}
 
 \begin{thebibliography}{99}
