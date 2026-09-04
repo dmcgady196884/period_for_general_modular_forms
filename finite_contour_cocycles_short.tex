@@ -1818,15 +1818,6 @@ of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitr
 %%%GEOBLOCK-START%%%
 \subsection{The geodesic reference contour at $\tau_0=\rho+1$}\label{sec:geo}
 
-The two obstructions to $r_f\in W$ move in opposite directions as the reference contour is
-lowered. The cohomological one shrinks: the region whose boundary is the $(1+U+U^2)$ loop, and
-whose enclosed poles obstruct Lemma~\ref{lem:rfWmero}, gets smaller. The analytic one grows: more
-of each pole orbit sits above the contour, so the $q$-series of Section~\ref{sec:mero} converges on
-less of it and the strip constant of~\eqref{eq:Fcirc} picks up more residues. The horocycle
-${\rm Im}\,\tau=1$ is the compromise, and a natural one, being the unique horocycle tangent to
-$\partial\mathcal{F}$. This subsection develops the opposite extreme, where the cohomological
-obstruction vanishes outright.
-
 \begin{definition}\label{def:georef}
 Let $\gamma^{\rm arc}$ be the geodesic segment $\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$,
 oriented from $\rho$ to $\rho+1$, and let $\tau_0=\rho+1$. The \emph{geodesic reference class} is
@@ -1848,68 +1839,6 @@ $\rho+1$.
 %the order-2 point.  Until this is settled Theorem~\ref{thm:geoperiod} is stated only for
 %f with no pole on the contour's orbit.
 
-\begin{lemma}\label{lem:geoloops}
-In the geodesic reference class both relator loops are degenerate: the $S^2$-loop retraces for any
-base point on $\gamma^{\rm arc}$, and the $(1+U+U^2)$ loop retraces at $\tau_0=\rho+1$. Hence
-$\hat C_{\pm I}=0$ for every $f\in F_k$ with no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$.
-\end{lemma}
-\begin{proof}
-$S$ acts on the unit circle by $e^{i\theta}\mapsto e^{i(\pi-\theta)}$, which preserves
-$\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}$ and reverses orientation, fixing $i$. So $S\gamma^S$ is
-$\gamma^S$ reversed and the $S^2$-loop retraces, for any base point on the arc. For the second,
-$U=TS$ has fixed points the roots of $\tau^2-\tau+1$, i.e.\ $\tau=\rho+1$, so $U^{-1}\tau_0=\tau_0$
-and the $U$-path is closed. With $\gamma^S=\gamma^T$ it is $S^{-1}\gamma^T$ followed by $\gamma^S$,
-namely the arc traversed and retraced; its $U$- and $U^2$-transports are retracings of
-$U\gamma^{\rm arc}$ and $U^2\gamma^{\rm arc}$ through the same fixed point. Each bounds nothing, so
-the winding number about every pole is zero and Cauchy gives $\hat C_{-I}=C_{-I}=0$.
-\end{proof}
-
-The contrast with Definition~\ref{def:Tri} is the point: there $\partial\mathcal{T}$ bounds a region
-of hyperbolic area $\pi-3$, and poles inside it obstruct. Here the corresponding region is empty for
-every $f$, so no analogue of $\mathcal{T}$, of $Q_f$, or of the reference families of
-Definition~\ref{def:reffam} is required.
-
-\begin{definition}\label{def:Phi}
-For $f\in F_k$ with no pole on $\gamma^{\rm arc}$, set
-$\Phi(f):=\int_{\gamma^{\rm arc}}f(\tau)\,d\tau$.
-\end{definition}
-
-$\Phi$ is the strip constant of~\eqref{eq:Fcirc} for this contour: it equals $c_f(0)$ when $f$ has no
-pole above $\gamma^{\rm arc}$, and $c_f(0)$ less $2\pi i$ times the residues in the strip otherwise.
-In particular $\Phi(E_k)=1$, and $\Phi(f)=0$ for $f\in S_k$.
-
-\begin{theorem}\label{thm:geoperiod}
-Let $f\in F_k$ have no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, and let $r_f$ be given by
-Definition~\ref{def:rf} with $L^*(f,s)$ evaluated in the geodesic reference class. Then
-\begin{equation}\label{eq:geoperiod}
-\tilde r_f\;:=\;r_f-\Phi(f)\,r_{E_k}\;\in\;W ,
-\end{equation}
-with no condition on the location or order of the poles of $f$.
-\end{theorem}
-\begin{proof}
-Lemma~\ref{lem:rfW} invokes $f\in S^!_k$ only through $\hat C_{\pm I}=0$ and $\hat C_T=0$. The first
-holds for every such $f$ by Lemma~\ref{lem:geoloops}. For the second, the computation in the proof
-of Lemma~\ref{lem:cocycle} gives $\hat C_T=-(2\pi i)^{n+1}A_0\Phi(f)$, so the only surviving
-obstruction is linear in $\Phi(f)$ and the induced defect $r_f|_{(1+U+U^2)}$ is $\Phi(f)$ times a
-polynomial independent of $f$. Taking $f=E_k$, for which $\Phi=1$, identifies that polynomial as
-$r_{E_k}|_{(1+U+U^2)}$, and $r_{E_k}|_{(1+S)}=0$, giving~\eqref{eq:geoperiod}.
-\end{proof}
-
-%TODO(2) The step "the induced defect is Phi(f) times an f-independent polynomial" is the
-%one that needs writing out properly: C_T enters r_f through the coboundary, and the
-%constant A_0 of lem:cocycle has to be carried through.  Verified numerically at k=12 to
-%1e-18 across three pole locations, a double pole, two holomorphic forms and Delta
-%(Phi=0), with the universal polynomial coming out proportional to
-%i(1,-5,17,-38,61,-71,61,-38,17,-5,1).
-
-Equation~\eqref{eq:geoperiod} is Theorem~\ref{thm:period}'s correction with the orbit sum empty:
-the reference families there contribute one term per enclosed $U$-orbit, and here there are none, so
-only the Eisenstein term survives, with $c_f(0)$ replaced by $\Phi(f)$. The residual ambiguity is
-correspondingly smaller. Any $g$ with $\Phi(g)=1$ may replace $E_k$, and two choices shift
-$\tilde r_f$ by $\Phi(f)$ times an element of $W$; this is one global choice, not a family chosen
-per pole.
-
-\medskip
 We turn to the analogue, for this class, of the explicit formulae above. Two of their ingredients
 are already available: the polylog projection needs only a change of constant, and the Laurent
 relations at the elliptic points are contour-free.
@@ -1977,6 +1906,96 @@ on the elliptic point only through the order of its stabiliser.
 %E6^3/E4^2 (k=10, P=2), E6^3/E4 (k=14, P=1); relations hold to 1e-24..1e-26 and the double-pole
 %ratio to 7e-25.
 
+It remains to evaluate the projected blocks. Write $\lambda_{N,z}$ for the function
+$\Li_{-N}(e^{2\pi i(\tau-z)})$ of Definition~\ref{def:IN}.
+
+\begin{definition}\label{def:geoIN}
+$I^{\rm geo}_N(s,z):=L^*\big(\lambda_{N,z},\,s;\,[\hat\gamma^S_f],[\hat\gamma^T_f]\big)$, evaluated in
+the geodesic reference class of Definition~\ref{def:georef}.
+\end{definition}
+
+Both segments run from $\rho$ to $\tau_0=\rho+1$, and $\lambda_{N,z}$ is holomorphic off $z+\ZZ$.
+Since $\tk$ is singular only at $\tau\in\{-1,-2,\dots\}$ and $\tau^{s-1}$ only at $\tau=0$, neither
+kernel obstructs deformation, so each integral may be taken along any path with those endpoints
+avoiding $z+\ZZ$. For $|z|\ge1$ no point of $z+\ZZ$ lies between $\gamma^{\rm arc}$ and the
+horizontal chord $\rho\to\tau_0$ at height $\tfrac{\sqrt3}{2}$, and we evaluate there.
+
+\begin{lemma}\label{lem:geopolylog}
+Let ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ and $|z|\ge1$, set $\tau_0=\rho+1$, and let
+$\gamma^*(s,x):=\sum_{j\ge0}\frac{(-x)^{j}}{j!\,(j+s)}$, entire in $x$. With
+\begin{equation}\label{eq:geoG}
+G^{\rm geo}_{s,k}(-n):=e^{-\pi is/2}\Big[\tau_0^{\,s}\,\gamma^*\big(s,2\pi in\tau_0\big)
+-\rho^{\,s}\,\gamma^*\big(s,2\pi in\rho\big)\Big]
+\;+\;\frac{\Gamma\big(s,2\pi in\tau_0\big)}{(-2\pi n)^{s}}
+\;+\;i^{k}\frac{\Gamma\big(k-s,2\pi in\tau_0\big)}{(-2\pi n)^{k-s}},
+\end{equation}
+\begin{equation}\label{eq:geoG0}
+G^{\rm geo}_{s,k}(0):=e^{-\pi is/2}\,\frac{\tau_0^{\,s}-\rho^{\,s}}{s}
+-\frac{(\tau_0/i)^{s}}{s}-i^{k}\frac{(\tau_0/i)^{k-s}}{k-s}.
+\end{equation}
+Then
+\begin{equation}\label{eq:geoIN}
+I^{\rm geo}_N(s,z)=-\delta_{N,0}\,G^{\rm geo}_{s,k}(0)
++(-1)^{N+1}\sum_{n\ge1}n^{N}e^{2\pi inz}\,G^{\rm geo}_{s,k}(-n),
+\end{equation}
+the sum converging at rate $e^{-2\pi({\rm Im}\,z-\frac{\sqrt3}{2})}$.
+\end{lemma}
+\begin{proof}
+On the chord $|e^{2\pi i(\tau-z)}|>1$, so the defining series of $\Li_{-N}$ diverges and inversion
+$\Li_{-N}(w)=(-1)^{N+1}\Li_{-N}(1/w)-\delta_{N,0}$ rewrites $\lambda_{N,z}$ as
+$(-1)^{N+1}\sum_{n\ge1}n^{N}e^{2\pi inz}q^{-n}-\delta_{N,0}$, uniformly convergent there since
+${\rm Im}\,z>\tfrac{\sqrt3}{2}$. Integrating term by term, $G^{\rm geo}_{s,k}(-n)=L^*(q^{-n},s)$ in
+this class: the last two terms of~\eqref{eq:geoG} are $L^*_T$ by Lemma~\ref{lem:Tclosed-Mk} at
+$\tau_0$, and the first is $L^*_S=e^{-\pi is/2}\int_{\rho}^{\tau_0}e^{-2\pi in\tau}\tau^{s-1}d\tau$,
+which on expanding $e^{-2\pi in\tau}$ and integrating $\tau^{j+s-1}$ term by term gives
+$e^{-\pi is/2}\sum_{j\ge0}\frac{(-2\pi in)^{j}}{j!\,(j+s)}\big[\tau_0^{\,j+s}-\rho^{\,j+s}\big]$,
+the first bracket of~\eqref{eq:geoG}. Likewise $G^{\rm geo}_{s,k}(0)=L^*(1,s)$. The rate follows from
+$|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$ against $|G^{\rm geo}_{s,k}(-n)|\sim e^{\pi\sqrt3\,n}$.
+\end{proof}
+
+Corollary~\ref{cor:Sclosed} is deliberately not used here: it folds the $S$-segment about $i$ using
+modularity, and $q^{-n}$ is only $T$-periodic, so its $S$-integral must be taken directly. This is
+the one place where the two classes genuinely differ. At $\tau_0=i$ the $S$-segment is degenerate
+and $L^*_S$ drops out of Lemma~\ref{lem:polylogcf} entirely; here it contributes the first term
+of~\eqref{eq:geoG}, and the threshold in the convergence rate moves from $1$ to $\tfrac{\sqrt3}{2}$
+in step with Definition~\ref{def:geoproj}.
+
+The $S$-term is written with $\gamma^*$ because that form is branch-free: $\gamma^*$ is
+single-valued, so the only multivalued factors are the explicit $\tau_0^{\,s}$ and $\rho^{\,s}$,
+and those are unambiguous since $\arg\tau\in[\tfrac{\pi}{3},\tfrac{2\pi}{3}]$ along the chord. It
+may equally be written with upper incomplete gammas, provided the sheet relation is carried. Under
+$u=2\pi in\tau$ the chord's image runs from $\arg u=\tfrac{7\pi}{6}$ at $\rho$ to $\tfrac{5\pi}{6}$
+at $\tau_0$, so the $\rho$ endpoint sits one turn off principal; since $\gamma(s,x)=x^{s}\gamma^*(s,x)$
+with $\gamma^*$ single-valued, a shift of $\arg x$ by $2\pi$ gives
+\begin{equation}\label{eq:sheet}
+\Gamma^{\rm cont}(s,x)=e^{2\pi is}\,\Gamma(s,x)+\big(1-e^{2\pi is}\big)\Gamma(s),
+\end{equation}
+and hence
+\begin{equation}\label{eq:geoSupper}
+S_n(s)=(2\pi in)^{-s}\Big[e^{2\pi is}\,\Gamma\big(s,2\pi in\rho\big)
++\big(1-e^{2\pi is}\big)\Gamma(s)-\Gamma\big(s,2\pi in\tau_0\big)\Big].
+\end{equation}
+Both the sheet factor and the additive constant are trivial at integer $s$, which is all that
+Definition~\ref{def:rf} requires. The $T$-term needs neither, since by
+Lemma~\ref{lem:Tclosed-Mk} only $\tau_0$ appears there, at $\arg(2\pi in\tau_0)=\tfrac{5\pi}{6}$,
+the $\rho$ endpoint having been absorbed by the periodicity of $\tk$.
+
+%NUMERICS for eq:geoG and eq:geoIN.  S-term against quadrature on the chord: exact to 1e-46 at
+%dps 45 for s = 3, 7, 2.4+0.6i, 0.5+8i, -0.3+2.2i and n = 1,2,4.  eq:geoIN against direct
+%quadrature of L^*(lambda_{N,z}) to 1e-25 for N=0,1 at s=3,5, z=0.3+1.4i.
+%eq:geoSupper verified to 1e-41 at dps 40, same s and n as above.
+%Two dead ends, recorded so they are not retried.  (a) Writing the S-term as
+%(2 pi i n)^{-s}[Gamma(s,2 pi i n rho) - Gamma(s,2 pi i n tau_0)] with principal branches is exact
+%at INTEGER s only (1e-26 at s=3,7) and off by a factor ~20 at s=2.4+0.6i; both corrections in
+%eq:sheet are invisible on the integers, which is why this looked correct.
+%(b) Applying only the sheet FACTOR e^{2 pi i s}, without the additive (1-e^{2 pi i s}) Gamma(s),
+%leaves a residual that is constant in absolute terms and so decays like e^{-pi sqrt3 n} relative
+%to |S_n| (1.8e-3, 2.9e-6, 2.0e-11 at n=1,2,4).  That constant is the whole discrepancy; an earlier
+%attempt to blame it on a non-vanishing arc at infinity, and to repair it with a midpoint term
+%(1 - e^{2 pi i (s-1)}) Gamma(s,u_*), was wrong and made things worse.
+%Practical note: the gamma^* series loses about 2.7 n digits to cancellation, so eq:geoSupper is
+%the better form if large n is ever needed.
+
 %TODO(3) --- the Section 4.1 analogue proper.  Each item mirrors a numbered result there.
 %  (i)    def:proj threshold.  DONE, def:geoproj above.
 %  (ii)   lem:proj, def:cRf, lem:projspace: the split f = P f + R f and the growth bound.
@@ -1994,6 +2013,80 @@ on the elliptic point only through the order of its stabiliser.
 %         genuinely new object, and rho is simultaneously base point, contour endpoint and
 %         elliptic point.  See TODO(1).
 %  (viii) thm:mero analogue: the explicit formula for L^*(f,s) in this class.
+
+\subsection{Period polynomials in the geodesic class}\label{sec:geoperiod}
+
+The two obstructions to $r_f\in W$ move in opposite directions as the reference contour is
+lowered. The cohomological one shrinks: the region whose boundary is the $(1+U+U^2)$ loop, and
+whose enclosed poles obstruct Lemma~\ref{lem:rfWmero}, gets smaller. The analytic one grows: more
+of each pole orbit sits above the contour, so the $q$-series of Section~\ref{sec:mero} converges on
+less of it and the strip constant of~\eqref{eq:Fcirc} picks up more residues. The horocycle
+${\rm Im}\,\tau=1$ is the compromise, and a natural one, being the unique horocycle tangent to
+$\partial\mathcal{F}$. This subsection develops the opposite extreme, where the cohomological
+obstruction vanishes outright.
+
+\begin{lemma}\label{lem:geoloops}
+In the geodesic reference class both relator loops are degenerate: the $S^2$-loop retraces for any
+base point on $\gamma^{\rm arc}$, and the $(1+U+U^2)$ loop retraces at $\tau_0=\rho+1$. Hence
+$\hat C_{\pm I}=0$ for every $f\in F_k$ with no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$.
+\end{lemma}
+\begin{proof}
+$S$ acts on the unit circle by $e^{i\theta}\mapsto e^{i(\pi-\theta)}$, which preserves
+$\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}$ and reverses orientation, fixing $i$. So $S\gamma^S$ is
+$\gamma^S$ reversed and the $S^2$-loop retraces, for any base point on the arc. For the second,
+$U=TS$ has fixed points the roots of $\tau^2-\tau+1$, i.e.\ $\tau=\rho+1$, so $U^{-1}\tau_0=\tau_0$
+and the $U$-path is closed. With $\gamma^S=\gamma^T$ it is $S^{-1}\gamma^T$ followed by $\gamma^S$,
+namely the arc traversed and retraced; its $U$- and $U^2$-transports are retracings of
+$U\gamma^{\rm arc}$ and $U^2\gamma^{\rm arc}$ through the same fixed point. Each bounds nothing, so
+the winding number about every pole is zero and Cauchy gives $\hat C_{-I}=C_{-I}=0$.
+\end{proof}
+
+The contrast with Definition~\ref{def:Tri} is the point: there $\partial\mathcal{T}$ bounds a region
+of hyperbolic area $\pi-3$, and poles inside it obstruct. Here the corresponding region is empty for
+every $f$, so no analogue of $\mathcal{T}$, of $Q_f$, or of the reference families of
+Definition~\ref{def:reffam} is required.
+
+
+
+\begin{definition}\label{def:Phi}
+For $f\in F_k$ with no pole on $\gamma^{\rm arc}$, set
+$\Phi(f):=\int_{\gamma^{\rm arc}}f(\tau)\,d\tau$.
+\end{definition}
+
+$\Phi$ is the strip constant of~\eqref{eq:Fcirc} for this contour: it equals $c_f(0)$ when $f$ has no
+pole above $\gamma^{\rm arc}$, and $c_f(0)$ less $2\pi i$ times the residues in the strip otherwise.
+In particular $\Phi(E_k)=1$, and $\Phi(f)=0$ for $f\in S_k$.
+
+\begin{theorem}\label{thm:geoperiod}
+Let $f\in F_k$ have no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, and let $r_f$ be given by
+Definition~\ref{def:rf} with $L^*(f,s)$ evaluated in the geodesic reference class. Then
+\begin{equation}\label{eq:geoperiod}
+\tilde r_f\;:=\;r_f-\Phi(f)\,r_{E_k}\;\in\;W ,
+\end{equation}
+with no condition on the location or order of the poles of $f$.
+\end{theorem}
+\begin{proof}
+Lemma~\ref{lem:rfW} invokes $f\in S^!_k$ only through $\hat C_{\pm I}=0$ and $\hat C_T=0$. The first
+holds for every such $f$ by Lemma~\ref{lem:geoloops}. For the second, the computation in the proof
+of Lemma~\ref{lem:cocycle} gives $\hat C_T=-(2\pi i)^{n+1}A_0\Phi(f)$, so the only surviving
+obstruction is linear in $\Phi(f)$ and the induced defect $r_f|_{(1+U+U^2)}$ is $\Phi(f)$ times a
+polynomial independent of $f$. Taking $f=E_k$, for which $\Phi=1$, identifies that polynomial as
+$r_{E_k}|_{(1+U+U^2)}$, and $r_{E_k}|_{(1+S)}=0$, giving~\eqref{eq:geoperiod}.
+\end{proof}
+
+%TODO(2) The step "the induced defect is Phi(f) times an f-independent polynomial" is the
+%one that needs writing out properly: C_T enters r_f through the coboundary, and the
+%constant A_0 of lem:cocycle has to be carried through.  Verified numerically at k=12 to
+%1e-18 across three pole locations, a double pole, two holomorphic forms and Delta
+%(Phi=0), with the universal polynomial coming out proportional to
+%i(1,-5,17,-38,61,-71,61,-38,17,-5,1).
+
+Equation~\eqref{eq:geoperiod} is Theorem~\ref{thm:period}'s correction with the orbit sum empty:
+the reference families there contribute one term per enclosed $U$-orbit, and here there are none, so
+only the Eisenstein term survives, with $c_f(0)$ replaced by $\Phi(f)$. The residual ambiguity is
+correspondingly smaller. Any $g$ with $\Phi(g)=1$ may replace $E_k$, and two choices shift
+$\tilde r_f$ by $\Phi(f)$ times an element of $W$; this is one global choice, not a family chosen
+per pole.
 %%%GEOBLOCK-END%%%
 
 
