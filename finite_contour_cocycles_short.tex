@@ -1909,22 +1909,91 @@ correspondingly smaller. Any $g$ with $\Phi(g)=1$ may replace $E_k$, and two cho
 $\tilde r_f$ by $\Phi(f)$ times an element of $W$; this is one global choice, not a family chosen
 per pole.
 
+\medskip
+We turn to the analogue, for this class, of the explicit formulae above. Two of their ingredients
+are already available: the polylog projection needs only a change of constant, and the Laurent
+relations at the elliptic points are contour-free.
+
+The projector of Definition~\ref{def:pole_split} is thresholded so that $(1-\widehat P)f$ admits a
+$q$-series where it is used. That is a statement about a half-plane, since a $q$-series converges
+exactly on ${\rm Im}\,\tau>h$ with $h$ the height of the highest surviving pole, and the operative
+height is that of the base point: with $X_n=-2\pi in\tau_0$ as in Theorem~\ref{thm:weakL},
+$|\Gamma(s,X_n)|\sim|X_n|^{{\rm Re}\,s-1}e^{-2\pi n\,{\rm Im}\,\tau_0}$, so the mode sum converges
+precisely when $c_{Rf}(n)=o\big(e^{2\pi n\,{\rm Im}\,\tau_0}\big)$. For $\tau_0=\rho+1$ this reads:
+
+\begin{definition}\label{def:geoproj}
+$\displaystyle\widehat P^{\,\rm geo}:=\sum_{{\rm Im}\,\tau_p\ge\frac{\sqrt3}{2}}\widehat P_{\tau_p}$.
+\end{definition}
+
+The threshold is not the arc but the horizontal line through its endpoints, and it is forced.
+Retaining Definition~\ref{def:pole_split}'s threshold of $1$ would leave surviving poles of height
+up to $1$ against a suppression of only $e^{-\pi\sqrt3\,n}$, and the mode sum would diverge like
+$e^{2\pi(1-\frac{\sqrt3}{2})n}$. Thresholding at the arc itself is not available either, as the
+region below the arc and above $\tfrac{\sqrt3}{2}$ would survive and carry heights arbitrarily close
+to $1$, so the remainder's $q$-series would converge nowhere on the contour but at $i$. With
+Definition~\ref{def:geoproj} the surviving heights are below $\tfrac{\sqrt3}{2}$ and the mode sum
+converges on the whole contour, the base point being its lowest point.
+
+The relations Lemma~\ref{lem:Laurent} imposes at $i$ hold at $\rho$ as well, in the same form:
+
+\begin{lemma}\label{lem:ellLaurent}
+Let $\tau_e$ be $i$ or $\rho$, of order $n=2$ or $n=3$, let $\gamma=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$
+be the generator $S$ or $ST$ of its stabiliser in $\SLZ$, and set $\zeta:=c\tau_e+d$, so that
+$c=1$ and $\zeta=e^{i\pi/n}$. Let $f\in F_k$ have a pole of order $P$ at $\tau_e$ with pole weights
+$r^*_{f,\tau_e}(m)$. Modularity is equivalent to one relation for each principal-part order $\mu$,
+\begin{equation}\label{eq:ellLaurent}
+\sum_{m=\mu}^{P} r^*_{f,\tau_e}(m)\binom{m}{\mu}\,\zeta^{m}
+=\zeta^{k}\sum_{m=\mu}^{P} r^*_{f,\tau_e}(m)\binom{k}{m-\mu}\,\zeta^{-m},
+\qquad \forall\mu=1,\dots,P,
+\end{equation}
+and the leading relation is $\big(\zeta^{2P}-\zeta^{k}\big)r^*_{f,\tau_e}(P)=0$, so that
+$2P\equiv k \pmod{2n}$.
+\end{lemma}
+\begin{proof}
+Write $\tau=\tau_e+\varepsilon$. Since $\det\gamma=1$ and $\gamma\tau_e=\tau_e$,
+\begin{equation}\label{eq:ellshift}
+\gamma\tau-\tau_e=\frac{\tau-\tau_e}{(c\tau+d)(c\tau_e+d)}=\frac{\varepsilon}{\zeta(\zeta+\varepsilon)},
+\qquad (c\tau+d)^{k}=\zeta^{k}\big(1+\varepsilon/\zeta\big)^{k},
+\end{equation}
+using $c=1$. Hence $(\gamma\tau-\tau_e)^{-m}=\zeta^{2m}\varepsilon^{-m}(1+\varepsilon/\zeta)^{m}$, and
+matching the coefficient of $\varepsilon^{-\mu}$ in
+$f(\gamma\tau)=(c\tau+d)^{k}f(\tau)$ through
+$(1+\varepsilon/\zeta)^{j}=\sum_{l}\binom{j}{l}\zeta^{-l}\varepsilon^{l}$ gives
+$\sum_{m\ge\mu}r^*(m)\zeta^{2m}\binom{m}{\mu}\zeta^{-(m-\mu)}
+=\zeta^{k}\sum_{m\ge\mu}r^*(m)\binom{k}{m-\mu}\zeta^{-(m-\mu)}$;
+dividing by $\zeta^{\mu}$ yields~\eqref{eq:ellLaurent}. At $\mu=P$ only $m=P$ survives on each side.
+\end{proof}
+
+At $n=2$, $\zeta=i$ and~\eqref{eq:ellLaurent} is~\eqref{eq:Laurent}, the order condition reading
+$P\equiv k/2\pmod 2$. At $n=3$, $\zeta=\rho+1=e^{i\pi/3}$ and the order condition reads
+$P\equiv-k\pmod3$, so a simple pole at $\rho$ requires $k\equiv2\pmod6$ and a double pole
+$k\equiv4\pmod6$. In the double-pole case~\eqref{eq:ellLaurent} at $\mu=1$ gives
+$r^*_{f,\tau_e}(1)=\tfrac{i(k-2)}{2\,{\rm Im}\,\tau_e}\,r^*_{f,\tau_e}(2)$ at both points, which is
+$\tfrac{i(k-2)}{2}$ at $i$ and $\tfrac{i(k-2)}{\sqrt3}$ at $\rho$. The constraint therefore depends
+on the elliptic point only through the order of its stabiliser.
+
+%NOTE: lem:Laurent is now the n=2 case of lem:ellLaurent and could be retired into it, but that
+%touches Section 4.1, so it is left standing.  Verified numerically at rho: E6^2/E4 (k=8, P=1),
+%E6^3/E4^2 (k=10, P=2), E6^3/E4 (k=14, P=1); relations hold to 1e-24..1e-26 and the double-pole
+%ratio to 7e-25.
+
 %TODO(3) --- the Section 4.1 analogue proper.  Each item mirrors a numbered result there.
-%  (i)    def:proj.  The projector is indexed by contour HEIGHT, \widehat P = sum over
-%         Im tau_p >= 1.  On the arc "above the contour" is not a height condition and
-%         varies along the path; this needs re-indexing, not transcribing.
+%  (i)    def:proj threshold.  DONE, def:geoproj above.
 %  (ii)   lem:proj, def:cRf, lem:projspace: the split f = P f + R f and the growth bound.
-%  (iii)  def:IN: I_N(s,z) for the arc, replacing the horizontal-path integral.
-%  (iv)   lem:polylogcf.  The inversion Li_{-N}(w) <-> Li_{-N}(1/w) is chosen by
-%         |w| = e^{2 pi (Im z - 1)}, a constant-height statement.  On the arc the branch
-%         boundary is |tau| = 1, so which branch is generic flips.
-%  (v)    lem:polylogedge, def:FP: the on-contour case.  The arc IS the wall here.
-%  (vi)   lem:Laurent + lem:wallvalue at i, now an interior point of the contour rather
-%         than of the S-segment.
-%  (vii)  NEW: the order-3 sibling of lem:Laurent/lem:wallvalue at rho+1.  See TODO(1).
+%  (iii)  def:IN: I_N(s,z) for this class.  NB the block integrals need not be done on the arc:
+%         both kernels (tau^{s-1}, ktil) are holomorphic on all of H, so the only obstruction to
+%         deforming is the block's own poles at z+Z.  Evaluate on the horizontal chord rho -> rho+1
+%         instead.  Verified: arc and chord agree to 1e-26 when no block pole lies between them,
+%         and differ by exactly (-1)^N (2 pi i)^{-N} g^{(N)}(z) when one does.
+%  (iv)   lem:polylogcf analogue on the chord.  Since the chord is horizontal at sqrt3/2, the
+%         inversion criterion is again a single global height comparison, not a varying one.
+%  (v)    lem:polylogedge, def:FP: the on-contour case, now at height sqrt3/2.
+%  (vi)   lem:wallvalue at i.  Laurent side DONE (lem:ellLaurent); the wall value itself is
+%         contour-dependent and does not transfer.
+%  (vii)  lem:wallvalue at rho.  Laurent side DONE (lem:ellLaurent, n=3); the wall value is the
+%         genuinely new object, and rho is simultaneously base point, contour endpoint and
+%         elliptic point.  See TODO(1).
 %  (viii) thm:mero analogue: the explicit formula for L^*(f,s) in this class.
-%  Open (handoff, section 7.2): whether the arc integrals of Li_{1-m} close in closed form
-%  at all.  If they do not, (iii)-(v) change character rather than merely lengthening.
 %%%GEOBLOCK-END%%%
 
 
