@@ -1829,15 +1829,178 @@ both segments have the same endpoints and may be taken to be the same path. $\ga
 the bottom boundary of $\mathcal{F}$, and passes through the three elliptic points $\rho$, $i$,
 $\rho+1$.
 
-%TODO(1) --- DO THIS FIRST.  Definition~\ref{def:georef} needs the analogue of
-%def:null_homotopy's delta>0-then-limit convention, because tau_0 is itself an elliptic
-%point and Gamma.rho is where E_4-denominator poles live.  At i the paper displaces the
-%base point to i(1+delta) along the S-stable imaginary axis; here no displacement fixes
-%U, so the (1+U+U^2) loop becomes a genuine triangle of size O(delta) shrinking onto
-%rho+1.  The question is whether that contribution has a delta->0 limit, i.e. whether the
-%Laurent weights at an order-3 point cancel the divergences the way lem:Laurent's do at
-%the order-2 point.  Until this is settled Theorem~\ref{thm:geoperiod} is stated only for
-%f with no pole on the contour's orbit.
+Since $\rho$ and $\tau_0$ lie on $\gamma^{\rm arc}$, a form with a pole on $\SLZ\!\cdot\!\rho$ has one
+at each endpoint, and $\tau_0=\rho+1$ is then excluded by Proposition~\ref{prop:indepHomotopy},
+whose hypothesis is $\tau_0\notin\Gamma\!\cdot\!f^{-1}(\infty)$. The remedy is to move the base
+point along the arc rather than off it: set
+\begin{equation}\label{eq:geodelta}
+\tau_0(\delta):=e^{i(\frac{\pi}{3}+\delta)},\qquad \delta>0,
+\end{equation}
+so that $S^{-1}\tau_0(\delta)=e^{i(\frac{2\pi}{3}-\delta)}$ and $\hat\gamma^S_f$ is the sub-arc
+between them, meeting neither $\rho$ nor $\rho+1$. This is not a regularisation. For every such
+$\delta$ the hypothesis of Proposition~\ref{prop:indepHomotopy} holds, so $L^*$ does not depend on
+$\delta$ at all: the shortening of the segments is exactly compensated by the movement of the base
+point, and no limit is taken. The displacement stays on $\gamma^{\rm arc}$, which is $S$-stable, so
+the $S^2$-loop of Lemma~\ref{lem:geoloops} retraces at every $\delta$ and $r_f|_{(1+S)}=0$. The
+$(1+U+U^2)$ loop does not degenerate, since $U$ fixes only $\tau_0(0)$, and the defect it leaves is
+likewise independent of $\delta$. Contrast Definition~\ref{def:null_homotopy}, where the base point
+is displaced off the imaginary axis onto $i(1+\delta)$, the limit is genuine, and
+Lemma~\ref{lem:wallvalue} is needed to show it survives.
+
+Independence of $\tau_0$ does not by itself fix the class, and one further choice is needed here.
+The endpoints $\tau_0(\delta)-1$ and $\tau_0(\delta)$ of $\hat\gamma^T_f$ lie at distance $O(\delta)$
+from the poles at $\rho$ and $\rho+1$, and paths running on opposite sides of them are not homotopic
+in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$; by Lemma~\ref{lem:wall} the two give values of $r_f$
+differing by residues. We take $\hat\gamma^T_f$ on the $|\tau|>1$ side of both, that is, in the class
+of the straight segment from $\tau_0(\delta)-1$ to $\tau_0(\delta)$.
+
+A pole on the arc is then covered by the same formula as a pole off it.
+
+\begin{lemma}\label{lem:georho}
+Let $f\in F_k$ have a pole of order $P$ at $\rho$ and no other pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$,
+and let $r_f$ be evaluated in the class of~\eqref{eq:geodelta}. Then
+\begin{equation}\label{eq:georho}
+\tilde r_f\big|_{(1+S)}=0,\qquad
+\tilde r_f\big|_{(1+U+U^2)}=-Q_f ,
+\end{equation}
+with $\tilde r_f=r_f-\Phi(f)r_{E_k}$ as in~\eqref{eq:geoperiod} and $Q_f$ the polynomial of
+Definition~\ref{def:Qf} formed from the single point $p=\rho+1$.
+\end{lemma}
+
+The enclosed set is one point rather than a triple because $U$ fixes $\rho+1$, so the $U$-orbit that
+Lemma~\ref{lem:rfWFk} sums over degenerates. Writing $\zeta=\rho+1$ as in
+Lemma~\ref{lem:ellLaurent} and using $\gamma p=p\Rightarrow(X-pY)^n|\gamma=(a-pc)^n(X-pY)^n$, the
+eigenvalue of $U$ on $(X-\zeta Y)^n$ is $(1-\zeta)^n=\zeta^{-n}$, so
+$(X-\zeta Y)^n|_{(1+U+U^2)}=\big(1+\zeta^{-n}+\zeta^{-2n}\big)(X-\zeta Y)^n$, which is $3(X-\zeta Y)^n$
+when $6\mid n$ and $0$ otherwise. The first case is $k\equiv2\pmod 6$, exactly the condition under
+which Lemma~\ref{lem:ellLaurent} permits a simple pole at $\rho$; when $6\nmid n$ the $\alpha=1$ term
+of $Q_f$ is invisible to the relation and the defect is carried by the deeper pole weights.
+
+The defect is removable, and for an intrinsic reason: $Q_f$ is a residue at a point that the
+relation's own generator fixes.
+
+\begin{lemma}\label{lem:kersum}
+Let $n=k-2\ge2$. Then $\ker(1+S)+\ker(1+U+U^2)=V_n$. Consequently every $q\in V_n$ with $q|_U=q$
+equals $w|_{(1+U+U^2)}$ for some $w\in\ker(1+S)$, unique modulo $W$.
+\end{lemma}
+
+\begin{proof}
+As $n$ is even $\pm I$ acts trivially, so $S^2=U^3=1$ on $V_n$ and $1+S$, $1+U+U^2$ are the averages
+over $\langle S\rangle$, $\langle U\rangle$ up to a factor; their images are the fixed subspaces
+$V_n^S$, $V_n^U$. The pairing~\eqref{inner} is $\SLZ$-invariant, so
+$\langle P|_\gamma,Q\rangle=\langle P,Q|_{\gamma^{-1}}\rangle$ and both operators are self-adjoint.
+Hence
+\begin{equation}\label{eq:kerperp}
+\big(\ker(1+S)+\ker(1+U+U^2)\big)^{\perp}=\im(1+S)\cap\im(1+U+U^2)=V_n^S\cap V_n^U .
+\end{equation}
+Since $U=TS$, an element of that intersection is $\SLZ$-invariant; being $T$-invariant it is a
+multiple of $Y^n$, which $S$ carries to a multiple of $X^n$, so it vanishes. For the second claim
+split $\tfrac13q=w+v$ with $w\in\ker(1+S)$, $v\in\ker(1+U+U^2)$; then
+$w|_{(1+U+U^2)}=\tfrac13q|_{(1+U+U^2)}=q$. Two such $w$ differ by an element of
+$\ker(1+S)\cap\ker(1+U+U^2)=W$.
+\end{proof}
+
+\begin{lemma}\label{lem:Qinv}
+Let $f\in F_k$ have a pole at $p\in\HH$ and let $\gamma\in\SLZ$ fix $p$. Then the contribution of $p$
+alone to $Q_f$ satisfies $Q|_\gamma=Q$.
+\end{lemma}
+
+\begin{proof}
+The $V_n$-valued form $\omega_f:=f(\tau)(X-\tau Y)^n\,d\tau$ satisfies
+$\gamma^*\omega_f=\omega_f|_{\gamma^{-1}}$: combine $f|_k\gamma=f$,
+$(c\tau+d)^n\big(X-(\gamma\tau)Y\big)^n=(X-\tau Y)^n|_{\gamma^{-1}}$ and
+$d(\gamma\tau)=(c\tau+d)^{-2}d\tau$, whose weights cancel because $n=k-2$. Residues are unchanged by
+the substitution, so $\Res_{\tau=\gamma p}\omega_f=\big(\Res_{\tau=p}\omega_f\big)\big|_{\gamma^{-1}}$,
+and $Q=(2\pi i)^{n+2}\Res_{\tau=p}\omega_f$ by the proof of Lemma~\ref{lem:rfWFk}. With $\gamma p=p$
+this is $Q|_{\gamma^{-1}}=Q$, and $\gamma$ has finite order.
+\end{proof}
+
+At $p=\rho+1$, fixed by $U$, Lemma~\ref{lem:Qinv} places $Q_f$ in $V_n^U$ --- this is
+Lemma~\ref{lem:ellLaurent} carried from the Laurent weights to $V_n$ --- and Lemma~\ref{lem:kersum}
+then returns a $w\in\ker(1+S)$ with $w|_{(1+U+U^2)}=Q_f$, so that $\tilde r_f+w\in W$
+by~\eqref{eq:georho}. The hypothesis is not vacuous:
+$\im\big[(1+U+U^2)|_{\ker(1+S)}\big]=V_n^U$ has dimension $2\lfloor n/6\rfloor+1$, against
+$\dim V_n=n+1$. This determines $\hat r_f$ only modulo $W$, the ambiguity
+Theorem~\ref{thm:period} already carries.
+
+%NUMERICS for lem:kersum and lem:Qinv.
+%lem:kersum, k = 4..28: rank of (1+U+U^2) on ker(1+S) equals dim V_n^U at every weight
+%  (1,1,3,3,3,5,5,5,7,7,7,9,9), dim(V_n^S cap V_n^U) = 0 at every weight, and dim W = 2 dim S_k + 1
+%  independently confirms the code's conventions.  NB dim ker(1+S) is n/2 for n = 0 mod 4 and
+%  n/2 + 1 for n = 2 mod 4, so rank = dim V_n^U is NOT a restatement of a single dimension formula.
+%prop:georhoW, Res_p(omega_f) computed as a circle integral on |tau - p| = 0.12, p = rho+1, then
+%  slashed by U:  |R|U - R|/|R| = 3.4e-30 (k=12, Delta^2/E4^3, P=3), 1.1e-29 (k=16, Delta^2/E4^2,
+%  P=2), 3.8e-29 (k=20, E6^4/E4, P=1), 2.1e-28 (k=24, Delta^3/E4^3, P=3).  Control: the same
+%  B_alpha assembly fed generic non-modular Laurent weights gives 0.78, 0.69, 0.69 -- so
+%  U-invariance is carried by lem:ellLaurent and not by the shape of B_alpha.
+%End-to-end solve for w:
+%  k=8,  n=6,  P=1: solve residual 4.7e-26, hat r relations 1.1e-25 and 2.0e-25
+%  k=12, n=10, P=3: solve residual 1.9e-30, hat r relations 5.0e-29 and 1.5e-28
+%with solve-kernel of dimension exactly dim W in both, matching the uniqueness claim.
+
+Poles elsewhere on $\gamma^{\rm arc}$ are handled by deforming rather than by sliding. Writing the
+contour in polar form $\tau(\theta)=r(\theta)e^{i\theta}$, the map $S$ sends $(r,\theta)$ to
+$(1/r,\pi-\theta)$, so the path retraces under $S$, as Lemma~\ref{lem:geoloops} requires, precisely
+when $\log r$ is odd about $\theta=\tfrac{\pi}{2}$: an outward bulge on one half of the arc against
+an equal inward one on the mirror half. A pole at $e^{i\phi}$ with $\phi\ne\tfrac{\pi}{2}$ and its
+$S$-image at $e^{i(\pi-\phi)}$ are distinct, so passing outside the first and inside the second is
+such a deformation, and the $S$-relation is untouched.
+
+At $\phi=\tfrac{\pi}{2}$ this fails, and not because $i$ is elliptic but because it is the fixed
+point of the symmetry the contour relies on. Oddness forces $\log r(\tfrac{\pi}{2})=0$, so every
+$S$-symmetric path runs through $i$ and no deformation avoids it. One may still pass to one side:
+by Lemma~\ref{lem:wall} the two sides differ by a full loop about the pole, hence by
+$(2\pi i)^{n+2}r^*_{f,i}(1)(X-iY)^{n}$ in $r_f$, and either choice has a defect that can be
+subtracted. But neither is $S$-symmetric, since $S$ exchanges the sides, and $\gamma$ together with
+$S\gamma$ then bounds a region containing $i$. The principal value is the average of the two, so it
+differs from each by half that residue, and it is the unique $S$-fixed choice; this is why
+$r_f|_{(1+S)}=0$ survives at $i$, and why no correction is left over there.
+
+%NUMERICS for the arc-interior claims.  k=12, f = Delta/(j-500), poles at e^{i phi} on the arc with
+%phi = 1.8484057 and its S-image pi - phi = 1.2931870.  Deformation log r = eta g(theta - pi/2),
+%eta = 0.15.  g odd (g = sin 6u):  |r_f|(1+S)|/sc = 1.4e-25.  g even (g = sin^2 6u, outward on both
+%halves): 0.62.  So the odd/even criterion is sharp.  With Phi(f) r_{E_k} subtracted, BOTH odd
+%deformations put tilde r_f in W outright: out-above/in-below gives (1+S) = 6.7e-26 and
+%(1+U+U^2) = 2.2e-23; in-above/out-below gives 5.5e-26 and 2.7e-23.  No Q_f is needed on the arc
+%interior.  The two do differ, by 0.61 relative, so which element of W one lands on depends on the
+%indentation; but the difference stays inside W, so this is the usual normalisation ambiguity and
+%not an obstruction.
+%Pole AT i: k=18, f = E4^6/E6 (simple pole; lem:ellLaurent at n=2 forces P odd since k/2 = 9),
+%dim S_18 = 1 so dim W = 3.  PV by symmetric excision |theta - pi/2| < eps:
+%  eps = 0.05, 0.02, 0.01  ->  |tr|(1+S)|/sc = 1.5e-24, 3.4e-24, 6.4e-24
+%                              |tr|(1+U+U^2)|/sc = 3.5e-21, 1.2e-20, 4.9e-21
+%i.e. tilde r_f is in W outright, no Q_f.  Adding Q_f over the U-orbit {i, 1+i, (1+i)/2} makes it
+%worse by ~350, confirming none belongs.  Reason: with gamma^S = gamma^T the arc is traversed twice
+%in opposite directions, so an INTERIOR pole is passed twice with opposite orientation and even the
+%half-residues cancel; an ENDPOINT pole (Gamma.rho) is where the retrace turns around, is not
+%passed twice, and is exactly where Q_f survives.
+%A one-sided contour instead: log r = eta cos(3u), bulging over i with the S-image under, gives
+%|tr|(1+S)|/sc = 1.38 -- the S-relation broken as the argument above predicts.
+%UNCHECKED: P even, i.e. 4 | k.  A double pole's PV is not automatically finite the way a simple
+%pole's is, and that is where lem:Laurent did real work in lem:wallvalue.  Run k=20, E4^7/E6^2.
+
+%NUMERICS for lem:georho, delta = 0.10, T-segment the straight chord.  |defect + Q_f| / |tilde r_f|:
+%  dim S_k = 0, dim W = 1:
+%  k=8,  n=6,  P=1, f = E6^2/E4    (6|n)      2.0e-29     [tilde r defect/scale = 6.0]
+%  k=14, n=12, P=1, f = E6^3/E4    (6|n)      1.3e-27     [19.399]
+%  k=10, n=8,  P=2, f = E6^3/E4^2  (6 nmid n) 7.5e-28     [26.943]
+%  dim S_k = 1, dim W = 3:
+%  k=20, n=18, P=1, f = E6^4/E4    (6|n)      6.5e-25     [2.6479]
+%  k=16, n=14, P=2, f = E6^4/E4^2  (6 nmid n) 7.6e-27     [5.47701]
+%  k=12, n=10, P=3, f = Delta/j = Delta^2/E4^3            1.3e-26     [7.4657]
+%The k=12 row is the strongest single test: dim W = 3 and a TRIPLE pole (P = 3 is the only order
+%lem:ellLaurent allows at rho for k=12, since -k = 0 mod 3).
+%The 6 nmid n rows are the sharp ones: there the alpha=1 term drops out by the eigenvalue relation
+%and the whole defect comes from alpha=2.  The dim S_k = 1 rows matter because W is then 3-dimensional
+%rather than 1-dimensional, so the identity is not being checked in a degenerate space.
+%|tilde r_f|(1+S)| = 1e-28..1e-31 throughout.
+%Trap: comparing the RAW r_f defect against Q_f leaves a ~5.4% residual and a non-constant
+%componentwise ratio, which looks like def:Qf failing at the elliptic point.  It is the
+%Phi(f) r_{E_k} piece of thm:geoperiod, not a failure; subtract it first.
+%Also recorded: the T-side choice is not free.  At delta = 0.10 the straight segment and a detour
+%+0.30i above agree to 8e-31, while a detour -0.30i below changes r_f by a factor 2.93.  And
+%max|r_f| = 11011101.0, |defect| = 70650548.0 at delta = 0.20, 0.10, 0.05, 0.02, 0.01 alike, to
+%every digit, which is prop:indepHomotopy in action.
 
 We turn to the analogue, for this class, of the explicit formulae above. Two of their ingredients
 are already available: the polylog projection needs only a change of constant, and the Laurent
@@ -2007,11 +2170,12 @@ the $\rho$ endpoint having been absorbed by the periodicity of $\tk$.
 %  (iv)   lem:polylogcf analogue on the chord.  Since the chord is horizontal at sqrt3/2, the
 %         inversion criterion is again a single global height comparison, not a varying one.
 %  (v)    lem:polylogedge, def:FP: the on-contour case, now at height sqrt3/2.
-%  (vi)   lem:wallvalue at i.  Laurent side DONE (lem:ellLaurent); the wall value itself is
-%         contour-dependent and does not transfer.
-%  (vii)  lem:wallvalue at rho.  Laurent side DONE (lem:ellLaurent, n=3); the wall value is the
-%         genuinely new object, and rho is simultaneously base point, contour endpoint and
-%         elliptic point.  See TODO(1).
+%  (vi)   Poles at Gamma.i.  DONE for SIMPLE poles: principal value through i, and tilde r_f is
+%         then in W with no Q_f at all (see the prose and numerics above).  Still to check: P even,
+%         i.e. 4 | k, where the PV of a double pole is not automatically finite.
+%  (vii)  Poles at Gamma.rho.  DONE, lem:georho.  Easy because rho and rho+1 are ENDPOINTS of the
+%         segments, hence movable by sliding the base point along the arc; prop:indepHomotopy then
+%         makes the slide free.
 %  (viii) thm:mero analogue: the explicit formula for L^*(f,s) in this class.
 
 \subsection{Period polynomials in the geodesic class}\label{sec:geoperiod}
