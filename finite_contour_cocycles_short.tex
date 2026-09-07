@@ -297,7 +297,7 @@ exactly maps onto the classical L-function integral~\cite{01-Apostol}:}
 \end{equation}
 \end{remark}
 
-\section{L-functions for weak modular forms}\label{sec:Lfun}
+\section{L-functions, period polynomials and poles at the cusp}\label{sec:Lfun}
 
 \begin{proposition}\label{prop:HGG}
 Let $\Gamma(s, x) := \int_x^{\infty} e^{-t} t^{s-1} dt$ denote the {\em incomplete Gamma function}. For $n\ne0$, $\nu\in\CC$, and $z\in\HH$,
@@ -1815,7 +1815,7 @@ of~\cite{LobrichSchwagenscheidt2022}, going back to~\cite{Zagier1977}, have weig
 of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitrary order.}
 \end{remark}
 
-\section{A geodesic reference contour}\label{sec:arc}
+\section{L-functions, period polynomials and poles at generic locations}\label{sec:arc}
 
 %SKELETON. Preamble mirrors the part of Section 4 before 4.1: it fixes the reference class.
 %  - motivation, FORWARD-looking: Section 3 reconstructed period polynomials of cusp forms
@@ -1834,53 +1834,362 @@ of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitr
 %    and the same normalisation ambiguity Brown-Fonseca wrestle with remains.  The
 %    codimension-zero pole-free region is what makes the arc worth the trouble.
 
-Lemma~\ref{lem:rfW} attaches to $f\in S^!_k$ a period polynomial lying in $W$, assembled from
-special values of $L^*$, and the construction needs a region free of poles. For $f\in F_k$ the
-poles are unavoidable, and the question becomes how much of $\HH$ must be excluded. Take the base
-point $\tau_0=\rho+1=\tfrac{1}{2}+\tfrac{\sqrt3}{2}\,i$ and the reference contour along the arc
-$|\tau|=1$ running from $\rho$ to $\rho+1$, the common lower boundary of $\mathcal{F}$ and its
-$S$-image. The set excluded is then that contour itself, a curve, so the poles of $f$ are
-unconstrained on a set of codimension zero in $\HH$. This section derives explicit expressions for
-$L^*$ along that contour, in a form admitting equally explicit representations in terms of the
-$q$-series coefficients of a generic $f\in F_k$; Section~\ref{sec:arcperiod} uses them to attach a
-period polynomial in $W$ to every $f\in F_k$.
+For the reconstruction of period polynomials from special values of $L^*$, which
+Section~\ref{sec:Lfun} carried out for $f\in S^!_k$, we needed a region free of poles. As it
+happens, and as we show below, when the L-functions defined in this
+section are used to build period polynomials that are naturally elements of $W$, choosing the base
+point $\tau_0=\rho+1=\tfrac{1}{2}+\tfrac{\sqrt3}{2}\,i$ and taking the base contour of the
+reference homotopy class to lie on the arc $|\tau|=1$ running from $\rho$ to $\rho+1$, along the
+lower boundary of the fundamental domain and its $S$-image, makes that pole-free region of
+codimension zero in the upper half-plane. Motivated by this, we derive here explicit expressions
+for the L-function along this reference contour, defined so as to allow similarly explicit
+representations in terms of the $q$-series coefficients of generic $f\in F_k$.
 
-\begin{definition}\label{def:georef}
-Let $\gamma^{\rm arc}$ be the geodesic segment
-$\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$, oriented from $\rho$ to $\rho+1$, and
-let $\tau_0=\rho+1$. The \emph{geodesic reference class} is the class of
-$\hat\gamma^S_f=\hat\gamma^T_f=\gamma^{\rm arc}$.
+For $f\in F_k$ with poles in $\HH$, the two segment integrals of Definition~\ref{def:Lint} depend
+on their contours; we show their sum depends only on the homotopy class of the pair.
+
+\begin{proposition}\label{prop:indepHomotopy_arc}
+For $f\in F_k$ and $\tau_0\in\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, the L-integral
+$L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ depends only on the homotopy class of its
+two segments in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, and not on the basepoint
+$\tau_0$. At fixed $\tau_0$ each of $L^*_S,L^*_T$ is separately path-independent.
+\end{proposition}
+
+\begin{proof}
+At fixed $\tau_0$ the integrands $f(\tau)\tau^{s-1}$ and $f(\tau)\tk(\tau,s)$ are
+holomorphic on $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, so Cauchy's theorem makes each
+of $L^*_S,L^*_T$ constant on the homotopy class of its own segment. Under a motion of the
+basepoint, $\partial_{\tau_0}L^*$ is evaluated at the moving endpoints alone; the
+computation of Proposition~\ref{prop:indep}, which uses only $f(\tau_0-1)=f(\tau_0)$ and
+$f(-1/\tau_0)=\tau_0^{k}f(\tau_0)$, cancels the boundary terms of $L^*_S$ against those
+of $L^*_T$, the interior poles lying off the contours. Hence $\partial_{\tau_0}L^*=0$ along
+any motion in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, while each summand may
+separately vary.
+\end{proof}
+
+\begin{definition}\label{def:class_arc}
+For $f\in F_k$ and $\tau_0\in\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$, let
+$[\gamma^S_{\tau_0}]$, $[\gamma^T_{\tau_0}]$ denote the homotopy classes of the two
+segments in $\HH\setminus\Gamma\!\cdot\!f^{-1}(\infty)$.
 \end{definition}
 
-This is admissible by Definition~\ref{def:segments}: $-1/(\rho+1)=\rho$ and $(\rho+1)-1=\rho$, so
-the two segments share their endpoints and may be taken to be the same path. The arc passes
-through the three elliptic points $\rho$, $i$ and $\rho+1$. Proposition~\ref{prop:indepHomotopy},
-Definition~\ref{def:class} and Lemma~\ref{lem:wall} are stated for $f\in F_k$ and any admissible
-pair of segments, and apply here unchanged.
+Thus, with $\gamma^S_{\tau_0} \in [\gamma^S_{\tau_0}]$ and
+$\gamma^T_{\tau_0} \in [\gamma^T_{\tau_0}]$, by Proposition~\ref{prop:indepHomotopy_arc}
+the value
+\begin{equation}\label{eq:Lclass_arc}
+L^*\big(f,s;[\gamma^S_{\tau_0}],[\gamma^T_{\tau_0}]\big)
+:= L^*\big(f,s;\gamma^S_{\tau_0} , \gamma^T_{\tau_0}\big)
+= L^*_S(f,s;\gamma^S_{\tau_0}) + L^*_T(f,s;\gamma^T_{\tau_0})
+\end{equation}
+is independent of the chosen representative paths and independent of $\tau_0$ (subject to
+natural constraints of $\tau_0$ monodromies around singular points, which move between
+homotopy classes).
 
-A form with a pole on $\SLZ\!\cdot\!\rho$ has one at each endpoint of $\gamma^{\rm arc}$, so
-$\tau_0$ is excluded by the hypothesis $\tau_0\notin\Gamma\!\cdot\!f^{-1}(\infty)$ of
-Proposition~\ref{prop:indepHomotopy}. The remedy is to move the base point along the arc rather
-than off it: set
+We would like to speak of ``the'' L-integral, and homotopy classes split this into L-integrals for
+contours in different classes. We therefore fix a reference class, and we fix it on the boundary of
+the fundamental domain.
+
+Write $\gamma^{\rm arc}$ for the geodesic segment
+$\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$, oriented from $\rho$ to $\rho+1$.
+Taking $\tau_0=\rho+1$ and both segments equal to $\gamma^{\rm arc}$ is admissible by
+Definition~\ref{def:segments}, since $-1/(\rho+1)=\rho$ and $(\rho+1)-1=\rho$: the two segments
+share their endpoints and may be taken to be the same path. The arc passes through the three
+elliptic points $\rho$, $i$ and $\rho+1$, and a form with a pole on $\SLZ\!\cdot\!\rho$ therefore
+has one at each endpoint, which the hypothesis $\tau_0\notin\Gamma\!\cdot\!f^{-1}(\infty)$ of
+Proposition~\ref{prop:indepHomotopy_arc} forbids. The remedy is to move the base point along the arc
+rather than off it: set
 \begin{equation}\label{eq:geodelta}
 \tau_0(\delta):=e^{i(\frac{\pi}{3}+\delta)},\qquad \delta>0,
 \end{equation}
-so that $S^{-1}\tau_0(\delta)=e^{i(\frac{2\pi}{3}-\delta)}$, and the segments run between these
-two points, meeting neither $\rho$ nor $\rho+1$. This is not a regularisation. For every such
-$\delta$ the hypothesis of Proposition~\ref{prop:indepHomotopy} holds, so $L^*$ does not depend on
-$\delta$ at all: the shortening of the segments is compensated by the movement of the base point,
-and no limit is taken. The displacement stays on $\gamma^{\rm arc}$, which is stable under $S$.
+so that $S^{-1}\tau_0(\delta)=e^{i(\frac{2\pi}{3}-\delta)}$ and the segments run between these two
+points, meeting neither $\rho$ nor $\rho+1$.
+
+\begin{definition}[Reference homotopy class on the arc]\label{def:georef}
+Let $f\in F_k$. The \emph{geodesic reference class} $[\hat\gamma_f]$ is:
+\begin{itemize}
+\item if $f$ has no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$: take $\tau_0=\rho+1$ and
+$\hat\gamma^S_f=\hat\gamma^T_f=\gamma^{\rm arc}$;
+\item if $f$ has a pole on $\SLZ\!\cdot\!\rho$, so that one sits at each endpoint: take
+$\tau_0=\tau_0(\delta)$ as in~\eqref{eq:geodelta}, with $\delta>0$ small enough that no pole of
+$f$ lies on the sub-arc between $S^{-1}\tau_0(\delta)$ and $\tau_0(\delta)$;
+\item if $f$ has a pole at $e^{i\phi}$ with $\tfrac{\pi}{3}<\phi<\tfrac{2\pi}{3}$ and
+$\phi\neq\tfrac{\pi}{2}$: replace $\gamma^{\rm arc}$ by $\tau(\theta)=r(\theta)e^{i\theta}$ with
+$\log r$ odd about $\theta=\tfrac{\pi}{2}$, chosen to miss every pole of
+$f$.\footnote{\textbf{Three defects in this definition as it stands, to be repaired. (i) No clause
+covers a pole at $i$ itself, $\phi=\tfrac{\pi}{2}$. Oddness of $\log r$ forces
+$r(\tfrac{\pi}{2})=1$, so every admissible deformation passes through $i$ and none avoids such a
+pole; the definition is therefore silent there rather than prescribing anything, and $L^*$ is not
+yet defined for those $f$. (ii) The third clause does not pin a homotopy class. ``Chosen to miss
+every pole'' admits passing on either side of the pole, so what is defined is a family of classes
+differing by the residues of the poles between them, not a single class. (iii) The clauses read as
+a case split but are not mutually exclusive: a form may have poles on $\SLZ\!\cdot\!\rho$ and in the
+interior of the arc simultaneously, in which case the second and third prescriptions must be
+applied together.}}
+\end{itemize}
+\end{definition}
+
+The second clause is not a regularisation. For every such $\delta$ the hypothesis of
+Proposition~\ref{prop:indepHomotopy_arc} holds, so $L^*$ does not depend on $\delta$ at all: the
+shortening of the segments is compensated by the movement of the base point, and no limit is
+taken. The displacement stays on $\gamma^{\rm arc}$, which is stable under $S$.
+
+In the third clause the oddness of $\log r$ is what the class requires, not a convenience: $S$
+acts on the unit circle by $(r,\theta)\mapsto(1/r,\pi-\theta)$, so the deformed path retraces
+itself under $S$ exactly when $\log r$ is odd about $\theta=\tfrac{\pi}{2}$. Oddness is thus
+$S$-equivariance, and it is what keeps the closed path traced by $S^2$ degenerate. It also fixes
+the endpoints correctly: it forces $\log r(\tfrac{2\pi}{3})=-\log r(\tfrac{\pi}{3})$, so writing
+$r(\tfrac{\pi}{3})=c$ the deformed segment runs from $c^{-1}e^{2\pi i/3}$ to $ce^{i\pi/3}$, and
+$S^{-1}(ce^{i\pi/3})=c^{-1}e^{2\pi i/3}$; a deformation lifting the endpoints off the arc simply
+carries the base point with them, and Definition~\ref{def:segments} is still satisfied.
+
+Definition~\ref{def:georef} stops where a choice of contour suffices, and at an elliptic point no
+choice does. The reason is geometric rather than technical. At an elliptic point $\tau_e$ of order
+$n$ the function $j-j(\tau_e)$ vanishes to order $n$, so a pole of $f$ at $\tau_e$ is the merger of
+a full stabiliser orbit of $n$ poles: nearby, $f$ has simple poles at $n$ distinct points permuted
+by the stabiliser, and as they coalesce they pinch the contour from every side at once. Indenting
+past one member of the orbit passes around the others, so no deformation of the contour separates
+them.
+
+The remedy is to move the pole rather than the contour. Lift the orbit off the arc by deforming
+$f$, evaluate there --- where the first clause of Definition~\ref{def:georef} applies and no choice
+remains --- and continue the result back to $\tau_e$. This is how every elliptic pole will be
+handled.\footnote{\textbf{What this principle does and does not supply. It does not supply
+existence of the limit: that must be established case by case, and in general the limit exists only
+after rescaling by a power of the deformation parameter. What it supplies is that the answer cannot
+land outside $W$. Every deformed form falls under the first clause of
+Definition~\ref{def:georef}, so its period polynomial lies in $W$; $W$ is a closed subspace; hence
+any limit that exists lies in $W$. The rescaling is by a power of the deformation parameter rather
+than of a contour parameter, so it is not a choice of how to draw a path --- but it remains a
+regularisation, extracting the leading coefficient of a divergence, and whether different
+deformations of the same $f$ agree is not settled here.}}
+
+With this definition we may unambiguously write
+\begin{align}\label{eq:Lstararc}
+L^*(f,s) := L^*\big(f, s; [\hat\gamma_f^S], [\hat\gamma_f^T]\big)~.
+\end{align}
+Having fixed this reference value, consider two paths $\gamma^S_{\tau_0}$ and
+$\gamma^T_{\tau_0}$ which may lie in any homotopy class, and let $X_S(p),X_T(p)\in\ZZ$ count the
+windings of $\gamma^S_{\tau_0}$, $\gamma^T_{\tau_0}$ about each pole $\tau_p\in f^{-1}(\infty)$
+relative to the reference class.
+
+\begin{lemma}\label{lem:wall_arc}
+Let $f\in F_k$, $r_S(f, \tau_p) := \Res_{\tau=\tau_p} (f(\tau) \tau^{s-1})$
+and $r_T(f, \tau_p) := \Res_{\tau=\tau_p} (f(\tau) \tk(\tau, s))$. Then,
+\begin{equation}\label{eq:wall_arc}
+L^*\big(f,s;[\gamma^S_{\tau_0}],[\gamma^T_{\tau_0}]\big)
+= L^*(f,s)
++ 2\pi i\,e^{-\pi i s/2}\sum_{\tau_p\in f^{-1}(\infty)}\Big[
+X_S(\tau_p) r_S(f, \tau_p)
++ X_T(\tau_p) r_T(f, \tau_p) \Big].
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Two pairs whose winding data differ by one unit at a single pole $p$, on one segment, bound a loop
+encircling $p$ once; the residue theorem adds $2\pi i$ times the residue of that segment's
+integrand, $f(\tau)\tau^{s-1}$ for $\gamma^S$ or $f(\tau)\tk(\tau,s)$ for $\gamma^T$, and the
+prefactor $e^{-\pi i s/2}$ of Definition~\ref{def:Lint} multiplies through. Summing over crossings
+gives~\eqref{eq:wall_arc}.
+\end{proof}
+
+In particular the two choices of side available in the third clause of
+Definition~\ref{def:georef} differ by the residues of the poles between them.
+
+This provides the basics for the finite L-functions of $f\in F_k$ in this class. We wish, however,
+to present them in terms of their $q$-series coefficients, as was done for $f\in M^!_k$ in
+Section~\ref{sec:Lfun}. The obstruction to doing so directly is not a technical one. For
+$f\in M^!_k$ the series $\sum_n c_f(n)q^n$ converges on all of $\HH$, as $f$ is holomorphic there,
+and term-by-term evaluation is legitimate throughout. A pole at finite height ends this. The
+expansion about the cusp then represents $f$ only above the highest pole, on
+${\rm Im}\,\tau>y_f:=\sup\{{\rm Im}\,\tau_p\}$, with coefficients growing as
+$|c_f(n)|\gtrsim n^{m-1}e^{2\pi n\,{\rm Im}\,\tau_p}$ for a pole of order $m$~\cite{1806}. The arc
+has height varying between $\tfrac{\sqrt3}{2}$ and $1$, so the operative threshold is its lowest
+point $\tfrac{\sqrt3}{2}$: as soon as $f$ has a pole at or above that height the $q$-series
+diverges somewhere on the contour, and there is then no series to integrate term by term, rather
+than a slowly convergent one to be handled with care. To do this, we must introduce the
+polylogarithmic projections of Ref.~\cite{1806}.
 
 \subsection{Explicit formulae for $L^*(f,s)$ on the arc}\label{sec:arcL}
 
-%SKELETON.  Mirrors 4.1 layer for layer.
-%  A. projector and split: def:geoproj [WRITTEN]; f = P^geo f + R f; growth bound  [OPEN]
-%  B. blocks: def:geoIN, blocks-on-the-chord, lem:geopolylog (eq:geoG, eq:geoG0, eq:geoIN),
-%     eq:sheet, lem:ellLaurent  [WRITTEN -- salvage from PARKED-GEOBLOCK below \end{document}]
-%  C. assembly: thm:geomero, mirroring thm:mero  [OPEN]
-%  Open items are (ii), (iv), (v), (viii) of the old TODO(3).  NB lem:geopolylog assumes
-%  Im z > sqrt3/2 STRICTLY and |z| >= 1, so it covers neither the threshold line nor the
-%  lens lying below the arc but above sqrt3/2.
+%STATUS: layers A and B written; layer C (thm:geomero, the assembly) still open, as are the
+%chord analogue of lem:polylogcf and the on-contour analogue of lem:polylogedge/def:FP.
+
+We lay out the starting definitions and facts.
+
+\begin{definition}\label{def:Finfty_arc}
+$F(\infty)$ is the space of meromorphic functions $g:\HH\to\CC$ with $g(\tau+1)=g(\tau)$, finitely
+many poles in each compact subset of the strip $|{\rm Re}\,\tau|\le\tfrac12$, and bounded pole
+order at $q=0$.
+\end{definition}
+
+\begin{definition}\label{def:proj_arc}
+Let $f\in F_k$ have a pole of order $m_p$ at $\tau_p\in\HH$. On a punctured $\varepsilon$-ball
+about $\tau_p$ small enough to exclude the other poles of $f$, we have
+\begin{equation}\label{eq:laurent_arc}
+f(\tau)=\sum_{m=1}^{m_p}\frac{r^*_{f,\tau_p}(m)}{(\tau-\tau_p)^{m}}+g(\tau),
+\qquad
+r^*_{f,\tau_p}(m)=\frac{1}{2\pi i}\oint_{|\tau-\tau_p|=\varepsilon}
+f(\tau)\,(\tau-\tau_p)^{m-1}\,d\tau ,
+\end{equation}
+with $g$ holomorphic at $\tau_p$. We call $r^*_{f,\tau_p}(1),\dots,r^*_{f,\tau_p}(m_p)$ the
+\emph{pole weights} of $f$ at $\tau_p$; the first is the residue, and the last is nonzero, which is
+what fixes the order. The \emph{polylog projection} of $f$ at $\tau_p$ is
+\begin{equation}\label{eq:polyproj_arc}
+\widehat P_{\tau_p}f(\tau):=\sum_{m=1}^{m_p} r^*_{f,\tau_p}(m)\,
+\frac{(-2\pi i)^m}{(m-1)!}\,\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big),
+\qquad \Li_s(x):=\sum_{n\ge1}\frac{x^{n}}{n^{s}}.
+\end{equation}
+\end{definition}
+
+The composite projector is the one place where the contour enters. Its threshold is set so that
+$(1-\widehat P)f$ admits a $q$-series everywhere it is used, which is a statement about a
+half-plane: a $q$-series converges exactly on ${\rm Im}\,\tau>h$ with $h$ the height of the highest
+surviving pole. The operative height is the lowest point of $\gamma^{\rm arc}$, namely
+$\tfrac{\sqrt3}{2}$, since the mode sums below are controlled by $e^{-2\pi n\,{\rm Im}\,\tau}$ and
+the arc descends to that height at its endpoints.
+
+\begin{definition}\label{def:geoproj}
+For $f\in F_k$ with $T$-inequivalent finite-order poles $\{\tau_p\}$ of orders $\{m_p\}$, set
+\begin{equation}\label{eq:polesplit_arc}
+\widehat P^{\,\rm geo}:=\sum_{{\rm Im}\,\tau_p\ge\frac{\sqrt3}{2}}\widehat P_{\tau_p},
+\end{equation}
+with $\widehat P_{\tau_p}$ as in Definition~\ref{def:proj_arc}, and write
+$f=\widehat P^{\,\rm geo}f+(I-\widehat P^{\,\rm geo})f$.
+\end{definition}
+
+\begin{lemma}\label{lem:proj_arc}
+The normalized block $\frac{(-2\pi i)^m}{(m-1)!}\Li_{1-m}\big(e^{2\pi i(\tau-\tau_p)}\big)$ has
+principal part exactly $(\tau-\tau_p)^{-m}$, so $\widehat P_{\tau_p}f$ matches the principal part
+of $f$ and $(I-\widehat P_{\tau_p})f$ is holomorphic at $\tau_p$.
+\end{lemma}
+\begin{proof}
+By the small-$t$ expansion $\Li_{1-m}(e^{-t})=(m-1)!\,t^{-m}+O(t^0)$ with
+$t=-2\pi i(\tau-\tau_p)$, the block has a \emph{pure} pole
+$(\tau-\tau_p)^{-m}+O((\tau-\tau_p)^0)$ at $\tau_p$, with no lower-order poles. Summing against the
+Laurent coefficients $r^*_{f,\tau_p}(m)$ reproduces the principal part of $f$ term by term, leaving
+$(I-\widehat P_{\tau_p})f$ regular at $\tau_p$.
+\end{proof}
+
+\begin{definition}\label{def:cRf_arc}
+For $f\in F_k$ and $\widehat P^{\,\rm geo}$ as in Definition~\ref{def:geoproj}, write
+\begin{equation}
+(I-\widehat P^{\,\rm geo})f(\tau)=\sum_n c_{Rf}(n)\,q^n,\qquad q=e^{2\pi i\tau}.
+\end{equation}
+\end{definition}
+
+\begin{lemma}\label{lem:projspace_arc}
+$F_k\subset F(\infty)$ and $(I-\widehat P^{\,\rm geo})f\in F(\infty)$. Every pole of
+$(I-\widehat P^{\,\rm geo})f$ has ${\rm Im}\,\tau<\tfrac{\sqrt3}{2}$, with a maximal height
+$y_b<\tfrac{\sqrt3}{2}$ (set $y_b=0$ if $(I-\widehat P^{\,\rm geo})f$ is holomorphic).
+\end{lemma}
+\begin{proof}
+A weakly holomorphic form is $T$-periodic, meromorphic, and $O(e^{C{\rm Im}\tau})$ at the cusp, so
+$F_k\subset F(\infty)$; the projected polylogs $\Li_{1-m}(e^{2\pi i(\tau-\tau_p)})$ share these
+properties, so $(I-\widehat P^{\,\rm geo})f\in F(\infty)$ (and leaves $F_k$, being non-modular). By
+Lemma~\ref{lem:proj_arc}, $\widehat P^{\,\rm geo}$ cancels the principal part of every pole with
+${\rm Im}\,\tau\ge\tfrac{\sqrt3}{2}$, so the poles of $(I-\widehat P^{\,\rm geo})f$ lie strictly
+below $\tfrac{\sqrt3}{2}$; finite in each compact set and accumulating only at ${\rm Im}\,\tau=0$,
+they have a maximal height $y_b<\tfrac{\sqrt3}{2}$.
+\end{proof}
+
+The Fourier coefficients of a $T$-periodic meromorphic function are controlled by its highest pole:
+$|c_{Rf}(n)|\le e^{2\pi n(y_b+\varepsilon)}$ for every $\varepsilon>0$ and all large
+$n$~\cite{1806}. Since $y_b<\tfrac{\sqrt3}{2}$, the series $\sum_n c_{Rf}(n)q^n$ converges
+geometrically down to ${\rm Im}\,\tau=\tfrac{\sqrt3}{2}$, at base
+$e^{-2\pi(\frac{\sqrt3}{2}-y_b-\varepsilon)}$, and so on $\gamma^{\rm arc}$ itself. This is the
+point of the projection: convergence merely for large ${\rm Im}\,\tau$ would be automatic and of no
+use, as the contour descends to height $\tfrac{\sqrt3}{2}$.
+
+The relations satisfied by the pole weights at an elliptic point are contour-free, so they hold
+here verbatim; we record them now, as both the block integral below and the period polynomials
+constructed later use them.
+
+\begin{lemma}\label{lem:ellLaurent}
+Let $\tau_e$ be $i$ or $\rho$, of order $n=2$ or $n=3$, let
+$\gamma=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$ be the generator $S$ or $ST$ of
+its stabiliser in $\SLZ$, and set $\zeta:=c\tau_e+d$, so that $c=1$ and $\zeta=e^{i\pi/n}$. Let
+$f\in F_k$ have a pole of order $P$ at $\tau_e$ with pole weights $r^*_{f,\tau_e}(m)$. Modularity is
+equivalent to one relation for each principal-part order $\mu$,
+\begin{equation}\label{eq:ellLaurent}
+\sum_{m=\mu}^{P} r^*_{f,\tau_e}(m)\binom{m}{\mu}\,\zeta^{m}
+=\zeta^{k}\sum_{m=\mu}^{P} r^*_{f,\tau_e}(m)\binom{k}{m-\mu}\,\zeta^{-m},
+\qquad \forall\mu=1,\dots,P,
+\end{equation}
+and the leading relation is $\big(\zeta^{2P}-\zeta^{k}\big)r^*_{f,\tau_e}(P)=0$, so that
+$2P\equiv k \pmod{2n}$.
+\end{lemma}
+\begin{proof}
+Write $\tau=\tau_e+\varepsilon$. Since $\det\gamma=1$ and $\gamma\tau_e=\tau_e$,
+\begin{equation}\label{eq:ellshift}
+\gamma\tau-\tau_e=\frac{\tau-\tau_e}{(c\tau+d)(c\tau_e+d)}=\frac{\varepsilon}{\zeta(\zeta+\varepsilon)},
+\qquad (c\tau+d)^{k}=\zeta^{k}\big(1+\varepsilon/\zeta\big)^{k},
+\end{equation}
+using $c=1$. Hence $(\gamma\tau-\tau_e)^{-m}=\zeta^{2m}\varepsilon^{-m}(1+\varepsilon/\zeta)^{m}$,
+and matching the coefficient of $\varepsilon^{-\mu}$ in $f(\gamma\tau)=(c\tau+d)^{k}f(\tau)$
+through $(1+\varepsilon/\zeta)^{j}=\sum_{l}\binom{j}{l}\zeta^{-l}\varepsilon^{l}$ gives
+$\sum_{m\ge\mu}r^*(m)\zeta^{2m}\binom{m}{\mu}\zeta^{-(m-\mu)}
+=\zeta^{k}\sum_{m\ge\mu}r^*(m)\binom{k}{m-\mu}\zeta^{-(m-\mu)}$; dividing by $\zeta^{\mu}$
+yields~\eqref{eq:ellLaurent}. At $\mu=P$ only $m=P$ survives on each side.
+\end{proof}
+
+At $n=2$ the order condition forces $P$ odd when $k\equiv2\pmod4$ and $P$ even when $4\mid k$; at
+$n=3$ it reads $2P\equiv k\pmod 6$.
+
+Each pole with ${\rm Im}\,\tau_p\ge\tfrac{\sqrt3}{2}$ contributes one projected polylog to
+$L^*(f,s)$, whose L-integral we now record.
+
+\begin{definition}\label{def:geoIN}
+For a pole of order $N+1$ projected at $z$, let $\lambda_{N,z}$ denote the corresponding block
+of~\eqref{eq:polyproj_arc}, and set
+$I^{\rm geo}_N(s,z):=L^*\big(\lambda_{N,z},\,s;\,[\hat\gamma^S_f],[\hat\gamma^T_f]\big)$,
+evaluated in the geodesic reference class of Definition~\ref{def:georef}.
+\end{definition}
+
+The blocks need not be integrated on the arc. Both kernels $\tau^{s-1}$ and $\tk(\tau,s)$ are
+holomorphic on all of $\HH$, so the only obstruction to deforming is the block's own poles at
+$z+\ZZ$; one may therefore evaluate on the horizontal chord from $\rho$ to $\rho+1$ instead, and
+crossing a block pole in doing so costs exactly $(-1)^{N}(2\pi i)^{-N}g^{(N)}(z)$.
+
+\begin{lemma}\label{lem:geopolylog}
+Let ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ and $|z|\ge1$, set $\tau_0=\rho+1$, and let
+$\gamma^*(s,x):=\sum_{j\ge0}\frac{(-x)^{j}}{j!\,(j+s)}$, entire in $x$. With
+\begin{equation}\label{eq:geoG}
+G^{\rm geo}_{s,k}(-n):=e^{-\pi is/2}\Big[\tau_0^{\,s}\,\gamma^*\big(s,2\pi in\tau_0\big)
+-\rho^{\,s}\,\gamma^*\big(s,2\pi in\rho\big)\Big]
+\;+\;\frac{\Gamma\big(s,2\pi in\tau_0\big)}{(-2\pi n)^{s}}
+\;+\;i^{k}\frac{\Gamma\big(k-s,2\pi in\tau_0\big)}{(-2\pi n)^{k-s}},
+\end{equation}
+\begin{equation}\label{eq:geoG0}
+G^{\rm geo}_{s,k}(0):=e^{-\pi is/2}\,\frac{\tau_0^{\,s}-\rho^{\,s}}{s}
+-\frac{(\tau_0/i)^{s}}{s}-i^{k}\frac{(\tau_0/i)^{k-s}}{k-s},
+\end{equation}
+we have
+\begin{equation}\label{eq:geoIN}
+I^{\rm geo}_N(s,z)=-\delta_{N,0}\,G^{\rm geo}_{s,k}(0)
++(-1)^{N+1}\sum_{n\ge1}n^{N}e^{2\pi inz}\,G^{\rm geo}_{s,k}(-n),
+\end{equation}
+the sum converging at rate $e^{-2\pi({\rm Im}\,z-\frac{\sqrt3}{2})}$.
+\end{lemma}
+
+The incomplete gammas in~\eqref{eq:geoG} may equally be written as upper ones, using
+\begin{equation}\label{eq:sheet}
+\Gamma^{\rm cont}(s,x)=e^{2\pi is}\,\Gamma(s,x)+\big(1-e^{2\pi is}\big)\Gamma(s),
+\end{equation}
+the continuation appropriate to the sheet on which the contour lies; the additive constant is not
+optional. In practice the $\gamma^*$ series loses about $2.7n$ digits to cancellation, so the upper
+form is preferable if large $n$ is needed.
+
+Two hypotheses of Lemma~\ref{lem:geopolylog} limit its reach, and neither is
+cosmetic.\footnote{\textbf{$\;$It assumes ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ strictly, so it says
+nothing on the threshold line itself; and it assumes $|z|\ge1$, so it says nothing about poles
+lying below the arc but above $\tfrac{\sqrt3}{2}$. Completing the analogue of
+Section~\ref{sec:mero} in this class further requires the counterpart of
+Lemma~\ref{lem:polylogcf} on the chord, and those of Lemma~\ref{lem:polylogedge} and
+Definition~\ref{def:FP} at height $\tfrac{\sqrt3}{2}$; the assembly corresponding to
+Theorem~\ref{thm:mero} then follows from these. None of that is carried out here, so this
+subsection supplies the ingredients rather than the closed formula. The chord case should be the
+easier one, since a horizontal contour makes the inversion criterion a single global height
+comparison rather than a varying one.}}
 
 \subsection{Relations to the L-functions of~\cite{1806}}\label{sec:arc1806}
 
@@ -1939,10 +2248,9 @@ condition on the location or the order of the poles of $f$.
 \end{lemma}
 
 \begin{lemma}\label{lem:arcon}
-Let $f\in F_k$ have a pole at $e^{i\phi}\in\gamma^{\rm arc}$ with $\phi\neq\tfrac{\pi}{2}$ and
-$e^{i\phi}\notin\SLZ\!\cdot\!\rho$, and evaluate $\hat r_f$ on a contour
-$\tau(\theta)=r(\theta)e^{i\theta}$ with $\log r$ odd about $\theta=\tfrac{\pi}{2}$ and missing the
-pole. Then $\hat r_f\in W$, and the two choices of side differ by an element of $W$.
+Let $f\in F_k$ have a pole on $\gamma^{\rm arc}$ away from $i$ and $\SLZ\!\cdot\!\rho$, and let
+$\hat r_f$ be evaluated in the class of Definition~\ref{def:georef}. Then $\hat r_f\in W$, and the
+two choices of side differ by an element of $W$.
 \end{lemma}
 
 \begin{lemma}\label{lem:arcell}
