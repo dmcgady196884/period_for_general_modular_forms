@@ -1834,6 +1834,43 @@ of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitr
 %    and the same normalisation ambiguity Brown-Fonseca wrestle with remains.  The
 %    codimension-zero pole-free region is what makes the arc worth the trouble.
 
+Lemma~\ref{lem:rfW} attaches to $f\in S^!_k$ a period polynomial lying in $W$, assembled from
+special values of $L^*$, and the construction needs a region free of poles. For $f\in F_k$ the
+poles are unavoidable, and the question becomes how much of $\HH$ must be excluded. Take the base
+point $\tau_0=\rho+1=\tfrac{1}{2}+\tfrac{\sqrt3}{2}\,i$ and the reference contour along the arc
+$|\tau|=1$ running from $\rho$ to $\rho+1$, the common lower boundary of $\mathcal{F}$ and its
+$S$-image. The set excluded is then that contour itself, a curve, so the poles of $f$ are
+unconstrained on a set of codimension zero in $\HH$. This section derives explicit expressions for
+$L^*$ along that contour, in a form admitting equally explicit representations in terms of the
+$q$-series coefficients of a generic $f\in F_k$; Section~\ref{sec:arcperiod} uses them to attach a
+period polynomial in $W$ to every $f\in F_k$.
+
+\begin{definition}\label{def:georef}
+Let $\gamma^{\rm arc}$ be the geodesic segment
+$\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$, oriented from $\rho$ to $\rho+1$, and
+let $\tau_0=\rho+1$. The \emph{geodesic reference class} is the class of
+$\hat\gamma^S_f=\hat\gamma^T_f=\gamma^{\rm arc}$.
+\end{definition}
+
+This is admissible by Definition~\ref{def:segments}: $-1/(\rho+1)=\rho$ and $(\rho+1)-1=\rho$, so
+the two segments share their endpoints and may be taken to be the same path. The arc passes
+through the three elliptic points $\rho$, $i$ and $\rho+1$. Proposition~\ref{prop:indepHomotopy},
+Definition~\ref{def:class} and Lemma~\ref{lem:wall} are stated for $f\in F_k$ and any admissible
+pair of segments, and apply here unchanged.
+
+A form with a pole on $\SLZ\!\cdot\!\rho$ has one at each endpoint of $\gamma^{\rm arc}$, so
+$\tau_0$ is excluded by the hypothesis $\tau_0\notin\Gamma\!\cdot\!f^{-1}(\infty)$ of
+Proposition~\ref{prop:indepHomotopy}. The remedy is to move the base point along the arc rather
+than off it: set
+\begin{equation}\label{eq:geodelta}
+\tau_0(\delta):=e^{i(\frac{\pi}{3}+\delta)},\qquad \delta>0,
+\end{equation}
+so that $S^{-1}\tau_0(\delta)=e^{i(\frac{2\pi}{3}-\delta)}$, and the segments run between these
+two points, meeting neither $\rho$ nor $\rho+1$. This is not a regularisation. For every such
+$\delta$ the hypothesis of Proposition~\ref{prop:indepHomotopy} holds, so $L^*$ does not depend on
+$\delta$ at all: the shortening of the segments is compensated by the movement of the base point,
+and no limit is taken. The displacement stays on $\gamma^{\rm arc}$, which is stable under $S$.
+
 \subsection{Explicit formulae for $L^*(f,s)$ on the arc}\label{sec:arcL}
 
 %SKELETON.  Mirrors 4.1 layer for layer.
@@ -1926,9 +1963,10 @@ $\tau-\tau_e=\delta u$ with $\delta\asymp|\eta|^{1/n}$, under which the integran
 $\delta^{-P}$ and $d\tau$ contributes $\delta$. Making that a proof requires showing the local
 model controls the integral uniformly in $\eta$, which for generic $P$ is the analogue of the
 Laurent analysis of Lemma~\ref{lem:ellLaurent}. We have verified~\eqref{eq:arcell} only at
-$(P,n)=(3,3)$, $(2,2)$ and $(1,2)$, and it is untested for $P>n$; the case $P=1$, where the
-exponent is $0$ and no rescaling occurs, is Lemma~\ref{lem:arcon}. Until these are closed the
-statement is not proved.}
+$(P,n)=(3,3)$, $(2,2)$ and $(1,2)$, and it is untested for $P>n$. Until these are closed the
+statement is not proved. \textbf{Note also that this lemma and Lemma~\ref{lem:arcon} overlap: at
+$P=1$ the exponent is $0$, no rescaling occurs, and~\eqref{eq:arcell} degenerates to the
+indentation case. The two may want merging.}}
 \end{lemma}
 
 As $m$ ranges over $m\ge1$ and $a$ over $0\le a<n$, the order $P=mn-a$ of~\eqref{eq:elldef} runs
