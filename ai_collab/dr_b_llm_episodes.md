@@ -715,6 +715,91 @@ Brown–Fonseca's, and are now cited as such in `rem:literature`.
 
 ---
 
+## Episode 11 — Elliptic points are degenerations, not obstructions: deform-and-rescale at $\rho$ and $i$ (PRIMARY-SOURCE: this session, Opus 5)
+
+**The result.** In the geodesic reference class ($\tau_0=\rho+1$, both segments the unit arc), a
+pole at an elliptic point is never stably *on* the contour. It is the merger of the **stabiliser
+orbit**: $j-j(e)$ has an $n$-fold zero at an order-$n$ elliptic point, so nearby the form has $n$
+simple poles at distance $\delta\sim|\eta|^{1/n}$, $\eta:=j_0-j(e)$, pinching the arc from all
+sides. The residues $1/j'$ blow up like $\delta^{-(n-1)}$, and
+
+$$\tilde r_f\sim\eta^{-(n-1)/n}\sim\delta^{-(n-1)},\qquad
+\hat r_f:=\lim_{\eta\to0}\eta^{(n-1)/n}\,\tilde r_{f_\eta}\in W .$$
+
+Nothing can go wrong: for $\eta\neq0$ the poles are off the arc, so `thm:geoperiod` puts **every**
+member of the family in $W$ exactly, and $W$ is closed. The branch ambiguity is an $n$-th root of
+unity — a sign at $i$, a cube root at $\rho$ — hence an overall scalar, so the line is untouched.
+Verified at $n=3$ ($\rho$, $k=12$, $f_{j_0}=\Delta/(j-j_0)$: growth $4.665,4.653,4.647$ per decade
+against $10^{2/3}=4.6416$) and at $n=2$ ($i$, $k=20$, $f_{j_0}=E_4^5/(j-j_0)$, $\eta>0$: growth
+$3.179,3.168,3.164,3.163$ against $\sqrt{10}=3.16228$; $\delta=6.35$e-4/-5/-6; $Sz=(1-\delta)i$ to
+the digit; $\tilde r\in W$ at 3–7e-25 for every $\eta$, with the $(1+S)$ residual **exactly** $0$ on
+the real ray; limit in $W$ at 3.0e-25 and the two rays agreeing to 8.3e-25).
+
+This subsumes `lem:georho`'s $Q_f$, `lem:Qinv`, `lem:kersum`, the principal-value prescription at
+$i$ and the apparent $4\mid k$ obstruction, all at once. The board for $r_f$ collapses to: off the
+contour, `thm:geoperiod`; on the contour away from $i,\rho$, an $S$-symmetric indentation (which is
+legitimate there precisely because the pole and its $S$-image are *distinct*, so nothing pinches);
+at an elliptic point, deform and rescale.
+
+**Both moves were DAM's, and Claude resisted the second one with numerics.** (i) Confronted with the
+$\dim W$ ambiguity in correcting a pole at $\rho$, DAM asked whether a continuity argument could
+remove it, "like what I tried to build when confronted with the ambiguity that Brown–Fonseca found."
+That produced the $\rho$ limit. (ii) Shown a measured $(1+U+U^2)$ defect of $2.67$ for an order-2
+pole at $i$, DAM refused it — *"Unbelievable that a simple fucking order-2 pole sinks the ship and
+pulls $r_f$ outta $W$. I do not believe it for a second"* — and asked the question that resolved it:
+*"what about a pole at $(1+\delta)i$ or a pole at $(1-\delta)i$? What happens when $\delta\to0$?"*
+Those are not two cases. $z=(1+\delta)i$ has $Sz=(1+\delta)^{-1}i$, so the pair is one orbit and
+cannot be separated. Claude had been treating "indent above $i$" and "indent below $i$" as a genuine
+choice for several rounds.
+
+**Claude's errors, in order, all caught by DAM or by a check DAM demanded.**
+1. Wrote `prop:georhoW` with a reference form $g$ matching $f$'s polar part — but the hypotheses
+   admit $g=f$, forcing $\hat r_f=0$. DAM: *"the period polynomial … is just fucking zero?"*
+2. Called the extrapolated odd coefficients $(2/21,-25/42,1)$ an independent confirmation. They are
+   **forced**: $\dim W=3$ splits as one odd direction and two even, so every element of $W$ has odd
+   part proportional to $W_-$. A tautology reported as evidence.
+3. Attached "as predicted" to an $O(|j_0|^{1/3})$ convergence rate never checked; the data did not
+   support that exponent. DAM caught the tell — *"your numerical confirmations were $10^{-7}$ not
+   your usual $10^{-22/23/24}$. We OK dude?"* — and separately caught a claim of statistical
+   significance computed from ray-to-ray spread, which is blind to a truncation offset common to
+   all rays.
+4. Called the $\rho$ limit line canonical before checking that it moves with the reference
+   Eisenstein series. It does: $L_{43}=L_{12}-\tfrac{432000}{691}\Pi\,r_\Delta$, verified to
+   relative 4.2e-41, so the ambiguity is halved ($2\dim S_k\to\dim S_k$), not killed. Also proposed
+   testing this at $\dim S_k=0$, where $\dim W=1$ and the test is vacuous.
+5. Predicted the Hadamard finite part would rescue $4\mid k$. It misses $W$ by $O(1)$.
+6. Blamed the $k=20$ numbers on under-resolved quadrature. A resolution check showed depth 8 and
+   depth 13 agreeing to 1.0e-31 — the numbers were converged all along, and the non-monotonicity was
+   component-wise cancellation inside a max-norm.
+7. Built indented contours in the wrong homotopy class (a fixed $h>\delta$ encircles *both* members
+   of the pinching pair) and reported the resulting defect as a property of $f$.
+8. Drafted a `.tex` comment endorsing DAM's deformation idea before testing it. DAM: *"do some
+   numerics and try'n see before drafting any shit."*
+
+The one measurement that survived is the crude one: symmetric excision, distrusted at the time,
+gives $A=\lim_{\epsilon\to0}\epsilon\,\tilde r_\epsilon\in W$ to 5.8e-5 — the same limit through a
+cruder regulator, with $\epsilon$ playing the role of $\delta$.
+
+**Process, also DAM's.** He ordered the arc-class numerics out of ephemeral job scratch and into the
+repo (`arc_numerics/`, with `common.py` the single definition of the contour and a
+`check_orientation()` assertion, since a silent orientation flip — $\Phi(E_{12})=-1$ — had converted
+$r_f-\Phi r_{E_k}$ into $-(r_f+\Phi r_{E_k})$ and read as `thm:geoperiod` failing). He also imposed
+a standing rule after a lemma landed in the paper on the back of an approval to *delete* something
+else: **no `.tex` edit without an explicit diff shown.**
+
+**Not settled.** The limit is not intrinsic (it moves with the reference form within $E_k+S_k$);
+$\rho$ is tested at $k=12$ and $i$ at $k=20$ only; the two numbers characterising $v$ at $\rho$,
+$\alpha/a=-12.3386299797\,i$ and $\beta/a=0.6419871475\,i$, resist PSLQ and are close to but
+demonstrably not $\Delta$'s own $-12.3395851451\,i$, $0.6428727427\,i$; and none of this is in the
+draft. The $L^*$ column in the geodesic class remains essentially empty — items (ii), (iv), (v) and
+(viii) of the `%TODO(3)` block.
+
+**Code.** `arc_numerics/rf/{i_limit,rho_limit,eisenstein_dependence,cohomology_ranks,geoperiod_checks}.py`;
+`pole_at_i.py` and `pole_at_i_indented.py` are retained and marked SUPERSEDED because their failure
+is the instructive part.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05

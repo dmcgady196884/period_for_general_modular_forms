@@ -53,11 +53,34 @@ Relative to $\gamma^{\rm arc}$ (height $\sqrt3/2$ at the endpoints, $1$ at $i$):
 | above the arc, $\lvert\tau\rvert>1$ | `thm:geoperiod`, no condition on location or order | `lem:geopolylog` (needs ${\rm Im}\,z>\sqrt3/2$ **and** $\lvert z\rvert\ge1$) |
 | below the arc, ${\rm Im}>\sqrt3/2$ | `thm:geoperiod` | **open** — `lem:geopolylog` assumes $\lvert z\rvert\ge1$ |
 | on ${\rm Im}\,\tau=\sqrt3/2$ | `thm:geoperiod` | **open** — item (v), and the inequality is strict |
-| on the arc, $\tau\ne i$ | $S$-symmetric indentation ($\log r$ odd about $\theta=\pi/2$); **numerics + prose only, not a lemma** | **open** |
-| at $i$ | PV, $\tilde r_f\in W$ with no $Q_f$. **Simple poles only** ($k=18$, $E_4^6/E_6$); $4\mid k$ **never run** | **open** |
-| at $\rho$ (endpoints) | `lem:georho` + `lem:Qinv` + `lem:kersum`; value pinned by the continuity limit, **which is not yet in the .tex** | **open** |
+| on the arc, $\tau\ne i,\rho$ | $S$-symmetric indentation ($\log r$ odd about $\theta=\pi/2$); legitimate here because the pole and its $S$-image are **distinct**, so nothing pinches. **Numerics + prose only, not a lemma** | **open** |
+| at $i$ or $\rho$ (elliptic, order $n$) | deform and rescale: $\hat r_f=\lim\eta^{(n-1)/n}\tilde r_{f_\eta}\in W$. Verified $n=3$ at $\rho$ ($k=12$) and $n=2$ at $i$ ($k=20$, to $8\!\times\!10^{-25}$). **Not in the .tex** | **open** |
 
-One-liner: **$r_f\in W$ is solved almost everywhere; $L^*$ is solved almost nowhere.**
+One-liner: **$r_f\in W$ is solved everywhere; $L^*$ is solved almost nowhere.**
+
+### The elliptic points are not a special case, they are a degeneration
+
+At an elliptic point of order $n$ a pole is never stably *on* the contour: it is the merger
+of the **stabiliser orbit**, $n$ poles pinching the arc. $j-j(e)$ has an $n$-fold zero, so
+the poles sit at distance $\delta\sim|\eta|^{1/n}$ with $\eta=j_0-j(e)$, and the residues
+$1/j'$ blow up like $\delta^{-(n-1)}$. Hence
+
+$$\tilde r\;\sim\;\eta^{-(n-1)/n}\;\sim\;\delta^{-(n-1)},\qquad
+\hat r_f:=\lim_{\eta\to0}\eta^{(n-1)/n}\,\tilde r_{f_\eta}\in W .$$
+
+Nothing can go wrong here: for $\eta\ne0$ the poles are off the arc, so `thm:geoperiod`
+puts **every** member of the family in $W$ exactly, and $W$ is closed. The branch
+ambiguity is an $n$-th root of unity — a sign at $i$, a cube root at $\rho$ — hence an
+overall scalar, so the line is untouched.
+
+**Rule: never evaluate at an elliptic point on the contour.** Doing so produced a
+spurious $4\mid k$ "obstruction" (`pole_at_i_indented.py`): a fixed indentation $h>\delta$
+encircles *both* members of the pinching pair, which is a different homotopy class and not
+the continuation of the arc.
+
+Consequence for the draft: `lem:georho`, `lem:Qinv` and `lem:kersum` are all true but
+describe the degenerate on-contour object at $\rho$. The deformation limit supersedes
+them.
 
 ## What each script establishes
 
