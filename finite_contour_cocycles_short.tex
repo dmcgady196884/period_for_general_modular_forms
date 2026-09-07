@@ -2100,6 +2100,18 @@ $e^{-2\pi(\frac{\sqrt3}{2}-y_b-\varepsilon)}$, and so on $\gamma^{\rm arc}$ itse
 point of the projection: convergence merely for large ${\rm Im}\,\tau$ would be automatic and of no
 use, as the contour descends to height $\tfrac{\sqrt3}{2}$.
 
+One further integral of $f$ along the contour will be needed, both for the residue of $L^*$ at
+$s=0$ and, later, for period polynomials.
+
+\begin{definition}\label{def:Phi}
+For $f\in F_k$ with no pole on $\gamma^{\rm arc}$, set
+$\Phi(f):=\int_{\gamma^{\rm arc}}f(\tau)\,d\tau$.
+\end{definition}
+
+$\Phi$ is the constant Fourier mode of $f$ in the strip containing the contour: it equals $c_f(0)$
+when $f$ has no pole above $\gamma^{\rm arc}$, and $c_f(0)$ less $2\pi i$ times the residues in the
+strip otherwise. In particular $\Phi(E_k)=1$, and $\Phi(f)=0$ for $f\in S_k$.
+
 The relations satisfied by the pole weights at an elliptic point are contour-free, so they hold
 here verbatim; we record them now, as both the block integral below and the period polynomials
 constructed later use them.
@@ -2193,8 +2205,33 @@ comparison rather than a varying one.}}
 
 \subsection{Relations to the L-functions of~\cite{1806}}\label{sec:arc1806}
 
-%SKELETON.  Mirrors 4.2.  Compares the ARC reference class against the reference class of
-%1806 -- NOT against tau_0 = i.  Sections 4 and 5 are to talk past one another.
+%STATUS: placeholder.  The two remarks below are writable now; the equation-level comparison
+%needs the assembled L^* (the thm:mero analogue, Layer C of sec:arcL) so that the crossing sum
+%can be matched term by term against the q-series expression of [1806].
+
+We pause to connect the L-functions of this section to the definition in Ref.~\cite{1806}.
+
+\begin{remark}\label{rem:arcresidue}
+\emph{The $1/s$ residue is carried entirely by the $T$-segment. $L^*_S$ is a finite integral of
+$f\,\tau^{s-1}$ and is entire in $s$, while $\tk$ has a simple pole at $s=0$ whose coefficient is
+the integral of $f$ along that segment, the constant Fourier mode of $f$ in the strip containing
+it. In the geodesic class that integral is $\Phi(f)$ of Definition~\ref{def:Phi}, so
+$\mathop{\rm Res}_{s=0}L^*(f,s)=-\Phi(f)$, whereas Ref.~\cite{1806} anchors its contour at the cusp,
+above every pole, and carries $-c_f(0)$. The two differ by the residues lying in the strip between
+the contours, which is Lemma~\ref{lem:wall_arc}. The quantity that must be subtracted to reach $W$
+is therefore the same object as the departure from the residue convention of~\cite{1806}, and not a
+second normalisation imposed on top of it.}
+\end{remark}
+
+\begin{remark}\label{rem:arcextremal}
+\emph{The mechanism is already visible in~\eqref{eq:geoG0}, before any assembly. Its $S$-part
+$e^{-\pi is/2}(\tau_0^{\,s}-\rho^{\,s})/s$ is finite at $s=0$, since $\tau_0^{\,s}-\rho^{\,s}$
+vanishes like $s\log(\tau_0/\rho)$, while $-(\tau_0/i)^{s}/s$ carries the pole. The two classes sit
+at opposite ends of one deformation: the contour of~\cite{1806} lies above every pole, making the
+residue bookkeeping trivial and the pole-free region empty, while $\gamma^{\rm arc}$ lies below
+every pole orbit not on it, making the pole-free region of codimension zero and the residue
+bookkeeping maximal.}
+\end{remark}
 
 \subsection{Period polynomials in the geodesic class}\label{sec:arcperiod}
 
@@ -2211,11 +2248,6 @@ comparison rather than a varying one.}}
 %  - normalisation: the limit moves with the reference form within E_k + S_k, so the
 %    ambiguity is 2 dim S_k -> dim S_k, not zero.
 %STATUS: statements below are in place; proofs still to be written.
-
-\begin{definition}\label{def:Phi}
-For $f\in F_k$ with no pole on $\gamma^{\rm arc}$, set
-$\Phi(f):=\int_{\gamma^{\rm arc}}f(\tau)\,d\tau$.
-\end{definition}
 
 \begin{definition}\label{def:rfhat}
 For $f\in F_k$ with no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, let $r_f$ be given by
