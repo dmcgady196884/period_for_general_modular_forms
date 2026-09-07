@@ -715,7 +715,48 @@ Brown–Fonseca's, and are now cited as such in `rem:literature`.
 
 ---
 
-## Episode 11 — Elliptic points are degenerations, not obstructions: deform-and-rescale at $\rho$ and $i$ (PRIMARY-SOURCE: this session, Opus 5)
+## Episode 11 — DAM asks for a picture, and the picture picks the base point $\tau_0=\rho+1$ (PRIMARY-SOURCE: this session, Opus 5)
+
+**What happened.** After a stretch of splitting definitions and arguing about the horocyclic
+triangle $\mathcal{T}$ in prose, DAM stopped and asked for a drawing: *"You know what I really want?
+A friggin drawing/image of $\mathcal{T}$, superimposed on the fundamental domain and its $S$-image
+… Don't bother with making it within the narrow range of packages we have in `mmf_venv`. Just make
+it."* That produced standalone TikZ figures (`figures/T_region.tex`, `figures/TF_region.tex`,
+compiled and rasterised to check label collisions) and a dependency-free checker
+(`figures/verify_regions.py`), landing as Figure 1a/1b.
+
+**The picture then did the mathematics.** Drawn rather than described, $\mathcal{T}$ makes one thing
+immediate that the prose had buried: its size tracks *how low the reference contour sits*. The
+region whose boundary is the $(1+U+U^2)$ loop — the region whose enclosed poles obstruct
+$r_f\in W$ — shrinks as the contour is lowered. Push the contour all the way down to the bottom arc
+of $\mathcal{F}$ and it collapses: the cohomological obstruction vanishes outright. Hence the base
+point $\tau_0=\rho+1$ with both segments the unit arc, which is admissible because
+$-1/(\rho+1)=\rho=(\rho+1)-1$ — the two segments have the same endpoints and may be taken to be the
+same path. §4.5 now opens on exactly this trade-off: lowering the contour shrinks the cohomological
+obstruction and grows the analytic one, and $\mathrm{Im}\,\tau=1$ is the compromise while the arc is
+the opposite extreme.
+
+The chronology is in the git log: `c0cd715` ("fixing the figure and ancillary language") precedes
+`f116aeb` ("Handoff: base point at rho+1 with the bottom arc of F as reference contour").
+
+**The figure also caught a fact worth checking.** Looking at it, DAM asked: *"With the T-contour of
+the reference class being from $i-1$ to $i$, it is slightly surprising that the top of the horo-tope
+is from $i$ to $i+1$…"* It is surprising, and it is correct — the top edge is the $T$-translate, and
+saying so out loud is only possible once the thing is drawn. Verification, all
+dependency-free: $\mathrm{area}(\mathcal{T})=\pi-3$ exactly (0.1415926534),
+$\mathrm{area}(\mathcal{T}_{\mathcal{F}})=\pi/3-1$, the forbidden fraction $1-3/\pi\approx4.5\%$, a
+Möbius-orbit multiplicity histogram of `{3: 300}` confirming the sides are one path's $U$-orbit, and
+`eq:foldT` holding with 0 mismatches on 4000 points.
+
+**Why this is DAM's and not Claude's.** Claude had been reasoning about $\mathcal{T}$ symbolically
+for many exchanges without noticing that its area was a *function of the contour height* and could
+be driven to zero. The request was for an illustration; what came back was the next base point.
+Everything downstream — `thm:geoperiod` ($\tilde r_f\in W$ with no condition on pole location or
+order), and then the elliptic degeneration of Episode 12 — sits on that choice.
+
+---
+
+## Episode 12 — Elliptic points are degenerations, not obstructions: deform-and-rescale at $\rho$ and $i$ (PRIMARY-SOURCE: this session, Opus 5)
 
 **The result.** In the geodesic reference class ($\tau_0=\rho+1$, both segments the unit arc), a
 pole at an elliptic point is never stably *on* the contour. It is the merger of the **stabiliser
