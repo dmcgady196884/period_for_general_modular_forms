@@ -51,7 +51,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common import mp, I, pi, ktil                                      # noqa: E402
 
 QUICK = len(sys.argv) > 1 and sys.argv[1] == "quick"
-mp.mp.dps = 30 if QUICK else 100
+_CS = len(sys.argv) > 1 and sys.argv[1] == "cs"
+# dps 60 for the complex-s re-run: A and C are limited by the NMAX truncation (1e-54 down
+# to 1e-37), not by precision, and complex-s Hurwitz zeta in the quadrature makes dps 100
+# cost ~20 min per row for no gain.  B and D still clear the dps-60 floor by 40 orders.
+mp.mp.dps = 30 if QUICK else 60 if _CS else 100
 NMAX = 60 if QUICK else 220
 KK = 12
 CS = len(sys.argv) > 1 and sys.argv[1] == "cs"          # complex s only, for a fast re-run
@@ -129,12 +133,15 @@ def Gtab(s, nmax):
         pre = mp.e**(-s * (mp.log(2 * pi * n) + I * pi / 2))
         Sn = pre * (e2 * mp.gammainc(s, xr, mp.inf) + (1 - e2) * Gs
                     - mp.gammainc(s, xt, mp.inf))
-        # (-2 pi n) with arg = -pi.  NOT +pi: the two differ by e^{-2 pi i s}, which is 1
-        # at integer s and 43x at s = 2.4+0.6i.  Settled by Lf/branch_showdown.py and
-        # Lf/repro_arcside.py against chord quadrature.
-        base = mp.e**(mp.log(2 * pi * n) - I * pi)
-        Tn = (mp.gammainc(s, xt, mp.inf) / base**s
-              + I**KK * mp.gammainc(KK - s, xt, mp.inf) / base**(KK - s))
+        # (-2 pi n)^{-w} as ONE explicit exponential with arg(-2 pi n) = +pi, the branch
+        # for which arg(-2 pi n) + arg(tau_0/i) = 5 pi/6.  Do NOT write
+        # base = mp.e**(log(2 pi n) + i pi) and then base**w: that negative real carries a
+        # roundoff-sized imaginary part and **w takes mpmath's principal branch of it, so
+        # the branch ends up decided by the sign of the roundoff and flips with dps and n.
+        # See Lf/F_only_check.py.
+        lg = mp.log(2 * pi * n) + I * pi
+        Tn = (mp.gammainc(s, xt, mp.inf) * mp.e**(-s * lg)
+              + I**KK * mp.gammainc(KK - s, xt, mp.inf) * mp.e**(-(KK - s) * lg))
         out.append(mp.e**(-I * pi * s / 2) * Sn + Tn)
     return out
 

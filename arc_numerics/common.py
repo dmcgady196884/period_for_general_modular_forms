@@ -16,6 +16,22 @@ chord makes Phi(f) = 0 for a form with a pole at rho and nothing lands in W.  Us
 `arcint` for def:Phi; `chordint` exists only for the eq:geodelta computations that
 genuinely need it.
 
+TRAP 3 -- BRANCH OF A NEGATIVE REAL RAISED TO A COMPLEX POWER.  eq:geoG contains
+(-2 pi n)^w.  Writing  base = mp.e**(mp.log(2*pi*n) + I*pi)  and then  base**w  DESTROYS
+the branch: that base is a negative real only up to a roundoff-sized imaginary part, and
+**w takes mpmath's principal branch of whatever it actually is, so the result is decided
+by the SIGN OF THE ROUNDOFF and flips with dps and with n.  It is stable-looking at
+integer w (both branches agree there) and silently erratic at complex w.  Always write
+one explicit exponential instead:
+
+    lg = mp.log(2*pi*n) + I*pi          # arg(-2 pi n) = +pi
+    term = mp.gammainc(w, xt, mp.inf) * mp.e**(-w * lg)
+
+The correct branch is arg(-2 pi n) = +pi, the one making
+arg(-2 pi n) + arg(tau_0/i) = 5 pi/6 = arg(2 pi i n tau_0).  Diagnosed in
+Lf/F_only_check.py; the S-part was never affected because it was already written as a
+single exponential.
+
 Quadrature: nodes cluster geometrically at both endpoints, since that is where poles
 approach the contour.  depth=10 already agrees with depth=13 to 5e-41, so depth 10 is
 ample; the cost is linear in depth.

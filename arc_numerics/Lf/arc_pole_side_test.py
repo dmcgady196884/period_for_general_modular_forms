@@ -102,11 +102,11 @@ def Gtab(s, nmax):
         pre = mp.e**(-s * (mp.log(2 * pi * n) + I * pi / 2))
         Sn = pre * (e2 * mp.gammainc(s, xr, mp.inf) + (1 - e2) * Gs
                     - mp.gammainc(s, xt, mp.inf))
-        # (-2 pi n) with arg = -pi; see Lf/branch_showdown.py.  With +pi this script's
-        # complex-s columns were wrong.
-        base = mp.e**(mp.log(2 * pi * n) - I * pi)
-        Tn = (mp.gammainc(s, xt, mp.inf) / base**s
-              + I**KK * mp.gammainc(KK - s, xt, mp.inf) / base**(KK - s))
+        # (-2 pi n)^{-w} as ONE explicit exponential, arg(-2 pi n) = +pi.  Never build the
+        # negative real and then raise it to a complex power -- see Lf/F_only_check.py.
+        lg = mp.log(2 * pi * n) + I * pi
+        Tn = (mp.gammainc(s, xt, mp.inf) * mp.e**(-s * lg)
+              + I**KK * mp.gammainc(KK - s, xt, mp.inf) * mp.e**(-(KK - s) * lg))
         out.append(mp.e**(-I * pi * s / 2) * Sn + Tn)
     return out
 
