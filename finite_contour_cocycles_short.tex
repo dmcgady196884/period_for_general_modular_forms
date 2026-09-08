@@ -2178,12 +2178,17 @@ evaluated in the geodesic reference class of Definition~\ref{def:georef}.
 
 The blocks need not be integrated on the arc. Both kernels $\tau^{s-1}$ and $\tk(\tau,s)$ are
 holomorphic on all of $\HH$, so the only obstruction to deforming is the block's own poles at
-$z+\ZZ$; one may therefore evaluate on the horizontal chord from $\rho$ to $\rho+1$ instead, and
-crossing a block pole in doing so costs exactly $(-1)^{N}(2\pi i)^{-N}g^{(N)}(z)$.
+$z+\ZZ$, and one may evaluate on the horizontal chord from $\rho$ to $\rho+1$ instead. Let
+$\Lambda$ be the open lens between the two, bounded above by $\gamma^{\rm arc}$ and below by the
+chord, so that
+$\Lambda\subset\{|\tau|<1,\ {\rm Im}\,\tau>\tfrac{\sqrt3}{2},\ |{\rm Re}\,\tau|<\tfrac12\}$. At
+most one member of $z+\ZZ$ lies in $\Lambda$, and the deformation costs one residue exactly when
+one does.
 
 \begin{lemma}\label{lem:geopolylog}
-Let ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ and $|z|\ge1$, set $\tau_0=\rho+1$, and let
-$\gamma^*(s,x):=\sum_{j\ge0}\frac{(-x)^{j}}{j!\,(j+s)}$, entire in $x$. With
+Let ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ with $z\notin\gamma^{\rm arc}$, set $\tau_0=\rho+1$, let
+$\gamma^*(s,x):=\sum_{j\ge0}\frac{(-x)^{j}}{j!\,(j+s)}$, entire in $x$, read empty products below
+as $1$, and set $(-2\pi n)^{w}:=e^{w(\log 2\pi n-i\pi)}$. With
 \begin{equation}\label{eq:geoG}
 G^{\rm geo}_{s,k}(-n):=e^{-\pi is/2}\Big[\tau_0^{\,s}\,\gamma^*\big(s,2\pi in\tau_0\big)
 -\rho^{\,s}\,\gamma^*\big(s,2\pi in\rho\big)\Big]
@@ -2194,21 +2199,25 @@ G^{\rm geo}_{s,k}(-n):=e^{-\pi is/2}\Big[\tau_0^{\,s}\,\gamma^*\big(s,2\pi in\ta
 G^{\rm geo}_{s,k}(0):=e^{-\pi is/2}\,\frac{\tau_0^{\,s}-\rho^{\,s}}{s}
 -\frac{(\tau_0/i)^{s}}{s}-i^{k}\frac{(\tau_0/i)^{k-s}}{k-s},
 \end{equation}
+\begin{equation}\label{eq:geocross}
+X_N(s,z):=\frac{e^{-\pi is/2}}{(2\pi i)^{N}}\bigg[(-1)^{N}z^{\,s-1-N}\prod_{j=0}^{N-1}(s-1-j)
++\zeta\big(1-s+N,\,z+1\big)\prod_{j=0}^{N-1}(1-s+j)
+-e^{i\pi(s-1)}\zeta\big(1-k+s+N,\,z+1\big)\prod_{j=0}^{N-1}(1-k+s+j)\bigg],
+\end{equation}
 we have
 \begin{equation}\label{eq:geoIN}
 I^{\rm geo}_N(s,z)=-\delta_{N,0}\,G^{\rm geo}_{s,k}(0)
-+(-1)^{N+1}\sum_{n\ge1}n^{N}e^{2\pi inz}\,G^{\rm geo}_{s,k}(-n),
++(-1)^{N+1}\sum_{n\ge1}n^{N}e^{2\pi inz}\,G^{\rm geo}_{s,k}(-n)
++\begin{cases}X_N(s,z),&z\in\Lambda,\\ 0,&\text{otherwise},\end{cases}
 \end{equation}
 the sum converging at rate $e^{-2\pi({\rm Im}\,z-\frac{\sqrt3}{2})}$.
 \end{lemma}
 
 \begin{proof}
-Both kernels are holomorphic on $\HH$, and the only poles of $\lambda_{N,z}$ are at $z+\ZZ$. Let
-$\Lambda$ be the lens bounded by $\gamma^{\rm arc}$ and the horizontal chord from $\rho$ to
-$\rho+1$, so $\Lambda\subset\{|\tau|<1,\ {\rm Im}\,\tau>\tfrac{\sqrt3}{2}\}$. The hypothesis
-$|z|\ge1$ places $z$ outside $\Lambda$, and $\Lambda$ lies between the vertical lines through
-$\rho$ and $\rho+1$, so no translate $z+\ZZ$ meets it either; Cauchy's theorem therefore evaluates
-both segment integrals on the chord. This is the only role of $|z|\ge1$, and the chord is not a
+Both kernels are holomorphic on $\HH$, and the only poles of $\lambda_{N,z}$ are at $z+\ZZ$, so
+Cauchy's theorem moves both segment integrals to the chord at the cost of whatever residues lie
+between the two paths; by the paragraph above that is $\{z\}$ when $z\in\Lambda$ and nothing
+otherwise. The chord is not a
 convenience: along $\gamma^{\rm arc}$ itself ${\rm Im}\,\tau$ ranges over
 $[\tfrac{\sqrt3}{2},1]$, so for $\tfrac{\sqrt3}{2}<{\rm Im}\,z<1$ the comparison below would change
 sign partway along, whereas on the chord ${\rm Im}\,\tau\equiv\tfrac{\sqrt3}{2}$ and it is a single
@@ -2225,6 +2234,22 @@ $e^{-\pi is/2}\sum_{j\ge0}\frac{(-2\pi in)^{j}}{j!\,(j+s)}\big[\tau_0^{\,j+s}-\r
 the first bracket of~\eqref{eq:geoG}. Likewise $G^{\rm geo}_{s,k}(0)=L^*(1,s)$. The rate follows
 from $|e^{2\pi inz}|=e^{-2\pi n\,{\rm Im}\,z}$ against
 $|G^{\rm geo}_{s,k}(-n)|\sim e^{\pi\sqrt3\,n}$.
+
+For the crossing term put $u=\tau-z$ and $v=2\pi iu+t$. Then
+$\sum_{N\ge0}\Li_{-N}\big(e^{2\pi iu}\big)\tfrac{t^{N}}{N!}=\tfrac{e^{v}}{1-e^{v}}
+=-\sum_{m\ge0}\tfrac{B_m(-v)^{m}}{m!\,v}$, of which only the $m=0$ term $-1/v$ carries negative
+powers of $u$; expanding $-1/(2\pi iu+t)=-\sum_{r\ge0}(-1)^{r}t^{r}(2\pi iu)^{-r-1}$ and reading
+off $t^{N}/N!$ gives
+\begin{equation}\label{eq:blockpp}
+\lambda_{N,z}(\tau)=\frac{(-1)^{N+1}N!}{\big(2\pi i(\tau-z)\big)^{N+1}}+O(1),
+\end{equation}
+a lone singular term, so $\Res_{\tau=z}\big(\lambda_{N,z}\kappa\big)
+=(-1)^{N+1}\kappa^{(N)}(z)/(2\pi i)^{N+1}$ for any $\kappa$ holomorphic at $z$. Both paths run
+$\rho\to\rho+1$ with the arc above, so together they bound $\Lambda$ clockwise and the deformation
+contributes $-2\pi i$ times that residue for each kernel. With
+$\partial_z^{N}z^{s-1}=z^{s-1-N}\prod_{j=0}^{N-1}(s-1-j)$ and
+$\partial_z^{N}\zeta(w,z+1)=(-1)^{N}\zeta(w+N,z+1)\prod_{j=0}^{N-1}(w+j)$ applied to both terms of
+$\tk$, this is $X_N(s,z)$ of~\eqref{eq:geocross}.
 \end{proof}
 
 Corollary~\ref{cor:Sclosed} is deliberately not used here: it folds the $S$-segment about $i$ using
@@ -2252,7 +2277,9 @@ S_n(s)=(2\pi in)^{-s}\Big[e^{2\pi is}\,\Gamma\big(s,2\pi in\rho\big)
 Both the sheet factor and the additive constant are trivial at integer $s$, which is all that
 Definition~\ref{def:rf} requires. The $T$-term needs neither, since by
 Lemma~\ref{lem:Tclosed-Mk} only $\tau_0$ appears there, at $\arg(2\pi in\tau_0)=\tfrac{5\pi}{6}$,
-the $\rho$ endpoint having been absorbed by the periodicity of $\tk$. In practice the $\gamma^*$
+the $\rho$ endpoint having been absorbed by the periodicity of $\tk$. It does need the branch of
+$(-2\pi n)^{w}$ fixed above; the opposite choice differs by $e^{2\pi is}$, and so is invisible at
+integer $s$ and wrong elsewhere. In practice the $\gamma^*$
 series loses about $2.7n$ digits to cancellation, so~\eqref{eq:geoSupper} is preferable if large
 $n$ is needed.
 
