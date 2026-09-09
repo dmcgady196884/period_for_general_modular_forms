@@ -1827,7 +1827,8 @@ of order $k$ at CM points, and supply test cases for~\eqref{eq:period} of arbitr
 %    Do NOT motivate this as a reaction to tau_0 = i looking suboptimal.
 %  - def:georef, the geodesic reference class (mirrors def:null_homotopy)
 %  - admissibility: -1/(rho+1) = rho = (rho+1) - 1, so both segments share endpoints
-%  - eq:geodelta, sliding the base point along the arc; not a regularisation
+%  - delta inside def:georef slides the base point along the arc off SL2(Z).rho; the
+%    +i0 indentation handles the other on-arc poles.  Neither is a regularisation.
 %  - prop:indepHomotopy, def:class, lem:wall are general: cite, do not restate
 %  - aside (DAM, placement TBD): tau_0 = i with the straight segment i-1 -> i is also a
 %    fine choice, but period polynomials for all f in F_k then need heavy subtractions,
@@ -1889,23 +1890,38 @@ We would like to speak of ``the'' L-integral, and homotopy classes split this in
 contours in different classes. We therefore fix a reference class, and we fix it on the boundary of
 the fundamental domain.
 
-Write $\gamma^{\rm arc}$ for the geodesic segment
-$\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$, oriented from $\rho$ to $\rho+1$.
-Taking $\tau_0=\rho+1$ and both segments equal to $\gamma^{\rm arc}$ is admissible by
-Definition~\ref{def:segments}, since $-1/(\rho+1)=\rho$ and $(\rho+1)-1=\rho$: the two segments
-share their endpoints and may be taken to be the same path. The arc passes through the three
-elliptic points $\rho$, $i$ and $\rho+1$, and a form with a pole on $\SLZ\!\cdot\!\rho$ therefore
-has one at each endpoint, which the hypothesis $\tau_0\notin\Gamma\!\cdot\!f^{-1}(\infty)$ of
-Proposition~\ref{prop:indepHomotopy_arc} forbids. The remedy is to move the base point along the arc
-rather than off it: set
-\begin{equation}\label{eq:geodelta}
-\tau_0(\delta):=e^{i(\frac{\pi}{3}+\delta)},\qquad \delta>0,
-\end{equation}
-so that $S^{-1}\tau_0(\delta)=e^{i(\frac{2\pi}{3}-\delta)}$ and the segments run between these two
-points, meeting neither $\rho$ nor $\rho+1$.%
-\footnote{\textbf{$\;$Placeholder. Once poles on the arc are handled by the splitting prescription
-below, the base point is no longer a pole of the deformed form, and~\eqref{eq:geodelta} may be
-unnecessary. It is retained until that is confirmed.}}
+\begin{definition}[Reference homotopy class for $f \in F_k$]\label{def:georef}
+Let $f\in F_k$, let $f^{-1}(\infty)$ be the poles of $f$, and let $\gamma^{\rm arc}$ be the
+geodesic segment $\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$, oriented from $\rho$
+to $\rho+1$. If $f$ has no pole on $\SLZ\!\cdot\!\rho$, choose $\delta=0$. Else, choose $\delta>0$
+such that no pole lies on $\{e^{i\theta}:\tfrac{\pi}{3}<\theta\le\tfrac{\pi}{3}+\delta\}$, which is
+possible since the poles are isolated. Set $\hat\tau_0^f:=e^{i(\frac{\pi}{3}+\delta)}$. The \emph{geodesic reference class}
+$[\hat\gamma_f]=[\hat\gamma^T_f]+[\hat\gamma^S_f]$ is:
+\begin{itemize}
+\item $[\hat\gamma^T_f]$: contains the straight segment from $T^{-1}\hat\tau_0^f$ to
+$\hat\tau_0^f$;
+\item $[\hat\gamma^S_f]$: contains the sub-arc of $\gamma^{\rm arc}$ from $S^{-1}\hat\tau_0^f$ to
+$\hat\tau_0^f$, indented at each pole $\tau_p$ of $f$ on it to the side reached as
+$j\to j(\tau_p)+i0^{+}$.
+\end{itemize}
+For $\delta=0$ and $f$ without poles on $\gamma^{\rm arc}$, both reference paths are
+$\gamma^{\rm arc}$ itself, since then $T^{-1}\hat\tau_0^f=S^{-1}\hat\tau_0^f=\rho$.
+\end{definition}
+
+At $\delta=0$ the choice is admissible by Definition~\ref{def:segments}, since
+$-1/(\rho+1)=\rho$ and $(\rho+1)-1=\rho$: the two segments share their endpoints and may be taken
+to be the same path. The arc passes through the three elliptic points $\rho$, $i$ and $\rho+1$, so
+a form with a pole on $\SLZ\!\cdot\!\rho$ has one at each endpoint, which the hypothesis
+$\tau_0\notin\Gamma\!\cdot\!f^{-1}(\infty)$ of Proposition~\ref{prop:indepHomotopy_arc} forbids;
+$\delta$ slides the base point along the arc rather than off it, and the two segments then differ,
+coinciding only at $\delta=0$. Since $f|_kS=f$ the pole set is $S$-stable, so one condition on
+$\delta$ clears both endpoints at once.
+
+The indentation is canonical rather than a choice. Along $\gamma^{\rm arc}$ the Hauptmodul is real
+and runs $0\to1728\to0$, so the two preimages of a value $x\in(0,1728)$ are traversed with opposite
+orientation in $j$; approaching from $j=x+i0^{+}$ therefore places the contour on opposite
+geometric sides at $\tau_p$ and $S\tau_p$, which is what an $S$-symmetric $\hat\gamma^S_f$ requires,
+$S$ carrying the arc onto itself with reversed orientation.
 
 Poles on $\gamma^{\rm arc}$ never occur singly. As $S$ acts on the unit circle by
 $e^{i\theta}\mapsto e^{i(\pi-\theta)}$, preserving $\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}$,
@@ -1916,31 +1932,46 @@ and it consists of the two endpoints exactly when $\phi\in\{\tfrac{\pi}{3},\tfra
 since $S(\rho+1)=-1/(\rho+1)=\rho$. All three cases are treated the same way, by moving the poles
 off the contour rather than moving the contour.
 
-\begin{definition}[Splitting prescription]\label{def:arcsplit}
-Let $f\in F_k$ have poles on $\gamma^{\rm arc}$, and let $\{f_\eta\}$ be a family in $F_k$,
+At an elliptic point the family cannot be left free. Writing $n$ for the order of $\tau_e$, the
+representation of a given $f$ as $g/(j-j(\tau_e))^{m}$ with $g\in M^!_k$ and
+$0\le a:={\rm ord}_{\tau_e}g<n$ is unique --- the pole order is $P=mn-a$, which fixes
+$m=\lceil P/n\rceil$, then $a$, then $g$ --- and we deform in that representation.
+
+\begin{definition}\label{def:ellfam}
+Let $\tau_e$ be an elliptic point of order $n$, let $g\in M^!_k$ have ${\rm ord}_{\tau_e}g=a$
+with $0\le a<n$, let $m\ge1$, and set
+\begin{equation}\label{eq:elldef}
+f_\eta:=\frac{g}{\big(j-j(\tau_e)-\eta\big)^{m}},\qquad
+\eta\in\CC^{\times},\qquad j(\tau_e)+\eta\notin[0,1728].
+\end{equation}
+\end{definition}
+
+Since $j-j(\tau_e)$ vanishes to order exactly $n$ at $\tau_e$, the form $f_0$ has a pole there of
+order $P=mn-a$. As $m$ ranges over $m\ge1$ and $a$ over $0\le a<n$, that order runs over every
+positive integer, so no pole order is excluded.
+
+\begin{definition}\label{def:arcsplit}
+Let $f\in F_k$ have poles on $\gamma^{\rm arc}$. Take $\{f_\eta\}$ to be any family in $F_k$,
 holomorphic in $\eta$ near $0$, with $f_0=f$ and with no pole of $f_\eta$ on
-$\SLZ\!\cdot\!\gamma^{\rm arc}$ for $\eta\neq0$. Set
+$\SLZ\!\cdot\!\gamma^{\rm arc}$ for $\eta\neq0$, required in addition to be the family
+\eqref{eq:elldef} at each pole of $f$ lying at an elliptic point. Set
 \begin{equation}\label{eq:arcsplit}
 L^*(f,s):=\lim_{\eta\to0}\ \eta^{\,\kappa}\,L^*(f_\eta,s),
 \end{equation}
-where $\kappa\ge0$ is the least exponent for which the limit exists.\footnote{\textbf{$\;$Placeholder,
-in two respects. First, $\kappa$ is $0$ away from the elliptic points --- there the deformed pole
-leaves the arc on one side, nothing is trapped, and $\int_{-a}^{a}(u-i\delta)^{-m}\,du$ stays
-bounded as $\delta\to0$ at every $m$ --- while at an elliptic point of order $n$ the $S$-pair or
-its $U$-orbit pinches the contour from opposite sides and $\kappa$ is positive. Second, the
-definition does not by itself pin the family $\{f_\eta\}$, and different deformations enclose
-different residues. That dependence is not arbitrary: away from the elliptic points the limit
-turns out to depend on the family only through which side of $\gamma^{\rm arc}$ each pole leaves
-from, and two such choices differ by the residues of the poles lying between the corresponding
-contours. The side data is therefore the whole of the ambiguity, and fixing it is what fixing a
-reference class amounts to.}}
+where $\kappa\ge0$ is the least exponent for which the limit exists.\footnote{\textbf{$\;$Both
+clauses are needed. Away from the elliptic points $\kappa=0$: the deformed pole leaves the arc on
+one side, nothing is trapped, and $\int_{-a}^{a}(u-i\delta)^{-m}\,du$ stays bounded as
+$\delta\to0$ at every $m$; there the limit depends on the family only through which side each pole
+leaves from, and two such choices differ by the residues of the poles between the corresponding
+contours, so the side data is the whole of the ambiguity. At an elliptic point of order $n$ the
+stabiliser orbit pinches the contour from all $n$ directions at once, $\kappa$ is positive, and
+the limit is genuinely family-dependent: replacing~\eqref{eq:elldef} by
+$g/\big((j-j(\tau_e))^{m}-\eta\big)$, equally admissible and with the same $f_0$, splits the pole
+into $m$ orbits rather than one and rescales at $\eta^{1/mn}$ instead of $\eta^{1/n}$, giving a
+different exponent and a different value. Naming~\eqref{eq:elldef} is therefore part of the
+definition, not a convenience.}}
 \end{definition}
 
-\begin{definition}[Reference homotopy class on the arc]\label{def:georef}
-Let $f\in F_k$. If $f$ has no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, the \emph{geodesic reference
-class} $[\hat\gamma_f]$ is the class of $\hat\gamma^S_f=\hat\gamma^T_f=\gamma^{\rm arc}$ with
-$\tau_0=\rho+1$. Otherwise $L^*(f,s)$ is given by Definition~\ref{def:arcsplit}.
-\end{definition}
 
 The second clause is not a regularisation. For every such $\delta$ the hypothesis of
 Proposition~\ref{prop:indepHomotopy_arc} holds, so $L^*$ does not depend on $\delta$ at all: the
@@ -1956,8 +1987,8 @@ $r(\tfrac{\pi}{3})=c$ the deformed segment runs from $c^{-1}e^{2\pi i/3}$ to $ce
 $S^{-1}(ce^{i\pi/3})=c^{-1}e^{2\pi i/3}$; a deformation lifting the endpoints off the arc simply
 carries the base point with them, and Definition~\ref{def:segments} is still satisfied.
 
-Definition~\ref{def:georef} stops where a choice of contour suffices, and at an elliptic point no
-choice does. The reason is geometric rather than technical. At an elliptic point $\tau_e$ of order
+The indentation of Definition~\ref{def:georef} settles every pole on the arc except at an elliptic
+point, where no side is available to indent to. The reason is geometric rather than technical. At an elliptic point $\tau_e$ of order
 $n$ the function $j-j(\tau_e)$ vanishes to order $n$, so a pole of $f$ at $\tau_e$ is the merger of
 a full stabiliser orbit of $n$ poles: nearby, $f$ has simple poles at $n$ distinct points permuted
 by the stabiliser, and as they coalesce they pinch the contour from every side at once. Indenting
@@ -1965,13 +1996,13 @@ past one member of the orbit passes around the others, so no deformation of the 
 them.
 
 The remedy is to move the pole rather than the contour. Lift the orbit off the arc by deforming
-$f$, evaluate there --- where the first clause of Definition~\ref{def:georef} applies and no choice
-remains --- and continue the result back to $\tau_e$. This is how every elliptic pole will be
+$f$, evaluate there --- where the poles are off the contour and Definition~\ref{def:georef} applies
+with no indentation at all --- and continue the result back to $\tau_e$. This is how every elliptic pole will be
 handled.\footnote{\textbf{What this principle does and does not supply. It does not supply
 existence of the limit: that must be established case by case, and in general the limit exists only
 after rescaling by a power of the deformation parameter. What it supplies is that the answer cannot
-land outside $W$. Every deformed form falls under the first clause of
-Definition~\ref{def:georef}, so its period polynomial lies in $W$; $W$ is a closed subspace; hence
+land outside $W$. Every deformed form has its poles off the contour, so
+Definition~\ref{def:georef} applies to it unindented and its period polynomial lies in $W$; $W$ is a closed subspace; hence
 any limit that exists lies in $W$. The rescaling is by a power of the deformation parameter rather
 than of a contour parameter, so it is not a choice of how to draw a path --- but it remains a
 regularisation, extracting the leading coefficient of a divergence, and whether different
@@ -2354,7 +2385,8 @@ attains that height at its two endpoints. Write $(a)_{(\ell)}:=a(a-1)\cdots(a-\e
 falling factorial, with $(a)_{(0)}:=1$.
 
 \begin{lemma}\label{lem:geoedge}
-Let ${\rm Im}\,z=\tfrac{\sqrt3}{2}$ with $z\not\equiv\rho\!\pmod{\ZZ}$, and set
+Let ${\rm Im}\,z=\tfrac{\sqrt3}{2}$, and either $z\not\equiv\rho\!\pmod{\ZZ}$ or
+$c_N(s,k)=0$, and set
 \begin{equation}\label{eq:geocl}
 c_\ell(s,k):=(s-1)_{(\ell)}\Big[-i\,i^{\ell}e^{-\pi is/2}
 \big(\tau_0^{\,s-1-\ell}-\rho^{\,s-1-\ell}\big)+(-i\tau_0)^{s-1-\ell}\Big]
@@ -2399,6 +2431,16 @@ $z$ wherever $z$ avoids $\gamma^{\rm arc}+\ZZ$ and $e^{2\pi i(\tau_0-z)}\ne1$ --
 the contour integral of Definition~\ref{def:geoIN} then has no singular integrand, the right
 because $R^{\rm geo}_{N,L}$ converges locally uniformly --- so the identity, proved on
 ${\rm Im}\,z<\tfrac{\sqrt3}{2}$, persists onto the threshold line away from $\rho+\ZZ$.
+
+At $z\equiv\rho$ the argument $e^{2\pi i(\tau_0-z)}$ equals $1$ and the $\ell=N$ term carries
+$\Li_1(1)$, so the statement needs $c_N=0$. That coefficient is exactly the endpoint mismatch: by
+the computation above, $c_0$ is a non-zero multiple of the difference of the two sides
+of~\eqref{eq:P1cancel}, hence vanishes precisely when $k\equiv2\pmod6$. This is not a side
+condition to be hoped for. A pole \emph{at} $\rho$ has $P\equiv1\pmod n$ by
+Lemma~\ref{lem:ellLaurent}, and at $P=1$ --- the only order for which the block, rather than the
+rescaled limit of Lemma~\ref{lem:ellLstar}, is what one needs --- that forces $k\equiv2\pmod6$ and
+so $c_0=0$. The divergence one might have expected at $\rho$ is absent exactly when the theory
+calls on it.
 \end{proof}
 
 %NUMERICS for eq:geocl and eq:geoedge: arc_numerics/Lf/threshold_pi_r.py, k=12,
@@ -2409,6 +2451,22 @@ ${\rm Im}\,z<\tfrac{\sqrt3}{2}$, persists onto the threshold line away from $\rh
 %The divergence at z = rho is c_0 log J: arc_numerics/Lf/threshold_series.py measures
 %0.2757 = sqrt3/(2 pi), purely imaginary, at s=3, where the two incomplete-gamma terms of
 %c_0 cancel and the gamma^* pair leaves tau_0^2 - rho^2 = i sqrt3.
+
+%END-TO-END NUMERICS for the assembly of this subsection: arc_numerics/Lf/end_to_end_arc.py,
+%k=12, dps 30, f = Delta/prod(j - j(z_i))^{m_i}.  Compared are (a) lem:geotail + lem:geowhole
+%+ lem:geopolylog with the eps_z lens bookkeeping, and (b) direct quadrature of
+%e^{-i pi s/2} int_arc f (tau^{s-1} + ktil) dtau, which uses none of the formulae.
+%c_Rf(n) is read off Rf = f - sum_p Phat_{tau_p} f by trapezoid along Im tau = sqrt3/2.  Those
+%coefficients GROW like e^{2 pi n y_b} (|c_Rf(70)| ~ 1e129 against |c_Rf(1)| ~ 1e-4) and the sum
+%converges only against G^geo(n)'s e^{-pi sqrt3 n}; the agreement below therefore also tests
+%eq:geoG at POSITIVE modes, which the re-indexing over all n introduced and nothing else uses.
+%   one pole above the arc        6.1e-30  6.4e-30  8.4e-29   (s = 3, 7, 2.4+0.6i)
+%   one pole in the lens          2.4e-29  3.6e-29  3.0e-29
+%   one above + one in the lens   4.7e-27  6.5e-27  3.9e-27
+%   a double pole above the arc   1.0e-27  1.0e-27  1.0e-27
+%The suite projects EVERY T-inequivalent pole with Im >= sqrt3/2, not only the one placed: the
+%lens lies in the S-image of F, so a pole there has an orbit partner in F, likewise above the
+%threshold.  The two take opposite eps_z branches, so one f exercises both clauses.
 
 The blocks assemble into the projection at a pole by linearity alone.
 
@@ -2457,34 +2515,33 @@ $G^{\rm geo}_{s,k}(0)$ of~\eqref{eq:geoG0}.
 
 One case escapes all of the above. Both elliptic points of $\SLZ$ lie on $\gamma^{\rm arc}$: $i$ at
 $\theta=\tfrac{\pi}{2}$, in its interior, and $\rho$ at both endpoints, $\rho$ and $\tau_0=\rho+1$
-being the same point of $\SLZ\backslash\HH$. A pole there sits on the contour, so
-Definition~\ref{def:georef} refers it to Definition~\ref{def:arcsplit}, and the exponent $\kappa$
+being the same point of $\SLZ\backslash\HH$. A pole there sits on the contour with no side to
+indent to, so Definition~\ref{def:arcsplit} governs, and the exponent $\kappa$
 there is positive: the stabiliser orbit approaches from all $n$ directions at once and no
 one-sided indentation exists. We compute that limit. Here $n$ denotes the order of the elliptic
 point, as in Lemma~\ref{lem:ellLaurent}.
 
-\begin{definition}\label{def:ellfam}
-Let $\tau_e$ be an elliptic point of order $n$, let $g\in M^!_k$ have $\mathrm{ord}_{\tau_e}g=a$
-with $0\le a<n$, let $m\ge1$, and set
-\begin{equation}\label{eq:elldef}
-f_\eta:=\frac{g}{\big(j-j(\tau_e)-\eta\big)^{m}},\qquad
-\eta\in\CC^{\times},\qquad j(\tau_e)+\eta\notin[0,1728].
-\end{equation}
-\end{definition}
-
-Since $j-j(\tau_e)$ vanishes to order exactly $n$ at $\tau_e$, the form $f_0$ has a pole there of
-order $P=mn-a$. As $m$ ranges over $m\ge1$ and $a$ over $0\le a<n$, that order runs over every
-positive integer, so no pole order is excluded.
-
 \begin{lemma}\label{lem:ellLstar}
 Let $\tau_e\in\gamma^{\rm arc}$ be elliptic of order $n$ and let $f_\eta$ be as in
-Definition~\ref{def:ellfam}, with $f_0$ of pole order $P$ at $\tau_e$. Then no $f_\eta$ with
-$\eta\ne0$ has a pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, and for every $s\in\CC$ the limit
-\begin{equation}\label{eq:ellLstar}
-\lim_{\eta\to0}\ \eta^{(P-1)/n}\,L^*(f_\eta,s)
+Definition~\ref{def:ellfam}, with $f_0$ of pole order $P=mn-a$ at $\tau_e$. Put
+\begin{equation}\label{eq:ellkappa}
+\kappa:=\begin{cases}
+\max\Big(0,\dfrac{P-2}{n}\Big), & P\equiv1\!\!\pmod n,\\[3mm]
+\dfrac{P-1}{n}, & \text{otherwise.}
+\end{cases}
 \end{equation}
-exists and is independent of the direction of approach up to an $n$-th root of unity. It is the
-value prescribed by Definition~\ref{def:arcsplit}, at $\kappa=(P-1)/n$.
+Since $P=mn-a$ with $0\le a<n$, the congruence $P\equiv1\pmod n$ is the same as $a=n-1$; it is
+stated in $P$ and $n$ because those belong to $f$, whereas $m$ and $a$ are artefacts of the family
+chosen in Definition~\ref{def:ellfam}. The exponent is never negative, as
+Definition~\ref{def:arcsplit} requires, and $P=1$ always satisfies the congruence, so a simple pole
+at an elliptic point needs no rescaling at all.
+Then no $f_\eta$ with $\eta\ne0$ has a pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, and for every
+$s\in\CC$ the limit
+\begin{equation}\label{eq:ellLstar}
+\lim_{\eta\to0}\ \eta^{\kappa}\,L^*(f_\eta,s)
+\end{equation}
+exists, is finite, and is independent of the direction of approach up to an $n$-th root of unity.
+This is Definition~\ref{def:arcsplit} at that $\kappa$.
 \end{lemma}
 
 \begin{proof}
@@ -2494,52 +2551,174 @@ $\SLZ\!\cdot\!\gamma^{\rm arc}$.
 
 Write $j(\tau)-j(\tau_e)=c\,(\tau-\tau_e)^{n}\big(1+O(\tau-\tau_e)\big)$ with $c\neq0$, the zero
 being of order exactly $n$, and $g=g_a(\tau-\tau_e)^{a}\big(1+O(\tau-\tau_e)\big)$ with
-$g_a\neq0$. Let $\kappa$ denote either kernel of Definition~\ref{def:Lint}; both are holomorphic
-near $\tau_e$.
+$g_a\neq0$. Let $K$ denote either kernel of Definition~\ref{def:Lint}; both are holomorphic near
+$\tau_e$.
 
-Fix $R>0$ so small that $D_R=\{|\tau-\tau_e|<R\}$ meets $f_0^{-1}(\infty)$ only at $\tau_e$,
-contains no other point of $\SLZ\!\cdot\!\tau_e$, and carries both expansions; split the contour as
-$\gamma_{\rm in}\cup\gamma_{\rm out}$ accordingly. For small $\eta$ the poles of $f_\eta$ near
-$\tau_e$ stay in $D_R$, so $f_\eta\to f_0$ uniformly on $\gamma_{\rm out}$ and
-$\int_{\gamma_{\rm out}}f_\eta\,\kappa\,d\tau=O(1)$.
+Let $Z:=\SLZ\!\cdot\!\tau_e\cap\gamma^{\rm arc}$. For $\tau_e=i$ this is the single interior point
+$i$; for $\tau_e\in\SLZ\!\cdot\!\rho$ it is the pair of endpoints $\{\rho,\tau_0\}$, which are one
+point of $\SLZ\backslash\HH$, and $f_0$ is $T$-periodic, so it has a pole of order $P$ at each.
+Fix $R>0$ so small that the discs $D_R(w)$, $w\in Z$, are disjoint, meet $f_0^{-1}(\infty)$ only at
+$w$, and carry both expansions; let $\gamma_{\rm in}$ be the union of the sub-arcs inside them and
+$\gamma_{\rm out}$ the remainder. For small $\eta$ the poles of $f_\eta$ near $Z$ stay in those
+discs, so $f_\eta\to f_0$ uniformly on $\gamma_{\rm out}$ and
+$\int_{\gamma_{\rm out}}f_\eta\,K\,d\tau=O(1)$.
 
-Choose $\delta$ with $c\,\delta^{n}=\eta$ and substitute $\tau=\tau_e+\delta u$. Then
+Near a given $w\in Z$ choose $\delta$ with $c\,\delta^{n}=\eta$ and substitute $\tau=w+\delta u$.
+Then
 \begin{equation}\label{eq:ellscale}
 j-j(\tau_e)-\eta=c\,\delta^{n}\big(u^{n}-1+O(\delta u^{n+1})\big),\qquad
 g=g_a\,\delta^{a}u^{a}\big(1+O(\delta u)\big),
 \end{equation}
-while $d\tau=\delta\,du$ and $\kappa(\tau)=\kappa(\tau_e)+O(\delta u)$, so that
+while $d\tau=\delta\,du$ and $K(\tau)=K(w)+K'(w)\delta u+O(\delta^{2})$, so that
 \begin{equation}\label{eq:ellmodel}
-f_\eta\,\kappa\,d\tau
-=\frac{g_a\,\kappa(\tau_e)}{c^{m}}\;\delta^{-(P-1)}\;
-\frac{u^{a}\,du}{(u^{n}-1)^{m}}\,\big(1+O(\delta u)\big),
+f_\eta\,K\,d\tau
+=\frac{g_a}{c^{m}}\;\delta^{-(P-1)}\;\frac{u^{a}\,du}{(u^{n}-1)^{m}}
+\Big[K(w)+\delta u\Big(K'(w)+G_1K(w)-\frac{m\,C_1\,u^{n}K(w)}{u^{n}-1}\Big)+O(\delta^{2})\Big],
 \end{equation}
-the exponent $a+1-mn=-(P-1)$ being fixed by $P$ and $n$ alone.
+the exponent $a+1-mn=-(P-1)$ being fixed by $P$ and $n$ alone, and
+$C_1:=\frac{j^{(n+1)}(w)}{(n+1)\,j^{(n)}(w)}$, $G_1:=\frac{g^{(a+1)}(w)}{(a+1)\,g^{(a)}(w)}$ the
+next Taylor ratios of $j$ and $g$ at $w$; the $C_1$ term comes from expanding the denominator.
 
-Under this substitution the $n$ poles of $f_\eta$ nearest $\tau_e$ sit at $u^{n}=1$, and
-$\gamma_{\rm in}$ becomes a path reaching out to $|u|\sim R/|\delta|$, tending as $\delta\to0$ to
-the straight path $\mathcal{C}$ through $u=0$ along the direction of $\gamma^{\rm arc}$ at
-$\tau_e$: a full line when $\tau_e=i$ lies in the interior of the arc, and a ray when
-$\tau_e\in\SLZ\!\cdot\!\rho$ is an endpoint. Such a path meets a pole exactly when its direction is
+Under this substitution the $n$ poles of $f_\eta$ nearest $w$ sit at $u^{n}=1$, and the
+corresponding piece of $\gamma_{\rm in}$ reaches out to $|u|\sim R/|\delta|$, tending as
+$\delta\to0$ to a straight path $\mathcal{C}_w$ through $u=0$ along the direction of
+$\gamma^{\rm arc}$ at $w$: a full line at $w=i$, which is interior to the arc, and a ray at each of
+$w=\rho$ and $w=\tau_0$, which are its endpoints. Such a path meets a pole exactly when its
+direction is
 an $n$-th root of unity, that is when $\arg\eta\equiv n\arg(\text{direction})+\arg c\pmod{2\pi}$ ---
 a single value of $\arg\eta$, and necessarily the one for which the displaced poles still lie on
 $\gamma^{\rm arc}$. The hypothesis $j(\tau_e)+\eta\notin[0,1728]=j(\gamma^{\rm arc})$ excludes
-precisely that value, so $\mathcal{C}$ is bounded away from $u^{n}=1$.
+precisely that value, so each $\mathcal{C}_w$ is bounded away from $u^{n}=1$.
 
 The integrand of~\eqref{eq:ellmodel} decays as $u^{a-mn}=u^{-P}$, so its tail converges for $P>1$,
-and replacing $|u|<R/|\delta|$ by all of $\mathcal{C}$ costs $O\big((R/|\delta|)^{1-P}\big)$; the
+and replacing $|u|<R/|\delta|$ by all of $\mathcal{C}_w$ costs $O\big((R/|\delta|)^{1-P}\big)$; the
 correction $O(\delta u)$ contributes $O(\delta)$ for $P>2$ and $O\big(\delta\log(R/|\delta|)\big)$
 at $P=2$. As $\delta\propto\eta^{1/n}$, multiplying by $\eta^{(P-1)/n}\propto\delta^{P-1}$ sends
 the $\gamma_{\rm out}$ term to zero and leaves
 \begin{equation}\label{eq:elllimit}
-\lim_{\eta\to0}\eta^{(P-1)/n}\!\!\int_{\gamma}\!f_\eta\,\kappa\,d\tau
-\;\propto\;\frac{g_a\,\kappa(\tau_e)}{c^{m}}\int_{\mathcal{C}}\frac{u^{a}\,du}{(u^{n}-1)^{m}} ,
+\lim_{\eta\to0}\eta^{(P-1)/n}\!\!\int_{\gamma^{\rm arc}}\!f_\eta\,K\,d\tau
+\;\propto\;\frac{g_a}{c^{m}}\sum_{w\in Z}K(w)\int_{\mathcal{C}_w}\frac{u^{a}\,du}{(u^{n}-1)^{m}} ,
 \end{equation}
-finite because $\mathcal{C}$ avoids the singularities of the integrand. Both kernels are handled
-by the same estimate, so $L^*=e^{-\pi is/2}(L^*_S+L^*_T)$ scales likewise and~\eqref{eq:ellLstar}
-exists. Finally $c\,\delta^{n}=\eta$ fixes $\delta$ only up to an $n$-th root of unity, and another
-choice multiplies $\delta^{P-1}$ by such a root.
+each term finite because $\mathcal{C}_w$ avoids the singularities of the integrand. Both kernels
+are handled by the same estimate, so $L^*=e^{-\pi is/2}(L^*_S+L^*_T)$ scales likewise.
+
+The model integrals are elementary. On a ray from $0$ in direction $\omega$, substituting
+$x=\omega^{n}u^{n}$ and rotating the $x$-ray to $\arg x=\pi$, which crosses no pole, gives
+\begin{equation}\label{eq:raymodel}
+M(b,\mu):=\int_{\mathcal{C}_{\rm ray}}\frac{u^{b}\,du}{(u^{n}-1)^{\mu}}
+=\frac{(-1)^{\mu}}{n}\,e^{i\pi\beta}\,\frac{\Gamma(\beta)\Gamma(\mu-\beta)}{\Gamma(\mu)},
+\qquad \beta:=\frac{b+1}{n},
+\end{equation}
+the Beta function
+converging exactly when ${\rm Re}(\mu-\beta)>0$; at $(b,\mu)=(a,m)$ that is $P>1$, and at $P=1$
+the model integral diverges and this local analysis says nothing, which is the case $\kappa=0$
+of~\eqref{eq:ellkappa}, treated below. A full line is the difference of two opposite rays, and at
+$n=2$ the substitution $u\mapsto-u$ carries one into $(-1)^{b+1}$ times the other, so
+\begin{equation}\label{eq:linemodel}
+\int_{\mathcal{C}_{\rm line}}\frac{u^{b}\,du}{(u^{n}-1)^{\mu}}
+=\big(1+(-1)^{b}\big)\,M(b,\mu)\qquad(n=2).
+\end{equation}
+The two rays at $\rho$ and $\tau_0$ are related by a fixed root of unity rather than
+independently. Substituting $u=\omega t$ shows the direction enters $M$ only as
+$\omega^{\,b+1}$ times a function of $\omega^{n}$; the outward directions there are
+$-i\rho=e^{i\pi/6}$ and, the arc being traversed into $\tau_0$, $-(-i\tau_0)=e^{5i\pi/6}$, which
+differ by $2\pi/n$ and have equal $n$-th powers. The function of $\omega^n$ is therefore the same
+for both, and
+\begin{equation}\label{eq:relroot}
+M(b,\mu)\Big|_{\tau_0}=\omega^{\,b+1}\,M(b,\mu)\Big|_{\rho},\qquad \omega:=e^{2\pi i/n}.
+\end{equation}
+Only the overall $n$-th root, that of $c\,\delta^{n}=\eta$, is free.
+
+The leading term degenerates exactly when $a=n-1$, equivalently $P\equiv1\pmod n$, but by a
+different mechanism at each point. At $\tau_e=i$ that is $a$ odd, and~\eqref{eq:linemodel} carries
+the factor $1+(-1)^{a}=0$: the two halves of the line cancel. At $\tau_e\in\SLZ\!\cdot\!\rho$ it is
+$a=2$, where the relative cube root between the two rays of~\eqref{eq:elllimit} is $1$ while
+modularity, through $2P\equiv k\pmod 6$ of Lemma~\ref{lem:ellLaurent}, forces $k\equiv2\pmod6$ and
+hence
+\begin{equation}\label{eq:P1cancel}
+\rho^{\,s-1}+\tk(\rho,s)=\tau_0^{\,s-1}+\tk(\tau_0,s);
+\end{equation}
+indeed $\zeta(w,\rho+2)=\zeta(w,\rho+1)-(\rho+1)^{-w}$ gives
+$\tk(\tau_0,s)=\tk(\rho,s)-\tau_0^{\,s-1}+e^{i\pi(s-1)}\tau_0^{\,k-s-1}$, so~\eqref{eq:P1cancel}
+reads $\rho^{\,s-1}=e^{i\pi(s-1)}\tau_0^{\,k-s-1}$, which with $\rho=e^{2\pi i/3}$,
+$\tau_0=e^{\pi i/3}$ holds for every $s$ precisely when $k\equiv2\pmod 6$. The two rays then carry
+equal weights and cancel.
+
+Off that congruence the limit at $(P-1)/n$ is finite and generically non-zero, and collecting the
+prefactors of~\eqref{eq:ellmodel} against $\eta^{(P-1)/n}=c^{(P-1)/n}\delta^{P-1}$ turns
+the proportionality in~\eqref{eq:elllimit} into
+\begin{equation}\label{eq:ellvalue}
+\lim_{\eta\to0}\eta^{\frac{P-1}{n}}L^*(f_\eta,s)
+=g_a\,c^{\frac{P-1}{n}-m}\,e^{-\pi is/2}\sum_{w\in Z}K(w)\,M(a,m),
+\end{equation}
+$K(w)=w^{s-1}+\tk(w,s)$ being the two kernels summed.
+
+On the congruence that limit vanishes and the leading survivor is the $\delta u$ bracket
+of~\eqref{eq:ellmodel}, one power of $\delta$ lower; as $\delta\propto\eta^{1/n}$ this is the
+exponent $(P-2)/n$ of~\eqref{eq:ellkappa}, with value
+\begin{equation}\label{eq:ellsub}
+\lim_{\eta\to0}\eta^{\frac{P-2}{n}}L^*(f_\eta,s)
+=g_a\,c^{\frac{P-2}{n}-m}\,e^{-\pi is/2}\sum_{w\in Z}
+\Big\{\big[K'(w)+G_1K(w)\big]M(a{+}1,m)-m\,C_1K(w)\,M(a{+}n{+}1,m{+}1)\Big\}.
+\end{equation}
+The degeneration does not recur at this order: the shifted exponents $b=a+1$ and $b=a+n+1$ are
+both $\not\equiv n-1\pmod n$ when $a\equiv n-1$, so at $w=i$ the factor $1+(-1)^{b}$
+of~\eqref{eq:linemodel} equals $2$, and at $w\in\SLZ\!\cdot\!\rho$ the relative root
+$\omega^{\,b+1}$ is no longer $1$.
+
+There remains $P=1$, where~\eqref{eq:raymodel} diverges and the estimate above gives nothing. Here
+$\kappa=0$, and the limit exists for a different reason at each point. At $\tau_e=i$ one has
+$n=2$ and $P=2m-a=1$, forcing $m=1$, $a=1$, so the local integrand is $u\,du/(u^{2}-1)$, odd in
+$u$; its principal value over the symmetric line $\mathcal{C}_i$ vanishes, the inner piece
+contributes nothing, and the limit is the convergent integral over $\gamma_{\rm out}$. At
+$\tau_e\in\SLZ\!\cdot\!\rho$ one has $n=3$, hence $m=1$, $a=2$, and the local integrand is
+$u^{2}du/(u^{3}-1)$, whose primitive $\tfrac13\log(u^{3}-1)$ grows like $\log(1/\delta)$ at the far
+end of each ray. The two endpoints carry the same $g_a$ and $c$, by $T$-periodicity, and are
+traversed with opposite orientation, so those divergences cancel exactly
+when~\eqref{eq:P1cancel} holds --- which it does, $P=1$ satisfying $P\equiv1\pmod n$ and hence
+$k\equiv2\pmod6$. The cancellation is imposed by modularity, not assumed.
+
+Finally $c\,\delta^{n}=\eta$ fixes $\delta$ only up to an $n$-th root of unity, and another choice
+multiplies $\delta^{P-1}$ by such a root.
 \end{proof}
+
+%NUMERICS for eq:ellkappa: arc_numerics/Lf/ell_exponent_scan.py measures |eta^kappa L*(f_eta,s)|
+%down four decades eta = 1e-2..1e-5 at dps 30, for s = 3 and s = 7; the correct exponent is the
+%column that settles while its neighbours move by a factor n^(1/n) per decade.
+%  i,   P=2, k=12 (g=E_4^3, m=1): flat at 1/2 = (P-1)/n           [P = 0 mod n]
+%  i,   P=4, k=12 (g=E_4^3, m=2): flat at 3/2 = (P-1)/n, 8 digits [P = 0 mod n]
+%  i,   P=3, k=6  (g=E_6,   m=2): flat at 1/2 = (P-2)/n           [P = 1 mod n]
+%  i,   P=1, k=6  (g=E_6,   m=1): converges, kappa = 0, limit NONZERO (1.2889e-3)
+%  rho, P=3, k=12 (g=Delta, m=1): flat at 2/3 = (P-1)/n           [P = 0 mod n]
+%  rho, P=2, k=4  (g=E_4,   m=1): flat at 1/3 = (P-1)/n           [P = 2 mod n]
+%  rho, P=4, k=8  (g=E_4^2, m=2): flat at 2/3 = (P-2)/n           [P = 1 mod n]
+%  rho, P=1, k=8  (g=E_4^2, m=1): converges, kappa = 0, limit NONZERO (7.4454e-4)
+%The last rho row is the one that forced the P = 1 mod n form: with a = 0 and a = 1 only,
+%(P-1)/n and the correct rule agree, exactly as the P=2 control at i could not separate
+%(P-1)/n from a constant 1/2.
+%The CONSTANT eq:ellvalue is checked in arc_numerics/Lf/elliptic_constant_tight.py by
+%Neville extrapolation in eta^{1/n} at dps 40: agreement to 22 digits at i (four rows) and
+%to 16 digits at rho (four rows), in each case at the extrapolation's own error bar.  The
+%relative n-th root between the two rays at rho is w^{b+1}, confirmed at a = 0,1,2.
+%The SUBLEADING constant eq:ellsub is checked the same way in
+%arc_numerics/Lf/elliptic_subleading.py, at the two P = 1 mod n configurations:
+%  i,   g=E_6,   m=2, P=3, k=6: 20 digits at s = 7 and s = 11, with NO free parameter
+%     (Z is one point, so no relative root is available to fit)
+%  rho, g=E_4^2, m=2, P=4, k=8: 15 digits at s = 11, roots [w^1,w^1], which is what
+%     w^{b+1} predicts at b = a+1 = 3 and b = a+n+1 = 6
+%Take K' numerically: the identity d_a zeta(w,a) = -w zeta(w+1,a) is NaN at w = 0, i.e. at
+%s = k-1, where the 0 * infinity is only removable in the limit.
+%FAMILY DEPENDENCE (arc_numerics/Lf/family_dependence.py).  At tau_e = i with g = E_4^3,
+%m = 2, P = 4, k = 12: the family g/(j-j_e-eta)^m is flat at kappa = 3/2, while the equally
+%admissible g/((j-j_e)^m-eta) with the same f_0 is flat at kappa = 3/4 = (P-1)/(mn), both
+%over four decades and at s = 3 and s = 7.  Hence def:arcsplit MUST name the family at an
+%elliptic point; this is why def:ellfam sits beside it rather than in sec:arcL.
+%Caution: L*(f,3) = 0 identically at k = 8 -- seen for three independent forms -- so weight
+%8 must be probed at s = 7.
+%eq:raymodel and eq:linemodel are checked against direct quadrature in
+%arc_numerics/Lf/model_integral.py: |ray| matches to 10 digits and is independent of the
+%direction, the residual phase being an n-th root of unity; the line vanishes identically for odd
+%a.  Note L*(f,k/2) = 0 whenever i^k = -1, which is why the k=6 case must be read at s = 7.
 
 Lemma~\ref{lem:geopolylog} assumes ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ strictly, so it says nothing on
 the threshold line itself, where the chord meets the pole and neither the defining series of
@@ -2730,6 +2909,18 @@ $p_j$ are distinct and $m\le n+1$. The residue terms therefore cannot cancel amo
 \eqref{eq:arcondefect} can vanish only if $D_E$ lies in their span.
 \end{proof}
 
+%NUMERICS on the last clause: arc_numerics/rf/arcon_rank_multiweight.py, dps 25.  A pole on
+%gamma^arc comes with exactly one partner (j is 2-to-1 from the arc onto [0,1728]), so m = 2
+%and the span is {(X-zY)^n, (X-SzY)^n}.  Reported is the normalised distance from D_E to that
+%span, over k = 12,14,16,18,20,22,26 and x = j(z) = 1, 50, 300, 864, 1200, 1700, 1727:
+%   k=12: 0.8753 .. 0.9271     k=14: 0.9124 .. 0.9570     k=16: 0.9377 .. 0.9748
+%   k=18: 0.9553 .. 0.9854     k=20: 0.9676 .. 0.9915     k=22: 0.9764 .. 0.9951
+%   k=26: 0.9873 .. 0.9984
+%The exceptional case did not occur at any of these 49 configurations, and the margin grows
+%with k; it is smallest at k = 12 with x near 0, i.e. with the poles approaching rho, which
+%the hypothesis excludes in any case.  Whether it can occur at all is NOT settled by this.
+%Note D_E is non-zero even at k = 14, where dim S_k = 0, so the clause is not vacuous there.
+
 The deformation of Definition~\ref{def:arcsplit} is not a second prescription but the same one.
 
 \begin{lemma}\label{lem:arcdeform}
@@ -2807,24 +2998,28 @@ a stipulation of convenience: membership in $W$ selects it.
 
 \begin{lemma}\label{lem:arcell}
 Let $\tau_e\in\gamma^{\rm arc}$ be elliptic of order $n$ and let $f_\eta$ be as in
-Definition~\ref{def:ellfam}, with $f_0$ of pole order $P$ at $\tau_e$. Then
+Definition~\ref{def:ellfam}, with $f_0$ of pole order $P$ at $\tau_e$, and let $\kappa$ be as
+in~\eqref{eq:ellkappa}. Then
 \begin{equation}\label{eq:arcell}
-\hat r_{f_0}\;:=\;\lim_{\eta\to0}\ \eta^{(P-1)/n}\,\hat r_{f_\eta}
+\hat r_{f_0}\;:=\;\lim_{\eta\to0}\ \eta^{\kappa}\,\hat r_{f_\eta}
 \end{equation}
 exists and lies in $W$, and is independent of the direction of approach up to an $n$-th root of
-unity.\footnote{\textbf{$\;$This lemma and Lemma~\ref{lem:arcon} overlap: at $P=1$ the exponent is
-$0$, no rescaling occurs, and~\eqref{eq:arcell} degenerates to the indentation case. The two may
-want merging.}}
+unity.
 \end{lemma}
 
 \begin{proof}
 By Lemma~\ref{lem:ellLstar} each special value $L^*(f_\eta,s)$ scales so that
-$\eta^{(P-1)/n}L^*(f_\eta,s)$ converges, with the stated $n$-th-root ambiguity. The same estimate
-applies to $\Phi(f_\eta)$, which is~\eqref{eq:elllimit} at $\kappa\equiv1$, while $r_{E_k}$ does
-not depend on $\eta$; hence $\eta^{(P-1)/n}\hat r_{f_\eta}$ converges. Each $f_\eta$ with
+$\eta^{\kappa}L^*(f_\eta,s)$ converges, with the stated $n$-th-root ambiguity. The same estimate
+applies to $\Phi(f_\eta)$, which is~\eqref{eq:elllimit} at $K\equiv1$, while $r_{E_k}$ does not
+depend on $\eta$; hence $\eta^{\kappa}\hat r_{f_\eta}$ converges. Each $f_\eta$ with
 $\eta\neq0$ has its poles off $\SLZ\!\cdot\!\gamma^{\rm arc}$, so $\hat r_{f_\eta}\in W$ by
 Lemma~\ref{lem:arcoff}, and $W$ is closed; the limit therefore lies in $W$.
 \end{proof}
+
+Lemmas~\ref{lem:arcon} and~\ref{lem:arcell} are complementary rather than overlapping: the first
+excludes $i$ and $\SLZ\!\cdot\!\rho$ by hypothesis, the second treats only those points, and at an
+elliptic point there is no side to choose, the stabiliser orbit meeting the contour from all $n$
+directions at once. Together with Lemma~\ref{lem:arcoff} they cover every pole configuration.
 
 %NUMERICS for the geometry of C in the proof of lem:ellLstar (sec:arcL).  Generated by
 %arc_numerics/rf/elliptic_scaling_geometry.py.  Leading coefficients, each stable to 10 digits
@@ -2877,7 +3072,7 @@ $\Phi(f)\,r_{E_k}$. No reference family is chosen, and no projection onto $W$ is
 
 Three choices enter, and none of them moves $\hat r_f$ out of $W$. In case~2 the side of the
 indentation is free, and by Lemma~\ref{lem:arcon} the two differ within $W$. In case~3 the
-deformation~\eqref{eq:elldef} and the branch of $\eta^{(P-1)/n}$ are free, the latter contributing
+deformation~\eqref{eq:elldef} and the branch of $\eta^{\kappa}$ are free, the latter contributing
 an $n$-th root of unity and hence an overall scalar. In Definition~\ref{def:rfhat} the reference
 form $E_k$ may be replaced by any $g$ with $\Phi(g)=1$, and two such choices shift $\hat r_f$ by
 $\Phi(f)\,r_{g-g'}$, where $g-g'$ runs over the forms annihilated by $\Phi$; how large that shift
