@@ -841,6 +841,113 @@ is the instructive part.
 
 ---
 
+## Episode 13 — Two manufactured divergences: DAM's skepticism kills $\delta^\kappa$, and the base-point shift dissolves the pole at $\rho$ (PRIMARY-SOURCE: this session, Opus 5)
+
+**The result.** $L^*(f,s)$ is finite at a pole on *either* elliptic point of $\gamma^{\rm arc}$, and
+neither case needs a regulator. The whole $\delta^\kappa$ apparatus — `lem:ellLstar`, `eq:ellkappa`,
+the ray/line models `eq:raymodel`/`eq:linemodel`, `eq:ellvalue`, `eq:ellsub` — was measuring the
+divergence rate of a pinch Claude had created, and is not repaired but **deleted**.
+
+*At $i$* the pole is interior to the arc: detour inside or outside, both finite and **exactly
+radius-independent** over $r=0.12,0.06,0.02$ (spread 1.4e-31), differing by $2\pi i\,{\rm Res}_i(fK)$
+to 4.6e-33, with the mean exactly real. The $\delta^{1-P}$ blow-up came from retracting the **pole**:
+$f$ is modular, so a pole cannot move alone, and at an order-$n$ elliptic point the stabiliser acts
+as rotation by $2\pi/n$ about a point the contour runs *through*, so every displacement direction
+sends one orbit member to each side. §4.1 never hit this because it moved the **path**.
+
+*At $\rho$ the pole sits at both pinned endpoints* of $\int_{\tau_0}^{S\tau_0}$ — a genuinely
+different case, and the plain arc really does diverge ($c_{-1}=1.0{\rm e}{-}4+1.2{\rm e}{-}4\,i$ at
+$k=4$, $P=2$). DAM's move: displace the base point, as §4.1 did at $i$. It works, and the reason is
+a four-line identity — moving $\tau_0\to\tau_0'$, the $S$-substitution ($f|_kS=f$) contributes
+$(-1)^{s-1}f\tau^{k-s-1}$, $T$-periodicity plus
+$\tk(\tau)-\tk(\tau-1)=-\tau^{s-1}+e^{i\pi(s-1)}\tau^{k-s-1}$ contributes the rest, and the bracket
+vanishes identically. **$L^*$ is exactly $\tau_0$-independent**, so $L^*(\epsilon)$ is *constant*,
+not merely convergent; $\epsilon=0$ is the one degenerate base point. Verified flat to **20 digits**
+across $\epsilon=10^{-2}..10^{-5}$ at $P=2,3,4$ and $s=7,11$, with the noise floor tracking
+$\epsilon^{1-P}$ (2e-35, 1.2e-33, 8e-29) exactly as predicted — the guard against quadrature that
+steps over the pole and returns identical junk at every $\epsilon$.
+
+Geometrically, displacing $\tau_0$ separates the two segments' far endpoints onto **different points
+of the stabiliser orbit** ($V:=T^{-1}S$ fixes $\rho$, $V'(\rho)=\rho$, $VS\tau_0=T^{-1}\tau_0$
+exactly), so $K_S$ and $K_T$ pick up different powers of $\omega$. The leading cancellation condition
+reduces to $k\equiv2P\pmod6$ — which is `lem:ellLaurent`, automatic — and at $i$ to
+$k+2P\equiv0\pmod4$, automatic since $k$ is even. The old $P=1$ argument is the special case
+$\omega^{P-1}=1$. The mechanism is uniform in $n$; DAM's worry that the order-3 point might be worse
+controlled than the order-2 one was unfounded.
+
+**Both dissolutions were DAM's, from the same instinct, stated twice.** (i) *"there should be no
+scaling of the L-function via delta to any power other than fucking zero… Imagine I have a modular
+form with two poles. One at $7i$, the other at $i+\epsilon$… WHY THE FUCK would the L-function be
+scaled like $\epsilon^{\rm positive}$?? This would OBLITERATE the linearity of the functional."*
+(ii) *"was this because even the contour integral blew up in the $\delta\to0$ limit of the old
+formulation? Because I am extremely skeptical that this happens…"* and then, when Claude conceded a
+real divergence at $\rho$: *"we never did any of that bullshit with the reference contour which ran
+from $i(1+\delta)-1\to i(1+\delta)$… (Section 4.1)."* Each time the object was fine and Claude was
+sampling it at the one place it isn't defined.
+
+**Claude's errors, in order.**
+1. Defined $L^*:=\lim\delta^\kappa L^*(f_\delta,s)$ with $\kappa>0$ and wrote it into the draft.
+   **This destroys linearity of $L^*$, and with it everything downstream.** $\kappa$ depends on the
+   form — on $P$ and on which elliptic point carries the pole — so $L^*(f+g)\ne L^*(f)+L^*(g)$ for
+   two forms with different pole orders. $L^*$ is a *linear functional* on $F_k$; $r_f$ and
+   $\hat r_f$ are assembled linearly from its special values; $W$ is a linear subspace and the
+   $(1+S)$, $(1+U+U^2)$ relations are linear conditions; `lem:wall_arc` is linear in the residues.
+   A form-dependent prefactor invalidates the whole chain, not merely the definition. DAM's
+   counterexample was immediate and needed no computation: take $f$ with poles at $7i$ and
+   $i+\epsilon$ — the $7i$ contribution varies smoothly in $\epsilon$ and has a finite limit, so
+   multiplying the functional by $\epsilon^{\kappa}$ annihilates it. *"This would OBLITERATE the
+   linearity of the functional, and would OBLITERATE the contribution from the pole at $7i$… and
+   TOTALLY VIOLATES the whole fact that contour integrals of meromorphic functions over finite
+   contours are finite, with perhaps residue terms."*
+   And the failure is **discontinuous at $\epsilon=0$**, which is worse than non-additive. For every
+   $\epsilon\ne0$ the pole at $i+\epsilon$ is not elliptic, so $\kappa=0$, $L^*$ is the ordinary
+   finite value, both poles contribute and additivity holds. At $\epsilon=0$ exactly, $\kappa$ jumps
+   to $P-1$ and the functional throws away everything but the leading pinch coefficient. So
+   $\lim_{\epsilon\to0}L^*(f_\epsilon)\ne L^*(f_0)$: the definition is not even the limit of itself,
+   and linearity holds on a punctured neighbourhood of $\epsilon=0$ and fails at the single point —
+   precisely the point the definition was invented to cover.
+   Claude had instead measured $\kappa$ to eight digits at four configurations. Compute in place of
+   thought: measuring the exponent of a divergence is not the same as knowing which object you want.
+2. Offered "the $c_0$ drift equals $-c_{\log}\log2$ under a grid halving" as evidence of a genuine
+   $\log\delta$. It is an **exact identity of the interpolation scheme** (the two no-log fits are one
+   Neville step from the with-log fit), ratio 1.0 in every synthetic case with or without a log. The
+   real discriminant is $c_{\log}({\rm grid}/2)/c_{\log}({\rm grid})\to1$ vs $\to2^{-3}$.
+   (`fit_sanity.py`.) The conclusion it supported — a scale-dependent finite part at $\rho$ — was
+   withdrawn.
+3. Recommended "PV at both elliptic points" in one line without checking that $\rho$ is an endpoint
+   case. Also called the object a principal value: for $P\ge2$ the symmetric-cut PV **diverges**
+   while the detour mean is finite, so the right name is the mean of the two detours (they agree —
+   the cut's finite part converges to it at the $\alpha^3$ truncation rate).
+4. Floated reality as the canonical selector at $\rho$ when the short connector came out real and the
+   long one complex. Dead at $P=3$, where both are real. What survives is one-directional and not a
+   proof: short is real in all 6 rows, long in 3 of 6.
+5. Reported $\Phi=0$ as possibly structural. $\Phi(f)=c_f(0)$ — every $n\ne0$ mode integrates to zero
+   across a period — and all three test forms had $j$ downstairs. A one-glance check of the
+   $q$-expansion would have caught it.
+6. Predicted a surviving $\log\alpha$ at $\rho$ from ${\rm Res}_\rho(fK)\ne{\rm Res}_{\tau_0}(fK)$.
+   The discriminant says no log; the mechanism is unexplained.
+7. Wrote the wall-crossing sign backwards: ${\rm short}-{\rm long}=-2\pi ie^{-i\pi s/2}
+   {\rm Res}_\rho(f\tk)$, i.e. $X_T(\rho)=-1$.
+
+**What the base-point shift costs.** At $\epsilon\ne0$ the segments are distinct paths, so
+`def:georef`'s $\hat\gamma^S=\hat\gamma^T$ is gone and the Figure-1(b) region reopens at size
+$O(\epsilon)$. $\hat\gamma^T$ needs a connector around $\rho$, and the two routings ($2\pi/3$,
+$4\pi/3$) are each flat but differ by **exactly one `lem:wall_arc` crossing** ($X_S=0$, $X_T=-1$),
+18 digits at both $s$, against a residue computed independently at three radii — so it is ordinary
+wall-crossing, not new machinery.
+
+**Not settled.** Which routing. Reality does not select it. Whether $W$-membership does turns on
+${\rm Res}_\rho f$, which the stabiliser symmetry forces to vanish unless $P\equiv1\pmod3$ — so the
+test is informative only there, and elsewhere the ambiguity may not reach $\hat r_f$ at all. Also
+untested: a structurally different realisation of $\hat\gamma^T$ (the current one shares its whole
+near-$\rho$ structure with $\hat\gamma^S$), and whether the base-point route at $\tau_0=i(1+\delta)$
+reproduces the detour mean $0.00086752559521718496505$, which would make the two prescriptions one.
+No `.tex` was edited this session.
+
+**Code.** `arc_numerics/Lf/{detour_vs_retract,endpoint_vs_interior,basepoint_shift_rho,connector_residue,fit_sanity,log_ratio_test,finite_part_scan}.py`.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05

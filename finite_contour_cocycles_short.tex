@@ -1891,37 +1891,14 @@ contours in different classes. We therefore fix a reference class, and we fix it
 the fundamental domain.
 
 \begin{definition}[Reference homotopy class for $f \in F_k$]\label{def:georef}
-Let $f\in F_k$, let $f^{-1}(\infty)$ be the poles of $f$, and let $\gamma^{\rm arc}$ be the
-geodesic segment $\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$, oriented from $\rho$
-to $\rho+1$. If $f$ has no pole on $\SLZ\!\cdot\!\rho$, choose $\delta=0$. Else, choose $\delta>0$
-such that no pole lies on $\{e^{i\theta}:\tfrac{\pi}{3}<\theta\le\tfrac{\pi}{3}+\delta\}$, which is
-possible since the poles are isolated. Set $\hat\tau_0^f:=e^{i(\frac{\pi}{3}+\delta)}$. The \emph{geodesic reference class}
-$[\hat\gamma_f]=[\hat\gamma^T_f]+[\hat\gamma^S_f]$ is:
-\begin{itemize}
-\item $[\hat\gamma^T_f]$: contains the straight segment from $T^{-1}\hat\tau_0^f$ to
-$\hat\tau_0^f$;
-\item $[\hat\gamma^S_f]$: contains the sub-arc of $\gamma^{\rm arc}$ from $S^{-1}\hat\tau_0^f$ to
-$\hat\tau_0^f$, indented at each pole $\tau_p$ of $f$ on it to the side reached as
-$j\to j(\tau_p)+i0^{+}$.
-\end{itemize}
-For $\delta=0$ and $f$ without poles on $\gamma^{\rm arc}$, both reference paths are
-$\gamma^{\rm arc}$ itself, since then $T^{-1}\hat\tau_0^f=S^{-1}\hat\tau_0^f=\rho$.
+Let $\gamma^{\rm arc}$ be the geodesic segment
+$\{e^{i\theta}:\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}\}$, oriented from $\rho$ to $\rho+1$, and
+let $\tau_0=\rho+1$. The \emph{geodesic reference class} is the class of
+$\hat\gamma^S_f=\hat\gamma^T_f=\gamma^{\rm arc}$.
 \end{definition}
 
-At $\delta=0$ the choice is admissible by Definition~\ref{def:segments}, since
-$-1/(\rho+1)=\rho$ and $(\rho+1)-1=\rho$: the two segments share their endpoints and may be taken
-to be the same path. The arc passes through the three elliptic points $\rho$, $i$ and $\rho+1$, so
-a form with a pole on $\SLZ\!\cdot\!\rho$ has one at each endpoint, which the hypothesis
-$\tau_0\notin\Gamma\!\cdot\!f^{-1}(\infty)$ of Proposition~\ref{prop:indepHomotopy_arc} forbids;
-$\delta$ slides the base point along the arc rather than off it, and the two segments then differ,
-coinciding only at $\delta=0$. Since $f|_kS=f$ the pole set is $S$-stable, so one condition on
-$\delta$ clears both endpoints at once.
-
-The indentation is canonical rather than a choice. Along $\gamma^{\rm arc}$ the Hauptmodul is real
-and runs $0\to1728\to0$, so the two preimages of a value $x\in(0,1728)$ are traversed with opposite
-orientation in $j$; approaching from $j=x+i0^{+}$ therefore places the contour on opposite
-geometric sides at $\tau_p$ and $S\tau_p$, which is what an $S$-symmetric $\hat\gamma^S_f$ requires,
-$S$ carrying the arc onto itself with reversed orientation.
+The choice is admissible by Definition~\ref{def:segments}, since $-1/(\rho+1)=\rho$ and
+$(\rho+1)-1=\rho$: the two segments share their endpoints and may be taken to be the same path.
 
 Poles on $\gamma^{\rm arc}$ never occur singly. As $S$ acts on the unit circle by
 $e^{i\theta}\mapsto e^{i(\pi-\theta)}$, preserving $\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}$,
@@ -1932,81 +1909,61 @@ and it consists of the two endpoints exactly when $\phi\in\{\tfrac{\pi}{3},\tfra
 since $S(\rho+1)=-1/(\rho+1)=\rho$. All three cases are treated the same way, by moving the poles
 off the contour rather than moving the contour.
 
-At an elliptic point the family cannot be left free. Writing $n$ for the order of $\tau_e$, the
-representation of a given $f$ as $g/(j-j(\tau_e))^{m}$ with $g\in M^!_k$ and
-$0\le a:={\rm ord}_{\tau_e}g<n$ is unique --- the pole order is $P=mn-a$, which fixes
-$m=\lceil P/n\rceil$, then $a$, then $g$ --- and we deform in that representation.
+We move the poles off the contour along a fixed ray, inwards.
 
-\begin{definition}\label{def:ellfam}
-Let $\tau_e$ be an elliptic point of order $n$, let $g\in M^!_k$ have ${\rm ord}_{\tau_e}g=a$
-with $0\le a<n$, let $m\ge1$, and set
-\begin{equation}\label{eq:elldef}
-f_\eta:=\frac{g}{\big(j-j(\tau_e)-\eta\big)^{m}},\qquad
-\eta\in\CC^{\times},\qquad j(\tau_e)+\eta\notin[0,1728].
+\begin{definition}\label{def:retract}
+Let $z=e^{i\phi}$ with $\tfrac{\pi}{3}\le\phi\le\tfrac{\pi}{2}$, and let $w=iy$ with
+$\tfrac{\sqrt3}{2}<y<1$. The \emph{$\delta$-retraction of $z$ towards $w$} is
+\begin{equation}\label{eq:retract}
+z_w(\delta):=z-\delta\,(z-w),\qquad 0\le\delta\le1 .
 \end{equation}
 \end{definition}
 
-Since $j-j(\tau_e)$ vanishes to order exactly $n$ at $\tau_e$, the form $f_0$ has a pole there of
-order $P=mn-a$. As $m$ ranges over $m\ge1$ and $a$ over $0\le a<n$, that order runs over every
-positive integer, so no pole order is excluded.
+This is the straight homotopy from $z$ at $\delta=0$ to $w$ at $\delta=1$. Since $|z|=1$ and
+$|w|<1$, every $z_w(\delta)$ with $\delta>0$ lies inside the unit disc, and since
+${\rm Im}\,z\ge\tfrac{\sqrt3}{2}$ and ${\rm Im}\,w>\tfrac{\sqrt3}{2}$ it lies above that height;
+so a retracted pole sits in the lens between $\gamma^{\rm arc}$ and the horizontal chord, and its
+$S$-partner sits outside the unit circle. The range $\tfrac{\pi}{3}\le\phi\le\tfrac{\pi}{2}$ is
+not a restriction: by the $S$-pairing just described, prescribing the motion on that half of the
+arc determines it on the other.
+
+\begin{definition}\label{def:deltafam}
+Let $f\in F_k$, let
+$A_f:=\{e^{i\phi}\in f^{-1}(\infty):\tfrac{\pi}{3}\le\phi\le\tfrac{\pi}{2}\}$ be its poles on that
+half of the arc, let $B_f:=f^{-1}(\infty)\setminus\SLZ\!\cdot\!A_f$, and fix $w$ as in
+Definition~\ref{def:retract}. The \emph{$\delta$-family of $f$} is the family
+$f_{\delta,w}\in F_k$ whose poles are $\SLZ\!\cdot\!\{z_w(\delta):z\in A_f\}\cup B_f$, with the
+orders of $f$ and with $f_{0,w}=f$.
+\end{definition}
+
+Concretely, if $f=g\prod_i(j-j(z_i))^{-m_i}$ with $z_i\in A_f$, then
+$f_{\delta,w}=g\prod_i\big(j-j(z_i{}_w(\delta))\big)^{-m_i}$: moving a pole is moving its
+$j$-value, so the family stays in $F_k$ and no choice beyond $w$ enters.
 
 \begin{definition}\label{def:arcsplit}
-Let $f\in F_k$ have poles on $\gamma^{\rm arc}$. Take $\{f_\eta\}$ to be any family in $F_k$,
-holomorphic in $\eta$ near $0$, with $f_0=f$ and with no pole of $f_\eta$ on
-$\SLZ\!\cdot\!\gamma^{\rm arc}$ for $\eta\neq0$, required in addition to be the family
-\eqref{eq:elldef} at each pole of $f$ lying at an elliptic point. Set
+Let $f\in F_k$ have poles on $\gamma^{\rm arc}$, and let $f_{\delta,w}$ be its $\delta$-family.
+Set
 \begin{equation}\label{eq:arcsplit}
-L^*(f,s):=\lim_{\eta\to0}\ \eta^{\,\kappa}\,L^*(f_\eta,s),
+L^*(f,s):=\lim_{\delta\to0}\ \delta^{\,\kappa}\,L^*(f_{\delta,w},s),
 \end{equation}
-where $\kappa\ge0$ is the least exponent for which the limit exists.\footnote{\textbf{$\;$Both
-clauses are needed. Away from the elliptic points $\kappa=0$: the deformed pole leaves the arc on
-one side, nothing is trapped, and $\int_{-a}^{a}(u-i\delta)^{-m}\,du$ stays bounded as
-$\delta\to0$ at every $m$; there the limit depends on the family only through which side each pole
-leaves from, and two such choices differ by the residues of the poles between the corresponding
-contours, so the side data is the whole of the ambiguity. At an elliptic point of order $n$ the
-stabiliser orbit pinches the contour from all $n$ directions at once, $\kappa$ is positive, and
-the limit is genuinely family-dependent: replacing~\eqref{eq:elldef} by
-$g/\big((j-j(\tau_e))^{m}-\eta\big)$, equally admissible and with the same $f_0$, splits the pole
-into $m$ orbits rather than one and rescales at $\eta^{1/mn}$ instead of $\eta^{1/n}$, giving a
-different exponent and a different value. Naming~\eqref{eq:elldef} is therefore part of the
-definition, not a convenience.}}
+where $\kappa\ge0$ is the least exponent for which the limit exists, and likewise for the period
+polynomial of Definition~\ref{def:rf}.
 \end{definition}
 
+For $\delta>0$ no pole of $f_{\delta,w}$ lies on $\SLZ\!\cdot\!\gamma^{\rm arc}$, so every term on
+the right is the L-integral over $\gamma^{\rm arc}$ itself, with the contour never deformed and no
+choice of side to make. The prescription is one and the same at every pole of $A_f$, including the
+two elliptic points the arc passes through: at $\phi=\tfrac{\pi}{2}$ the $S$-pair collapses to the
+single point $i$, at $\phi=\tfrac{\pi}{3}$ it consists of the two endpoints $\rho+1$ and $\rho$,
+and in both cases the retraction moves the pole exactly as it moves any other. What distinguishes
+them is not the definition but the value of $\kappa$: at a pole away from the elliptic points the
+orbit leaves the contour on one side and $\kappa=0$, while at $i$ or $\rho+1$ the stabiliser orbit
+pinches the contour from all $n$ directions at once and $\kappa>0$.
 
-The second clause is not a regularisation. For every such $\delta$ the hypothesis of
-Proposition~\ref{prop:indepHomotopy_arc} holds, so $L^*$ does not depend on $\delta$ at all: the
-shortening of the segments is compensated by the movement of the base point, and no limit is
-taken. The displacement stays on $\gamma^{\rm arc}$, which is stable under $S$.
-
-In the third clause the oddness of $\log r$ is what the class requires, not a convenience: $S$
-acts on the unit circle by $(r,\theta)\mapsto(1/r,\pi-\theta)$, so the deformed path retraces
-itself under $S$ exactly when $\log r$ is odd about $\theta=\tfrac{\pi}{2}$. Oddness is thus
-$S$-equivariance, and it is what keeps the closed path traced by $S^2$ degenerate. It also fixes
-the endpoints correctly: it forces $\log r(\tfrac{2\pi}{3})=-\log r(\tfrac{\pi}{3})$, so writing
-$r(\tfrac{\pi}{3})=c$ the deformed segment runs from $c^{-1}e^{2\pi i/3}$ to $ce^{i\pi/3}$, and
-$S^{-1}(ce^{i\pi/3})=c^{-1}e^{2\pi i/3}$; a deformation lifting the endpoints off the arc simply
-carries the base point with them, and Definition~\ref{def:segments} is still satisfied.
-
-The indentation of Definition~\ref{def:georef} settles every pole on the arc except at an elliptic
-point, where no side is available to indent to. The reason is geometric rather than technical. At an elliptic point $\tau_e$ of order
-$n$ the function $j-j(\tau_e)$ vanishes to order $n$, so a pole of $f$ at $\tau_e$ is the merger of
-a full stabiliser orbit of $n$ poles: nearby, $f$ has simple poles at $n$ distinct points permuted
-by the stabiliser, and as they coalesce they pinch the contour from every side at once. Indenting
-past one member of the orbit passes around the others, so no deformation of the contour separates
-them.
-
-The remedy is to move the pole rather than the contour. Lift the orbit off the arc by deforming
-$f$, evaluate there --- where the poles are off the contour and Definition~\ref{def:georef} applies
-with no indentation at all --- and continue the result back to $\tau_e$. This is how every elliptic pole will be
-handled.\footnote{\textbf{What this principle does and does not supply. It does not supply
-existence of the limit: that must be established case by case, and in general the limit exists only
-after rescaling by a power of the deformation parameter. What it supplies is that the answer cannot
-land outside $W$. Every deformed form has its poles off the contour, so
-Definition~\ref{def:georef} applies to it unindented and its period polynomial lies in $W$; $W$ is a closed subspace; hence
-any limit that exists lies in $W$. The rescaling is by a power of the deformation parameter rather
-than of a contour parameter, so it is not a choice of how to draw a path --- but it remains a
-regularisation, extracting the leading coefficient of a divergence, and whether different
-deformations of the same $f$ agree is not settled here.}}
+The direction matters and is fixed by Definition~\ref{def:retract}. The two ways of leaving the
+arc give limits differing by the residues between the corresponding contours, and they are not
+interchangeable; retracting inwards selects one of them. Their mean is the principal value, which
+is a third quantity and not what~\eqref{eq:arcsplit} computes.
 
 With this definition we may unambiguously write
 \begin{align}\label{eq:Lstararc}
@@ -2522,25 +2479,20 @@ one-sided indentation exists. We compute that limit. Here $n$ denotes the order 
 point, as in Lemma~\ref{lem:ellLaurent}.
 
 \begin{lemma}\label{lem:ellLstar}
-Let $\tau_e\in\gamma^{\rm arc}$ be elliptic of order $n$ and let $f_\eta$ be as in
-Definition~\ref{def:ellfam}, with $f_0$ of pole order $P=mn-a$ at $\tau_e$. Put
+Let $\tau_e\in\gamma^{\rm arc}$ be elliptic of order $n$, let $f\in F_k$ have a pole of order $P$
+there, and let $f_{\delta,w}$ be its $\delta$-family. Put
 \begin{equation}\label{eq:ellkappa}
 \kappa:=\begin{cases}
-\max\Big(0,\dfrac{P-2}{n}\Big), & P\equiv1\!\!\pmod n,\\[3mm]
-\dfrac{P-1}{n}, & \text{otherwise.}
+\max\big(0,\,P-2\big), & P\equiv1\!\!\pmod n,\\[1mm]
+P-1, & \text{otherwise.}
 \end{cases}
 \end{equation}
-Since $P=mn-a$ with $0\le a<n$, the congruence $P\equiv1\pmod n$ is the same as $a=n-1$; it is
-stated in $P$ and $n$ because those belong to $f$, whereas $m$ and $a$ are artefacts of the family
-chosen in Definition~\ref{def:ellfam}. The exponent is never negative, as
-Definition~\ref{def:arcsplit} requires, and $P=1$ always satisfies the congruence, so a simple pole
-at an elliptic point needs no rescaling at all.
-Then no $f_\eta$ with $\eta\ne0$ has a pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, and for every
-$s\in\CC$ the limit
+Then no $f_{\delta,w}$ with $\delta\ne0$ has a pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$, and for
+every $s\in\CC$ the limit
 \begin{equation}\label{eq:ellLstar}
-\lim_{\eta\to0}\ \eta^{\kappa}\,L^*(f_\eta,s)
+\lim_{\delta\to0}\ \delta^{\kappa}\,L^*(f_{\delta,w},s)
 \end{equation}
-exists, is finite, and is independent of the direction of approach up to an $n$-th root of unity.
+exists and is finite.
 This is Definition~\ref{def:arcsplit} at that $\kappa$.
 \end{lemma}
 
