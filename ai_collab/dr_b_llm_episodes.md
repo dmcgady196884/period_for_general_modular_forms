@@ -841,7 +841,7 @@ is the instructive part.
 
 ---
 
-## Episode 13 — Two manufactured divergences: DAM's skepticism kills $\delta^\kappa$, and the base-point shift dissolves the pole at $\rho$ (PRIMARY-SOURCE: this session, Opus 5)
+## Episode 13 — Two manufactured divergences, and the orbifold weight: DAM's skepticism kills $\delta^\kappa$, the base-point shift makes $L^*$ finite at $\rho$, and the prescription is $m=0$ — $1/n$ of the elliptic residue (PRIMARY-SOURCE: this session, Opus 5)
 
 **The result.** $L^*(f,s)$ is finite at a pole on *either* elliptic point of $\gamma^{\rm arc}$, and
 neither case needs a regulator. The whole $\delta^\kappa$ apparatus — `lem:ellLstar`, `eq:ellkappa`,
@@ -923,7 +923,13 @@ sampling it at the one place it isn't defined.
    proof: short is real in all 6 rows, long in 3 of 6.
 5. Reported $\Phi=0$ as possibly structural. $\Phi(f)=c_f(0)$ — every $n\ne0$ mode integrates to zero
    across a period — and all three test forms had $j$ downstairs. A one-glance check of the
-   $q$-expansion would have caught it.
+   $q$-expansion would have caught it. **Then stated that identity twice too broadly**: it needs *no
+   pole of $f$ above the contour anywhere in the strip $|{\rm Re}\,\tau|\le\tfrac12$*, since the
+   argument deforms the $T$-segment to a horizontal line at large height and crosses every such
+   pole. Two validation rows caught it, both with $c_f(0)=0$: a pole at $0.2+0.99i$ (DAM's "danger
+   zone", $|\tau|>1$, ${\rm Im}<1$) gives $\Phi=1.739{\rm e}{-}6-1.085{\rm e}{-}6\,i$, and
+   $\Delta/(j-j(e^{i\pi/4}))$, whose orbit sits at $\pm\tfrac12+1.21i$, gives
+   $\Phi=-2.740{\rm e}{-}7$.
 6. Predicted a surviving $\log\alpha$ at $\rho$ from ${\rm Res}_\rho(fK)\ne{\rm Res}_{\tau_0}(fK)$.
    The discriminant says no log; the mechanism is unexplained.
 7. Wrote the wall-crossing sign backwards: ${\rm short}-{\rm long}=-2\pi ie^{-i\pi s/2}
@@ -936,15 +942,142 @@ $4\pi/3$) are each flat but differ by **exactly one `lem:wall_arc` crossing** ($
 18 digits at both $s$, against a residue computed independently at three radii — so it is ordinary
 wall-crossing, not new machinery.
 
-**Not settled.** Which routing. Reality does not select it. Whether $W$-membership does turns on
-${\rm Res}_\rho f$, which the stabiliser symmetry forces to vanish unless $P\equiv1\pmod3$ — so the
-test is informative only there, and elsewhere the ambiguity may not reach $\hat r_f$ at all. Also
-untested: a structurally different realisation of $\hat\gamma^T$ (the current one shares its whole
-near-$\rho$ structure with $\hat\gamma^S$), and whether the base-point route at $\tau_0=i(1+\delta)$
-reproduces the detour mean $0.00086752559521718496505$, which would make the two prescriptions one.
-No `.tex` was edited this session.
+### Resolution: the orbifold weight. DAM again, and the prescription is $m=0$
 
-**Code.** `arc_numerics/Lf/{detour_vs_retract,endpoint_vs_interior,basepoint_shift_rho,connector_residue,fit_sanity,log_ratio_test,finite_part_scan}.py`.
+**The harness first.** The $O(1)$ defects below were reported before anything had checked that the
+spiral+connector machinery reproduces a known answer — DAM: *"I am unconvinced that what you did
+establishes what you say it establishes. Second, we have not checked for pedestrian cases."* He was
+right to suspect it and the check came back the other way: six cases pass. Off-contour far ($7i$),
+off-contour near (the danger zone), below-arc ($e^{i\pi/4}$ — DAM proposed it as on-arc; it is at
+$45^\circ$ and the arc is $60$–$120^\circ$), and two genuinely on-arc ($75^\circ$ per DAM's
+correction, and $x=500$). All give $\hat r_f\in W$ at $10^{-17}..10^{-20}$ and reproduce
+`common.tilde_r` to $5$–$7\times10^{-16}$. The enclosing regime was then checked against
+independently-computed residues: the whole 11-component difference vector predicted from small
+circles about $\rho$, matching to $1.02\times10^{-25}$. **Bonus structure**: those residues satisfy
+$R(n-\ell)=(-1)^{\ell+1}R(\ell)$ exactly — the $s\leftrightarrow k-s$ functional equation — which
+predicted the last three rows before they printed.
+
+**The four-point law.** Sweeping the connector winding for $\Delta/j$, $k=12$, $P=3$:
+$|D|=501060.84529,\ 1002121.69058,\ 2505304.22645,\ 2004243.38116$ at turns $0,+1,+2,-1$, each to
+nine digits, with $\Phi$ exactly linear at $-9.89994{\rm e}{-}6$ per turn. So $D$ is affine in the
+winding with zero at turns $=1/3$.
+
+**DAM saw what the $1/3$ was.** *"wouldn't the winding of 1/3 be exactly the right winding that we
+should pick up in the contour-integral for the L-function too? I mean, $\rho$ is only 1/3 in the
+fundamental domain, which is why e.g. the valence formula has that funny factor of 3 … Not quite
+sure what the tension is, yet."* Locally at an order-$n$ elliptic point $\HH\to\SLZ\backslash\HH$ is
+$z\mapsto z^n$, so $2\pi/n$ upstairs is ONE loop downstairs. Writing $m$ for the **quotient**
+winding, $m=-1+3\,$turns, and the law collapses to
+$$D=-A\,m,\qquad A=501060.84529,$$
+exact at all four points. The endpoints $S\tau_0$ and $T^{-1}\tau_0$ are one stabiliser step apart
+($V=T^{-1}S$ fixes $\rho$, $VS\tau_0=T^{-1}\tau_0$ exactly in $\rm PSL_2$), so paths realise only
+$m\equiv2\pmod 3$ and $m=0$ is unreachable by any single contour.
+
+**But $m=0$ is reachable as a weighted average, and $L^*$ is linear.** The prescription:
+$$L^*(f,s):=L^*(m{=}0),\qquad
+\text{at }i:\ \tfrac12 L^*(-1)+\tfrac12 L^*(+1),\qquad
+\text{at }\rho:\ \tfrac23 L^*(-1)+\tfrac13 L^*(2),$$
+weights fixed uniquely by $\sum w_j=1$, $\sum w_jm_j=0$. Equivalently: add $1/n$ of the elliptic
+residue to the winding-free routing,
+$L^*_{\rm can}=L^*_{m=-1}-\tfrac{2\pi i}{n}e^{-i\pi s/2}{\rm Res}(f\tk)$. This is LINEAR in $f$ —
+the $1/n$ depends only on the elliptic point's order, never on $P$ or $f$ — which is precisely what
+$\delta^\kappa$ was not. It is $\epsilon$-independent, representative-independent, and respects
+$s\leftrightarrow k-s$.
+
+**Verified directly at $i$** ($\Delta/(j-1728)$, $k=12$, $P=2$, unshifted base point, both segments
+the arc, detour radius $0.1$ and $0.05$ giving identical numbers): the two single sides FAIL —
+$|(1+S)|=1.62594$ and $0.534116$, $|(1+U+U^2)|=68.2894$ and $22.4329$, with **identical** raw
+defects $2744182.69$ (i.e. $D=-Am$ at $m=\mp1$) — while the mean is in $W$ at $|(1+S)|=8.4$e$-31$,
+$|(1+U+U^2)|=2.4$e$-28$. At $i$ the $(1+S)$ relation is the discriminator, because $S$ carries an
+inside detour to an outside one so neither single side is $S$-symmetric; at $\rho$ it never was,
+the spiral being $S$-symmetric by construction (DAM: *"It only ever was so, dear silconaceuous
+comrade"*). And this retroactively explains the earlier finding that the detour mean at $i$ is
+exactly real and exactly radius-independent: it is $m=0$.
+
+So the L-function and the period polynomial are both defined at $m=0$ and cannot disagree. The
+"architectural problem" reported an hour earlier was an artifact of insisting on a single contour.
+
+**Two more errors, both mine, both caught by arithmetic DAM prompted.**
+8. Reported "both routings fail and no winding can work", built a story about finiteness trading
+   against $W$-membership on top of it, and credited that story to DAM's own Figure-1(b) framing —
+   from comparing max-NORMS rather than vectors, having already noted the norm arithmetic was
+   unreliable.
+9. Then flipped to "it's a lock, the zero is at an integer" on an exact factor of 2 — which was a
+   mislabelling: the old `longway` branch ADDED a turn (the reduced angular travel $d_0=-2\pi/3$ is
+   negative), so old-long was turns $=+1$, not $-1$. The $\Phi$ sign was sitting there the whole
+   time. Refitting all four points gave $-3$, not $-1$, i.e. the orbifold factor.
+
+**$D(0)=0$ IS GENERAL — $(P,k)$ sweep, `rf/m_zero_Pk_sweep.py`.** Both elliptic points, three pole
+orders, four weights. $D=-A\,m$ reconfirmed at each ($|D(2)|/|D(-1)|$ exactly $2$), and $m=0$ kills
+the defect: $(i,P{=}2)$ $2.4$e$-28$, $(i,P{=}4)$ $9.3$e$-26$, $(\rho,P{=}2,k{=}4)$ $9.1$e$-14$,
+$(\rho,P{=}4,k{=}8)$ $2.4$e$-10$ (both $\rho$ at $\epsilon=10^{-1}$), $(\rho,P{=}3)$ by the
+four-point law. At $i$ both single sides fail — including on $(1+S)$ — with **identical** raw
+defects, $2744182.69$ at $P=2$ and $171222.5141$ at $P=4$, i.e. $D=-Am$ at $m=\mp1$.
+**$P\bmod n$ is irrelevant to the prescription**: $P=4$ at $\rho$ is the class where the old
+$\delta^\kappa$ analysis degenerated, and the $i$ control at the same $P$ came back clean.
+
+The one loose number, $(\rho,P{=}4,k{=}8)$ reading $1.9$e$-2$ at $\epsilon=10^{-3}$, is
+**$\epsilon$-conditioning, not a defect** (`rf/m_zero_eps_conditioning.py`): clean power laws in
+$\epsilon$ — exactly $10\times$ per decade at $P=2$ ($9.1$e$-14$, $8.8$e$-13$, $8.7$e$-12$) and
+$10^4\times$ at $P=4$ ($2.4$e$-10$, $2.0$e$-6$, $1.9$e$-2$) — while $|D(-1)|$ and $|D(2)|$ stay
+$\epsilon$-flat to 10–12 digits with ratio exactly $2$. A genuine nonzero $D(0)$ could not scale
+with $\epsilon$ at all, $\epsilon$ being no parameter of the problem. (Claude proposed
+$\epsilon^{-P}$ as the mechanism; it fits $P=4$ and NOT $P=2$, where the rate is one order per
+decade, so the exponent's $P$-dependence is unexplained and two points do not fix it.)
+**Practical consequence: run the shifted geometry at $\epsilon=10^{-1}$.** Small $\epsilon$ is not
+"closer to the limit" — the limit is exact — it only costs precision, and every earlier shifted
+number was left several orders on the table for nothing.
+
+**Two parameters, do not conflate them** (DAM caught Claude listing the second as an open tension):
+$\epsilon$ is the BASE POINT, $\tau_0=(1+\epsilon)e^{i\pi/3}$ — a contour deformation with the
+poles untouched, and exactly flat by the $\tau_0$-independence identity. $\eta=j_0-j(\rho)$ is the
+POLE POSITION, Episode 12's family — the abandoned route, since moving a pole drags its stabiliser
+orbit across the contour. Episode 12's $\tilde r_{f_\eta}\sim\eta^{-2/3}$ divergence is therefore
+no tension with the finite $\hat r_{f_0}(m{=}0)$: one describes a family of DIFFERENT forms as
+$j_0\to0$, the other describes the single form at $j_0=0$. $\hat r$ is simply not continuous in
+$j_0$ there (the pole order jumps from three simple to one triple) and nothing requires it to be.
+Episode 12's $v$ is **superseded**, not competing: it was a workaround for a question that now has
+a direct answer.
+
+**ON-ARC NON-ELLIPTIC POLES, and a mesh trap that voided a claim.** `rf/shifted_onarc_75.py`
+clustered its quadrature mesh at the PARAMETER endpoints $t=0,1$ — the arc's ends — while an
+on-arc pole at angle $\phi$ sits at $t=(2\pi/3-\phi)/(\pi/3)$, mid-interval. At $\epsilon=10^{-3}$
+the spiral passes $5\times10^{-4}$ from such a pole against a panel width $0.05$, so the
+quadrature never resolved it and returned a smooth wrong number that still looked like
+$W$-membership at 2e-20. **Verbatim the trap already recorded for `lem:arcdeform`**, second
+occurrence, now TRAP 4 in `common.py`. NOT affected: the off-contour validations, and — because
+$\rho$ and $\rho+1$ ARE the parameter endpoints — none of the elliptic work.
+
+Redone with pole-centred clustering (`rf/x500_discrepancy.py`, `rf/onarc_resolved.py`): the
+hand-indented wiggle contour $\log r=0.15\sin(6(\theta-\pi/2))$ reproduces
+`arc_eight_classes.py`'s recorded $|\hat r|=312512.435$ **to all digits**, so conventions are
+shared across scripts and the $x=500$ gap was never normalisation. At $75^\circ$ (DAM's angle)
+wiggle gives $286185.562742$ and spiral $198819.70067$, **both in $W$** at $1.4$e$-28$ and
+$4.4$e$-29$, differing — i.e. `lem:arcon`'s free side choice, NOT the stronger "the shifted spiral
+picks the side for free" that Claude claimed off the broken mesh. At a non-elliptic pole the
+stabiliser is trivial, so there is no $2\pi/n$ to weight and no endpoint pinning to define $m$
+against; the side is genuinely free and the draft already says so in case 2 of `thm:arcperiod`.
+
+Two incidental facts: $a_{Sz}=-\overline{a_z}$ for the $S$-pair at both $x=500$ and $75^\circ$
+(hence $a_z+a_{Sz}$ purely imaginary, $a_z-a_{Sz}$ purely real), and $\Phi({\rm wiggle})=
+2\pi i\,a_z$ exactly at $x=500$. The wiggle/spiral difference is NOT a minimal winding — the four
+$(X_z,X_{Sz})\in\{\pm1\}^2$ combinations give relative $1.49$, $0.257$, $2.26$, $1.47$, with
+$(+1,-1)$ closest but not matching — unsurprising, since the wiggle swings 16% off the circle and
+likely crosses other points of the pole orbit. DAM's call: drop it, two arbitrary classes have no
+reason to differ minimally. Also unexplained: the broken-mesh run reproduced the WIGGLE's value
+($286185.562742$) rather than its own class.
+
+**Still open.** §5.2 (comparison to [1806]) is still a placeholder, and **none of this is in the
+draft**. The deletion list is settled (`lem:ellLstar` and its apparatus, `def:retract`,
+`def:deltafam`, `def:arcsplit`'s $\delta^\kappa$, the $\kappa$ language at 1953–1966, 2033–2034,
+2473–2479, `lem:arcell`'s dead references to `def:ellfam`/`eq:ellkappa`, case 3 of
+`thm:arcperiod`); the additions are two — the $\tau_0$-independence identity promoted from the
+assertion at line 1885 to a proved lemma, and the $m=0$ prescription. Per DAM's standing rules the
+§5 skeleton gets agreed before drafting and every diff shown. No `.tex` was edited this session.
+
+**Code.** `arc_numerics/Lf/{detour_vs_retract,endpoint_vs_interior,basepoint_shift_rho,connector_residue,res_at_rho,fit_sanity,log_ratio_test,finite_part_scan}.py`;
+`arc_numerics/rf/{basepoint_W_rho,shifted_harness_validation,shifted_onarc_75,connector_enclosing_check,winding_plus_one,i_pole_m_zero}.py`.
+Raw outputs in `arc_numerics/logs/`.
 
 ---
 

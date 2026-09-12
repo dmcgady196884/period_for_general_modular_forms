@@ -32,9 +32,25 @@ arg(-2 pi n) + arg(tau_0/i) = 5 pi/6 = arg(2 pi i n tau_0).  Diagnosed in
 Lf/F_only_check.py; the S-part was never affected because it was already written as a
 single exponential.
 
-Quadrature: nodes cluster geometrically at both endpoints, since that is where poles
-approach the contour.  depth=10 already agrees with depth=13 to 5e-41, so depth 10 is
-ample; the cost is linear in depth.
+TRAP 4 -- CLUSTERING AT THE ENDPOINTS WHEN THE POLE IS NOT AT AN ENDPOINT.  arc_nodes()
+clusters at theta = pi/3, 2pi/3 because that is where the ELLIPTIC poles (rho, rho+1) sit.
+An on-arc pole at angle phi is at t = (2pi/3 - phi)/(pi/3), i.e. MID-interval -- t ~ 0.235
+and 0.765 for x = 500 -- and an endpoint-clustered mesh steps straight over it.  At
+eps = 1e-3 the shifted spiral passes 5e-4 from such a pole against a panel width 0.05: the
+quadrature never sees it and returns a SMOOTH WRONG NUMBER that can still look like it is
+in W (2e-20 was reported).  Resolved value for x = 500 with pole-centred clustering is
+|hat r| = 212068.947897 against 312510.344 from the broken mesh -- 32% out, with no
+convergence warning.  This has now bitten twice: once in the lem:arcdeform test (pole
+2e-8 from a mesh of width 0.26, read as two prescriptions disagreeing) and once in
+rf/shifted_onarc_75.py.  ALWAYS pass the pole angles as extra clustering centres; see
+rf/onarc_resolved.py for the pattern.  Note the hand-indented wiggle contour
+(log r = 0.15 sin(6(theta - pi/2))) is NOT mesh-sensitive here, since it stands 0.16 off
+the poles, and it reproduces arc_eight_classes.py's |hat r| = 312512.435 to all digits.
+
+Quadrature: nodes cluster geometrically at both endpoints, since that is where the
+ELLIPTIC poles approach the contour.  depth=10 already agrees with depth=13 to 5e-41, so
+depth 10 is ample; the cost is linear in depth.  For any pole elsewhere on the arc this
+default is WRONG -- see TRAP 4.
 
 L^*(f,s) here is RAW QUADRATURE of the two contour integrals of def:Lint.  There is
 no closed form for L^* in this class yet (the thm:mero analogue is unwritten), so the

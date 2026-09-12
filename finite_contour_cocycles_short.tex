@@ -1886,6 +1886,39 @@ is independent of the chosen representative paths and independent of $\tau_0$ (s
 natural constraints of $\tau_0$ monodromies around singular points, which move between
 homotopy classes).
 
+The independence of $\tau_0$ is exact, and the mechanism is the $T$-shift of the kernel; we record
+it, since the treatment of a pole at an elliptic point rests on it.
+
+\begin{lemma}\label{lem:tau0indep}
+Let $f\in F_k$ and let $\tau_0,\tau_0'\in\HH$ be joined by a path $\sigma$ meeting no pole of $f$,
+with the segments at $\tau_0'$ obtained from those at $\tau_0$ by appending $\sigma$ and its
+$S$- and $T^{-1}$-images. Then
+$L^*(f,s;\gamma^S_{\tau_0'},\gamma^T_{\tau_0'})=L^*(f,s;\gamma^S_{\tau_0},\gamma^T_{\tau_0})$ for
+every $s\in\CC$.
+\end{lemma}
+
+\begin{proof}
+Write $\Delta$ for the change in each segment integral. On the $S$-side,
+$\Delta L^*_S=-\int_\sigma f(\tau)\tau^{s-1}d\tau+\int_{S\sigma}f(\tau)\tau^{s-1}d\tau$, and
+substituting $\tau\mapsto S\tau$ with $f|_kS=f$ gives
+$f(S\tau)(S\tau)^{s-1}d(S\tau)=(-1)^{s-1}f(\tau)\tau^{k-s-1}d\tau$, so the second term is
+$(-1)^{s-1}\int_\sigma f(\tau)\tau^{k-s-1}d\tau$. On the $T$-side, $T$-periodicity of $f$ gives
+$\Delta L^*_T=-\int_\sigma f(\tau)\big[\tk(\tau,s)-\tk(\tau-1,s)\big]d\tau$, and
+$\zeta(w,\tau+1)=\zeta(w,\tau)-\tau^{-w}$ applied to both Hurwitz terms of
+Definition~\ref{def:kernel} yields
+\begin{equation}\label{eq:ktilshift}
+\tk(\tau,s)-\tk(\tau-1,s)=-\tau^{s-1}+e^{i\pi(s-1)}\tau^{k-s-1}.
+\end{equation}
+Adding the two changes, the integrand is
+$-\tau^{s-1}+(-1)^{s-1}\tau^{k-s-1}+\tau^{s-1}-e^{i\pi(s-1)}\tau^{k-s-1}$, which vanishes
+identically since $(-1)^{s-1}=e^{i\pi(s-1)}$. The prefactor $e^{-\pi is/2}$ multiplies through.
+\end{proof}
+
+The hypothesis is only that $\sigma$ avoids the poles: crossing one moves between homotopy
+classes, which is the content of Lemma~\ref{lem:wall_arc} below. In particular $L^*$ is
+\emph{constant} in any parameter that slides $\tau_0$ without crossing a pole, not merely
+convergent as that parameter tends to a limit.
+
 We would like to speak of ``the'' L-integral, and homotopy classes split this into L-integrals for
 contours in different classes. We therefore fix a reference class, and we fix it on the boundary of
 the fundamental domain.
@@ -1909,66 +1942,78 @@ and it consists of the two endpoints exactly when $\phi\in\{\tfrac{\pi}{3},\tfra
 since $S(\rho+1)=-1/(\rho+1)=\rho$. All three cases are treated the same way, by moving the poles
 off the contour rather than moving the contour.
 
-We move the poles off the contour along a fixed ray, inwards.
+We move the contour off the poles, never the poles off the contour. Displacing a pole is not
+available to us: $f^{-1}(\infty)$ is $\SLZ$-stable, so a pole cannot be moved alone, and at an
+elliptic point of order $n$ the stabiliser acts as rotation by $2\pi/n$ about a point the contour
+runs through, sending any displacement to the far side and pinching the contour. Displacing the
+base point costs nothing, by Lemma~\ref{lem:tau0indep}.
 
-\begin{definition}\label{def:retract}
-Let $z=e^{i\phi}$ with $\tfrac{\pi}{3}\le\phi\le\tfrac{\pi}{2}$, and let $w=iy$ with
-$\tfrac{\sqrt3}{2}<y<1$. The \emph{$\delta$-retraction of $z$ towards $w$} is
-\begin{equation}\label{eq:retract}
-z_w(\delta):=z-\delta\,(z-w),\qquad 0\le\delta\le1 .
+\begin{definition}\label{def:arcshift}
+For $0<\epsilon<\tfrac12$ put $\tau_0(\epsilon):=(1+\epsilon)e^{i\pi/3}$, so that
+$S\tau_0(\epsilon)=(1+\epsilon)^{-1}e^{2i\pi/3}$ and $T^{-1}\tau_0(\epsilon)=\rho+\epsilon
+e^{i\pi/3}$. Let $\hat\gamma^S_\epsilon$ be the logarithmic spiral
+\begin{equation}\label{eq:arcspiral}
+\tau(\theta)=\exp\Big(\log(1+\epsilon)\,\tfrac{\pi/2-\theta}{\pi/6}+i\theta\Big),
+\qquad \theta:\tfrac{2\pi}{3}\to\tfrac{\pi}{3},
 \end{equation}
+and let $\hat\gamma^T_\epsilon$ be a path from $T^{-1}\tau_0(\epsilon)$ to $S\tau_0(\epsilon)$
+inside $|\tau-\rho|=O(\epsilon)$, followed by $\hat\gamma^S_\epsilon$. The
+\emph{$\epsilon$-shifted geodesic class} is the pair of their homotopy classes in
+$\HH\setminus f^{-1}(\infty)$.
 \end{definition}
 
-This is the straight homotopy from $z$ at $\delta=0$ to $w$ at $\delta=1$. Since $|z|=1$ and
-$|w|<1$, every $z_w(\delta)$ with $\delta>0$ lies inside the unit disc, and since
-${\rm Im}\,z\ge\tfrac{\sqrt3}{2}$ and ${\rm Im}\,w>\tfrac{\sqrt3}{2}$ it lies above that height;
-so a retracted pole sits in the lens between $\gamma^{\rm arc}$ and the horizontal chord, and its
-$S$-partner sits outside the unit circle. The range $\tfrac{\pi}{3}\le\phi\le\tfrac{\pi}{2}$ is
-not a restriction: by the $S$-pairing just described, prescribing the motion on that half of the
-arc determines it on the other.
+Three features of \eqref{eq:arcspiral} are used below. Its $\log r$ is odd about
+$\theta=\tfrac{\pi}{2}$ and $S$ acts by $(r,\theta)\mapsto(1/r,\pi-\theta)$, so
+$\hat\gamma^S_\epsilon$ is $S$-symmetric and Lemma~\ref{lem:georetrace} applies to the
+$S^2$-path. It lies outside $|\tau|=1$ for $\theta<\tfrac{\pi}{2}$ and inside for
+$\theta>\tfrac{\pi}{2}$, so an $S$-pair of poles on the arc is passed on opposite sides
+automatically, with no side chosen by hand. And it reduces to $\gamma^{\rm arc}$ as
+$\epsilon\to0$, the two segments then sharing their endpoints as in
+Definition~\ref{def:georef}.
 
-\begin{definition}\label{def:deltafam}
-Let $f\in F_k$, let
-$A_f:=\{e^{i\phi}\in f^{-1}(\infty):\tfrac{\pi}{3}\le\phi\le\tfrac{\pi}{2}\}$ be its poles on that
-half of the arc, let $B_f:=f^{-1}(\infty)\setminus\SLZ\!\cdot\!A_f$, and fix $w$ as in
-Definition~\ref{def:retract}. The \emph{$\delta$-family of $f$} is the family
-$f_{\delta,w}\in F_k$ whose poles are $\SLZ\!\cdot\!\{z_w(\delta):z\in A_f\}\cup B_f$, with the
-orders of $f$ and with $f_{0,w}=f$.
+Since $S\tau_0(\epsilon)$ and $T^{-1}\tau_0(\epsilon)$ are distinct for $\epsilon\ne0$, the
+connector in Definition~\ref{def:arcshift} is not determined by its endpoints, and the classes
+available to it are indexed by an integer. We name that integer through the relator path, where it
+is what the period polynomial sees.
+
+\begin{definition}\label{def:arcwind}
+Let $W(f,\epsilon)\in\ZZ$ be the winding number about $\rho+1$ of the closed path traced by
+$(ST)^3$ in the $\epsilon$-shifted geodesic class, computed in the coordinate
+$w=(\tau-\rho-1)/(\tau-\overline{\rho+1})$.
 \end{definition}
 
-Concretely, if $f=g\prod_i(j-j(z_i))^{-m_i}$ with $z_i\in A_f$, then
-$f_{\delta,w}=g\prod_i\big(j-j(z_i{}_w(\delta))\big)^{-m_i}$: moving a pole is moving its
-$j$-value, so the family stays in $F_k$ and no choice beyond $w$ enters.
+By Lemma~\ref{lem:wall_arc} the L-integral is an affine function of $W$, and by
+Lemma~\ref{lem:arcwind} below $W\equiv-1\pmod 3$, so $W=0$ is not realised by any single
+contour. It is nonetheless the value at which the period polynomial lies in $W$, and $L^*$ is
+linear, so we define the L-integral by evaluating that affine function there.
 
-\begin{definition}\label{def:arcsplit}
-Let $f\in F_k$ have poles on $\gamma^{\rm arc}$, and let $f_{\delta,w}$ be its $\delta$-family.
-Set
-\begin{equation}\label{eq:arcsplit}
-L^*(f,s):=\lim_{\delta\to0}\ \delta^{\,\kappa}\,L^*(f_{\delta,w},s),
+\begin{definition}\label{def:arczero}
+Let $f\in F_k$ have a pole on $\SLZ\!\cdot\!\rho$ or at $i$. Then $L^*(f,s)$ is the value at
+$W=0$ of the affine function $W\mapsto L^*(f,s;\hat\gamma^S_\epsilon,\hat\gamma^T_\epsilon)$, and
+likewise for the period polynomial of Definition~\ref{def:rf}.
+\end{definition}
+
+Equivalently, $L^*(f,s)$ is the weighted average of L-integrals over two realisable classes, with
+weights $w_j$ fixed by $\sum_jw_j=1$ and $\sum_jw_jW_j=0$: at $i$, where $W$ is odd, the two
+classes $W=\pm1$ enter with weight $\tfrac12$ each, so $L^*$ is the mean of the two indentations;
+at $\rho$ the classes $W=-1$ and $W=2$ enter with weights $\tfrac23,\tfrac13$. In both cases the
+correction to the non-winding class is $\tfrac1n$ of one residue,
+\begin{equation}\label{eq:arczero}
+L^*(f,s)=L^*\big(f,s;W=-1\big)-\frac{2\pi i}{n}\,e^{-\pi is/2}\Res_{\tau=\tau_e}\!\big(f\,\tk\big),
 \end{equation}
-where $\kappa\ge0$ is the least exponent for which the limit exists, and likewise for the period
-polynomial of Definition~\ref{def:rf}.
-\end{definition}
-
-For $\delta>0$ no pole of $f_{\delta,w}$ lies on $\SLZ\!\cdot\!\gamma^{\rm arc}$, so every term on
-the right is the L-integral over $\gamma^{\rm arc}$ itself, with the contour never deformed and no
-choice of side to make. The prescription is one and the same at every pole of $A_f$, including the
-two elliptic points the arc passes through: at $\phi=\tfrac{\pi}{2}$ the $S$-pair collapses to the
-single point $i$, at $\phi=\tfrac{\pi}{3}$ it consists of the two endpoints $\rho+1$ and $\rho$,
-and in both cases the retraction moves the pole exactly as it moves any other. What distinguishes
-them is not the definition but the value of $\kappa$: at a pole away from the elliptic points the
-orbit leaves the contour on one side and $\kappa=0$, while at $i$ or $\rho+1$ the stabiliser orbit
-pinches the contour from all $n$ directions at once and $\kappa>0$.
-
-The direction matters and is fixed by Definition~\ref{def:retract}. The two ways of leaving the
-arc give limits differing by the residues between the corresponding contours, and they are not
-interchangeable; retracting inwards selects one of them. Their mean is the principal value, which
-is a third quantity and not what~\eqref{eq:arcsplit} computes.
+the weight $\tfrac1n$ depending only on the order of the elliptic point, never on $f$ or on the
+order of its pole. So \eqref{eq:arczero} is linear in $f$, and is independent of $\epsilon$ by
+Lemma~\ref{lem:tau0indep}. Poles of $f$ on $\gamma^{\rm arc}$ away from the elliptic points need
+no prescription at all: the spiral of \eqref{eq:arcspiral} already separates each $S$-pair, and by
+Lemma~\ref{lem:arcon} either separation puts $\hat r_f$ in $W$.
 
 With this definition we may unambiguously write
 \begin{align}\label{eq:Lstararc}
-L^*(f,s) := L^*\big(f, s; [\hat\gamma_f^S], [\hat\gamma_f^T]\big)~.
+L^*(f,s) := L^*\big(f, s; [\hat\gamma_f^S], [\hat\gamma_f^T]\big)~,
 \end{align}
+where for $f$ with a pole at an elliptic point the right-hand side is read through
+Definition~\ref{def:arczero}: there the value is not an integral over one homotopy class but the
+weighted average of two, so \eqref{eq:Lstararc} fixes a number and not a contour.
 Having fixed this reference value, consider two paths $\gamma^S_{\tau_0}$ and
 $\gamma^T_{\tau_0}$ which may lie in any homotopy class, and let $X_S(p),X_T(p)\in\ZZ$ count the
 windings of $\gamma^S_{\tau_0}$, $\gamma^T_{\tau_0}$ about each pole $\tau_p\in f^{-1}(\infty)$
@@ -1994,34 +2039,29 @@ prefactor $e^{-\pi i s/2}$ of Definition~\ref{def:Lint} multiplies through. Summ
 gives~\eqref{eq:wall_arc}.
 \end{proof}
 
-In particular the two choices of side available in Definition~\ref{def:arcsplit} differ by the
-residues of the poles between them. That is the whole of the dependence on the deforming family.
+In particular two contours passing on opposite sides of a pole differ by its residue, and nothing
+else. For a pole on the arc away from the elliptic points this is the whole of the ambiguity.
 
 \begin{proposition}\label{prop:arcside}
-Let $f\in F_k$ have poles on $\gamma^{\rm arc}$, none of them at $i$, $\rho$ or $\rho+1$, and let
-$\{f_\eta\}$ be admissible for Definition~\ref{def:arcsplit}. Write $\gamma^{\rm arc}_{\pm}(p)$
-for $\gamma^{\rm arc}$ indented near $p$ so as to pass outside, respectively inside, $|\tau|=1$,
-and let $\sigma_p=+1$ if $|p_\eta|>1$ for all small $\eta$ and $\sigma_p=-1$ otherwise. Then
-$\kappa=0$ in~\eqref{eq:arcsplit} and the limit equals $L^*(f,s)$ evaluated on the contour
-indented at each $p$ away from its side of approach, so that it depends on $\{f_\eta\}$ only
-through $(\sigma_p)_p$; and replacing $\sigma_p=+1$ by $\sigma_p=-1$ at one pole changes it by
+Let $f\in F_k$ have poles on $\gamma^{\rm arc}$, none of them at $i$, $\rho$ or $\rho+1$. Write
+$\gamma^{\rm arc}_{\pm}(p)$ for $\gamma^{\rm arc}$ indented near $p$ so as to pass outside,
+respectively inside, $|\tau|=1$. Then $L^*(f,s)$ is defined on either contour, and replacing
+$\gamma^{\rm arc}_{+}(p)$ by $\gamma^{\rm arc}_{-}(p)$ at one pole changes it by
 \begin{equation}\label{eq:sidediff}
 -2\pi i\,e^{-\pi is/2}\big[r_S(f,p)+r_T(f,p)\big].
 \end{equation}
+The spiral $\hat\gamma^S_\epsilon$ of \eqref{eq:arcspiral} realises one such contour for every
+$\epsilon>0$, passing outside at $\theta<\tfrac{\pi}{2}$ and inside at $\theta>\tfrac{\pi}{2}$, so
+each $S$-pair is separated without a side being chosen by hand.
 \end{proposition}
 
 \begin{proof}
-Let $p$ be a pole on the arc with $\sigma_p=+1$. Deforming $\gamma^{\rm arc}$ inward near $p$ to
-$\gamma^{\rm arc}_-(p)$ sweeps a region contained in $|\tau|<1$, which therefore contains no
-$p_\eta$, so by Proposition~\ref{prop:indepHomotopy_arc} the value of $L^*(f_\eta,s)$ is unchanged
-for every small $\eta$. Doing this at each pole on the arc, outward instead where $\sigma_p=-1$,
-produces one contour $\Gamma$ with ${\rm dist}(p_\eta,\Gamma)$ bounded below as $\eta\to0$. On
-$\Gamma$ the poles of $f_\eta$ stay away from the contour, so $f_\eta\to f$ uniformly there, and
-both kernels are bounded on $\Gamma$; hence $L^*(f_\eta,s)$ converges to $L^*(f,s)$ evaluated on
-$\Gamma$. The limit in~\eqref{eq:arcsplit} thus exists already at $\kappa=0$, equals that value,
-and depends on the family only through the sides $(\sigma_p)_p$ that determined $\Gamma$.
+Each indented contour keeps $p$ at positive distance, so both segment integrals converge and
+$L^*$ is defined on either; the spiral does the same for every $\epsilon>0$, and the sides it
+takes are as stated because $\log r$ in \eqref{eq:arcspiral} is positive for
+$\theta<\tfrac{\pi}{2}$ and negative for $\theta>\tfrac{\pi}{2}$.
 
-For the last claim, $\gamma^{\rm arc}_+(p)$ and $\gamma^{\rm arc}_-(p)$ agree off a neighbourhood
+For the difference, $\gamma^{\rm arc}_+(p)$ and $\gamma^{\rm arc}_-(p)$ agree off a neighbourhood
 of $p$ and together bound a loop encircling $p$ once. Along $\gamma^{\rm arc}$ the direction of
 travel is $\theta$ decreasing, so it is $-ie^{i\theta}$ up to a positive factor, while the outward
 radial direction is $e^{i\theta}=i\cdot(-ie^{i\theta})$: outward lies to the left of travel. The
@@ -2031,7 +2071,8 @@ $X_S(p)=X_T(p)=-1$ of Lemma~\ref{lem:wall_arc}, which gives~\eqref{eq:sidediff}.
 \end{proof}
 
 The exclusion of $i$, $\rho$ and $\rho+1$ is not a technicality: there the stabiliser orbit meets
-$\gamma^{\rm arc}$ on both sides at once, no single-sided indentation exists, and $\kappa>0$.
+$\gamma^{\rm arc}$ on both sides at once, no single-sided indentation exists, and the winding of
+Definition~\ref{def:arcwind} cannot be set to zero by any one contour.
 
 This provides the basics for the finite L-functions of $f\in F_k$ in this class. We wish, however,
 to present them in terms of their $q$-series coefficients, as was done for $f\in M^!_k$ in
@@ -2391,13 +2432,18 @@ ${\rm Im}\,z<\tfrac{\sqrt3}{2}$, persists onto the threshold line away from $\rh
 
 At $z\equiv\rho$ the argument $e^{2\pi i(\tau_0-z)}$ equals $1$ and the $\ell=N$ term carries
 $\Li_1(1)$, so the statement needs $c_N=0$. That coefficient is exactly the endpoint mismatch: by
-the computation above, $c_0$ is a non-zero multiple of the difference of the two sides
-of~\eqref{eq:P1cancel}, hence vanishes precisely when $k\equiv2\pmod6$. This is not a side
+the computation above, $c_0$ is a non-zero multiple of
+\begin{equation}\label{eq:endpointmismatch}
+\big[\rho^{\,s-1}+\tk(\rho,s)\big]-\big[\tau_0^{\,s-1}+\tk(\tau_0,s)\big],
+\end{equation}
+which by the shift identity \eqref{eq:ktilshift} reads
+$\rho^{\,s-1}=e^{i\pi(s-1)}\tau_0^{\,k-s-1}$ and so, with $\rho=e^{2\pi i/3}$ and
+$\tau_0=e^{i\pi/3}$, vanishes for every $s$ precisely when $k\equiv2\pmod6$. This is not a side
 condition to be hoped for. A pole \emph{at} $\rho$ has $P\equiv1\pmod n$ by
-Lemma~\ref{lem:ellLaurent}, and at $P=1$ --- the only order for which the block, rather than the
-rescaled limit of Lemma~\ref{lem:ellLstar}, is what one needs --- that forces $k\equiv2\pmod6$ and
-so $c_0=0$. The divergence one might have expected at $\rho$ is absent exactly when the theory
-calls on it.
+Lemma~\ref{lem:ellLaurent}, and at $P=1$ --- the only order for which the block itself, rather
+than the winding prescription of Definition~\ref{def:arczero}, is what one needs --- that forces
+$k\equiv2\pmod6$ and so $c_0=0$. The divergence one might have expected at $\rho$ is absent
+exactly when the theory calls on it.
 \end{proof}
 
 %NUMERICS for eq:geocl and eq:geoedge: arc_numerics/Lf/threshold_pi_r.py, k=12,
@@ -2470,6 +2516,14 @@ Lemma~\ref{lem:geopolylog} read at general $n$, and $q^{0}=1$ contributes
 $G^{\rm geo}_{s,k}(0)$ of~\eqref{eq:geoG0}.
 \end{proof}
 
+%DAM: SUPERSEDED. Everything between this \iffalse and the matching \fi is the old
+%delta^kappa treatment of the elliptic points (lem:ellLstar, eq:ellkappa, the ray/line models,
+%eq:ellvalue, eq:ellsub, eq:P1cancel) together with its numerics comments.  It is not repaired
+%but unnecessary: the divergence it measures is a pinch created by moving the POLE, and the
+%elliptic points are now handled by def:arcshift / def:arcwind / def:arczero and lem:arcwind.
+%The scaling also destroyed linearity of L^* in f, and discontinuously at the very point it was
+%introduced to cover.  Left in place, uncompiled, for review; delete on sight if you agree.
+\iffalse
 One case escapes all of the above. Both elliptic points of $\SLZ$ lie on $\gamma^{\rm arc}$: $i$ at
 $\theta=\tfrac{\pi}{2}$, in its interior, and $\rho$ at both endpoints, $\rho$ and $\tau_0=\rho+1$
 being the same point of $\SLZ\backslash\HH$. A pole there sits on the contour with no side to
@@ -2671,6 +2725,8 @@ multiplies $\delta^{P-1}$ by such a root.
 %arc_numerics/Lf/model_integral.py: |ray| matches to 10 digits and is independent of the
 %direction, the residual phase being an n-th root of unity; the line vanishes identically for odd
 %a.  Note L*(f,k/2) = 0 whenever i^k = -1, which is why the k=6 case must be read at s = 7.
+\fi
+%DAM: end of the superseded delta^kappa block.
 
 Lemma~\ref{lem:geopolylog} assumes ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ strictly, so it says nothing on
 the threshold line itself, where the chord meets the pole and neither the defining series of
@@ -2716,12 +2772,21 @@ bookkeeping maximal.}
 %    location or order.  This is the codimension-zero claim promised in the preamble.
 %  - poles ON the arc away from i, rho: S-symmetric indentation (log r odd about pi/2),
 %    legitimate because the pole and its S-image are distinct points
-%  - poles AT an elliptic point of order n: the pole is the merger of the stabiliser
-%    orbit, j - j(e) has an n-fold zero, and hat r_f = lim eta^{(n-1)/n} tilde r_{f_eta}
-%    lies in W.  Cannot fail: every family member is in W by thm:geoperiod, and W is closed.
-%  - normalisation: the limit moves with the reference form within E_k + S_k, so the
-%    ambiguity is 2 dim S_k -> dim S_k, not zero.
-%STATUS: statements below are in place; proofs still to be written.
+%  - poles AT an elliptic point of order n: SUPERSEDED PLAN, kept for the record.  The old
+%    route was to move the pole, hat r_f = lim eta^{(n-1)/n} tilde r_{f_eta}, every family
+%    member being in W by thm:geoperiod.  That is a statement about a family of DIFFERENT
+%    forms as eta -> 0, and its rescaling is not available to L^* (it is not linear in f).
+%    Nor is it needed: the CONTOUR is displaced instead (def:arcshift), L^* is exactly
+%    tau_0-independent (lem:tau0indep), and the only residual freedom is the winding W of
+%    def:arcwind, which lem:arcwind forces into -1 mod n while pinning the defect to -c W.
+%    def:arczero reads L^* off that affine family at W = 0 -- equivalently adds 1/n of the
+%    elliptic residue, the orbifold weight, which is linear in f and eps-independent.
+%  - normalisation: the old eta-limit moved with the reference form within E_k + S_k
+%    (ambiguity 2 dim S_k -> dim S_k).  At W = 0 nothing moves: cor:arcell gives uniqueness.
+%    The reference-form freedom in def:rfhat is untouched and is still not settled here.
+%STATUS: statements and proofs in place for the elliptic case (lem:arcwind, cor:arcell).
+%  Verified numerically at both elliptic points, pole orders P = 2,3,4, weights k = 4,8,12:
+%  arc_numerics/logs/{wind,pksweep,epscond,imzero}.txt and the README there.
 
 \begin{definition}\label{def:rfhat}
 For $f\in F_k$, let $r_f$ be given by Definition~\ref{def:rf} with $L^*(f,s)$ evaluated in the
@@ -2731,22 +2796,36 @@ geodesic reference class of Definition~\ref{def:georef}, and set
 \end{equation}
 \end{definition}
 
-\begin{lemma}\label{lem:geoloops}
-$\SLZ$ is generated by $S$ and $T$ subject to $S^2=(ST)^3=-I$. In the geodesic reference class the
-closed path traced by each of these two words retraces itself, so $\hat C_{\pm I}=0$ for every
-$f\in F_k$ with no pole on $\SLZ\!\cdot\!\gamma^{\rm arc}$.
+$\SLZ$ is generated by $S$ and $T$ subject to $S^2=(ST)^3=-I$, so two closed paths control the
+relations. Their degeneration on the arc is a statement about paths alone, independent of $f$; we
+record it separately from its consequence, since the case of a pole \emph{on} the contour uses the
+geometry but not the consequence.
+
+\begin{lemma}\label{lem:georetrace}
+Let $\tau_0$ lie on $\gamma^{\rm arc}$ and let $\hat\gamma^S=\hat\gamma^T$. Then the closed path
+traced by $S^2$ retraces itself, and if moreover $\tau_0=\rho+1$ the closed path traced by
+$(ST)^3$ retraces itself. Both statements are independent of $f$.
 \end{lemma}
 
 \begin{proof}
 $S$ acts on the unit circle by $e^{i\theta}\mapsto e^{i(\pi-\theta)}$, preserving
 $\tfrac{\pi}{3}\le\theta\le\tfrac{2\pi}{3}$, reversing orientation and fixing $i$; so
-$S\hat\gamma^S_f$ is $\hat\gamma^S_f$ reversed and the path traced by $S^2$ retraces itself, for any
-base point on the arc. For $(ST)^3$, the fixed points of $U=TS$ are the roots of $\tau^2-\tau+1$, so
-$U\tau_0=\tau_0$ at $\tau_0=\rho+1$ and the $U$-path is closed. With
-$\hat\gamma^S_f=\hat\gamma^T_f$ it is $S^{-1}\hat\gamma^T_f$ followed by $\hat\gamma^S_f$, the arc
+$S\hat\gamma^S$ is $\hat\gamma^S$ reversed and the $S^2$-path retraces, for any base point on the
+arc. For $(ST)^3$, the fixed points of $U=TS$ are the roots of $\tau^2-\tau+1$, namely
+$e^{\pm i\pi/3}$, so $U\tau_0=\tau_0$ exactly at $\tau_0=\rho+1$ and the $U$-path is closed. With
+$\hat\gamma^S=\hat\gamma^T$ it is $S^{-1}\hat\gamma^T$ followed by $\hat\gamma^S$, the arc
 traversed and then retraced; its $U$- and $U^2$-transports retrace $U\gamma^{\rm arc}$ and
-$U^2\gamma^{\rm arc}$ through the same fixed point. Each bounds nothing, so the winding number about
-every pole of $f$ vanishes and Cauchy's theorem gives $\hat C_{-I}=C_{-I}=0$.
+$U^2\gamma^{\rm arc}$ through the same fixed point.
+\end{proof}
+
+\begin{lemma}\label{lem:geoloops}
+In the geodesic reference class, $\hat C_{\pm I}=0$ for every $f\in F_k$ with no pole on
+$\SLZ\!\cdot\!\gamma^{\rm arc}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:georetrace} both relator paths retrace, so each bounds nothing; the winding
+number about every pole of $f$ vanishes and Cauchy's theorem gives $\hat C_{\pm I}=C_{\pm I}=0$.
 \end{proof}
 
 Definition~\ref{def:rfhat} covers those $f$ whose poles avoid the contour, and since
@@ -2791,13 +2870,28 @@ r_f\big|_{(1+U+U^2)}=-\,\hat C_T\big|_{S(1+U+U^2)} .
 This is where the hypothesis $f\in S^!_k$ was used in Lemma~\ref{lem:rfW}, and it is the only
 place: there $\hat C_T$ vanished, here it need not.
 
+The $T$-cochain is controlled by $\Phi$ alone, whatever path represents the $T$-segment. We isolate
+this, since it is used again below for segments that wind.
+
+\begin{lemma}\label{lem:CTPhi}
+There is a constant $A_0$, depending on $k$ alone, such that for every $f\in F_k$ and every
+admissible $\hat\gamma^T_f$,
+\begin{equation}\label{eq:arcoffCT}
+\hat C_T=-(2\pi i)^{n+1}A_0\int_{\hat\gamma^T_f}f(\tau)\,d\tau=-(2\pi i)^{n+1}A_0\,\Phi(f).
+\end{equation}
+In particular the right-hand side depends on the homotopy class of $\hat\gamma^T_f$ only through
+$\Phi(f)$, and $\Phi$ is by Definition~\ref{def:Phi} the integral over that same path.
+\end{lemma}
+
+\begin{proof}
 The computation of $\hat C_T$ in the proof of Lemma~\ref{lem:cocycle} does not use $c_f(0)=0$ until
 its final step. It shows that $A(\tau):=\chi(\tau;X+Y,Y)-\chi(\tau-1;X,Y)$ is a $1$-periodic
-polynomial, hence a constant $A_0$ depending on $k$ alone, and that
-\begin{equation}\label{eq:arcoffCT}
-\hat C_T=-(2\pi i)^{n+1}A_0\int_{\hat\gamma^T_f}f(\tau)\,d\tau=-(2\pi i)^{n+1}A_0\,\Phi(f)
-\end{equation}
-by Definition~\ref{def:Phi}. Since $A_0$ does not depend on $f$, neither does
+polynomial, hence a constant $A_0$ depending on $k$ alone, and leaves $\hat C_T$ as the stated
+multiple of $\int_{\hat\gamma^T_f}f\,d\tau$. No property of the path enters beyond its endpoints,
+which are fixed by Definition~\ref{def:segments}.
+\end{proof}
+
+Since $A_0$ does not depend on $f$, neither does
 $\mathcal D:=(2\pi i)^{n+1}A_0\big|_{S(1+U+U^2)}$, and \eqref{eq:arcoffU} becomes
 \begin{equation}\label{eq:arcoffprop}
 r_f\big|_{(1+U+U^2)}=\Phi(f)\,\mathcal{D}.
@@ -2873,22 +2967,21 @@ $p_j$ are distinct and $m\le n+1$. The residue terms therefore cannot cancel amo
 %the hypothesis excludes in any case.  Whether it can occur at all is NOT settled by this.
 %Note D_E is non-zero even at k = 14, where dim S_k = 0, so the clause is not vacuous there.
 
-The deformation of Definition~\ref{def:arcsplit} is not a second prescription but the same one.
+The shifted contour realises one of the two sides without a second prescription being needed.
 
 \begin{lemma}\label{lem:arcdeform}
-Let $f$ be as in Lemma~\ref{lem:arcon} and let $f_\eta$ be as in
-Definition~\ref{def:arcsplit}, so that for $\eta\neq0$ the poles of $f_\eta$ leave
-$\gamma^{\rm arc}$. Then $\lim_{\eta\to0}\hat r_{f_\eta}$ exists and equals the value of
-Lemma~\ref{lem:arcon} on the pair with $\hat\gamma^S=\hat\gamma^T$, the side being fixed by the
-direction of the deformation.
+Let $f$ be as in Lemma~\ref{lem:arcon}. Then for every $\epsilon>0$ the pair
+$(\hat\gamma^S_\epsilon,\hat\gamma^T_\epsilon)$ of Definition~\ref{def:arcshift} passes on the
+same side of every pole of $f$ on $\gamma^{\rm arc}$, and $\hat r_f$ computed on it is
+independent of $\epsilon$ and equals the value of Lemma~\ref{lem:arcon} on that pair.
 \end{lemma}
 
 \begin{proof}
-Only the relative position of contour and pole enters, and moving the pole off a fixed contour
-produces the same configuration as moving the contour past a fixed pole. Both segments lie on
-$\gamma^{\rm arc}$ and the poles move relative to them identically, so the configuration reached is
-one with $\hat\gamma^S=\hat\gamma^T$; the sign of $\eta$ decides which. Each segment integral is
-holomorphic in $\eta$ off the locus where a pole meets the contour, so the one-sided limits exist.
+The two segments differ only inside $|\tau-\rho|=O(\epsilon)$, where by hypothesis $f$ has no
+pole, so they pass on the same side of each pole on the arc and Lemma~\ref{lem:arcon} applies with
+$m=0$ in \eqref{eq:arcondefect}. Independence of $\epsilon$ is Lemma~\ref{lem:tau0indep}: varying
+$\epsilon$ slides $\tau_0$ radially without crossing a pole, the poles on the arc lying at
+$|\tau|=1$ and the sides taken by \eqref{eq:arcspiral} being the same for every $\epsilon>0$.
 \end{proof}
 
 The two relations are therefore sensitive to the two segments in quite different ways. The
@@ -2948,30 +3041,63 @@ a stipulation of convenience: membership in $W$ selects it.
 %that matched neither diagonal and no wall-crossing, and was read as evidence that the two
 %prescriptions differ.  It was not.
 
-\begin{lemma}\label{lem:arcell}
-Let $\tau_e\in\gamma^{\rm arc}$ be elliptic of order $n$ and let $f_\eta$ be as in
-Definition~\ref{def:ellfam}, with $f_0$ of pole order $P$ at $\tau_e$, and let $\kappa$ be as
-in~\eqref{eq:ellkappa}. Then
-\begin{equation}\label{eq:arcell}
-\hat r_{f_0}\;:=\;\lim_{\eta\to0}\ \eta^{\kappa}\,\hat r_{f_\eta}
+\begin{lemma}\label{lem:arcwind}
+Let $f\in F_k$ have a pole on $\SLZ\!\cdot\!\rho$ and let $W=W(f,\epsilon)$ be as in
+Definition~\ref{def:arcwind}. Then $W\equiv-1\pmod3$; every such value is realised by some
+connector; and there is a vector $c\in V_n$, independent of $W$, with
+\begin{equation}\label{eq:arcwind}
+\hat r_f\big|_{(1+S)}=0,\qquad \hat r_f\big|_{(1+U+U^2)}=-\,c\,W .
 \end{equation}
-exists and lies in $W$, and is independent of the direction of approach up to an $n$-th root of
-unity.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:ellLstar} each special value $L^*(f_\eta,s)$ scales so that
-$\eta^{\kappa}L^*(f_\eta,s)$ converges, with the stated $n$-th-root ambiguity. The same estimate
-applies to $\Phi(f_\eta)$, which is~\eqref{eq:elllimit} at $K\equiv1$, while $r_{E_k}$ does not
-depend on $\eta$; hence $\eta^{\kappa}\hat r_{f_\eta}$ converges. Each $f_\eta$ with
-$\eta\neq0$ has its poles off $\SLZ\!\cdot\!\gamma^{\rm arc}$, so $\hat r_{f_\eta}\in W$ by
-Lemma~\ref{lem:arcoff}, and $W$ is closed; the limit therefore lies in $W$.
+In the coordinate $w$ of Definition~\ref{def:arcwind} the map $U=TS$ fixes $w=0$ and is exactly
+the rotation $w\mapsto\omega^{-1}w$, $\omega=e^{2\pi i/3}$, since $U'(\rho+1)=(\rho+1)^{-2}
+=e^{-2\pi i/3}$; winding about $\rho+1$ is winding about $w=0$, and $U$ preserves increments of
+$\arg w$ exactly. The relator path is
+$\gamma_{U^3}=\gamma_U\cdot(U\gamma_U)\cdot(U^2\gamma_U)$, closed as $U^3=-I$. Its three pieces
+are $U$-translates of one another, hence each changes $\arg w$ by the same amount $\Delta$, and
+the endpoints $\tau_0(\epsilon),U\tau_0(\epsilon),U^2\tau_0(\epsilon)$ sit at arguments
+$\tfrac{\pi}{3},-\tfrac{\pi}{3},-\pi$, so $\Delta=-\tfrac{2\pi}{3}+2\pi k$ with $k\in\ZZ$ the
+class of the connector. Then $2\pi W=3\Delta$ gives $W=-1+3k$, and every $k$ occurs.
+
+For \eqref{eq:arcwind}, the $S$-relation holds because $\hat\gamma^S_\epsilon$ is $S$-symmetric,
+so the $S^2$-path retraces by Lemma~\ref{lem:georetrace} and $\hat C_{S^2}=0$ whatever
+$\hat\gamma^T_\epsilon$ does; as $r_{E_k}|_{(1+S)}=0$ the subtraction contributes nothing. For the
+$U$-relation, \eqref{eq:arcoffU} gives
+$r_f|_{(1+U+U^2)}=-\hat C_T|_{S(1+U+U^2)}-\hat C_{U^3}$, and Lemma~\ref{lem:CTPhi} holds at every
+winding, so the first term is $\Phi(f)\mathcal D$ with $\mathcal D=D_E$ exactly as in
+Lemma~\ref{lem:arcoff}; Definition~\ref{def:rfhat} cancels it for every $W$. There remains
+$\hat C_{U^3}$, which by Cauchy's theorem is $2\pi i\sum_qW_q\Res_q\omega_f$ over the poles $q$ of
+$f$. At $\epsilon=0$ with equal segments the relator path retraces by
+Lemma~\ref{lem:georetrace}; for $\epsilon\ne0$ the two segments of
+Definition~\ref{def:arcshift} differ only inside $|\tau-\rho|=O(\epsilon)$, so the retracing
+portions still cancel as chains and $\gamma_{U^3}$ is homologous to a cycle supported in the six
+discs $U^j\big(D_{O(\epsilon)}(\rho+1)\cup D_{O(\epsilon)}(\rho+2)\big)$, $j=0,1,2$, whose centres
+all lie in $\SLZ\!\cdot\!\rho$. The poles of $f$ are discrete and $\SLZ$-stable, hence locally
+finite, so for small $\epsilon$ those discs contain no pole but their centres and $W_q=0$ for
+every $q\notin\SLZ\!\cdot\!\rho$. The cycle is invariant under $U$ up to cyclic reordering, so
+$W_q$ is constant on $U$-orbits and equals $W$ on $\SLZ\!\cdot\!\rho$; collecting the residues
+into $c$ gives \eqref{eq:arcwind}.
 \end{proof}
 
-Lemmas~\ref{lem:arcon} and~\ref{lem:arcell} are complementary rather than overlapping: the first
-excludes $i$ and $\SLZ\!\cdot\!\rho$ by hypothesis, the second treats only those points, and at an
-elliptic point there is no side to choose, the stabiliser orbit meeting the contour from all $n$
-directions at once. Together with Lemma~\ref{lem:arcoff} they cover every pole configuration.
+\begin{corollary}\label{cor:arcell}
+For $f$ as in Lemma~\ref{lem:arcwind}, $\hat r_f\in W$ in the sense of
+Definition~\ref{def:arczero}, and that class is the unique one in which it does.
+\end{corollary}
+
+\begin{proof}
+By \eqref{eq:arcwind} the defect vanishes exactly at $W=0$, and $c\ne0$ since the defect is
+non-zero at $W=-1$; uniqueness follows because $W\mapsto-cW$ is injective. The same argument at
+$i$, where $U$ is replaced by $S$ and the relator path is the $S^2$-path, gives $W$ odd and the
+prescription the mean of the two indentations.
+\end{proof}
+
+Lemmas~\ref{lem:arcon} and~\ref{lem:arcwind} are complementary rather than overlapping: the first
+excludes $i$ and $\SLZ\!\cdot\!\rho$ by hypothesis, the second treats only those points, where the
+stabiliser forces $W$ into a class that misses $0$ and the L-integral must be read off the affine
+family rather than from a single contour. Together with Lemma~\ref{lem:arcoff} they cover every
+pole configuration.
 
 %NUMERICS for the geometry of C in the proof of lem:ellLstar (sec:arcL).  Generated by
 %arc_numerics/rf/elliptic_scaling_geometry.py.  Leading coefficients, each stable to 10 digits
@@ -3007,25 +3133,25 @@ If $E$ and $N$ are both empty, Lemma~\ref{lem:arcoff} gives $\hat r_f\in W$ dire
 condition on where the other poles lie or how deep they are.
 
 If $E$ is empty and $N$ is not, Definition~\ref{def:georef} takes $\hat\gamma^S_f=\hat\gamma^T_f$,
-and both relations hold by Lemma~\ref{lem:arcon}; the same value is obtained from
-Definition~\ref{def:arcsplit} by Lemma~\ref{lem:arcdeform}, so the two prescriptions do not
-compete.
+and both relations hold by Lemma~\ref{lem:arcon}; the shifted contour of
+Definition~\ref{def:arcshift} gives the same value by Lemma~\ref{lem:arcdeform}, so the two
+descriptions do not compete.
 
-If $E$ is non-empty, deform as in Definition~\ref{def:arcsplit}, moving the orbits in $E$ off
-$\gamma^{\rm arc}$ while leaving the rest of $f^{-1}(\infty)$ where it is. Every member of the
-resulting family falls under one of the two previous cases, so each has $\hat r_{f_\eta}\in W$;
-Lemma~\ref{lem:arcell} supplies the exponent for which the limit exists, applied at each elliptic
-point of $E$ in turn, and $W$ is closed. Hence $\hat r_f\in W$.
+If $E$ is non-empty, read $L^*$ and $\hat r_f$ off the shifted class of
+Definition~\ref{def:arcshift} at $W=0$, as in Definition~\ref{def:arczero}, at each elliptic
+point of $E$ in turn. Lemma~\ref{lem:arcwind} shows the two defining relations vanish there, and
+Corollary~\ref{cor:arcell} that $W=0$ is the only class in which they do. Poles of $f$ elsewhere
+are untouched and fall under the two previous cases. Hence $\hat r_f\in W$.
 \end{proof}
 
 The construction uses only the $k-1$ special values $L^*(\,\cdot\,,\ell+1)$, $0\le\ell\le n$, of
 the finite-contour $L$-function of Section~\ref{sec:arcL}, together with the single subtraction
 $\Phi(f)\,r_{E_k}$. No reference family is chosen, and no projection onto $W$ is performed.
 
-Three choices enter, and none of them moves $\hat r_f$ out of $W$. In case~2 the side of the
-indentation is free, and by Lemma~\ref{lem:arcon} the two differ within $W$. In case~3 the
-deformation~\eqref{eq:elldef} and the branch of $\eta^{\kappa}$ are free, the latter contributing
-an $n$-th root of unity and hence an overall scalar. In Definition~\ref{def:rfhat} the reference
+Two choices enter, and neither moves $\hat r_f$ out of $W$. In case~2 the side of the indentation
+is free, and by Lemma~\ref{lem:arcon} the two differ within $W$. In case~3 nothing is free:
+Corollary~\ref{cor:arcell} singles out $W=0$, and $\epsilon$ is inert by
+Lemma~\ref{lem:tau0indep}. In Definition~\ref{def:rfhat} the reference
 form $E_k$ may be replaced by any $g$ with $\Phi(g)=1$, and two such choices shift $\hat r_f$ by
 $\Phi(f)\,r_{g-g'}$, where $g-g'$ runs over the forms annihilated by $\Phi$; how large that shift
 space is depends on the class from which $g$ is drawn, and we do not settle it here.

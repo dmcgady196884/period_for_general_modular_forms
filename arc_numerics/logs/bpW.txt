@@ -1,0 +1,59 @@
+orientation guard, Phi(E_12) on the plain arc = (1.0 - 5.41378907367e-31j)
+============================================================================
+k=12  Delta/j    P=3   (dim S_12 = 1, dim W = 3)
+   short routing:
+      l=0   done
+      l=1   done
+      l=2   done
+      l=3   done
+      l=4   done
+      l=5   done
+      l=6   done
+      l=7   done
+      l=8   done
+      l=9   done
+      l=10  done
+      Phi = (-1.82472056468e-14 + 2.92976118746e-14j)
+      |(1+S)|       = 1.0348228e-26
+      |(1+U+U^2)|   = 7.4657038
+   long routing:
+      l=0   done
+      l=1   done
+      l=2   done
+      l=3   done
+      l=4   done
+      l=5   done
+      l=6   done
+      l=7   done
+      l=8   done
+      l=9   done
+      l=10  done
+      Phi = (-9.89994152779e-6 + 2.92976118746e-14j)
+      |(1+S)|       = 7.9237005e-27
+      |(1+U+U^2)|   = 11.457162
+   |tilde_r^short - tilde_r^long| / scale = 0.44713106
+============================================================================
+k=8   E_4^2/j^2  P=4   (dim S_8 = 0)
+   short routing:
+      l=0   done
+      l=1   done
+      l=2   done
+      l=3   done
+      l=4   done
+      l=5   done
+      l=6   done
+      Phi = (1.82651544641e-13 - 5.70763311493e-12j)
+      |(1+S)|       = 8.7301387e-24
+      |(1+U+U^2)|   = 5.3196916
+   long routing:
+      l=0   done
+      l=1   done
+      l=2   done
+      l=3   done
+      l=4   done
+      l=5   done
+      l=6   done
+      Phi = (2.04940157711e-6 - 5.70763311493e-12j)
+      |(1+S)|       = 4.3650673e-24
+      |(1+U+U^2)|   = 5.3196919
+   |tilde_r^short - tilde_r^long| / scale = 3.0000009

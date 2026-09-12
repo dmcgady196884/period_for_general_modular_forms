@@ -1,0 +1,11 @@
+guard: Phi(E_12) plain arc = (1.0 - 5.41378907367e-31j)
+poles: arg z = 1.29318696, arg Sz = 1.848405694   (recorded 1.293187, 1.8484057)
+  j(z) = (500.0 + 1.49220228899e-28j)
+  wiggle r at those angles: 0.861289, 1.16105
+  spiral r at those angles: 1.05183, 0.950723
+wiggle  |hat r| = 312512.434941      Phi = (2.917918825e-6 - 5.392649345e-7j) |(1+S)| = 1.5803e-30  |(1+U+U^2)| = 1.4333e-28
+spiral  |hat r| = 212068.947897      Phi = (2.402529472e-6 + 2.078832383e-6j) |(1+S)| = 5.4512e-31  |(1+U+U^2)| = 8.2922e-29
+   recorded by arc_eight_classes.py: 312512.435
+Phi(wiggle) - Phi(spiral) = (5.1538935328e-7 - 2.61809731772e-6j)  2 pi i sum_p Res_p f = (5.83583765059e-6 - 2.21575465013e-37j)
+X = +1 : predicted vs measured hat r difference, relative = 1.5519875
+X = -1 : predicted vs measured hat r difference, relative = 1.5297595
