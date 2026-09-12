@@ -16,9 +16,15 @@ Layers (see validation_notes.tex):
     B  tau_0-independence            <- done
     C  thm:weakL                     <- done
     D  periods and quasi-periods     <- done
-    E  meromorphic / section 4       <- done
+    E  meromorphic / APPENDIX A      <- done (tau_0 = i; scaffolding, not the claim)
     F  external anchors (1806)       <- done
     G  suite hygiene                 <- done
+    H  the arc / SECTION 4           <- lem:tau0indep, lem:arcwind, cor:arcell, eq:arczero
+
+Section 4 is now the arc treatment (tau_0 = rho+1); the old tau_0 = i treatment of F_k moved to
+Appendix A and is kept only as a reference copy.  Layer H checks what is new and unproven-by-hand
+there.  thm:geomero (eq:geomero, the layer-C assembly) is checked separately and end to end by
+arc_numerics/Lf/end_to_end_arc.py against raw quadrature, 12/12 rows at 6e-30 .. 1.0e-27.
 """
 import sys
 import mpmath as mp
@@ -1514,6 +1520,196 @@ def e11_S_relation_delta():
     for eps in ((mp.mpf('0.05'), mp.mpf('0.02')) if SLOW else (mp.mpf('0.02'),)):
         yield ("pole at i, PV eps=%s: |r_f|(1+S)|/sc" % mp.nstr(eps, 3),
                Srel(rvec_full(fb, mp.mpf('0.10'), pv_eps=eps)), mp.mpf(0))
+
+
+# =========================================================== LAYER H -- the arc, section 4
+r"""Layer H covers the LIVE section 4 (sec:arc, base point tau_0 = rho+1, both segments the
+unit arc).  Layer E above covers the tau_0 = i treatment of F_k, which is now Appendix A and is
+scaffolding: it is kept because A.1 and A.2 are the reference copy, not because it is the claim.
+
+What is new here and therefore what is checked:
+    lem:tau0indep   L* is EXACTLY independent of the base point -- not convergent as eps -> 0,
+                    constant in eps.  This is what makes a pole AT rho harmless.
+    lem:arcwind     the (1+U+U^2) defect is -c W, linear in the winding W of def:arcwind, with
+                    W = -1 mod 3 for any single contour.
+    cor:arcell      hat r_f lies in W at W = 0, and only there.
+    eq:arczero      the W = 0 value equals the non-winding contour plus 1/n of the elliptic
+                    residue -- the orbifold weight, 1/2 at i and 1/3 at rho.
+
+thm:geomero (the layer-C assembly, eq:geomero) is NOT duplicated here: it is checked end to end
+against raw quadrature by arc_numerics/Lf/end_to_end_arc.py, 12/12 rows at 6e-30 .. 1.0e-27 over
+a pole above the arc, one in the lens, both together, and a double pole.  Duplicating its c_Rf
+trapezoid and mode sums here would add 250 lines and no independence.
+
+TRAP (arc_numerics/common.py TRAP 4): cluster the mesh WHERE THE POLES ARE.  An on-arc pole at
+angle phi sits mid-interval, and an endpoint-clustered mesh steps over it and returns a smooth
+wrong number that can still look like W-membership.  _nodes takes explicit centres for this.
+"""
+
+RHOA = mp.e**(2 * I * pi / 3)
+TAU0A = mp.e**(I * pi / 3)
+E12f = lambda t: (441 * E4(t)**3 + 250 * E6(t)**2) / 691
+Sm_, Um_ = (0, -1, 1, 0), (1, -1, 1, 0)          # S, and U = TS
+
+
+def _nodes(a, b, centres=(), n=None, depth=None):
+    n = n or (20 if SLOW else 12)
+    depth = depth or (13 if SLOW else 9)
+    xs = [a + (b - a) * mp.mpf(j) / n for j in range(n + 1)]
+    for c in centres:
+        d = abs(b - a) / n
+        for _ in range(depth):
+            d /= 2
+            xs += [c - d, c + d]
+        xs.append(c)
+    lo, hi = min(a, b), max(a, b)
+    return sorted(set(x for x in xs if lo <= x <= hi), reverse=(b < a))
+
+
+def _cint(g, tau, dtau, nd):
+    return sum(mp.quad(lambda x: g(tau(x)) * dtau(x), [u, v])
+               for u, v in zip(nd[:-1], nd[1:]))
+
+
+def _spiral_int(g, eps, centres=()):
+    r"""eq:arcspiral, theta DECREASING from 2pi/3 to pi/3; S-symmetric since log r is odd."""
+    L = mp.log(1 + eps)
+    t = lambda th: mp.e**(L * (pi / 2 - th) / (pi / 6) + I * th)
+    dt = lambda th: t(th) * (-L / (pi / 6) + I)
+    return _cint(g, t, dt, _nodes(2 * pi / 3, pi / 3, centres))
+
+
+def _conn_int(g, eps, turns):
+    r"""def:arcshift's connector, T^{-1}tau_0 -> S tau_0 about rho, shifted by whole turns."""
+    a, b = (TAU0A * (1 + eps) - 1) - RHOA, RHOA / (1 + eps) - RHOA
+    la, lb = mp.log(a), mp.log(b)
+    d = mp.im(lb - la)
+    while d > pi:
+        d -= 2 * pi
+    while d <= -pi:
+        d += 2 * pi
+    d += 2 * pi * turns
+    lb = mp.mpc(mp.re(lb), mp.im(la) + d)
+    w = lambda u: la + u * (lb - la)
+    return _cint(g, lambda u: RHOA + mp.e**w(u), lambda u: mp.e**w(u) * (lb - la),
+                 _nodes(mp.mpf(0), mp.mpf(1)))
+
+
+def _L_rho(f, k, s, eps, turns):
+    ls = _spiral_int(lambda t: f(t) * t**(s - 1), eps)
+    lt = (_conn_int(lambda t: f(t) * ktil(t, s, k), eps, turns)
+          + _spiral_int(lambda t: f(t) * ktil(t, s, k), eps))
+    return mp.e**(-I * pi * s / 2) * (ls + lt)
+
+
+def _Phi_rho(f, eps, turns):
+    return _conn_int(f, eps, turns) + _spiral_int(f, eps)
+
+
+def _detour_int(g, r, side):
+    r"""Plain arc, detoured about i at radius r; side 'out' is |tau|>1, 'in' is |tau|<1."""
+    al = 2 * mp.asin(r / 2)
+    arc, darc = (lambda th: mp.e**(I * th)), (lambda th: I * mp.e**(I * th))
+    p0 = pi + al / 2
+    p1 = -al / 2 if side == 'out' else 2 * pi - al / 2
+    c = lambda u: I + r * mp.e**(I * (p0 + u * (p1 - p0)))
+    dc = lambda u: I * r * mp.e**(I * (p0 + u * (p1 - p0))) * (p1 - p0)
+    return (_cint(g, arc, darc, _nodes(2 * pi / 3, pi / 2 + al))
+            + _cint(g, c, dc, _nodes(mp.mpf(0), mp.mpf(1)))
+            + _cint(g, arc, darc, _nodes(pi / 2 - al, pi / 3)))
+
+
+def _L_i(f, k, s, r, side):
+    return mp.e**(-I * pi * s / 2) * (
+        _detour_int(lambda t: f(t) * t**(s - 1), r, side)
+        + _detour_int(lambda t: f(t) * ktil(t, s, k), r, side))
+
+
+def _rvec_arc(Lfun, Phi, k):
+    r"""def:rf on the arc, minus Phi(f) r_{E_k} of def:rfhat."""
+    n = k - 2
+    mk = lambda F: [(2 * pi * I)**(n + 1) * (-1)**l * mp.binomial(n, l) * I**(l + 1)
+                    * F(mp.mpf(l + 1)) for l in range(n + 1)]
+    rf, rE = mk(Lfun), mk(lambda s: _L_rho(E12f, k, s, mp.mpf('0.1'), 0))
+    return [a - Phi * b for a, b in zip(rf, rE)]
+
+
+def _defects(v, k):
+    r"""(relative |(1+S)|, relative |(1+U+U^2)|, absolute |(1+U+U^2)|) for def:w."""
+    n = k - 2
+    sc = max(abs(x) for x in v)
+    ns = [a + b for a, b in zip(v, slash(v, n, Sm_))]
+    u1 = slash(v, n, Um_)
+    nu = [a + b + c for a, b, c in zip(v, u1, slash(u1, n, Um_))]
+    return (max(abs(x) for x in ns) / sc, max(abs(x) for x in nu) / sc,
+            max(abs(x) for x in nu))
+
+
+@check("lem:tau0indep", "H", desc=r"$L^*$ constant in $\epsilon$ with a pole AT $\rho$")
+def h1_tau0():
+    f = lambda t: Delta(t) / jay(t)                      # P = 3 at rho, k = 12
+    for s in (mp.mpf(7), mp.mpf(11)):
+        a = _L_rho(f, 12, s, mp.mpf('0.1'), 0)
+        b = _L_rho(f, 12, s, mp.mpf('0.02'), 0)
+        yield ("s=%s: L*(eps=.1) vs L*(eps=.02)" % mp.nstr(s, 3), a, b)
+    g = lambda t: E4(t)**3                               # no poles: same statement, easy case
+    yield ("holomorphic control, s=7",
+           _L_rho(g, 12, mp.mpf(7), mp.mpf('0.1'), 0),
+           _L_rho(g, 12, mp.mpf(7), mp.mpf('0.02'), 0))
+
+
+@check("eq:arczero", "H", desc=r"$W{=}0$ average $=$ non-winding contour $+\,\tfrac1n$ residue")
+def h2_arczero():
+    f = lambda t: Delta(t) / jay(t)
+    eps = mp.mpf('0.1')
+    for s in (mp.mpf(7), mp.mpf(11)):
+        avg = (2 * _L_rho(f, 12, s, eps, 0) + _L_rho(f, 12, s, eps, 1)) / 3
+        # residue_at's default r = 0.3 is far too wide for the ORDER-3 pole of Delta/j at rho:
+        # at M = 12 it returns -3.394e-8 against the converged -3.11892789554e-8, 8.8% out.
+        # r = 0.08 is converged at M = 12; the nearest other pole is rho+1, a distance 1 away.
+        res = residue_at(lambda t: f(t) * ktil(t, s, 12), RHOA, mp.mpf('0.08'),
+                         48 if SLOW else 24)
+        shifted = _L_rho(f, 12, s, eps, 0) + (2 * I * pi / 3) * mp.e**(-I * pi * s / 2) * res
+        yield ("rho, s=%s: (2/3,1/3) average vs 1/3-residue form" % mp.nstr(s, 3), avg, shifted)
+
+
+@check("lem:arcwind", "H", tier="slow", tol=mp.mpf('1e-6'),
+       desc=r"defect linear in the winding: $|D(2)|/|D(-1)|=2$")
+def h3_arcwind():
+    f = lambda t: Delta(t) / jay(t)
+    eps = mp.mpf('0.1')
+    d = {}
+    for turns in (0, 1):
+        v = _rvec_arc(lambda s: _L_rho(f, 12, s, eps, turns), _Phi_rho(f, eps, turns), 12)
+        d[turns] = v
+        yield ("turns=%d: |(1+S)| (S-symmetric spiral)" % turns, _defects(v, 12)[0], mp.mpf(0))
+    a0, a1 = _defects(d[0], 12)[2], _defects(d[1], 12)[2]
+    yield ("|D(W=2)| / |D(W=-1)|", a1 / a0, mp.mpf(2))
+
+
+@check("cor:arcell", "H", tier="slow", tol=mp.mpf('1e-6'),
+       desc=r"$\hat r_f\in W$ at $W=0$, and not at any realisable winding")
+def h4_arcell():
+    # rho: W = -1 and W = 2 realisable, W = 0 is the (2/3,1/3) combination
+    f = lambda t: Delta(t) / jay(t)
+    eps = mp.mpf('0.1')
+    v0 = _rvec_arc(lambda s: _L_rho(f, 12, s, eps, 0), _Phi_rho(f, eps, 0), 12)
+    v1 = _rvec_arc(lambda s: _L_rho(f, 12, s, eps, 1), _Phi_rho(f, eps, 1), 12)
+    yield ("rho W=-1: defect is O(1), i.e. NOT in W", mp.mpf(1) / (1 + _defects(v0, 12)[1]),
+           mp.mpf(0))
+    vz = [(2 * a + b) / 3 for a, b in zip(v0, v1)]
+    yield ("rho W=0: |(1+U+U^2)|", _defects(vz, 12)[1], mp.mpf(0))
+    yield ("rho W=0: |(1+S)|", _defects(vz, 12)[0], mp.mpf(0))
+    # i: W odd, the two indentations are W = -+1 and their mean is W = 0
+    fi = lambda t: Delta(t) / (jay(t) - 1728)
+    r = mp.mpf('0.1')
+    vi = {sd: _rvec_arc(lambda s, sd=sd: _L_i(fi, 12, s, r, sd),
+                        _detour_int(fi, r, sd), 12) for sd in ('in', 'out')}
+    yield ("i, one-sided: defect is O(1), i.e. NOT in W",
+           mp.mpf(1) / (1 + _defects(vi['in'], 12)[1]), mp.mpf(0))
+    vm = [(a + b) / 2 for a, b in zip(vi['in'], vi['out'])]
+    yield ("i W=0 (mean): |(1+U+U^2)|", _defects(vm, 12)[1], mp.mpf(0))
+    yield ("i W=0 (mean): |(1+S)|", _defects(vm, 12)[0], mp.mpf(0))
 
 
 # ------------------------------------------------------------------------- driver

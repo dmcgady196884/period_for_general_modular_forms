@@ -162,7 +162,7 @@ constrained sub-space $W$ of $V_{k-2}$, i.e. $W \subset V_{k-2}$.
 has poles either at the cusp of $\SLZ$ or within the interior of $\HH$. As stated above, there 
 are extant, but partial and non-overlapping, extensions of the definition of $L(f,s)$ to $f \in M_k^!$~\cite{BFK2011} or 
 $f \in F_k$ when $f$ is regular at the cusp of $\SLZ$~\cite{1806}. In this note, we provide a construction that unifies these disparate extensions.
-We start with generic L-integrals in section~\ref{sec:Lint}, then specialize to $f \in M_k^!$ in section~\ref{sec:Lfun}, and finally explore the more general context of $f \in F_k$ in section~\ref{sec:mero}.
+We start with generic L-integrals in section~\ref{sec:Lint}, then specialize to $f \in M_k^!$ in section~\ref{sec:Lfun}, and finally explore the more general context of $f \in F_k$ in section~\ref{sec:arc}.
 
 \section{A finite L-integral}\label{sec:Lint}
 
@@ -947,7 +947,7 @@ classes $W=\pm1$ enter with weight $\tfrac12$ each, so $L^*$ is the mean of the 
 at $\rho$ the classes $W=-1$ and $W=2$ enter with weights $\tfrac23,\tfrac13$. In both cases the
 correction to the non-winding class is $\tfrac1n$ of one residue,
 \begin{equation}\label{eq:arczero}
-L^*(f,s)=L^*\big(f,s;W=-1\big)-\frac{2\pi i}{n}\,e^{-\pi is/2}\Res_{\tau=\tau_e}\!\big(f\,\tk\big),
+L^*(f,s)=L^*\big(f,s;W=-1\big)+\frac{2\pi i}{n}\,e^{-\pi is/2}\Res_{\tau=\tau_e}\!\big(f\,\tk\big),
 \end{equation}
 the weight $\tfrac1n$ depending only on the order of the elliptic point, never on $f$ or on the
 order of its pole. So \eqref{eq:arczero} is linear in $f$, and is independent of $\epsilon$ by
@@ -1038,8 +1038,15 @@ polylogarithmic projections of Ref.~\cite{1806}.
 
 \subsection{Explicit formulae for $L^*(f,s)$ on the arc}\label{sec:arcL}
 
-%STATUS: layers A and B written; layer C (thm:geomero, the assembly) still open, as are the
-%chord analogue of lem:polylogcf and the on-contour analogue of lem:polylogedge/def:FP.
+%STATUS: layers A, B and C written.  C is thm:geomero, assembling lem:geowhole (projected poles)
+%and lem:geotail (the q-series remainder), with I^geo_N supplied by lem:geopolylog off the
+%threshold line and lem:geoedge on it.  END-TO-END CHECK: arc_numerics/Lf/end_to_end_arc.py
+%compares exactly eq:geomero against direct quadrature of e^{-i pi s/2} int_arc f (tau^{s-1}
+%+ ktil) dtau, which uses none of these formulae: 12/12 rows at 6e-30 .. 1.0e-27, over one pole
+%above the arc, one in the lens, both together, and a double pole.  Elliptic poles are excluded
+%from thm:geomero's hypotheses and handled by def:arczero.
+%STILL OPEN in this subsection: the chord analogue of lem:polylogcf, and the on-contour analogue
+%of lem:polylogedge/def:FP.
 
 We lay out the starting definitions and facts.
 
@@ -1464,6 +1471,58 @@ $L^*(q^{n},s)=G^{\rm geo}_{s,k}(n)$, by the computation in the proof of
 Lemma~\ref{lem:geopolylog} read at general $n$, and $q^{0}=1$ contributes
 $G^{\rm geo}_{s,k}(0)$ of~\eqref{eq:geoG0}.
 \end{proof}
+
+The two halves now assemble: every ingredient on the right is either a Laurent coefficient of $f$
+at one of its own poles, a Fourier coefficient of what survives projection, or one of the two
+explicit kernels $I^{\rm geo}_N$, $G^{\rm geo}_{s,k}$.
+
+\begin{theorem}\label{thm:geomero}
+Let $f\in F_k$ and let $\{\tau_p\}$ be its $T$-inequivalent poles with
+${\rm Im}\,\tau_p\ge\tfrac{\sqrt3}{2}$, of orders $m_p$. Then the set $\{\tau_p\}$ is finite
+and, in the geodesic reference class,
+\begin{equation}\label{eq:geomero}
+L^*(f,s)=\sum_{p}\sum_{m=1}^{m_p}r^*_{f,\tau_p}(m)\,\frac{(-2\pi i)^{m}}{(m-1)!}\,
+I^{\rm geo}_{m-1}(s,\tau_p)
+\;+\;c_{Rf}(0)\,G^{\rm geo}_{s,k}(0)+\sum_{n\ne0}c_{Rf}(n)\,G^{\rm geo}_{s,k}(n),
+\end{equation}
+with $r^*_{f,\tau_p}(m)$ the pole weights of Definition~\ref{def:proj_arc}, $c_{Rf}(n)$ the
+Fourier coefficients of Definition~\ref{def:cRf_arc}, and $I^{\rm geo}_N(s,z)$ given
+by~\eqref{eq:geoIN} for ${\rm Im}\,z>\tfrac{\sqrt3}{2}$ and by~\eqref{eq:geoedge} for
+${\rm Im}\,z=\tfrac{\sqrt3}{2}$. Both sides are entire in $s$ away from the pole of
+$G^{\rm geo}_{s,k}(0)$, and the sum over $n$ converges absolutely. If some $\tau_p$ lies on
+$\gamma^{\rm arc}$ the identity holds on either indentation of
+Proposition~\ref{prop:arcside}, the two sides changing together by~\eqref{eq:sidediff}; if some
+$\tau_p$ is elliptic, \emph{both} sides are read at $W=0$ through
+Definition~\ref{def:arczero}, each block $I^{\rm geo}_{m-1}(s,\tau_p)$ along with the
+left-hand side. No pole configuration is excluded.
+\end{theorem}
+
+\begin{proof}
+Finiteness: $f$ is meromorphic at the cusp, so it has no poles above some height, and its poles
+are locally finite in the strip $|{\rm Re}\,\tau|\le\tfrac12$; the region cut out by
+${\rm Im}\,\tau\ge\tfrac{\sqrt3}{2}$ therefore contains finitely many of them modulo $T$.
+Definition~\ref{def:geoproj} splits $f=\widehat P^{\,\rm geo}f+Rf$ with
+$\widehat P^{\,\rm geo}=\sum_p\widehat P_{\tau_p}$ over exactly that finite set. Both segment
+integrals of Definition~\ref{def:Lint} are linear in the integrand, and the splitting is a finite
+sum, so $L^*$ distributes over it. Lemma~\ref{lem:geowhole} evaluates each
+$L^*(\widehat P_{\tau_p}f,s)$ as the inner double sum, and Lemma~\ref{lem:geotail} evaluates
+$L^*(Rf,s)$ as the remaining two terms, with the convergence asserted there. The description of
+$I^{\rm geo}_N$ is Lemma~\ref{lem:geopolylog} off the threshold line and
+Lemma~\ref{lem:geoedge} on it, the two agreeing where both apply.
+
+For a pole on $\gamma^{\rm arc}$ the blocks are integrated on an indented contour, and the
+$\varepsilon_z$ bookkeeping preceding Lemma~\ref{lem:geopolylog} records which indentation was
+taken; changing it changes the left-hand side by~\eqref{eq:sidediff} and the corresponding block
+by the same residue, by Proposition~\ref{prop:arcside}. For an elliptic pole no single indentation
+exists, and Definition~\ref{def:arczero} supplies the value as the weighted average of two
+admissible classes; \eqref{eq:geomero} holds in each of them, hence in the average, both sides
+being affine in the winding of Definition~\ref{def:arcwind}.
+\end{proof}
+
+The formula is explicit in the sense that matters for computation: the pole weights are contour
+integrals of $f$ about its own poles, the $c_{Rf}(n)$ are Fourier coefficients of an explicitly
+constructed $T$-periodic function, and the two kernels are incomplete gammas and polylogarithms.
+Nothing is left implicit except the arithmetic of $f$ itself.
 
 %DAM: SUPERSEDED. Everything between this \iffalse and the matching \fi is the old
 %delta^kappa treatment of the elliptic points (lem:ellLstar, eq:ellkappa, the ray/line models,
@@ -2000,15 +2059,33 @@ connector; and there is a vector $c\in V_n$, independent of $W$, with
 \end{lemma}
 
 \begin{proof}
-In the coordinate $w$ of Definition~\ref{def:arcwind} the map $U=TS$ fixes $w=0$ and is exactly
-the rotation $w\mapsto\omega^{-1}w$, $\omega=e^{2\pi i/3}$, since $U'(\rho+1)=(\rho+1)^{-2}
+Write $\sigma:=\hat\gamma^S_\epsilon$ for the spiral, from $S\tau_0$ to $\tau_0$, and $\beta$ for
+the connector of Definition~\ref{def:arcshift}, from $T^{-1}\tau_0$ to $S\tau_0$, so that
+$\hat\gamma^T_\epsilon=\beta\cdot\sigma$. With $\gamma_g$ a path from $\tau_0$ to $g\tau_0$ and
+the cocycle rule $\gamma_{gh}=\gamma_g\cdot(g\gamma_h)$, we have $\gamma_S=\bar\sigma$ and
+$\gamma_T=T\hat\gamma^T_\epsilon=(T\beta)\,(T\sigma)$, whence
+\begin{equation}\label{eq:relatorcollapse}
+\gamma_U=\gamma_T\cdot(T\gamma_S)=(T\beta)\,(T\sigma)\,(T\bar\sigma)\;\simeq\;T\beta ,
+\end{equation}
+the spiral occurring once forwards and once reversed. The cancellation is exact, not an estimate:
+$\hat\gamma^S_\epsilon$ appears verbatim inside $\hat\gamma^T_\epsilon$, so
+$(T\sigma)(T\bar\sigma)$ is a path followed by its own reverse and is null-homotopic rel
+endpoints. Hence $\gamma_U$ is homotopic to the $T$-translated connector, which lies in the disc
+$|\tau-(\rho+1)|=O(\epsilon)$.
+
+Since $U$ fixes $\rho+1$, each $U^j\gamma_U$ lies in a disc of the same size about the same
+point, so the relator path $\gamma_{U^3}=\gamma_U\cdot(U\gamma_U)\cdot(U^2\gamma_U)$ --- closed,
+as $U^3=-I$ --- is supported in one $O(\epsilon)$ disc about $\rho+1$. This is the analogue for
+$\epsilon\ne0$ of Lemma~\ref{lem:georetrace}, which is the case $\beta$ trivial.
+
+In the coordinate $w$ of Definition~\ref{def:arcwind} the map $U$ fixes $w=0$ and is exactly the
+rotation $w\mapsto\omega^{-1}w$, $\omega=e^{2\pi i/3}$, since $U'(\rho+1)=(\rho+1)^{-2}
 =e^{-2\pi i/3}$; winding about $\rho+1$ is winding about $w=0$, and $U$ preserves increments of
-$\arg w$ exactly. The relator path is
-$\gamma_{U^3}=\gamma_U\cdot(U\gamma_U)\cdot(U^2\gamma_U)$, closed as $U^3=-I$. Its three pieces
-are $U$-translates of one another, hence each changes $\arg w$ by the same amount $\Delta$, and
-the endpoints $\tau_0(\epsilon),U\tau_0(\epsilon),U^2\tau_0(\epsilon)$ sit at arguments
+$\arg w$ exactly. The three pieces are $U$-translates of one another, hence each changes
+$\arg w$ by the same amount $\Delta$, and the endpoints
+$\tau_0(\epsilon),U\tau_0(\epsilon),U^2\tau_0(\epsilon)$ sit at arguments
 $\tfrac{\pi}{3},-\tfrac{\pi}{3},-\pi$, so $\Delta=-\tfrac{2\pi}{3}+2\pi k$ with $k\in\ZZ$ the
-class of the connector. Then $2\pi W=3\Delta$ gives $W=-1+3k$, and every $k$ occurs.
+class of $\beta$. Then $2\pi W=3\Delta$ gives $W=-1+3k$, and every $k$ occurs.
 
 For \eqref{eq:arcwind}, the $S$-relation holds because $\hat\gamma^S_\epsilon$ is $S$-symmetric,
 so the $S^2$-path retraces by Lemma~\ref{lem:georetrace} and $\hat C_{S^2}=0$ whatever
@@ -2018,16 +2095,12 @@ $r_f|_{(1+U+U^2)}=-\hat C_T|_{S(1+U+U^2)}-\hat C_{U^3}$, and Lemma~\ref{lem:CTPh
 winding, so the first term is $\Phi(f)\mathcal D$ with $\mathcal D=D_E$ exactly as in
 Lemma~\ref{lem:arcoff}; Definition~\ref{def:rfhat} cancels it for every $W$. There remains
 $\hat C_{U^3}$, which by Cauchy's theorem is $2\pi i\sum_qW_q\Res_q\omega_f$ over the poles $q$ of
-$f$. At $\epsilon=0$ with equal segments the relator path retraces by
-Lemma~\ref{lem:georetrace}; for $\epsilon\ne0$ the two segments of
-Definition~\ref{def:arcshift} differ only inside $|\tau-\rho|=O(\epsilon)$, so the retracing
-portions still cancel as chains and $\gamma_{U^3}$ is homologous to a cycle supported in the six
-discs $U^j\big(D_{O(\epsilon)}(\rho+1)\cup D_{O(\epsilon)}(\rho+2)\big)$, $j=0,1,2$, whose centres
-all lie in $\SLZ\!\cdot\!\rho$. The poles of $f$ are discrete and $\SLZ$-stable, hence locally
-finite, so for small $\epsilon$ those discs contain no pole but their centres and $W_q=0$ for
-every $q\notin\SLZ\!\cdot\!\rho$. The cycle is invariant under $U$ up to cyclic reordering, so
-$W_q$ is constant on $U$-orbits and equals $W$ on $\SLZ\!\cdot\!\rho$; collecting the residues
-into $c$ gives \eqref{eq:arcwind}.
+$f$. By \eqref{eq:relatorcollapse} the cycle lies in a single disc of radius $O(\epsilon)$ about
+$\rho+1$. The poles of $f$ are discrete and $\SLZ$-stable, hence locally finite, so there is
+$\epsilon_0>0$ below which that disc meets $f^{-1}(\infty)$ only at $\rho+1$ itself. Therefore
+$W_q=0$ for every $q\ne\rho+1$, and $\hat C_{U^3}=2\pi i\,W\Res_{\rho+1}\omega_f$; setting
+$c:=-2\pi i\Res_{\rho+1}\omega_f\big|_{(1+U+U^2)}$ gives \eqref{eq:arcwind}, and $c\ne0$ because
+the defect is non-zero at $W=-1$.
 \end{proof}
 
 \begin{corollary}\label{cor:arcell}
@@ -3018,68 +3091,6 @@ is defined for every $f\in F_k$. It satisfies $\hat r_f|_{(1+S)}=0$, since both 
 $\hat r_f|_{(1+U+U^2)}=c_f(0)\,r_{E_k}|_{(1+U+U^2)}$. So $\hat r_f$ lies in $W$ exactly when
 $c_f(0)=0$, and otherwise in $W\oplus\CC\,r_{E_k}$; this is the usual Eisenstein correction, already
 present for holomorphic $f\in M_k\smallsetminus S_k$, and not a feature of the poles.
-
-\begin{corollary}\label{cor:explicit}
-Let $k=12$ and $f=\Delta/(j-j_0)$ with $j_0\notin\{0,1728\}$, and take the reference family
-$\Psi^{(1)}_p:=E_{12}/(j-j_0)$ at a pole $p$. Then $N=1$, $m_1=1$,
-\begin{equation}\label{eq:crational}
-c_{1,1}=\frac{\Delta(p)}{E_{12}(p)}=\frac{691}{691\,j_0-432000},
-\qquad
-\tilde r_f=-\,c_{1,1}\,r_\Delta .
-\end{equation}
-In particular $c_{1,1}$ is rational whenever $j_0$ is, with no assumption of complex
-multiplication, and $\tilde r_f$ is then a rational multiple of the period polynomial of $\Delta$.
-\end{corollary}
-\begin{proof}
-$E_{12}/(j-j_0)$ is holomorphic off $\SLZ\!\cdot\!p$, has a simple pole there with nonzero residue,
-and vanishes at the cusp, so it is a reference family of depth $1$. From $E_4^3=j\Delta$ and
-$E_6^2=(j-1728)\Delta$ one gets $E_{12}=\Delta\,(691j-432000)/691$, so $\Delta/E_{12}$ takes the
-stated value at $p$, and
-substituting gives $f-c_{1,1}\Psi^{(1)}_p=-c_{1,1}\Delta$ identically. Apply
-Theorem~\ref{thm:period} and linearity.
-\end{proof}
-
-\begin{corollary}\label{cor:CM}
-Let $d>4$ have class number one, let $\alpha_d$ be the associated CM point, and set
-$j_d:=j(\alpha_d)\in\ZZ$. Write $D:=\tfrac{1}{2\pi i}\tfrac{d}{d\tau}$, and let $H_d$ be the Hilbert
-class polynomial, whose roots are the singular moduli of discriminant $d$~\cite{ZagierTSM}. Then
-\begin{equation}\label{eq:Lambdad}
-\Lambda_d:=D\log H_d(j)=\frac{-E_4^2E_6}{\Delta}\,\frac{H_d'(j)}{H_d(j)}
-=\frac{-E_4^2E_6}{\Delta\,(j-j_d)}
-\end{equation}
-is a weight-two form with a simple pole of residue $1/2\pi i$ at every CM point of discriminant $d$,
-the last equality holding because $h(d)=1$ makes $H_d(j)=j-j_d$. Moreover
-\begin{equation}\label{eq:fd}
-f_d:=\Delta E_6\,\Lambda_d=\frac{-E_4^2E_6^2}{j-j_d}\ \in\ F_{20}
-\end{equation}
-has integral $q$-expansion, vanishes at the cusp, and no pole of $f_d$ lies in $\mathcal{T}$; hence
-$\tilde r_{f_d}=r_{f_d}-c_{f_d}r_{E_{20}}\in W$ is determined, with no reference family and no
-choice. Explicitly, with $\Delta E_8$ the normalised cusp form spanning $S_{20}$,
-\begin{equation}\label{eq:rfd}
-\tilde r_{f_d}=\frac{-92207808}{174611\,j_d-209520000}\;r_{\Delta E_8}.
-\end{equation}
-\end{corollary}
-\begin{proof}
-$Dj=-E_4^2E_6/\Delta$ gives the second expression in~\eqref{eq:Lambdad}, and $\Delta E_6\Lambda_d$
-reduces to~\eqref{eq:fd}; the coefficients are integral because $j_d\in\ZZ$ for class number
-one. Since $h(d)=1$ the only reduced form of discriminant $d$ has leading coefficient $1$, so
-${\rm Im}\,\alpha_d=\tfrac{\sqrt d}{2}>1$ for $d>4$; by the criterion above, its orbit misses
-$\mathcal{T}$, and $Q_{f_d}=0$. For~\eqref{eq:rfd}, $E_8=E_4^2$ and $E_6^2=(j-1728)\Delta$ give
-\begin{equation}\label{eq:fdsplit}
-f_d=\frac{-\Delta E_8\,(j-1728)}{j-j_d}=-\Delta E_8\;-\;(j_d-1728)\,\frac{\Delta E_8}{j-j_d}.
-\end{equation}
-Running the computation of Corollary~\ref{cor:explicit} with $(\Delta,E_{12})$ replaced by
-$(\Delta E_8,E_{20})$, where $E_{20}=\Delta E_8\,(174611j-209520000)/174611$, the reference family
-$E_{20}/(j-j_d)$ gives $c=174611/(174611j_d-209520000)$ and
-$\tilde r_{\Delta E_8/(j-j_d)}=-c\,r_{\Delta E_8}$. Since $\Delta E_8\in S_{20}$, linearity of $L^*$
-turns~\eqref{eq:fdsplit} into $\tilde r_{f_d}=\big[(j_d-1728)c-1\big]r_{\Delta E_8}$, and
-$209520000-1728\cdot174611=-92207808$ gives~\eqref{eq:rfd}.
-\end{proof}
-
-These are the discriminants $d=7,8,11,19,43,67,163$. For $d=3$ and $d=4$ the CM point is elliptic
-and ${\rm Im}\,\alpha_d\le1$, so both the elliptic bookkeeping of Definition~\ref{def:reffam} and a
-correction are needed; and for $h(d)>1$ the reduced forms with leading coefficient $a>1$ give CM
-points as low as ${\rm Im}=\tfrac{\sqrt3}{2}$, whose orbits do meet $\mathcal{T}$.
 
 Definition~\ref{def:reffam} constrains the $\Psi^{(\alpha)}_p$ only through their poles, so it does
 not determine them, and $\tilde r_f$ inherits that freedom. The freedom is exactly measured. If
@@ -4135,3 +4146,67 @@ per pole.
 
 % ❯ /rename epic-meromorphic-mf-lfunction-pdpoly-session
 %  ⎿  Session renamed to: epic-meromorphic-mf-lfunction-pdpoly-session
+
+
+\begin{corollary}\label{cor:explicit}
+Let $k=12$ and $f=\Delta/(j-j_0)$ with $j_0\notin\{0,1728\}$, and take the reference family
+$\Psi^{(1)}_p:=E_{12}/(j-j_0)$ at a pole $p$. Then $N=1$, $m_1=1$,
+\begin{equation}\label{eq:crational}
+c_{1,1}=\frac{\Delta(p)}{E_{12}(p)}=\frac{691}{691\,j_0-432000},
+\qquad
+\tilde r_f=-\,c_{1,1}\,r_\Delta .
+\end{equation}
+In particular $c_{1,1}$ is rational whenever $j_0$ is, with no assumption of complex
+multiplication, and $\tilde r_f$ is then a rational multiple of the period polynomial of $\Delta$.
+\end{corollary}
+\begin{proof}
+$E_{12}/(j-j_0)$ is holomorphic off $\SLZ\!\cdot\!p$, has a simple pole there with nonzero residue,
+and vanishes at the cusp, so it is a reference family of depth $1$. From $E_4^3=j\Delta$ and
+$E_6^2=(j-1728)\Delta$ one gets $E_{12}=\Delta\,(691j-432000)/691$, so $\Delta/E_{12}$ takes the
+stated value at $p$, and
+substituting gives $f-c_{1,1}\Psi^{(1)}_p=-c_{1,1}\Delta$ identically. Apply
+Theorem~\ref{thm:period} and linearity.
+\end{proof}
+
+\begin{corollary}\label{cor:CM}
+Let $d>4$ have class number one, let $\alpha_d$ be the associated CM point, and set
+$j_d:=j(\alpha_d)\in\ZZ$. Write $D:=\tfrac{1}{2\pi i}\tfrac{d}{d\tau}$, and let $H_d$ be the Hilbert
+class polynomial, whose roots are the singular moduli of discriminant $d$~\cite{ZagierTSM}. Then
+\begin{equation}\label{eq:Lambdad}
+\Lambda_d:=D\log H_d(j)=\frac{-E_4^2E_6}{\Delta}\,\frac{H_d'(j)}{H_d(j)}
+=\frac{-E_4^2E_6}{\Delta\,(j-j_d)}
+\end{equation}
+is a weight-two form with a simple pole of residue $1/2\pi i$ at every CM point of discriminant $d$,
+the last equality holding because $h(d)=1$ makes $H_d(j)=j-j_d$. Moreover
+\begin{equation}\label{eq:fd}
+f_d:=\Delta E_6\,\Lambda_d=\frac{-E_4^2E_6^2}{j-j_d}\ \in\ F_{20}
+\end{equation}
+has integral $q$-expansion, vanishes at the cusp, and no pole of $f_d$ lies in $\mathcal{T}$; hence
+$\tilde r_{f_d}=r_{f_d}-c_{f_d}r_{E_{20}}\in W$ is determined, with no reference family and no
+choice. Explicitly, with $\Delta E_8$ the normalised cusp form spanning $S_{20}$,
+\begin{equation}\label{eq:rfd}
+\tilde r_{f_d}=\frac{-92207808}{174611\,j_d-209520000}\;r_{\Delta E_8}.
+\end{equation}
+\end{corollary}
+\begin{proof}
+$Dj=-E_4^2E_6/\Delta$ gives the second expression in~\eqref{eq:Lambdad}, and $\Delta E_6\Lambda_d$
+reduces to~\eqref{eq:fd}; the coefficients are integral because $j_d\in\ZZ$ for class number
+one. Since $h(d)=1$ the only reduced form of discriminant $d$ has leading coefficient $1$, so
+${\rm Im}\,\alpha_d=\tfrac{\sqrt d}{2}>1$ for $d>4$; by the criterion above, its orbit misses
+$\mathcal{T}$, and $Q_{f_d}=0$. For~\eqref{eq:rfd}, $E_8=E_4^2$ and $E_6^2=(j-1728)\Delta$ give
+\begin{equation}\label{eq:fdsplit}
+f_d=\frac{-\Delta E_8\,(j-1728)}{j-j_d}=-\Delta E_8\;-\;(j_d-1728)\,\frac{\Delta E_8}{j-j_d}.
+\end{equation}
+Running the computation of Corollary~\ref{cor:explicit} with $(\Delta,E_{12})$ replaced by
+$(\Delta E_8,E_{20})$, where $E_{20}=\Delta E_8\,(174611j-209520000)/174611$, the reference family
+$E_{20}/(j-j_d)$ gives $c=174611/(174611j_d-209520000)$ and
+$\tilde r_{\Delta E_8/(j-j_d)}=-c\,r_{\Delta E_8}$. Since $\Delta E_8\in S_{20}$, linearity of $L^*$
+turns~\eqref{eq:fdsplit} into $\tilde r_{f_d}=\big[(j_d-1728)c-1\big]r_{\Delta E_8}$, and
+$209520000-1728\cdot174611=-92207808$ gives~\eqref{eq:rfd}.
+\end{proof}
+
+These are the discriminants $d=7,8,11,19,43,67,163$. For $d=3$ and $d=4$ the CM point is elliptic
+and ${\rm Im}\,\alpha_d\le1$, so both the elliptic bookkeeping of Definition~\ref{def:reffam} and a
+correction are needed; and for $h(d)>1$ the reduced forms with leading coefficient $a>1$ give CM
+points as low as ${\rm Im}=\tfrac{\sqrt3}{2}$, whose orbits do meet $\mathcal{T}$.
+
