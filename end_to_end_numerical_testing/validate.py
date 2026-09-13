@@ -1695,21 +1695,28 @@ def h4_arcell():
     eps = mp.mpf('0.1')
     v0 = _rvec_arc(lambda s: _L_rho(f, 12, s, eps, 0), _Phi_rho(f, eps, 0), 12)
     v1 = _rvec_arc(lambda s: _L_rho(f, 12, s, eps, 1), _Phi_rho(f, eps, 1), 12)
-    yield ("rho W=-1: defect is O(1), i.e. NOT in W", mp.mpf(1) / (1 + _defects(v0, 12)[1]),
-           mp.mpf(0))
     vz = [(2 * a + b) / 3 for a, b in zip(v0, v1)]
     yield ("rho W=0: |(1+U+U^2)|", _defects(vz, 12)[1], mp.mpf(0))
     yield ("rho W=0: |(1+S)|", _defects(vz, 12)[0], mp.mpf(0))
+    # the negative half of cor:arcell -- W = -1 is NOT in W -- stated as a ratio, which is 0
+    # only if the DENOMINATOR is non-zero.  (Encoding it as 1/(1+D) vs 0 was wrong: that is 0
+    # only as D -> infinity, and it returned 0.1181 = 1/(1+7.466), i.e. the defect really is
+    # O(1), matching the 7.4657 measured in logs/wind.txt.)
+    yield ("rho: |D(W=0)| / |D(W=-1)|", _defects(vz, 12)[2] / _defects(v0, 12)[2], mp.mpf(0))
     # i: W odd, the two indentations are W = -+1 and their mean is W = 0
     fi = lambda t: Delta(t) / (jay(t) - 1728)
     r = mp.mpf('0.1')
     vi = {sd: _rvec_arc(lambda s, sd=sd: _L_i(fi, 12, s, r, sd),
                         _detour_int(fi, r, sd), 12) for sd in ('in', 'out')}
-    yield ("i, one-sided: defect is O(1), i.e. NOT in W",
-           mp.mpf(1) / (1 + _defects(vi['in'], 12)[1]), mp.mpf(0))
     vm = [(a + b) / 2 for a, b in zip(vi['in'], vi['out'])]
     yield ("i W=0 (mean): |(1+U+U^2)|", _defects(vm, 12)[1], mp.mpf(0))
     yield ("i W=0 (mean): |(1+S)|", _defects(vm, 12)[0], mp.mpf(0))
+    yield ("i: |D(W=0)| / |D(W=-1)|", _defects(vm, 12)[2] / _defects(vi['in'], 12)[2],
+           mp.mpf(0))
+    # at i the (1+S) relation is what discriminates: S carries an inside detour to an outside
+    # one, so neither single side is S-symmetric and only the mean is.  Ratio, same reason.
+    yield ("i: |(1+S)| at W=0 relative to one-sided",
+           _defects(vm, 12)[0] / _defects(vi['in'], 12)[0], mp.mpf(0))
 
 
 # ------------------------------------------------------------------------- driver
