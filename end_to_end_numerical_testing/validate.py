@@ -1673,6 +1673,21 @@ def h2_arczero():
         yield ("rho, s=%s: (2/3,1/3) average vs 1/3-residue form" % mp.nstr(s, 3), avg, shifted)
 
 
+@check("lem:arcfunceq", "H", desc=r"$L^*(f,s)=i^kL^*(f,k-s)$ for meromorphic $f$ on the arc")
+def h2b_funceq():
+    # complex s matters: at real s and even k both i^k and i^{-k} are +-1, so a mix-up of the
+    # S-half (i^k) with the T-half (i^{-k}) would hide there.
+    def L(f, k, s, eps=mp.mpf('0.1')):
+        return _L_rho(f, k, s, eps, 0)
+    CASES = [("Delta/(j-j(2i)), k=12, pole above the arc",
+              lambda t: Delta(t) / (jay(t) - jay(2 * I)), 12),
+             ("E_4^3, k=12, holomorphic control", lambda t: E4(t)**3, 12),
+             ("Delta/j, k=12, pole AT rho", lambda t: Delta(t) / jay(t), 12)]
+    for lbl, f, k in CASES:
+        for s in (mp.mpf(3), mp.mpf('2.4') + mp.mpf('0.6') * I):
+            yield ("%s, s=%s" % (lbl, mp.nstr(s, 4)), L(f, k, s), I**k * L(f, k, k - s))
+
+
 @check("lem:arcwind", "H", tier="slow", tol=mp.mpf('1e-6'),
        desc=r"defect linear in the winding: $|D(2)|/|D(-1)|=2$")
 def h3_arcwind():

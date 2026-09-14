@@ -1,0 +1,32 @@
+PART 1   Phi(f_z) =? 2 pi i g(z)
+   d=7       pred (0.0 - 0.00146088318j)             got (0.0 - 0.0014608832j)              rel 1.1e-8
+   d=8       pred (0.0 + 0.000895161452j)            got (0.0 + 0.00089516148j)             rel 3.09e-8
+   d=11      pred (0.0 - 0.000186313937j)            got (0.0 - 0.00018631394j)             rel 1.75e-8
+   d=19      pred (0.0 - 7.09406681e-6j)             got (0.0 - 7.0940667e-6j)              rel 1.6e-8
+   1.3i      pred (0.0 + 0.00189019772j)             got (0.0 + 0.0018901977j)              rel 8.72e-9
+   .5+1.4i   pred (0.0 - 0.000919315525j)            got (0.0 - 0.00091931554j)             rel 1.68e-8
+   .2+1.3i   pred (-0.00175878408 + 0.000462647296j) got (-0.0017587841 + 0.0004626473j)    rel 1.18e-8
+   .35+1.5i  pred (-0.00040180282 - 0.000300778273j) got (-0.00040180282 - 0.00030077827j)  rel 6.97e-9
+
+PART 1   rank of the 8 x 3 coordinate matrix
+   singular values: 2.8284271  2.1899066e-6  2.8347834e-12
+   sigma2/sigma1 = 7.74249e-7   sigma3/sigma1 = 1.00225e-12
+   (rank 1 at the 1e-6 level would read sigma2/sigma1 ~ 1e-6)
+
+PART 2   z = 1.3i recomputed.  Reference row from cm18.txt:
+   dps 30 depth 10   c0/c2 = -52.184305357752 + 73.377217859608j
+                     c1/c2 =  73.376343812515 + 52.184926968724j
+   dps 30  depth 10   c0/c2 = (-52.1843053577524164 + 73.3772178596075328j)
+                     c1/c2 = (73.3763438125147882 + 52.184926968724222j)
+                     inW 7.44e-30 / 4.89e-26    Phi = (-5.91652336673e-36 + 0.00189019771197j)
+   dps 30  depth 12   c0/c2 = (-52.1843053577524164 + 73.3772178596075328j)
+                     c1/c2 = (73.3763438125147882 + 52.184926968724222j)
+                     inW 5.952e-30 / 7.523e-26    Phi = (-5.9167025311e-36 + 0.00189019771197j)
+                     MOVED from previous line by 1.117e-28 , 1.477e-28
+   dps 40  depth 12   c0/c2 = (-8.26641451554834621e-6 + 1.00000857658401319j)
+                     c1/c2 = (-0.0102993802955271207 - 0.00415549513372299791j)
+                     inW 5.345e-40 / 5.457e-36    Phi = (1.65310485889e-45 + 0.00189019771197j)
+                     MOVED from previous line by 89.23 , 90.05
+
+   spread between DIFFERENT z in cm18.txt was 2.2e-4 absolute.
+   If one z moves that much on its own, the CM comparison measured noise.

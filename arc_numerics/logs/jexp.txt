@@ -1,0 +1,37 @@
+Phi(E_4^3 E_6) = (1.0 + 1.1353993797153e-32j)   (target 1)
+
+the fixed vectors v_m = 2 pi i hat r_{E_4^3 E_6 j^{m-1}}
+   m=1  Phi = (1.0 + 1.13539938e-32j)  |v_m| = 3.5789273e-13   inW 2.741e-32 / 641.4
+   m=2  Phi = (960.0 - 7.171792553e-30j) |v_m| = 4.6594805e+20   inW 1.249e-30 / 7.172e-26
+   m=3  Phi = (1068480.0 + 1.723046533e-26j) |v_m| = 6.8644901e+23   inW 8.684e-31 / 2.131e-26
+   m=4  Phi = (1309056000.0 - 2.315700455e-23j) |v_m| = 9.4190015e+26   inW 7.777e-31 / 2.041e-26
+   m=5  Phi = (1.707824664e+12 - 1.110002867e-19j) |v_m| = 1.3067818e+30   inW 7.653e-31 / 5.508e-26
+   |v_1|/|v_2| = 7.68096e-34   (prediction: zero)
+
+pairwise directions of v_2..v_5 (1 - |<a,b>|/(|a||b|), Hermitian)
+   v_2 . v_3 :  1 - cos = 4.30914e-12
+   v_2 . v_4 :  1 - cos = 1.12517e-11
+   v_2 . v_5 :  1 - cos = 1.77896e-11
+   v_3 . v_4 :  1 - cos = 1.63458e-12
+   v_3 . v_5 :  1 - cos = 4.58783e-12
+   v_4 . v_5 :  1 - cos = 7.45486e-13
+
+truncation test:  hat r_{f_z} =? sum_{m=2}^{M} v_m x^{-m}
+   CM d=7   x = j(z) = (-3375.0 + 1.360815876e-29j) |x|/1728 = 1.953125
+        M=2  relative residual = 0.450373
+        M=3  relative residual = 0.182734
+        M=4  relative residual = 0.0746609
+        M=5  relative residual = 0.0311484
+        predicted per-term decay 1728/|x| = 0.512
+   CM d=11  x = j(z) = (-32768.0 + 1.132295509e-28j) |x|/1728 = 18.96296
+        M=2  relative residual = 0.0450994
+        M=3  relative residual = 0.00188769
+        M=4  relative residual = 7.98558e-5
+        M=5  relative residual = 3.44964e-6
+        predicted per-term decay 1728/|x| = 0.0527344
+   CM d=19  x = j(z) = (-884736.0 + 2.992881758e-27j) |x|/1728 = 512.0
+        M=2  relative residual = 0.00166535
+        M=3  relative residual = 2.58275e-6
+        M=4  relative residual = 4.04997e-9
+        M=5  relative residual = 6.48495e-12
+        predicted per-term decay 1728/|x| = 0.00195313
