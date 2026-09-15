@@ -1,0 +1,26 @@
+Phi(E_18) = (1.0 - 2.8231729780795616365e-51j)   (internal check: the s=1 first integral)
+r_E[0]/(2pi i)^{n+1}  = (4.83770412526687411951437100554e-49 - 0.184800273772205822624968387813j)
+r_E[16]/(2pi i)^{n+1} = (-4.83770412526687411951437100554e-49 + 0.184800273772205822624968387813j)
+sum (must vanish if the even part is along p_0) = 2.8926e-50
+
+zeta(17) = 1.00000763719763789976227360029
+
+   x := -Im r_E[0]/(2pi i)^{n+1} = 0.184800273772205822624968387813
+      rational?            no
+      rational * zeta(17)? no
+      in Q + Q zeta(17)?   no
+
+   x / (2 pi) = 0.0294118770555820958926234518684
+      rational?            no
+      rational * zeta(17)? no
+      in Q + Q zeta(17)?   no
+
+   x * (2 pi) = 1.16113436492828871979862846385
+      rational?            no
+      rational * zeta(17)? no
+      in Q + Q zeta(17)?   no
+
+   x * 43867 = 8106.63360956535282108948826818
+      rational?            no
+      rational * zeta(17)? no
+      in Q + Q zeta(17)?   no

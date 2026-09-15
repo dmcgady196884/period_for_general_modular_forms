@@ -1766,19 +1766,20 @@ family may be combined.
 
 \begin{corollary}\label{cor:symspan}
 Let $f\in F_k$ and let $\Gamma_1,\dots,\Gamma_N$ be reference pairs at $\tau_0=\rho+1$, each with
-$\hat\gamma^S_j$ $S$-symmetric and $\hat\gamma^T_j=\hat\gamma^S_j$. Then $\hat r_f(\Gamma_j)\in W$
-for every $j$, and for any $w_1,\dots,w_N\in\CC$ with $\sum_jw_j=1$,
+$S\hat\gamma^S_j=-\hat\gamma^S_j$ as a chain and $\hat\gamma^T_j=\hat\gamma^S_j$. Then
+$\hat r_f(\Gamma_j)\in W$ for every $j$, and for any $w_1,\dots,w_N\in\CC$ with $\sum_jw_j=1$,
 \begin{equation}\label{eq:symspan}
 \sum_{j}w_j\,\hat r_f(\Gamma_j)\ \in\ W .
 \end{equation}
 The values so obtained form a coset of ${\rm span}_\CC\{v_p\}\subseteq W$, where $v_p$ is the
-shift produced by one unit of winding about the $S$-orbit of a pole $p$, taken on both segments
-at once:
+shift produced by one unit of winding about a pole $p$ and, as the previous condition forces,
+$-1$ unit about $Sp$, taken on both segments at once:
 \begin{equation}\label{eq:symshift}
-v_p=\Big[(2\pi i)^{n+1}(-1)^{\ell}\tbinom{n}{\ell}i^{\ell+1}\,2\pi i\,
-\big(r_S(f,p)+r_T(f,p)\big)\Big]_{\ell=0}^{n}\;-\;2\pi i\,a_p\,r_{E_k},
+v_p=\Big[(2\pi i)^{n+1}(-1)^{\ell}\tbinom{n}{\ell}\,2\pi i\,
+\big(r_S+r_T\big)(f,p,\ell+1)\Big]_{\ell=0}^{n}
+-\Big[\,p\mapsto Sp\,\Big]\;-\;2\pi i\,\big(a_p-a_{Sp}\big)\,r_{E_k},
 \end{equation}
-with $r_S,r_T$ as in Lemma~\ref{lem:wall_arc} and $a_p=\Res_{\tau=p}f$.
+with $r_S,r_T$ as in Lemma~\ref{lem:wall_arc}, evaluated at $s=\ell+1$, and $a_q=\Res_{\tau=q}f$.
 \end{corollary}
 
 \begin{proof}
@@ -1787,10 +1788,21 @@ retrace and $\hat C_{\pm I}=0$; the argument of Lemma~\ref{lem:arcoff} then give
 relations, whatever the winding data, so $\hat r_f(\Gamma_j)\in W$. For \eqref{eq:symspan}, the
 segment integrals of Definition~\ref{def:Lint} are linear in the contour as a chain, hence so are
 $L^*$, $r_f$ and $\Phi$, hence so is $\hat r_f=r_f-\Phi(f)r_{E_k}$; and $W$ is a linear subspace.
-The shift \eqref{eq:symshift} is Lemma~\ref{lem:wall_arc} at $X_S(p)=X_T(p)=1$, assembled through
-Definition~\ref{def:rf} and corrected by the induced change $\Delta\Phi=2\pi i\,a_p$ in the
-subtraction.
+The shift \eqref{eq:symshift} is Lemma~\ref{lem:wall_arc} at $X_S(p)=X_T(p)=1$ and
+$X_S(Sp)=X_T(Sp)=-1$, assembled through Definition~\ref{def:rf}, whose $i^{\ell+1}$ cancels the
+prefactor $e^{-i\pi s/2}$ of Definition~\ref{def:Lint} at $s=\ell+1$, and corrected by the induced
+change $\Delta\Phi=2\pi i\,(a_p-a_{Sp})$ in the subtraction. The two winding numbers are opposite
+because $S\hat\gamma^S=-\hat\gamma^S$ is preserved only by windings that reverse under $S$; a
+single unit about $p$ alone leaves the family.
 \end{proof}
+
+The generator $v_p$ deserves more than this incidental role, and Section~\ref{sec:residue_polys}
+gives it one. It is $\Xi_{f;p}$ of Definition~\ref{def:respoly}, an integral of $f$ against a single
+kernel over the closed contour $c_p-Sc_p$, and Proposition~\ref{prop:respolyW} proves
+$\Xi_{f;p}\in W$ outright --- for a pole of any order, with no base point, no homotopy class and no
+period polynomial entering. The antisymmetry demanded here is exactly what that proof consumes:
+\eqref{eq:resSrel} is the relation $(1-S)(1+S)=1-S^2=0$, and \eqref{eq:ressym} records what the
+symmetric choice costs instead.
 
 Two consequences worth separating. First, $W$-membership is a property of the whole symmetric
 family and not a selector within it: the residual freedom is exactly
@@ -1945,7 +1957,7 @@ $O(e^{-2\pi\,{\rm Im}\,z})$. Any other admissible reference restores the $m=1$ t
 recorded above. The family thus selects a reference form from that shift space, whereas $f$ alone
 does not.
 
-\subsection{Residue polynomials}\label{sec:residue_polys}
+\section{Residue polynomials}\label{sec:residue_polys}
 
 As is profoundly clear in the sub-section~\ref{sec:arcperiod}, the route to assigning a period polynomial 
 to a weight-$k$ $\SLZ$ meromorphic modular form $f \in F_k$, entirely via its underlying L-function, is fraught with 
@@ -1970,13 +1982,14 @@ in extending the notion of periods and quasi-periods of meromorphic modular form
 (i.e. $f \in F^* := \oplus_k F_k$) which is fundamentally tied to the nature of poles at finite locations in the 
 fundamental domain.
 
-However, in Corollary~\ref{cor:symspan}, we proved that ${\rm span}_\CC\{v_p\} \subseteq W$, where $v_p$
-is the shift produced by one unit of winding about the $S$-orbit of a pole $p$: each such shift, being a
-difference of two elements of $W$, \emph{is in fact an element of the privileged subspace $W$}, i.e.
-$\Xi_{f;z} \in W \subset V_{k-2}$. Crucially, $v_p$ is built from a \emph{closed} contour, so the first of
-the two obstructions above --- which is a statement about open contours --- does not touch it. This opens
-the door to defining essentially complementary objects --- complementary in the sense that the objects are
-trivial/fail to exist for the privileged subspace of weakly holomorphic forms, $M_k^! \subset F_k$. To wit,
+Both obstructions, however, are statements about \emph{open} contours: the first is the choice of a
+homotopy class joining $S\tau_0$ to $\tau_0$, and the second is the subtraction that repairs the
+resulting $T$-defect. A \emph{closed} contour about a pole carries neither. What we show below is
+that the winding of such a contour is by itself enough: it produces an element of $W$, directly,
+with no base point, no homotopy class, and no period polynomial anywhere in the construction. This
+opens the door to defining essentially complementary objects --- complementary in the sense that the
+objects are trivial/fail to exist for the privileged subspace of weakly holomorphic forms,
+$M_k^! \subset F_k$. To wit,
 
 \begin{definition}\label{def:reskernel}
 For $n=k-2$, with $\mathbf K_T$ as in Proposition~\ref{prop:periodint} and $r_{E_k}$ as in
@@ -1993,39 +2006,97 @@ by the third display in the proof of Lemma~\ref{lem:rfW} it is parabolicity, $\h
 the relation $w|_{(1+U+U^2)}=0$ rests.
 
 \begin{definition}[Residue polynomial for $f \in F_k$ at $z$]\label{def:respoly}
-Let $f \in F_k$, let $z \in \HH$ be a pole of $f$, and let $\gamma_\circ(z)$ be a simple, positively
-oriented loop enclosing the set $\{z, Sz\}$ and no other pole of $f$. We define \emph{the residue
-polynomial of $f$ at $z$}, $\Xi_{f;z}$ to be,
+Let $f \in F_k$, let $z \in \HH$ be a pole of $f$, let $c_z$ be a simple, positively oriented loop
+enclosing $z$ and no other pole of $f$, and set $\gamma_\circ(z) := c_z - S c_z$. We define
+\emph{the residue polynomial of $f$ at $z$}, $\Xi_{f;z}$ to be,
 \begin{equation}\label{eq:respoly}
 \Xi_{f;z} := \oint_{\gamma_\circ(z)} f(\tau)\,\mathcal K(\tau;X,Y)\,d\tau~.
 \end{equation}
 \end{definition}
 
-The loop encircles the $S$-orbit of $z$, and not $z$ alone, because Corollary~\ref{cor:symspan}
-requires $\hat\gamma^S$ to be $S$-symmetric. At $z=i$ that orbit is the single point $i$; at
-$z \in \SLZ\!\cdot\!\rho$ it is the pair of arc endpoints $\{\rho,\rho+1\}$, since $S(\rho+1)=\rho$.
-Note that this is nothing other than the objects which arise within the interior of
-Corollary~\ref{cor:symspan}.
+The loop is $S$-\emph{anti}symmetric, $S\gamma_\circ=-\gamma_\circ$, and not merely a loop about
+the pair $\{z,Sz\}$. This is forced: Lemma~\ref{lem:georetrace} makes the $S^2$- and $(ST)^3$-paths
+retrace by $S\hat\gamma^S=-\hat\gamma^S$, so a winding added to both segments must reverse under
+$S$. The symmetric alternative $c_z+Sc_z$ fails, and fails in the $S$-relation; see
+\eqref{eq:ressym} below. Since $S$ is holomorphic, $Sc_z$ is a positively oriented loop about
+$Sz$, so $\gamma_\circ$ encircles $z$ once positively and $Sz$ once negatively. At $z=i$ it
+degenerates to the zero cycle, because $Si=i$; correspondingly $\Xi_{f;i}=0$. At
+$z\in\SLZ\!\cdot\!\rho$ the two points are the arc endpoints $\rho$ and $S(\rho+1)=\rho$.
+
+Write $P_\tau:=(X-\tau Y)^n$, and for a $1$-chain $c$ in $\HH$ avoiding the poles of $f$ set
+\begin{equation}\label{eq:resAB}
+A(c):=\int_c f(\tau)\,P_\tau\,d\tau,\qquad B(c):=\int_c f(\tau)\,\mathbf K_T(\tau;X,Y)\,d\tau .
+\end{equation}
+Two facts about these, one for each kernel, give the result outright.
+
+\begin{lemma}\label{lem:resequiv}
+For every $\gamma\in\SLZ$ and every such chain $c$, $A(\gamma c)=A(c)|_{\gamma^{-1}}$.
+\end{lemma}
+
+\begin{proof}
+Substitute $\tau=\gamma w$ in $A(\gamma c)$. Then $d\tau=(cw+d)^{-2}dw$ and $f(\gamma w)=(cw+d)^kf(w)$,
+while
+\[
+X-(\gamma w)Y=\frac{(cX-aY)w+(dX-bY)}{cw+d},
+\]
+so the integrand becomes $f(w)\big((cX-aY)w+(dX-bY)\big)^n\,dw$ because $k-n-2=0$. Since
+$\gamma^{-1}=\left(\begin{smallmatrix}d&-b\\-c&a\end{smallmatrix}\right)$, that bracket is
+$P_w|_{\gamma^{-1}}$.
+\end{proof}
+
+\begin{lemma}\label{lem:resorbit}
+$\mathbf K_T(\tau)-\mathbf K_T(\tau-1)=-P_\tau|_{(1-S)}$, and consequently, in the sense of Hurwitz
+continuation, $\mathbf K_T(\tau)=\sum_{m\ge1}P_{\tau+m}\big|_{(1-S)}$.
+\end{lemma}
+
+\begin{proof}
+At $s=\ell+1$ Definition~\ref{def:kernel} reads
+$\tk(\tau,\ell+1)=\zeta(-\ell,\tau+1)-(-1)^\ell\zeta(\ell-n,\tau+1)$, and
+$\zeta(w,x)-\zeta(w,x+1)=x^{-w}$ gives
+$\tk(\tau,\ell+1)-\tk(\tau-1,\ell+1)=-\tau^\ell+(-1)^\ell\tau^{n-\ell}$. Assembling over $\ell$ with
+the weights of Proposition~\ref{prop:periodint} yields $-P_\tau+(\tau X+Y)^n$, and
+$P_\tau|_S=(\tau X+Y)^n$ for $n$ even. For the second form, $\zeta(-m,x)$ continues
+$\sum_{j\ge0}(j+x)^m$, so $\zeta(-\ell,\tau+1)$ continues $\sum_{m\ge1}(\tau+m)^\ell$; assembling
+gives $\sum_{m\ge1}\big(P_{\tau+m}-P_{\tau+m}|_S\big)$.
+\end{proof}
 
 \begin{proposition}\label{prop:respolyW}
-$\Xi_{f;z} \in W$, and depends on neither $\tau_0$ nor the reference class of
-Definition~\ref{def:class_arc}.
+$\Xi_{f;z} \in W$, for a pole of any order, and depends on neither $\tau_0$ nor the reference class
+of Definition~\ref{def:class_arc}.
 \end{proposition}
 
 \begin{proof}
-Let $\Gamma_1$ be a reference pair as in Corollary~\ref{cor:symspan}, and $\Gamma_2$ the same pair
-carrying $m$ further units of winding about $\{z,Sz\}$ on both segments, where $m=1$ if $z$ is not
-an elliptic point and $m=n_z$ if it is, $n_z$ being the order of the stabiliser of $z$ in
-$\mathrm{PSL}_2(\ZZ)$; by Corollary~\ref{cor:arcell} this is the smallest admissible step. By
-Proposition~\ref{prop:periodint}, $r_f(\Gamma_2)-r_f(\Gamma_1)$ equals $(2\pi i)^{n+1}$ times
-$2\pi i\,m$ times the residues on $\{z,Sz\}$ of $f\cdot\big[(X-\tau Y)^n+\mathbf K_T\big]$, while
-$\Phi$ changes by $2\pi i\,m\sum_{p\in\{z,Sz\}}\Res_{\tau=p}f$. As $r_{E_k}$ is constant in $\tau$,
-the residue theorem combines the two changes into $m\,\Xi_{f;z}$, so that
-$m\,\Xi_{f;z}=\hat r_f(\Gamma_2)-\hat r_f(\Gamma_1)$ lies in $W$; and $W$ is a subspace with
-$m\neq0$. Neither $\tau_0$ nor the class appears in~\eqref{eq:respoly}.
+Put $\mathfrak a:=A(c_z)$ and let $\mathcal T:=\sum_{m\ge1}T^{-m}$ act by
+$A(T^mc_z)=\mathfrak a|_{T^{-m}}$, which is Lemma~\ref{lem:resequiv}. That lemma gives
+$A(\gamma_\circ)=\mathfrak a|_{(1-S)}$, and, since $P_{\tau+m}=P_\tau|_{T^{-m}}$,
+Lemma~\ref{lem:resorbit} gives $B(c_z)=\mathfrak a|_{\mathcal T(1-S)}$ and hence
+$B(\gamma_\circ)=\mathfrak a|_{(1-S)\mathcal T(1-S)}$. So with $E:=1+\mathcal T(1-S)$,
+\begin{equation}\label{eq:resbracket}
+A(\gamma_\circ)+B(\gamma_\circ)=\mathfrak a\big|_{(1-S)E}.
+\end{equation}
+Now $S^2=-I$ acts trivially on $V_n$ for $n$ even, so $(1-S)(1+S)=1-S^2=0$ and therefore
+\begin{equation}\label{eq:resSrel}
+(1-S)E(1+S)=(1-S)(1+S)+(1-S)\mathcal T(1-S^2)=0 ,
+\end{equation}
+every term of the sum carrying the factor $1-S^2$. With $r_{E_k}|_{(1+S)}=0$, which holds by
+Lemma~\ref{lem:geoloops} and the second display in the proof of Lemma~\ref{lem:rfW}, this gives
+$\Xi_{f;z}|_{(1+S)}=0$.
+
+For the remaining relation, $\gamma_\circ$ changes $\Phi$ of Definition~\ref{def:Phi} by
+$\oint_{\gamma_\circ}f\,d\tau$, so the bracket \eqref{eq:resbracket} alone is not parabolic; the
+subtraction of $r_{E_k}$ in \eqref{eq:reskernel}, normalised by $\Phi(E_k)=1$, restores
+$\hat C_T=0$, and the third display in the proof of Lemma~\ref{lem:rfW} then gives
+$\Xi_{f;z}|_{(1+U+U^2)}=0$. Nothing in \eqref{eq:respoly} refers to $\tau_0$ or to a homotopy class,
+and no step above used the order of the pole.
 \end{proof}
 
-We suspect that these objects are interesting in their own right, and study them in this section. 
+The symmetric alternative fails at \eqref{eq:resSrel}, and fails there only: $E(1+S)=(1+S)$, so
+\begin{equation}\label{eq:ressym}
+\Big[\oint_{c_z+Sc_z}f\,\mathcal K\,d\tau\Big]\Big|_{(1+S)}
+=(2\pi i)^{n+1}\,\mathfrak a\big|_{(1+S)^2}=2\,(2\pi i)^{n+1}\,\mathfrak a\big|_{(1+S)},
+\end{equation}
+which vanishes only when $\mathfrak a|_{(1+S)}$ does. The same computation with $c_z$ alone gives
+$\mathfrak a|_{(1+S)}$, half of \eqref{eq:ressym}. 
 
 Further, we suspect that the related objects,
 \begin{definition}[Full residue polynomial for $f \in F_k$]\label{def:respolyfull}
@@ -2036,7 +2107,7 @@ $n_z=3$ on $\SLZ\!\cdot\!\rho$, and $n_z=1$ otherwise. We define \emph{the full 
 of $f$}, $\Xi_f$, to be,
 \begin{align}
 \Xi_f &:= \sum_{z \in Z} \frac{\Xi_{f;z}}{n_z}~,\label{eq:respolyfull}\\
-R(f) &:= \sum_{z \in Z} \frac{1}{n_z}\sum_{p \in \{z, Sz\}} \Res_{\tau = p} f~,\label{eq:Rf}\\
+R(f) &:= \sum_{z \in Z} \frac{1}{n_z}\Big(\Res_{\tau = z} f-\Res_{\tau = Sz} f\Big)~,\label{eq:Rf}\\
 \Sigma_f &:= \Xi_f + 2\pi i\,R(f)\,r_{E_k}~.\label{eq:Sigmaf}
 \end{align}
 \end{definition}
@@ -2044,8 +2115,9 @@ to also be very interesting in their own right, perhaps even more interesting.
 
 The weights $1/n_z$ are those of the valence formula~\cite{01-Apostol}, which counts orders at $i$
 and at $\rho$ with $\tfrac12$ and $\tfrac13$; in that sense $\Xi_f$ is a divisor sum. Away from the
-elliptic points $f|_kS=f$ gives $\Res_{\tau=Sz}f=z^{\,n}\Res_{\tau=z}f$, so the inner sum
-of~\eqref{eq:Rf} is $(1+z^{\,n})\Res_{\tau=z}f$.
+elliptic points $f|_kS=f$ gives $\Res_{\tau=Sz}f=z^{\,n}\Res_{\tau=z}f$ at a simple pole, so the
+bracket in~\eqref{eq:Rf} is $(1-z^{\,n})\Res_{\tau=z}f$; at $z=i$ it vanishes, consistently with
+$\Xi_{f;i}=0$.
 
 \begin{proposition}\label{prop:resamb}
 Let $f \in F_k$. Then
@@ -2064,7 +2136,8 @@ when $R(f)=0$.
 \begin{proof}
 Linearity is immediate from~\eqref{eq:respoly} and~\eqref{eq:respolyfull}, and $Z=\emptyset$ for
 $f\in M^!_k$. For (2), $r_{E_k}$ enters~\eqref{eq:reskernel} additively and is constant in $\tau$,
-so it contributes $-2\pi i\,r_{E_k}\sum_{p\in\{z,Sz\}}\Res_{\tau=p}f$ to~\eqref{eq:respoly};
+so it contributes $-r_{E_k}\oint_{\gamma_\circ(z)}f\,d\tau
+=-2\pi i\,r_{E_k}\big(\Res_{\tau=z}f-\Res_{\tau=Sz}f\big)$ to~\eqref{eq:respoly};
 weighting by $1/n_z$ and summing over $Z$ gives the stated shift, which~\eqref{eq:Sigmaf} cancels.
 For (3), $\Xi_f\in W$ by Proposition~\ref{prop:respolyW}. The second display in the proof of
 Lemma~\ref{lem:rfW} uses only $\hat C_{\pm I}=0$, which holds for $E_k$ by
@@ -2074,7 +2147,57 @@ for $E_k$ since $\Phi(E_k)=1$. The two identities follow from~\eqref{eq:Sigmaf}.
 
 $R(f)$ is a canonical linear functional on $F_k$: no contour, base point or reference form enters
 it. It is the whole of the obstruction, and it does not vanish in general --- for the family of
-Proposition~\ref{prop:Jexp}, $Z=\{z\}$ and $\Res_{\tau=z}f_z=h(z)$, so $R(f_z)=h(z)\,(1+z^{\,n})$.
+Proposition~\ref{prop:Jexp}, $Z=\{z\}$ and $\Res_{\tau=z}f_z=h(z)$, so $R(f_z)=h(z)\,(1-z^{\,n})$.
+
+At a simple pole Definition~\ref{def:respoly} is wholly explicit. Writing
+$\tk(w,\ell+1)=-B_{\ell+1}(w+1)/(\ell+1)+(-1)^\ell B_{n-\ell+1}(w+1)/(n-\ell+1)$ for the Bernoulli
+polynomials of Definition~\ref{def:Wpm}, the coefficient of $X^{n-\ell}Y^\ell$ in $\Xi_{f;z}$ is
+\begin{equation}\label{eq:respolyexp}
+2\pi i\,a_z\Big\{(2\pi i)^{n+1}(-1)^\ell\tbinom{n}{\ell}
+\Big[z^\ell-z^{n-\ell}+\tk(z,\ell+1)-z^{\,n}\,\tk(-1/z,\ell+1)\Big]
+-(1-z^{\,n})\big(r_{E_k}\big)_\ell\Big\},
+\end{equation}
+$a_z=\Res_{\tau=z}f$. So $\Xi_{f;z}$ is $a_z(2\pi i)^{n+2}$ times a polynomial in $z$ with rational
+coefficients, less $2\pi i\,a_z(1-z^n)\,r_{E_k}$: its only transcendental content beyond $a_z$ and
+powers of $2\pi i$ is $r_{E_k}$, entering with the coefficient $(1-z^n)$. Write
+$\Xi_{f;z}=a_z\,\Xi^\circ_k(z)$ for the resulting map $\Xi^\circ_k:\HH\to W$, which depends on $k$ alone.
+
+\begin{proposition}\label{prop:thetalaurent}
+$\Xi^\circ_k(z)=\sum_{m=-1}^{n+1}c_m\,z^m$ with every $c_m\in W$, and
+\begin{equation}\label{eq:thetafe}
+\Xi^\circ_k(-1/z)=-z^{-n}\,\Xi^\circ_k(z),\qquad\text{equivalently}\qquad c_{n-m}=(-1)^{m+1}c_m .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+In \eqref{eq:respolyexp}, $\tk(w,\ell+1)$ is a polynomial in $w$ of degree
+$\max(\ell+1,n-\ell+1)\le n+1$. Hence $\tk(z,\ell+1)$ contributes powers $z^0,\dots,z^{n+1}$, while
+$z^n\tk(-1/z,\ell+1)$ contributes $z^{n-\max(\ell+1,n-\ell+1)},\dots,z^n$, the least exponent being
+$z^{-1}$, attained at $\ell=0$ and $\ell=n$; the remaining terms lie in that range. So $\Xi^\circ_k$ is a
+Laurent polynomial supported in $-1\le m\le n+1$. Since $\Xi^\circ_k(z)\in W$ for every $z$ by
+Proposition~\ref{prop:respolyW}, the monomials $z^m$ are linearly independent as functions of $z$,
+and $W$ is a linear subspace, each $c_m$ lies in $W$.
+
+For \eqref{eq:thetafe}, $S$ is holomorphic and $S^2=1$ in $\mathrm{PSL}_2(\ZZ)$, so
+$\gamma_\circ(Sz)=c_{Sz}-Sc_{Sz}=c_{Sz}-c_z=-\gamma_\circ(z)$ and therefore
+$\Xi_{f;Sz}=-\Xi_{f;z}$. Lemma~\ref{lem:resequiv} at $\gamma=S$ gives $a_{Sz}=z^{\,n}a_z$, so
+$z^{\,n}a_z\Xi^\circ_k(-1/z)=-a_z\Xi^\circ_k(z)$. Comparing coefficients of $z^{m}$ on the two sides of
+$\Xi^\circ_k(-1/z)=-z^{-n}\Xi^\circ_k(z)$ gives $(-1)^mc_m=-c_{n-m}$.
+\end{proof}
+
+So the dependence of $\Xi_{f;z}$ on the pole location is rational: $z\mapsto\Xi^\circ_k(z)$ is a curve in
+$W$ of degree at most $n+2$, and \eqref{eq:thetafe} is an involution on it. Its coordinate functions
+in any basis of $W$ are Laurent polynomials in $z$, so the curve is contained in no proper subspace
+of $W$ precisely when the $c_m$ span; at $k=12$, where $\dim W=3$, they are computed to do so.
+
+Two consequences for the ambiguity of Proposition~\ref{prop:resamb}. If $f$ has a single simple pole
+orbit, then $R(f)=n_z^{-1}(1-z^{\,n})a_z$, which vanishes exactly when $z^{\,n}=1$, that is when the
+pole lies on $|\tau|=1$ at an $n$-th root of unity; for such $f$ the residue polynomial is free of
+the reference form. At $k=12$ the roots of unity meeting
+$\tfrac{\pi}{3}\le\arg\tau\le\tfrac{2\pi}{3}$ are $e^{2\pi i/5}$ and $e^{3\pi i/5}$, a single
+$S$-pair. And $\Xi_{f;z}$ determines $a_z$ whenever $\Xi^\circ_k(z)\neq0$, so within one orbit the whole
+residue data is recovered, by Lemma~\ref{lem:resequiv}; across distinct orbits it is not, since
+$\Xi_f$ records only the weighted sum.
 
 A semi-structured list of reasons why, below:
 \begin{itemize}
@@ -2093,6 +2216,114 @@ Poles at the cusp do not enter. The kernel $\mathcal K$ is integrated against $f
 so only the polar parts of $f$ at finite locations contribute, and no $c_f(0)$ appears anywhere.
 This is why $\Xi_f$ vanishes on $M^!_k$, and it means that admitting or excluding poles at the cusp
 changes nothing.
+
+\subsection{An example localised in $W$ at weight $k=18$}\label{sec:resex}
+
+Take $g=\Delta E_4\in M_{16}$ and
+\begin{equation}\label{eq:resex}
+f_z:=g\,\frac{J'}{J-J(z)}\in F_{18},\qquad J'=-2\pi i\,(J+744)\,\frac{E_6}{E_4},
+\end{equation}
+for $z$ in the interior of the fundamental domain. Three things make this the tractable case.
+$J'/(J-J(z))$ has weight $2$, so $f_z$ has weight $k=18$ and $n=16$; $f_z$ has a single pole orbit,
+so $\Xi_{f_z}=\Xi_{f_z;z}$ and the local and global residue polynomials coincide; and
+$\dim S_{18}=1$, so $\dim W=3$ and $W$ has a cuspidal part rather than reducing to the Eisenstein
+line. By Lemma~\ref{lem:resequiv} the residue is $\Res_{\tau=z}f_z=g(z)$, so
+\begin{equation}\label{eq:resexfac}
+\Xi_{f_z}\;=\;\Delta(z)E_4(z)\;\Xi^\circ_{18}(z),
+\end{equation}
+a weight-$16$ cusp form evaluated at $z$ times the universal map of
+Proposition~\ref{prop:thetalaurent}, which depends on $k$ alone. In particular
+$|\Xi_{f_z}|\asymp e^{-4\pi\,{\rm Im}\,z}$.
+
+The parity involution $\varepsilon:P(X,Y)\mapsto P(-X,Y)$ preserves $W$: it acts as $(-1)^\ell$ on
+the coefficient of $X^{n-\ell}Y^\ell$, and $\varepsilon S\varepsilon^{-1}=-S$ while
+$\varepsilon U\varepsilon^{-1}=SU^{-1}S^{-1}$, so on $\ker(1+S)$ the two $U$-relations agree. Since
+$p_0=X^n-Y^n$ is $\varepsilon$-even,
+\begin{equation}\label{eq:parity}
+\dim W^{\rm even}=\dim S_k+1,\qquad \dim W^{\rm odd}=\dim S_k .
+\end{equation}
+At $k=18$ the odd part is therefore a line. Since $\dim S_{18}=1$, Definition~\ref{def:Wpm}
+applies, and the three polynomials $W^{(18)}_-$, $W^{(18)}_+$, $p_0$ have \emph{disjoint} supports
+in $\ell$ --- odd $\ell$; $\ell\in\{2,4,6,10,12,14\}$; and $\ell\in\{0,16\}$ --- so coordinates in
+that basis are read off rather than solved for. Note $\ell=n/2$ is absent from $W^{(18)}_+$, its
+defining bracket having $a_i=-a_{n-i}$ and hence $a_{n/2}=0$; the same midpoint forces
+$c_{n/2}=0$ in \eqref{eq:thetafe} whenever $k\equiv2\pmod4$.
+
+Writing $\Xi^\circ_k(z)=\sum_m c_m z^m$ and taking the reference form to be $E_k$ itself, the
+coordinates of $c_m$ in this basis obey a selection rule: the $W_-$ coordinate is supported on
+even $m$, and the $W_+$ and $p_0$ coordinates on odd $m$. All three are rational multiples of
+$(2\pi i)^{n+2}$ with one exception. The exception is $p_0$ at $m\in\{0,n\}$, where the rational
+part vanishes and the coordinate is instead the single constant by which $r_{E_k}$ fails to be
+rational --- for $r_{E_{18}}$ the $W_+$ coordinate vanishes identically and the $W_-$ coordinate is
+rational, so $r_{E_{18}}$ is rational along $W_-$ and irrational only along $p_0$. Consequently the
+rational and the transcendental parts of $\Xi^\circ_k$ occupy disjoint powers of $z$.
+
+Explicitly, writing
+$\Xi_{f_z}=\Delta(z)E_4(z)\big[\mu_-(z)W^{(18)}_-+\mu_+(z)W^{(18)}_++\mu_0(z)p_0\big]$ and
+dividing out $(2\pi i)^{18}$,
+$\mu_-=\tfrac{2}{131601}P_-$ and $\mu_+=\tfrac{2}{3}P_+$, where
+\begin{align}
+P_-(z)&={-}18000+350936\,z^2-1096675\,z^4+1140542\,z^6\notag\\
+&\qquad-1140542\,z^{10}+1096675\,z^{12}-350936\,z^{14}+18000\,z^{16},\label{eq:mum}\\
+P_+(z)&={-}24\,z+154\,z^3-273\,z^5+143\,z^7+143\,z^9-273\,z^{11}
++154\,z^{13}-24\,z^{15}\label{eq:mup}
+\end{align}
+have coprime integer coefficients, and $131601=3\cdot43867$ carries the numerator of $B_{18}$. The
+scalar
+$\Delta(z)E_4(z)$ and the normalisations of $W^{(18)}_\pm$ both cancel in the ratio, so the position
+of $\Xi_{f_z}$ inside the plane spanned by $W^{(18)}_-$ and $W^{(18)}_+$ is the single rational
+function
+\begin{equation}\label{eq:Wpmloc}
+R(z):=\frac{\mu_+(z)}{\mu_-(z)}=43867\,\frac{P_+(z)}{P_-(z)}\ \in\ \mathbb P^1 .
+\end{equation}
+
+\begin{lemma}\label{lem:Wpmloc}
+$R(-1/z)=R(z)$ and $R(-z)=-R(z)$, and $R(z)\in i\RR\cup\{\infty\}$ for $z$ on the imaginary axis
+and for $|z|=1$.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:thetafe} each coordinate of $\Xi^\circ_k$ satisfies $\mu(-1/z)=-z^{-n}\mu(z)$, so the
+common factor cancels in \eqref{eq:Wpmloc}; and $\mu_-$ is even in $z$ while $\mu_+$ is odd, which
+gives the second identity. For the third, $\mu_\pm$ have real coefficients, so
+$R(\bar z)=\overline{R(z)}$. On the imaginary axis $\mu_-(iy)$ is real and $\mu_+(iy)$ is $i$ times
+a real number. For $|z|=1$ one has $\bar z=1/z$, hence
+$\overline{R(z)}=R(1/z)=-R(-1/z)=-R(z)$.
+\end{proof}
+
+So the $W^\pm$-localisation depends only on the $\SLZ$-orbit of the pole through its $S$-class, and
+is purely imaginary exactly on the two reflection loci. Since $R$ has rational coefficients,
+$R(z)\in\QQ(z)$; at a point of class number one this is an explicit element of an imaginary
+quadratic field. The two lying on the reflection loci of Lemma~\ref{lem:Wpmloc} are
+\begin{equation}\label{eq:Rheeg}
+R\!\left(\tfrac{1+\sqrt{-3}}{2}\right)=\frac{43867}{8129}\sqrt{-3},
+\qquad
+R\big(\sqrt{-2}\big)=\frac{43867\cdot18}{119513}\sqrt{-2},
+\end{equation}
+purely imaginary as they must be, while off those loci both coordinates appear, as in
+\begin{equation}\label{eq:Rheeg7}
+R\!\left(\tfrac{1+\sqrt{-7}}{2}\right)
+=\frac{43867\,\big({-}107+316769\sqrt{-7}\big)}{3931333248},
+\qquad
+R\!\left(\tfrac{1+\sqrt{-11}}{2}\right)
+=\frac{43867\,\big({-}30607+4873558\sqrt{-11}\big)}{75795816699}.
+\end{equation}
+The remaining class-number-one points give elements of $\QQ(\sqrt{-d})$ of the same shape and
+larger height. At $z=i$ both $\mu_\pm$ vanish and $R$ is undefined, consistently with
+$\Xi_{f;i}=0$.
+
+These values are algebraic because $R$ is a rational function with rational coefficients, and not
+because the pole is a CM point. The arithmetic of $\Xi_{f_z}$ sits entirely in the scalar
+$\Delta(z)E_4(z)$, a CM value of a weight-$16$ cusp form, which \eqref{eq:Wpmloc} divides out.
+
+Both $\mu_\pm$ vanish at $z=\pm i$: in the variable $w=z^2$, $\mu_+/z$ is palindromic of odd degree
+and $\mu_-$ anti-palindromic of degree $8$, so $w=-1$ is a root of each. This is the algebraic
+shadow of $\Xi_{f;i}=0$. The anti-palindromy gives $\mu_-$ the further roots $z=\pm1$.
+
+The reference form matters here and not only in Proposition~\ref{prop:resamb}. Replacing $E_k$ by
+another $g$ with $\Phi(g)=1$ changes $r_{E_k}$ by the period polynomial of a cusp form, which has
+nonzero $W_-$ and $W_+$ coordinates; the rationality above is a statement about the Eisenstein
+series and is destroyed by such a change.
 
 \begin{thebibliography}{99}
 
@@ -2405,4 +2636,105 @@ Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
 %% ai_collab/dr_b_llm_episodes.md (Episode 13) and arc_numerics/logs/README.md, with the raw
 %% run outputs in arc_numerics/logs/.  Test suite: end_to_end_numerical_testing/validate.py,
 %% layer H for section 4 -- 231/0 fast all-layers, 15/0 slow layer-H at dps 30.
+
+
+%% ====================================================================================
+%% SECTION 5 -- WORKING NOTES.  Not part of the note.  Status 2026-09-15.
+%% Full account: ai_collab/dr_b_llm_episodes.md, Episode 14 and its addendum.
+%% Numerics: arc_numerics/logs/ (README indexes every run); validate.py layer I, 19/0 fast,
+%% 256/0 fast all-layers.  Layer I has NOT been run at the slow tier.
+%% ====================================================================================
+%%
+%% 1.  THE E-OPERATOR.  Put A(c) := int_c f(tau) (X - tau Y)^n dtau on a 1-chain c, let
+%%     calT := sum_{m>=1} T^{-m} (Hurwitz-regularised; its only property is T calT = 1 + calT),
+%%     and set
+%%                            E := 1 + calT (1 - S),
+%%     acting on V_n through the slash action.  Then, with gamma^S = gamma^T = gamma^arc,
+%%
+%%         r_f              = (2 pi i)^{n+1} A(gamma^arc)   |_E                     (prop:periodint)
+%%         Xi_{f;z} + ctr   = (2 pi i)^{n+1} A(c_z - S c_z) |_E                     (def:respoly)
+%%
+%%     SAME FUNCTIONAL, DIFFERENT CYCLE.  E is not a new object: the "1" is the S-segment and
+%%     the "calT(1-S)" is the Hurwitz T-segment, since K_T(tau) = sum_{m>=1} P_{tau+m}|(1-S)
+%%     (lem:resorbit) and P_{tau+m} = P_tau|T^{-m}.  What is new is that nothing in it fixes
+%%     the chain.  The S-relation then needs ONLY S c = -c: that gives A(c)|(1+S) = 0, hence
+%%     A(c)|E(1+S) = A(c)|(1+S) + A(c)|calT(1-S^2) = 0.  Both the arc (lem:georetrace) and the
+%%     antisymmetrised pole loop satisfy S c = -c, so one argument covers both.  The U-relation
+%%     needs parabolicity in both cases, which is what Phi and the r_{E_k} counterterm repair.
+%%
+%% 2.  WHAT THE HURWITZ KERNEL IS, GEOMETRICALLY.  Reading lem:resorbit backwards through
+%%     A(gamma c) = A(c)|gamma^{-1},
+%%         int_{gamma^T} f K_T dtau = [ sum_{m>=1} int_{T^m gamma^T} f P_tau dtau ] |(1-S),
+%%     and sum_{m>=1} T^m gamma^T is the chain tau_0 -> T tau_0 -> T^2 tau_0 -> ... , i.e. in
+%%     Gamma\H the loop about the CUSP traversed infinitely often.  So K_T is the
+%%     zeta-regularised winding about the cusp, and Xi is to an interior pole what r_f is to
+%%     the cusp: the cusp winding is infinite and needs regularisation, the pole winding is
+%%     finite and needs none.
+%%
+%% 3.  THE W^pm LOCALISATION (sec:resex).  R(z) = mu_+/mu_- = 43867 P_+/P_-, with P_pm the
+%%     coprime-integer polynomials eq:mum/eq:mup; 43867 = numer(B_18) is a universal prefactor
+%%     because mu_- carries 2/131601 and mu_+ carries 2/3, and 131601/3 = 43867.  lem:Wpmloc:
+%%     R(-1/z) = R(z) (the localisation sees only the S-orbit), R(-z) = -R(z), and R is purely
+%%     imaginary exactly on the imaginary axis and on |z| = 1.  Exact at class number one:
+%%         d=3   R = (43867/8129) sqrt(-3)                  (|z| = 1, hence pure)
+%%         d=8   R = (43867*18/119513) sqrt(-2)             (Re z = 0, hence pure)
+%%         d=7   R = 43867(-107 + 316769 sqrt(-7))/3931333248
+%%         d=11  R = 43867(-30607 + 4873558 sqrt(-11))/75795816699
+%%     d = 19, 43, 67, 163 have the same shape at larger height.  At z = i both mu_pm vanish
+%%     and R is undefined -- the algebraic shadow of Xi_{f;i} = 0.
+%%
+%% 4.  WHERE THE ARITHMETIC ACTUALLY IS (DAM's correction).  Xi_{f_z} = Delta E_4(z) * Xi^o_18(z)
+%%     and Xi^o_k depends on k ALONE, so proving Xi^o rational proves the geometric skeleton
+%%     carries no arithmetic.  Everything about f sits in the scalar g(z) = Delta(z) E_4(z).
+%%     The R(z_d) above are algebraic because R is a rational function with rational
+%%     coefficients, NOT because z is a CM point.  This also explains why the earlier CM test
+%%     (arc_numerics/rf/cm_vs_generic_k18.py) found nothing: it compared coordinate RATIOS,
+%%     which are scale-free and divide g(z) out exactly, discarding the only quantity where CM
+%%     could live.  The CM content is Chowla-Selberg for g(z), i.e. g(z) in Qbar * Omega_d^{16};
+%%     the residue polynomial adds nothing on top.
+%%
+%% 5.  ZETA(17): A CLEAN NEGATIVE.  Every odd coordinate of r_{E_18}/(2 pi i)^{17} is rational
+%%     with 43867 in the denominator, the even coordinates l = 2..14 vanish, and the even part
+%%     is a single multiple of p_0.  That much is standard zeta(s)zeta(s-k+1) bookkeeping, not
+%%     a finding.  The p_0 coefficient x = 0.1848002737722058226... is, at 30 digits, NOT
+%%     rational, NOT Q*zeta(17), NOT in Q + Q zeta(17), and likewise against zeta(18), zeta(19),
+%%     pi, 1/pi, zeta(3) and pi^e for |e| <= 3.  CAUTION, worth keeping: a 16-digit PSLQ had
+%%     returned [234241, -4914100, 4870775] against {1, zeta(17)}.  That was SPURIOUS -- a
+%%     3-term relation of height ~5e6 needs ~25 digits and had 16.  Check height against
+%%     precision before believing any PSLQ hit.
+%%
+%% 6.  OPEN, RANKED.
+%%     (a) The two-variable kernel <Xi^o_k(z), Xi^o_k(w)> under eq:inner -- universal, rational,
+%%         exactly computable from the c_m.  Brown-Fonseca is about matrix-valued higher Green's
+%%         functions Psi^{m,n}(z,w); compare.  Best lead.
+%%     (b) Hecke: is Xi_{T_p f} = T_p Xi_f?  Would make Xi a morphism of Hecke modules.
+%%     (c) Higher-order poles.  Xi^o_k exists only because a simple pole gives
+%%         frak a = 2 pi i a_z P_z, one number times a universal vector.  At order P the
+%%         principal part carries P independent numbers and there is no factorisation, so this
+%%         is the only place the W-position can encode more than the residue.  prop:respolyW
+%%         already covers all orders; nobody has looked at what it encodes.
+%%     (d) ker Xi beyond M_k^!.
+%%     (e) Identify x.  It is L*_raw(E_18, 1) on the arc -- a question about the Eisenstein
+%%         series, not about Xi.
+%%
+%% 7.  FOR BROWN.  arXiv:2508.04844's residue sequence (5.7) runs
+%%     H^1_dR(U_Gamma) -> sum_w (Sym^k H^1)^{Gamma_w}, with a splitting that is Hodge-only
+%%     (Cor. 5.16, Rem. 5.17); their Lem. 5.10 is exactly frak a.  Xi runs the other way and
+%%     lands in ker(Res) = H^1(Y_Gamma) = W, so it looks like the Betti counterpart.  Precise
+%%     question: IS "local residue data -> W, by winding an S-antisymmetric cycle with an
+%%     Eisenstein counterterm" the Betti splitting of (5.7), and is it already known?
+%%
+%% 8.  SEARCH TERMS.  Start with Bruggeman-Choie-Diamantis, "Holomorphic automorphic forms and
+%%     cohomology" (Mem. AMS 253, arXiv:1404.6718) -- already in the bibliography, and the
+%%     standard reference for Eichler cohomology WITH singularities.  Then: "Eichler cohomology
+%%     meromorphic modular forms"; "rational period functions" (Knopp); "Sczech Eisenstein
+%%     cocycle"; "residue exact sequence local system modular curve"; "periods of meromorphic
+%%     Poincare series" (Bringmann-Kane-von Pippich); "higher Green's functions period
+%%     polynomials"; "Manin symbols coefficients residues".
+%%
+%% 9.  STILL TO AUDIT.  prop:arcside and lem:arcon describe flipping the indentation side at a
+%%     single pole p, but S carries outside-at-p to INSIDE-at-Sp, so the admissible move is a
+%%     simultaneous flip at p and Sp.  onarc_resolved.py verified both realised contours land
+%%     in W, so the conclusions hold; it is the descriptions that may name an inadmissible
+%%     contour.  Same species as the eq:symshift bug, found by inference and not yet tested.
 

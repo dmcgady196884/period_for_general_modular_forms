@@ -1,0 +1,38 @@
+PART 1  is E18 the Eisenstein series?  c = -216.6548886406638
+   (E18 - 1)/q at tau=3.0i : (-0.65544765810851 + 0.0j)  target -28728/43867 = -0.65488864066382
+   (E18 - 1)/q at tau=4.0i : (-0.6548896845902 + 0.0j)  target -28728/43867 = -0.65488864066382
+   q^2 coefficient: (-85838.7695687 + 0.0j)  target -85838.2187977
+   Phi(E18) = (1.0 + 3.0346519543418e-41j)   (must be 1)
+
+PART 2  r_{E_18}[l] / (2 pi i)^{n+1}: rational?  and where is zeta(17)?
+   l    parity  value/(2pi i)^{n+1}            PSLQ vs 1            PSLQ vs {1, zeta(17)}
+   0    even    (-5.050952288689517e-39 - 0.1848002737722058j) -                    -
+   1    ODD     -0.193523873634073             1443183/-7457390     -1443183 + 0 z17 (/7457390)
+   2    even    0                              zero
+   3    ODD     -0.1273394579068548            5586/-43867          5586 + 0 z17 (/-43867)
+   4    even    0                              zero
+   5    ODD     -0.1197164155287574            26258/-219335        26258 + 0 z17 (/-219335)
+   6    even    0                              zero
+   7    ODD     -0.1182437823420795            5187/-43867          -5187 + 0 z17 (/43867)
+   8    even    0                              zero
+   9    ODD     -0.1182437823420795            5187/-43867          -5187 + 0 z17 (/43867)
+   10   even    0                              zero
+   11   ODD     -0.1197164155287574            26258/-219335        26258 + 0 z17 (/-219335)
+   12   even    0                              zero
+   13   ODD     -0.1273394579068548            5586/-43867          5586 + 0 z17 (/-43867)
+   14   even    0                              zero
+   15   ODD     -0.193523873634073             1443183/-7457390     -1443183 + 0 z17 (/7457390)
+   16   even    (5.050952288689517e-39 + 0.1848002737722058j) -                    -
+
+PART 3  same for the E_4^3E_6 reference, to isolate the Delta E_6 contamination
+   l=1    E_4^3E_6: no small rational   E_18: 1443183/-7457390
+   l=3    E_4^3E_6: no small rational   E_18: 5586/-43867
+   l=5    E_4^3E_6: no small rational   E_18: 26258/-219335
+   l=7    E_4^3E_6: no small rational   E_18: 5187/-43867
+   l=9    E_4^3E_6: no small rational   E_18: 5187/-43867
+   l=11   E_4^3E_6: no small rational   E_18: 26258/-219335
+   l=13   E_4^3E_6: no small rational   E_18: 5586/-43867
+   l=15   E_4^3E_6: no small rational   E_18: 1443183/-7457390
+
+   difference r_{E_4^3E_6} - r_{E_18} = -c r_{Delta E_6}: its odd part is a cusp-form
+   period, so rationality of the E_18 column and NOT the E_4^3E_6 column is the signal.

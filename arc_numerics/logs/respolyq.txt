@@ -1,0 +1,44 @@
+reference E_4^3   Phi = (1.0 - 4.39717152589e-42j)
+
+============================================================================================
+PART 1  SIMPLE pole,  f = E_4E_6 j'/(j - j(z))  in F_12
+
+z = 0.23+1.41i    a_z = E_4E_6(z) = (0.9979522555 - 0.03787278993j)
+   ANTI  quadrature                   |(1+S)| = 3.159e-41    |(1+U+U^2)| = 4.106e-39     |Xi| = 2.5574173e+13
+   ANTI  closed form                  |(1+S)| = 1.628e-41    |(1+U+U^2)| = 7.147e-39     |Xi| = 2.5574173e+13
+   quadrature vs closed form: 1.01126e-40
+   radius 0.02 vs 0.045:      1.77322e-40
+   SYM   quadrature                   |(1+S)| = 0.3604       |(1+U+U^2)| = 15.96         |Xi| = 2.5115535e+13
+
+z = (1+i sqrt7)/2    a_z = E_4E_6(z) = (1.056742719 + 6.856205941e-43j)
+   ANTI  quadrature                   |(1+S)| = 1.345e-41    |(1+U+U^2)| = 3.068e-39     |Xi| = 3.003477e+13
+   ANTI  closed form                  |(1+S)| = 1.902e-41    |(1+U+U^2)| = 2.032e-38     |Xi| = 3.003477e+13
+   quadrature vs closed form: 5.70535e-41
+   radius 0.02 vs 0.045:      5.37906e-41
+   SYM   quadrature                   |(1+S)| = 0.3895       |(1+U+U^2)| = 17.51         |Xi| = 2.7885906e+13
+
+z = i sqrt2    a_z = E_4E_6(z) = (0.9608713016 + 0.0j)
+   ANTI  quadrature                   |(1+S)| = 4.486e-41    |(1+U+U^2)| = 1.405e-38     |Xi| = 2.0704274e+13
+   ANTI  closed form                  |(1+S)| = 4.094e-41    |(1+U+U^2)| = 1.304e-38     |Xi| = 2.0704274e+13
+   quadrature vs closed form: 7.4837e-41
+   radius 0.02 vs 0.045:      7.75002e-41
+   SYM   quadrature                   |(1+S)| = 0.3564       |(1+U+U^2)| = 15.7          |Xi| = 2.0782842e+13
+
+============================================================================================
+PART 2  DOUBLE pole,  f = E_4^2 (j')^2/(j - j(z))^2  in F_12
+        (the simple-pole algebra does NOT apply; the contour definition still does)
+
+z = 0.23+1.41i
+   ANTI  quadrature                   |(1+S)| = 1.042e-40    |(1+U+U^2)| = 2.309e-38     |Xi| = 3.5374284e+14
+   radius 0.02 vs 0.045:      6.05364e-40
+   SYM   quadrature                   |(1+S)| = 0.306        |(1+U+U^2)| = 13.79         |Xi| = 3.4398786e+14
+
+z = (1+i sqrt7)/2
+   ANTI  quadrature                   |(1+S)| = 5.945e-41    |(1+U+U^2)| = 5.608e-39     |Xi| = 3.480137e+14
+   radius 0.02 vs 0.045:      1.11415e-40
+   SYM   quadrature                   |(1+S)| = 0.3304       |(1+U+U^2)| = 15.39         |Xi| = 3.2376602e+14
+
+============================================================================================
+PART 3  linearity, simple + double at the same z
+   Xi_{f1 + 3 f2} vs Xi_{f1} + 3 Xi_{f2}: 1.23076e-40
+   sum in W?                          |(1+S)| = 8.487e-41    |(1+U+U^2)| = 1.917e-38     |Xi| = 1.0666686e+15

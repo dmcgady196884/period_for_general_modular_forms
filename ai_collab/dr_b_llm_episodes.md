@@ -1081,6 +1081,170 @@ Raw outputs in `arc_numerics/logs/`.
 
 ---
 
+## Episode 14 — Residue polynomials: DAM's skepticism finds a real bug, and one pole's winding turns out to be enough (PRIMARY-SOURCE: this session, Opus 5)
+
+**The result.** For $f\in F_k$ and a pole $z\in\HH$ of **any order**, the closed-contour integral
+
+$$\Xi_{f;z}:=\oint_{c_z-Sc_z}f(\tau)\,\mathcal K(\tau;X,Y)\,d\tau,\qquad
+\mathcal K:=(2\pi i)^{n+1}\big[(X-\tau Y)^n+\mathbf K_T\big]-r_{E_k}$$
+
+lies in $W$. No base point, no homotopy class, no period polynomial in the construction — so the two
+ambiguities that §4.3 could not remove, both of which are statements about *open* contours, do not
+touch it. It vanishes identically on $M^!_k$ and at $z=i$ (where $Si=i$ kills the cycle). New §5.
+
+**How it started.** DAM, on the §4.4 draft: *"I really am pretty skeptical of this core claim that the
+proper winding of the S- and T-contours of a single fucking pole ... is enough to give an element in
+$W$."* Asked for (1) a direct proof via the Hurwitz kernel on the $T$-contour and the standard kernel
+on the $S$-contour, and (2) an explicit computation at the class-number-one CM points.
+
+**The proof, and what the Hurwitz kernel actually is.** Two inputs. *(A)* $\int_{\gamma c}fP_\tau
+d\tau=(\int_cfP_\tau d\tau)|_{\gamma^{-1}}$, from $f|_k\gamma=f$ and $k-n-2=0$. *(B)* At $s=\ell+1$,
+$\tk(\tau,\ell+1)=\zeta(-\ell,\tau+1)-(-1)^\ell\zeta(\ell-n,\tau+1)$, and $\zeta(-m,x)$ regularises
+$\sum_{j\ge0}(j+x)^m$, so $\mathbf K_T(\tau)=\sum_{m\ge1}P_{\tau+m}|_{(1-S)}$ — **the $T$-kernel is
+the regularised $T$-orbit sum of the $S$-kernel**, its only algebraic content being the Hurwitz
+recursion $T\mathcal T=1+\mathcal T$. With $\mathfrak a:=\oint_{c_z}fP_\tau d\tau$ (which is $2\pi i$
+times Brown–Fonseca Lem. 5.10's residue polynomial, so *any* Laurent data) the bracket collapses to
+$\mathfrak a|_{(1-S)E}$, $E=1+\mathcal T(1-S)$, and the $S$-relation is one line:
+$(1-S)E(1+S)=(1-S^2)+(1-S)\mathcal T(1-S^2)=0$, since $S^2=\pm I$ acts trivially for $n$ even. The
+$U$-relation is where $r_{E_k}$ earns its place — the loop shifts $\Phi$ by $\oint f\,d\tau$, breaking
+the $\hat C_T=0$ hypothesis of `lem:rfW`'s third display — which answers DAM's earlier question
+*"what does the closed contour integral of $f$ around a pole at $z$ need to know about $\Phi,r_{E_k}$?"*
+Measured: raw $U$-defect $=2\pi i(1-z^n)\,r_{E_k}|_{(1+U+U^2)}$. **$r_{E_k}$ is the $U$-anomaly, not a
+bolt-on.**
+
+**The bug the skepticism found.** The draft said "a simple positively oriented loop enclosing
+$\{z,Sz\}$" — the *symmetric* cycle. But `lem:georetrace` makes the relator paths retrace via
+$S\hat\gamma^S=-\hat\gamma^S$, so a winding added to both segments must **reverse** under $S$. And
+$E(1+S)=(1+S)$, so the symmetric loop's $S$-defect is $\mathfrak a|_{(1+S)^2}=2\mathfrak a|_{(1+S)}$
+— exactly twice the single loop's. Measured at two $z$: ratio **2.0**, not approximately. Single loop
+$(1+S)$ defect 1.49, $U$-defect 66; symmetric 0.36 / 16.0; antisymmetric $2$e$-41$ / $3$e$-38$.
+
+DAM then asked the right follow-up: *"if the contour suggested by section 4 corollary doesn't match
+the actual contour, this might point towards a bug in section 4.3, eh?"* It does. `cor:symspan`'s
+*hypothesis* is sound (its "$S$-symmetric" means, per `lem:georetrace`'s proof, "$S\hat\gamma^S$ is
+$\hat\gamma^S$ reversed"), but **`eq:symshift` is wrong**: it writes $v_p$ from $r_S,r_T,a_p$ at the
+single point $p$ while calling it winding about the $S$-orbit. The $Sp$ term, opposite in sign, was
+missing; a spurious $i^{\ell+1}$ was also present, having already cancelled against `def:Lint`'s
+$e^{-i\pi s/2}$. Both fixed. Nothing verified by direct contour computation is affected —
+`encl.txt` runs $X_S=0,X_T=-1$, outside the `cor:symspan` family entirely, and tests `lem:wall_arc`,
+which is correct. Flagged but not fixed: `prop:arcside`/`lem:arcon` flip the indentation side at a
+single $p$, and $S$ carries outside-at-$p$ to *inside*-at-$Sp$.
+
+**Numerics.** Two independent routes agreeing to $10^{-40}$. *Residue form* (`respoly.txt`): exact
+Bernoulli algebra, $k=12,18$, all nine class-number-one CM points $d=3,4,7,8,11,19,43,67,163$ plus
+generic controls; kernel identity to $10^{-41}$, $a_{Sz}=z^na_z$ to $8$e$-41$. *Honest quadrature*
+(`respolyq.txt`): trapezoid on one circle using $\oint_{Sc_z}F=\oint_{c_z}F(-1/w)w^{-2}dw$, no
+residue theorem — matches the closed form to $10^{-40}$, radius-independent, **double pole also in
+$W$**, linearity to $10^{-40}$. Audit in `symaudit.txt`. New end-to-end layer I, 19/19, carrying the
+negative control: $W$-membership of the antisymmetric loop alone would not have caught the bug.
+
+**Explicit form.** At a simple pole everything is Bernoulli polynomials: $\Xi_{f;z}$ is
+$a_z(2\pi i)^{n+2}\times$(polynomial in $z$ over $\QQ$) minus $2\pi i\,a_z(1-z^n)r_{E_k}$, so its only
+transcendental content beyond $a_z$ is $r_{E_k}$, with coefficient $(1-z^n)$ — `eq:respolyexp`.
+
+**Novelty.** Brown–Fonseca arXiv:2508.04844 Lem. 5.10 computes the same local residue polynomial, and
+their residue sequence (5.7) runs class $\to$ local data with a splitting (Cor. 5.16) landing in
+$H^1_{dR}(U_\Gamma)$ and satisfying ${\rm Res}\circ s={\rm id}$. $\Xi$ runs the other way and lands in
+$W\cong\ker({\rm Res})$, so it is not their splitting; it looks like the Betti counterpart of their de
+Rham sequence. Not found elsewhere in the scan; cannot be ruled out as a known map in disguise.
+
+**Also this session.** `prop:Jexp`: $\hat r_{f_z}=-\sum_{m\ge1}\hat r_{hJ^{m-1}J'}J(z)^{-m}$ for
+$|J(z)|>984$, with $v_1=0$ exactly when the reference is $hJ'/c_0(hJ')$ — which killed the CM-arithmetic
+question (the $v_m$ are parallel to $3$e$-6$, so every $\hat r_{f_z}$ sits on one line regardless of
+$z$). And the uniqueness of $\tau_0=\rho+1$ written into `def:georef`: the two segments share endpoints
+iff $-1/\tau_0=\tau_0-1$, whose only root in $\HH$ is $\rho+1$, which is also $U$'s fixed point; $T$
+admits no counterpart, being parabolic. DAM: *"the ONLY reference contour which is $\SLZ$ invariant, in
+the sense that it exactly divides the fundamental domain from its $S$-image."*
+
+**Code.** `arc_numerics/rf/{residue_polynomial,residue_polynomial_quad,symshift_audit,jexpansion,direction_floor,scalar_law,cm_vs_generic_k18}.py`;
+`end_to_end_numerical_testing/validate.py` layer I. Raw outputs in `arc_numerics/logs/`.
+
+---
+
+## Episode 14 addendum — the $E$-operator: period polynomial and residue polynomial are one functional on two cycles (PRIMARY-SOURCE: same session, Opus 5)
+
+**The unification.** Put $A(c):=\int_c f(\tau)(X-\tau Y)^n\,d\tau$ for a $1$-chain $c$, let
+$\mathcal T:=\sum_{m\ge1}T^{-m}$ (Hurwitz-regularised, the only relation being $T\mathcal T=1+\mathcal T$),
+and set
+$$E:=1+\mathcal T(1-S).$$
+Then, with $\gamma^S=\gamma^T=\gamma^{\rm arc}$,
+$$r_f=(2\pi i)^{n+1}A(\gamma^{\rm arc})\big|_E ,\qquad
+\Xi_{f;z}+\text{(counterterm)}=(2\pi i)^{n+1}A(c_z-Sc_z)\big|_E .$$
+**Same functional, different cycle.** And the $S$-relation needs only $Sc=-c$: that gives
+$A(c)|_{(1+S)}=0$, hence $A(c)|_{E(1+S)}=A(c)|_{(1+S)}+A(c)|_{\mathcal T(1-S^2)}=0$. Both the arc
+(`lem:georetrace`) and the antisymmetrised pole loop satisfy $Sc=-c$, so one argument covers both.
+
+**What the Hurwitz kernel IS, geometrically.** Lemma~B read backwards through
+$A(\gamma c)=A(c)|_{\gamma^{-1}}$ gives
+$\int_{\gamma^T}f\mathbf K_T\,d\tau=\big[\sum_{m\ge1}\int_{T^m\gamma^T}fP_\tau\,d\tau\big]\big|_{(1-S)}$,
+and $\sum_{m\ge1}T^m\gamma^T$ is the chain $\tau_0\to T\tau_0\to T^2\tau_0\to\cdots$ --- in
+$\Gamma\backslash\HH$, the loop about the **cusp** traversed infinitely often. So the Hurwitz
+$T$-kernel is the $\zeta$-regularised winding about the cusp, and $\Xi$ is to an interior pole what
+$r_f$ is to the cusp: the cusp winding is infinite and needs regularisation, the pole winding is
+finite and needs none. This is the framing to put to Brown; it closes the loop on the history DAM
+describes --- Brown's cohomological quasi-periods for $\Delta'\in S^!_{12}$, then the Hurwitz
+polynomials reverse-engineered at integer $s$, then the generic-$s$ kernel.
+
+**The $W^\pm$ localisation, §5.1.** For $f_z=\Delta E_4\,J'/(J-J(z))\in F_{18}$ (one pole orbit, so
+local $=$ global; $\dim S_{18}=1$, so $W$ has a cuspidal part), $\Xi_{f_z}=\Delta(z)E_4(z)\,
+\Xi^\circ_{18}(z)$ and, in the `def:Wpm` basis whose supports are disjoint,
+$$R(z)=\frac{\mu_+(z)}{\mu_-(z)}=43867\,\frac{P_+(z)}{P_-(z)},$$
+$P_\pm$ coprime-integer (`eq:mum`/`eq:mup`); the $43867=\mathrm{numer}(B_{18})$ is a universal
+prefactor since $\mu_-$ carries $2/131601$ and $\mu_+$ carries $2/3$. `lem:Wpmloc`: $R(-1/z)=R(z)$
+--- the localisation sees only the $S$-orbit --- $R(-z)=-R(z)$, and $R$ is purely imaginary exactly
+on the imaginary axis and $|z|=1$. Exactly, at class number one:
+$R(\tfrac{1+\sqrt{-3}}2)=\tfrac{43867}{8129}\sqrt{-3}$,
+$R(\sqrt{-2})=\tfrac{43867\cdot18}{119513}\sqrt{-2}$ (both on reflection loci, hence pure), and e.g.
+$R(\tfrac{1+\sqrt{-7}}2)=\tfrac{43867(-107+316769\sqrt{-7})}{3931333248}$. At $z=i$ both $\mu_\pm$
+vanish --- the algebraic shadow of $\Xi_{f;i}=0$.
+
+**DAM's correction, and it reframes the whole CM story.** Claude called the irrational
+$\lambda_2/\lambda_0$ "$\Delta E_6$ contamination" and reported the rationality of $\Xi^\circ_{18}$
+as the prize. DAM: *"don't lose the forest for the trees. $\Delta(z)E_4(z)$ is not contamination."*
+Right, and deeper than the word: $\Xi^\circ_k$ depends on $k$ alone, so proving it rational is
+proving the geometric skeleton carries no arithmetic. ALL information about $f$ sits in the scalar
+$g(z)=\Delta(z)E_4(z)$. That also finally explains why `cm_vs_generic_k18.py` found nothing: it
+compared coordinate RATIOS, which are scale-free and divide $g(z)$ out exactly --- it discarded the
+only quantity where CM could live. The CM content is Chowla--Selberg for $g(z)$, i.e.
+$g(z)\in\overline\QQ\cdot\Omega_d^{16}$; the residue polynomial adds nothing on top. Corrected in
+`memory/j_expansion_of_rhat.md` and `arc_numerics/logs/README.md`, both of which had recorded the
+wrong reason.
+
+**$\zeta(17)$: a clean negative.** Every odd coordinate of $r_{E_{18}}/(2\pi i)^{17}$ is rational
+with $43867$ in the denominator; even coordinates $\ell=2..14$ vanish; the even part is a single
+multiple of $p_0$. That much is standard $\zeta(s)\zeta(s-k+1)$ bookkeeping, as DAM noted, and is a
+consistency check rather than a find. The $p_0$ coefficient $x=0.1848002737722058226\ldots$ is at 30
+digits NOT rational, NOT $\QQ\cdot\zeta(17)$, NOT in $\QQ+\QQ\zeta(17)$, and likewise for
+$\zeta(18),\zeta(19),\pi,1/\pi,\zeta(3)$ and $\pi^{e}$, $|e|\le3$. A 16-digit PSLQ had returned
+$[234241,-4914100,4870775]$; that was spurious (height $5\times10^6$ needs ~25 digits, had 16) and
+is the cautionary case for height-vs-precision.
+
+**Open questions, ranked.** (1) The two-variable kernel
+$\langle\Xi^\circ_k(z),\Xi^\circ_k(w)\rangle$ --- universal, rational, exactly computable from the
+$c_m$; Brown--Fonseca's paper is about matrix-valued higher Green's functions $\Psi^{m,n}(z,w)$, so
+compare. (2) Hecke equivariance, $\Xi_{T_pf}=T_p\Xi_f$? (3) Higher-order poles --- $\Xi^\circ_k$
+exists only because a simple pole gives $\mathfrak a=2\pi i\,a_zP_z$; at order $P$ the principal
+part has $P$ independent numbers and no factorisation, so that is the only place the $W$-position
+can carry more than the residue. (4) $\ker\Xi$ beyond $M^!_k$. (5) Identify $x$.
+
+**For Brown.** Their (5.7) runs $H^1_{dR}(U_\Gamma)\to\bigoplus(\mathrm{Sym}^kH^1)^{\Gamma_w}$ with a
+splitting that is Hodge-only (Cor.~5.16, Rem.~5.17); their Lem.~5.10 is exactly $\mathfrak a$. $\Xi$
+runs the other way into $\ker(\mathrm{Res})\cong W$, so it looks like the Betti counterpart. Precise
+question: *is "local residue data $\to W$, by winding an $S$-antisymmetric cycle with an Eisenstein
+counterterm", the Betti splitting of (5.7), and is it known?*
+
+**Search terms.** Start with Bruggeman--Choie--Diamantis, *Holomorphic automorphic forms and
+cohomology* (Mem.~AMS 253, arXiv:1404.6718) --- already in the bibliography, and the standard
+reference for Eichler cohomology WITH singularities. Then: "Eichler cohomology meromorphic modular
+forms"; "rational period functions" (Knopp); "Sczech Eisenstein cocycle"; "residue exact sequence
+local system modular curve"; "periods of meromorphic Poincaré series" (Bringmann--Kane--von
+Pippich); "higher Green's functions period polynomials"; "Manin symbols coefficients residues".
+
+**Code.** `arc_numerics/rf/{zeta17_check,zeta17_highprec,Wpm18_projection,Wpm_direction,Wpm_heegner_exact,theta_laurent,theta_k18_DeltaE4,parity_dims}.py`;
+logs `zeta17.txt`, `z17hp.txt`, `wpm18.txt`, `thetalaurent.txt`, `thetak18.txt`, `paritydims.txt`.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05

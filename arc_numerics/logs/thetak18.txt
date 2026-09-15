@@ -1,0 +1,78 @@
+reference E_4^3E_6  Phi = (1.0 + 6.75136112986e-53j)
+
+PART 1  out-of-sample check of the Laurent form at k=18
+   z = (0.62 + 1.11j)             relative error 1.79727e-48
+   z = (0.0 + 1.4142136j)         relative error 4.38661e-51
+   z = (0.5 + 1.3228757j)         relative error 8.15875e-51
+
+PART 2  every c_m in W?  and the functional equation c_{n-m} = (-1)^{m+1} c_m
+   m=-1  |c_m|=1.370215e+13   (1+S)=3.05e-35   (1+U+U^2)=1.058e-31    c_17=+c_-1: 7.202e-35
+   m=0   |c_m|=2.0016911e+18  (1+S)=2.285e-39  (1+U+U^2)=7.932e-36    c_16=-c_0: 5.404e-39
+   m=1   |c_m|=9.6901603e+16  (1+S)=2.446e-37  (1+U+U^2)=8.496e-34    c_15=+c_1: 5.794e-37
+   m=2   |c_m|=3.3915561e+17  (1+S)=2.277e-37  (1+U+U^2)=7.913e-34    c_14=-c_2: 5.407e-37
+   m=3   |c_m|=6.2178529e+17  (1+S)=2.851e-37  (1+U+U^2)=9.913e-34    c_13=+c_3: 6.805e-37
+   m=4   |c_m|=1.0598613e+18  (1+S)=2.872e-37  (1+U+U^2)=9.991e-34    c_12=-c_4: 6.943e-37
+   m=5   |c_m|=1.1022557e+18  (1+S)=3.676e-37  (1+U+U^2)=1.279e-33    c_11=+c_5: 9.183e-37
+   m=6   |c_m|=1.1022557e+18  (1+S)=3.896e-37  (1+U+U^2)=1.35e-33     c_10=-c_6: 1.053e-36
+   m=7   |c_m|=5.7737205e+17  (1+S)=6.367e-37  (1+U+U^2)=2.184e-33    c_9=+c_7: 2.066e-36
+   m=8   |c_m|=5.9439402e-19  (1+S)=0.4283     (1+U+U^2)=1455.0       c_8=-c_8: 2.0
+   m=9   |c_m|=5.7737205e+17  (1+S)=2.475e-37  (1+U+U^2)=8.326e-34 
+   m=10  |c_m|=1.1022557e+18  (1+S)=5.887e-38  (1+U+U^2)=1.961e-34 
+   m=11  |c_m|=1.1022557e+18  (1+S)=2.145e-38  (1+U+U^2)=7.079e-35 
+   m=12  |c_m|=1.0598613e+18  (1+S)=6.436e-39  (1+U+U^2)=2.104e-35 
+   m=13  |c_m|=6.2178529e+17  (1+S)=2.45e-39   (1+U+U^2)=7.939e-36 
+   m=14  |c_m|=3.3915561e+17  (1+S)=7.49e-40   (1+U+U^2)=2.408e-36 
+   m=15  |c_m|=9.6901603e+16  (1+S)=3.075e-40  (1+U+U^2)=9.804e-37 
+   m=16  |c_m|=2.0016911e+18  (1+S)=1.095e-42  (1+U+U^2)=3.465e-39 
+   m=17  |c_m|=1.370215e+13   (1+S)=5.562e-39  (1+U+U^2)=1.745e-35 
+   coefficients failing W-membership at 1e-25: 1
+
+PART 3  functional equation directly:  Theta(-1/z) = -z^{-n} Theta(z)
+   z = (0.31 + 1.27j)             relative error 5.65575e-51
+   z = (0.0 + 1.4142136j)         relative error 4.17772e-51
+   z = (0.5 + 1.6583124j)         relative error 1.755e-51
+
+PART 4  IMAGE of Xi: do the Theta(z) span W?  dim W = 3
+   rank of the 7 Theta(z) (tol 1e-30) = 3
+   rank of the 7 Theta(z) (tol 1e-20) = 3
+   rank of the 7 Theta(z) (tol 1e-10) = 3
+   rank of the 7 Theta(z) (tol 1e-6) = 2
+   rank of the 19 coefficients c_m (tol 1e-20) = 4
+
+PART 6  localisation in W by parity.  (P|eps)(X,Y) = P(-X,Y) acts as (-1)^l on the
+        X^{n-l}Y^l coefficient, so W splits into even-l and odd-l parts.  dim S_18 = 1,
+        so dim W^odd should be 1 and the odd part of Theta is ONE scalar Laurent poly.
+   dim W^even  = 2
+   dim W^odd   = 2
+   odd basis vector normalised at l = 5
+   lambda_-(z) = sum_m lambda_m z^m,  lambda_m / (2 pi i)^{n+2}, PSLQ'd:
+      m=-1   0
+      m=0    15389.827635807
+      m=1    0
+      m=2    2607.5682999364
+      m=3    0
+      m=4    -8148.6509373013
+      m=5    0
+      m=6    8474.5969747934
+      m=7    0
+      m=8    0
+      m=9    0
+      m=10   -8474.5969747934
+      m=11   0
+      m=12   8148.6509373013
+      m=13   0
+      m=14   -2607.5682999364
+      m=15   0
+      m=16   -15389.827635807
+      m=17   0
+   Theta^odd(z) = lambda_-(z) w_odd at z=(0.0 + 1.3j) : rel 3.74237e-48
+
+PART 5  Xi_{f_z;z} = g(z) Theta(z) for f_z = Delta E_4 J'/(J-J(z))
+   z                    g(z) = Delta E_4 (z)   |Xi|           |g| vs e^{-4 pi Im z}
+   d=7   (1+isq7)/2     (-0.00023250678 + 2.5811974e-55j) 1.1586351e+17  ratio 3855.109   inW 8.38e-51/2.77e-46
+   d=8   i sqrt2        (0.00014246937 + 0.0j) 5.3803819e+16  ratio 7443.8857   inW 1.06e-50/9.23e-46
+   d=11  (1+isq11)/2    (-2.9652784e-5 + 3.4662476e-56j) 3.6482916e+17  ratio 33290.043   inW 2.99e-51/5.76e-46
+   d=19  (1+isq19)/2    (-1.1290558e-6 + 1.3281074e-57j) 8.4392172e+17  ratio 885263.77   inW 2.78e-51/6.88e-46
+   d=43  (1+isq43)/2    (-1.1302794e-9 + 1.329871e-60j) 4.7599495e+17  ratio 8.8473653e+8   inW 8.09e-52/1.02e-45
+   generic 0.2+1.3i     (7.3632604e-5 + 0.00027991918j) 3.3480285e+16  ratio 3600.1299   inW 1.48e-50/3.18e-46
+   generic 0.35+1.5i    (-4.7870349e-5 + 6.3948905e-5j) 1.4041511e+17  ratio 12266.018   inW 7.42e-51/3.72e-46

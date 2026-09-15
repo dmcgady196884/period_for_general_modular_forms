@@ -1,0 +1,13 @@
+k     dim S_k  dim W    W^even       W^odd        eps-stable?
+12    1        3        2            1            1.047e-36
+16    1        3        2            1            2.655e-34
+18    1        3        2            1            2.808e-34
+20    1        3        2            1            1.148e-31
+24    2        5        3            2            8.908e-30
+26    1        3        2            1            5.624e-29
+
+predicted: dim W^even = dim S_k + 1,  dim W^odd = dim S_k
+
+p_0 = X^n - Y^n:
+   k=12  in W? 0.0   supported at l = 0, 10 (both even)
+   k=18  in W? 0.0   supported at l = 0, 16 (both even)

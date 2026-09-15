@@ -23,6 +23,61 @@ regenerated. Reasoning and predictions live in the generating script's docstring
 `res_at_rho.py`, `fit_sanity.py`, `log_ratio_test.py`, `detour_vs_retract.py` and
 `endpoint_vs_interior.py` ran in the foreground; their numbers are quoted in Episode 13.
 
+## 2026-09-15 — residue polynomials $\Xi_{f;z}$, and a bug in `eq:symshift`
+
+| file | script | what it establishes |
+|---|---|---|
+| `respoly.txt` | `rf/residue_polynomial.py` | residue form, no quadrature. Kernel identity $\mathbf K_T(\tau)-\mathbf K_T(\tau-1)=-P_\tau\vert_{(1-S)}$ to $10^{-41}$; $a_{Sz}=z^na_z$ to $8\times10^{-41}$. **ANTI loop in $W$ at $10^{-41}/10^{-38}$; SYM loop is not** — $k=12,18$, nine CM points ($d=3,4,7,8,11,19,43,67,163$) plus controls. Raw $U$-defect $=2\pi i(1-z^n)r_{E_k}\vert_{(1+U+U^2)}$, so the counterterm IS the $U$-anomaly |
+| `respolyq.txt` | `rf/residue_polynomial_quad.py` | same by honest quadrature, no residue theorem. Matches the closed form to $10^{-40}$, radius-independent; **double pole** $E_4^2(j')^2/(j-j(z))^2$ also in $W$; linearity to $10^{-40}$ |
+| `symaudit.txt` | `rf/symshift_audit.py` | **`eq:symshift` is wrong.** Winding about a single pole $c_z$ gives $(1+S)$ defect $1.49$, $U$-defect $66$. sym/single $S$-defect ratio is exactly $2.0$ at both $z$, the predicted $\mathfrak a\vert_{(1+S)^2}=2\mathfrak a\vert_{(1+S)}$ |
+
+| `thetalaurent.txt` | `rf/theta_laurent.py` | $\Xi_{f;z}=a_z\Theta(z)$ and **$\Theta(z)=\sum_{m=-1}^{n+1}c_mz^m$ with every $c_m\in W$** — verified out of sample to $10^{-48}$. The 13 coefficients have **rank 3 $=\dim W$**. Functional equation $\Theta(-1/z)=-z^{-n}\Theta(z)$ to $10^{-51}$, i.e. $c_{n-m}=(-1)^{m+1}c_m$. $L(z):=[\Theta+2\pi i(1-z^n)r_{E_k}]/(2\pi i)^{n+2}$ has **rational** coefficients ($\pm1/11$, $\pm2$, $\pm4$, $\pm3/2$, $\pm12$, $\pm42$, $\pm126$), so $r_{E_k}$ touches only $m=0,n$. Directions in $\mathbb P(W)$ move by $10^{-9}$–$10^{-7}$: real, but nearly flat |
+
+| `thetak18.txt` | `rf/theta_k18_DeltaE4.py` | DAM's example $f_z=\Delta E_4\,J'/(J-J(z))\in F_{18}$: $\Xi_{f_z}=\Delta E_4(z)\cdot\Theta_{18}(z)$, one orbit so local $=$ global. Laurent form out of sample to $10^{-48}$; **$c_8=0$** (predicted from the functional-equation midpoint at $k\equiv2\bmod4$), 36 orders below its neighbours; **$\Xi$ surjective onto $W$** — seven $\Theta(z)$ of rank $3=\dim W$ down to tol $10^{-10}$. Odd coordinate $\lambda_-$ has only even powers of $z$, with $\lambda_4/\lambda_2=-25/8$, $\lambda_6/\lambda_4=-26/25$, $\lambda_6/\lambda_2=13/4$ exactly, while $\lambda_2/\lambda_0$ is irrational — $r_{E_k}$ enters only at $m=0,n$ |
+| `paritydims.txt` | `rf/parity_dims.py` | $\dim W^{\rm even}=\dim S_k+1$, $\dim W^{\rm odd}=\dim S_k$ at $k=12,16,18,20,24,26$; $\varepsilon$-stability of $W$ to $10^{-29}$–$10^{-36}$; $p_0=X^n-Y^n$ in $W$ exactly and even |
+
+| `zeta17.txt` | `rf/zeta17_check.py` | $r_{E_{18}}/(2\pi i)^{n+1}$: every **odd** coordinate is rational with $43867=\mathrm{numer}(B_{18})$ in the denominator ($-\tfrac{1443183}{7457390}$, $-\tfrac{5586}{43867}$, $-\tfrac{26258}{219335}$, $-\tfrac{5187}{43867}$, palindromic); even coordinates $\ell=2..14$ vanish; $\ell=0,16$ purely imaginary and opposite, so the even part is a single multiple of $p_0$. The $\zeta(17)$ coefficient is $0$ in every odd slot. PART 3: the same coordinates are **irrational** for the $E_4^3E_6$ reference — that is the $\Delta E_6$ contamination |
+| `z17hp.txt` | `rf/zeta17_highprec.py` | the $p_0$ coefficient $x=0.1848002737722058226\ldots$ at 30 digits: **not** rational, **not** a rational multiple of $\zeta(17)$, **not** in $\mathbb Q+\mathbb Q\zeta(17)$ — nor for $\zeta(18),\zeta(19),\pi,1/\pi,\zeta(3)$, nor rational over $\pi^{e}$, $|e|\le3$. So $\zeta(17)$ does NOT appear, and $x$ is unidentified. Internal checks: $\Phi(E_{18})=1$ to $10^{-51}$, $r_E[0]+r_E[16]=0$ to $2.9\times10^{-50}$ |
+
+A 16-digit PSLQ in `zeta17.txt`'s predecessor returned `[234241, -4914100, 4870775]` against
+$\{1,\zeta(17)\}$. That was **spurious** — a 3-term relation of height $5\times10^6$ needs ~25 digits
+and had 16. `z17hp.txt` supplies 50 and finds nothing. Height-vs-precision is the check to apply
+before believing any PSLQ hit.
+
+**Open, and predicted:** since $r_{E_{18}}$'s odd part is rational, $\lambda_-$ computed against the
+TRUE $E_{18}$ reference should have all coefficients rational over $(2\pi i)^{n+2}$, hence
+$\lambda_0/\lambda_2\in\QQ$ — the irrational value in `thetak18.txt` being the $E_4^3E_6$
+contamination. Not yet run; needs the 19-point fit redone with the $E_{18}$ reference.
+
+**Two numbers in `thetak18.txt` are WRONG — do not reuse them.** Its PART 6 prints
+`dim W^even = 2, dim W^odd = 2` (sum 4 > $\dim W=3$) and its PART 4 prints
+`rank of the 19 coefficients c_m = 4`. Both are the same artifact: each row was normalised by its
+OWN maximum, so a row that is essentially zero — $c_8$, and the near-zero odd part of a basis
+vector — has its roundoff amplified to $O(1)$ and contributes a spurious direction. The true values
+are $\dim W^{\rm odd}=1$ and rank $3$, established in `paritydims.txt` with a global normalisation.
+The $\lambda_-$ extraction in that same run is NOT affected: it self-validated at $3.7\times10^{-48}$
+against $\Theta^{\rm odd}(z)=\lambda_-(z)w_{\rm odd}$, which only holds if $W^{\rm odd}$ is a line.
+Same family as TRAP 4: never normalise a vector by its own magnitude when it may be zero.
+
+**Impact on §4 and its numerics.** `cor:symspan`'s *hypothesis* is sound: "$S$-symmetric" there means,
+per `lem:georetrace`'s proof, "$S\hat\gamma^S$ is $\hat\gamma^S$ reversed", i.e. $S\gamma=-\gamma$ as a
+chain. What is wrong is `eq:symshift`, which writes $v_p$ from $r_S(f,p)$, $r_T(f,p)$, $a_p$ at the
+single point $p$ while calling it winding about the $S$-orbit; the $Sp$ term, with the opposite sign,
+is missing. Wording to fix too: state the hypothesis as $S\hat\gamma^S=-\hat\gamma^S$, not
+"$S$-symmetric".
+
+Not affected, because they never used `eq:symshift`: every direct $W$-membership result
+(`onarcres.txt`, `imzero.txt`, `pksweep.txt`, `wind.txt`, validate.py layer H) computes $\hat r_f$ on
+an actual contour and tests it. `encl.txt` is also clean — it runs $X_S=0$, $X_T=-1$ (winding on the
+$T$-segment alone, so $\hat\gamma^S\neq\hat\gamma^T$), which is outside the `cor:symspan` family and
+makes no $W$-claim; it tests `lem:wall_arc`, which is correct.
+
+Still to re-check: whether any §4 statement other than `eq:symshift` silently assumes a one-pole
+winding stays admissible — `prop:arcside` and `lem:arcon` change the indentation side at a single
+$p$, and $S$ maps outside-at-$p$ to inside-at-$Sp$, so the admissible move is a side flip at $p$
+AND $Sp$ together. `onarcres.txt` verified both realised contours land in $W$, so the conclusion
+holds; it is the description that needs auditing.
+
 ## 2026-09-14 — item D, $\hat r_{f_z}$ against pole location
 
 | file | script | what it establishes |
@@ -45,8 +100,18 @@ $E_6$ vanishes at $i$, killing the integrand exactly where $\vert j\vert$ peaks.
 space, so coordinates are comparable *within* one run and meaningless across runs (visible in
 `dirfloor.txt`, where dps 30 and dps 40 give unrelated ratios for the same $z$). The reality
 figures $0.81493/0.57957$ are identical at all eight points, generic ones included — that is the
-complex basis, not CM. There is no CM signal to find: the $v_m$ are mutually parallel to
-$3\times10^{-6}$, so every $\hat r_{f_z}$ sits on one line whatever $z$ is.
+complex basis, not CM. The $v_m$ are also mutually parallel to $3\times10^{-6}$, so every
+$\hat r_{f_z}$ sits nearly on one line whatever $z$ is.
+
+**CORRECTED 2026-09-15 — why the CM test really found nothing.** It compared coordinate RATIOS,
+which are scale-free by construction. For $f_z=g\,j'/(j-j(z))$ the residue polynomial factors as
+$\Xi_{f;z}=g(z)\,\Xi^\circ_k(z)$, with $\Xi^\circ_k$ universal (depending on $k$ alone) and rational
+in the $E_k$ reference — so ALL arithmetic sits in the scalar $g(z)$, and taking ratios divides it
+out exactly. The test therefore discarded the only quantity where CM could live. The CM content is
+Chowla–Selberg for $g(z)=\Delta E_4(z)$, a CM value of a weight-$(k-2)$ cusp form, lying in
+$\overline{\QQ}\cdot\Omega_d^{k-2}$; the position in $W$ is that scalar times a rational point on a
+rational curve, so the period polynomial adds nothing beyond $g$. $\Delta(z)E_4(z)$ is not
+contamination — it is the whole arithmetic content, and the rational skeleton is the empty half.
 
 **Do not trust `shifted_onarc_75.py`'s two on-arc rows** — its mesh clustered at the parameter
 endpoints while the poles sit mid-interval, so its $|\hat r|$ values and its $2\times10^{-20}$

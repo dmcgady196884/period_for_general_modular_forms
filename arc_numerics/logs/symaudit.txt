@@ -1,0 +1,13 @@
+reference E_4^3  Phi = (1.0 - 4.397171526e-42j)
+
+z = 0.23+1.41i
+   single  c_z            |(1+S)| = 1.49         |(1+U+U^2)| = 65.97        |Xi| = 3.037311e+12
+   sym     c_z + S c_z    |(1+S)| = 0.3604       |(1+U+U^2)| = 15.96        |Xi| = 2.5115535e+13
+   anti    c_z - S c_z    |(1+S)| = 2.233e-41    |(1+U+U^2)| = 2.801e-38    |Xi| = 2.5574173e+13
+   ratio of absolute S-defects  sym/single = 2.0   (prediction: exactly 2)
+
+z = (1+i sqrt7)/2
+   single  c_z            |(1+S)| = 1.219        |(1+U+U^2)| = 54.79        |Xi| = 4.4560576e+12
+   sym     c_z + S c_z    |(1+S)| = 0.3895       |(1+U+U^2)| = 17.51        |Xi| = 2.7885906e+13
+   anti    c_z - S c_z    |(1+S)| = 1.902e-41    |(1+U+U^2)| = 1.203e-38    |Xi| = 3.003477e+13
+   ratio of absolute S-defects  sym/single = 2.0   (prediction: exactly 2)
