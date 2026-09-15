@@ -1926,9 +1926,9 @@ absolutely convergent in $V_n$, with $h\,J^{m-1}J'\in M^!_k$ for every $m$.
 \begin{proof}
 On $\gamma^{\rm arc}$ we have $S\tau=-\bar\tau$, so $J(\tau)=J(S\tau)=\overline{J(\tau)}$ is real
 there; it runs from $J(\rho)=-744$ to $J(i)=984$ and back, whence $|J|\le984<|J(z)|$ on the arc and
-\[
+\begin{equation}
 \frac{J'}{J-J(z)}\;=\;-\sum_{m\ge1}J^{m-1}J'\,J(z)^{-m}
-\]
+\end{equation}
 converges uniformly on it. By Definition~\ref{def:Phi} and Definition~\ref{def:rf}, $\Phi$ and each
 $L^*(\,\cdot\,,\ell+1)$ are integrals over $\gamma^{\rm arc}$ against kernels continuous on that
 compact set, so both are linear and continuous under uniform convergence there, and $\hat r$ is
@@ -1944,6 +1944,155 @@ $m=2$. Then $\hat r_{f_z}=O(J(z)^{-2})$, which is $O(e^{-4\pi\,{\rm Im}\,z})$ ra
 $O(e^{-2\pi\,{\rm Im}\,z})$. Any other admissible reference restores the $m=1$ term, by the shift
 recorded above. The family thus selects a reference form from that shift space, whereas $f$ alone
 does not.
+
+\subsection{Residue polynomials}\label{sec:residue_polys}
+
+As is profoundly clear in the sub-section~\ref{sec:arcperiod}, the route to assigning a period polynomial 
+to a weight-$k$ $\SLZ$ meromodular form $f \in F_k$, entirely via its underlying L-function, is fraught with 
+ambiguities. To be explicit:
+\begin{enumerate}
+\item To define $L^*(f, s) := L^*(f, s; [\hat{\gamma}^T_{\tau_0}], [\hat{\gamma}^S_{\tau_0}])$ associated 
+with a meromorphic $f \in F_k$, one must choose a reference homotopy class. There are countably infinite 
+number of distinct choices, here.
+\item For our preferred reference contour, $\gamma^{\rm arc}$, to define a period polynomial
+$\hat r_f \in W \subset V_{k-2}$, one must subtract $\Phi(f)\,r_{E_k}$. That subtraction is
+$c_f(0)\,r_{E_k}$ unless a pole lies between $\gamma^{\rm arc}$ and the horizontal line from
+$\rho \to \rho+1$, in which case the residues in the intervening strip enter as well. But it is
+well-defined only modulo $r(\ker\Phi)$.
+\end{enumerate}
+We were unable to naturally side-step either of these obstructions, either of which would render an attempt 
+to make a canonical map between the space of meromorphic modular forms, $f \in F_k$, to the space of 
+period polynomials $r_f \in W \subset V_{k-2}$, $f \in F_k \mapsto r_f \in W \subset V_{k-2}$. Indeed, both 
+of these ambiguities are integrally tied to our definition of an L-function of a meromorphic modular form 
+$f \in F_k$ via a contour integral and to our requirement that any candidate period polynomial of a modular 
+form must lie in the privileged subspace $W \subset V_{k-2}$. This seems to imply some inherent difficulty 
+in extending the notion of periods and quasi-periods of meromorphic modular forms, in the sense of this paper 
+(i.e. $f \in F^* := \oplus_k F_k$) which is fundamentally tied to the nature of poles at finite locations in the 
+fundamental domain.
+
+However, in Corollary~\ref{cor:symspan}, we proved that ${\rm span}_\CC\{v_p\} \subseteq W$, where $v_p$
+is the shift produced by one unit of winding about the $S$-orbit of a pole $p$: each such shift, being a
+difference of two elements of $W$, \emph{is in fact an element of the privileged subspace $W$}, i.e.
+$\Xi_{f;z} \in W \subset V_{k-2}$. Crucially, $v_p$ is built from a \emph{closed} contour, so the first of
+the two obstructions above --- which is a statement about open contours --- does not touch it. This opens
+the door to defining essentially complementary objects --- complementary in the sense that the objects are
+trivial/fail to exist for the privileged subspace of weakly holomorphic forms, $M_k^! \subset F_k$. To wit,
+
+\begin{definition}\label{def:reskernel}
+For $n=k-2$, with $\mathbf K_T$ as in Proposition~\ref{prop:periodint} and $r_{E_k}$ as in
+Definition~\ref{def:rfhat}, set
+\begin{equation}\label{eq:reskernel}
+\mathcal K(\tau;X,Y):=(2\pi i)^{n+1}\Big[(X-\tau Y)^n+\mathbf K_T(\tau;X,Y)\Big]-r_{E_k}(X,Y).
+\end{equation}
+\end{definition}
+
+The subtraction $r_{E_k}$ is constant in $\tau$, so it contributes $2\pi i\,r_{E_k}$ times the
+enclosed residue of $f$ and no more; it is the counterterm in the single non-parabolic direction,
+normalised by $\Phi(E_k)=1$. A loop about a pole of nonzero residue is a non-parabolic cycle, and
+by the third display in the proof of Lemma~\ref{lem:rfW} it is parabolicity, $\hat C_T=0$, on which
+the relation $w|_{(1+U+U^2)}=0$ rests.
+
+\begin{definition}[Residue polynomial for $f \in F_k$ at $z$]\label{def:respoly}
+Let $f \in F_k$, let $z \in \HH$ be a pole of $f$, and let $\gamma_\circ(z)$ be a simple, positively
+oriented loop enclosing the set $\{z, Sz\}$ and no other pole of $f$. We define \emph{the residue
+polynomial of $f$ at $z$}, $\Xi_{f;z}$ to be,
+\begin{equation}\label{eq:respoly}
+\Xi_{f;z} := \oint_{\gamma_\circ(z)} f(\tau)\,\mathcal K(\tau;X,Y)\,d\tau~.
+\end{equation}
+\end{definition}
+
+The loop encircles the $S$-orbit of $z$, and not $z$ alone, because Corollary~\ref{cor:symspan}
+requires $\hat\gamma^S$ to be $S$-symmetric. At $z=i$ that orbit is the single point $i$; at
+$z \in \SLZ\!\cdot\!\rho$ it is the pair of arc endpoints $\{\rho,\rho+1\}$, since $S(\rho+1)=\rho$.
+Note that this is nothing other than the objects which arise within the interior of
+Corollary~\ref{cor:symspan}.
+
+\begin{proposition}\label{prop:respolyW}
+$\Xi_{f;z} \in W$, and depends on neither $\tau_0$ nor the reference class of
+Definition~\ref{def:class_arc}.
+\end{proposition}
+
+\begin{proof}
+Let $\Gamma_1$ be a reference pair as in Corollary~\ref{cor:symspan}, and $\Gamma_2$ the same pair
+carrying $m$ further units of winding about $\{z,Sz\}$ on both segments, where $m=1$ if $z$ is not
+an elliptic point and $m=n_z$ if it is, $n_z$ being the order of the stabiliser of $z$ in
+$\mathrm{PSL}_2(\ZZ)$; by Corollary~\ref{cor:arcell} this is the smallest admissible step. By
+Proposition~\ref{prop:periodint}, $r_f(\Gamma_2)-r_f(\Gamma_1)$ equals $(2\pi i)^{n+1}$ times
+$2\pi i\,m$ times the residues on $\{z,Sz\}$ of $f\cdot\big[(X-\tau Y)^n+\mathbf K_T\big]$, while
+$\Phi$ changes by $2\pi i\,m\sum_{p\in\{z,Sz\}}\Res_{\tau=p}f$. As $r_{E_k}$ is constant in $\tau$,
+the residue theorem combines the two changes into $m\,\Xi_{f;z}$, so that
+$m\,\Xi_{f;z}=\hat r_f(\Gamma_2)-\hat r_f(\Gamma_1)$ lies in $W$; and $W$ is a subspace with
+$m\neq0$. Neither $\tau_0$ nor the class appears in~\eqref{eq:respoly}.
+\end{proof}
+
+We suspect that these objects are interesting in their own right, and study them in this section. 
+
+Further, we suspect that the related objects,
+\begin{definition}[Full residue polynomial for $f \in F_k$]\label{def:respolyfull}
+Let $f \in F_k$, let $Z$ denote a set of representatives, modulo $\SLZ$, for the pole locations of
+$f$ in $\HH$, let $\Xi_{f;z}$ be as in Definition~\ref{def:respoly}, and let $n_z$ denote
+the order of the stabiliser of $z$ in $\mathrm{PSL}_2(\ZZ)$, so that $n_z=2$ on $\SLZ\!\cdot\!i$,
+$n_z=3$ on $\SLZ\!\cdot\!\rho$, and $n_z=1$ otherwise. We define \emph{the full residue polynomial
+of $f$}, $\Xi_f$, to be,
+\begin{align}
+\Xi_f &:= \sum_{z \in Z} \frac{\Xi_{f;z}}{n_z}~,\label{eq:respolyfull}\\
+R(f) &:= \sum_{z \in Z} \frac{1}{n_z}\sum_{p \in \{z, Sz\}} \Res_{\tau = p} f~,\label{eq:Rf}\\
+\Sigma_f &:= \Xi_f + 2\pi i\,R(f)\,r_{E_k}~.\label{eq:Sigmaf}
+\end{align}
+\end{definition}
+to also be very interesting in their own right, perhaps even more interesting.
+
+The weights $1/n_z$ are those of the valence formula~\cite{01-Apostol}, which counts orders at $i$
+and at $\rho$ with $\tfrac12$ and $\tfrac13$; in that sense $\Xi_f$ is a divisor sum. Away from the
+elliptic points $f|_kS=f$ gives $\Res_{\tau=Sz}f=z^{\,n}\Res_{\tau=z}f$, so the inner sum
+of~\eqref{eq:Rf} is $(1+z^{\,n})\Res_{\tau=z}f$.
+
+\begin{proposition}\label{prop:resamb}
+Let $f \in F_k$. Then
+\begin{enumerate}
+\item $\Xi_f$, $\Sigma_f$ and $R$ are linear in $f$, and vanish identically on $M^!_k$;
+\item $\Sigma_f$ is independent of the reference form, while replacing $E_k$ in
+Definition~\ref{def:rfhat} by any $g$ with $\Phi(g)=1$ sends
+$\Xi_f \mapsto \Xi_f + 2\pi i\,R(f)\,r_{E_k-g}$;
+\item $\Xi_f \in W$, whereas $\Sigma_f|_{(1+S)}=0$ and
+$\Sigma_f|_{(1+U+U^2)} = 2\pi i\,R(f)\,r_{E_k}|_{(1+U+U^2)}$.
+\end{enumerate}
+In particular $\Xi_f=\Sigma_f$ is both free of the reference form and an element of $W$ precisely
+when $R(f)=0$.
+\end{proposition}
+
+\begin{proof}
+Linearity is immediate from~\eqref{eq:respoly} and~\eqref{eq:respolyfull}, and $Z=\emptyset$ for
+$f\in M^!_k$. For (2), $r_{E_k}$ enters~\eqref{eq:reskernel} additively and is constant in $\tau$,
+so it contributes $-2\pi i\,r_{E_k}\sum_{p\in\{z,Sz\}}\Res_{\tau=p}f$ to~\eqref{eq:respoly};
+weighting by $1/n_z$ and summing over $Z$ gives the stated shift, which~\eqref{eq:Sigmaf} cancels.
+For (3), $\Xi_f\in W$ by Proposition~\ref{prop:respolyW}. The second display in the proof of
+Lemma~\ref{lem:rfW} uses only $\hat C_{\pm I}=0$, which holds for $E_k$ by
+Lemma~\ref{lem:geoloops}, so $r_{E_k}|_{(1+S)}=0$; the third display uses $\hat C_T=0$, which fails
+for $E_k$ since $\Phi(E_k)=1$. The two identities follow from~\eqref{eq:Sigmaf}.
+\end{proof}
+
+$R(f)$ is a canonical linear functional on $F_k$: no contour, base point or reference form enters
+it. It is the whole of the obstruction, and it does not vanish in general --- for the family of
+Proposition~\ref{prop:Jexp}, $Z=\{z\}$ and $\Res_{\tau=z}f_z=h(z)$, so $R(f_z)=h(z)\,(1+z^{\,n})$.
+
+A semi-structured list of reasons why, below:
+\begin{itemize}
+\item $\Xi_f$ and $\Xi_{f;z}$ are inherently independent of $\tau_0$, and of the reference homotopy
+class. They just depend on the contour which encircles their residue, just as period polynomials
+are for the standard case $f \in M_k^!$.
+\item $\Xi_f$ and $\Xi_{f;z}$ are naturally in $W \subset V_{k-2}$ for every $f \in F_k$ and every
+pole $z$, elliptic or not
+\item $\Xi_f$ carries global information about the divisor structure of the modular form: it is a
+divisor sum, weighted at $i$ and at $\rho$ exactly as the valence formula weights them, and it
+records the whole polar part of $f$ at each pole and not merely the residue
+\item $\Xi_f$ denotes a unique polynomial in $W \subset V_{k-2}$ exactly when $R(f)=0$; otherwise
+the reference form of Definition~\ref{def:rfhat} survives in it, and $R(f)$ measures how much
+\end{itemize}
+Poles at the cusp do not enter. The kernel $\mathcal K$ is integrated against $f$ on loops in $\HH$,
+so only the polar parts of $f$ at finite locations contribute, and no $c_f(0)$ appears anywhere.
+This is why $\Xi_f$ vanishes on $M^!_k$, and it means that admitting or excluding poles at the cusp
+changes nothing.
 
 \begin{thebibliography}{99}
 
