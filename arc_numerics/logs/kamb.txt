@@ -1,0 +1,25 @@
+check: h+ - h- = B on the arc, at one point
+   s=3.3        |(k+ - k-) - B| / |B| = 4.217e-26
+   s=(5.0 + 1.5j) |(k+ - k-) - B| / |B| = 1.254e-28
+
+z=(1+i sqrt7)/2   a_z = g(z) = (-0.0002325067753 - 7.414953718e-37j)
+   s=3.3        (1) interior pole only     L+ - L- = (-4.56799257316e-8 + 5.55623932969e-39j) rel.err 2.264e-30
+   s=3.3        (2) cusp principal only    L+ - L- = (-3.38276605456e-33 + 0.127324299703j) rel.err 1.111e-30
+   s=3.3        (3) sum                    L+ - L- = (-4.56799257316e-8 + 0.127324299703j) rel.err 1.031e-30
+   s=(5.0 + 1.5j) (1) interior pole only     L+ - L- = (-6.67178975295e-7 - 4.43116077226e-7j) rel.err 1.045e-30
+   s=(5.0 + 1.5j) (2) cusp principal only    L+ - L- = (-1.23510138674 + 1.85963529255j)  rel.err 5.151e-31
+   s=(5.0 + 1.5j) (3) sum                    L+ - L- = (-1.23510205392 + 1.85963484943j)  rel.err 7.496e-31
+   s=6.0        (1) interior pole only     L+ - L- = (0.0 + 0.0j)                       abs 0.0 (prediction is exactly 0)
+   s=6.0        (2) cusp principal only    L+ - L- = (0.0 + 0.0j)                       abs 0.0 (prediction is exactly 0)
+   s=6.0        (3) sum                    L+ - L- = (0.0 + 0.0j)                       abs 0.0 (prediction is exactly 0)
+
+z=0.2+1.3i   a_z = g(z) = (7.363260444e-5 + 0.0002799191829j)
+   s=3.3        (1) interior pole only     L+ - L- = (5.52268813323e-8 - 3.55062699406e-8j) rel.err 1.164e-30
+   s=3.3        (2) cusp principal only    L+ - L- = (-3.38276605456e-33 + 0.127324299703j) rel.err 1.111e-30
+   s=3.3        (3) sum                    L+ - L- = (5.52268813323e-8 + 0.127324264197j) rel.err 9.515e-31
+   s=(5.0 + 1.5j) (1) interior pole only     L+ - L- = (1.15104257884e-6 + 1.71361801509e-8j) rel.err 1.987e-30
+   s=(5.0 + 1.5j) (2) cusp principal only    L+ - L- = (-1.23510138674 + 1.85963529255j)  rel.err 5.151e-31
+   s=(5.0 + 1.5j) (3) sum                    L+ - L- = (-1.2351002357 + 1.85963530969j)   rel.err 6.37e-31
+   s=6.0        (1) interior pole only     L+ - L- = (0.0 + 0.0j)                       abs 0.0 (prediction is exactly 0)
+   s=6.0        (2) cusp principal only    L+ - L- = (0.0 + 0.0j)                       abs 0.0 (prediction is exactly 0)
+   s=6.0        (3) sum                    L+ - L- = (0.0 + 0.0j)                       abs 0.0 (prediction is exactly 0)

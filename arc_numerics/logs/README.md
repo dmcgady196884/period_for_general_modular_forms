@@ -117,3 +117,9 @@ contamination — it is the whole arithmetic content, and the rational skeleton 
 endpoints while the poles sit mid-interval, so its $|\hat r|$ values and its $2\times10^{-20}$
 $W$-membership are artifacts. Superseded by `onarc_resolved.py`. Curiously its numbers reproduced
 the *wiggle's* class rather than its own ($286185.562742$ at $75°$), unexplained.
+
+## 2026-09-23 — the $h_\pm$ kernel ambiguity at interior poles
+
+| file | script | what it establishes |
+|---|---|---|
+| `kamb.txt` | `Lf/kernel_ambiguity_interior.py` | $k=18$: $L^*_+-L^*_-=e^{-i\pi s/2}[C(s)\mathcal D(s)-e^{i\pi(s-1)}C(k-s)\mathcal D(k-s)]$ with $\mathcal D(s)=\sum_m c(-m)m^{-s}+2\pi i\sum_{\mathcal F}\Res(f\,{\rm Li}_s(q))$ — interior pole ($f_z$, $d=7$ and $z=0.2+1.3i$), cusp principal part ($E_4^3E_6(j-744)$), and their sum, all to $\le2.3\times10^{-30}$ at $s=3.3$, $5+1.5i$; exactly $0$ at $s=6$. $h_+-h_-={\rm Li}$ term to $4\times10^{-26}$ |

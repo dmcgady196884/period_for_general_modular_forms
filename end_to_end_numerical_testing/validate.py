@@ -20,11 +20,17 @@ Layers (see validation_notes.tex):
     F  external anchors (1806)       <- done
     G  suite hygiene                 <- done
     H  the arc / SECTION 4           <- lem:tau0indep, lem:arcwind, cor:arcell, eq:arczero
+    I  residue polys / SECTION 5     <- lem:resorbit, lem:resequiv, prop:respolyW, eq:ressym
 
 Section 4 is now the arc treatment (tau_0 = rho+1); the old tau_0 = i treatment of F_k moved to
 Appendix A and is kept only as a reference copy.  Layer H checks what is new and unproven-by-hand
 there.  thm:geomero (eq:geomero, the layer-C assembly) is checked separately and end to end by
 arc_numerics/Lf/end_to_end_arc.py against raw quadrature, 12/12 rows at 6e-30 .. 1.0e-27.
+
+Layer I covers Section 5.  Its negative control is the point: the draft first defined Xi with an
+S-SYMMETRIC loop, and W-membership of the correct antisymmetric one would not have caught that.
+The symmetric loop's (1+S) defect is exactly twice the single loop's, so that ratio is checked as
+an identity.
 """
 import sys
 import mpmath as mp
@@ -1732,6 +1738,115 @@ def h4_arcell():
     # one, so neither single side is S-symmetric and only the mean is.  Ratio, same reason.
     yield ("i: |(1+S)| at W=0 relative to one-sided",
            _defects(vm, 12)[0] / _defects(vi['in'], 12)[0], mp.mpf(0))
+
+
+# =========================================================================================
+# LAYER I -- Section 5, residue polynomials
+# =========================================================================================
+r"""
+Xi_{f;z} = oint_{c_z - S c_z} f(tau) K(tau;X,Y) dtau, with
+K = (2 pi i)^{n+1}[(X - tau Y)^n + K_T] - r_{E_k}   (def:reskernel, def:respoly).
+
+What is new and therefore what is checked:
+    lem:resorbit    K_T(tau) - K_T(tau-1) = -(X - tau Y)^n|_(1-S).  The single algebraic input;
+                    everything else in prop:respolyW is group algebra on top of it.
+    lem:resequiv    a_{Sz} = z^n a_z, the residue-equivariance R_{gamma p} = R_p|_{gamma^-1}
+                    specialised to gamma = S and a simple pole.
+    prop:respolyW   Xi in W, at a simple AND at a double pole -- the proof never uses the pole
+                    order, so a double pole is the real test of that claim.
+    eq:ressym       the NEGATIVE control, and the reason this layer exists.  An S-SYMMETRIC
+                    loop c_z + S c_z is not in W, and its (1+S) defect is EXACTLY twice that
+                    of the single loop c_z, since E(1+S) = (1+S) and (1+S)^2 = 2(1+S).  The
+                    draft first stated def:respoly with the symmetric loop; W-membership of
+                    the antisymmetric one alone would not have caught that, so the ratio 2 is
+                    checked as an identity, not an inequality.
+
+Integrals here are trapezoid sums on ONE circle -- spectrally accurate for an analytic periodic
+integrand -- using oint_{S c_z} F dtau = oint_{c_z} F(-1/w) w^{-2} dw, so no second quadrature and
+no residue theorem enters.  Cross-checked against the Bernoulli closed form eq:respolyexp.
+"""
+
+
+def _rEk(k):
+    r"""r_{E_k} on the arc, the same vector _rvec_arc subtracts."""
+    n = k - 2
+    return [(2 * pi * I)**(n + 1) * (-1)**l * mp.binomial(n, l) * I**(l + 1)
+            * _L_rho(E12f, k, mp.mpf(l + 1), mp.mpf('0.1'), 0) for l in range(n + 1)]
+
+
+def _xi(f, z, sign, k=12, r=mp.mpf('0.02'), M=None):
+    """sign: None -> c_z;  +1 -> c_z + S c_z;  -1 -> c_z - S c_z (def:respoly)."""
+    n = k - 2
+    M = M or (256 if SLOW else 96)
+    acc, tot = [mp.mpc(0)] * (n + 1), mp.mpc(0)
+    if k not in _RE_CACHE:
+        _RE_CACHE[k] = _rEk(k)
+    rEk = _RE_CACHE[k]
+    for m in range(M):
+        th = 2 * pi * mp.mpf(m) / M
+        w = z + r * mp.e**(I * th)
+        dw = 2 * I * pi * r * mp.e**(I * th) / M
+        pts = ((w, mp.mpc(1)),) if sign is None else ((w, mp.mpc(1)), (-1 / w, sign / w**2))
+        for pt, wt in pts:
+            fv = f(pt) * wt * dw
+            tot += fv
+            for l in range(n + 1):
+                acc[l] += fv * mp.binomial(n, l) * ((-pt)**l
+                                                    + (-1)**l * ktil(pt, mp.mpf(l + 1), k))
+    return [(2 * pi * I)**(n + 1) * a - tot * b for a, b in zip(acc, rEk)]
+
+
+_RE_CACHE = {}
+
+
+@check("lem:resorbit", "I", desc=r"$\mathbf K_T(\tau)-\mathbf K_T(\tau-1)=-P_\tau|_{(1-S)}$")
+def i1_resorbit():
+    for k in (12, 18):
+        n = k - 2
+        t = mp.mpf('0.31') + mp.mpf('1.27') * I
+        lhs = [mp.binomial(n, l) * (-1)**l * (ktil(t, mp.mpf(l + 1), k)
+                                              - ktil(t - 1, mp.mpf(l + 1), k))
+               for l in range(n + 1)]
+        P = [mp.binomial(n, l) * (-t)**l for l in range(n + 1)]
+        PS = slash(P, n, Sm_)
+        for l in range(0, n + 1, max(1, n // 4)):
+            yield ("k=%d coeff %d" % (k, l), lhs[l], -(P[l] - PS[l]))
+
+
+@check("lem:resequiv", "I", desc=r"$a_{Sz}=z^{\,n}a_z$ for $f=E_4E_6\,j'/(j-j(z))$")
+def i2_resequiv():
+    z = mp.mpf('0.23') + mp.mpf('1.41') * I
+    jp = lambda t: -2 * I * pi * jay(t) * E6(t) / E4(t)
+    f = lambda t: E4(t) * E6(t) * jp(t) / (jay(t) - jay(z))
+    res = lambda p, rr: sum(f(p + rr * mp.e**(2 * I * pi * mp.mpf(m) / 64))
+                            * rr * mp.e**(2 * I * pi * mp.mpf(m) / 64) for m in range(64)) / 64
+    az = res(z, mp.mpf('0.05'))
+    yield ("a_z = E_4E_6(z)", az, E4(z) * E6(z))
+    yield ("a_Sz = z^n a_z", res(-1 / z, mp.mpf('0.05') / abs(z)**2), z**10 * az)
+
+
+@check("prop:respolyW", "I",
+       desc=r"$\Xi_{f;z}\in W$, simple and double poles; symmetric loop is not")
+def i3_respolyW():
+    z = mp.mpf('0.23') + mp.mpf('1.41') * I
+    jp = lambda t: -2 * I * pi * jay(t) * E6(t) / E4(t)
+    fs = lambda t: E4(t) * E6(t) * jp(t) / (jay(t) - jay(z))
+    fd = lambda t: E4(t)**2 * jp(t)**2 / (jay(t) - jay(z))**2
+    for tag, f in (("simple", fs), ("double", fd)):
+        s_, u_, _ = _defects(_xi(f, z, -1), 12)
+        yield ("%s pole: |(1+S)|" % tag, s_, mp.mpf(0))
+        yield ("%s pole: |(1+U+U^2)|" % tag, u_, mp.mpf(0))
+    # eq:ressym, the NEGATIVE control.  Stated as a ratio of absolute defects, which is 2 only
+    # because the denominator is non-zero -- never as 1/(1+D), which is 0 only as D -> infinity
+    # and so would "pass" for any O(1) defect.
+    vsym, vsing = _xi(fs, z, +1), _xi(fs, z, None)
+    dsym = _defects(vsym, 12)[0] * max(abs(x) for x in vsym)
+    dsing = _defects(vsing, 12)[0] * max(abs(x) for x in vsing)
+    yield ("eq:ressym sym/single |(1+S)|", dsym / dsing, mp.mpf(2))
+    # and the symmetric loop's own defect is O(1): report it against the antisymmetric one,
+    # which is what makes "ANTI is in W" a discriminating statement rather than a tautology
+    yield ("anti/sym relative |(1+S)| (must be ~0)",
+           _defects(_xi(fs, z, -1), 12)[0] / _defects(vsym, 12)[0], mp.mpf(0))
 
 
 # ------------------------------------------------------------------------- driver
