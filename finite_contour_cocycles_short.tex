@@ -3045,3 +3045,79 @@ Res.\ Math.\ Sci.\ \textbf{7} (2020), no.\ 21.
 %%     in W, so the conclusions hold; it is the descriptions that may name an inadmissible
 %%     contour.  Same species as the eq:symshift bug, found by inference and not yet tested.
 
+
+%% ====================================================================================
+%% PROPOSED SUBSECTION "The choice of $T$-kernel".  Not part of the note.  Status 2026-09-27.
+%% Placement agreed: after thm:weakL, before 3.1.  Must CONTAIN every result it uses (no
+%% deferring to app:branch); definitions hold definitions only; no forward references.
+%% Tags: [v] numerically verified, [a] argued only.
+%% Lead: the proof of prop:indep uses \tk only through its unit-shift identity.
+%% ====================================================================================
+%%
+%% D1  def:LK      phi_s := tau^{s-1} (principal); L*(f,s;K;tau0) := def:Lint with \tk -> K.
+%% L1  lem:shift   f in M^!_k, f != 0:  L*(f,s;K;tau0) independent of tau0  <=>
+%%                 K(tau) - K(tau-1) = -(phi_s|_{2-k}(1-S))(tau) on H.   [a]  D1, proof of prop:indep
+%% D2  def:hpm     h_+[w] := zeta(-w,tau+1);  h_-[w] := -e^{i pi w} zeta(-w,-tau);
+%%                 K_pm := h_pm[s-1] - e^{i pi (s-1)} h_pm[k-1-s];  L*_pm := L*(.;K_pm).   (K_+ = \tk)
+%% L2  lem:hpm     Re w < -1: h_+ = sum_{n>=1} (tau+n)^w,  h_- = -sum_{n<=0} (tau+n)^w;
+%%                 all w: both solve h(tau) - h(tau-1) = -tau^w.   [a]  D2
+%% L3  lem:hpmuniq (optional) Re w < -1: h_+ (h_-) is the unique solution decaying under
+%%                 tau -> tau+N (tau -> tau-N).   [a]  L2
+%% C1  cor:Kpm     K_pm solve the shift equation; L*_pm tau0-independent on M^!_k.   [a]  L1, L2
+%% D3  def:lipD    Lambda_w := (-2 pi i)^{-w} Gamma(-w)^{-1} sum_{r>=1} r^{-w-1} q^r;
+%%                 B := Lambda_{s-1} - e^{i pi (s-1)} Lambda_{k-1-s};  D(f,s) := sum_{m>=1} c_f(-m) m^{-s};
+%%                 J_m(s) := -2 pi i [ (2 pi m)^{-s}/Gamma(1-s) + i^k (2 pi m)^{-(k-s)}/Gamma(1-k+s) ].
+%% L4  lem:lip     h_+[w] - h_-[w] = Lambda_w for all w;  hence K_+ - K_- = B.   [v]  L2, Lipschitz
+%% P1  prop:Pshift K hol. on H, solves the shift eq., polynomial growth as Im tau -> oo  =>
+%%                 K = K_+ + sum_{n>=0} p_n(s) q^n  and  L*(f,s;K) = L*_+ + e^{-pi i s/2} sum_{m>=0} c_f(-m) p_m.
+%%                 [a]  C1, DLMF 25.11.  Prose: agreement with the classical L on M_k (sec 1.2) => p_0 = 0.
+%% P2  prop:pmdiff L*_+ - L*_- = sum_m c_f(-m) J_m(s)
+%%                 = -2 pi i [ D(f,s)/((2pi)^s Gamma(1-s)) + i^k D(f,k-s)/((2pi)^{k-s} Gamma(1-k+s)) ].  [v]  D3, L4, P1
+%% C2  cor:pmcrit  L*_+ = L*_- on M_k, and at s in {1,...,k-1} for all f in M^!_k.   [v]  P2
+%% D4  def:G       G(s,z) := z^{-s} Gamma(s,z) on C \ (-oo,0], principal branch.
+%% L5  lem:Gjump   lateral values G(s,-x pm i0) exist; principal value = upper one;
+%%                 jump = -2 pi i x^{-s}/Gamma(1-s);  Re s < 0: G(s,z) -> -1/s as z -> 0.   [a]  D4, DLMF 8.7
+%% L6  lem:unfold  Re w < -1:  int_{tau0-1}^{tau0} q^n h_pm[w] dtau = int_{tau0}^{tau0 pm oo} e^{2 pi i n u} u^w du
+%%                 (horizontal line).   [v]  L2; tiling only, NOT the statement of prop:HGG
+%% L7  lem:ray     Re s < 0:  R_pm(nu) := e^{-pi i s/2} int_i^{i pm oo} e^{2 pi i nu u} u^{s-1} du converges for
+%%                 pm Im nu >= 0 and equals G(s, 2 pi nu) there (nu < 0: G(s,-2 pi |nu| pm i0); nu = 0: -1/s).
+%%                 [v]  D4, L5, Schwarz reflection
+%% T1  thm:pmBFK   all s:  L*_pm = -c_f(0)(1/s + i^k/(k-s))
+%%                         + sum_{n != 0} c_f(n) [ G(s, 2 pi n pm i0) + i^k G(k-s, 2 pi n pm i0) ].
+%%                 [v]  C1 (tau0 = i), L6, L7, DLMF 8.11
+%% C3  cor:pmBFK   L*_+ = eq:weakL with polar terms on the principal (upper) branch; L*_- = lower values.
+%%                 [v]  T1, L5.  One sentence: T1 + L5 re-derive P2 mode by mode.
+%% L8  lem:sheet   (candidate; alternative home = statement of prop:HGG)  n < 0, tau0 in H:
+%%                 e^{-pi i s/2} int_{tau0-1}^{tau0} q^n h_+[s-1] dtau = (2 pi n)^{-s} Gamma(s, -2 pi i n tau0)
+%%                 with arg(2 pi n) = +pi and arg(-2 pi i n tau0) = arg tau0 + pi/2;  principal iff Re tau0 >= 0.  [v]  L6
+%% D5  def:Klam    K_lambda := (1-lambda) K_+ + lambda K_-,  lambda in C.
+%% L9  lem:pmreal  c_f(n) real, s real  =>  L*_- = conj L*_+.   [v]  T1
+%% C4  cor:lamreal then L*(f,s;K_lambda) = Re L*_+ + i(1 - 2 lambda) Im L*_+.  If D != 0: for real lambda,
+%%                 real iff lambda = 1/2;  every lambda = 1/2 + i b (b real) is also real.   [a]  D5, C1, P2, L9
+%% P3  prop:pmunique  K = K_+ + P as in P1, p_0 = 0, e^{-pi i s/2} p_m = -lambda_m J_m, lambda_m continuous and
+%%                 real on R.  L* real for all real s and all real-coefficient f  =>  lambda_m == 1/2, K = K_{1/2}.
+%%                 [a]  P1, P2, L9, Duke-Jenkins basis
+%% L10 lem:FEweights (optional) separate constant weights on the two halves: FE holds iff they are equal.  [a]
+%% L11 lem:Ksing   (optional; the analyticity-vs-reality tension)  s not in Z, near each integer n:
+%%                 K_lambda - c_n (phi_s|_{2-k}(1-S))(tau-n) is holomorphic, c_n = 1-lambda (n <= -1), -lambda (n >= 0);
+%%                 so K_0 continues across (-1,oo), K_1 across (-oo,0), all others only across (n,n+1).  [a]
+%%
+%% Chain: D1->L1; D2->L2->(L3); L1+L2->C1; D3+L2->L4; C1->P1; L4+P1->P2->C2; D4->L5; L2->L6->(L8);
+%%        D4+L5->L7; C1+L6+L7->T1->C3; T1->L9; D5+C1+P2+L9->C4; P1+P2+L9->P3; P2->(L10); D2+D5+L2->(L11).
+%% Inputs from the note: def:kernel, def:Lint, proof of prop:indep, thm:weakL (display + FE), sec 1.2.
+%% Nothing uses the statement of prop:HGG (false for Re z < 0, see below) or anything in 3.1 onward.
+%% Open: merges (L2+C1, L4 into P2's proof, L5+L7, C4+P3); thm:weakL's statement is silent on the
+%% branch; home of L8.
+%%
+%% SHEET ERROR in prop:HGG / lem:Tclosed-Mk / cor:Sclosed (found and verified 2026-09-27).
+%%     Polar mode n = -m: w0 = 2 pi i m tau0 sweeps the LEFT half w-plane as tau0 runs over H, and
+%%     the principal cut of Gamma(s,.) bisects it (image of Re tau0 = 0).  The kernel h_+ needs
+%%     arg(2 pi n) = +pi and arg w0 = arg tau0 + pi/2 in (pi/2, 3pi/2); principal branches agree only
+%%     for Re tau0 >= 0.  For Re tau0 < 0 (tau0 still in H) the principal formula pairs h_+'s prefactor
+%%     with h_-'s Gamma-sheet (it equals e^{-2 pi i s} I_-); error per half
+%%     -(e^{2 pi i s} - 1)(2 pi m)^{-s} e^{-i pi s/2} gamma(s, w0)   (DLMF 8.2.10).
+%%     tau0 = i + x, x in [-0.3, 0.3]: continued sheet matches quadrature to 1e-25 per mode; full
+%%     lem:Tclosed-Mk on Delta' is off by x4-6 (s = 3.3) and ~1e4 (s = 5+1.5i, from e^{3 pi} in the
+%%     k-s half) for x < 0, and exact to 1e-30 with the continued sheet.  thm:weakL (tau0 = i), the
+%%     full L*, and 3.2 (tau0 = it) are unaffected.  Not a new ambiguity.
+

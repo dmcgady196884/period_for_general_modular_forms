@@ -1245,6 +1245,64 @@ logs `zeta17.txt`, `z17hp.txt`, `wpm18.txt`, `thetalaurent.txt`, `thetak18.txt`,
 
 ---
 
+## Episode 15 — "Why is $\Phi$ not just a lens-pole correction?", and the proof of `thm:arcperiod` gets audited (PRIMARY-SOURCE: session `1a93c382`, 2026-09-23, Opus 5.5)
+
+**DAM's question.** He was "99.999% sure" the $\Phi(f)\,r_{E_k}$ subtraction was needed only
+for a pole in the lens, the region between $\gamma^{\rm arc}$ and the horizontal segment
+$\rho\to\rho+1$.
+
+**Answer.**
+
+- $\Phi(f)=\int_{\rm arc}f\,d\tau$. Pushing the arc up to $i\infty$ sweeps exactly $\mathcal F$,
+  so $\Phi(f)=c_f(0)+2\pi i\sum_{z\in\mathcal F}\operatorname{Res}_zf$. Every pole orbit has a
+  representative in $\mathcal F$, so **every** interior pole moves $\Phi$ off $c_f(0)$.
+- Lens poles lie *below* the arc and never enter $\Phi$ directly. The lens is what separates the
+  arc from the flat segment (`eq:geocross`), and that is the only place it matters.
+- Evidence: $f_z=\Delta E_4J'/(J-J(z))$ at $z=(1+\sqrt{-7})/2$, height 1.32, far from the lens
+  (whose top is height 1). Here $c_f(0)=0$ but $\Phi=2\pi i\,g(z)$, measured in `cm18.txt`.
+
+**Where the belief came from:** the commented-out block at `.tex` 1629–1632, which states the
+lens rule. The live `.tex` at 1170 also has the sign wrong: it says "less $2\pi i$", and it
+should be plus.
+
+**Kernel check (requested first).** The $h_\pm$ ambiguity is carried by the principal part
+*anywhere*, cusp or interior:
+$L^*_+-L^*_-=e^{-i\pi s/2}[C(s)\mathcal D(s)-e^{i\pi(s-1)}C(k-s)\mathcal D(k-s)]$, with
+$\mathcal D(s)=\sum c(-m)m^{-s}+2\pi i\sum_{\mathcal F}\operatorname{Res}(f\,{\rm Li}_s(q))$.
+
+- Verified to $2.3\times10^{-30}$; exactly zero at critical $s$.
+- Script: `arc_numerics/Lf/kernel_ambiguity_interior.py`; log `logs/kamb.txt`.
+
+**Audit of the $W$-membership proof (DAM: it must be "a (Claude-claimed) proof, rather than some
+vibe-sketched piece of shit").** Five gaps:
+
+- **G1.** `lem:arcon` asserts $\hat C_T=0$, which contradicts `lem:CTPhi`.
+- **G2.** `eq:arcondefect` has the wrong shape. The true defect carries $|_{S(1+U+U^2)}$ and has
+  no $D_E$ term.
+- **G3.** `def:arczero` handles $i$ with the spiral, but the spiral passes through $i$. The
+  symbol $W$ is also used for two different windings.
+- **G4.** `eq:arczero` at $i$ omits $r_S$.
+- **G5.** `cor:arcell`'s $c\neq0$ is circular. In fact $c\propto\operatorname{Res}_{\rho+1}\omega_f$,
+  which is non-zero for pole order $P\le k-1$ and may vanish above that.
+
+**Fix, derived by hand: `lem:relator`.** For any admissible pair at any $\tau_0$,
+
+$$\hat r_f|_{(1+S)}=(2\pi i)^{n+1}\oint_{\gamma^S+S\gamma^S}\omega_f,\qquad
+\hat r_f|_{(1+U+U^2)}=(2\pi i)^{n+1}\oint_{(1+U^{-1}+U^{-2})(S\gamma^T+\gamma^S)}\omega_f.$$
+
+- With $\gamma^S=\gamma^T=c$, a chain with $Sc=-c$ (at $i$, the mean of the two indentations),
+  both chains are zero. That is $W$-membership in two lines.
+- At $\rho$ the $U$-chain is a small loop about $\rho+1$, and the value is read off at winding 0.
+- By-product: $\hat r_f=\int_c f\,\mathcal K\,d\tau$, where $\mathcal K$ is the residue kernel.
+  So the side choice at an $S$-pair costs exactly $\pm\Xi_{f;p}$.
+
+**Status: PROPOSED, not applied.** DAM: "propose a detailed rewrite, rather than do the rewrite
+yourself. This is delicate." The full proposal, with the structure (main §4 + Appendices A, B, C),
+label moves, draft text and seven decisions for DAM, is in
+`section4_rewrite_proposal_20260923.md`.
+
+---
+
 ## Related but probably-downstream chats (for context, not primary episodes)
 
 - [Thematic summary of DR-B](https://claude.ai/chat/bd99e11d-2039-478e-b04b-54bdfd0e2b43) — 2026-06-05
