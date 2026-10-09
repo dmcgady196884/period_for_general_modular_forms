@@ -32,3 +32,7 @@ venv/
 .venv/
 env/
 mmf_venv/
+
+# Private correspondence and unpublished notes (kept locally, not tracked)
+brown_and_diamantis_rolen/brown_email.pdf
+brown_and_diamantis_rolen/QP.pdf
