@@ -1,0 +1,364 @@
+\documentclass[11pt]{article}
+
+% Standalone draft of an appendix for finite_contour_cocycles_short.tex.
+% xr-hyper reads the paper's .aux, so \ref{prop:indep} etc. print the paper's numbers.
+% To transplant: copy everything between BEGIN/END APPENDIX BODY to after \appendix in the paper,
+% and add \bibitem{DukeJenkins}/\bibitem{DLMF}/\bibitem{BFK2011} if missing (they are present).
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,citecolor=blue!55!black]{hyperref}
+\externaldocument{finite_contour_cocycles_short}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\SLZ}{\mathrm{SL}_2(\ZZ)}
+\newcommand{\tk}{\widetilde{k}_T}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Li}{Li}
+
+\begin{document}
+
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BEGIN APPENDIX BODY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The $T$-kernel, its two one-sided inverses, and the branch of $\Gamma(s,\cdot)$}\label{app:branch}
+
+Throughout, $f=\sum_{n\ge-M}c_f(n)q^n\in M^!_k$ with $k$ even, and powers $\tau^a$ are principal
+on $\CC\setminus(-\infty,0]\supset\HH$. Write $\varphi_s(\tau):=\tau^{s-1}$ and
+$(g|_{2-k}\gamma)(\tau):=(c\tau+d)^{k-2}g(\gamma\tau)$. Since $\arg(-1/\tau)=\pi-\arg\tau$ on $\HH$,
+\begin{equation}\label{eq:app-phiS}
+(\varphi_s|_{2-k}S)(\tau)=e^{i\pi(s-1)}\,\tau^{k-1-s}\qquad(\tau\in\HH).
+\end{equation}
+For $K$ holomorphic on $\HH$, write $L^*(f,s;K)$ for the $L$-integral of
+Definition~\ref{def:Lint} with $\tk$ replaced by $K$.
+
+\subsection{Basepoint independence is a difference equation}
+
+\begin{lemma}\label{lem:app-shift}
+Let $K$ be holomorphic on $\HH$ and $f\not\equiv0$. Then $L^*(f,s;K)$ is independent of $\tau_0$
+if and only if
+\begin{equation}\label{eq:app-shift}
+K(\tau)-K(\tau-1)=-\big(\varphi_s|_{2-k}(1-S)\big)(\tau)\qquad(\tau\in\HH).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The Leibniz computation in the proof of Proposition~\ref{prop:indep} uses only $f(\tau-1)=f(\tau)$
+and $f(-1/\tau)=\tau^kf(\tau)$. For a general kernel it gives
+$\partial_{\tau_0}L^*(f,s;K)=e^{-\pi is/2}f(\tau_0)\big[(\varphi_s|_{2-k}(1-S))(\tau_0)+K(\tau_0)-K(\tau_0-1)\big]$.
+The zeros of $f$ are isolated, so this vanishes on $\HH$ exactly when the bracket does.
+\end{proof}
+
+The right side of~\eqref{eq:app-shift} has two terms: $-\tau^{s-1}$ from the endpoint $\tau_0$ of
+$\gamma^S_{\tau_0}$, and $e^{i\pi(s-1)}\tau^{k-1-s}$ from its endpoint $-1/\tau_0$, by
+\eqref{eq:app-phiS}. It therefore suffices to solve
+\begin{equation}\label{eq:app-scalar}
+h(\tau)-h(\tau-1)=-\tau^{w}
+\end{equation}
+at $w=s-1$ and at $w=k-1-s$.
+
+\begin{lemma}\label{lem:app-hpm}
+Let ${\rm Re}\,w<-1$. Equation~\eqref{eq:app-scalar} has exactly one solution on $\HH$ with
+$h(\tau+N)\to0$ as $N\to\infty$, and exactly one with $h(\tau-N)\to0$ as $N\to\infty$ ($N\in\NN$).
+They are
+\begin{equation}\label{eq:app-hpm}
+h_+[w](\tau)=\sum_{n\ge1}(\tau+n)^{w}=\zeta(-w,\tau+1),\qquad
+h_-[w](\tau)=-\sum_{n\le0}(\tau+n)^{w}=-e^{i\pi w}\,\zeta(-w,-\tau).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Iterating~\eqref{eq:app-scalar} to the right gives $h(\tau)=h(\tau+N)+\sum_{n=1}^{N}(\tau+n)^w$, and
+to the left $h(\tau)=h(\tau-N)-\sum_{n=0}^{N-1}(\tau-n)^w$. Both sums converge absolutely as
+$N\to\infty$, so the two decay conditions produce $h_+$ and $h_-$. Two solutions with the same
+decay differ by a $1$-periodic $P$ with $P(\tau)=P(\tau\pm N)\to0$, so $P=0$. For the closed form
+of $h_-$: for $\tau\in\HH$ and $n\ge0$, $\tau-n=e^{i\pi}(n-\tau)$ with both arguments principal, so
+$(\tau-n)^w=e^{i\pi w}(n-\tau)^w$ and $\sum_{n\ge0}(n-\tau)^w=\zeta(-w,-\tau)$.
+\end{proof}
+
+Both closed forms continue meromorphically in $w$, and $h_+[s-1]-e^{i\pi(s-1)}h_+[k-1-s]$ is the
+kernel $\tk$ of Definition~\ref{def:kernel}.
+
+\begin{definition}\label{def:app-Kpm}
+$K_\pm(\tau,s):=h_\pm[s-1](\tau)-e^{i\pi(s-1)}\,h_\pm[k-1-s](\tau)$, and
+$L^*_\pm(f,s):=L^*(f,s;K_\pm)$.
+\end{definition}
+
+So $K_+=\tk$ and $L^*_+=L^*$. The first half of $K_\pm$ solves~\eqref{eq:app-scalar} at $w=s-1$
+for ${\rm Re}\,s<0$, the second at $w=k-1-s$ for ${\rm Re}\,s>k$, and both identities continue in
+$s$. Hence $K_\pm$ both solve~\eqref{eq:app-shift}, and $L^*_\pm$ are both independent of $\tau_0$.
+
+\begin{lemma}\label{lem:app-lip}
+For $\tau\in\HH$, as meromorphic functions of $w$,
+\begin{equation}\label{eq:app-lip}
+h_+[w](\tau)-h_-[w](\tau)=\Lambda_w(\tau):=\frac{(-2\pi i)^{-w}}{\Gamma(-w)}\sum_{r\ge1}r^{-w-1}q^r.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For ${\rm Re}\,w<-1$ the left side is $\sum_{n\in\ZZ}(\tau+n)^w$, and~\eqref{eq:app-lip} is the
+Lipschitz summation formula, i.e.\ Poisson summation applied to $x\mapsto(\tau+x)^w$. The right
+side is entire in $w$, so the identity continues.
+\end{proof}
+
+\begin{proposition}\label{prop:app-general}
+Let $K$ solve~\eqref{eq:app-shift}, be holomorphic on $\HH$, and grow at most polynomially as
+${\rm Im}\,\tau\to\infty$. Then $K=K_++P$ with $P=\sum_{n\ge0}p_n(s)q^n$, and
+\begin{equation}\label{eq:app-Pshift}
+L^*(f,s;K)=L^*_+(f,s)+e^{-\pi is/2}\sum_{m\ge0}c_f(-m)\,p_m(s).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$P:=K-K_+$ satisfies $P(\tau)=P(\tau-1)$, so $P=\sum_{n\in\ZZ}p_nq^n$. The asymptotic expansion of
+$\zeta(a,x)$ for large $|x|$~\cite[\S25.11]{DLMF} shows that $K_+$ grows at most polynomially, hence
+so does $P$. Since $|p_n|\le e^{2\pi n y}\max_{{\rm Im}\,\tau=y}|P(\tau)|$ for every $y>0$, letting
+$y\to\infty$ gives $p_n=0$ for $n<0$. At $\tau_0=i$ the $S$-segment is a point, and on
+$[i-1,i]$ the Fourier series of $fP$ converges uniformly, so $\int_{i-1}^{i}fP\,d\tau$ is the constant
+term $\sum_{m\ge0}c_f(-m)p_m$ of $fP$.
+\end{proof}
+
+Agreement with the classical $L$-function of $E_k$ forces $p_0=0$. The coefficients $p_m$ with
+$m\ge1$ are invisible on $M_k$ and are seen only through the principal part of $f$.
+
+\begin{corollary}\label{cor:app-kerneldiff}
+$K_-=K_+-B$ with $B:=\Lambda_{s-1}-e^{i\pi(s-1)}\Lambda_{k-1-s}$, and
+\begin{equation}\label{eq:app-diff}
+L^*_+(f,s)-L^*_-(f,s)=-2\pi i\left[\frac{D(f,s)}{(2\pi)^{s}\,\Gamma(1-s)}
++i^k\,\frac{D(f,k-s)}{(2\pi)^{k-s}\,\Gamma(1-k+s)}\right],\qquad
+D(f,s):=\sum_{m\ge1}\frac{c_f(-m)}{m^{s}}.
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+The first statement is Lemma~\ref{lem:app-lip} applied to both halves of $K_\pm$. By
+\eqref{eq:app-lip}, $B=\sum_{m\ge1}b_mq^m$ with
+$b_m=(-2\pi i)^{1-s}m^{-s}/\Gamma(1-s)-e^{i\pi(s-1)}(-2\pi i)^{1-k+s}m^{-(k-s)}/\Gamma(1-k+s)$.
+Using $(-2\pi i)^a=(2\pi)^ae^{-i\pi a/2}$,
+\[
+e^{-\pi is/2}\,b_m=-2\pi i\left[\frac{(2\pi m)^{-s}}{\Gamma(1-s)}+i^k\frac{(2\pi m)^{-(k-s)}}{\Gamma(1-k+s)}\right]=:J_m(s).
+\]
+Proposition~\ref{prop:app-general} with $P=-B$ gives $L^*_+-L^*_-=\sum_{m\ge1}c_f(-m)J_m(s)$,
+which is~\eqref{eq:app-diff}.
+\end{proof}
+
+Since $1/\Gamma$ vanishes at the non-positive integers, $\Lambda_{s-1}=\Lambda_{k-1-s}=0$ for
+$s\in\{1,\dots,k-1\}$. There $K_+=K_-$ identically, and the critical values and period polynomials
+do not depend on the choice.
+
+\subsection{The one-sided inverses are horizontal Mellin rays}
+
+\begin{lemma}\label{lem:app-unfold}
+Let ${\rm Re}\,w<-1$, $n\in\ZZ$ and $\tau_0\in\HH$. Along the horizontal line through $\tau_0$,
+\begin{equation}\label{eq:app-unfold}
+\int_{\tau_0-1}^{\tau_0}q^n\,h_\pm[w](\tau)\,d\tau=\int_{\tau_0}^{\tau_0\pm\infty}e^{2\pi inu}\,u^{w}\,du.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+As in the proof of Proposition~\ref{prop:HGG}, periodicity of $q^n$ gives
+$\int_{\tau_0-1}^{\tau_0}q^n(\tau+j)^w\,d\tau=\int_{\tau_0-1+j}^{\tau_0+j}e^{2\pi inu}u^w\,du$. The
+segments with $j\ge1$ tile $[\tau_0,\tau_0+\infty)$, and those with $j\le0$ tile
+$(\tau_0-\infty,\tau_0]$, which with the sign in $h_-$ gives the ray to the left. The integrals
+converge absolutely: $|e^{2\pi inu}|$ is constant on the line and $|u^w|\le|u|^{{\rm Re}\,w}$.
+\end{proof}
+
+\subsection{The direction of the ray is the side of the cut}
+
+Write $G(s,z):=z^{-s}\Gamma(s,z)$ with principal branches, and for $x>0$ write $G(s,-x\pm i0)$
+for its boundary values from above and below. Since
+$z^{-s}\gamma(s,z)=\sum_{j\ge0}(-z)^j/(j!\,(s+j))$ is entire in $z$~\cite[\S8.7]{DLMF}, the function
+$G(s,z)=\Gamma(s)z^{-s}-z^{-s}\gamma(s,z)$ is holomorphic on $\CC\setminus(-\infty,0]$ and jumps only
+through $\Gamma(s)z^{-s}$:
+\begin{equation}\label{eq:app-jump}
+G(s,-x+i0)-G(s,-x-i0)=\Gamma(s)\,x^{-s}\big(e^{-i\pi s}-e^{i\pi s}\big)=-\frac{2\pi i\,x^{-s}}{\Gamma(1-s)}.
+\end{equation}
+For ${\rm Re}\,s<0$, $G(s,z)\to-1/s$ as $z\to0$, and we set $G(s,0):=-1/s$.
+
+\begin{lemma}\label{lem:app-ray}
+Let ${\rm Re}\,s<0$ and $R_\pm(\nu):=e^{-\pi is/2}\int_{i}^{i\pm\infty}e^{2\pi i\nu u}u^{s-1}\,du$.
+Then $R_+(\nu)=G(s,2\pi\nu)$ for ${\rm Im}\,\nu\ge0$ and $R_-(\nu)=G(s,2\pi\nu)$ for
+${\rm Im}\,\nu\le0$, where on $\nu<0$ the function $G$ means its boundary value from above for $R_+$
+and from below for $R_-$.
+\end{lemma}
+
+\begin{proof}
+On the ray $u=i\pm t$, $t\ge0$, we have $|e^{2\pi i\nu u}|=e^{-2\pi({\rm Re}\,\nu\pm t\,{\rm Im}\,\nu)}\le e^{2\pi|\nu|}$
+whenever $\pm{\rm Im}\,\nu\ge0$, and $|u^{s-1}|\le|u|^{{\rm Re}\,s-1}$ is integrable. So $R_\pm$ is
+continuous on the closed half-plane $\pm{\rm Im}\,\nu\ge0$ and holomorphic in its interior.
+
+For $\nu>0$ both rays rotate onto the vertical ray from $i$ to $i\infty$: the integrand is
+holomorphic on ${\rm Im}\,u\ge1$ and bounded there by $|u|^{{\rm Re}\,s-1}$, so the quarter-circle of
+radius $\rho$ contributes $O(\rho^{{\rm Re}\,s})\to0$. With $u=iy$,
+\[
+R_\pm(\nu)=e^{-\pi is/2}\int_1^\infty e^{-2\pi\nu y}(iy)^{s-1}\,i\,dy
+=(2\pi\nu)^{-s}\,\Gamma(s,2\pi\nu)=G(s,2\pi\nu).
+\]
+So $R_+(\nu)-G(s,2\pi\nu)$ is holomorphic on ${\rm Im}\,\nu>0$, continuous up to $\RR$, and zero on
+$(0,\infty)$. By the Schwarz reflection principle it vanishes identically, which is the claim
+for $R_+$, including the boundary values on $\nu\le0$. The same argument on ${\rm Im}\,\nu<0$
+gives the claim for $R_-$.
+\end{proof}
+
+In words: the right ray continues the positive-mode value $G(s,2\pi\nu)$, $\nu>0$, through the upper
+half $\nu$-plane, and the left ray continues it through the lower half-plane. A polar mode
+$\nu=-m$ sits on the cut, so its value is the continuation of the positive-mode formula around the
+branch point $\nu=0$, and the kernel decides the direction. Only single Fourier modes and the
+elementary factor $u^{s-1}$ are continued here; $f$ is never evaluated off $\HH$.
+
+\begin{theorem}\label{thm:app-BFKpm}
+For all $s$,
+\begin{equation}\label{eq:app-BFKpm}
+L^*_\pm(f,s)=-c_f(0)\left(\frac1s+\frac{i^k}{k-s}\right)
++\sum_{n\ne0}c_f(n)\Big[G(s,2\pi n\pm i0)+i^k\,G(k-s,2\pi n\pm i0)\Big],
+\end{equation}
+where $\pm i0$ matters only for $n<0$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:app-shift} take $\tau_0=i$, where $\gamma^S_i$ is a point. The Fourier series of
+$f$ converges uniformly on $[i-1,i]$, so $L^*_\pm$ is a sum over modes. For ${\rm Re}\,s<0$,
+Lemmas~\ref{lem:app-unfold} and~\ref{lem:app-ray} with $w=s-1$ and $\nu=n$ give
+$e^{-\pi is/2}\int_{i-1}^{i}q^n h_\pm[s-1]\,d\tau=R_\pm(n)=G(s,2\pi n\pm i0)$, equal to $-1/s$ at
+$n=0$. For ${\rm Re}\,s>k$ the same lemmas at $k-s$ give
+$\int_{i-1}^{i}q^n h_\pm[k-1-s]\,d\tau=e^{\pi i(k-s)/2}G(k-s,2\pi n\pm i0)$, and
+$-e^{-\pi is/2}e^{i\pi(s-1)}e^{\pi i(k-s)/2}=i^k$. Each half of $L^*_\pm$ is meromorphic in $s$, and
+so is each half of the right side: for $n>0$, $|G(s,2\pi n)|\ll e^{-2\pi n}$ locally uniformly in
+$s$~\cite[\S8.11]{DLMF}, while $c_f(n)=O(e^{C\sqrt n})$. Each identity therefore extends from its
+half-plane to all $s$.
+\end{proof}
+
+\begin{corollary}\label{cor:app-BFK}
+$L^*_+(f,s)$ is the Bringmann--Fricke--Kent series~\eqref{eq:weakL}~\cite{BFK2011} with $(2\pi n)^s$ and
+$\Gamma(s,2\pi n)$ on their principal branches for $n<0$. $L^*_-(f,s)$ is the same series plus
+$2\pi i\big[D(f,s)/((2\pi)^s\Gamma(1-s))+i^kD(f,k-s)/((2\pi)^{k-s}\Gamma(1-k+s))\big]$.
+\end{corollary}
+
+\begin{proof}
+The principal branch of $z^{-s}\Gamma(s,z)$ at $z=-x$ is its boundary value from above, which is
+the $+$ sign in~\eqref{eq:app-BFKpm}. The second statement is~\eqref{eq:app-jump} at $x=2\pi m$,
+applied in both halves and summed against $c_f(-m)$.
+\end{proof}
+
+This identifies the continuation in $n$ at the end of the proof of Proposition~\ref{prop:HGG} as
+the continuation of Lemma~\ref{lem:app-ray} through the upper half $\nu$-plane.
+Corollaries~\ref{cor:app-kerneldiff} and~\ref{cor:app-BFK} compute $L^*_+-L^*_-$ in two independent
+ways. The first is global: the constant term of $f$ against the Lipschitz function $B$. The second
+is mode by mode: the jump of $G$ across its cut. The Lipschitz formula is what makes them agree.
+
+\subsection{Reality at real $s$ against one-sided continuation}
+
+\begin{lemma}\label{lem:app-real}
+If $c_f(n)\in\RR$ for all $n$ and $s\in\RR$, then $L^*_-(f,s)=\overline{L^*_+(f,s)}$.
+\end{lemma}
+
+\begin{proof}
+For real $s$, $G(s,\cdot)$ is real on $(0,\infty)$, so $G(s,\bar z)=\overline{G(s,z)}$ and
+$G(s,-x-i0)=\overline{G(s,-x+i0)}$. Apply Theorem~\ref{thm:app-BFKpm}.
+\end{proof}
+
+For $\lambda\in\CC$ the kernel $K_\lambda:=(1-\lambda)K_++\lambda K_-$ solves~\eqref{eq:app-shift},
+and $L^*(f,s;K_\lambda)=L^*_+-\lambda(L^*_+-L^*_-)$. For $f$ and $s$ real,
+Lemma~\ref{lem:app-real} gives $L^*_+-L^*_-=2i\,{\rm Im}\,L^*_+$, so
+\[
+L^*(f,s;K_\lambda)={\rm Re}\,L^*_+(f,s)+i(1-2\lambda)\,{\rm Im}\,L^*_+(f,s).
+\]
+For real $\lambda$ this is real exactly when $\lambda=\frac12$, as soon as $D(f,\cdot)\not\equiv0$.
+For $\lambda=\frac12+ib$ with $b\in\RR$ it equals ${\rm Re}\,L^*_++2b\,{\rm Im}\,L^*_+$, which is also
+real. So reality fixes only ${\rm Re}\,\lambda$, and the average is singled out by requiring real
+weights on the two sides.
+
+The periodic freedom of Proposition~\ref{prop:app-general} is larger than this family. For example,
+$P=q$ shifts $L^*$ by $e^{-\pi is/2}c_f(-1)$, which is not a boundary value of $G$ from either side.
+The hypothesis in the next proposition says that each polar mode is evaluated from the two lateral
+values of $G$, with real weights, and nothing else.
+
+\begin{proposition}\label{prop:app-unique}
+Let $K=K_++P$ be as in Proposition~\ref{prop:app-general} with $p_0=0$ and
+$e^{-\pi is/2}p_m(s)=-\lambda_m(s)J_m(s)$ for $m\ge1$, with $J_m$ as in the proof of
+Corollary~\ref{cor:app-kerneldiff} and each $\lambda_m$ continuous and real on $\RR$. If
+$L^*(f,s;K)\in\RR$ for all $s\in\RR$ and all $f\in M^!_k$ with real coefficients, then
+$\lambda_m\equiv\frac12$ for every $m$, i.e.\ $K=K_{1/2}=\frac12(K_++K_-)$.
+\end{proposition}
+
+\begin{proof}
+For each $m\ge1$ there is $f_m\in M^!_k$ with rational coefficients and principal part exactly
+$q^{-m}$~\cite{DukeJenkins}. By~\eqref{eq:app-Pshift} and the proof of
+Corollary~\ref{cor:app-kerneldiff},
+$L^*(f_m,s;K)=L^*_+(f_m,s)-\lambda_m(s)J_m(s)$ with $J_m(s)=L^*_+(f_m,s)-L^*_-(f_m,s)=2i\,{\rm Im}\,L^*_+(f_m,s)$
+for real $s$, so $L^*(f_m,s;K)={\rm Re}\,L^*_++i(1-2\lambda_m(s))\,{\rm Im}\,L^*_+$. The function
+$J_m$ is entire and not identically zero ($J_m(0)=-2\pi i$), so its real zeros are isolated. Hence
+$\lambda_m(s)=\frac12$ off a discrete set, and everywhere by continuity. Then $P=-\frac12B$, and
+Corollary~\ref{cor:app-kerneldiff} gives $K=K_+-\frac12B=\frac12(K_++K_-)$.
+\end{proof}
+
+The hypothesis puts one weight on both halves of each $J_m$. Allowing constant weights
+$\lambda^A,\lambda^B$ on the two halves, the functional equation $L^*(s)=i^kL^*(k-s)$ holds only if
+$(\lambda^A-\lambda^B)(J^A_m-J^B_m)=0$, where $J^A_m,J^B_m$ are the two summands of $J_m$. So it
+forces $\lambda^A=\lambda^B$.
+
+The one-sided kernels have the opposite property. Near an integer $n$, for $s\notin\ZZ$,
+\[
+K_\lambda(\tau)=c_n\,\big(\varphi_s|_{2-k}(1-S)\big)(\tau-n)+\big(\text{holomorphic at }n\big),\qquad
+c_n=\begin{cases}1-\lambda,&n\le-1,\\-\lambda,&n\ge0,\end{cases}
+\]
+as one reads off from the series in Lemma~\ref{lem:app-hpm}. Each $K_\lambda$ is an elementary
+function, so it can be continued off $\HH$, and the continuation behaves as follows:
+\begin{itemize}
+\item $K_0=K_+$ continues into the lower half-plane across $(-1,\infty)$, a half-line containing
+the cusp $0$;
+\item $K_1=K_-$ continues across $(-\infty,0)$;
+\item every other $K_\lambda$, in particular $K_{1/2}$, continues only across the open intervals
+$(n,n+1)$, with a branch point at every integer.
+\end{itemize}
+In the frequency variable of Lemma~\ref{lem:app-ray}, $\lambda\in\{0,1\}$ evaluates each polar mode
+by analytic continuation of the positive-mode formula through one half $\nu$-plane. The average
+$\lambda=\frac12$ is real at real $s$, but it is not the continuation along any path. The
+reflection $\tau\mapsto-\bar\tau$ exchanges the two rays and the two half $\nu$-planes, and among
+real weights it fixes only $\lambda=\frac12$. Reality at real $s$ and one-sided continuation are
+therefore incompatible: $K_{1/2}$ is the only real choice, while $K_0$ and $K_1$ are the only members
+of the family that continue across a half-line. At $s\in\{1,\dots,k-1\}$ the bracket
+$(\varphi_s|_{2-k}(1-S))(\tau-n)$ is a polynomial, all $K_\lambda$ coincide, and the tension
+disappears.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% END APPENDIX BODY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{9}
+
+\bibitem{BFK2011}
+K.\ Bringmann, K.-H.\ Fricke, and Z.\ Kent,
+\emph{Special L-values and periods of weakly holomorphic modular forms},
+Ramanujan J.\ \textbf{24} (2011), 119--139.
+
+\bibitem{DukeJenkins}
+W.\ Duke and P.\ Jenkins,
+\emph{On the zeros and coefficients of certain weakly holomorphic modular forms},
+Pure Appl.\ Math.\ Q.\ \textbf{4} (2008), no.\ 4, 1327--1340.
+
+\bibitem{DLMF}
+NIST Digital Library of Mathematical Functions,
+F.~W.~J.\ Olver \emph{et al.}, eds.,
+\url{https://dlmf.nist.gov/}, Release 1.2.x.
+
+\end{thebibliography}
+
+\end{document}
